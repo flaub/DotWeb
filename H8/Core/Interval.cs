@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace H8
+{
+	public class IntervalGraph : List<Interval> 
+	{
+		public int ID { get; private set; }
+
+		public IntervalGraph(int id) {
+			this.ID = id;
+		}
+
+		public override string ToString() {
+			string[] values = this.Select(x => x.RefName).ToArray();
+			string line = string.Join(", ", values);
+			return string.Format("G{0}: {1}", ID, line);
+		}
+	}
+
+	public class Interval : Node
+	{
+		public int ExternalEdgeCount { get; private set; }
+
+		public Interval(int id) : base(id) {
+			ExternalEdgeCount = 0;
+		}
+
+		public override System.Reflection.Emit.FlowControl FlowControl {
+			get { throw new NotImplementedException(); }
+		}
+
+		/// <summary>
+		/// Process all nodes in the current interval list
+		/// </summary>
+		/// <param name="headers"></param>
+		/// <param name="header"></param>
+		public void Process(List<Node> headers, Node header) {
+			/* pI(header) = {header} */
+			AppendNode(headers, header);
+
+			int index = 0;
+			while (index < Nodes.Count) {
+				Node node = Nodes[index++];
+
+				/* Check all immediate successors of node */
+				foreach (Node succ in node.OutEdges) {
+					succ.InEdgeCount--;
+
+					if (succ.ReachingInterval == null) /* first visit */ {
+						succ.ReachingInterval = header;
+						if (succ.InEdgeCount == 0) {
+							AppendNode(headers, succ);
+						}
+						else if (!succ.BeenOnHeaders) /* out edge */ {
+							headers.AddUnique(succ);
+							succ.BeenOnHeaders = true;
+							ExternalEdgeCount++;
+						}
+					}
+					else if (succ.InEdgeCount == 0) /* node has been visited before */ {
+						if (succ.ReachingInterval == header || succ.Interval == this) /* same interval */ {
+							if (succ != header) {
+								AppendNode(headers, succ);
+							}
+						}
+						else { /* out edge */
+							ExternalEdgeCount++;
+						}
+					}
+					else if (succ != header && succ.BeenOnHeaders) {
+						ExternalEdgeCount++;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Appends node node to the end of the interval list I, updates currNode
+		/// if necessary, and removes the node from the header list H if it is 
+		/// there.  The interval header information is placed in the field 
+		/// node->inInterval.
+		/// <remarks>
+		/// Note: nodes are added to the interval list in interval order (which
+		/// topsorts the dominance relation).
+		/// </remarks>
+		/// </summary>
+		/// <param name="headers"></param>
+		/// <param name="node"></param>
+		/// <param name="interval"></param>
+		public void AppendNode(List<Node> headers, Node node) {
+			/* Append node if it is not already in the interval list */
+			Nodes.AddUnique(node);
+
+			/* Check header list for occurrence of node, if found, remove it 
+			 * and decrement number of out-edges from this interval.    */
+			if (node.BeenOnHeaders && headers.Contains(node)) {
+				headers.Remove(node);
+				ExternalEdgeCount -= node.InEdges.Count - 1;
+			}
+
+			/* Update interval header information for this basic block */
+			node.Interval = this;
+		}
+	}
+}

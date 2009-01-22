@@ -1,0 +1,544 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}</ProjectGuid>
+    <ProjectTypeGuids>{603c0e0b-db56-11dc-be95-000d561079b0};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>H8.MVC</RootNamespace>
+    <AssemblyName>H8.MVC</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Abstractions.dll</HintPath>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Routing.dll</HintPath>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Account\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Account\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ChangePasswordSuccess.aspx.cs">
+      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Account\ChangePasswordSuccess.aspx.designer.cs">
+      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Home\About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Home\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\IndexScript.cs">
+    </Compile>
+    <Compile Include="Views\Shared\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\LoginUserControl.ascx.cs">
+      <DependentUpon>LoginUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\LoginUserControl.ascx.designer.cs">
+      <DependentUpon>LoginUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="js\ext-all-debug.js" />
+    <Content Include="js\ext-base.js" />
+    <Content Include="js\Ext.js" />
+    <Content Include="js\ExtSharpAdapter.js" />
+    <Content Include="js\resources\css\borders.css" />
+    <Content Include="js\resources\css\box.css" />
+    <Content Include="js\resources\css\button.css" />
+    <Content Include="js\resources\css\combo.css" />
+    <Content Include="js\resources\css\core.css" />
+    <Content Include="js\resources\css\date-picker.css" />
+    <Content Include="js\resources\css\dd.css" />
+    <Content Include="js\resources\css\debug.css" />
+    <Content Include="js\resources\css\dialog.css" />
+    <Content Include="js\resources\css\editor.css" />
+    <Content Include="js\resources\css\ext-all.css" />
+    <Content Include="js\resources\css\form.css" />
+    <Content Include="js\resources\css\grid.css" />
+    <Content Include="js\resources\css\layout.css" />
+    <Content Include="js\resources\css\menu.css" />
+    <Content Include="js\resources\css\panel.css" />
+    <Content Include="js\resources\css\progress.css" />
+    <Content Include="js\resources\css\qtips.css" />
+    <Content Include="js\resources\css\README.txt" />
+    <Content Include="js\resources\css\reset-min.css" />
+    <Content Include="js\resources\css\reset.css" />
+    <Content Include="js\resources\css\resizable.css" />
+    <Content Include="js\resources\css\slider.css" />
+    <Content Include="js\resources\css\tabs.css" />
+    <Content Include="js\resources\css\toolbar.css" />
+    <Content Include="js\resources\css\tree.css" />
+    <Content Include="js\resources\css\window.css" />
+    <Content Include="js\resources\css\xtheme-gray.css" />
+    <Content Include="js\resources\images\default\box\corners-blue.gif" />
+    <Content Include="js\resources\images\default\box\corners.gif" />
+    <Content Include="js\resources\images\default\box\l-blue.gif" />
+    <Content Include="js\resources\images\default\box\l.gif" />
+    <Content Include="js\resources\images\default\box\r-blue.gif" />
+    <Content Include="js\resources\images\default\box\r.gif" />
+    <Content Include="js\resources\images\default\box\tb-blue.gif" />
+    <Content Include="js\resources\images\default\box\tb.gif" />
+    <Content Include="js\resources\images\default\button\btn-arrow.gif" />
+    <Content Include="js\resources\images\default\button\btn-sprite.gif" />
+    <Content Include="js\resources\images\default\dd\drop-add.gif" />
+    <Content Include="js\resources\images\default\dd\drop-no.gif" />
+    <Content Include="js\resources\images\default\dd\drop-yes.gif" />
+    <Content Include="js\resources\images\default\editor\tb-sprite.gif" />
+    <Content Include="js\resources\images\default\form\checkbox.gif" />
+    <Content Include="js\resources\images\default\form\clear-trigger.gif" />
+    <Content Include="js\resources\images\default\form\date-trigger.gif" />
+    <Content Include="js\resources\images\default\form\error-tip-corners.gif" />
+    <Content Include="js\resources\images\default\form\exclamation.gif" />
+    <Content Include="js\resources\images\default\form\radio.gif" />
+    <Content Include="js\resources\images\default\form\search-trigger.gif" />
+    <Content Include="js\resources\images\default\form\text-bg.gif" />
+    <Content Include="js\resources\images\default\form\trigger-tpl.gif" />
+    <Content Include="js\resources\images\default\form\trigger.gif" />
+    <Content Include="js\resources\images\default\gradient-bg.gif" />
+    <Content Include="js\resources\images\default\grid\arrow-left-white.gif" />
+    <Content Include="js\resources\images\default\grid\arrow-right-white.gif" />
+    <Content Include="js\resources\images\default\grid\col-move-bottom.gif" />
+    <Content Include="js\resources\images\default\grid\col-move-top.gif" />
+    <Content Include="js\resources\images\default\grid\columns.gif" />
+    <Content Include="js\resources\images\default\grid\dirty.gif" />
+    <Content Include="js\resources\images\default\grid\done.gif" />
+    <Content Include="js\resources\images\default\grid\drop-no.gif" />
+    <Content Include="js\resources\images\default\grid\drop-yes.gif" />
+    <Content Include="js\resources\images\default\grid\footer-bg.gif" />
+    <Content Include="js\resources\images\default\grid\grid-blue-hd.gif" />
+    <Content Include="js\resources\images\default\grid\grid-blue-split.gif" />
+    <Content Include="js\resources\images\default\grid\grid-hrow.gif" />
+    <Content Include="js\resources\images\default\grid\grid-loading.gif" />
+    <Content Include="js\resources\images\default\grid\grid-split.gif" />
+    <Content Include="js\resources\images\default\grid\grid-vista-hd.gif" />
+    <Content Include="js\resources\images\default\grid\grid3-hd-btn.gif" />
+    <Content Include="js\resources\images\default\grid\grid3-hrow-over.gif" />
+    <Content Include="js\resources\images\default\grid\grid3-hrow.gif" />
+    <Content Include="js\resources\images\default\grid\grid3-special-col-bg.gif" />
+    <Content Include="js\resources\images\default\grid\grid3-special-col-sel-bg.gif" />
+    <Content Include="js\resources\images\default\grid\group-by.gif" />
+    <Content Include="js\resources\images\default\grid\group-expand-sprite.gif" />
+    <Content Include="js\resources\images\default\grid\hd-pop.gif" />
+    <Content Include="js\resources\images\default\grid\hmenu-asc.gif" />
+    <Content Include="js\resources\images\default\grid\hmenu-desc.gif" />
+    <Content Include="js\resources\images\default\grid\hmenu-lock.gif" />
+    <Content Include="js\resources\images\default\grid\hmenu-lock.png" />
+    <Content Include="js\resources\images\default\grid\hmenu-unlock.gif" />
+    <Content Include="js\resources\images\default\grid\hmenu-unlock.png" />
+    <Content Include="js\resources\images\default\grid\invalid_line.gif" />
+    <Content Include="js\resources\images\default\grid\loading.gif" />
+    <Content Include="js\resources\images\default\grid\mso-hd.gif" />
+    <Content Include="js\resources\images\default\grid\nowait.gif" />
+    <Content Include="js\resources\images\default\grid\page-first-disabled.gif" />
+    <Content Include="js\resources\images\default\grid\page-first.gif" />
+    <Content Include="js\resources\images\default\grid\page-last-disabled.gif" />
+    <Content Include="js\resources\images\default\grid\page-last.gif" />
+    <Content Include="js\resources\images\default\grid\page-next-disabled.gif" />
+    <Content Include="js\resources\images\default\grid\page-next.gif" />
+    <Content Include="js\resources\images\default\grid\page-prev-disabled.gif" />
+    <Content Include="js\resources\images\default\grid\page-prev.gif" />
+    <Content Include="js\resources\images\default\grid\pick-button.gif" />
+    <Content Include="js\resources\images\default\grid\refresh.gif" />
+    <Content Include="js\resources\images\default\grid\row-check-sprite.gif" />
+    <Content Include="js\resources\images\default\grid\row-expand-sprite.gif" />
+    <Content Include="js\resources\images\default\grid\row-over.gif" />
+    <Content Include="js\resources\images\default\grid\row-sel.gif" />
+    <Content Include="js\resources\images\default\grid\sort_asc.gif" />
+    <Content Include="js\resources\images\default\grid\sort_desc.gif" />
+    <Content Include="js\resources\images\default\grid\wait.gif" />
+    <Content Include="js\resources\images\default\layout\collapse.gif" />
+    <Content Include="js\resources\images\default\layout\expand.gif" />
+    <Content Include="js\resources\images\default\layout\gradient-bg.gif" />
+    <Content Include="js\resources\images\default\layout\mini-bottom.gif" />
+    <Content Include="js\resources\images\default\layout\mini-left.gif" />
+    <Content Include="js\resources\images\default\layout\mini-right.gif" />
+    <Content Include="js\resources\images\default\layout\mini-top.gif" />
+    <Content Include="js\resources\images\default\layout\ns-collapse.gif" />
+    <Content Include="js\resources\images\default\layout\ns-expand.gif" />
+    <Content Include="js\resources\images\default\layout\panel-close.gif" />
+    <Content Include="js\resources\images\default\layout\panel-title-bg.gif" />
+    <Content Include="js\resources\images\default\layout\panel-title-light-bg.gif" />
+    <Content Include="js\resources\images\default\layout\stick.gif" />
+    <Content Include="js\resources\images\default\layout\stuck.gif" />
+    <Content Include="js\resources\images\default\layout\tab-close-on.gif" />
+    <Content Include="js\resources\images\default\layout\tab-close.gif" />
+    <Content Include="js\resources\images\default\menu\checked.gif" />
+    <Content Include="js\resources\images\default\menu\group-checked.gif" />
+    <Content Include="js\resources\images\default\menu\item-over.gif" />
+    <Content Include="js\resources\images\default\menu\menu-parent.gif" />
+    <Content Include="js\resources\images\default\menu\menu.gif" />
+    <Content Include="js\resources\images\default\menu\unchecked.gif" />
+    <Content Include="js\resources\images\default\panel\corners-sprite.gif" />
+    <Content Include="js\resources\images\default\panel\left-right.gif" />
+    <Content Include="js\resources\images\default\panel\light-hd.gif" />
+    <Content Include="js\resources\images\default\panel\tool-sprite-tpl.gif" />
+    <Content Include="js\resources\images\default\panel\tool-sprites.gif" />
+    <Content Include="js\resources\images\default\panel\tools-sprites-trans.gif" />
+    <Content Include="js\resources\images\default\panel\top-bottom.gif" />
+    <Content Include="js\resources\images\default\panel\top-bottom.png" />
+    <Content Include="js\resources\images\default\panel\white-corners-sprite.gif" />
+    <Content Include="js\resources\images\default\panel\white-left-right.gif" />
+    <Content Include="js\resources\images\default\panel\white-top-bottom.gif" />
+    <Content Include="js\resources\images\default\progress\progress-bg.gif" />
+    <Content Include="js\resources\images\default\qtip\bg.gif" />
+    <Content Include="js\resources\images\default\qtip\close.gif" />
+    <Content Include="js\resources\images\default\qtip\tip-sprite.gif" />
+    <Content Include="js\resources\images\default\s.gif" />
+    <Content Include="js\resources\images\default\shadow-c.png" />
+    <Content Include="js\resources\images\default\shadow-lr.png" />
+    <Content Include="js\resources\images\default\shadow.png" />
+    <Content Include="js\resources\images\default\shared\blue-loading.gif" />
+    <Content Include="js\resources\images\default\shared\calendar.gif" />
+    <Content Include="js\resources\images\default\shared\glass-bg.gif" />
+    <Content Include="js\resources\images\default\shared\hd-sprite.gif" />
+    <Content Include="js\resources\images\default\shared\large-loading.gif" />
+    <Content Include="js\resources\images\default\shared\left-btn.gif" />
+    <Content Include="js\resources\images\default\shared\loading-balls.gif" />
+    <Content Include="js\resources\images\default\shared\right-btn.gif" />
+    <Content Include="js\resources\images\default\shared\warning.gif" />
+    <Content Include="js\resources\images\default\sizer\e-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\e-handle.gif" />
+    <Content Include="js\resources\images\default\sizer\ne-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\ne-handle.gif" />
+    <Content Include="js\resources\images\default\sizer\nw-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\nw-handle.gif" />
+    <Content Include="js\resources\images\default\sizer\s-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\s-handle.gif" />
+    <Content Include="js\resources\images\default\sizer\se-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\se-handle.gif" />
+    <Content Include="js\resources\images\default\sizer\square.gif" />
+    <Content Include="js\resources\images\default\sizer\sw-handle-dark.gif" />
+    <Content Include="js\resources\images\default\sizer\sw-handle.gif" />
+    <Content Include="js\resources\images\default\slider\slider-bg.png" />
+    <Content Include="js\resources\images\default\slider\slider-thumb.png" />
+    <Content Include="js\resources\images\default\slider\slider-v-bg.png" />
+    <Content Include="js\resources\images\default\slider\slider-v-thumb.png" />
+    <Content Include="js\resources\images\default\tabs\scroll-left.gif" />
+    <Content Include="js\resources\images\default\tabs\scroll-right.gif" />
+    <Content Include="js\resources\images\default\tabs\scroller-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-btm-inactive-left-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-btm-inactive-right-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-btm-left-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-btm-right-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-close.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-strip-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tab-strip-bg.png" />
+    <Content Include="js\resources\images\default\tabs\tab-strip-btm-bg.gif" />
+    <Content Include="js\resources\images\default\tabs\tabs-sprite.gif" />
+    <Content Include="js\resources\images\default\toolbar\bg.gif" />
+    <Content Include="js\resources\images\default\toolbar\btn-arrow-light.gif" />
+    <Content Include="js\resources\images\default\toolbar\btn-arrow.gif" />
+    <Content Include="js\resources\images\default\toolbar\btn-over-bg.gif" />
+    <Content Include="js\resources\images\default\toolbar\gray-bg.gif" />
+    <Content Include="js\resources\images\default\toolbar\tb-bg.gif" />
+    <Content Include="js\resources\images\default\toolbar\tb-btn-sprite.gif" />
+    <Content Include="js\resources\images\default\tree\arrows.gif" />
+    <Content Include="js\resources\images\default\tree\drop-add.gif" />
+    <Content Include="js\resources\images\default\tree\drop-between.gif" />
+    <Content Include="js\resources\images\default\tree\drop-no.gif" />
+    <Content Include="js\resources\images\default\tree\drop-over.gif" />
+    <Content Include="js\resources\images\default\tree\drop-under.gif" />
+    <Content Include="js\resources\images\default\tree\drop-yes.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-end-minus-nl.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-end-minus.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-end-plus-nl.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-end-plus.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-end.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-line.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-minus-nl.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-minus.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-plus-nl.gif" />
+    <Content Include="js\resources\images\default\tree\elbow-plus.gif" />
+    <Content Include="js\resources\images\default\tree\elbow.gif" />
+    <Content Include="js\resources\images\default\tree\folder-open.gif" />
+    <Content Include="js\resources\images\default\tree\folder.gif" />
+    <Content Include="js\resources\images\default\tree\leaf.gif" />
+    <Content Include="js\resources\images\default\tree\loading.gif" />
+    <Content Include="js\resources\images\default\tree\s.gif" />
+    <Content Include="js\resources\images\default\window\icon-error.gif" />
+    <Content Include="js\resources\images\default\window\icon-info.gif" />
+    <Content Include="js\resources\images\default\window\icon-question.gif" />
+    <Content Include="js\resources\images\default\window\icon-warning.gif" />
+    <Content Include="js\resources\images\default\window\left-corners.png" />
+    <Content Include="js\resources\images\default\window\left-right.png" />
+    <Content Include="js\resources\images\default\window\right-corners.png" />
+    <Content Include="js\resources\images\default\window\top-bottom.png" />
+    <Content Include="js\resources\images\gray\button\btn-arrow.gif" />
+    <Content Include="js\resources\images\gray\button\btn-sprite.gif" />
+    <Content Include="js\resources\images\gray\gradient-bg.gif" />
+    <Content Include="js\resources\images\gray\panel\corners-sprite.gif" />
+    <Content Include="js\resources\images\gray\panel\left-right.gif" />
+    <Content Include="js\resources\images\gray\panel\light-hd.gif" />
+    <Content Include="js\resources\images\gray\panel\tool-sprite-tpl.gif" />
+    <Content Include="js\resources\images\gray\panel\tool-sprites.gif" />
+    <Content Include="js\resources\images\gray\panel\tools-sprites-trans.gif" />
+    <Content Include="js\resources\images\gray\panel\top-bottom.gif" />
+    <Content Include="js\resources\images\gray\panel\top-bottom.png" />
+    <Content Include="js\resources\images\gray\panel\white-corners-sprite.gif" />
+    <Content Include="js\resources\images\gray\panel\white-left-right.gif" />
+    <Content Include="js\resources\images\gray\panel\white-top-bottom.gif" />
+    <Content Include="js\resources\images\gray\qtip\bg.gif" />
+    <Content Include="js\resources\images\gray\qtip\close.gif" />
+    <Content Include="js\resources\images\gray\qtip\tip-sprite.gif" />
+    <Content Include="js\resources\images\gray\s.gif" />
+    <Content Include="js\resources\images\gray\tabs\scroll-left.gif" />
+    <Content Include="js\resources\images\gray\tabs\scroll-right.gif" />
+    <Content Include="js\resources\images\gray\tabs\scroller-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-btm-inactive-left-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-btm-inactive-right-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-btm-left-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-btm-right-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-close.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-strip-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tab-strip-bg.png" />
+    <Content Include="js\resources\images\gray\tabs\tab-strip-btm-bg.gif" />
+    <Content Include="js\resources\images\gray\tabs\tabs-sprite.gif" />
+    <Content Include="js\resources\images\gray\toolbar\bg.gif" />
+    <Content Include="js\resources\images\gray\toolbar\btn-arrow-light.gif" />
+    <Content Include="js\resources\images\gray\toolbar\btn-arrow.gif" />
+    <Content Include="js\resources\images\gray\toolbar\btn-over-bg.gif" />
+    <Content Include="js\resources\images\gray\toolbar\gray-bg.gif" />
+    <Content Include="js\resources\images\gray\toolbar\tb-bg.gif" />
+    <Content Include="js\resources\images\gray\toolbar\tb-btn-sprite.gif" />
+    <Content Include="js\resources\images\gray\window\icon-error.gif" />
+    <Content Include="js\resources\images\gray\window\icon-info.gif" />
+    <Content Include="js\resources\images\gray\window\icon-question.gif" />
+    <Content Include="js\resources\images\gray\window\icon-warning.gif" />
+    <Content Include="js\resources\images\gray\window\left-corners.png" />
+    <Content Include="js\resources\images\gray\window\left-right.png" />
+    <Content Include="js\resources\images\gray\window\right-corners.png" />
+    <Content Include="js\resources\images\gray\window\top-bottom.png" />
+    <Content Include="js\resources\images\vista\basic-dialog\bg-center.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\bg-left.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\bg-right.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\close.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\collapse.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\dlg-bg.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\e-handle.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\expand.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\hd-sprite.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\s-handle.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\se-handle.gif" />
+    <Content Include="js\resources\images\vista\basic-dialog\w-handle.gif" />
+    <Content Include="js\resources\images\vista\gradient-bg.gif" />
+    <Content Include="js\resources\images\vista\grid\grid-split.gif" />
+    <Content Include="js\resources\images\vista\grid\grid-vista-hd.gif" />
+    <Content Include="js\resources\images\vista\layout\collapse.gif" />
+    <Content Include="js\resources\images\vista\layout\expand.gif" />
+    <Content Include="js\resources\images\vista\layout\gradient-bg.gif" />
+    <Content Include="js\resources\images\vista\layout\ns-collapse.gif" />
+    <Content Include="js\resources\images\vista\layout\ns-expand.gif" />
+    <Content Include="js\resources\images\vista\layout\panel-close.gif" />
+    <Content Include="js\resources\images\vista\layout\panel-title-bg.gif" />
+    <Content Include="js\resources\images\vista\layout\panel-title-light-bg.gif" />
+    <Content Include="js\resources\images\vista\layout\stick.gif" />
+    <Content Include="js\resources\images\vista\layout\tab-close-on.gif" />
+    <Content Include="js\resources\images\vista\layout\tab-close.gif" />
+    <Content Include="js\resources\images\vista\qtip\bg.gif" />
+    <Content Include="js\resources\images\vista\qtip\tip-sprite.gif" />
+    <Content Include="js\resources\images\vista\s.gif" />
+    <Content Include="js\resources\images\vista\sizer\e-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\e-handle.gif" />
+    <Content Include="js\resources\images\vista\sizer\ne-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\ne-handle.gif" />
+    <Content Include="js\resources\images\vista\sizer\nw-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\nw-handle.gif" />
+    <Content Include="js\resources\images\vista\sizer\s-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\s-handle.gif" />
+    <Content Include="js\resources\images\vista\sizer\se-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\se-handle.gif" />
+    <Content Include="js\resources\images\vista\sizer\sw-handle-dark.gif" />
+    <Content Include="js\resources\images\vista\sizer\sw-handle.gif" />
+    <Content Include="js\resources\images\vista\tabs\tab-btm-inactive-left-bg.gif" />
+    <Content Include="js\resources\images\vista\tabs\tab-btm-inactive-right-bg.gif" />
+    <Content Include="js\resources\images\vista\tabs\tab-btm-left-bg.gif" />
+    <Content Include="js\resources\images\vista\tabs\tab-btm-right-bg.gif" />
+    <Content Include="js\resources\images\vista\tabs\tab-sprite.gif" />
+    <Content Include="js\resources\images\vista\toolbar\gray-bg.gif" />
+    <Content Include="js\resources\images\vista\toolbar\tb-btn-sprite.gif" />
+    <Content Include="Web.config" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.2.6.js" />
+    <Content Include="Scripts\jquery-1.2.6.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Views\Account\ChangePassword.aspx" />
+    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Views\Account\Login.aspx" />
+    <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\LoginUserControl.ascx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ext\Ext.csproj">
+      <Project>{66530ECC-B564-4F33-A297-0E96189E64B6}</Project>
+      <Name>Ext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
+      <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
+      <Name>H8.Support</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H8.Web\H8.Web.csproj">
+      <Project>{81320140-BA96-4316-AF77-34CD16952DB0}</Project>
+      <Name>H8.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="js\resources\images\default\form\clear-trigger.psd" />
+    <None Include="js\resources\images\default\form\date-trigger.psd" />
+    <None Include="js\resources\images\default\form\search-trigger.psd" />
+    <None Include="js\resources\images\default\form\trigger.psd" />
+    <None Include="js\resources\images\default\shadow-c.psd" />
+    <None Include="js\resources\images\default\window\left-corners.psd" />
+    <None Include="js\resources\images\default\window\left-right.psd" />
+    <None Include="js\resources\images\default\window\right-corners.psd" />
+    <None Include="js\resources\images\default\window\top-bottom.psd" />
+    <None Include="js\resources\images\gray\window\left-corners.pspimage" />
+    <None Include="js\resources\resources.jsb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="js\Cache\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1037</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
