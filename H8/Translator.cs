@@ -71,6 +71,11 @@ namespace H8
 
 		public void Translate(Assembly assembly) {
 			Dictionary<string, CodeNamespace> namespaces = new Dictionary<string, CodeNamespace>();
+			CodeNamespace nsDefault = new CodeNamespace {
+				Name = ""
+			};
+			namespaces.Add(nsDefault.Name, nsDefault);
+
 			foreach (Type type in assembly.GetTypes()) {
 				if(type.IsSubclassOf(typeof(Delegate)))
 					continue;
@@ -78,14 +83,19 @@ namespace H8
 					continue;
 				CodeTypeDeclaration def = Parse(type);
 
-				CodeNamespace ns;
-				if (!namespaces.TryGetValue(def.Type.Namespace, out ns)) {
-					ns = new CodeNamespace {
-						Name = def.Type.Namespace
-					};
-					namespaces.Add(def.Type.Namespace, ns);
+				if (def.Type.Namespace == null) {
+					nsDefault.Types.Add(def);
 				}
-				ns.Types.Add(def);
+				else {
+					CodeNamespace ns;
+					if (!namespaces.TryGetValue(def.Type.Namespace, out ns)) {
+						ns = new CodeNamespace {
+							Name = def.Type.Namespace
+						};
+						namespaces.Add(def.Type.Namespace, ns);
+					}
+					ns.Types.Add(def);
+				}
 			}
 
 			foreach (CodeNamespace ns in namespaces.Values) {
