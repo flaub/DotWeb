@@ -11,6 +11,6 @@
 
 	<div id="grid"></div>
 	
-	<h8:ClientCode ID="ClientCode1" runat="server" Source="~/Views/Home/IndexScript.cs" />
+	<h8:ClientCode runat="server" Source="~/Views/Home/IndexScript.cs" />
 	
 </asp:Content>
