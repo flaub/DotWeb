@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using H8.Support;
 
 namespace H8
 {
@@ -514,11 +515,8 @@ namespace H8
 			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
 		}
 
-		[DllImport("foo.dll")]
-		public static extern void Extern();
-
-		public void CallExtern() {
-			Extern();
+		public void CallAlert() {
+			//Alert("Hello");
 		}
 	}
 }

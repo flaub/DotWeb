@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HtmlDom
 {
-	public class Element : Node
+	public interface Element : Node
 	{
 	}
 }

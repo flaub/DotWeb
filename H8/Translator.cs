@@ -129,6 +129,10 @@ namespace H8
 				BindingFlags.Instance |
 				BindingFlags.Static;
 			foreach (MethodInfo mi in type.GetMethods(flags)) {
+				if ((mi.Attributes & MethodAttributes.PinvokeImpl) == MethodAttributes.PinvokeImpl) {
+					continue;
+				}
+
 				CodeMethodMember method = Parse(type, mi);
 				if (mi.IsDefined(typeof(EntryPointAttribute), true)) {
 					if (this.entryPoint != null)

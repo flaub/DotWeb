@@ -64,6 +64,12 @@
     <Compile Include="Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
+      <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
+      <Name>H8.Support</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

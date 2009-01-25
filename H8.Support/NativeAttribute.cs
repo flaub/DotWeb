@@ -5,7 +5,7 @@ using System.Text;
 
 namespace H8.Support
 {
-	[AttributeUsage(AttributeTargets.Class)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public class NativeAttribute : Attribute
 	{
 	}

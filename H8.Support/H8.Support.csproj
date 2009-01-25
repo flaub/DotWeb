@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonymousAttribute.cs" />
+    <Compile Include="JsImplAttribute.cs" />
     <Compile Include="NativeAttribute.cs" />
     <Compile Include="EntryPointAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

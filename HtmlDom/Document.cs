@@ -5,50 +5,50 @@ using System.Text;
 
 namespace HtmlDom
 {
-	public class Document : Node
+	public interface Document : Node
 	{
 		/// <summary>
 		/// Adds an event listener to the document.
 		/// </summary>
-		public void addEventListener() { }
+		void addEventListener();
 
-//		public void adoptNode() { }
+//		void adoptNode();
 
 		[Obsolete]
-		public void clear() { }
+		void clear();
 
-		public void close() { }
+		void close();
 
-		public Node createAttribute() { return null;  }
-		public Node createCDATASection() { return null; }
-		public Node createComment() { return null; }
-		public Node createDocumentFragment() { return null; }
-		public Node createElement() { return null; }
-		public Node createElementNS() { return null; }
-		public Node createEntityReference() { return null; }
-		public Node createEvent() { return null; }
-		public Node createNodeIterator() { return null; }
-		public Node createNSResolver() { return null; }
-		public Node createProcessingInstruction() { return null; }
-		public Node createRange() { return null; }
-		public Node createTextNode() { return null; }
-		public Node createTreeWalker() { return null; }
+		Attribute createAttribute(string name);
+		Node createCDATASection();
+		Node createComment(string comment);
+		Document createDocumentFragment();
+		Element createElement(string tag);
+		Node createElementNS();
+		Node createEntityReference();
+		Node createEvent();
+		Node createNodeIterator();
+		Node createNSResolver();
+		Node createProcessingInstruction();
+		Node createRange();
+		Node createTextNode(string text);
+		Node createTreeWalker();
 
-//		public Node elementFromPoint() { return null; }
-		public void evaluate() { }
-		public void execCommand() { }
-		public void getElementById() { }
-//		public void getElementsByClassName() { }
-		public void getElementsByName() { }
-		public void getElementsByTagName() { }
-		public void getElementsByTagNameNS() { }
-		public void importNode() { }
-		public void load() { }
-//		public void loadOverlay() { }
-		public void open() { }
-		public void querySelector() { }
-		public void querySelectorAll() { }
-		public void write(string markup) { }
-		public void writeln(string line) { }
+//		Node elementFromPoint();
+		void evaluate();
+		void execCommand();
+		Element getElementById(string id);
+//		void getElementsByClassName();
+		IEnumerable<Element> getElementsByName(string name);
+		IEnumerable<Element> getElementsByTagName(string tag);
+		IEnumerable<Element> getElementsByTagNameNS();
+		void importNode();
+		void load();
+//		void loadOverlay();
+		void open(string url, string name, string features, bool replace);
+		void querySelector();
+		void querySelectorAll();
+		void write(string markup);
+		void writeln(string line);
 	}
 }
