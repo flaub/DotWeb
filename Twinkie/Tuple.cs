@@ -10,11 +10,12 @@ public class Config
 	public string Value { get; set; }
 }
 
-public delegate void Handler(int id);
+public delegate void Handler(Tuple tuple, int id);
 
 public class Tuple : JsNativeBase
 {
-	public Tuple(object config) { _(config); }
+	public Tuple() { }
+	public Tuple(object config) { C_(config); }
 
 	public int id {
 		get { return (int)_(); }
@@ -36,4 +37,5 @@ public class Tuple : JsNativeBase
 	public void fireEvent() { _(); }
 
 	public static void StaticMethod(int x, int y) { S_(x, y); }
+	public static Tuple Factory() { return (Tuple)S_(); }
 }

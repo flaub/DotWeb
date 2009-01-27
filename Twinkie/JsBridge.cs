@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using mshtml;
 using System.Windows.Forms;
+using System.Runtime.InteropServices.Expando;
 
 namespace Twinkie
 {
@@ -12,7 +13,6 @@ namespace Twinkie
 	{
 		public static JsBridge Instance { get; private set; }
 
-		private Dictionary<object, object> ScopeMap { get; set; }
 		private Dictionary<MethodBase, JavaScriptFunction> FunctionCache { get; set; }
 		public HtmlDocument CurrentDocument { get; private set; }
 
@@ -28,15 +28,17 @@ namespace Twinkie
 		}
 
 		private JsBridge() {
-			this.ScopeMap = new Dictionary<object, object>();
 			this.FunctionCache = new Dictionary<MethodBase, JavaScriptFunction>();
+		}
+
+		public void OnNavigating(HtmlDocument doc) {
 		}
 
 		public void OnNavigated(HtmlDocument doc) {
 			IHTMLWindow2 win2 = (IHTMLWindow2)doc.Window.DomWindow;
 			win2.execScript("_$ = window.external;", null);
 			win2.execScript("console = {}; console.log = function(args) { _$.Log(args); };", null);
-			win2.execScript("function __cbWrapper(cb) { return function() { return _$.DoCallback(cb, arguments); } };", null);
+			win2.execScript("function __cbWrapper(cb) { return function() { return _$.Callback(cb, arguments); } };", null);
 			win2.execScript("function __createArray() { return []; };", null);
 			win2.execScript("function __exec(fun, scope, args) { return window[fun].apply(scope, args); };", null);
 		}
@@ -95,7 +97,7 @@ namespace Twinkie
 			string name = method.Name;
 			string target = GetTarget(method);
 			string args = GetArgsString(method);
-			return string.Format("{0}.{1}({2});", target, name, args);
+			return string.Format("return {0}.{1}({2});", target, name, args);
 		}
 
 		private string GenerateFunctionBody(MethodBase method) {
@@ -137,7 +139,7 @@ namespace Twinkie
 			return ret;
 		}
 
-		private object DoExecuteNative(MethodBase method, object scope, params object[] args) {
+		public object ExecuteNative(MethodBase method, JsNativeBase scope, params object[] args) {
 			JavaScriptFunction function;
 			if (!this.FunctionCache.TryGetValue(method, out function)) {
 				function = DefineFunction(method, scope);
@@ -146,37 +148,27 @@ namespace Twinkie
 				this.FunctionCache.Add(method, function);
 			}
 
-			object resolvedScope = null;
-			if (!method.IsConstructor && !method.IsStatic) {
-				resolvedScope = this.ScopeMap[scope];
-			}
-
-			JsArray jsArray = new JsArray();
-			foreach (object arg in args) {
-				if (arg is Delegate) {
-					object wrapped = CurrentDocument.InvokeScript("__cbWrapper", new object[] { arg });
-					jsArray.push(wrapped);
-				}
-				else {
-					jsArray.push(arg);
-				}
-			}
+			JsArray jsArray = new JsArray(args);
 
 			object[] execArgs = new object[] {
-			    function.Name, // function name
-			    resolvedScope, // scope
-			    jsArray.Handle // args
+			    function.Name,
+			    scope == null ? null : scope.Handle, 
+			    jsArray.Handle
 			};
 
 			object ret = CurrentDocument.InvokeScript("__exec", execArgs);
-			if (method.IsConstructor) {
-				this.ScopeMap.Add(scope, ret);
-			}
-			return ret;
-		}
+			if (ret == null)
+				return null;
 
-		public static object ExecuteNative(MethodBase method, object scope, params object[] args) {
-			return Instance.DoExecuteNative(method, scope, args);
+			if (method.IsConstructor) {
+				scope.Handle = ret;
+			}
+			else {
+				MethodInfo mi = method as MethodInfo;
+				return JsTypeConverter.Convert(ret, mi.ReturnType);
+			}
+
+			return ret;
 		}
 	}
 

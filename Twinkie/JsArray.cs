@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices.Expando;
+using System.Windows.Forms;
 
 namespace Twinkie
 {
@@ -15,6 +16,20 @@ namespace Twinkie
 
 		public JsArray() {
 			hArray = JsBridge.Instance.CurrentDocument.InvokeScript("__createArray") as IExpando;
+		}
+
+		public JsArray(object[] args) {
+			HtmlDocument document = JsBridge.Instance.CurrentDocument;
+			hArray = document.InvokeScript("__createArray") as IExpando;
+			foreach (object arg in args) {
+				if (arg is Delegate) {
+					object wrapped = document.InvokeScript("__cbWrapper", new object[] { arg });
+					this.push(wrapped);
+				}
+				else {
+					this.push(arg);
+				}
+			}
 		}
 
 		public void push(object item) {

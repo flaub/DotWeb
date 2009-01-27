@@ -6,94 +6,31 @@ using HtmlDom;
 
 namespace Twinkie
 {
-	public class WindowImpl : IWindow
+	public class Window : JsNativeBase, IWindow
 	{
-		#region Window Members
-
 		public Document document {
-			get { throw new NotImplementedException(); }
+			get { return (Document)_(); }
 		}
 
-		public void alert(string message) {
-			throw new NotImplementedException();
-		}
-
-		public void blur() {
-			throw new NotImplementedException();
-		}
-
-		public void clearInterval(int id) {
-			throw new NotImplementedException();
-		}
-
-		public void clearTimeout(int id) {
-			throw new NotImplementedException();
-		}
-
-		public void close() {
-			throw new NotImplementedException();
-		}
-
-		public bool confirm(string message) {
-			throw new NotImplementedException();
-		}
-
-		public void createPopup() {
-			throw new NotImplementedException();
-		}
-
-		public void focus() {
-			throw new NotImplementedException();
-		}
-
-		public void moveBy(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public void moveTo(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public IWindow open(string url, string name, string features, bool replace) {
-			throw new NotImplementedException();
-		}
-
-		public void print() {
-			throw new NotImplementedException();
-		}
-
-		public string prompt(string message) {
-			throw new NotImplementedException();
-		}
-
-		public string prompt(string message, object value) {
-			throw new NotImplementedException();
-		}
-
-		public void resizeBy(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public void resizeTo(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public void scrollBy(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public void scrollTo(int x, int y) {
-			throw new NotImplementedException();
-		}
-
-		public int setInterval(string expression, int msec) {
-			throw new NotImplementedException();
-		}
-
-		public int setTimeout(string expression, int msec) {
-			throw new NotImplementedException();
-		}
-
-		#endregion
+		public void alert(string message) { _(message); }
+		public void blur() { _(); }
+		public void clearInterval(int id) { _(id); }
+		public void clearTimeout(int id) { _(id); }
+		public void close() { _(); }
+		public bool confirm(string message) { return (bool)_(message); }
+		public void createPopup() { _(); }
+		public void focus() { _(); }
+		public void moveBy(int x, int y) { _(x, y); }
+		public void moveTo(int x, int y) { _(x, y); }
+		public IWindow open(string url, string name, string features, bool replace) { return (IWindow)_(url, name, features, replace); }
+		public void print() { _(); }
+		public string prompt(string message) { return (string)_(message); }
+		public string prompt(string message, object value) { return (string)_(message, value); }
+		public void resizeBy(int x, int y) { _(x, y); }
+		public void resizeTo(int x, int y) { _(x, y); }
+		public void scrollBy(int x, int y) { _(x, y); }
+		public void scrollTo(int x, int y) { _(x, y); }
+		public int setInterval(string expression, int msec) { return (int)_(expression, msec); }
+		public int setTimeout(string expression, int msec) { return (int)_(expression, msec); }
 	}
 }

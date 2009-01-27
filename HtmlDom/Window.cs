@@ -6,15 +6,6 @@ using H8.Support;
 
 namespace HtmlDom
 {
-	public static class Window
-	{
-		//public static IWindow Window {
-		//    get {
-		//        return null;
-		//    }
-		//}
-	}
-
 	public interface IWindow
 	{
 		Document document { get; }

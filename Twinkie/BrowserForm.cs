@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using mshtml;
 using Twinkie.Properties;
+using System.Threading;
 
 namespace Twinkie
 {
@@ -16,9 +17,14 @@ namespace Twinkie
 		public BrowserForm() {
 			InitializeComponent();
 			this.browser.ObjectForScripting = new External();
+			this.browser.Navigating += new WebBrowserNavigatingEventHandler(browser_Navigating);
 			this.browser.Navigated += new WebBrowserNavigatedEventHandler(this.browser_Navigated);
 //			this.browser.Navigate("http://localhost:1037/");
 			this.browser.DocumentText = Resources.Test;
+		}
+
+		void browser_Navigating(object sender, WebBrowserNavigatingEventArgs e) {
+			JsBridge.Instance.OnNavigating(this.browser.Document);
 		}
 
 		void browser_Navigated(object sender, WebBrowserNavigatedEventArgs e) {
@@ -26,12 +32,17 @@ namespace Twinkie
 		}
 
 		private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
+			this.browser.Document.Window.Load += new HtmlElementEventHandler(Window_Load);
 			JsBridge.Instance.OnDocumentComplete(this.browser.Document);
+		}
+
+		void Window_Load(object sender, HtmlElementEventArgs e) {
+			Thread.Sleep(1000);
 			LoadModule();
 		}
 
-		private void OnEvent(int id) {
-			Console.WriteLine("OnEvent: {0}", id);
+		private void OnEvent(Tuple tuple, int id) {
+			Console.WriteLine("OnEvent: {0}, {1}", tuple, id);
 		}
 
 		private void LoadModule() {
@@ -43,10 +54,14 @@ namespace Twinkie
 			int id = tuple.id;
 			tuple.id = 9;
 			tuple.handler = this.OnEvent;
+			Console.WriteLine("before");
 			tuple.fireEvent();
 			Console.WriteLine(id);
 
 			Tuple.StaticMethod(2, 5);
+
+			Tuple t2 = Tuple.Factory();
+			Console.WriteLine(t2.id);
 		}
 	}
 }

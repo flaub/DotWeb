@@ -13,12 +13,15 @@
 		Tuple.prototype.setId = function(id) { this.id = id; };
 		Tuple.prototype.getValue = function() { return this.value; };
 		Tuple.prototype.setValue = function(value) { this.value = value; };
-		Tuple.prototype.fireEvent = function() { this.handler(this.id); }
+		Tuple.prototype.fireEvent = function() { console.log('firing'); this.handler(this, this.id); }
 		Tuple.StaticMethod = function(x, y) { console.log(x * y); };
-		
-		var t = new Tuple({id: 1, value: 'value'});
-		console.log(t.getId());
-		
+		Tuple.Factory = function() {
+			return new Tuple({
+				id: 59,
+				value: 'hi'
+			});
+		};
+				
 	</script>
 </head>
 <body>

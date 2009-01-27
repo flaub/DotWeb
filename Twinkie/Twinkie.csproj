@@ -61,14 +61,12 @@
     <Compile Include="BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Channel.cs" />
-    <Compile Include="ClassLoader.cs" />
     <Compile Include="External.cs" />
-    <Compile Include="Interop.cs" />
     <Compile Include="JavaScriptAttribute.cs" />
     <Compile Include="JsArray.cs" />
     <Compile Include="JsBridge.cs" />
     <Compile Include="JsNativeBase.cs" />
+    <Compile Include="JsTypeConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BrowserForm.resx">
