@@ -2,7 +2,24 @@
 <html>
 <head>
 	<title>Hello</title>
-	<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+<!--	<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+-->
+	<script type="text/javascript">
+		function Tuple(config) {
+			this.id = config.id;
+			this.value = config.value;
+		};
+		Tuple.prototype.getId = function() { return this.id; };
+		Tuple.prototype.setId = function(id) { this.id = id; };
+		Tuple.prototype.getValue = function() { return this.value; };
+		Tuple.prototype.setValue = function(value) { this.value = value; };
+		Tuple.prototype.fireEvent = function() { this.handler(this.id); }
+		Tuple.StaticMethod = function(x, y) { console.log(x * y); };
+		
+		var t = new Tuple({id: 1, value: 'value'});
+		console.log(t.getId());
+		
+	</script>
 </head>
 <body>
 	Hello

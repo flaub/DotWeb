@@ -4,16 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices.Expando;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Contexts;
+using System.Runtime.Remoting.Activation;
+using System.Runtime.Remoting.Messaging;
+using System.Runtime.Remoting.Proxies;
+using System.Reflection.Emit;
+using System.Diagnostics;
+using System.Windows.Forms;
+using mshtml;
 
 namespace Twinkie
 {
 	public class External
 	{
 		public External() {
-			Example ex = new Example();
-			this.Map = new Dictionary<string, object>();
-			this.Map.Add("Example", ex);
-			this.Map.Add("Callback", new Example.Handler(ex.Execute));
 		}
 
 		public void Log(object args) {
@@ -37,43 +43,19 @@ namespace Twinkie
 			}
 		}
 
-		public object get(string name) {
-			return this.Map[name];
-		}
-
-		public object DoCallback(IDispatch disp) {
-			//			Delegate function = (Delegate)cb;
-			//			return function.DynamicInvoke(null);
-			//Guid riid = new Guid();
-			//System.Runtime.InteropServices.ComTypes.DISPPARAMS dp = new System.Runtime.InteropServices.ComTypes.DISPPARAMS();
-			//			System.Runtime.InteropServices.ComTypes.EXCEPINFO ei = new System.Runtime.InteropServices.ComTypes.EXCEPINFO();
-			//return disp.Invoke(0, ref riid, 0, 0, dp, null, null, null);
-			return null;
-		}
-
-		public bool OnClick(object args) {
+		public object DoCallback(Delegate cb, object args) {
 			IExpando ex = args as IExpando;
-			MethodInfo mi = ex.GetMethod("toString", BindingFlags.Default);
-			PropertyInfo pi = ex.GetProperty("callee", BindingFlags.Default);
-			object val = pi.GetValue(args, null);
-			object str = mi.Invoke(args, null);
-			return true;
-		}
-
-		public Dictionary<string, object> Map { get; private set; }
-	}
-
-	public class Example
-	{
-		public delegate void Handler();
-
-		public string Value { get; set; }
-		public void Execute() {
-			Console.WriteLine("Execute");
-		}
-
-		public void OnClick(object from, EventArgs e) {
+			PropertyInfo pi = ex.GetProperty("length", BindingFlags.Default);
+			int len = (int)pi.GetValue(args, null);
+			if (len > 0) {
+				object[] converted = new object[len];
+				for (int index = 0; index < len; index++) {
+					PropertyInfo piElement = ex.GetProperty(index.ToString(), BindingFlags.Default);
+					converted[index] = piElement.GetValue(args, null);
+				}
+				return cb.DynamicInvoke(converted);
+			}
+			return cb.DynamicInvoke(null);
 		}
 	}
-
 }

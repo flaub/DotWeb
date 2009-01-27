@@ -11,6 +11,20 @@
 
 	<div id="grid"></div>
 	
-	<h8:ClientCode runat="server" Source="~/Views/Home/IndexScript.cs" />
-	
+<%--<h8:ClientCode runat="server" Source="~/Views/Home/IndexScript.cs" />--%>	
+
+	<script type="text/javascript">
+		function Tuple(config) {
+			this.id = config.id;
+			this.value = config.value;
+		};
+		Tuple.prototype.getId = function() { return this.id; };
+		Tuple.prototype.setId = function(id) { this.id = id; };
+		Tuple.prototype.getValue = function() { return this.value; };
+		Tuple.prototype.setValue = function(value) { this.value = value; };
+		
+		var t = new Tuple({id: 1, value: 'value'});
+		console.log(t.getId());
+		
+	</script>
 </asp:Content>

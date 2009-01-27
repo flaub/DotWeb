@@ -16,32 +16,37 @@ namespace Twinkie
 		public BrowserForm() {
 			InitializeComponent();
 			this.browser.ObjectForScripting = new External();
-			this.browser.Navigated += new WebBrowserNavigatedEventHandler(browser_Navigated);
-			this.browser.Navigate("http://localhost:1037/");
+			this.browser.Navigated += new WebBrowserNavigatedEventHandler(this.browser_Navigated);
+//			this.browser.Navigate("http://localhost:1037/");
+			this.browser.DocumentText = Resources.Test;
 		}
 
 		void browser_Navigated(object sender, WebBrowserNavigatedEventArgs e) {
-			Console.WriteLine(e.Url);
-			IHTMLWindow2 win2 = (IHTMLWindow2)this.browser.Document.Window.DomWindow;
-			win2.execScript("_$ = window.external;", null);
-			win2.execScript("function __cbWrapper(cb) { return function() { _$.DoCallback(cb); } };", null);
-			win2.execScript("console = {}; console.log = function(args) { _$.Log(args); };", null);
+			JsBridge.Instance.OnNavigated(this.browser.Document);
 		}
 
 		private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
-			IHTMLWindow2 win2 = (IHTMLWindow2)this.browser.Document.Window.DomWindow;
+			JsBridge.Instance.OnDocumentComplete(this.browser.Document);
+			LoadModule();
+		}
 
-			//			this.browser.Document.AttachEventHandler("onclick", new EventHandler(new Example().OnClick));
-			//			win2.document.onclick = new EventHandler(new Example().OnClick);
-			//			win2.execScript("function __defineStatic(__arg0) { window.__static = __arg0; };", null);
-			win2.execScript("function test() { return 1; };", null);
-			win2.execScript("function test2() { _$.get('Example').Execute(); };", null);
-			//			win2.execScript("document.onclick = function() { return window.external.OnClick(arguments); };", null);
-			win2.execScript("function test3(cb) { console.log(cb); cb(); };", null);
-			win2.execScript("function test4() { var cb = _$.get('Callback'); console.log(cb); _$.DoCallback(cb); };", null);
+		private void OnEvent(int id) {
+			Console.WriteLine("OnEvent: {0}", id);
+		}
 
-			//			object staticDispatcher = null;
-			//			this.browser.Document.InvokeScript("__defineStatic", new object[] { staticDispatcher })
+		private void LoadModule() {
+			Config config = new Config {
+				Id = 666,
+				Value = "value"
+			};
+			Tuple tuple = new Tuple(config);
+			int id = tuple.id;
+			tuple.id = 9;
+			tuple.handler = this.OnEvent;
+			tuple.fireEvent();
+			Console.WriteLine(id);
+
+			Tuple.StaticMethod(2, 5);
 		}
 	}
 }
