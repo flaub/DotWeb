@@ -26,5 +26,7 @@
 		var t = new Tuple({id: 1, value: 'value'});
 		console.log(t.getId());
 		
+//		window.external.Connect('');
+		
 	</script>
 </asp:Content>

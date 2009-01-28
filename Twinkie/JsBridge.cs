@@ -6,45 +6,63 @@ using System.Reflection;
 using mshtml;
 using System.Windows.Forms;
 using System.Runtime.InteropServices.Expando;
+using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace Twinkie
 {
-	public class JsBridge
+	public class JsBridge : MarshalByRefObject, IJsBridge
 	{
-		public static JsBridge Instance { get; private set; }
-
+		public IJsAgent Agent { get; set; }
 		private Dictionary<MethodBase, JavaScriptFunction> FunctionCache { get; set; }
-		public HtmlDocument CurrentDocument { get; private set; }
 
 		struct JavaScriptFunction
 		{
 			public string Name { get; set; }
+			public string Args { get; set; }
 			public string Body { get; set; }
-			public string Definition { get; set; }
 		}
 
 		static JsBridge() {
-			Instance = new JsBridge();
 		}
 
-		private JsBridge() {
+		public JsBridge() {
 			this.FunctionCache = new Dictionary<MethodBase, JavaScriptFunction>();
 		}
 
-		public void OnNavigating(HtmlDocument doc) {
+		public static JsBridge Instance {
+			get {
+				return (JsBridge)CallContext.GetData("JsBridge");
+			}
+			set {
+				CallContext.SetData("JsBridge", value);
+			}
 		}
 
-		public void OnNavigated(HtmlDocument doc) {
-			IHTMLWindow2 win2 = (IHTMLWindow2)doc.Window.DomWindow;
-			win2.execScript("_$ = window.external;", null);
-			win2.execScript("console = {}; console.log = function(args) { _$.Log(args); };", null);
-			win2.execScript("function __cbWrapper(cb) { return function() { return _$.Callback(cb, arguments); } };", null);
-			win2.execScript("function __createArray() { return []; };", null);
-			win2.execScript("function __exec(fun, scope, args) { return window[fun].apply(scope, args); };", null);
+		private void OnEvent(Tuple tuple, int id) {
+			Console.WriteLine("OnEvent: {0}, {1}", tuple, id);
 		}
 
-		public void OnDocumentComplete(HtmlDocument doc) {
-			this.CurrentDocument = doc;
+		public void OnLoad(IJsAgent agent) {
+			this.Agent = agent;
+			Instance = this;
+
+			Config config = new Config {
+				Id = 666,
+				Value = "value"
+			};
+			Tuple tuple = new Tuple(config);
+			int id = tuple.id;
+			tuple.id = 9;
+			tuple.handler = this.OnEvent;
+			Console.WriteLine("before");
+			tuple.fireEvent();
+			Console.WriteLine(id);
+
+			Tuple.StaticMethod(2, 5);
+
+			Tuple t2 = Tuple.Factory();
+			Console.WriteLine(t2.id);
 		}
 
 		private string GetTarget(MethodBase method) {
@@ -129,12 +147,11 @@ namespace Twinkie
 			string type = method.DeclaringType.FullName.Replace(".", "_").Replace("+", "$");
 			string name = string.Format("__{0}${1}", type, method.Name.Replace(".", "$"));
 			string args = GetArgsString(method);
-			string definition = string.Format("function {0}({1}) {{ {2} }};", name, args, js.Code);
 
 			JavaScriptFunction ret = new JavaScriptFunction {
 				Name = name,
-				Body = js.Code,
-				Definition = definition
+				Args = args,
+				Body = js.Code
 			};
 			return ret;
 		}
@@ -143,20 +160,29 @@ namespace Twinkie
 			JavaScriptFunction function;
 			if (!this.FunctionCache.TryGetValue(method, out function)) {
 				function = DefineFunction(method, scope);
-				IHTMLWindow2 win2 = (IHTMLWindow2)CurrentDocument.Window.DomWindow;
-				win2.execScript(function.Definition, null);
+				Agent.DefineFunction(function.Name, function.Args, function.Body);
 				this.FunctionCache.Add(method, function);
 			}
 
-			JsArray jsArray = new JsArray(args);
+			object hScope = null;
+			if (scope != null)
+				hScope = scope.Handle;
 
-			object[] execArgs = new object[] {
-			    function.Name,
-			    scope == null ? null : scope.Handle, 
-			    jsArray.Handle
-			};
+			object[] converted = null;
+			if (args.Any()) {
+				converted = new object[args.Length];
+				for (int i = 0; i < args.Length; i++) {
+					object arg = args[i];
+					if (arg is Delegate) {
+						Delegate del = arg as Delegate;
+						JsDelegateAdapter adapter = new JsDelegateAdapter(del);
+						arg = adapter.GetWrappedDelegate();
+					}
+					converted[i] = arg;
+				}
+			}
 
-			object ret = CurrentDocument.InvokeScript("__exec", execArgs);
+			object ret = Agent.InvokeFunction(function.Name, hScope, converted);
 			if (ret == null)
 				return null;
 

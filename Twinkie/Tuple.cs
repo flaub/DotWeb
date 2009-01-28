@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Twinkie;
 
-public class Config
+public class Config : MarshalByRefObject
 {
 	public int Id { get; set; }
 	public string Value { get; set; }

@@ -42,6 +42,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -62,9 +63,14 @@
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="External.cs" />
+    <Compile Include="IJsAgent.cs" />
+    <Compile Include="IJsBridge.cs" />
     <Compile Include="JavaScriptAttribute.cs" />
+    <Compile Include="JsObjectAdapter.cs" />
+    <Compile Include="JsAgent.cs" />
     <Compile Include="JsArray.cs" />
     <Compile Include="JsBridge.cs" />
+    <Compile Include="JsDelegateAdapter.cs" />
     <Compile Include="JsNativeBase.cs" />
     <Compile Include="JsTypeConverter.cs" />
     <Compile Include="Program.cs" />
@@ -83,7 +89,7 @@
     </Compile>
     <Compile Include="SourceTests.cs" />
     <Compile Include="Tuple.cs" />
-    <Compile Include="WindowImpl.cs" />
+    <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test.html" />

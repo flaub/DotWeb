@@ -6,7 +6,7 @@ using HtmlDom;
 
 namespace Twinkie
 {
-	public class Window : JsNativeBase, IWindow
+	public class Window : JsNativeBase
 	{
 		public Document document {
 			get { return (Document)_(); }
@@ -22,7 +22,7 @@ namespace Twinkie
 		public void focus() { _(); }
 		public void moveBy(int x, int y) { _(x, y); }
 		public void moveTo(int x, int y) { _(x, y); }
-		public IWindow open(string url, string name, string features, bool replace) { return (IWindow)_(url, name, features, replace); }
+		public Window open(string url, string name, string features, bool replace) { return (Window)_(url, name, features, replace); }
 		public void print() { _(); }
 		public string prompt(string message) { return (string)_(message); }
 		public string prompt(string message, object value) { return (string)_(message, value); }

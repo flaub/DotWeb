@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using mshtml;
 using Twinkie.Properties;
 using System.Threading;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Messaging;
 
 namespace Twinkie
 {
@@ -24,44 +26,32 @@ namespace Twinkie
 		}
 
 		void browser_Navigating(object sender, WebBrowserNavigatingEventArgs e) {
-			JsBridge.Instance.OnNavigating(this.browser.Document);
+			JsAgent.Instance.OnNavigating(this.browser.Document);
 		}
 
 		void browser_Navigated(object sender, WebBrowserNavigatedEventArgs e) {
-			JsBridge.Instance.OnNavigated(this.browser.Document);
+			JsAgent.Instance.OnNavigated(this.browser.Document);
 		}
 
 		private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
 			this.browser.Document.Window.Load += new HtmlElementEventHandler(Window_Load);
-			JsBridge.Instance.OnDocumentComplete(this.browser.Document);
+			JsAgent.Instance.OnDocumentComplete(this.browser.Document);
 		}
+
+		public delegate void RemoteOnLoadCall(IJsAgent agent);
 
 		void Window_Load(object sender, HtmlElementEventArgs e) {
-			Thread.Sleep(1000);
-			LoadModule();
+			IJsBridge bridge = (IJsBridge)Activator.GetObject(typeof(JsBridge), "ipc://DotWeb.Server/JsBridge");
+
+			RemoteOnLoadCall call = new RemoteOnLoadCall(bridge.OnLoad);
+			AsyncCallback callback = new AsyncCallback(this.OnLoadComplete);
+			call.BeginInvoke(JsAgent.Instance, callback, bridge);
 		}
 
-		private void OnEvent(Tuple tuple, int id) {
-			Console.WriteLine("OnEvent: {0}, {1}", tuple, id);
-		}
-
-		private void LoadModule() {
-			Config config = new Config {
-				Id = 666,
-				Value = "value"
-			};
-			Tuple tuple = new Tuple(config);
-			int id = tuple.id;
-			tuple.id = 9;
-			tuple.handler = this.OnEvent;
-			Console.WriteLine("before");
-			tuple.fireEvent();
-			Console.WriteLine(id);
-
-			Tuple.StaticMethod(2, 5);
-
-			Tuple t2 = Tuple.Factory();
-			Console.WriteLine(t2.id);
+		[OneWay]
+		private void OnLoadComplete(IAsyncResult ar) {
+			RemoteOnLoadCall del = (RemoteOnLoadCall)((AsyncResult)ar).AsyncDelegate;
+			del.EndInvoke(ar);
 		}
 	}
 }

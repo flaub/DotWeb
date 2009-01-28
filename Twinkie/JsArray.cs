@@ -15,24 +15,44 @@ namespace Twinkie
 		public object Handle { get { return this.hArray; } }
 
 		public JsArray() {
-			hArray = JsBridge.Instance.CurrentDocument.InvokeScript("__createArray") as IExpando;
+			hArray = JsAgent.Instance.CurrentDocument.InvokeScript("__createArray") as IExpando;
 		}
 
 		public JsArray(object[] args) {
-			HtmlDocument document = JsBridge.Instance.CurrentDocument;
+			HtmlDocument document = JsAgent.Instance.CurrentDocument;
 			hArray = document.InvokeScript("__createArray") as IExpando;
-			foreach (object arg in args) {
-				if (arg is Delegate) {
-					object wrapped = document.InvokeScript("__cbWrapper", new object[] { arg });
-					this.push(wrapped);
-				}
-				else {
+			if (args != null) {
+				foreach (object arg in args) {
 					this.push(arg);
 				}
 			}
 		}
 
+		public static object[] Convert(object args) {
+			IExpando ex = args as IExpando;
+			PropertyInfo piLength = ex.GetProperty("length", BindingFlags.Default);
+			int len = (int)piLength.GetValue(args, null);
+			object[] converted = new object[len];
+			for (int i = 0; i < len; i++) {
+				PropertyInfo pi = ex.GetProperty(i.ToString(), BindingFlags.Default);
+				object arg = pi.GetValue(args, null);
+				converted[i] = arg;
+			}
+			return converted;
+		}
+
 		public void push(object item) {
+			HtmlDocument document = JsAgent.Instance.CurrentDocument;
+			Type type = item.GetType();
+			if (!type.IsPrimitive) {
+				if (item is Delegate) {
+					item = document.InvokeScript("__cbWrapper", new object[] { item });
+				}
+				else {
+//					item = new JsObjectAdapter(item);
+				}
+			}
+
 			MethodInfo method = this.hArray.GetMethod("push", BindingFlags.Default);
 			method.Invoke(this.hArray, new object[] { item });
 		}
