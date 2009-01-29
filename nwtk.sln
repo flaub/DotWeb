@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H8", "H8\H8.csproj", "{3C90D87C-3525-4D90-B32D-CD9B56B20D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Core", "H8.Support\DotWeb.Core.csproj", "{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Core", "DotWeb.Core\DotWeb.Core.csproj", "{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlDom", "HtmlDom\HtmlDom.csproj", "{0A46B99F-8A61-4544-8B1D-E5117DABBD90}"
 EndProject

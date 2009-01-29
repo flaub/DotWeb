@@ -57,7 +57,7 @@
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\H8.Support\DotWeb.Core.csproj">
+    <ProjectReference Include="..\DotWeb.Core\DotWeb.Core.csproj">
       <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
       <Name>DotWeb.Core</Name>
     </ProjectReference>
