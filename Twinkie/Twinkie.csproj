@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -67,8 +63,6 @@
     <EmbeddedResource Include="BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="SourceTests.cs" />
-    <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Hosting.Agent\DotWeb.Hosting.Agent.csproj">
@@ -82,10 +76,6 @@
     <ProjectReference Include="..\DotWeb.Core\DotWeb.Core.csproj">
       <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
       <Name>DotWeb.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HtmlDom\HtmlDom.csproj">
-      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
-      <Name>HtmlDom</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

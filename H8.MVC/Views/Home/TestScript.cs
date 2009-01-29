@@ -10,21 +10,13 @@ public class Config : JsAccessible
 	private string m_value;
 
 	public int id {
-		get {
-			return this.m_id;
-		}
-		set {
-			this.m_id = value;
-		}
+		get { return this.m_id; }
+		set { this.m_id = value; }
 	}
 
-	public string value {
-		get {
-			return this.m_value;
-		}
-		set {
-			this.m_value = value;
-		}
+	public string value { 
+		get { return this.m_value; }
+		set { this.m_value = value; }
 	}
 }
 
