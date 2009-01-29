@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{28CB0949-C964-47B6-A5E4-38B2D32D4EFE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Twinkie</RootNamespace>
-    <AssemblyName>Twinkie</AssemblyName>
+    <RootNamespace>DotWeb.Hosting.Bridge</RootNamespace>
+    <AssemblyName>DotWeb.Bridge</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>
-    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,15 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -50,55 +42,21 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BrowserForm.Designer.cs">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="JsAccessible.cs" />
+    <Compile Include="JsBridge.cs" />
+    <Compile Include="JsBridgeFactory.cs" />
+    <Compile Include="JsDelegate.cs" />
+    <Compile Include="JsNativeBase.cs" />
+    <Compile Include="JsTypeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BrowserForm.resx">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SourceTests.cs" />
-    <Compile Include="Tuple.cs" />
-    <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Test.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Agent\DotWeb.Hosting.Agent.csproj">
-      <Project>{D1243C40-69A0-4017-9ECA-194DE539DF83}</Project>
-      <Name>DotWeb.Hosting.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
-      <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
-      <Name>H8.Support</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HtmlDom\HtmlDom.csproj">
-      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
-      <Name>HtmlDom</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

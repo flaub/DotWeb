@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using mshtml;
-using System.Windows.Forms;
-using System.Runtime.InteropServices.Expando;
 using System.Runtime.Remoting.Messaging;
-using System.Threading;
 
-namespace Twinkie
+namespace DotWeb.Hosting.Bridge
 {
 	public class JsBridge : MarshalByRefObject, IJsBridge
 	{
-		public IJsAgent Agent { get; set; }
+		public IJsAgent Agent { get; private set; }
 		private Dictionary<MethodBase, JavaScriptFunction> FunctionCache { get; set; }
 
 		struct JavaScriptFunction
@@ -26,8 +22,9 @@ namespace Twinkie
 		static JsBridge() {
 		}
 
-		public JsBridge() {
+		public JsBridge(IJsAgent agent) {
 			this.FunctionCache = new Dictionary<MethodBase, JavaScriptFunction>();
+			this.Agent = agent;
 		}
 
 		public static JsBridge Instance {
@@ -39,30 +36,17 @@ namespace Twinkie
 			}
 		}
 
-		private void OnEvent(Tuple tuple, int id) {
-			Console.WriteLine("OnEvent: {0}, {1}", tuple, id);
-		}
+		public void OnLoad(string typeName) {
+			try {
+				Instance = this;
 
-		public void OnLoad(IJsAgent agent) {
-			this.Agent = agent;
-			Instance = this;
-
-			Config config = new Config {
-				Id = 666,
-				Value = "value"
-			};
-			Tuple tuple = new Tuple(config);
-			int id = tuple.id;
-			tuple.id = 9;
-			tuple.handler = this.OnEvent;
-			Console.WriteLine("before");
-			tuple.fireEvent();
-			Console.WriteLine(id);
-
-			Tuple.StaticMethod(2, 5);
-
-			Tuple t2 = Tuple.Factory();
-			Console.WriteLine(t2.id);
+				Type type = Type.GetType(typeName);
+				Activator.CreateInstance(type);
+			}
+			catch (Exception ex) {
+				Console.WriteLine(ex);
+				throw ex;
+			}
 		}
 
 		private string GetTarget(MethodBase method) {
@@ -156,45 +140,59 @@ namespace Twinkie
 			return ret;
 		}
 
-		public object ExecuteNative(MethodBase method, JsNativeBase scope, params object[] args) {
-			JavaScriptFunction function;
-			if (!this.FunctionCache.TryGetValue(method, out function)) {
-				function = DefineFunction(method, scope);
-				Agent.DefineFunction(function.Name, function.Args, function.Body);
-				this.FunctionCache.Add(method, function);
-			}
-
+		public string ExecuteToString(JsNativeBase scope) {
 			object hScope = null;
 			if (scope != null)
 				hScope = scope.Handle;
+			return Agent.InvokeToString(hScope);
+		}
 
-			object[] converted = null;
-			if (args.Any()) {
-				converted = new object[args.Length];
-				for (int i = 0; i < args.Length; i++) {
-					object arg = args[i];
-					if (arg is Delegate) {
-						Delegate del = arg as Delegate;
-						JsDelegateAdapter adapter = new JsDelegateAdapter(del);
-						arg = adapter.GetWrappedDelegate();
-					}
-					converted[i] = arg;
+		public R ExecuteNative<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+			try {
+				JavaScriptFunction function;
+				if (!this.FunctionCache.TryGetValue(method, out function)) {
+					function = DefineFunction(method, scope);
+					Agent.DefineFunction(function.Name, function.Args, function.Body);
+					this.FunctionCache.Add(method, function);
 				}
-			}
 
-			object ret = Agent.InvokeFunction(function.Name, hScope, converted);
-			if (ret == null)
-				return null;
+				object hScope = null;
+				if (scope != null)
+					hScope = scope.Handle;
 
-			if (method.IsConstructor) {
-				scope.Handle = ret;
-			}
-			else {
-				MethodInfo mi = method as MethodInfo;
-				return JsTypeConverter.Convert(ret, mi.ReturnType);
-			}
+				object[] converted = null;
+				if (args.Any()) {
+					converted = new object[args.Length];
+					for (int i = 0; i < args.Length; i++) {
+						object arg = args[i];
+						Delegate del = arg as Delegate;
+						if (del != null) {
+							JsDelegate adapter = new JsDelegate(del);
+							arg = adapter;
+						}
+						converted[i] = arg;
+					}
+				}
 
-			return ret;
+				object ret = Agent.InvokeFunction(function.Name, hScope, converted);
+				if (ret == null)
+					return default(R);
+
+				if (method.IsConstructor) {
+					scope.Handle = ret;
+					return default(R);
+				}
+				else {
+					MethodInfo mi = method as MethodInfo;
+					ret = JsTypeConverter.Convert(ret, mi.ReturnType);
+				}
+
+				return (R)ret;
+			}
+			catch (Exception ex) {
+				Console.WriteLine(ex.Message);
+				throw ex;
+			}
 		}
 	}
 

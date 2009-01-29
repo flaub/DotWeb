@@ -11,7 +11,7 @@
 
 	<div id="grid"></div>
 	
-<%--<h8:ClientCode runat="server" Source="~/Views/Home/IndexScript.cs" />--%>	
+	<h8:ClientCode ID="clientCode" runat="server"/>
 
 	<script type="text/javascript">
 		function Tuple(config) {
@@ -22,11 +22,17 @@
 		Tuple.prototype.setId = function(id) { this.id = id; };
 		Tuple.prototype.getValue = function() { return this.value; };
 		Tuple.prototype.setValue = function(value) { this.value = value; };
+		Tuple.prototype.fireEvent = function() { console.log('firing'); this.handler(this, this.id); }
+		Tuple.StaticMethod = function(x, y) { console.log(x * y); };
+		Tuple.Factory = function() {
+			return new Tuple({
+				id: 59,
+				value: 'hi'
+			});
+		};
 		
-		var t = new Tuple({id: 1, value: 'value'});
-		console.log(t.getId());
-		
-//		window.external.Connect('');
+//		var t = new Tuple({id: 1, value: 'value'});
+//		console.log(t.getId());
 		
 	</script>
 </asp:Content>

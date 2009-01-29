@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices.Expando;
 using System.Windows.Forms;
 
-namespace Twinkie
+namespace DotWeb.Hosting.Agent
 {
 	public class JsArray
 	{
@@ -45,11 +45,14 @@ namespace Twinkie
 			HtmlDocument document = JsAgent.Instance.CurrentDocument;
 			Type type = item.GetType();
 			if (!type.IsPrimitive) {
-				if (item is Delegate) {
-					item = document.InvokeScript("__cbWrapper", new object[] { item });
+				IJsDelegate jsDelegate = item as IJsDelegate;
+				if (jsDelegate != null) {
+					JsDispatchDelegate disp = new JsDispatchDelegate(jsDelegate);
+					item = disp.IDispatch;
 				}
 				else {
-//					item = new JsObjectAdapter(item);
+					JsDispatchObject disp = new JsDispatchObject(item);
+					item = disp.IDispatch;
 				}
 			}
 

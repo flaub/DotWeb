@@ -15,24 +15,16 @@ namespace Twinkie
 	{
 		[STAThread]
 		static void Main(string[] args) {
-			AppDomain server = AppDomain.CreateDomain("Server");
-			server.DoCallBack(ServerMain);
-
-			IpcChannel channel = new IpcChannel("DotWeb.Client");
-			ChannelServices.RegisterChannel(channel, false);
-
-			Application.Run(new BrowserForm());
-		}
-
-		static void ServerMain() {
 			BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
 			provider.TypeFilterLevel = TypeFilterLevel.Full;
 			Hashtable props = new Hashtable();
-			props["portName"] = "DotWeb.Server";
+			props["portName"] = "DotWeb.Client";
+			props["exclusiveAddressUse"] = false;
 			IpcChannel channel = new IpcChannel(props, null, provider);
+
 			ChannelServices.RegisterChannel(channel, false);
-			RemotingConfiguration.RegisterWellKnownServiceType(
-				typeof(JsBridge), "JsBridge", WellKnownObjectMode.Singleton);
+
+			Application.Run(new BrowserForm());
 		}
 	}
 }

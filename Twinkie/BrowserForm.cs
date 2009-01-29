@@ -11,6 +11,10 @@ using Twinkie.Properties;
 using System.Threading;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;
+using DotWeb.Hosting;
+using DotWeb.Hosting.Agent;
+using System.Runtime.InteropServices.Expando;
+using System.Reflection;
 
 namespace Twinkie
 {
@@ -21,8 +25,8 @@ namespace Twinkie
 			this.browser.ObjectForScripting = new External();
 			this.browser.Navigating += new WebBrowserNavigatingEventHandler(browser_Navigating);
 			this.browser.Navigated += new WebBrowserNavigatedEventHandler(this.browser_Navigated);
-//			this.browser.Navigate("http://localhost:1037/");
-			this.browser.DocumentText = Resources.Test;
+			this.browser.Navigate("http://localhost:1037/");
+//			this.browser.DocumentText = Resources.Test;
 		}
 
 		void browser_Navigating(object sender, WebBrowserNavigatingEventArgs e) {
@@ -38,14 +42,23 @@ namespace Twinkie
 			JsAgent.Instance.OnDocumentComplete(this.browser.Document);
 		}
 
-		public delegate void RemoteOnLoadCall(IJsAgent agent);
+		public delegate void RemoteOnLoadCall(string typeName);
 
 		void Window_Load(object sender, HtmlElementEventArgs e) {
-			IJsBridge bridge = (IJsBridge)Activator.GetObject(typeof(JsBridge), "ipc://DotWeb.Server/JsBridge");
+			IJsBridgeFactory factory = (IJsBridgeFactory)Activator.GetObject(
+				typeof(IJsBridgeFactory), "ipc://DotWeb.Server/JsBridgeFactory");
+
+			IJsBridge bridge = factory.CreateBridge(JsAgent.Instance);
+			IExpando ex = this.browser.Document.Window.DomWindow as IExpando;
+			PropertyInfo pi = ex.GetProperty("__$serverType", BindingFlags.Default);
+			object value = pi.GetValue(ex, null);
+			string typeName = null;
+			if (value != null)
+				typeName = value.ToString();
 
 			RemoteOnLoadCall call = new RemoteOnLoadCall(bridge.OnLoad);
 			AsyncCallback callback = new AsyncCallback(this.OnLoadComplete);
-			call.BeginInvoke(JsAgent.Instance, callback, bridge);
+			call.BeginInvoke(typeName, callback, bridge);
 		}
 
 		[OneWay]

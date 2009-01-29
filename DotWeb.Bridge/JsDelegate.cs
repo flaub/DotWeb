@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using DotWeb.Hosting;
 
-namespace Twinkie
+namespace DotWeb.Hosting.Bridge
 {
-	public class JsDelegateAdapter : MarshalByRefObject
+	public class JsDelegate : MarshalByRefObject, IJsDelegate
 	{
 		Delegate target;
 
-		public JsDelegateAdapter(Delegate target) {
+		public JsDelegate(Delegate target) {
 			this.target = target;
 		}
 
-		public delegate object GenericHandler(object[] args);
-
-		public object OnCallback(object[] args) {
+		public object Invoke(object[] args) {
 			ParameterInfo[] argInfos = this.target.Method.GetParameters();
 			object[] converted = new object[argInfos.Length];
 			for (int i = 0; i < argInfos.Length; i++) {
@@ -24,10 +23,6 @@ namespace Twinkie
 				converted[i] = JsTypeConverter.Convert(arg, argInfos[i].ParameterType);
 			}
 			return target.DynamicInvoke(converted);
-		}
-
-		public object GetWrappedDelegate() {
-			return new GenericHandler(this.OnCallback);
 		}
 	}
 }

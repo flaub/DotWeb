@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Twinkie
+namespace DotWeb.Hosting
 {
-	public interface IJsBridge
+	public interface IJsEntryPoint
 	{
-		void OnLoad(IJsAgent agent);
+		void OnModuleLoad();
 	}
 }

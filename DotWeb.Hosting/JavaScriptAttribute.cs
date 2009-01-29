@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Twinkie
+namespace DotWeb.Hosting
 {
 	public class JavaScriptAttribute : Attribute
 	{

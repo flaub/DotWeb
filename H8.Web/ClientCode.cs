@@ -24,6 +24,8 @@ namespace H8.Web
 		[DefaultValue("~/js/Cache")]
 		public string CacheDir { get; set; }
 
+		private bool isDebug;
+
 		public ClientCode() {
 			this.CacheDir = WebConfigurationManager.AppSettings["JavaScriptCache"];
 			if (this.CacheDir == null)
@@ -33,12 +35,13 @@ namespace H8.Web
 			ConfigurationSectionGroup grp = cfg.GetSectionGroup("system.web");
 			CompilationSection section = grp.Sections.Get("compilation") as CompilationSection;
 
-			if (section.Debug) {
+			this.isDebug = section.Debug;
+//			if(this.isDebug) {
 				this.Minify = false;
-			}
-			else {
-				this.Minify = true;
-			}
+//			}
+//			else {
+//				this.Minify = true;
+//			}
 		}
 
 		private string Translate() {
@@ -72,15 +75,23 @@ namespace H8.Web
 		}
 
 		protected override void Render(HtmlTextWriter writer) {
-			Cache cache = this.Context.Cache;
-			string src = cache.Get(this.Source) as string;
-			if (src == null)
-				src = Translate();
+			if (this.isDebug) {
+				writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+				writer.RenderBeginTag(HtmlTextWriterTag.Script);
+				writer.WriteLine("window['__$serverType'] = '{0}';", this.Source);
+				writer.RenderEndTag();
+			}
+			else {
+				Cache cache = this.Context.Cache;
+				string src = cache.Get(this.Source) as string;
+				if (src == null)
+					src = Translate();
 
-			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
-			writer.RenderBeginTag(HtmlTextWriterTag.Script);
-			writer.RenderEndTag();
+				writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+				writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
+				writer.RenderBeginTag(HtmlTextWriterTag.Script);
+				writer.RenderEndTag();
+			}
 		}
 	}
 }
