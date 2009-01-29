@@ -25,9 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H8.Web", "H8.Web\H8.Web.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkie", "Twinkie\Twinkie.csproj", "{28CB0949-C964-47B6-A5E4-38B2D32D4EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Bridge", "DotWeb.Bridge\DotWeb.Hosting.Bridge.csproj", "{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Bridge", "DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj", "{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Agent", "DotWeb.Agent\DotWeb.Hosting.Agent.csproj", "{D1243C40-69A0-4017-9ECA-194DE539DF83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Agent", "DotWeb.Hosting.Agent\DotWeb.Hosting.Agent.csproj", "{D1243C40-69A0-4017-9ECA-194DE539DF83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting", "DotWeb.Hosting\DotWeb.Hosting.csproj", "{9004E34C-2D35-40EE-BE98-C1AED18081CF}"
 EndProject

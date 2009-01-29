@@ -71,7 +71,7 @@
     <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Agent\DotWeb.Hosting.Agent.csproj">
+    <ProjectReference Include="..\DotWeb.Hosting.Agent\DotWeb.Hosting.Agent.csproj">
       <Project>{D1243C40-69A0-4017-9ECA-194DE539DF83}</Project>
       <Name>DotWeb.Hosting.Agent</Name>
     </ProjectReference>

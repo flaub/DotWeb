@@ -484,7 +484,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Bridge\DotWeb.Hosting.Bridge.csproj">
+    <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
       <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>
       <Name>DotWeb.Hosting.Bridge</Name>
     </ProjectReference>
