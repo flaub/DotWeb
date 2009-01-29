@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
+using DotWeb.Core;
 
 namespace DotWeb.Hosting.Bridge
 {
-	public class JsBridge : MarshalByRefObject, IJsBridge
+	public class JsBridge : MarshalByRefObject, IJsBridge, IJsHost
 	{
 		public IJsAgent Agent { get; private set; }
 		private Dictionary<MethodBase, JavaScriptFunction> FunctionCache { get; set; }
@@ -27,18 +28,9 @@ namespace DotWeb.Hosting.Bridge
 			this.Agent = agent;
 		}
 
-		public static JsBridge Instance {
-			get {
-				return (JsBridge)CallContext.GetData("JsBridge");
-			}
-			set {
-				CallContext.SetData("JsBridge", value);
-			}
-		}
-
 		public void OnLoad(string typeName) {
 			try {
-				Instance = this;
+				JsHost.Instance = this;
 
 				Type type = Type.GetType(typeName);
 				Activator.CreateInstance(type);
@@ -147,7 +139,7 @@ namespace DotWeb.Hosting.Bridge
 			return Agent.InvokeToString(hScope);
 		}
 
-		public R ExecuteNative<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+		public R Execute<R>(MethodBase method, JsNativeBase scope, params object[] args) {
 			try {
 				JavaScriptFunction function;
 				if (!this.FunctionCache.TryGetValue(method, out function)) {

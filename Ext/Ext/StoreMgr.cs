@@ -1,5 +1,5 @@
 using System;
-using H8.Support;
+using DotWeb.Core;
 
 namespace Ext {
     /// <summary>
@@ -9,7 +9,6 @@ namespace Ext {
     ///     Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
     /// </summary>
     /// <jssource>C:\home\src\external\ext-2.2\source\data\StoreMgr.js</jssource>
-    [Native]
     public class StoreMgr : Ext.util.MixedCollection {
 
         /// <summary>Auto-generated default constructor</summary>

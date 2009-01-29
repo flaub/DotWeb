@@ -5,9 +5,9 @@ using System.Text;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace DotWeb.Hosting.Bridge
+namespace DotWeb.Core
 {
-	class VoidReturn { }
+	public class NativeAttribute : Attribute { }
 
 	public class JsNativeBase : JsAccessible
 	{
@@ -17,29 +17,31 @@ namespace DotWeb.Hosting.Bridge
 		//    return JsBridge.Instance.ExecuteToString(this);
 		//}
 
+		private class VoidReturn { }
+
 		protected void C_(params object[] args) {
 			StackFrame frame = new StackFrame(1);
-			JsBridge.Instance.ExecuteNative<VoidReturn>(frame.GetMethod(), this, args);
+			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
 		}
 
 		protected void _(params object[] args) {
 			StackFrame frame = new StackFrame(1);
-			JsBridge.Instance.ExecuteNative<VoidReturn>(frame.GetMethod(), this, args);
+			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
 		}
 
 		protected R _<R>(params object[] args) {
 			StackFrame frame = new StackFrame(1);
-			return JsBridge.Instance.ExecuteNative<R>(frame.GetMethod(), this, args);
+			return JsHost.Execute<R>(frame.GetMethod(), this, args);
 		}
 
 		protected static void S_(params object[] args) {
 			StackFrame frame = new StackFrame(1);
-			JsBridge.Instance.ExecuteNative<VoidReturn>(frame.GetMethod(), null, args);
+			JsHost.Execute<VoidReturn>(frame.GetMethod(), null, args);
 		}
 
 		protected static R S_<R>(params object[] args) {
 			StackFrame frame = new StackFrame(1);
-			return JsBridge.Instance.ExecuteNative<R>(frame.GetMethod(), null, args);
+			return JsHost.Execute<R>(frame.GetMethod(), null, args);
 		}
 	}
 }

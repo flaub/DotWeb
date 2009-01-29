@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using DotWeb.Interop.Com;
 using ComDISPPARAMS = System.Runtime.InteropServices.ComTypes.DISPPARAMS;
 using ComEXCEPINFO = System.Runtime.InteropServices.ComTypes.EXCEPINFO;
+using DotWeb.Core;
 
 namespace DotWeb.Hosting.Agent
 {

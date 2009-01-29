@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using H8.CodeModel;
-using H8.Support;
+using DotWeb.Core;
 
 namespace H8.Generator.JavaScript
 {
@@ -285,7 +285,7 @@ namespace H8.Generator.JavaScript
 			if (exp.Type.IsDefined(typeof(AnonymousAttribute), false)) {
 				return "{}";
 			}
-			if (exp.Type.IsDefined(typeof(NativeAttribute), false)) {
+			if (exp.Type.IsDefined(typeof(JavaScriptAttribute), false)) {
 				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
 			}
 

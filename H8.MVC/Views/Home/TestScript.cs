@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DotWeb.Hosting;
-using DotWeb.Hosting.Bridge;
+using DotWeb.Core;
 
 public class Config : JsAccessible
 {
@@ -18,6 +17,7 @@ public class Config : JsAccessible
 			this.m_id = value;
 		}
 	}
+
 	public string value {
 		get {
 			return this.m_value;

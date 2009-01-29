@@ -46,11 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDispatch.cs" />
-    <Compile Include="IJsAccessible.cs" />
     <Compile Include="IJsAgent.cs" />
     <Compile Include="IJsBridge.cs" />
-    <Compile Include="IJsEntryPoint.cs" />
-    <Compile Include="JavaScriptAttribute.cs" />
     <Compile Include="IJsBridgeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

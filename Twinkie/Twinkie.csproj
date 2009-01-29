@@ -67,21 +67,8 @@
     <EmbeddedResource Include="BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="SourceTests.cs" />
-    <Compile Include="Tuple.cs" />
     <Compile Include="Window.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Test.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Agent\DotWeb.Hosting.Agent.csproj">
@@ -92,9 +79,9 @@
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
+    <ProjectReference Include="..\H8.Support\DotWeb.Core.csproj">
       <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
-      <Name>H8.Support</Name>
+      <Name>DotWeb.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\HtmlDom\HtmlDom.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>

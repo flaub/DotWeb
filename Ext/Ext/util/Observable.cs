@@ -1,5 +1,5 @@
 using System;
-using H8.Support;
+using DotWeb.Core;
 
 namespace Ext.util {
     /// <summary>
@@ -22,7 +22,7 @@ namespace Ext.util {
     /// </summary>
     /// <jssource>C:\home\src\external\ext-2.2\source\util\Observable.js</jssource>
     [Native]
-    public class Observable  {
+    public class Observable : JsNativeBase {
 
         /// <summary>Auto-generated default constructor</summary>
         /// <returns></returns>

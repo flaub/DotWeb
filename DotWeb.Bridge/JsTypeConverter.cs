@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotWeb.Core;
 
 namespace DotWeb.Hosting.Bridge
 {

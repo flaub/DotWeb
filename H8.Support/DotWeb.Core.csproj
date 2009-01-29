@@ -8,8 +8,8 @@
     <ProjectGuid>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>H8.Support</RootNamespace>
-    <AssemblyName>H8.Support</AssemblyName>
+    <RootNamespace>DotWeb.Core</RootNamespace>
+    <AssemblyName>DotWeb.Core</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,9 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonymousAttribute.cs" />
-    <Compile Include="JsImplAttribute.cs" />
-    <Compile Include="NativeAttribute.cs" />
+    <Compile Include="IJsAccessible.cs" />
+    <Compile Include="IJsHost.cs" />
+    <Compile Include="JavaScriptAttribute.cs" />
     <Compile Include="EntryPointAttribute.cs" />
+    <Compile Include="JsAccessible.cs" />
+    <Compile Include="JsHost.cs" />
+    <Compile Include="JsNativeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

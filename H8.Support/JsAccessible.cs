@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using DotWeb.Core;
 
-namespace DotWeb.Hosting.Bridge
+namespace DotWeb.Core
 {
 	public class JsAccessible : MarshalByRefObject, IJsAccessible
 	{

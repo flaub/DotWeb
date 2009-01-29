@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace H8.Support
+namespace DotWeb.Core
 {
 	[AttributeUsage(AttributeTargets.Class)]
 	public class AnonymousAttribute : Attribute

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using mshtml;
-using Twinkie.Properties;
 using System.Threading;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;

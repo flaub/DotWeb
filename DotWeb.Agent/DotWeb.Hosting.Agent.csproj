@@ -66,6 +66,10 @@
       <Project>{79E45658-6D89-4164-B1B1-0315316F7E4D}</Project>
       <Name>DotWeb.Interop.Com</Name>
     </ProjectReference>
+    <ProjectReference Include="..\H8.Support\DotWeb.Core.csproj">
+      <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
+      <Name>DotWeb.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

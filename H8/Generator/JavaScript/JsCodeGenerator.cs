@@ -6,7 +6,7 @@ using System.Reflection;
 using System.IO;
 using System.CodeDom.Compiler;
 using H8.CodeModel;
-using H8.Support;
+using DotWeb.Core;
 
 namespace H8.Generator.JavaScript
 {

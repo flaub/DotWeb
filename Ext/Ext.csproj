@@ -239,9 +239,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
+    <ProjectReference Include="..\H8.Support\DotWeb.Core.csproj">
       <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
-      <Name>H8.Support</Name>
+      <Name>DotWeb.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

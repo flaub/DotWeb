@@ -59,9 +59,9 @@
       <Project>{66530ECC-B564-4F33-A297-0E96189E64B6}</Project>
       <Name>Ext</Name>
     </ProjectReference>
-    <ProjectReference Include="..\H8.Support\H8.Support.csproj">
+    <ProjectReference Include="..\H8.Support\DotWeb.Core.csproj">
       <Project>{BCCD4CAF-5157-41B9-9A60-95C32FD3C7D2}</Project>
-      <Name>H8.Support</Name>
+      <Name>DotWeb.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\H8\H8.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>

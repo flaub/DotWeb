@@ -1,5 +1,5 @@
 using System;
-using H8.Support;
+using DotWeb.Core;
 
 namespace Ext.dd {
     /// <summary>
@@ -8,7 +8,6 @@ namespace Ext.dd {
     ///     By default, this class requires that child nodes accepting drop are registered with {@link Ext.dd.Registry}.
     /// </summary>
     /// <jssource>C:\home\src\external\ext-2.2\source\dd\DropZone.js</jssource>
-    [Native]
     public class DropZone : Ext.dd.DropTarget {
 
         /// <summary></summary>

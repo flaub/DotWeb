@@ -1,5 +1,5 @@
 using System;
-using H8.Support;
+using DotWeb.Core;
 
 namespace Ext.dd {
     /// <summary>
@@ -41,7 +41,6 @@ namespace Ext.dd {
     ///     </pre>
     /// </summary>
     /// <jssource>C:\home\src\external\ext-2.2\source\dd\DDCore.js</jssource>
-    [Native]
     public class DragDrop  {
 
         /// <summary>
