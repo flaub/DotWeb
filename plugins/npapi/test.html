@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>NPDotWeb test page</title>
+<script type="text/javascript" src="JsHelper.js"></script>
+<script>
+
+var $wnd = window;
+var $doc = document;
+
+// fire up plugin
+window.onload = function() {
+	var plugin = document.getElementById('plugin');
+	__$helper = new JsHelper();
+	plugin.onLoad(__$helper, 'localhost', 9090);
+};
+</script>
+<embed id="plugin" type="application/x-dotweb"/>
+</body>
+</html>
