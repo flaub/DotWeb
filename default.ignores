@@ -1,0 +1,7 @@
+bin
+obj
+*.user
+*.ncb
+*.suo
+[Dd]ebug
+[Rr]elease
