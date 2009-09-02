@@ -435,12 +435,6 @@
     <Content Include="js\Tuple.js" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\jquery-1.2.6.js" />
-    <Content Include="Scripts\jquery-1.2.6.min.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Views\Home\ExtJs.aspx" />
     <Content Include="Views\Home\Simple.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
