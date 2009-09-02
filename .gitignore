@@ -3,5 +3,7 @@ obj
 *.user
 *.ncb
 *.suo
+*~
 [Dd]ebug
 [Rr]elease
+/DotWeb.Sample.MVC/js/Cache/
