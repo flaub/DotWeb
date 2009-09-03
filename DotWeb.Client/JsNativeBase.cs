@@ -24,6 +24,14 @@ using System.Reflection;
 
 namespace DotWeb.Client
 {
+	/// <summary>
+	/// A derivative of this class means that its definition actually exists
+	/// as a native type in JavaScript.
+	/// This base class is derived from JsAccessible because it can be called
+	/// from JavaScript code.
+	/// This class is the primary way to allow JS-generated objects to communicate
+	/// with existing JavaScript (i.e. DOM objects, 3rd-party JS libraries)
+	/// </summary>
 	public abstract class JsNativeBase : JsAccessible
 	{
 		public int Handle { get; set; }

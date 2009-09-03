@@ -23,6 +23,13 @@ using System.Reflection;
 
 namespace DotWeb.Client
 {
+	/// <summary>
+	/// This is a marker class that tells the DotWeb system
+	/// that derived classes can be accessed from JavaScript.
+	/// A class dervied from JsAccessible will be translated into
+	/// JavaScript and in debug-mode, a proxy will be constructed for 
+	/// this type.
+	/// </summary>
 	public class JsAccessible
 	{
 	}
