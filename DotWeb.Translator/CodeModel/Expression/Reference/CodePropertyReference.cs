@@ -31,8 +31,8 @@ namespace DotWeb.Translator.CodeModel
 			Set
 		}
 
-		public CodePropertyReference(CodeExpression target, PropertyInfo property, RefType rt) {
-			this.TargetObject = target;
+		public CodePropertyReference(CodeMethodReference method, PropertyInfo property, RefType rt) {
+			this.Method = method;
 			this.Property = property;
 			this.ReferenceType = rt;
 		}
@@ -47,7 +47,8 @@ namespace DotWeb.Translator.CodeModel
 		}
 		#endregion
 
-		public CodeExpression TargetObject { get; set; }
+		public CodeExpression TargetObject { get { return Method.TargetObject; } }
+		public CodeMethodReference Method { get; set; }
 		public PropertyInfo Property { get; set; }
 		public RefType ReferenceType { get; set; }
 	}

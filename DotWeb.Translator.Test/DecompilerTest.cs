@@ -33,6 +33,7 @@ namespace DotWeb.Translator.Test
 		public DecompilerTest() {
 			CSharpCompiler compiler = new CSharpCompiler();
 			this.compiledAssembly = compiler.CompileSource(Resources.SourceTests, Assembly.GetExecutingAssembly());
+			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.SourceTests");
 		}
 
 		[TestMethod]
@@ -136,8 +137,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		private void TestMethod(string methodName, string expected) {
-			Type compiledType = this.compiledAssembly.GetType("H8.SourceTests");
-			MethodInfo method = compiledType.GetMethod(methodName);
+			MethodInfo method = sourceTestsCompiledType.GetMethod(methodName);
 			TextWriter writer = new StringWriter();
 			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
 			TranslationContext context = new TranslationContext(generator);
@@ -155,5 +155,6 @@ namespace DotWeb.Translator.Test
 		}
 
 		private Assembly compiledAssembly;
+		private Type sourceTestsCompiledType;
 	}
 }

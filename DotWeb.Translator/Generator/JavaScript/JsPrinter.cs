@@ -23,6 +23,7 @@ using System.Reflection;
 using DotWeb.Translator.CodeModel;
 using DotWeb.Client;
 using DotWeb.Utility;
+using System.Diagnostics;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
@@ -218,7 +219,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodePropertyReference exp) {
-			return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
+			Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+			// Optimize for anonymous types.
+			//CodeTypeEvaluator evaluator = new CodeTypeEvaluator(this.CurrentMethod);
+			//Type type = evaluator.Evaluate(exp.TargetObject);
+			//if (type.Name.StartsWith("<>f__AnonymousType")) {
+			//    return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
+			//}
+			return VisitReturn(exp.Method) + "()";
 		}
 
 		public string VisitReturn(CodeIndexerExpression exp) {

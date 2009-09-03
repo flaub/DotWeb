@@ -22,12 +22,12 @@ using System.Text;
 
 namespace DotWeb.Translator.CodeModel
 {
-	public interface ICodeVisitor<Code, Return>
+	public interface ICodeVisitor<Code, Return> where Code : CodeObject
 	{
 		Return VisitReturn(Code obj);
 	}
 
-	public interface ICodeVisitor<Code>
+	public interface ICodeVisitor<Code> where Code : CodeObject
 	{
 		void Visit(Code obj);
 	}

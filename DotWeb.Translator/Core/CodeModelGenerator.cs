@@ -23,7 +23,6 @@ using System.Reflection.Emit;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using DotWeb.Translator.CodeModel;
-using DotWeb.Client;
 using DotWeb.Utility;
 
 namespace DotWeb.Translator
@@ -302,13 +301,14 @@ namespace DotWeb.Translator
 		private bool CallGetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
 			ParameterInfo[] args = method.GetParameters();
 			if (args.Length == 0) {
-				if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
-					!pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-					return false;
-				}
+				//if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
+				//    !pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
+				//    return false;
+				//}
 
 				CodeExpression targetObject = GetTargetObject(method, il);
-				CodePropertyReference expr = new CodePropertyReference(targetObject, pi, CodePropertyReference.RefType.Get);
+				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
+				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
 				expr.Instruction = il;
 				vm.Stack.Push(expr);
 			}
@@ -325,15 +325,17 @@ namespace DotWeb.Translator
 		private bool CallSetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
 			ParameterInfo[] args = method.GetParameters();
 			if (args.Length == 1) {
-				if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
-					!pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-					return false;
-				}
+				//if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
+				//    !pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
+				//    return false;
+				//}
 
 				CodeExpression rhs = vm.Stack.Pop();
 				CodeExpression targetObject = GetTargetObject(method, il);
-				CodePropertyReference lhs = new CodePropertyReference(targetObject, pi, CodePropertyReference.RefType.Set);
+				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
+				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
 				lhs.Instruction = il;
+	
 				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 				AddStatment(stmt, il);
 			}

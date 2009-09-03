@@ -175,10 +175,10 @@ namespace DotWeb.Translator
 		}
 
 		public void AddMethod(CodeTypeDeclaration decl, MethodBase method) {
-			AssociatedProperty ap = method.GetAssociatedProperty();
-			if (ap != null && ap.Info.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-				return;
-			}
+			//AssociatedProperty ap = method.GetAssociatedProperty();
+			//if (ap != null && ap.Info.IsDefined(typeof(JsIntrinsicAttribute), false)) {
+			//    return;
+			//}
 
 			CodeMethodMember cmm = Parse(method);
 			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
@@ -260,10 +260,10 @@ namespace DotWeb.Translator
 			return def;
 		}
 
-		public CodeMethodMember Parse(MethodBase mi) {
-			Console.WriteLine(mi);
+		public CodeMethodMember Parse(MethodBase method) {
+			Console.WriteLine(method);
 
-			ControlFlowGraph cfg = new ControlFlowGraph(mi);
+			ControlFlowGraph cfg = new ControlFlowGraph(method);
 			Console.WriteLine(cfg);
 
 			ControlFlowAnalyzer cfa = new ControlFlowAnalyzer(cfg);
@@ -272,7 +272,22 @@ namespace DotWeb.Translator
 			BackEnd be = new BackEnd(cfg);
 			be.WriteCode();
 
-			return be.Method;
+			AssociatedProperty ap = method.GetAssociatedProperty();
+			if (ap != null) {
+				if (ap.IsGetter) {
+					return new CodePropertyGetterMember(be.Method) {
+						PropertyInfo = ap.Info
+					};
+				}
+				else {
+					return new CodePropertySetterMember(be.Method) {
+						PropertyInfo = ap.Info
+					};
+				}
+			}
+			else {
+				return be.Method;
+			}
 		}
 
 	}

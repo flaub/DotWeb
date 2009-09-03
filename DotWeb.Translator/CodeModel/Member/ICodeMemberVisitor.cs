@@ -27,6 +27,8 @@ namespace DotWeb.Translator.CodeModel
 		, ICodeVisitor<CodeMethodMember>
 		, ICodeVisitor<CodeFieldMember>
 		, ICodeVisitor<CodePropertyMember>
+		, ICodeVisitor<CodePropertyGetterMember>
+		, ICodeVisitor<CodePropertySetterMember>
 		, ICodeVisitor<CodeTypeDeclaration>
 		, ICodeVisitor<CodeNamespace>
 	{
@@ -37,6 +39,8 @@ namespace DotWeb.Translator.CodeModel
 		, ICodeVisitor<CodeMethodMember, Return>
 		, ICodeVisitor<CodeFieldMember, Return>
 		, ICodeVisitor<CodePropertyMember, Return>
+		, ICodeVisitor<CodePropertyGetterMember, Return>
+		, ICodeVisitor<CodePropertySetterMember, Return>
 		, ICodeVisitor<CodeTypeDeclaration, Return>
 		, ICodeVisitor<CodeNamespace, Return>
 	{

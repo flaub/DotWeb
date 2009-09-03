@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="CodeModel\Expression\CodeInstanceOfExpression.cs" />
     <Compile Include="CodeModel\Member\CodeNamespace.cs" />
+    <Compile Include="CodeModel\Member\CodePropertyGetterMember.cs" />
+    <Compile Include="CodeModel\Member\CodePropertySetterMember.cs" />
     <Compile Include="Core\BackEnd.cs" />
     <Compile Include="Core\BasicBlock.cs" />
     <Compile Include="Core\CodeTypeEvaluator.cs" />

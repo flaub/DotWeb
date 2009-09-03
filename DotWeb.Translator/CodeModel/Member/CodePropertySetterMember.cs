@@ -23,30 +23,30 @@ using System.Reflection;
 
 namespace DotWeb.Translator.CodeModel
 {
-	public class CodeMethodMember : CodeTypeMember
+	public class CodePropertySetterMember : CodeMethodMember
 	{
-		public CodeMethodMember() {
-			this.Statements = new List<CodeStatement>();
-			this.Parameters = new List<CodeParameterDeclarationExpression>();
-			this.ExternalMethods = new List<MethodBase>();
+		public CodePropertySetterMember() {
+		}
+
+		public CodePropertySetterMember(CodeMethodMember method) {
+			this.Info = method.Info;
+			this.Statements = method.Statements;
+			this.Parameters = method.Parameters;
+			this.ExternalMethods = method.ExternalMethods;
+			this.IsGlobal = method.IsGlobal;
+			this.NativeCode = method.NativeCode;
 		}
 
 		#region Visitor Pattern
 		public override void Accept<V>(V visitor) {
-			((ICodeVisitor<CodeMethodMember>)visitor).Visit(this);
+			((ICodeVisitor<CodePropertySetterMember>)visitor).Visit(this);
 		}
 
 		public override R Accept<V, R>(V visitor) {
-			return ((ICodeVisitor<CodeMethodMember, R>)visitor).VisitReturn(this);
+			return ((ICodeVisitor<CodePropertySetterMember, R>)visitor).VisitReturn(this);
 		}
 		#endregion
 
-		public MethodBase Info { get; set; }
-		public string Name { get { return Info.Name; } }
-		public List<CodeStatement> Statements { get; set; }
-		public List<CodeParameterDeclarationExpression> Parameters { get; set; }
-		public List<MethodBase> ExternalMethods { get; set; }
-		public bool IsGlobal { get; set; }
-		public string NativeCode { get; set; }
+		public PropertyInfo PropertyInfo { get; set; }
 	}
 }

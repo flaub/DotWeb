@@ -191,6 +191,14 @@ namespace DotWeb.Translator
 			obj.Statements.ForEach(x => x.Accept(this));
 		}
 
+		public void Visit(CodePropertyGetterMember obj) {
+			Visit((CodeMethodMember)obj);
+		}
+
+		public void Visit(CodePropertySetterMember obj) {
+			Visit((CodeMethodMember)obj);
+		}
+
 		public void Visit(CodeFieldMember obj) {
 			Sequence.Add(obj);
 		}

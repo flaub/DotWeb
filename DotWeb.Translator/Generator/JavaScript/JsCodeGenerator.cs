@@ -42,10 +42,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 	public class JsCodeGenerator: ICodeStatementVisitor, ICodeMemberVisitor
 	{
-		private JsPrinter printer = new JsPrinter();
-		private IndentedTextWriter writer;
-		private CodeMethodMember currentMethod;
-
 		public JsCodeGenerator(TextWriter output, bool writeHeader) {
 			this.writer = new IndentedTextWriter(output, "\t");
 			if (writeHeader) {
@@ -59,8 +55,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.WriteLine("$wnd.onload = function() {");
 			this.writer.Indent++;
 			this.writer.WriteLine("new {0}().$ctor();", Print(type.Type));
-//			this.writer.WriteLine("alert(script);");
-//			this.writer.WriteLine("script.$ctor();");
 			this.writer.Indent--;
 			this.writer.WriteLine("}");
 		}
@@ -140,8 +134,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("// {0}", stmt.Comment);
 		}
 
-		private Dictionary<int, CodeVariableReference> locals = new Dictionary<int, CodeVariableReference>();
-
 		public void Visit(CodeAssignStatement stmt) {
 			string rhs;
 			CodePrimitiveExpression cpe = stmt.Right as CodePrimitiveExpression;
@@ -154,6 +146,15 @@ namespace DotWeb.Translator.Generator.JavaScript
 			else {
 				rhs = Print(stmt.Right);
 			}
+
+			CodePropertyReference cpr = stmt.Left as CodePropertyReference;
+			if (cpr != null) {
+				// setter
+				// foo.set_X(1);
+				WriteLine(string.Format("{0}({1});", Print(cpr.Method), rhs));
+				return;
+			}		
+
 			CodeVariableReference cvr = stmt.Left as CodeVariableReference;
 			if (cvr != null) {
 				if (!locals.ContainsKey(cvr.Index)) {
@@ -273,7 +274,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return;
 			}
 
-			if (method.Statements.First() is CodeReturnStatement) {
+			var first = method.Statements.First() as CodeReturnStatement;
+			if (first != null && first.Expression == null) {
 				return;
 			}
 
@@ -322,6 +324,40 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.Indent--;
 			WriteLine("}};");
 			WriteLine();
+		}
+
+		private string GetAutomaticBackingFieldName(PropertyInfo property) {
+			return string.Format("<{0}>k__BackingField", property.Name);
+		}
+
+		public void Visit(CodePropertyGetterMember method) {
+			// This is to look and optimize for properties that have automatic implementations
+			//if (method.Statements.Count == 1) {
+			//    var first = method.Statements.First() as CodeReturnStatement;
+			//    if (first != null) {
+			//        var field = first.Expression as CodeFieldReference;
+			//        if (field != null && field.TargetObject is CodeThisReference) {
+			//            if (field.Field.Name == GetAutomaticBackingFieldName(method.PropertyInfo))
+			//                return;
+			//        }
+			//    }
+			//}
+			Visit((CodeMethodMember)method);
+		}
+
+		public void Visit(CodePropertySetterMember method) {
+			// This is to look and optimize for properties that have automatic implementations
+			//if (method.Statements.Count >= 1) {
+			//    var first = method.Statements.First() as CodeAssignStatement;
+			//    if (first != null) {
+			//        var field = first.Left as CodeFieldReference;
+			//        if (field != null && field.TargetObject is CodeThisReference) {
+			//            if (field.Field.Name == GetAutomaticBackingFieldName(method.PropertyInfo))
+			//                return;
+			//        }
+			//    }
+			//}
+			Visit((CodeMethodMember)method);
 		}
 
 		public void Visit(CodeFieldMember field) {
@@ -389,5 +425,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 		#endregion
+
+		private Dictionary<int, CodeVariableReference> locals = new Dictionary<int, CodeVariableReference>();
+		private JsPrinter printer = new JsPrinter();
+		private IndentedTextWriter writer;
+		private CodeMethodMember currentMethod;
 	}
 }

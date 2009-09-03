@@ -25,13 +25,19 @@ namespace H8
 	class OuterClassTest
 	{
 		public string Text { get; set; }
-		public int Value { get; set; }
+
+		public int Value {
+			get { return this.m_value; }
+			set { this.m_value = value; }
+		}
 
 		public OuterClassTest() { }
 		public OuterClassTest(string text, int value) {
 			this.Text = text;
 			this.Value = value;
 		}
+
+		private int m_value;
 	}
 
 	class SourceTests
