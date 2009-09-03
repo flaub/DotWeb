@@ -122,6 +122,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Join(", ", parts);
 		}
 
+		private string GetTypeName(Type type) {
+			if (type.DeclaringType == null) {
+				return type.Name;
+			}
+
+			return string.Format("{0}_{1}", GetTypeName(type.DeclaringType), type.Name);
+		}
+
 		public string Print(Type type) {
 			JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
 
@@ -133,11 +141,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 			string name;
 			if (string.IsNullOrEmpty(ns))
-				name = type.Name;
+				name = GetTypeName(type);
 			else
-				name = ns + "." + type.Name;
+				name = ns + "." + GetTypeName(type);
 
-			name = name.Replace("+", "_");
 			if (type.IsGenericType) {
 //				Type[] typeArgs = type.GetGenericArguments();
 //				string[] parts = typeArgs.Select(x => Print(x).Replace(".", "_")).ToArray();
