@@ -59,7 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="DecompilerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Translator\DotWeb.Translator.csproj">
@@ -72,13 +72,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Results\SourceTests_EmitOuterClass.js" />
+    <Content Include="Results\SourceTests_EmitInnerClass.js" />
+    <Content Include="Results\SourceTests_CreateOuterObject.js" />
     <Content Include="Results\SourceTests_DoWhileLoop.js" />
     <Content Include="Results\SourceTests_AnonymousType.js" />
     <Content Include="Results\SourceTests_Switch.js" />
     <Content Include="Results\SourceTests_Callback.js" />
     <Content Include="Results\SourceTests_TakeParameters.js" />
     <Content Include="Results\SourceTests_Linq.js" />
-    <Content Include="Results\SourceTests_CreateObject.js" />
+    <Content Include="Results\SourceTests_CreateInnerObject.js" />
     <Content Include="Results\SourceTests_EnumArray.js" />
     <Content Include="Results\SourceTests_IfIf.js" />
     <Content Include="Results\SourceTests_Cifuentes.js" />

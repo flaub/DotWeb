@@ -97,7 +97,7 @@ namespace DotWeb.Web
 
 			using (StreamWriter writer = new StreamWriter(tgtPath)) {
 				TranslationEngine translator = new TranslationEngine(writer, true);
-				translator.Translate(srcType);
+				translator.TranslateType(srcType);
 			}
 
 			string src = this.ResolveUrl(virtualPath);

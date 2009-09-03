@@ -341,7 +341,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void Visit(CodePropertyMember property) {
 			//string name = EncodeName(property.Name);
-			//if (property.Info.GetAccessors().Any(x=>x.IsStatic)) {
+			//if (property.Info.GetAccessors().Any(x => x.IsStatic)) {
 			//    WriteLine("{0}.prototype.{1} = function() {{",
 			//        Print(property.Info.DeclaringType),
 			//        name
@@ -361,7 +361,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			//WriteLine();
 
 			//WriteLine("{0}: '' // property: {1}",
-			//    EncodeName(property.Name), 
+			//    EncodeName(property.Name),
 			//    Print(property.Info.PropertyType));
 		}
 

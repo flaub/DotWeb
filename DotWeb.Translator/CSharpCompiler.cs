@@ -53,21 +53,21 @@ namespace DotWeb.Translator
 			this.cscp = new CSharpCodeProvider(providerOptions);
 		}
 
-		public Assembly CompileFile(string filename, List<Assembly> references) {
-			return DoCompile(filename, references, true).CompiledAssembly;
+		public Assembly CompileFile(string filename, Assembly startingReference) {
+			return DoCompile(filename, GetReferences(startingReference), true).CompiledAssembly;
 		}
 
-		public Type CompileFile(string filename, List<Assembly> references, string typeName) {
-			return CompileFile(filename, references).GetType(typeName);
+		//public Type CompileFile(string filename, Assembly startingReference, string typeName) {
+		//    return CompileFile(filename, startingReference).GetType(typeName);
+		//}
+
+		public Assembly CompileSource(string source, Assembly startingReference) {
+			return DoCompile(source, GetReferences(startingReference), false).CompiledAssembly;
 		}
 
-		public Assembly CompileSource(string source, List<Assembly> references) {
-			return DoCompile(source, references, false).CompiledAssembly;
-		}
-
-		public Type CompileSource(string source, List<Assembly> references, string typeName) {
-			return CompileSource(source, references).GetType(typeName);
-		}
+		//public Type CompileSource(string source, Assembly startingReference, string typeName) {
+		//    return CompileSource(source, startingReference).GetType(typeName);
+		//}
 
 		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile) {
 			CompilerParameters options = new CompilerParameters {
@@ -94,6 +94,23 @@ namespace DotWeb.Translator
 				throw new CompilerException(results.Errors);
 			}
 			return results;
+		}
+
+		private List<Assembly> GetReferences(Assembly source) {
+			List<Assembly> references = new List<Assembly>();
+			DescendReferences(source, references);
+			return references;
+		}
+
+		private void DescendReferences(Assembly ass, List<Assembly> ret) {
+			if (ret.Contains(ass))
+				return;
+
+			ret.Add(ass);
+			foreach (AssemblyName assName in ass.GetReferencedAssemblies()) {
+				Assembly assRef = Assembly.Load(assName);
+				DescendReferences(assRef, ret);
+			}
 		}
 	}
 }

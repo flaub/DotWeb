@@ -40,60 +40,47 @@ namespace DotWeb.Translator
 			this.generator = new JsCodeGenerator(this.Writer, writeHeader);
 		}
 
-		public List<Assembly> GetReferences(Assembly source) {
-			List<Assembly> references = new List<Assembly>();
-			DescendReferences(source, references);
-			return references;
-		}
-
-		public void DescendReferences(Assembly ass, List<Assembly> ret) {
-			if (ret.Contains(ass))
-				return;
-
-			ret.Add(ass);
-			foreach (AssemblyName assName in ass.GetReferencedAssemblies()) {
-				Assembly assRef = Assembly.Load(assName);
-				DescendReferences(assRef, ret);
-			}
-		}
-
-		public void TranslateFile(string sourceFile, Assembly sourceAssembly) {
+		public void TranslateAssemblyFromFile(string filename, Assembly sourceAssembly) {
 			CSharpCompiler compiler = new CSharpCompiler();
-			Assembly ass = compiler.CompileFile(sourceFile, GetReferences(sourceAssembly));
-			Translate(ass);
+			Assembly ass = compiler.CompileFile(filename, sourceAssembly);
+			TranslateAssembly(ass);
 		}
 
-		public void TranslateSource(string source, Assembly sourceAssembly, string typeName, string methodName) {
-			CSharpCompiler compiler = new CSharpCompiler();
-			Type compiledType = compiler.CompileSource(source, GetReferences(sourceAssembly), typeName);
-			MethodInfo method = compiledType.GetMethod(methodName);
-			TranslationContext context = new TranslationContext(this.generator);
-			//context.AddMethod(method);
-			context.Generate();
-		}
+		//public void TranslateMethodFromSource(string source, Assembly sourceAssembly, string typeName, string methodName) {
+		//    CSharpCompiler compiler = new CSharpCompiler();
+		//    Type compiledType = compiler.CompileSource(source, sourceAssembly, typeName);
+		//    MethodInfo method = compiledType.GetMethod(methodName);
+		//    TranslationContext context = new TranslationContext(this.generator);
+		//    context.GenerateMethod(method);
+		//}
 
-		public void TranslateFile(string sourceFile, Assembly sourceAssembly, string typeName, string methodName) {
-			CSharpCompiler compiler = new CSharpCompiler();
-			Type compiledType = compiler.CompileFile(sourceFile, GetReferences(sourceAssembly), typeName);
-			MethodInfo method = compiledType.GetMethod(methodName);
-			TranslationContext context = new TranslationContext(this.generator);
-			//context.AddMethod(method);
-			context.Generate();
-		}
+		//public void TranslateMethodFromFile(string filename, Assembly sourceAssembly, string typeName, string methodName) {
+		//    CSharpCompiler compiler = new CSharpCompiler();
+		//    Type compiledType = compiler.CompileFile(filename, sourceAssembly, typeName);
+		//    MethodInfo method = compiledType.GetMethod(methodName);
+		//    TranslationContext context = new TranslationContext(this.generator);
+		//    context.GenerateMethod(method);
+		//}
 
-		public void TranslateFile(string sourceFile, Assembly sourceAssembly, string typeName) {
-			CSharpCompiler compiler = new CSharpCompiler();
-			Type compiledType = compiler.CompileFile(sourceFile, GetReferences(sourceAssembly), typeName);
-			Translate(compiledType);
-		}
+		//public void TranslateTypeFromSource(string source, Assembly sourceAssembly, string typeName) {
+		//    CSharpCompiler compiler = new CSharpCompiler();
+		//    Type compiledType = compiler.CompileSource(source, sourceAssembly, typeName);
+		//    TranslateType(compiledType);
+		//}
 
-		public void Translate(Assembly assembly) {
+		//public void TranslateTypeFromFile(string filename, Assembly sourceAssembly, string typeName) {
+		//    CSharpCompiler compiler = new CSharpCompiler();
+		//    Type compiledType = compiler.CompileFile(filename, sourceAssembly, typeName);
+		//    TranslateType(compiledType);
+		//}
+
+		public void TranslateAssembly(Assembly assembly) {
 			TranslationContext context = new TranslationContext(this.generator);
 			context.AddAssembly(assembly);
 			context.Generate();
 		}
 
-		public void Translate(Type type) {
+		public void TranslateType(Type type) {
 			TranslationContext context = new TranslationContext(this.generator);
 			context.AddType(type);
 			context.Generate();

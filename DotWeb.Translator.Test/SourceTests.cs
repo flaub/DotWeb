@@ -22,6 +22,18 @@ using System.Text;
 
 namespace H8
 {
+	class OuterClassTest
+	{
+		public string Text { get; set; }
+		public int Value { get; set; }
+
+		public OuterClassTest() { }
+		public OuterClassTest(string text, int value) {
+			this.Text = text;
+			this.Value = value;
+		}
+	}
+
 	class SourceTests
 	{
 		/// <summary>
@@ -370,50 +382,60 @@ namespace H8
 			//0044: ret Return
 		}
 
-		class Test
+		class InnerClassTest
 		{
 			public string Text { get; set; }
 			public int Value { get; set; }
 
-			public Test() { }
-			public Test(string text, int value) {
+			public InnerClassTest() { }
+			public InnerClassTest(string text, int value) {
 				this.Text = text;
 				this.Value = value;
 			}
 		}
 
-		public void CreateObject() {
+		public void CreateInnerObject() {
 			//0000: ldstr "Test1" Next
 			//0005: ldc.i4.1 Next
-			//0006: newobj instance void H8.SourceTests+Test::.ctor() Call
+			//0006: newobj instance void H8.SourceTests+InnerClassTest::.ctor() Call
 			//0011: stloc.0 Next
-			//0012: newobj instance void H8.SourceTests+Test::.ctor() Call
+			//0012: newobj instance void H8.SourceTests+InnerClassTest::.ctor() Call
 			//0017: stloc.2 Next
 			//0018: ldloc.2 Next
 			//0019: ldstr "Test2" Next
-			//0024: callvirt instance System.Void H8.SourceTests+Test::set_Text() Call
+			//0024: callvirt instance System.Void H8.SourceTests+InnerClassTest::set_Text() Call
 			//0029: ldloc.2 Next
 			//0030: ldc.i4.2 Next
-			//0031: callvirt instance System.Void H8.SourceTests+Test::set_Value() Call
+			//0031: callvirt instance System.Void H8.SourceTests+InnerClassTest::set_Value() Call
 			//0036: ldloc.2 Next
 			//0037: stloc.1 Next
 			//0038: ldstr "{0}, {1}" Next
 			//0043: ldloc.0 Next
-			//0044: callvirt instance System.String H8.SourceTests+Test::get_Text() Call
+			//0044: callvirt instance System.String H8.SourceTests+InnerClassTest::get_Text() Call
 			//0049: ldloc.0 Next
-			//0050: callvirt instance System.Int32 H8.SourceTests+Test::get_Value() Call
+			//0050: callvirt instance System.Int32 H8.SourceTests+InnerClassTest::get_Value() Call
 			//0055: box System.Int32 Next
 			//0060: call System.Void System.Console::WriteLine() Call
 			//0065: ldstr "{0}, {1}" Next
 			//0070: ldloc.1 Next
-			//0071: callvirt instance System.String H8.SourceTests+Test::get_Text() Call
+			//0071: callvirt instance System.String H8.SourceTests+InnerClassTest::get_Text() Call
 			//0076: ldloc.1 Next
-			//0077: callvirt instance System.Int32 H8.SourceTests+Test::get_Value() Call
+			//0077: callvirt instance System.Int32 H8.SourceTests+InnerClassTest::get_Value() Call
 			//0082: box System.Int32 Next
 			//0087: call System.Void System.Console::WriteLine() Call
 			//0092: ret Return
-			Test test1 = new Test("Test1", 1);
-			Test test2 = new Test {
+			InnerClassTest test1 = new InnerClassTest("Test1", 1);
+			InnerClassTest test2 = new InnerClassTest {
+				Text = "Test2",
+				Value = 2
+			};
+			Console.WriteLine("{0}, {1}", test1.Text, test1.Value);
+			Console.WriteLine("{0}, {1}", test2.Text, test2.Value);
+		}
+
+		public void CreateOuterObject() {
+			OuterClassTest test1 = new OuterClassTest("Test1", 1);
+			OuterClassTest test2 = new OuterClassTest {
 				Text = "Test2",
 				Value = 2
 			};

@@ -27,7 +27,7 @@ namespace DotWeb.Translator.CLI
 			string input = args[0];
 			string output = args[1];
 			TranslationEngine translator = new TranslationEngine(new StreamWriter(output), true);
-			translator.TranslateFile(input, Assembly.GetExecutingAssembly());
+			translator.TranslateAssemblyFromFile(input, Assembly.GetExecutingAssembly());
 		}
 	}
 }

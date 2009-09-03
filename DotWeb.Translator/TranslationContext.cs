@@ -67,8 +67,8 @@ namespace DotWeb.Translator
 	{
 		CodeNamespaceCollection namespaces = new CodeNamespaceCollection();
 		CodeTypeDeclarationCollection types = new CodeTypeDeclarationCollection();
-		JsCodeGenerator generator;
 		List<CodeTypeDeclaration> depthFirstTypes = new List<CodeTypeDeclaration>();
+		JsCodeGenerator generator;
 		CodeNamespace nsDefault;
 		CodeTypeDeclaration entryType;
 
@@ -88,41 +88,52 @@ namespace DotWeb.Translator
 				this.generator.Write(type);
 			}
 
+			Debug.Assert(this.entryType != null);
 			this.generator.WriteEntry(this.entryType);
 		}
 
+		public void GenerateMethod(MethodBase method) {
+			var parsedMethod = Parse(method);
+			this.generator.Write(parsedMethod);
+		}
+
+		public void GenerateType(Type type) {
+			var parsedType = Parse(type);
+			this.generator.Write(parsedType);
+		}
+
 		public void AddAssembly(Assembly assembly) {
-			//Dictionary<string, CodeNamespace> namespaces = new Dictionary<string, CodeNamespace>();
-			//CodeNamespace nsDefault = new CodeNamespace {
-			//    Name = ""
-			//};
-			//namespaces.Add(nsDefault.Name, nsDefault);
+			Dictionary<string, CodeNamespace> namespaces = new Dictionary<string, CodeNamespace>();
+			CodeNamespace nsDefault = new CodeNamespace {
+				Name = ""
+			};
+			namespaces.Add(nsDefault.Name, nsDefault);
 
-			//foreach (Type type in assembly.GetTypes()) {
-			//    if (type.IsSubclassOf(typeof(Delegate)))
-			//        continue;
-			//    if (type.FullName.Contains("PrivateImplementation"))
-			//        continue;
-			//    CodeTypeDeclaration def = Parse(type);
+			foreach (Type type in assembly.GetTypes()) {
+				if (type.IsSubclassOf(typeof(Delegate)))
+					continue;
+				if (type.FullName.Contains("PrivateImplementation"))
+					continue;
+				CodeTypeDeclaration def = Parse(type);
 
-			//    if (def.Type.Namespace == null) {
-			//        nsDefault.Types.Add(def);
-			//    }
-			//    else {
-			//        CodeNamespace ns;
-			//        if (!namespaces.TryGetValue(def.Type.Namespace, out ns)) {
-			//            ns = new CodeNamespace {
-			//                Name = def.Type.Namespace
-			//            };
-			//            namespaces.Add(def.Type.Namespace, ns);
-			//        }
-			//        ns.Types.Add(def);
-			//    }
-			//}
+				if (def.Type.Namespace == null) {
+					nsDefault.Types.Add(def);
+				}
+				else {
+					CodeNamespace ns;
+					if (!namespaces.TryGetValue(def.Type.Namespace, out ns)) {
+						ns = new CodeNamespace {
+							Name = def.Type.Namespace
+						};
+						namespaces.Add(def.Type.Namespace, ns);
+					}
+					ns.Types.Add(def);
+				}
+			}
 
-			//foreach (CodeNamespace ns in namespaces.Values) {
-			//    this.generator.Write(ns);
-			//}
+			foreach (CodeNamespace ns in namespaces.Values) {
+				this.generator.Write(ns);
+			}
 		}
 
 		private CodeNamespace GetNamespace(Type type) {
@@ -171,16 +182,16 @@ namespace DotWeb.Translator
 
 			CodeMethodMember cmm = Parse(method);
 			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
-			if (cmm.ExternalMethods.Any(x => 
-				x.DeclaringType == typeof(JsNativeBase) || 
+			if (cmm.ExternalMethods.Any(x =>
+				x.DeclaringType == typeof(JsNativeBase) ||
 				x.DeclaringType == typeof(JsHost))) {
 				if (js != null) {
 					cmm.NativeCode = js.Code;
 				}
 				else {
 					// generate native code from method sig
-					//JsFunction function = new JsFunction(method);
-					//cmm.NativeCode = function.Body;
+					JsFunction function = new JsFunction(method);
+					cmm.NativeCode = function.Body;
 					return;
 				}
 			}
@@ -195,17 +206,17 @@ namespace DotWeb.Translator
 			decl.Methods.Add(cmm);
 		}
 
-		//public void AddMethod(MethodBase method) {
-		//    CodeTypeDeclaration typeDecl;
-		//    if (!this.types.TryGetValue(method.DeclaringType.FullName, out typeDecl)) {
-		//        typeDecl = new CodeTypeDeclaration {
-		//            Type = method.DeclaringType
-		//        };
-		//        this.types.Add(typeDecl.FullName, typeDecl);
-		//    }
+		public void AddMethod(MethodBase method) {
+			CodeTypeDeclaration typeDecl;
+			if (!this.types.TryGetValue(method.DeclaringType.FullName, out typeDecl)) {
+				typeDecl = new CodeTypeDeclaration {
+					Type = method.DeclaringType
+				};
+				this.types.Add(typeDecl.FullName, typeDecl);
+			}
 
-		//    AddMethod(typeDecl, method);
-		//}
+			AddMethod(typeDecl, method);
+		}
 
 		const BindingFlags BindingFlagsForMembers =
 			BindingFlags.DeclaredOnly |

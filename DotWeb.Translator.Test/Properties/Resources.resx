@@ -130,11 +130,20 @@
   <data name="SourceTests_Cifuentes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\results\sourcetests_cifuentes.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SourceTests_CreateObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\results\sourcetests_createobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SourceTests_CreateInnerObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Results\SourceTests_CreateInnerObject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_CreateOuterObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\results\sourcetests_createouterobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SourceTests_DoWhileLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\results\sourcetests_dowhileloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_EmitInnerClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\results\sourcetests_emitinnerclass.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_EmitOuterClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\results\sourcetests_emitouterclass.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SourceTests_EnumArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\results\sourcetests_enumarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
