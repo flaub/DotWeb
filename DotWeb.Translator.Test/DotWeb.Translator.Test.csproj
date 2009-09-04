@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />

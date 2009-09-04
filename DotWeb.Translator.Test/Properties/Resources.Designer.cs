@@ -102,31 +102,55 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsIntrinsic = function() {
-        ///	var loc3 = {};
-        ///	loc3.X = 1;
-        ///	loc3.y = 2;
-        ///	var loc0 = loc3;
-        ///	loc0.X = loc0.y;
-        ///	loc0.y = loc0.X;
-        ///	var loc6 = [];
-        ///	var loc4 = {};
-        ///	loc4.X = 0;
-        ///	loc4.y = 0;
-        ///	loc6[0] = loc4;
-        ///	var loc5 = {};
-        ///	loc5.X = 1;
-        ///	loc5.y = 1;
-        ///	loc6[1] = loc5;
-        ///	var loc1 = loc6;
-        ///	var loc2 = loc1[0];
-        ///	console.log(loc2);
+        ///   Looks up a localized string similar to H8.IntrinsicClass = function() {
+        ///};
+        ///
+        ///H8.IntrinsicClass.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
+        ///	var loc1 = new H8.IntrinsicClass().$ctor();
+        ///	loc1.Value = 1;
+        ///	var loc0 = loc1;
+        ///	System.Console.Write(loc0.Value);
         ///};
         ///.
         /// </summary>
         internal static string DecorationTest_JsIntrinsic {
             get {
                 return ResourceManager.GetString("DecorationTest_JsIntrinsic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DefaultNamespaceTest = function() {
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
+        ///	this._Value_k__BackingField = value;
+        ///};
+        ///
+        ///Foo.FooNamespaceTest = function() {
+        ///};
+        ///
+        ///Foo.FooNamespaceTest.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.get_Value = function() {
+        ///	return this._Value_k__BackingField;
+        ///};
+        ///
+        ///Foo.FooNamespaceTest.prototype.set_Value = function(v [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecorationTest_JsNamespace {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsNamespace", resourceCulture);
             }
         }
         

@@ -62,6 +62,18 @@ namespace H8
 		public int Value { get { return 1; } set { } }
 	}
 
+	[JsNamespace]
+	class DefaultNamespaceTest
+	{
+		public int Value { get; set; }
+	}
+
+	[JsNamespace("Foo")]
+	class FooNamespaceTest
+	{
+		public int Value { get; set; }
+	}
+
 	class DecorationTests
 	{
 		[JsCode("alert(arg);")]
@@ -105,6 +117,18 @@ namespace H8
 			var item = new InvalidIntrinsicClass {
 				Value = 1
 			};
+		}
+
+		public void TestJsNamespace() {
+			var item1 = new DefaultNamespaceTest {
+				Value = 1
+			};
+
+			var item2 = new FooNamespaceTest {
+				Value = item1.Value
+			};
+
+			Console.WriteLine(item2.Value);
 		}
 	}
 }

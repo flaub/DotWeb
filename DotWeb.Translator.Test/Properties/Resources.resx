@@ -199,4 +199,7 @@
   <data name="DecorationTest_JsIntrinsic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\decorationtest\decorationtest_jsintrinsic.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="DecorationTest_JsNamespace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsnamespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

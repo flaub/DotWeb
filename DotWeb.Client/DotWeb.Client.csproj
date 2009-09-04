@@ -65,7 +65,6 @@
     <Compile Include="Dom\Window.cs" />
     <Compile Include="JsCodeAttribute.cs" />
     <Compile Include="JsAccessible.cs" />
-    <Compile Include="JsAliasAttribute.cs" />
     <Compile Include="JsException.cs" />
     <Compile Include="JsHost.cs" />
     <Compile Include="JsIntrinsicAttribute.cs" />

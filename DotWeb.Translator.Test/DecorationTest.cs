@@ -54,6 +54,11 @@ namespace DotWeb.Translator.Test
 		}
 
 		[TestMethod]
+		public void TestJsNamespace() {
+			TestMethod(this.compiledType, "TestJsNamespace", Resources.DecorationTest_JsNamespace, true);
+		}
+
+		[TestMethod]
 		[ExpectedException(typeof(InvalidAnonymousUsageException))]
 		public void InvalidAnonymousClass1() {
 			GenerateMethod(this.compiledType, "InvalidAnonymousClass1", true);
