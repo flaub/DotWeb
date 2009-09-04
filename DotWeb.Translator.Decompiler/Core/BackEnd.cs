@@ -21,9 +21,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection.Emit;
 using System.Reflection;
-using DotWeb.Translator.CodeModel;
+using DotWeb.Decompiler.CodeModel;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
 	class BackEnd
 	{

@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeIndexerExpression : CodeExpression
 	{

@@ -20,11 +20,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotWeb.Translator.Generator.JavaScript;
-using DotWeb.Translator.CodeModel;
 using System.Reflection;
 using DotWeb.Client;
 using System.Diagnostics;
 using DotWeb.Utility;
+using DotWeb.Decompiler.CodeModel;
+using DotWeb.Decompiler;
 
 namespace DotWeb.Translator
 {

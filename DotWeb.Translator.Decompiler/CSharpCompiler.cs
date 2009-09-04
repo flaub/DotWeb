@@ -23,7 +23,7 @@ using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler
 {
 	public class CompilerException : Exception
 	{

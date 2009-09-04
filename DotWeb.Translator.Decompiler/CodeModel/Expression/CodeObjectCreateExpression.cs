@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeObjectCreateExpression : CodeExpression
 	{

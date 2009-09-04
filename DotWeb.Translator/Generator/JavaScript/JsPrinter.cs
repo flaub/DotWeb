@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using DotWeb.Translator.CodeModel;
 using DotWeb.Client;
 using DotWeb.Utility;
 using System.Diagnostics;
+using DotWeb.Decompiler.CodeModel;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {

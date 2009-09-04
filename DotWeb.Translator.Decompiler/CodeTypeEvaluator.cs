@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DotWeb.Translator.CodeModel;
+using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler
 {
 	public class CodeTypeEvaluator : ICodeExpressionVisitor<Type>
 	{

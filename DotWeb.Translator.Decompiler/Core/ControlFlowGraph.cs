@@ -23,9 +23,9 @@ using System.Reflection.Emit;
 using System.Reflection;
 using DotWeb.Utility;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class ControlFlowGraph
+	class ControlFlowGraph
 	{
 		private int intervalIdGenerator = 1;
 		private Dictionary<int, BasicBlock> blocks = new Dictionary<int, BasicBlock>();

@@ -20,19 +20,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	// Summary:
 	//     Represents a simple assignment statement.
 	public class CodeAssignStatement : CodeStatement
 	{
 		// Summary:
-		//     Initializes a new instance of the DotWeb.Translator.CodeModel.CodeAssignStatement class.
+		//     Initializes a new instance of the DotWeb.Decompiler.CodeModel.CodeAssignStatement class.
 		public CodeAssignStatement() { }
 	
 		//
 		// Summary:
-		//     Initializes a new instance of the DotWeb.Translator.CodeModel.CodeAssignStatement class
+		//     Initializes a new instance of the DotWeb.Decompiler.CodeModel.CodeAssignStatement class
 		//     using the specified expressions.
 		//
 		// Parameters:
@@ -51,7 +51,7 @@ namespace DotWeb.Translator.CodeModel
 		//     to.
 		//
 		// Returns:
-		//     A DotWeb.Translator.CodeModel.CodeExpression that indicates the object or reference to
+		//     A DotWeb.Decompiler.CodeModel.CodeExpression that indicates the object or reference to
 		//     assign to.
 		public CodeExpression Left { get; set; }
 
@@ -60,7 +60,7 @@ namespace DotWeb.Translator.CodeModel
 		//     Gets or sets the expression representing the object or reference to assign.
 		//
 		// Returns:
-		//     A DotWeb.Translator.CodeModel.CodeExpression that indicates the object or reference to
+		//     A DotWeb.Decompiler.CodeModel.CodeExpression that indicates the object or reference to
 		//     assign.
 		public CodeExpression Right { get; set; }
 

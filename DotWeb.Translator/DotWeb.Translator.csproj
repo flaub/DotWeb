@@ -64,7 +64,7 @@
   <ItemGroup>
     <Content Include="Generator\JavaScript\Target.js" />
     <Content Include="Generator\JavaScript\Test.html" />
-    <Content Include="Runtime.js" />
+    <Content Include="Generator\JavaScript\Runtime.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">

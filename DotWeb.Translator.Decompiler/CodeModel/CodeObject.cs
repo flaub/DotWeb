@@ -19,8 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotWeb.Decompiler.Core;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	public interface ICodeVisitor<Code, Return> where Code : CodeObject
 	{
@@ -34,8 +35,6 @@ namespace DotWeb.Translator.CodeModel
 
 	public abstract class CodeObject
 	{
-		public ILInstruction Instruction { get; set; }
-
 		public abstract void Accept<Visitor>(Visitor visitor);
 		public abstract Return Accept<Visitor, Return>(Visitor visitor);
 	}

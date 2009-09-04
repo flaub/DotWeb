@@ -24,6 +24,7 @@ using System.IO;
 using DotWeb.Translator.Test.Properties;
 using System.Reflection;
 using DotWeb.Translator.Generator.JavaScript;
+using DotWeb.Decompiler;
 
 namespace DotWeb.Translator.Test
 {

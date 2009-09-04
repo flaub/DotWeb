@@ -22,9 +22,10 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using System.CodeDom.Compiler;
-using DotWeb.Translator.CodeModel;
 using DotWeb.Client;
 using DotWeb.Translator.Properties;
+using DotWeb.Decompiler.CodeModel;
+using DotWeb.Decompiler;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {

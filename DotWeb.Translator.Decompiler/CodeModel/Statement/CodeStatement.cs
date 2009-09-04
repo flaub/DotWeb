@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	public abstract class CodeStatement : CodeObject
 	{
@@ -29,7 +29,7 @@ namespace DotWeb.Translator.CodeModel
 		//     Gets or sets the line on which the code statement occurs.
 		//
 		// Returns:
-		//     A DotWeb.Translator.CodeModel.CodeLinePragma object that indicates the context of the
+		//     A DotWeb.Decompiler.CodeModel.CodeLinePragma object that indicates the context of the
 		//     code statement.
 		public CodeLinePragma LinePragma { get; set; }
 	}

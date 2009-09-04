@@ -22,9 +22,9 @@ using System.Text;
 using System.Reflection.Emit;
 using System.Reflection;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class ILInstruction : Node
+	class ILInstruction : Node
 	{
 		public MethodBase Method { get; set; }
 		public OpCode Code { get; set; }

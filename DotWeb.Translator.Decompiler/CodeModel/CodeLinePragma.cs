@@ -20,19 +20,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotWeb.Translator.CodeModel
+namespace DotWeb.Decompiler.CodeModel
 {
 	// Summary:
 	//     Represents a specific location within a specific file.
 	public class CodeLinePragma
 	{
 		// Summary:
-		//     Initializes a new instance of the DotWeb.Translator.CodeModel.CodeLinePragma class.
+		//     Initializes a new instance of the DotWeb.Decompiler.CodeModel.CodeLinePragma class.
 		public CodeLinePragma() { }
 
 		//
 		// Summary:
-		//     Initializes a new instance of the DotWeb.Translator.CodeModel.CodeLinePragma class.
+		//     Initializes a new instance of the DotWeb.Decompiler.CodeModel.CodeLinePragma class.
 		//
 		// Parameters:
 		//   fileName:

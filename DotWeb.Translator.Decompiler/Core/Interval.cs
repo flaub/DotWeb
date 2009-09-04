@@ -21,9 +21,9 @@ using System.Linq;
 using System.Text;
 using DotWeb.Utility;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class IntervalGraph : List<Interval> 
+	class IntervalGraph : List<Interval> 
 	{
 		public int ID { get; private set; }
 
@@ -38,7 +38,7 @@ namespace DotWeb.Translator
 		}
 	}
 
-	public class Interval : Node
+	class Interval : Node
 	{
 		public int ExternalEdgeCount { get; private set; }
 

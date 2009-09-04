@@ -21,9 +21,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection.Emit;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public enum LoopType
+	enum LoopType
 	{
 		None,
 		While,
@@ -31,7 +31,7 @@ namespace DotWeb.Translator
 		Endless
 	}
 
-	public enum DfsTraversal
+	enum DfsTraversal
 	{
 		None,
 		Display,
@@ -43,7 +43,7 @@ namespace DotWeb.Translator
 		Jump
 	}
 
-	public class Node
+	class Node
 	{
 		public const int NoNode = -1;
 		public const int NoDominator = -1;

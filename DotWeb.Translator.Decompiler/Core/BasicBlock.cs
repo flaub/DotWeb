@@ -22,12 +22,12 @@ using System.Text;
 using System.Collections;
 using System.Reflection.Emit;
 using System.Diagnostics;
-using DotWeb.Translator.CodeModel;
+using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class BasicBlock : Node
+	class BasicBlock : Node
 	{
 		public override string FullName {
 			get {

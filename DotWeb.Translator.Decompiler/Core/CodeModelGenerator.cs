@@ -22,13 +22,13 @@ using System.Text;
 using System.Reflection.Emit;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using DotWeb.Translator.CodeModel;
+using DotWeb.Decompiler.CodeModel;
 using DotWeb.Utility;
 using System.Diagnostics;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class CodeModelVirtualMachine
+	class CodeModelVirtualMachine
 	{
 		public List<MethodBase> ExternalMethods { get; private set; }
 		public Stack<CodeExpression> Stack { get; private set; }
@@ -248,7 +248,6 @@ namespace DotWeb.Translator
 		}
 
 		private void AddStatment(CodeStatement stmt, ILInstruction il) {
-			stmt.Instruction = il;
 			this.Statements.Add(stmt);
 		}
 
@@ -275,7 +274,6 @@ namespace DotWeb.Translator
 			CodeExpression targetObject;
 			if (method.IsStatic) {
 				targetObject = new CodeTypeReference(method.ReflectedType);
-				targetObject.Instruction = il;
 			}
 			else {
 				targetObject = vm.Stack.Pop();
@@ -285,12 +283,10 @@ namespace DotWeb.Translator
 
 		private void CallMethod(ILInstruction il, MethodBase method) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
-			expr.Instruction = il;
 			CollectArgs(method.GetParameters(), expr.Parameters);
 
 			CodeExpression targetObject = GetTargetObject(method, il);
 			expr.Method = new CodeMethodReference(targetObject, method);
-			expr.Method.Instruction = il;
 
 			MethodInfo mi = method as MethodInfo;
 			if (method.IsConstructor || (mi != null && mi.ReturnType == typeof(void))) {
@@ -308,12 +304,10 @@ namespace DotWeb.Translator
 				CodeExpression targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
-				expr.Instruction = il;
 				vm.Stack.Push(expr);
 			}
 			else {
 				CodeIndexerExpression expr = new CodeIndexerExpression();
-				expr.Instruction = il;
 				CollectArgs(args, expr.Indices);
 				expr.TargetObject = GetTargetObject(method, il);
 				vm.Stack.Push(expr);
@@ -327,14 +321,12 @@ namespace DotWeb.Translator
 				CodeExpression targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
-				lhs.Instruction = il;
 	
 				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 				AddStatment(stmt, il);
 			}
 			else {
 				CodeIndexerExpression lhs = new CodeIndexerExpression();
-				lhs.Instruction = il;
 				CollectArgs(args, lhs.Indices);
 				CodeExpression rhs = lhs.Indices[lhs.Indices.Count - 1];
 				lhs.Indices.Remove(rhs);
@@ -367,7 +359,6 @@ namespace DotWeb.Translator
 			CodeExpression value = vm.Stack.Pop();
 			Type targetType = (Type)il.Operand;
 			CodeCastExpression expr = new CodeCastExpression(targetType, value);
-			expr.Instruction = il;
 			vm.Stack.Push(value);
 		}
 
@@ -377,7 +368,6 @@ namespace DotWeb.Translator
 			if (!method.IsStatic) {
 				if (index == 0) {
 					CodeExpression thisExp = new CodeThisReference();
-					thisExp.Instruction = il;
 					vm.Stack.Push(thisExp);
 					return;
 				}
@@ -387,17 +377,14 @@ namespace DotWeb.Translator
 			ParameterInfo[] args = method.GetParameters();
 			ParameterInfo arg = args[index];
 			CodeExpression expr = new CodeArgumentReference(arg);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
 		private void LoadMethod(ILInstruction il) {
 			MethodBase method = il.Operand as MethodBase;
 			CodeTypeReference type = new CodeTypeReference(method.DeclaringType);
-			type.Instruction = il;
 			CodeMethodReference expr = new CodeMethodReference(type, method);
 			this.vm.ExternalMethods.AddUnique(method);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -405,16 +392,13 @@ namespace DotWeb.Translator
 			FieldInfo field = il.Operand as FieldInfo;
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeFieldReference expr = new CodeFieldReference(targetObject, field);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
 		private void LoadStaticField(ILInstruction il) {
 			FieldInfo field = il.Operand as FieldInfo;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
-			typeRef.Instruction = il;
 			CodeFieldReference expr = new CodeFieldReference(typeRef, field);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -427,7 +411,6 @@ namespace DotWeb.Translator
 			CodeVariableReference expr = new CodeVariableReference {
 				Index = index
 			};
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -436,20 +419,17 @@ namespace DotWeb.Translator
 			CodeVariableReference expr = new CodeVariableReference {
 				Index = index
 			};
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
 		private void Load(ILInstruction il) {
 			CodePrimitiveExpression expr = new CodePrimitiveExpression(il.Operand);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
 		private void LoadLength(ILInstruction il) {
 			CodeExpression targetObject = vm.Stack.Pop() as CodeExpression;
 			CodeLengthReference expr = new CodeLengthReference(targetObject);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -457,7 +437,6 @@ namespace DotWeb.Translator
 			CodeExpression index = vm.Stack.Pop();
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeArrayIndexerExpression expr = new CodeArrayIndexerExpression(targetObject, index);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -478,7 +457,6 @@ namespace DotWeb.Translator
 					object value = fi.GetValue(null);
 					int[] array = StructAsInt32Array(value);
 					CodePrimitiveExpression expr = new CodePrimitiveExpression(array);
-					expr.Instruction = il;
 					vm.Stack.Push(expr);
 					return;
 				}
@@ -493,7 +471,6 @@ namespace DotWeb.Translator
 			CodeExpression array = vm.Stack.Pop();
 
 			CodeArrayIndexerExpression lhs = new CodeArrayIndexerExpression(array, index);
-			lhs.Instruction = il;
 			CodeAssignStatement stmt = new CodeAssignStatement(lhs, value);
 			AddStatment(stmt, il);
 		}
@@ -509,7 +486,6 @@ namespace DotWeb.Translator
 			ParameterInfo[] args = method.GetParameters();
 			ParameterInfo arg = args[index];
 			CodeArgumentReference lhs = new CodeArgumentReference(arg);
-			lhs.Instruction = il;
 
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
@@ -521,7 +497,6 @@ namespace DotWeb.Translator
 			CodeVariableReference lhs = new CodeVariableReference {
 				Index = index
 			};
-			lhs.Instruction = il;
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 			AddStatment(stmt, il);
@@ -532,7 +507,6 @@ namespace DotWeb.Translator
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeFieldReference lhs = new CodeFieldReference(targetObject, field);
-			lhs.Instruction = il;
 			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 			AddStatment(stmt, il);
 		}
@@ -540,9 +514,7 @@ namespace DotWeb.Translator
 		private void StoreStaticField(ILInstruction il) {
 			FieldInfo field = il.Operand as FieldInfo;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
-			typeRef.Instruction = il;
 			CodeFieldReference lhs = new CodeFieldReference(typeRef, field);
-			lhs.Instruction = il;
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 			AddStatment(stmt, il);
@@ -552,14 +524,12 @@ namespace DotWeb.Translator
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
 		private void UnaryExpression(ILInstruction il, CodeUnaryOperator op) {
 			CodeExpression operand = vm.Stack.Pop();
 			CodeUnaryExpression expr = new CodeUnaryExpression(operand, op);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -567,7 +537,6 @@ namespace DotWeb.Translator
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -575,18 +544,15 @@ namespace DotWeb.Translator
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(lhs, op, rhs);
-			condition.Instruction = il;
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt, il);
 		}
 
 		private void ConditionalBranch(ILInstruction il, bool test) {
 			CodePrimitiveExpression rhs = new CodePrimitiveExpression(test);
-			rhs.Instruction = il;
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(
 				lhs, CodeBinaryOperator.IdentityEquality, rhs);
-			condition.Instruction = il;
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt, il);
 		}
@@ -603,7 +569,6 @@ namespace DotWeb.Translator
 				SizeExpression = count,
 				Type = type
 			};
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -621,7 +586,6 @@ namespace DotWeb.Translator
 			this.vm.ExternalMethods.AddUnique(ctor);
 
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
-				Instruction = il,
 				Constructor = ctor
 			};
 //			expr.CreateType = new CodeTypeReference(ctor.ReflectedType);
@@ -644,7 +608,6 @@ namespace DotWeb.Translator
 			CodeExpression obj = vm.Stack.Pop();
 			Type type = (Type)il.Operand;
 			CodeExpression expr = new CodeCastExpression(type, obj);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 
@@ -666,7 +629,6 @@ namespace DotWeb.Translator
 			CodeExpression obj = vm.Stack.Pop();
 			Type type = (Type)il.Operand;
 			CodeExpression expr = new CodeInstanceOfExpression(type, obj);
-			expr.Instruction = il;
 			vm.Stack.Push(expr);
 		}
 	}

@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DotWeb.Translator.CodeModel;
 using System.IO;
 using DotWeb.Translator.Generator.JavaScript;
 using System.Reflection;
 using DotWeb.Client;
+using DotWeb.Decompiler;
 
 namespace DotWeb.Translator
 {

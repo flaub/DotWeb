@@ -23,9 +23,9 @@ using System.Reflection.Emit;
 using System.Reflection;
 using System.IO;
 
-namespace DotWeb.Translator
+namespace DotWeb.Decompiler.Core
 {
-	public class MethodBodyReader
+	class MethodBodyReader
 	{
 		private static OpCode[] singleByteOpCodes = new OpCode[0x100];
 		private static OpCode[] multiByteOpCodes = new OpCode[0x100];
