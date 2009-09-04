@@ -5,6 +5,6 @@
 	if (this.SimpleEvent) {
 		this.SimpleEvent.Invoke();
 	}
-	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, this.SourceTests_SimpleEvent);
+	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
 };
 
