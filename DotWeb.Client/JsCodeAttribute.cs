@@ -22,7 +22,7 @@ using System.Text;
 
 namespace DotWeb.Client
 {
-	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Field | AttributeTargets.Property)]
+	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Property)]
 	public class JsCodeAttribute : Attribute
 	{
 		public string Code { get; private set; }

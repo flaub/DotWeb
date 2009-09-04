@@ -29,67 +29,65 @@ using DotWeb.Decompiler;
 namespace DotWeb.Translator.Test
 {
 	[TestClass]
-	public class TranslationTest
+	public class TranslationTest : TranslationTestHelper
 	{
-		public TranslationTest() {
-			CSharpCompiler compiler = new CSharpCompiler();
-			this.compiledAssembly = compiler.CompileSource(Resources.SourceTests, Assembly.GetExecutingAssembly());
+		public TranslationTest() : base(Resources.TranslationTest_Source) {
 			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.SourceTests");
 		}
 
 		[TestMethod]
 		public void HelloWorld() {
-			this.TestMethod("HelloWorld", Resources.SourceTests_HelloWorld);
+			this.TestMethod(this.sourceTestsCompiledType, "HelloWorld", Resources.SourceTests_HelloWorld);
 		}
 
 		[TestMethod]
 		public void WhileLoop() {
-			this.TestMethod("WhileLoop", Resources.SourceTests_WhileLoop);
+			this.TestMethod(this.sourceTestsCompiledType, "WhileLoop", Resources.SourceTests_WhileLoop);
 		}
 
 		[TestMethod]
 		public void ForLoop() {
-			this.TestMethod("ForLoop", Resources.SourceTests_ForLoop);
+			this.TestMethod(this.sourceTestsCompiledType, "ForLoop", Resources.SourceTests_ForLoop);
 		}
 
 		[TestMethod]
 		public void DoWhileLoop() {
-			this.TestMethod("DoWhileLoop", Resources.SourceTests_DoWhileLoop);
+			this.TestMethod(this.sourceTestsCompiledType, "DoWhileLoop", Resources.SourceTests_DoWhileLoop);
 		}
 
 		[TestMethod]
 		public void WhileBreakLoop() {
-			this.TestMethod("WhileBreakLoop", Resources.SourceTests_WhileBreakLoop);
+			this.TestMethod(this.sourceTestsCompiledType, "WhileBreakLoop", Resources.SourceTests_WhileBreakLoop);
 		}
 
 		[TestMethod]
 		public void WhileCondBreakLoop() {
-			this.TestMethod("WhileCondBreakLoop", Resources.SourceTests_WhileCondBreakLoop);
+			this.TestMethod(this.sourceTestsCompiledType, "WhileCondBreakLoop", Resources.SourceTests_WhileCondBreakLoop);
 		}
 
 		[TestMethod]
 		public void If() {
-			this.TestMethod("If", Resources.SourceTests_If);
+			this.TestMethod(this.sourceTestsCompiledType, "If", Resources.SourceTests_If);
 		}
 
 		[TestMethod]
 		public void IfElse() {
-			this.TestMethod("IfElse", Resources.SourceTests_IfElse);
+			this.TestMethod(this.sourceTestsCompiledType, "IfElse", Resources.SourceTests_IfElse);
 		}
 
 		[TestMethod]
 		public void IfIf() {
-			this.TestMethod("IfIf", Resources.SourceTests_IfIf);
+			this.TestMethod(this.sourceTestsCompiledType, "IfIf", Resources.SourceTests_IfIf);
 		}
 
 		[TestMethod]
 		public void Cifuentes() {
-			this.TestMethod("Cifuentes", Resources.SourceTests_Cifuentes);
+			this.TestMethod(this.sourceTestsCompiledType, "Cifuentes", Resources.SourceTests_Cifuentes);
 		}
 
 		[TestMethod]
 		public void EnumArray() {
-			this.TestMethod("EnumArray", Resources.SourceTests_EnumArray);
+			this.TestMethod(this.sourceTestsCompiledType, "EnumArray", Resources.SourceTests_EnumArray);
 		}
 
 		[TestMethod]
@@ -104,67 +102,44 @@ namespace DotWeb.Translator.Test
 
 		[TestMethod]
 		public void CreateInnerObject() {
-			this.TestMethod("CreateInnerObject", Resources.SourceTests_CreateInnerObject);
+			this.TestMethod(this.sourceTestsCompiledType, "CreateInnerObject", Resources.SourceTests_CreateInnerObject);
 		}
 
 		[TestMethod]
 		public void CreateOuterObject() {
-			this.TestMethod("CreateOuterObject", Resources.SourceTests_CreateOuterObject);
+			this.TestMethod(this.sourceTestsCompiledType, "CreateOuterObject", Resources.SourceTests_CreateOuterObject);
 		}
 
 		[TestMethod]
 		public void TakeParameters() {
-			this.TestMethod("TakeParameters", Resources.SourceTests_TakeParameters);
+			this.TestMethod(this.sourceTestsCompiledType, "TakeParameters", Resources.SourceTests_TakeParameters);
 		}
 
 		[TestMethod]
 		public void Switch() {
-			this.TestMethod("Switch", Resources.SourceTests_Switch);
+			this.TestMethod(this.sourceTestsCompiledType, "Switch", Resources.SourceTests_Switch);
 		}
 
 		[TestMethod]
 		public void AnonymousType() {
-			this.TestMethod("AnonymousType", Resources.SourceTests_AnonymousType, true);
+			this.TestMethod(this.sourceTestsCompiledType, "AnonymousType", Resources.SourceTests_AnonymousType, true);
 		}
 
 		[TestMethod]
 		public void Linq() {
-			this.TestMethod("Linq", Resources.SourceTests_Linq, true);
+			this.TestMethod(this.sourceTestsCompiledType, "Linq", Resources.SourceTests_Linq, true);
 		}
 
 		[TestMethod]
 		public void Callback() {
-			this.TestMethod("Callback", Resources.SourceTests_Callback, true);
+			this.TestMethod(this.sourceTestsCompiledType, "Callback", Resources.SourceTests_Callback, true);
 		}
 
 		[TestMethod]
 		public void CallTakeParameters() {
-			this.TestMethod("CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
+			this.TestMethod(this.sourceTestsCompiledType, "CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
 		}
 
-		private void TestMethod(string methodName, string expected) {
-			this.TestMethod(methodName, expected, false);
-		}
-
-		private void TestMethod(string methodName, string expected, bool followDependencies) {
-			MethodInfo method = sourceTestsCompiledType.GetMethod(methodName);
-			TextWriter writer = new StringWriter();
-			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
-			TranslationContext context = new TranslationContext(generator);
-			context.GenerateMethod(method, followDependencies);
-			Assert.AreEqual(expected.Trim(), writer.ToString().Trim());
-		}
-
-		private void TestType(string typeName, string expected) {
-			Type compiledType = this.compiledAssembly.GetType(typeName);
-			TextWriter writer = new StringWriter();
-			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
-			TranslationContext context = new TranslationContext(generator);
-			context.GenerateType(compiledType);
-			Assert.AreEqual(expected.Trim(), writer.ToString().Trim());
-		}
-
-		private Assembly compiledAssembly;
 		private Type sourceTestsCompiledType;
 	}
 }

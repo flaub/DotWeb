@@ -19,33 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
+using DotWeb.Client;
 
-namespace DotWeb.Decompiler.CodeModel
+namespace H8
 {
-	public class CodePropertySetterMember : CodeMethodMember
+	class DecorationTests
 	{
-		public CodePropertySetterMember() {
+		[JsCode("alert('JsCode');")]
+		public void JsCode() {
 		}
-
-		public CodePropertySetterMember(CodeMethodMember method) {
-			this.Info = method.Info;
-			this.Statements = method.Statements;
-			this.Parameters = method.Parameters;
-			this.ExternalMethods = method.ExternalMethods;
-			this.NativeCode = method.NativeCode;
-		}
-
-		#region Visitor Pattern
-		public override void Accept<V>(V visitor) {
-			((ICodeVisitor<CodePropertySetterMember>)visitor).Visit(this);
-		}
-
-		public override R Accept<V, R>(V visitor) {
-			return ((ICodeVisitor<CodePropertySetterMember, R>)visitor).VisitReturn(this);
-		}
-		#endregion
-
-		public PropertyInfo PropertyInfo { get; set; }
 	}
 }

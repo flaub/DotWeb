@@ -183,14 +183,10 @@ namespace DotWeb.Translator
 			//}
 
 			CodeMethodMember cmm = Parse(method);
-			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
 			if (cmm.ExternalMethods.Any(x =>
 				x.DeclaringType == typeof(JsNativeBase) ||
 				x.DeclaringType == typeof(JsHost))) {
-				if (js != null) {
-					cmm.NativeCode = js.Code;
-				}
-				else {
+				if (cmm.NativeCode == null) {
 					// generate native code from method sig
 					JsFunction function = new JsFunction(method);
 					cmm.NativeCode = function.Body;
@@ -263,6 +259,13 @@ namespace DotWeb.Translator
 		}
 
 		public CodeMethodMember Parse(MethodBase method) {
+			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
+			if (js != null) {
+				var ret = new CodeMethodMember(method) {
+					NativeCode = js.Code
+				};
+				return ret;
+			}
 			return MethodDecompiler.Parse(method);
 		}
 	}

@@ -31,6 +31,15 @@ namespace DotWeb.Decompiler.CodeModel
 			this.ExternalMethods = new List<MethodBase>();
 		}
 
+		public CodeMethodMember(MethodBase method)
+			: this() {
+			Info = method;
+			foreach (ParameterInfo item in method.GetParameters()) {
+				CodeParameterDeclarationExpression arg = new CodeParameterDeclarationExpression(item);
+				Parameters.Add(arg);
+			}
+		}
+
 		#region Visitor Pattern
 		public override void Accept<V>(V visitor) {
 			((ICodeVisitor<CodeMethodMember>)visitor).Visit(this);
@@ -41,12 +50,11 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public MethodBase Info { get; set; }
+		public MethodBase Info { get; protected set; }
 		public string Name { get { return Info.Name; } }
 		public List<CodeStatement> Statements { get; set; }
 		public List<CodeParameterDeclarationExpression> Parameters { get; set; }
 		public List<MethodBase> ExternalMethods { get; set; }
-		public bool IsGlobal { get; set; }
 		public string NativeCode { get; set; }
 	}
 }

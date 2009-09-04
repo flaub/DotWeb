@@ -61,6 +61,18 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.JsCode = function() {
+        ///	alert(&apos;JsCode&apos;);
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsCode {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
         /////
         ///// This file is part of DotWeb.
@@ -74,9 +86,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SourceTests {
+        internal static string DecorationTest_Source {
             get {
-                return ResourceManager.GetString("SourceTests", resourceCulture);
+                return ResourceManager.GetString("DecorationTest_Source", resourceCulture);
             }
         }
         
@@ -558,6 +570,26 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string SourceTests_WhileLoop {
             get {
                 return ResourceManager.GetString("SourceTests_WhileLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
+        /////
+        ///// This file is part of DotWeb.
+        /////
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        /////
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TranslationTest_Source {
+            get {
+                return ResourceManager.GetString("TranslationTest_Source", resourceCulture);
             }
         }
     }

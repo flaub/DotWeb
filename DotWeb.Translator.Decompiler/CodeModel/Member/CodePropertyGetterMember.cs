@@ -33,7 +33,6 @@ namespace DotWeb.Decompiler.CodeModel
 			this.Statements = method.Statements;
 			this.Parameters = method.Parameters;
 			this.ExternalMethods = method.ExternalMethods;
-			this.IsGlobal = method.IsGlobal;
 			this.NativeCode = method.NativeCode;
 		}
 

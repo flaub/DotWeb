@@ -277,20 +277,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.currentMethod = method;
 			this.locals.Clear();
 
-			if (!method.Statements.Any()) {
-				return;
-			}
-
-			var first = method.Statements.First() as CodeReturnStatement;
-			if (first != null && first.Expression == null) {
-				return;
-			}
-
-			if (method.IsGlobal) {
-				Write(method.Statements);
-				return;
-			}
-
 			string[] args = method.Parameters.Select(x => Print(x)).ToArray();
 			string name = method.Name;
 			if (method.Info.IsConstructor) {

@@ -46,22 +46,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecorationTest_Source.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DecorationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SourceTests.cs">
+    <Compile Include="TranslationTest_Source.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TranslationTest.cs" />
+    <Compile Include="TranslationTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
+      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
+      <Name>DotWeb.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj">
       <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
       <Name>DotWeb.Decompiler</Name>
@@ -76,28 +85,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Results\SourceTests_CallTakeParameters.js" />
-    <Content Include="Results\SourceTests_EmitOuterClass.js" />
-    <Content Include="Results\SourceTests_EmitInnerClass.js" />
-    <Content Include="Results\SourceTests_CreateOuterObject.js" />
-    <Content Include="Results\SourceTests_DoWhileLoop.js" />
-    <Content Include="Results\SourceTests_AnonymousType.js" />
-    <Content Include="Results\SourceTests_Switch.js" />
-    <Content Include="Results\SourceTests_Callback.js" />
-    <Content Include="Results\SourceTests_TakeParameters.js" />
-    <Content Include="Results\SourceTests_Linq.js" />
-    <Content Include="Results\SourceTests_CreateInnerObject.js" />
-    <Content Include="Results\SourceTests_EnumArray.js" />
-    <Content Include="Results\SourceTests_IfIf.js" />
-    <Content Include="Results\SourceTests_Cifuentes.js" />
-    <Content Include="Results\SourceTests_IfElse.js" />
-    <Content Include="Results\SourceTests_IfElseIf.js" />
-    <Content Include="Results\SourceTests_If.js" />
-    <Content Include="Results\SourceTests_WhileCondBreakLoop.js" />
-    <Content Include="Results\SourceTests_WhileBreakLoop.js" />
-    <Content Include="Results\SourceTests_ForLoop.js" />
-    <Content Include="Results\SourceTests_WhileLoop.js" />
-    <Content Include="Results\SourceTests_HelloWorld.js" />
+    <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
+    <Content Include="Expected\SourceTest\SourceTests_CallTakeParameters.js" />
+    <Content Include="Expected\SourceTest\SourceTests_EmitOuterClass.js" />
+    <Content Include="Expected\SourceTest\SourceTests_EmitInnerClass.js" />
+    <Content Include="Expected\SourceTest\SourceTests_CreateOuterObject.js" />
+    <Content Include="Expected\SourceTest\SourceTests_DoWhileLoop.js" />
+    <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />
+    <Content Include="Expected\SourceTest\SourceTests_Switch.js" />
+    <Content Include="Expected\SourceTest\SourceTests_Callback.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TakeParameters.js" />
+    <Content Include="Expected\SourceTest\SourceTests_Linq.js" />
+    <Content Include="Expected\SourceTest\SourceTests_CreateInnerObject.js" />
+    <Content Include="Expected\SourceTest\SourceTests_EnumArray.js" />
+    <Content Include="Expected\SourceTest\SourceTests_IfIf.js" />
+    <Content Include="Expected\SourceTest\SourceTests_Cifuentes.js" />
+    <Content Include="Expected\SourceTest\SourceTests_IfElse.js" />
+    <Content Include="Expected\SourceTest\SourceTests_IfElseIf.js" />
+    <Content Include="Expected\SourceTest\SourceTests_If.js" />
+    <Content Include="Expected\SourceTest\SourceTests_WhileCondBreakLoop.js" />
+    <Content Include="Expected\SourceTest\SourceTests_WhileBreakLoop.js" />
+    <Content Include="Expected\SourceTest\SourceTests_ForLoop.js" />
+    <Content Include="Expected\SourceTest\SourceTests_WhileLoop.js" />
+    <Content Include="Expected\SourceTest\SourceTests_HelloWorld.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

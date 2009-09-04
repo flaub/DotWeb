@@ -16,36 +16,32 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DotWeb.Decompiler;
 using System.Reflection;
+using DotWeb.Translator.Test.Properties;
 
-namespace DotWeb.Decompiler.CodeModel
+namespace DotWeb.Translator.Test
 {
-	public class CodePropertySetterMember : CodeMethodMember
+	/// <summary>
+	/// Summary description for DecorationTest
+	/// </summary>
+	[TestClass]
+	public class DecorationTest : TranslationTestHelper
 	{
-		public CodePropertySetterMember() {
+		public DecorationTest()
+			: base(Resources.DecorationTest_Source) {
+			this.compiledType = this.compiledAssembly.GetType("H8.DecorationTests");
 		}
 
-		public CodePropertySetterMember(CodeMethodMember method) {
-			this.Info = method.Info;
-			this.Statements = method.Statements;
-			this.Parameters = method.Parameters;
-			this.ExternalMethods = method.ExternalMethods;
-			this.NativeCode = method.NativeCode;
+		[TestMethod]
+		public void TestJsCode() {
+			TestMethod(this.compiledType, "JsCode", Resources.DecorationTest_JsCode);
 		}
 
-		#region Visitor Pattern
-		public override void Accept<V>(V visitor) {
-			((ICodeVisitor<CodePropertySetterMember>)visitor).Visit(this);
-		}
-
-		public override R Accept<V, R>(V visitor) {
-			return ((ICodeVisitor<CodePropertySetterMember, R>)visitor).VisitReturn(this);
-		}
-		#endregion
-
-		public PropertyInfo PropertyInfo { get; set; }
+		private Type compiledType;
 	}
 }

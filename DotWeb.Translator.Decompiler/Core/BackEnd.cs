@@ -33,15 +33,9 @@ namespace DotWeb.Decompiler.Core
 		public BackEnd(ControlFlowGraph cfg) {
 			this.Cfg = cfg;
 
-			this.Method = new CodeMethodMember {
-				Info = cfg.Method,
+			this.Method = new CodeMethodMember(cfg.Method) {
 				ExternalMethods = cfg.ExternalMethods
 			};
-
-			foreach (ParameterInfo item in cfg.Method.GetParameters()) {
-				CodeParameterDeclarationExpression arg = new CodeParameterDeclarationExpression(item);
-				this.Method.Parameters.Add(arg);
-			}
 
 			//foreach (LocalVariableInfo local in cfg.Method.GetMethodBody().LocalVariables) {
 			//    this.Method.Statements.Add(new CodeVariableDeclarationStatement(
