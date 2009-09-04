@@ -75,34 +75,24 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateMethod(MethodBase method, List<Type> typesWritten, List<MethodBase> methodsWritten) {
+		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache) {
 			if (method.GetMethodBody() != null) {
 				var parsedMethod = Parse(method);
 				foreach (var external in parsedMethod.ExternalMethods) {
-					Type externalType = external.DeclaringType;
-					if (externalType == typeof(object))
-						continue;
-
-					if(externalType.IsAnonymous()) {
-						ValidateJsAnonymousType(externalType);
-						continue;
-					}
-
-					// FIXME: need a better way to filter out mscorlib, et. al.
-					if (externalType.Namespace != null && externalType.Namespace.StartsWith("System"))
-						continue;
-
-					if (!typesWritten.Contains(externalType)) {
-						this.generator.WriteTypeConstructor(externalType);
-						typesWritten.Add(externalType);
-					}
-					if (!methodsWritten.Contains(external)) {
-						GenerateMethod(external, typesWritten, methodsWritten);
+					var externalType = external.DeclaringType;
+					if (IsEmittable(externalType)) {
+						if (!typesCache.Contains(externalType)) {
+							this.generator.WriteTypeConstructor(externalType);
+							typesCache.Add(externalType);
+						}
+						if (!methodsCache.Contains(external)) {
+							GenerateMethod(external, typesCache, methodsCache);
+						}
 					}
 				}
 				this.generator.Write(parsedMethod);
 			}
-			methodsWritten.Add(method);
+			methodsCache.Add(method);
 		}
 
 		public void GenerateType(Type type) {
@@ -280,7 +270,7 @@ namespace DotWeb.Translator
 			// 1. Properties may only be auto-implemented
 			// 2. Methods are not allowed
 
-			foreach (var method in type.GetMethods()) {
+			foreach (var method in type.GetMethods(BindingFlagsForMembers)) {
 				var ap = method.GetAssociatedProperty();
 				if (ap == null) {
 					throw new InvalidAnonymousUsageException(type);
@@ -300,6 +290,22 @@ namespace DotWeb.Translator
 					}
 				}
 			}
+		}
+
+		private bool IsEmittable(Type type) {
+			if (type == typeof(object))
+				return false;
+
+			if (type.IsAnonymous()) {
+				ValidateJsAnonymousType(type);
+				return false;
+			}
+
+			// FIXME: need a better way to filter out mscorlib, et. al.
+			if (type.Namespace != null && type.Namespace.StartsWith("System"))
+				return false;
+
+			return true;
 		}
 	}
 }

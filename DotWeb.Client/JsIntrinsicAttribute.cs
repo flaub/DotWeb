@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace DotWeb.Client
 {
@@ -26,4 +27,14 @@ namespace DotWeb.Client
 	public class JsIntrinsicAttribute : Attribute
 	{
 	}
+
+	public class InvalidIntrinsicUsageException : Exception
+	{
+		public InvalidIntrinsicUsageException(PropertyInfo property) {
+			this.AppliedProperty = property;
+		}
+
+		public PropertyInfo AppliedProperty { get; set; }
+	}
+
 }

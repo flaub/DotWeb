@@ -66,7 +66,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(Exception))]
+		[ExpectedException(typeof(InvalidIntrinsicUsageException))]
 		public void InvalidIntrinsicClass() {
 			GenerateMethod(this.compiledType, "InvalidIntrinsicClass", true);
 		}

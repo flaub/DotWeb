@@ -308,8 +308,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertyGetterMember method) {
-			if (method.PropertyInfo.IsIntrinsic())
+			if (method.PropertyInfo.IsIntrinsic()) {
+				if (!method.IsAutoImplemented())
+					throw new InvalidIntrinsicUsageException(method.PropertyInfo);
 				return;
+			}
 			// This is to look and optimize for properties that have automatic implementations
 			//if (method.IsAutoImplemented())
 			//	return;
@@ -318,8 +321,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertySetterMember method) {
-			if (method.PropertyInfo.IsIntrinsic())
+			if (method.PropertyInfo.IsIntrinsic()) {
+				if (!method.IsAutoImplemented())
+					throw new InvalidIntrinsicUsageException(method.PropertyInfo);
 				return;
+			}
 			// This is to look and optimize for properties that have automatic implementations
 			//if (method.IsAutoImplemented())
 			//	return;

@@ -38,8 +38,8 @@ namespace DotWeb.Translator
 
 		public static bool IsFieldLike(this CodePropertyReference cpr) {
 			return
-				cpr.Property.DeclaringType.IsDefined(typeof(JsAnonymousAttribute), false) ||
-				cpr.Property.IsDefined(typeof(JsIntrinsicAttribute), false);
+				cpr.Property.IsIntrinsic() ||
+				cpr.Property.DeclaringType.IsAnonymous();
 		}
 
 		public static bool IsAutoImplemented(this CodePropertyGetterMember cpm) {

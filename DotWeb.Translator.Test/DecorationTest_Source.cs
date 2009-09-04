@@ -59,7 +59,7 @@ namespace H8
 	class InvalidIntrinsicClass
 	{
 		[JsIntrinsic]
-		public int Value { get { return 1; } }
+		public int Value { get { return 1; } set { } }
 	}
 
 	class DecorationTests
@@ -102,7 +102,9 @@ namespace H8
 		}
 
 		public void InvalidIntrinsicClass() {
-			var item = new InvalidIntrinsicClass();
+			var item = new InvalidIntrinsicClass {
+				Value = 1
+			};
 		}
 	}
 }
