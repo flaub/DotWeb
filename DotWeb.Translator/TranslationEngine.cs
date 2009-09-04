@@ -46,34 +46,6 @@ namespace DotWeb.Translator
 			TranslateAssembly(ass);
 		}
 
-		//public void TranslateMethodFromSource(string source, Assembly sourceAssembly, string typeName, string methodName) {
-		//    CSharpCompiler compiler = new CSharpCompiler();
-		//    Type compiledType = compiler.CompileSource(source, sourceAssembly, typeName);
-		//    MethodInfo method = compiledType.GetMethod(methodName);
-		//    TranslationContext context = new TranslationContext(this.generator);
-		//    context.GenerateMethod(method);
-		//}
-
-		//public void TranslateMethodFromFile(string filename, Assembly sourceAssembly, string typeName, string methodName) {
-		//    CSharpCompiler compiler = new CSharpCompiler();
-		//    Type compiledType = compiler.CompileFile(filename, sourceAssembly, typeName);
-		//    MethodInfo method = compiledType.GetMethod(methodName);
-		//    TranslationContext context = new TranslationContext(this.generator);
-		//    context.GenerateMethod(method);
-		//}
-
-		//public void TranslateTypeFromSource(string source, Assembly sourceAssembly, string typeName) {
-		//    CSharpCompiler compiler = new CSharpCompiler();
-		//    Type compiledType = compiler.CompileSource(source, sourceAssembly, typeName);
-		//    TranslateType(compiledType);
-		//}
-
-		//public void TranslateTypeFromFile(string filename, Assembly sourceAssembly, string typeName) {
-		//    CSharpCompiler compiler = new CSharpCompiler();
-		//    Type compiledType = compiler.CompileFile(filename, sourceAssembly, typeName);
-		//    TranslateType(compiledType);
-		//}
-
 		public void TranslateAssembly(Assembly assembly) {
 			TranslationContext context = new TranslationContext(this.generator);
 			context.AddAssembly(assembly);

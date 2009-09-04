@@ -47,83 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeModel\Expression\CodeInstanceOfExpression.cs" />
-    <Compile Include="CodeModel\Member\CodeNamespace.cs" />
-    <Compile Include="CodeModel\Member\CodePropertyGetterMember.cs" />
-    <Compile Include="CodeModel\Member\CodePropertySetterMember.cs" />
-    <Compile Include="Core\BackEnd.cs" />
-    <Compile Include="Core\BasicBlock.cs" />
-    <Compile Include="Core\CodeTypeEvaluator.cs" />
-    <Compile Include="CodeModel\Expression\CodeArrayCreateExpression.cs" />
-    <Compile Include="CodeModel\Expression\CodeArrayIndexerExpression.cs" />
-    <Compile Include="CodeModel\Expression\CodeObjectCreateExpression.cs" />
-    <Compile Include="CodeModel\Expression\ICodeExpressionVisitor.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeArgumentReference.cs" />
-    <Compile Include="CodeModel\Expression\CodeCastExpression.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeFieldReference.cs" />
-    <Compile Include="CodeModel\Expression\CodeIndexerExpression.cs" />
-    <Compile Include="CodeModel\Expression\CodeInvokeExpression.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeMethodReference.cs" />
-    <Compile Include="CodeModel\Expression\CodeParameterDeclarationExpression.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodePropertyReference.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeLengthReference.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeThisReference.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeTypeReference.cs" />
-    <Compile Include="CodeModel\Expression\Reference\CodeVariableReference.cs" />
-    <Compile Include="CodeModel\Member\CodeFieldMember.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\CodeLinePragma.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Member\CodeMethodMember.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\CodeObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Member\CodeTypeDeclaration.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Expression\CodeBinaryExpression.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Expression\CodeExpression.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Expression\CodePrimitiveExpression.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Expression\CodeUnaryExpression.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Member\CodeTypeMember.cs" />
-    <Compile Include="CodeModel\Member\CodeEventMember.cs" />
-    <Compile Include="CodeModel\Member\CodePropertyMember.cs" />
-    <Compile Include="CodeModel\Member\ICodeMemberVisitor.cs" />
-    <Compile Include="CodeModel\Statement\CodeAssignStatement.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Statement\CodeCommentStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeExpressionStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeGotoStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeIfStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeLoopStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeRepeatStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeReturnStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeStatement.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CodeModel\Statement\CodeSwitchStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeThrowStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeVariableDeclarationStatement.cs" />
-    <Compile Include="CodeModel\Statement\CodeWhileStatement.cs" />
-    <Compile Include="CodeModel\Statement\ICodeStatementVisitor.cs" />
-    <Compile Include="Core\CodeSequence.cs" />
-    <Compile Include="Core\ControlFlowAnalyzer.cs" />
-    <Compile Include="Core\ControlFlowGraph.cs" />
-    <Compile Include="CSharpCompiler.cs" />
-    <Compile Include="Core\CodeModelGenerator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,11 +55,7 @@
     <Compile Include="TranslationContext.cs" />
     <Compile Include="TranslationEngine.cs" />
     <Compile Include="Generator\JavaScript\JsPrinter.cs" />
-    <Compile Include="Core\Interval.cs" />
-    <Compile Include="Core\ILInstruction.cs" />
     <Compile Include="Generator\JavaScript\JsCodeGenerator.cs" />
-    <Compile Include="Core\MethodBodyReader.cs" />
-    <Compile Include="Core\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +70,10 @@
     <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Translator.Decompiler.csproj">
+      <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
+      <Name>DotWeb.Translator.Decompiler</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Utility\DotWeb.Utility.csproj">
       <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>

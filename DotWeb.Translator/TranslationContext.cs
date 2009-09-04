@@ -31,38 +31,6 @@ namespace DotWeb.Translator
 	class CodeNamespaceCollection : Dictionary<string, CodeNamespace> { }
 	class CodeTypeDeclarationCollection : Dictionary<string, CodeTypeDeclaration> { }
 
-	public class AssociatedProperty
-	{
-		public PropertyInfo Info { get; set; }
-		public bool IsGetter { get; set; }
-	}
-
-	public static class MethodBaseExtensions
-	{
-		public static AssociatedProperty GetAssociatedProperty(this MethodBase method) {
-			if (method.IsSpecialName) {
-				if (method.Name.StartsWith("get_")) {
-					string propName = method.Name.Substring("get_".Length);
-					PropertyInfo pi = method.DeclaringType.GetProperty(propName);
-					return new AssociatedProperty {
-						Info = pi,
-						IsGetter = true
-					};
-				}
-				else if (method.Name.StartsWith("set_")) {
-					string propName = method.Name.Substring("set_".Length);
-					PropertyInfo pi = method.DeclaringType.GetProperty(propName);
-					return new AssociatedProperty {
-						Info = pi,
-						IsGetter = false
-					};
-				}
-			}
-
-			return null;
-		}
-	}
-
 	public class TranslationContext
 	{
 		CodeNamespaceCollection namespaces = new CodeNamespaceCollection();
@@ -294,34 +262,7 @@ namespace DotWeb.Translator
 		}
 
 		public CodeMethodMember Parse(MethodBase method) {
-			Console.WriteLine(method);
-
-			ControlFlowGraph cfg = new ControlFlowGraph(method);
-			Console.WriteLine(cfg);
-
-			ControlFlowAnalyzer cfa = new ControlFlowAnalyzer(cfg);
-			cfa.Structure();
-
-			BackEnd be = new BackEnd(cfg);
-			be.WriteCode();
-
-			AssociatedProperty ap = method.GetAssociatedProperty();
-			if (ap != null) {
-				if (ap.IsGetter) {
-					return new CodePropertyGetterMember(be.Method) {
-						PropertyInfo = ap.Info
-					};
-				}
-				else {
-					return new CodePropertySetterMember(be.Method) {
-						PropertyInfo = ap.Info
-					};
-				}
-			}
-			else {
-				return be.Method;
-			}
+			return MethodDecompiler.Parse(method);
 		}
-
 	}
 }

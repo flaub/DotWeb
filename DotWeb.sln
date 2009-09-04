@@ -40,6 +40,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotWeb.Agent.Firefox", "plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Agent.Ie", "DotWeb.Hosting.Agent\DotWeb.Agent.Ie.csproj", "{D1243C40-69A0-4017-9ECA-194DE539DF83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.Decompiler", "DotWeb.Translator.Decompiler\DotWeb.Translator.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,6 +212,16 @@ Global
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Release|Win32.ActiveCfg = Release|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
