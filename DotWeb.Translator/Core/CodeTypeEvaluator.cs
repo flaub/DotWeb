@@ -41,7 +41,8 @@ namespace DotWeb.Translator
 		}
 
 		public Type VisitReturn(CodeArrayIndexerExpression obj) {
-			return Evaluate(obj.TargetObject);
+			Type arrayType = Evaluate(obj.TargetObject);
+			return arrayType.GetElementType();
 		}
 
 		public Type VisitReturn(CodeBinaryExpression obj) {

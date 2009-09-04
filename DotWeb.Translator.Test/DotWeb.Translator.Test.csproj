@@ -72,6 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Results\SourceTests_CallTakeParameters.js" />
     <Content Include="Results\SourceTests_EmitOuterClass.js" />
     <Content Include="Results\SourceTests_EmitInnerClass.js" />
     <Content Include="Results\SourceTests_CreateOuterObject.js" />

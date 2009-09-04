@@ -127,6 +127,9 @@
   <data name="SourceTests_Callback" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\results\sourcetests_callback.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="SourceTests_CallTakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\results\sourcetests_calltakeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="SourceTests_Cifuentes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\results\sourcetests_cifuentes.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

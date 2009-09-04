@@ -500,6 +500,11 @@ namespace H8
 			return Math.Cosh(x);
 		}
 
+		public void CallTakeParameters() {
+			double result = TakeParameters("Hi", 1, new double[] { 1.0, 2.0 });
+			Console.WriteLine(result);
+		}
+
 		public void Callback(SimpleDelegate del) {
 			if (del != null)
 				del();

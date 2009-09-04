@@ -81,12 +81,25 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.AnonymousType = function() {
-        ///	var loc0 = new __f__AnonymousType0$2().$ctor(&quot;Hi&quot;, 1);
-        ///	console.log(&quot;{0}: {1}&quot;, loc0.Key.Length, loc0.Value);
+        ///   Looks up a localized string similar to __f__AnonymousType0$2 = function() {
         ///};
         ///
-        ///.
+        ///__f__AnonymousType0$2.prototype.$ctor = function(Key /*System.String*/, Value /*System.Int32*/) {
+        ///	this._Key_i__Field = Key;
+        ///	this._Value_i__Field = Value;
+        ///	return this;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Key = function() {
+        ///	return this._Key_i__Field;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
+        ///H8.SourceTests.prototype.AnonymousType = function() {
+        ///	var loc0 = new __f__AnonymousType0$2().$ctor(&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_AnonymousType {
             get {
@@ -95,21 +108,55 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.Callback = function(del /*H8.SourceTests_SimpleDelegate*/) {
+        ///   Looks up a localized string similar to H8.SourceTests_SimpleDelegate = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SourceTests_SimpleDelegate.$extend(System.MulticastDelegate);
+        ///
+        ///H8.SourceTests = function() {
+        ///};
+        ///
+        ///H8.SourceTests.prototype.SourceTests_SimpleEvent = function() {
+        ///	throw new System.NotImplementedException().$ctor()
+        ///};
+        ///
+        ///H8.SourceTests.prototype.Callback = function(del /*H8.SourceTests_SimpleDelegate*/) {
         ///	if (del) {
         ///		del.Invoke();
         ///	}
         ///	if (this.SimpleEvent) {
         ///		this.SimpleEvent.Invoke();
         ///	}
-        ///	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, this.SourceTests_SimpleEvent);
-        ///};
-        ///
-        ///.
+        ///	this.SimpleEvent = /*( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Callback {
             get {
                 return ResourceManager.GetString("SourceTests_Callback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.SourceTests = function() {
+        ///};
+        ///
+        ///H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
+        ///	console.log(str);
+        ///	var loc0 = System.Math.Sin(rad[value] * 1.5707963267949);
+        ///	return System.Math.Cosh(loc0);
+        ///};
+        ///
+        ///H8.SourceTests.prototype.CallTakeParameters = function() {
+        ///	var loc1 = new System.Double[2];
+        ///	loc1[0] = 1;
+        ///	loc1[1] = 2;
+        ///	var loc0 = this.TakeParameters(&quot;Hi&quot;, 1, loc1);
+        ///	console.log(loc0);
+        ///};
+        ///.
+        /// </summary>
+        internal static string SourceTests_CallTakeParameters {
+            get {
+                return ResourceManager.GetString("SourceTests_CallTakeParameters", resourceCulture);
             }
         }
         
@@ -153,11 +200,11 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.CreateInnerObject = function() {
         ///	var loc0 = new H8.SourceTests_InnerClassTest().$ctor(&quot;Test1&quot;, 1);
         ///	var loc2 = new H8.SourceTests_InnerClassTest().$ctor();
-        ///	loc2.Text = &quot;Test2&quot;;
-        ///	loc2.Value = 2;
+        ///	loc2.set_Text(&quot;Test2&quot;);
+        ///	loc2.set_Value(2);
         ///	var loc1 = loc2;
-        ///	console.log(&quot;{0}, {1}&quot;, loc0.Text, loc0.Value);
-        ///	console.log(&quot;{0}, {1}&quot;, loc1.Text, loc1.Value);
+        ///	console.log(&quot;{0}, {1}&quot;, loc0.get_Text(), loc0.get_Value());
+        ///	console.log(&quot;{0}, {1}&quot;, loc1.get_Text(), loc1.get_Value());
         ///};
         ///
         ///.
@@ -172,11 +219,11 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.CreateOuterObject = function() {
         ///	var loc0 = new H8.OuterClassTest().$ctor(&quot;Test1&quot;, 1);
         ///	var loc2 = new H8.OuterClassTest().$ctor();
-        ///	loc2.Text = &quot;Test2&quot;;
-        ///	loc2.Value = 2;
+        ///	loc2.set_Text(&quot;Test2&quot;);
+        ///	loc2.set_Value(2);
         ///	var loc1 = loc2;
-        ///	console.log(&quot;{0}, {1}&quot;, loc0.Text, loc0.Value);
-        ///	console.log(&quot;{0}, {1}&quot;, loc1.Text, loc1.Value);
+        ///	console.log(&quot;{0}, {1}&quot;, loc0.get_Text(), loc0.get_Value());
+        ///	console.log(&quot;{0}, {1}&quot;, loc1.get_Text(), loc1.get_Value());
         ///};
         ///
         ///.
@@ -205,26 +252,23 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.InnerClassTest = function() {
+        ///   Looks up a localized string similar to H8.SourceTests_InnerClassTest = function() {
         ///};
         ///
-        ///H8.InnerClassTest.prototype.set_Text = function(value /*System.String*/) {
+        ///H8.SourceTests_InnerClassTest.prototype.get_Text = function() {
+        ///	return this._Text_k__BackingField;
+        ///};
+        ///
+        ///H8.SourceTests_InnerClassTest.prototype.set_Text = function(value /*System.String*/) {
         ///	this._Text_k__BackingField = value;
         ///};
         ///
-        ///H8.InnerClassTest.prototype.set_Value = function(value /*System.Int32*/) {
-        ///	this._Value_k__BackingField = value;
+        ///H8.SourceTests_InnerClassTest.prototype.get_Value = function() {
+        ///	return this._Value_k__BackingField;
         ///};
         ///
-        ///H8.InnerClassTest.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///H8.InnerClassTest.prototype.$ctor = function(text /*System.String*/, value /*System.Int32*/) {
-        ///	this.set_Text(text);
-        ///	this.set_Value(value);
-        ///	return this;
-        ///} [rest of string was truncated]&quot;;.
+        ///H8.SourceTests_InnerClassTest.prototype.set_Value = function(value /*System.Int32*/) {
+        ///	this._Value_k__Backin [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_EmitInnerClass {
             get {
@@ -236,23 +280,25 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.OuterClassTest = function() {
         ///};
         ///
+        ///H8.OuterClassTest.prototype.get_Text = function() {
+        ///	return this._Text_k__BackingField;
+        ///};
+        ///
         ///H8.OuterClassTest.prototype.set_Text = function(value /*System.String*/) {
         ///	this._Text_k__BackingField = value;
         ///};
         ///
+        ///H8.OuterClassTest.prototype.get_Value = function() {
+        ///	return this.m_value;
+        ///};
+        ///
         ///H8.OuterClassTest.prototype.set_Value = function(value /*System.Int32*/) {
-        ///	this._Value_k__BackingField = value;
+        ///	this.m_value = value;
         ///};
         ///
         ///H8.OuterClassTest.prototype.$ctor = function() {
         ///	return this;
-        ///};
-        ///
-        ///H8.OuterClassTest.prototype.$ctor = function(text /*System.String*/, value /*System.Int32*/) {
-        ///	this.set_Text(text);
-        ///	this.set_Value(value);
-        ///	return this;
-        ///} [rest of string was truncated]&quot;;.
+        ///}; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_EmitOuterClass {
             get {
@@ -390,20 +436,20 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.Linq = function() {
-        ///	var loc0 = &quot;ABCDE99F-J74-12-89A&quot;;
-        ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate2) {
-        ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate2 = H8.SourceTests._Linq_b__1;
-        ///	}
-        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate2);
-        ///	var loc3 = loc1.GetEnumerator();
-        ///	while(loc3.MoveNext()) {
-        ///		var loc2 = loc3.Current;
-        ///		console.log(loc2);
-        ///	}
+        ///   Looks up a localized string similar to H8.SourceTests = function() {
         ///};
         ///
-        ///.
+        ///H8.SourceTests._Linq_b__2 = function(ch /*System.Char*/) {
+        ///	return System.Char.IsDigit(ch);
+        ///};
+        ///
+        ///H8.SourceTests.prototype.Linq = function() {
+        ///	var loc0 = &quot;ABCDE99F-J74-12-89A&quot;;
+        ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3) {
+        ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.SourceTests, H8.SourceTests._Linq_b__2);
+        ///	}
+        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3);
+        ///	var loc [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Linq {
             get {

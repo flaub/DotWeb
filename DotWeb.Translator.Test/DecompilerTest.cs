@@ -112,18 +112,8 @@ namespace DotWeb.Translator.Test
 		}
 
 		[TestMethod]
-		public void Linq() {
-			this.TestMethod("Linq", Resources.SourceTests_Linq);
-		}
-
-		[TestMethod]
 		public void TakeParameters() {
 			this.TestMethod("TakeParameters", Resources.SourceTests_TakeParameters);
-		}
-
-		[TestMethod]
-		public void Callback() {
-			this.TestMethod("Callback", Resources.SourceTests_Callback);
 		}
 
 		[TestMethod]
@@ -134,6 +124,21 @@ namespace DotWeb.Translator.Test
 		[TestMethod]
 		public void AnonymousType() {
 			this.TestMethod("AnonymousType", Resources.SourceTests_AnonymousType, true);
+		}
+
+		[TestMethod]
+		public void Linq() {
+			this.TestMethod("Linq", Resources.SourceTests_Linq, true);
+		}
+
+		[TestMethod]
+		public void Callback() {
+			this.TestMethod("Callback", Resources.SourceTests_Callback, true);
+		}
+
+		[TestMethod]
+		public void CallTakeParameters() {
+			this.TestMethod("CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
 		}
 
 		private void TestMethod(string methodName, string expected) {

@@ -175,6 +175,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 			if (stmt.Expression != null)
 				WriteLine("return {0};", Print(stmt.Expression));
 			else {
+				// Optimize for return statements from a void method that is
+				// at the end of a function; no code follows this point
 				if (currentMethod != null && currentMethod.Statements.Last() == stmt) {
 					return;
 				}
@@ -272,6 +274,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public void Visit(CodeMethodMember method) {
 			this.printer.CurrentMethod = method.Info;
 			this.currentMethod = method;
+			this.locals.Clear();
 
 			if (!method.Statements.Any()) {
 				return;
