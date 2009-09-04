@@ -29,9 +29,9 @@ using DotWeb.Decompiler;
 namespace DotWeb.Translator.Test
 {
 	[TestClass]
-	public class DecompilerTest
+	public class TranslationTest
 	{
-		public DecompilerTest() {
+		public TranslationTest() {
 			CSharpCompiler compiler = new CSharpCompiler();
 			this.compiledAssembly = compiler.CompileSource(Resources.SourceTests, Assembly.GetExecutingAssembly());
 			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.SourceTests");

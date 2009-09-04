@@ -59,7 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DecompilerTest.cs" />
+    <Compile Include="TranslationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj">
