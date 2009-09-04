@@ -89,12 +89,45 @@ namespace DotWeb.Translator
 			}
 
 			Debug.Assert(this.entryType != null);
-			this.generator.WriteEntry(this.entryType);
+			this.generator.WriteEntryPoint(this.entryType);
 		}
 
-		public void GenerateMethod(MethodBase method) {
-			var parsedMethod = Parse(method);
-			this.generator.Write(parsedMethod);
+		public void GenerateMethod(MethodBase method, bool followDependencies) {
+			//var externalTypes = new List<Type>();
+			//foreach (var external in parsedMethod.ExternalMethods) {
+			//    externalTypes.AddUnique(external.DeclaringType);
+			//}
+			if (followDependencies) {
+				GenerateMethod(method, new List<Type>(), new List<MethodBase>());
+			}
+			else {
+				var parsedMethod = Parse(method);
+				this.generator.Write(parsedMethod);
+			}
+		}
+
+		private void GenerateMethod(MethodBase method, List<Type> typesWritten, List<MethodBase> methodsWritten) {
+			if (method.GetMethodBody() != null) {
+				var parsedMethod = Parse(method);
+				foreach (var external in parsedMethod.ExternalMethods) {
+					Type externalType = external.DeclaringType;
+					if (externalType == typeof(object))
+						continue;
+
+					if (externalType.Namespace != null && externalType.Namespace.StartsWith("System"))
+						continue;
+
+					if (!typesWritten.Contains(externalType)) {
+						this.generator.WriteTypeConstructor(externalType);
+						typesWritten.Add(externalType);
+					}
+					if (!methodsWritten.Contains(external)) {
+						GenerateMethod(external, typesWritten, methodsWritten);
+					}
+				}
+				this.generator.Write(parsedMethod);
+			}
+			methodsWritten.Add(method);
 		}
 
 		public void GenerateType(Type type) {

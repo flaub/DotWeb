@@ -51,7 +51,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		public void WriteEntry(CodeTypeDeclaration type) {
+		public void WriteEntryPoint(CodeTypeDeclaration type) {
 			this.writer.WriteLine("$wnd.onload = function() {");
 			this.writer.Indent++;
 			this.writer.WriteLine("new {0}().$ctor();", Print(type.Type));
@@ -219,41 +219,44 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		#endregion
 
+		public void WriteTypeConstructor(Type type) {
+			if (type.IsDefined(typeof(JsAnonymousAttribute), true))
+				return;
+
+			string typeName = Print(type);
+
+			bool isNative = type.IsSubclassOf(typeof(JsNativeBase));
+			if (isNative) {
+				WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
+				this.writer.Indent++;
+			}
+
+			WriteLine("{0} = function() {{", typeName);
+			bool hasBase = type.HasBase();
+			this.writer.Indent++;
+			if (hasBase) {
+				WriteLine("this.$super.constructor();");
+			}
+			// field initializers go here
+			this.writer.Indent--;
+			WriteLine("}};");
+
+			if (hasBase) {
+				WriteLine("{0}.$extend({1});", typeName, Print(type.BaseType));
+			}
+
+			if (isNative) {
+				this.writer.Indent--;
+				WriteLine("}}");
+			}
+
+			WriteLine();
+		}
+
 		#region Members
 		public void Visit(CodeTypeDeclaration type) {
 			try {
-				if (type.Type.IsDefined(typeof(JsAnonymousAttribute), true))
-					return;
-
-				string typeName = Print(type.Type);
-
-				bool isNative = type.Type.IsSubclassOf(typeof(JsNativeBase));
-				if (isNative) {
-					WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
-					this.writer.Indent++;
-					//WriteLine("alert('defining {0}');", typeName);
-				}
-
-				WriteLine("{0} = function() {{", typeName);
-				bool hasBase = type.Type.HasBase();
-				this.writer.Indent++;
-				if (hasBase) {
-					WriteLine("this.$super.constructor();");
-				}
-				// field initializers go here
-				this.writer.Indent--;
-				WriteLine("}};");
-
-				if (hasBase) {
-					WriteLine("{0}.$extend({1});", typeName, Print(type.Type.BaseType));
-				}
-
-				if (isNative) {
-					this.writer.Indent--;
-					WriteLine("}}");
-				}
-
-				WriteLine();
+				WriteTypeConstructor(type.Type);
 
 				type.Methods.ForEach(x => x.Accept(this));
 				WriteLine();

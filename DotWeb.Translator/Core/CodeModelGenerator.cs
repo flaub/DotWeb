@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using DotWeb.Translator.CodeModel;
 using DotWeb.Utility;
+using System.Diagnostics;
 
 namespace DotWeb.Translator
 {
@@ -81,6 +82,9 @@ namespace DotWeb.Translator
 					break;
 				case "ldsfld":
 					LoadStaticField(il);
+					break;
+				case "ldsflda":
+					LoadStaticFieldAddress(il);
 					break;
 				case "ldftn":
 					LoadMethod(il);
@@ -298,14 +302,9 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private bool CallGetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
+		private void CallGetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
 			ParameterInfo[] args = method.GetParameters();
 			if (args.Length == 0) {
-				//if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
-				//    !pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-				//    return false;
-				//}
-
 				CodeExpression targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
@@ -319,17 +318,11 @@ namespace DotWeb.Translator
 				expr.TargetObject = GetTargetObject(method, il);
 				vm.Stack.Push(expr);
 			}
-			return true;
 		}
 
-		private bool CallSetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
+		private void CallSetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
 			ParameterInfo[] args = method.GetParameters();
 			if (args.Length == 1) {
-				//if (!pi.DeclaringType.IsSubclassOf(typeof(JsNativeBase)) &&
-				//    !pi.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-				//    return false;
-				//}
-
 				CodeExpression rhs = vm.Stack.Pop();
 				CodeExpression targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
@@ -349,8 +342,6 @@ namespace DotWeb.Translator
 				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 				AddStatment(stmt, il);
 			}
-
-			return true;
 		}
 
 		private void Call(ILInstruction il) {
@@ -359,19 +350,17 @@ namespace DotWeb.Translator
 
 			AssociatedProperty ap = method.GetAssociatedProperty();
 			if (ap != null) {
+				Debug.Assert(ap.Info != null);
 				if (ap.IsGetter) {
-					if (CallGetter(il, method, ap.Info)) {
-						return;
-					}
+					CallGetter(il, method, ap.Info);
 				}
 				else {
-					if (CallSetter(il, method, ap.Info)) {
-						return;
-					}
+					CallSetter(il, method, ap.Info);
 				}
 			}
-
-			CallMethod(il, method);
+			else {
+				CallMethod(il, method);
+			}
 		}
 
 		private void Convert(ILInstruction il) {
@@ -427,6 +416,10 @@ namespace DotWeb.Translator
 			CodeFieldReference expr = new CodeFieldReference(typeRef, field);
 			expr.Instruction = il;
 			vm.Stack.Push(expr);
+		}
+
+		private void LoadStaticFieldAddress(ILInstruction il) {
+			LoadStaticField(il);
 		}
 
 		private void LoadLocal(ILInstruction il) {
@@ -625,6 +618,7 @@ namespace DotWeb.Translator
 
 		private void NewObject(ILInstruction il) {
 			ConstructorInfo ctor = (ConstructorInfo)il.Operand;
+			this.vm.ExternalMethods.AddUnique(ctor);
 
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Instruction = il,

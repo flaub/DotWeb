@@ -133,15 +133,19 @@ namespace DotWeb.Translator.Test
 
 		[TestMethod]
 		public void AnonymousType() {
-			this.TestMethod("AnonymousType", Resources.SourceTests_AnonymousType);
+			this.TestMethod("AnonymousType", Resources.SourceTests_AnonymousType, true);
 		}
 
 		private void TestMethod(string methodName, string expected) {
+			this.TestMethod(methodName, expected, false);
+		}
+
+		private void TestMethod(string methodName, string expected, bool followDependencies) {
 			MethodInfo method = sourceTestsCompiledType.GetMethod(methodName);
 			TextWriter writer = new StringWriter();
 			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
 			TranslationContext context = new TranslationContext(generator);
-			context.GenerateMethod(method);
+			context.GenerateMethod(method, followDependencies);
 			Assert.AreEqual(expected.Trim(), writer.ToString().Trim());
 		}
 
