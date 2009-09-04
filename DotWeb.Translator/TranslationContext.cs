@@ -83,6 +83,10 @@ namespace DotWeb.Translator
 					if (externalType == typeof(object))
 						continue;
 
+					if (externalType.IsDefined(typeof(JsAnonymousAttribute), false))
+						continue;
+
+					// FIXME: need a better way to filter out mscorlib, et. al.
 					if (externalType.Namespace != null && externalType.Namespace.StartsWith("System"))
 						continue;
 

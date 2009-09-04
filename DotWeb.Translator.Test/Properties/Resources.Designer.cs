@@ -61,8 +61,25 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.JsCode = function() {
-        ///	alert(&apos;JsCode&apos;);
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsAnonymous = function() {
+        ///	var loc1 = {};
+        ///	loc1.X = 1;
+        ///	loc1.y = 2;
+        ///	var loc0 = loc1;
+        ///	loc0.X = loc0.y;
+        ///	loc0.y = loc0.X;
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsAnonymous {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsAnonymous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.JsCode = function(arg /*System.String*/) {
+        ///	alert(arg);
         ///};
         ///.
         /// </summary>

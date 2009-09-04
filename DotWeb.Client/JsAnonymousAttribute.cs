@@ -22,6 +22,52 @@ using System.Text;
 
 namespace DotWeb.Client
 {
+	/// <summary>
+	/// Classes decorated with this attribute mean that they
+	/// won't be emitted as normal JavaScript classes.
+	/// Instead, they are anonymous, which puts a number of restrictions
+	/// on this class.
+	/// For example, only fields and auto-implemented properties 
+	/// are supported.
+	/// Note that [JsIntrinsic] is implied for all properties defined 
+	/// on the decorated class.
+	/// <example>
+	/// The following C# code gets translated from:
+	/// <code>
+	/// [JsAnonymous]
+	/// class Config
+	/// {
+	///		public int X { get; set; }
+	///		public int y;
+	/// }
+	/// 
+	/// class Test
+	/// {
+	///		void UseConfig()
+	///		{
+	///			var item = new AnonymousClass {
+	///				X = 1,
+	///				y = 2
+	///			};
+	///			
+	///			item.X = item.y;
+	///			item.y = item.X;
+	///		}
+	///	}
+	/// </code>
+	/// Into the following JavaScript code:
+	/// <code>
+	/// Test.prototype.UseConfig = function() {
+	///		var loc1 = {};
+	///		loc1.X = 1;
+	///		loc1.y = 2;
+	///		var loc0 = loc1;
+	///		loc0.X = loc0.y;
+	///		loc0.y = loc0.X;
+	///	};
+	/// </code>
+	/// </example>
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class JsAnonymousAttribute : Attribute
 	{

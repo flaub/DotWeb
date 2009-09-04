@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\SourceTest\SourceTests_CallTakeParameters.js" />
     <Content Include="Expected\SourceTest\SourceTests_EmitOuterClass.js" />

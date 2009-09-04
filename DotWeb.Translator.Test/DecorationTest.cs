@@ -39,7 +39,12 @@ namespace DotWeb.Translator.Test
 
 		[TestMethod]
 		public void TestJsCode() {
-			TestMethod(this.compiledType, "JsCode", Resources.DecorationTest_JsCode);
+			TestMethod(this.compiledType, "TestJsCode", Resources.DecorationTest_JsCode);
+		}
+
+		[TestMethod]
+		public void TestJsAnonymous() {
+			TestMethod(this.compiledType, "TestJsAnonymous", Resources.DecorationTest_JsAnonymous, true);
 		}
 
 		private Type compiledType;

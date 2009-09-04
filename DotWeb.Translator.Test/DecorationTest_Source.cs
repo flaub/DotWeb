@@ -23,10 +23,35 @@ using DotWeb.Client;
 
 namespace H8
 {
+	[JsAnonymous]
+	class AnonymousClass
+	{
+		public int X { get; set; }
+		public int y;
+	}
+
 	class DecorationTests
 	{
-		[JsCode("alert('JsCode');")]
-		public void JsCode() {
+		[JsCode("alert(arg);")]
+		public void TestJsCode(string arg) {
+		}
+
+		public void TestJsAnonymous() {
+			var item = new AnonymousClass {
+				X = 1,
+				y = 2
+			};
+
+			item.X = item.y;
+			item.y = item.X;
+
+			var array = new AnonymousClass[] {
+				new AnonymousClass { X = 0, y = 0 },
+				new AnonymousClass { X = 1, y = 1 },
+			};
+
+			var first = array[0];
+			Console.WriteLine(first);
 		}
 	}
 }

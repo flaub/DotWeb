@@ -219,13 +219,16 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodePropertyReference exp) {
-			Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+			if (exp.Property.DeclaringType.IsDefined(typeof(JsAnonymousAttribute), false)) {
+				return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
+			}
 			// Optimize for anonymous types.
 			//CodeTypeEvaluator evaluator = new CodeTypeEvaluator(this.CurrentMethod);
 			//Type type = evaluator.Evaluate(exp.TargetObject);
 			//if (type.Name.StartsWith("<>f__AnonymousType")) {
 			//    return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
 			//}
+			Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
 			return VisitReturn(exp.Method) + "()";
 		}
 

@@ -149,7 +149,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			CodePropertyReference cpr = stmt.Left as CodePropertyReference;
-			if (cpr != null) {
+			if (cpr != null && !cpr.Property.DeclaringType.IsDefined(typeof(JsAnonymousAttribute), false)) {
 				// setter
 				// foo.set_X(1);
 				WriteLine(string.Format("{0}({1});", Print(cpr.Method), rhs));
@@ -223,7 +223,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#endregion
 
 		public void WriteTypeConstructor(Type type) {
-			if (type.IsDefined(typeof(JsAnonymousAttribute), true))
+			if (type.IsDefined(typeof(JsAnonymousAttribute), false))
 				return;
 
 			string typeName = Print(type);
