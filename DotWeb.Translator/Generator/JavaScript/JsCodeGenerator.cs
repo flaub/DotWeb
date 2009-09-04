@@ -29,18 +29,6 @@ using DotWeb.Decompiler;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
-	static class TypeExtensions
-	{
-		public static bool HasBase(this Type type) {
-			if (type.BaseType == typeof(object) ||
-				type.BaseType == typeof(JsAccessible) ||
-				type.BaseType == typeof(JsNativeBase)) {
-				return false;
-			}
-			return true;
-		}
-	}
-
 	public class JsCodeGenerator: ICodeStatementVisitor, ICodeMemberVisitor
 	{
 		public JsCodeGenerator(TextWriter output, bool writeHeader) {
@@ -149,12 +137,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			CodePropertyReference cpr = stmt.Left as CodePropertyReference;
-			if (cpr != null && !cpr.Property.DeclaringType.IsDefined(typeof(JsAnonymousAttribute), false)) {
-				// setter
+			if (cpr != null && !cpr.IsFieldLike()) {
+				// setter invocation
 				// foo.set_X(1);
 				WriteLine(string.Format("{0}({1});", Print(cpr.Method), rhs));
 				return;
-			}		
+			}
 
 			CodeVariableReference cvr = stmt.Left as CodeVariableReference;
 			if (cvr != null) {
@@ -223,7 +211,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#endregion
 
 		public void WriteTypeConstructor(Type type) {
-			if (type.IsDefined(typeof(JsAnonymousAttribute), false))
+			if(type.IsAnonymous())
 				return;
 
 			string typeName = Print(type);
@@ -319,37 +307,22 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine();
 		}
 
-		private string GetAutomaticBackingFieldName(PropertyInfo property) {
-			return string.Format("<{0}>k__BackingField", property.Name);
-		}
-
 		public void Visit(CodePropertyGetterMember method) {
+			if (method.PropertyInfo.IsIntrinsic())
+				return;
 			// This is to look and optimize for properties that have automatic implementations
-			//if (method.Statements.Count == 1) {
-			//    var first = method.Statements.First() as CodeReturnStatement;
-			//    if (first != null) {
-			//        var field = first.Expression as CodeFieldReference;
-			//        if (field != null && field.TargetObject is CodeThisReference) {
-			//            if (field.Field.Name == GetAutomaticBackingFieldName(method.PropertyInfo))
-			//                return;
-			//        }
-			//    }
-			//}
+			//if (method.IsAutoImplemented())
+			//	return;
+
 			Visit((CodeMethodMember)method);
 		}
 
 		public void Visit(CodePropertySetterMember method) {
+			if (method.PropertyInfo.IsIntrinsic())
+				return;
 			// This is to look and optimize for properties that have automatic implementations
-			//if (method.Statements.Count >= 1) {
-			//    var first = method.Statements.First() as CodeAssignStatement;
-			//    if (first != null) {
-			//        var field = first.Left as CodeFieldReference;
-			//        if (field != null && field.TargetObject is CodeThisReference) {
-			//            if (field.Field.Name == GetAutomaticBackingFieldName(method.PropertyInfo))
-			//                return;
-			//        }
-			//    }
-			//}
+			//if (method.IsAutoImplemented())
+			//	return;
 			Visit((CodeMethodMember)method);
 		}
 

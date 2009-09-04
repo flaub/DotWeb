@@ -62,12 +62,24 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsAnonymous = function() {
-        ///	var loc1 = {};
-        ///	loc1.X = 1;
-        ///	loc1.y = 2;
-        ///	var loc0 = loc1;
+        ///	var loc3 = {};
+        ///	loc3.X = 1;
+        ///	loc3.y = 2;
+        ///	var loc0 = loc3;
         ///	loc0.X = loc0.y;
         ///	loc0.y = loc0.X;
+        ///	var loc6 = [];
+        ///	var loc4 = {};
+        ///	loc4.X = 0;
+        ///	loc4.y = 0;
+        ///	loc6[0] = loc4;
+        ///	var loc5 = {};
+        ///	loc5.X = 1;
+        ///	loc5.y = 1;
+        ///	loc6[1] = loc5;
+        ///	var loc1 = loc6;
+        ///	var loc2 = loc1[0];
+        ///	console.log(loc2);
         ///};
         ///.
         /// </summary>
@@ -78,7 +90,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.JsCode = function(arg /*System.String*/) {
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg /*System.String*/) {
         ///	alert(arg);
         ///};
         ///.
@@ -86,6 +98,35 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string DecorationTest_JsCode {
             get {
                 return ResourceManager.GetString("DecorationTest_JsCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsIntrinsic = function() {
+        ///	var loc3 = {};
+        ///	loc3.X = 1;
+        ///	loc3.y = 2;
+        ///	var loc0 = loc3;
+        ///	loc0.X = loc0.y;
+        ///	loc0.y = loc0.X;
+        ///	var loc6 = [];
+        ///	var loc4 = {};
+        ///	loc4.X = 0;
+        ///	loc4.y = 0;
+        ///	loc6[0] = loc4;
+        ///	var loc5 = {};
+        ///	loc5.X = 1;
+        ///	loc5.y = 1;
+        ///	loc6[1] = loc5;
+        ///	var loc1 = loc6;
+        ///	var loc2 = loc1[0];
+        ///	console.log(loc2);
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsIntrinsic {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsIntrinsic", resourceCulture);
             }
         }
         

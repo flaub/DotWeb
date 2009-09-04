@@ -23,6 +23,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DotWeb.Decompiler;
 using System.Reflection;
 using DotWeb.Translator.Test.Properties;
+using DotWeb.Client;
 
 namespace DotWeb.Translator.Test
 {
@@ -45,6 +46,29 @@ namespace DotWeb.Translator.Test
 		[TestMethod]
 		public void TestJsAnonymous() {
 			TestMethod(this.compiledType, "TestJsAnonymous", Resources.DecorationTest_JsAnonymous, true);
+		}
+
+		[TestMethod]
+		public void TestJsIntrinsic() {
+			TestMethod(this.compiledType, "TestJsIntrinsic", Resources.DecorationTest_JsIntrinsic, true);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidAnonymousUsageException))]
+		public void InvalidAnonymousClass1() {
+			GenerateMethod(this.compiledType, "InvalidAnonymousClass1", true);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidAnonymousUsageException))]
+		public void InvalidAnonymousClass2() {
+			GenerateMethod(this.compiledType, "InvalidAnonymousClass2", true);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(Exception))]
+		public void InvalidIntrinsicClass() {
+			GenerateMethod(this.compiledType, "InvalidIntrinsicClass", true);
 		}
 
 		private Type compiledType;

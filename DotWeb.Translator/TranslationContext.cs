@@ -70,7 +70,7 @@ namespace DotWeb.Translator
 				GenerateMethod(method, new List<Type>(), new List<MethodBase>());
 			}
 			else {
-				var parsedMethod = Parse(method);
+				var parsedMethod = Parse(method); 
 				this.generator.Write(parsedMethod);
 			}
 		}
@@ -83,8 +83,10 @@ namespace DotWeb.Translator
 					if (externalType == typeof(object))
 						continue;
 
-					if (externalType.IsDefined(typeof(JsAnonymousAttribute), false))
+					if(externalType.IsAnonymous()) {
+						ValidateJsAnonymousType(externalType);
 						continue;
+					}
 
 					// FIXME: need a better way to filter out mscorlib, et. al.
 					if (externalType.Namespace != null && externalType.Namespace.StartsWith("System"))
@@ -271,6 +273,33 @@ namespace DotWeb.Translator
 				return ret;
 			}
 			return MethodDecompiler.Parse(method);
+		}
+
+		private void ValidateJsAnonymousType(Type type) {
+			// two things to check for:
+			// 1. Properties may only be auto-implemented
+			// 2. Methods are not allowed
+
+			foreach (var method in type.GetMethods()) {
+				var ap = method.GetAssociatedProperty();
+				if (ap == null) {
+					throw new InvalidAnonymousUsageException(type);
+				}
+
+				var cmm = Parse(method);
+				if (ap.IsGetter) {
+					var getter = (CodePropertyGetterMember)cmm;
+					if (!getter.IsAutoImplemented()) {
+						throw new InvalidAnonymousUsageException(type);
+					}
+				}
+				else {
+					var setter = (CodePropertySetterMember)cmm;
+					if (!setter.IsAutoImplemented()) {
+						throw new InvalidAnonymousUsageException(type);
+					}
+				}
+			}
 		}
 	}
 }

@@ -73,6 +73,15 @@ namespace DotWeb.Client
 	{
 	}
 
+	public class InvalidAnonymousUsageException : Exception
+	{
+		public InvalidAnonymousUsageException(Type type) {
+			this.AppliedType = type;
+		}
+
+		public Type AppliedType { get; set; }
+	}
+
 	[AttributeUsage(AttributeTargets.Delegate)]
 	public class VarArgsAttribute : Attribute
 	{

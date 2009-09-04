@@ -23,7 +23,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected void TestMethod(Type type, string methodName, string expected) {
-			this.TestMethod(type, methodName, expected, false);
+			TestMethod(type, methodName, expected, false);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected, bool followDependencies) {
@@ -32,12 +32,17 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected void TestMethod(Type type, string methodName, string expected, bool followDependencies) {
+			string result = GenerateMethod(type, methodName, followDependencies);
+			Assert.AreEqual(expected.Trim(), result.Trim());
+		}
+
+		protected string GenerateMethod(Type type, string methodName, bool followDependencies) {
 			MethodInfo method = type.GetMethod(methodName);
 			TextWriter writer = new StringWriter();
 			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
 			TranslationContext context = new TranslationContext(generator);
 			context.GenerateMethod(method, followDependencies);
-			Assert.AreEqual(expected.Trim(), writer.ToString().Trim());
+			return writer.ToString();
 		}
 
 		protected void TestType(string typeName, string expected) {

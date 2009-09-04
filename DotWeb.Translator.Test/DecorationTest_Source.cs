@@ -30,6 +30,38 @@ namespace H8
 		public int y;
 	}
 
+	// Anonymous classes can only have auto-properties
+	[JsAnonymous]
+	class InvalidAnonymousClass1
+	{
+		public int X {
+			get { return 1; }
+		}
+	}
+
+	// Anonymous classes cannot have methods
+	[JsAnonymous]
+	class InvalidAnonymousClass2
+	{
+		public int X { get; set; }
+
+		public void Invalid() {
+		}
+	}
+
+	class IntrinsicClass
+	{
+		[JsIntrinsic]
+		public int Value { get; set; }
+	}
+
+	// Only auto-properties are allowed
+	class InvalidIntrinsicClass
+	{
+		[JsIntrinsic]
+		public int Value { get { return 1; } }
+	}
+
 	class DecorationTests
 	{
 		[JsCode("alert(arg);")]
@@ -52,6 +84,25 @@ namespace H8
 
 			var first = array[0];
 			Console.WriteLine(first);
+		}
+
+		public void InvalidAnonymousClass1() {
+			var item = new InvalidAnonymousClass1();
+		}
+
+		public void InvalidAnonymousClass2() {
+			var item = new InvalidAnonymousClass2();
+		}
+
+		public void TestJsIntrinsic() {
+			var item = new IntrinsicClass {
+				Value = 1
+			};
+			Console.Write(item.Value);
+		}
+
+		public void InvalidIntrinsicClass() {
+			var item = new InvalidIntrinsicClass();
 		}
 	}
 }

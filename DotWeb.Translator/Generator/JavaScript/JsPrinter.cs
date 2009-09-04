@@ -147,10 +147,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 				name = ns + "." + GetTypeName(type);
 
 			if (type.IsGenericType) {
-//				Type[] typeArgs = type.GetGenericArguments();
-//				string[] parts = typeArgs.Select(x => Print(x).Replace(".", "_")).ToArray();
-//				string lhs = name.Split('`').First();
-//				name = string.Format("{0}${1}", lhs, string.Join("$", parts));
 				name = string.Format("{0}${1}", name.Split('`').First(), type.GetGenericArguments().Length);
 			}
 			return EncodeName(name);
@@ -219,7 +215,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodePropertyReference exp) {
-			if (exp.Property.DeclaringType.IsDefined(typeof(JsAnonymousAttribute), false)) {
+			if (exp.IsFieldLike()) {
 				return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
 			}
 			// Optimize for anonymous types.
@@ -313,7 +309,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeArrayCreateExpression exp) {
-			if (exp.Type.IsDefined(typeof(JsAnonymousAttribute), false)) {
+			if (exp.Type.IsAnonymous()) {
 				return "[]";
 			}
 			string size = Print(exp.SizeExpression);
@@ -329,7 +325,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 					targetObject = Print(methodRef.TargetObject);
 				return string.Format("$Delegate({0}, {0}.{1})", targetObject, EncodeName(methodName));
 			}
-			if (exp.Type.IsDefined(typeof(JsAnonymousAttribute), false)) {
+			if (exp.Type.IsAnonymous()) {
 				return "{}";
 			}
 			if (exp.Type.IsSubclassOf(typeof(JsNativeBase))) {
