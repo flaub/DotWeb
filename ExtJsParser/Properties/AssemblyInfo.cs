@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SourceConverter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Blue Tree Labs")]
 [assembly: AssemblyProduct("SourceConverter")]
 [assembly: AssemblyCopyright("Copyright © Teflon 2007")]
 [assembly: AssemblyTrademark("")]

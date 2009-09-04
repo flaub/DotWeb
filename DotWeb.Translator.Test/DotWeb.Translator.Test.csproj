@@ -62,9 +62,9 @@
     <Compile Include="DecompilerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Translator.Decompiler.csproj">
+    <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj">
       <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
-      <Name>DotWeb.Translator.Decompiler</Name>
+      <Name>DotWeb.Decompiler</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Translator\DotWeb.Translator.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>

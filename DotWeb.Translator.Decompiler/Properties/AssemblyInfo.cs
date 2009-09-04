@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DotWeb.Translator.Decompiler")]
+[assembly: AssemblyTitle("DotWeb.Decompiler")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("DotWeb.Translator.Decompiler")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCompany("Blue Tree Labs")]
+[assembly: AssemblyProduct("DotWeb.Decompiler")]
+[assembly: AssemblyCopyright("Copyright © Frank Laub 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

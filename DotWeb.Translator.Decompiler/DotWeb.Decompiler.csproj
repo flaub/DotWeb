@@ -8,8 +8,8 @@
     <ProjectGuid>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotWeb.Translator.Decompiler</RootNamespace>
-    <AssemblyName>DotWeb.Translator.Decompiler</AssemblyName>
+    <RootNamespace>DotWeb.Decompiler</RootNamespace>
+    <AssemblyName>DotWeb.Decompiler</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

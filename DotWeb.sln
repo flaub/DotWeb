@@ -40,7 +40,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotWeb.Agent.Firefox", "plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Agent.Ie", "DotWeb.Hosting.Agent\DotWeb.Agent.Ie.csproj", "{D1243C40-69A0-4017-9ECA-194DE539DF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.Decompiler", "DotWeb.Translator.Decompiler\DotWeb.Translator.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
