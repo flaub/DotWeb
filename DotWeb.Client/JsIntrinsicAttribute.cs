@@ -30,7 +30,8 @@ namespace DotWeb.Client
 
 	public class InvalidIntrinsicUsageException : Exception
 	{
-		public InvalidIntrinsicUsageException(PropertyInfo property) {
+		public InvalidIntrinsicUsageException(PropertyInfo property) 
+			: base(string.Format("[JsIntrinsic] not valid on type: '{0}', property: '{1}'", property.DeclaringType, property)) {
 			this.AppliedProperty = property;
 		}
 

@@ -75,7 +75,8 @@ namespace DotWeb.Client
 
 	public class InvalidAnonymousUsageException : Exception
 	{
-		public InvalidAnonymousUsageException(Type type) {
+		public InvalidAnonymousUsageException(Type type) 
+			: base(string.Format("[JsAnonymous] not valid on {0}", type)) {
 			this.AppliedType = type;
 		}
 
