@@ -29,7 +29,7 @@ using DotWeb.Decompiler;
 namespace DotWeb.Translator.Test
 {
 	[TestClass]
-	public class TranslationTest : TranslationTestHelper
+	public class TranslationTest : TranslationTestHelper<TranslationTest>
 	{
 		public TranslationTest() : base(Resources.TranslationTest_Source) {
 			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.SourceTests");

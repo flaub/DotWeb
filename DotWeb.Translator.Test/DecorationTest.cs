@@ -31,7 +31,7 @@ namespace DotWeb.Translator.Test
 	/// Summary description for DecorationTest
 	/// </summary>
 	[TestClass]
-	public class DecorationTest : TranslationTestHelper
+	public class DecorationTest : TranslationTestHelper<DecorationTest>
 	{
 		public DecorationTest()
 			: base(Resources.DecorationTest_Source) {
