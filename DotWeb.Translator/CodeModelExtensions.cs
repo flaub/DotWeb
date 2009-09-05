@@ -39,7 +39,8 @@ namespace DotWeb.Translator
 		public static bool IsFieldLike(this CodePropertyReference cpr) {
 			return
 				cpr.Property.IsIntrinsic() ||
-				cpr.Property.DeclaringType.IsAnonymous();
+				cpr.Property.DeclaringType.IsAnonymous() ||
+				cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase));
 		}
 
 		private static bool IsAutoImplemented(CodeFieldReference field, PropertyInfo property) {

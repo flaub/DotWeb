@@ -102,7 +102,9 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.IntrinsicClass = function() {
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
+        ///H8.IntrinsicClass = function() {
         ///};
         ///
         ///H8.IntrinsicClass.prototype.$ctor = function() {
@@ -124,7 +126,9 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DefaultNamespaceTest = function() {
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
+        ///DefaultNamespaceTest = function() {
         ///};
         ///
         ///DefaultNamespaceTest.prototype.$ctor = function() {
@@ -135,6 +139,8 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this._Value_k__BackingField = value;
         ///};
         ///
+        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
         ///Foo.FooNamespaceTest = function() {
         ///};
         ///
@@ -143,10 +149,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///};
         ///
         ///DefaultNamespaceTest.prototype.get_Value = function() {
-        ///	return this._Value_k__BackingField;
-        ///};
-        ///
-        ///Foo.FooNamespaceTest.prototype.set_Value = function(v [rest of string was truncated]&quot;;.
+        ///	return this. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsNamespace {
             get {
@@ -171,6 +174,45 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string DecorationTest_Source {
             get {
                 return ResourceManager.GetString("DecorationTest_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
+        /////
+        ///// This file is part of DotWeb.
+        /////
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        /////
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string NativeTest_Source {
+            get {
+                return ResourceManager.GetString("NativeTest_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.NativeTest.prototype.TestTuple = function() {
+        ///	var loc3 = {};
+        ///	loc3.id = 666;
+        ///	loc3.value = &quot;value&quot;;
+        ///	var loc0 = loc3;
+        ///	var loc1 = new Tuple(loc0);
+        ///	var loc2 = loc1.get_id();
+        ///	console.log(loc2);
+        ///	loc1.set_id(9);
+        ///};
+        ///.
+        /// </summary>
+        internal static string NativeTest_TestTuple {
+            get {
+                return ResourceManager.GetString("NativeTest_TestTuple", resourceCulture);
             }
         }
         
@@ -202,10 +244,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests_SimpleDelegate = function() {
-        ///	this.$super.constructor();
-        ///};
-        ///H8.SourceTests_SimpleDelegate.$extend(System.MulticastDelegate);
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
         ///
         ///H8.SourceTests = function() {
         ///};
@@ -221,7 +260,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	if (this.SimpleEvent) {
         ///		this.SimpleEvent.Invoke();
         ///	}
-        ///	this.SimpleEvent = /*( [rest of string was truncated]&quot;;.
+        ///	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTest [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Callback {
             get {
@@ -230,7 +269,9 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests = function() {
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
+        ///H8.SourceTests = function() {
         ///};
         ///
         ///H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
@@ -244,9 +285,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	loc1[0] = 1;
         ///	loc1[1] = 2;
         ///	var loc0 = this.TakeParameters(&quot;Hi&quot;, 1, loc1);
-        ///	console.log(loc0);
-        ///};
-        ///.
+        ///	console.log(l [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CallTakeParameters {
             get {
@@ -530,7 +569,9 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests = function() {
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
+        ///H8.SourceTests = function() {
         ///};
         ///
         ///H8.SourceTests._Linq_b__2 = function(ch /*System.Char*/) {
@@ -542,8 +583,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3) {
         ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.SourceTests, H8.SourceTests._Linq_b__2);
         ///	}
-        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3);
-        ///	var loc [rest of string was truncated]&quot;;.
+        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Linq {
             get {

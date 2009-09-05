@@ -46,6 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NativeTest_Source.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="NativeTest.cs" />
     <Compile Include="DecorationTest_Source.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -89,6 +93,7 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
+    <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\SourceTest\SourceTests_CallTakeParameters.js" />
     <Content Include="Expected\SourceTest\SourceTests_EmitOuterClass.js" />
     <Content Include="Expected\SourceTest\SourceTests_EmitInnerClass.js" />
