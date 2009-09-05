@@ -58,7 +58,7 @@ namespace DotWeb.Translator
 			}
 
 			Debug.Assert(this.entryType != null);
-			this.generator.WriteEntryPoint(this.entryType);
+			this.generator.WriteEntryPoint(this.entryType.Type);
 		}
 
 		public void GenerateMethod(MethodBase method, bool followDependencies) {
@@ -82,6 +82,8 @@ namespace DotWeb.Translator
 					var externalType = external.DeclaringType;
 					if (IsEmittable(externalType)) {
 						if (!typesCache.Contains(externalType)) {
+							CodeNamespace ns = GetNamespace(externalType);
+							this.generator.WriteNamespaceDecl(ns);
 							this.generator.WriteTypeConstructor(externalType);
 							typesCache.Add(externalType);
 						}
@@ -293,17 +295,26 @@ namespace DotWeb.Translator
 		}
 
 		private bool IsEmittable(Type type) {
+			// FIXME: need a better way to filter out mscorlib, et. al.
+			if (type.Namespace != null && type.Namespace.StartsWith("System"))
+				return false;
+
 			if (type == typeof(object))
+				return false;
+
+			if (type == typeof(JsAccessible))
+				return false;
+
+			if (type.IsSubclassOf(typeof(JsNativeBase)))
+				return false;
+
+			if (type.IsSubclassOf(typeof(Delegate)))
 				return false;
 
 			if (type.IsAnonymous()) {
 				ValidateJsAnonymousType(type);
 				return false;
 			}
-
-			// FIXME: need a better way to filter out mscorlib, et. al.
-			if (type.Namespace != null && type.Namespace.StartsWith("System"))
-				return false;
 
 			return true;
 		}

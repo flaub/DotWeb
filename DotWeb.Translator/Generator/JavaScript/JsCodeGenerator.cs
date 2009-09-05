@@ -40,10 +40,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		public void WriteEntryPoint(CodeTypeDeclaration type) {
+		public void WriteEntryPoint(Type type) {
 			this.writer.WriteLine("$wnd.onload = function() {");
 			this.writer.Indent++;
-			this.writer.WriteLine("new {0}().$ctor();", Print(type.Type));
+			this.writer.WriteLine("new {0}().$ctor();", Print(type));
 			this.writer.Indent--;
 			this.writer.WriteLine("}");
 		}

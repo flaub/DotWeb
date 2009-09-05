@@ -76,7 +76,7 @@ namespace DotWeb.Web
 			CompilationSection section = grp.Sections.Get("compilation") as CompilationSection;
 
 			this.isDebug = section.Debug;
-			if(this.isDebug) {
+			if (this.isDebug) {
 				this.Minify = false;
 			}
 			else {
@@ -137,55 +137,61 @@ namespace DotWeb.Web
 
 		protected override void Render(HtmlTextWriter writer) {
 			if (this.Mode == "Hosted") {
-				HttpCookie cookie = new HttpCookie("X-DotWeb");
-				this.Context.Response.Cookies.Add(cookie);
-				TcpListener listener = Context.Application["DotWeb.TcpListener"] as TcpListener;
-				if (listener == null) {
-					listener = new TcpListener(IPAddress.Loopback, 0);
-					listener.Start();
-					Context.Application["DotWeb.TcpListener"] = listener;
-					listener.BeginAcceptTcpClient(this.OnAccept, listener);
-				}
-				IPEndPoint ip = (IPEndPoint)listener.LocalEndpoint;
-
-				//<embed id="__$plugin" type="application/x-dotweb"/>
-				writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
-				writer.AddAttribute(HtmlTextWriterAttribute.Type, "application/x-dotweb");
-				writer.RenderBeginTag(HtmlTextWriterTag.Embed);
-				writer.RenderEndTag();
-
-				writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-				writer.RenderBeginTag(HtmlTextWriterTag.Script);
-//				writer.WriteLine("$wnd.__$serverUrl = 'tcp://localhost:{0}';", ip.Port);
-//				writer.WriteLine("$wnd.__$serverType = '{0}';", this.Source);
-				writer.WriteLine(Resources.JsHelper);
-				string js = string.Format(@"
-window.onload = function() {{
-	var plugin = $doc.getElementById('__$plugin');
-	plugin.onLoad(__$helper, 'localhost', {0}, '{1}');
-}};", ip.Port, this.Source);
-
-				writer.WriteLine(js);
-				writer.RenderEndTag();
+				RenderHostedMode(writer);
 			}
 			else if (this.Mode == "Web") {
-				string src = null;
-				if (this.EnableCache) {
-					Cache cache = this.Context.Cache;
-					src = cache.Get(this.Source) as string;
-				}
-				if (src == null) {
-					src = Translate();
-				}
-
-				writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-				writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
-				writer.RenderBeginTag(HtmlTextWriterTag.Script);
-				writer.RenderEndTag();
+				RenderWebMode(writer);
 			}
 			else {
 				throw new ConfigurationErrorsException(string.Format("Invalid DotWeb-Mode: {0}", this.Mode));
 			}
+		}
+
+		private void RenderHostedMode(HtmlTextWriter writer) {
+			HttpCookie cookie = new HttpCookie("X-DotWeb");
+			this.Context.Response.Cookies.Add(cookie);
+			TcpListener listener = Context.Application["DotWeb.TcpListener"] as TcpListener;
+			if (listener == null) {
+				listener = new TcpListener(IPAddress.Loopback, 0);
+				listener.Start();
+				Context.Application["DotWeb.TcpListener"] = listener;
+				listener.BeginAcceptTcpClient(this.OnAccept, listener);
+			}
+			IPEndPoint ip = (IPEndPoint)listener.LocalEndpoint;
+
+			//<embed id="__$plugin" type="application/x-dotweb"/>
+			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
+			writer.AddAttribute(HtmlTextWriterAttribute.Type, "application/x-dotweb");
+			writer.RenderBeginTag(HtmlTextWriterTag.Embed);
+			writer.RenderEndTag();
+
+			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+			writer.RenderBeginTag(HtmlTextWriterTag.Script);
+			//				writer.WriteLine("$wnd.__$serverUrl = 'tcp://localhost:{0}';", ip.Port);
+			//				writer.WriteLine("$wnd.__$serverType = '{0}';", this.Source);
+			writer.WriteLine(Resources.JsHelper);
+			string js = string.Format(Resources.HostedEntry, ip.Port, this.Source);
+
+			writer.WriteLine(js);
+			writer.RenderEndTag();
+		}
+
+		private void RenderWebMode(HtmlTextWriter writer) {
+			string src = null;
+			if (this.EnableCache) {
+				Cache cache = this.Context.Cache;
+				src = cache.Get(this.Source) as string;
+			}
+			if (src == null) {
+				src = Translate();
+			}
+
+//			string js = string.Format(Resources.WebEntry, typeName);
+
+			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
+			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
+			writer.RenderBeginTag(HtmlTextWriterTag.Script);
+			writer.RenderEndTag();
 		}
 	}
 }

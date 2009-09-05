@@ -71,6 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WebEntry.js" />
+    <Content Include="HostedEntry.js" />
     <Content Include="JsHelper.js" />
   </ItemGroup>
   <ItemGroup>

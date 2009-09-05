@@ -54,8 +54,11 @@ namespace DotWeb.Translator
 
 		public void TranslateType(Type type) {
 			TranslationContext context = new TranslationContext(this.generator);
-			context.AddType(type);
-			context.Generate();
+//			context.AddType(type);
+//			context.Generate();
+			MethodBase method = type.GetConstructor(Type.EmptyTypes);
+			context.GenerateMethod(method, true);
+			this.generator.WriteEntryPoint(type);
 		}
 	}
 }
