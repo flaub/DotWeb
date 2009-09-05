@@ -23,27 +23,15 @@ using DotWeb.Client;
 
 namespace DotWeb.Sample.Script
 {
-	[JsNamespace()]
+	[JsNamespace]
 	[JsAnonymous]
 	public class Config : JsAccessible
 	{
-		private int m_id;
-		private string m_value;
-
-		[JsIntrinsic]
-		public int id {
-			get { return this.m_id; }
-			set { this.m_id = value; }
-		}
-
-		[JsIntrinsic]
-		public string value {
-			get { return this.m_value; }
-			set { this.m_value = value; }
-		}
+		public int id;
+		public string value;
 	}
 
-	[JsNamespace()]
+	[JsNamespace]
 	public class Tuple : JsNativeBase
 	{
 		public Tuple() { }
