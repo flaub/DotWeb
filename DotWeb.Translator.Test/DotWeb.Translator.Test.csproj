@@ -59,13 +59,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="TranslationTest_Source.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TranslationTest_Source.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TranslationTest.cs" />
     <Compile Include="TranslationTestHelper.cs" />
@@ -94,9 +94,8 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
+    <Content Include="Expected\SourceTest\SourceTests_CallDerived.js" />
     <Content Include="Expected\SourceTest\SourceTests_CallTakeParameters.js" />
-    <Content Include="Expected\SourceTest\SourceTests_EmitOuterClass.js" />
-    <Content Include="Expected\SourceTest\SourceTests_EmitInnerClass.js" />
     <Content Include="Expected\SourceTest\SourceTests_CreateOuterObject.js" />
     <Content Include="Expected\SourceTest\SourceTests_DoWhileLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />

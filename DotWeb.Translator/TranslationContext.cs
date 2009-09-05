@@ -34,229 +34,75 @@ namespace DotWeb.Translator
 
 	public class TranslationContext
 	{
-		CodeNamespaceCollection namespaces = new CodeNamespaceCollection();
-		CodeTypeDeclarationCollection types = new CodeTypeDeclarationCollection();
-		List<CodeTypeDeclaration> depthFirstTypes = new List<CodeTypeDeclaration>();
 		JsCodeGenerator generator;
-		CodeNamespace nsDefault;
-		CodeTypeDeclaration entryType;
 
 		public TranslationContext(JsCodeGenerator generator) {
 			this.generator = generator;
-
-			this.nsDefault = new CodeNamespace { Name = "" };
-			this.namespaces.Add(nsDefault.Name, nsDefault);
-		}
-
-		public void Generate() {
-			foreach (CodeNamespace ns in this.namespaces.Values) {
-				this.generator.WriteNamespaceDecl(ns);
-			}
-
-			foreach (CodeTypeDeclaration type in this.depthFirstTypes) {
-				this.generator.Write(type);
-			}
-
-			Debug.Assert(this.entryType != null);
-			this.generator.WriteEntryPoint(this.entryType.Type);
 		}
 
 		public void GenerateMethod(MethodBase method, bool followDependencies) {
-			//var externalTypes = new List<Type>();
-			//foreach (var external in parsedMethod.ExternalMethods) {
-			//    externalTypes.AddUnique(external.DeclaringType);
-			//}
 			if (followDependencies) {
-				GenerateMethod(method, new List<Type>(), new List<MethodBase>());
+				GenerateMethod(method, new List<Type>(), new List<MethodBase>(), new List<string>());
 			}
 			else {
-				var parsedMethod = Parse(method); 
+				var parsedMethod = Parse(method);
 				this.generator.Write(parsedMethod);
 			}
 		}
 
-		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache) {
-			if (method.GetMethodBody() != null) {
-				var parsedMethod = Parse(method);
-				foreach (var external in parsedMethod.ExternalMethods) {
-					var externalType = external.DeclaringType;
-					if (IsEmittable(externalType)) {
-						if (!typesCache.Contains(externalType)) {
-							CodeNamespace ns = GetNamespace(externalType);
-							this.generator.WriteNamespaceDecl(ns);
-							this.generator.WriteTypeConstructor(externalType);
-							typesCache.Add(externalType);
-						}
-						if (!methodsCache.Contains(external)) {
-							GenerateMethod(external, typesCache, methodsCache);
-						}
+		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache, List<string> namespaceCache) {
+			var parsedMethod = Parse(method);
+			foreach (var external in parsedMethod.ExternalMethods) {
+				var externalType = external.DeclaringType;
+				if (IsEmittable(externalType)) {
+					if (!methodsCache.Contains(external)) {
+						GenerateMethod(external, typesCache, methodsCache, namespaceCache);
 					}
 				}
-				this.generator.Write(parsedMethod);
 			}
+
+			var type = parsedMethod.Info.DeclaringType;
+			GenerateTypeDecl(type, typesCache, namespaceCache);
+
+			this.generator.Write(parsedMethod);
 			methodsCache.Add(method);
 		}
 
-		public void GenerateType(Type type) {
-			var parsedType = Parse(type);
-			this.generator.Write(parsedType);
-		}
-
-		public void AddAssembly(Assembly assembly) {
-			Dictionary<string, CodeNamespace> namespaces = new Dictionary<string, CodeNamespace>();
-			CodeNamespace nsDefault = new CodeNamespace {
-				Name = ""
-			};
-			namespaces.Add(nsDefault.Name, nsDefault);
-
-			foreach (Type type in assembly.GetTypes()) {
-				if (type.IsSubclassOf(typeof(Delegate)))
-					continue;
-				if (type.FullName.Contains("PrivateImplementation"))
-					continue;
-				CodeTypeDeclaration def = Parse(type);
-
-				if (def.Type.Namespace == null) {
-					nsDefault.Types.Add(def);
+		private void GenerateNamespace(string name, List<string> namespaceCache) {
+			StringBuilder sb = new StringBuilder();
+			string[] parts = name.Split('.');
+			foreach (string part in parts) {
+				if (sb.Length > 0) {
+					sb.Append(".");
 				}
-				else {
-					CodeNamespace ns;
-					if (!namespaces.TryGetValue(def.Type.Namespace, out ns)) {
-						ns = new CodeNamespace {
-							Name = def.Type.Namespace
-						};
-						namespaces.Add(def.Type.Namespace, ns);
-					}
-					ns.Types.Add(def);
+				sb.Append(part);
+
+				string namespacePart = sb.ToString();
+
+				if (!namespaceCache.Contains(namespacePart)) {
+					CodeNamespace ns = new CodeNamespace { Name = namespacePart };
+					this.generator.WriteNamespaceDecl(ns);
+					namespaceCache.Add(namespacePart);
 				}
 			}
-
-			foreach (CodeNamespace ns in namespaces.Values) {
-				this.generator.Write(ns);
-			}
 		}
 
-		private CodeNamespace GetNamespace(Type type) {
-			CodeNamespace ns;
-			if (type.Namespace == null) {
-				ns = this.nsDefault;
-			}
-			else {
-				if (!namespaces.TryGetValue(type.Namespace, out ns)) {
-					ns = new CodeNamespace { Name = type.Namespace };
-					namespaces.Add(ns.Name, ns);
+		private void GenerateTypeDecl(Type type, List<Type> typesCache, List<string> namespaceCache) {
+			if (!typesCache.Contains(type)) {
+				Type baseType = type.BaseType;
+				if (IsEmittable(baseType)) {
+					GenerateTypeDecl(baseType, typesCache, namespaceCache);
 				}
-			}
-			return ns;
-		}
 
-		public void AddType(Type type) {
-			if (!type.IsSubclassOf(typeof(JsAccessible)))
-				return;
-			if (type == typeof(JsNativeBase))
-				return;
-			if (this.types.ContainsKey(type.FullName))
-				return;
-
-			CodeNamespace ns = GetNamespace(type);
-			CodeTypeDeclaration def = Parse(type);
-			this.types.Add(def.FullName, def);
-			ns.Types.Add(def);
-
-			if (this.entryType == null)
-				this.entryType = def;
-
-			foreach (Type dependency in def.ExternalTypes) {
-				Debug.WriteLine(string.Format("{0} Depends on {1}", type, dependency));
-				AddType(dependency);
-			}
-
-			this.depthFirstTypes.AddUnique(def);
-		}
-
-		public void AddMethod(CodeTypeDeclaration decl, MethodBase method) {
-			//AssociatedProperty ap = method.GetAssociatedProperty();
-			//if (ap != null && ap.Info.IsDefined(typeof(JsIntrinsicAttribute), false)) {
-			//    return;
-			//}
-
-			CodeMethodMember cmm = Parse(method);
-			if (cmm.ExternalMethods.Any(x =>
-				x.DeclaringType == typeof(JsNativeBase) ||
-				x.DeclaringType == typeof(JsHost))) {
-				if (cmm.NativeCode == null) {
-					// generate native code from method sig
-					JsFunction function = new JsFunction(method);
-					cmm.NativeCode = function.Body;
-					return;
+				if (type.Namespace != null) {
+					GenerateNamespace(type.Namespace, namespaceCache);
 				}
+				this.generator.WriteTypeConstructor(type);
+				typesCache.Add(type);
 			}
-			else {
-				foreach (MethodBase external in cmm.ExternalMethods) {
-					if (external.DeclaringType != decl.Type) {
-						decl.ExternalTypes.AddUnique(external.DeclaringType);
-					}
-				}
-			}
-
-			decl.Methods.Add(cmm);
 		}
 
-		public void AddMethod(MethodBase method) {
-			CodeTypeDeclaration typeDecl;
-			if (!this.types.TryGetValue(method.DeclaringType.FullName, out typeDecl)) {
-				typeDecl = new CodeTypeDeclaration {
-					Type = method.DeclaringType
-				};
-				this.types.Add(typeDecl.FullName, typeDecl);
-			}
-
-			AddMethod(typeDecl, method);
-		}
-
-		const BindingFlags BindingFlagsForMembers =
-			BindingFlags.DeclaredOnly |
-			BindingFlags.Public |
-			BindingFlags.NonPublic |
-			BindingFlags.Instance |
-			BindingFlags.Static;
-
-		public CodeTypeDeclaration Parse(Type type) {
-			CodeTypeDeclaration def = new CodeTypeDeclaration {
-				Type = type
-			};
-
-			def.ExternalTypes.AddUnique(type.BaseType);
-
-			foreach (MethodInfo mi in type.GetMethods(BindingFlagsForMembers)) {
-				AddMethod(def, mi);
-			}
-
-			foreach (ConstructorInfo ci in type.GetConstructors(BindingFlagsForMembers)) {
-				AddMethod(def, ci);
-			}
-
-			foreach (FieldInfo fi in type.GetFields(BindingFlagsForMembers)) {
-				if (fi.MemberType == MemberTypes.Event)
-					continue;
-				CodeFieldMember field = new CodeFieldMember(fi);
-				def.Fields.Add(field);
-			}
-
-			foreach (EventInfo ei in type.GetEvents(BindingFlagsForMembers)) {
-				CodeEventMember evt = new CodeEventMember(ei);
-				def.Events.Add(evt);
-			}
-
-			foreach (PropertyInfo pi in type.GetProperties(BindingFlagsForMembers)) {
-				CodePropertyMember property = new CodePropertyMember(pi);
-				def.Properties.Add(property);
-			}
-
-			return def;
-		}
-
-		public CodeMethodMember Parse(MethodBase method) {
+		private CodeMethodMember Parse(MethodBase method) {
 			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
 			if (js != null) {
 				var ret = new CodeMethodMember(method) {
@@ -318,5 +164,13 @@ namespace DotWeb.Translator
 
 			return true;
 		}
+
+		const BindingFlags BindingFlagsForMembers =
+			BindingFlags.DeclaredOnly |
+			BindingFlags.Public |
+			BindingFlags.NonPublic |
+			BindingFlags.Instance |
+			BindingFlags.Static;
+
 	}
 }

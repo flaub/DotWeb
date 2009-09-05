@@ -15,6 +15,11 @@ __f__AnonymousType0$2.prototype.get_Value = function() {
 	return this._Value_i__Field;
 };
 
+if(typeof(H8) == 'undefined') H8 = {};
+
+H8.SourceTests = function() {
+};
+
 H8.SourceTests.prototype.AnonymousType = function() {
 	var loc0 = new __f__AnonymousType0$2().$ctor("Hi", 1);
 	console.log("{0}: {1}", loc0.get_Key().get_Length(), loc0.get_Value());

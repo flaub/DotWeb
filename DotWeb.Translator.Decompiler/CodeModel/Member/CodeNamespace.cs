@@ -25,6 +25,8 @@ namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeNamespace : CodeTypeMember
 	{
+		public static readonly CodeNamespace Default = new CodeNamespace { Name = "" };
+
 		public CodeNamespace() {
 			this.Types = new List<CodeTypeDeclaration>();
 		}

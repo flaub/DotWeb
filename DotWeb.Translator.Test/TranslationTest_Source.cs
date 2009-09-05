@@ -40,6 +40,31 @@ namespace H8
 		private int m_value;
 	}
 
+	class Base
+	{
+		public int X { get; set; }
+
+		public void BaseMethod() {
+		}
+	}
+
+	class Derived : Base
+	{
+		private int id = NextId();
+
+		private static int counter = 0;
+		private static int NextId() {
+			return counter++;
+		}
+
+		public Derived() {
+		}
+
+		public void DerviedMethod() {
+			BaseMethod();
+		}
+	}
+
 	class SourceTests
 	{
 		/// <summary>
@@ -561,6 +586,12 @@ namespace H8
 			};
 
 			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
+		}
+
+		public void CallDerived() {
+			Derived derived = new Derived();
+			derived.DerviedMethod();
+			derived.BaseMethod();
 		}
 	}
 }

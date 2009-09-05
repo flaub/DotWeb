@@ -1,4 +1,9 @@
-﻿H8.DecorationTests.prototype.TestJsAnonymous = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+H8.DecorationTests = function() {
+};
+
+H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	var loc3 = {};
 	loc3.X = 1;
 	loc3.y = 2;

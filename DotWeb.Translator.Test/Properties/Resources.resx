@@ -145,12 +145,6 @@
   <data name="SourceTests_DoWhileLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_dowhileloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SourceTests_EmitInnerClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_emitinnerclass.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_EmitOuterClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_emitouterclass.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SourceTests_EnumArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_enumarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -207,5 +201,8 @@
   </data>
   <data name="NativeTest_TestTuple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\nativetest\nativetest_testtuple.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_CallDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_callderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

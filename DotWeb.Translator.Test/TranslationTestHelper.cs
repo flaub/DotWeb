@@ -68,15 +68,6 @@ namespace DotWeb.Translator.Test
 			return writer.ToString();
 		}
 
-		protected void TestType(string typeName, string expected) {
-			Type compiledType = this.compiledAssembly.GetType(typeName);
-			TextWriter writer = new StringWriter();
-			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
-			TranslationContext context = new TranslationContext(generator);
-			context.GenerateType(compiledType);
-			Assert.AreEqual(expected.Trim(), writer.ToString().Trim());
-		}
-
 		protected Assembly compiledAssembly;
 
 		private static Assembly cachedAssembly;

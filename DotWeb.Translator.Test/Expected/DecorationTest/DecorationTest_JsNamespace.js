@@ -11,8 +11,6 @@ DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
 	this._Value_k__BackingField = value;
 };
 
-if(typeof(H8) == 'undefined') H8 = {};
-
 Foo.FooNamespaceTest = function() {
 };
 
@@ -30,6 +28,9 @@ Foo.FooNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
 
 Foo.FooNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
+};
+
+H8.DecorationTests = function() {
 };
 
 H8.DecorationTests.prototype.TestJsNamespace = function() {

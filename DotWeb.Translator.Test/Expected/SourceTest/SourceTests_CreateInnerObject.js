@@ -1,4 +1,38 @@
-﻿H8.SourceTests.prototype.CreateInnerObject = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+H8.SourceTests_InnerClassTest = function() {
+};
+
+H8.SourceTests_InnerClassTest.prototype.set_Text = function(value /*System.String*/) {
+	this._Text_k__BackingField = value;
+};
+
+H8.SourceTests_InnerClassTest.prototype.set_Value = function(value /*System.Int32*/) {
+	this._Value_k__BackingField = value;
+};
+
+H8.SourceTests_InnerClassTest.prototype.$ctor = function(text /*System.String*/, value /*System.Int32*/) {
+	this.set_Text(text);
+	this.set_Value(value);
+	return this;
+};
+
+H8.SourceTests_InnerClassTest.prototype.$ctor = function() {
+	return this;
+};
+
+H8.SourceTests_InnerClassTest.prototype.get_Text = function() {
+	return this._Text_k__BackingField;
+};
+
+H8.SourceTests_InnerClassTest.prototype.get_Value = function() {
+	return this._Value_k__BackingField;
+};
+
+H8.SourceTests = function() {
+};
+
+H8.SourceTests.prototype.CreateInnerObject = function() {
 	var loc0 = new H8.SourceTests_InnerClassTest().$ctor("Test1", 1);
 	var loc2 = new H8.SourceTests_InnerClassTest().$ctor();
 	loc2.set_Text("Test2");

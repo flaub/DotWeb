@@ -91,23 +91,13 @@ namespace DotWeb.Translator.Test
 		}
 
 		[TestMethod]
-		public void EmitInnerClass() {
-			this.TestType("H8.SourceTests+InnerClassTest", Resources.SourceTests_EmitInnerClass);
-		}
-
-		[TestMethod]
-		public void EmitOuterClass() {
-			this.TestType("H8.OuterClassTest", Resources.SourceTests_EmitOuterClass);
-		}
-
-		[TestMethod]
 		public void CreateInnerObject() {
-			this.TestMethod(this.sourceTestsCompiledType, "CreateInnerObject", Resources.SourceTests_CreateInnerObject);
+			this.TestMethod(this.sourceTestsCompiledType, "CreateInnerObject", Resources.SourceTests_CreateInnerObject, true);
 		}
 
 		[TestMethod]
 		public void CreateOuterObject() {
-			this.TestMethod(this.sourceTestsCompiledType, "CreateOuterObject", Resources.SourceTests_CreateOuterObject);
+			this.TestMethod(this.sourceTestsCompiledType, "CreateOuterObject", Resources.SourceTests_CreateOuterObject, true);
 		}
 
 		[TestMethod]
@@ -138,6 +128,11 @@ namespace DotWeb.Translator.Test
 		[TestMethod]
 		public void CallTakeParameters() {
 			this.TestMethod(this.sourceTestsCompiledType, "CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
+		}
+
+		[TestMethod]
+		public void CallDerived() {
+			this.TestMethod(this.sourceTestsCompiledType, "CallDerived", Resources.SourceTests_CallDerived, true);
 		}
 
 		private Type sourceTestsCompiledType;
