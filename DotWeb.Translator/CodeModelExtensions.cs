@@ -42,15 +42,28 @@ namespace DotWeb.Translator
 				cpr.Property.DeclaringType.IsAnonymous();
 		}
 
+		private static bool IsAutoImplemented(CodeFieldReference field, PropertyInfo property) {
+			if (field != null && field.TargetObject is CodeThisReference) {
+				if (field.Field.Name == GetAutomaticBackingFieldName(property))
+					return true;
+			}
+			return false;
+		}
+
 		public static bool IsAutoImplemented(this CodePropertyGetterMember cpm) {
-			if (cpm.Statements.Count == 1) {
-				var first = cpm.Statements.First() as CodeReturnStatement;
-				if (first != null) {
-					var field = first.Expression as CodeFieldReference;
-					if (field != null && field.TargetObject is CodeThisReference) {
-						if (field.Field.Name == GetAutomaticBackingFieldName(cpm.PropertyInfo))
-							return true;
-					}
+			if (cpm.Statements.Count >= 1) {
+				var first = cpm.Statements.First();
+				var ret = first as CodeReturnStatement;
+				if (ret != null) {
+					var field = ret.Expression as CodeFieldReference;
+					if(IsAutoImplemented(field, cpm.PropertyInfo))
+						return true;
+				}
+				var assign = first as CodeAssignStatement;
+				if (assign != null) {
+					var field = assign.Right as CodeFieldReference;
+					if (IsAutoImplemented(field, cpm.PropertyInfo))
+						return true;
 				}
 			}
 			return false;
@@ -61,10 +74,8 @@ namespace DotWeb.Translator
 				var first = cpm.Statements.First() as CodeAssignStatement;
 				if (first != null) {
 					var field = first.Left as CodeFieldReference;
-					if (field != null && field.TargetObject is CodeThisReference) {
-						if (field.Field.Name == GetAutomaticBackingFieldName(cpm.PropertyInfo))
-							return true;
-					}
+					if (IsAutoImplemented(field, cpm.PropertyInfo))
+						return true;
 				}
 			}
 			return false;

@@ -1,4 +1,6 @@
-﻿H8.SourceTests = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+H8.SourceTests = function() {
 };
 
 H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {

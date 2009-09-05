@@ -1,4 +1,6 @@
-﻿DefaultNamespaceTest = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+DefaultNamespaceTest = function() {
 };
 
 DefaultNamespaceTest.prototype.$ctor = function() {
@@ -8,6 +10,8 @@ DefaultNamespaceTest.prototype.$ctor = function() {
 DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
 	this._Value_k__BackingField = value;
 };
+
+if(typeof(H8) == 'undefined') H8 = {};
 
 Foo.FooNamespaceTest = function() {
 };

@@ -1,4 +1,6 @@
-﻿H8.IntrinsicClass = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+H8.IntrinsicClass = function() {
 };
 
 H8.IntrinsicClass.prototype.$ctor = function() {

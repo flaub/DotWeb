@@ -1,4 +1,6 @@
-﻿H8.SourceTests = function() {
+﻿if(typeof(H8) == 'undefined') H8 = {};
+
+H8.SourceTests = function() {
 };
 
 H8.SourceTests._Linq_b__2 = function(ch /*System.Char*/) {

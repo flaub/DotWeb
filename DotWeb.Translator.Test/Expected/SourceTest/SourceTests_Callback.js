@@ -1,7 +1,4 @@
-﻿H8.SourceTests_SimpleDelegate = function() {
-	this.$super.constructor();
-};
-H8.SourceTests_SimpleDelegate.$extend(System.MulticastDelegate);
+﻿if(typeof(H8) == 'undefined') H8 = {};
 
 H8.SourceTests = function() {
 };
