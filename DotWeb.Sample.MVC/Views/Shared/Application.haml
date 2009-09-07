@@ -1,0 +1,22 @@
+!!!
+%html{ xmlns="http://www.w3.org/1999/xhtml" }
+	%head
+		%title= ViewData["Title"]
+		%link{ href="../../Content/Site.css" rel="stylesheet" type="text/css" }
+		-//%link{ href="../../js/ExtJs/resources/css/ext-all.css" rel="stylesheet" type="text/css" }
+	%body
+		.page
+			#header
+				#title
+					%h1 DotWeb Toolkit
+				#menucontainer
+					%ul#menu
+						%li 
+							%a{href="/"} Home
+						%li= Html.ActionLink("Simple Sample", "Simple", "Home")
+						%li= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")
+						%li= Html.ActionLink("Tests", "Tests", "Home")
+			#main
+				_
+				#footer
+					\.Web Sample MVC Application &copy; Copyright 2009

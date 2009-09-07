@@ -13,15 +13,13 @@
 	<div class="page">
 		<div id="header">
 			<div id="title">
-				<h1>
-					.Web Toolkit</h1>
+				<h1>.Web Toolkit</h1>
 			</div>
 			<div id="menucontainer">
 				<ul id="menu">
-					<li>
-						<%= Html.ActionLink("Simple Sample", "Simple", "Home")%></li>
-					<li>
-						<%= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")%></li>
+					<li><%= Html.ActionLink("Simple Sample", "Simple", "Home")%></li>
+					<li><%= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")%></li>
+					<li><%= Html.ActionLink("Tests", "Tests", "Home") %></li>
 				</ul>
 			</div>
 		</div>

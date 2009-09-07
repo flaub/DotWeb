@@ -38,160 +38,80 @@ using DotWeb.Web.Properties;
 
 namespace DotWeb.Web
 {
+	class HttpContextImpl : IHttpContext
+	{
+		private HttpContext context;
+
+		public HttpContextImpl(HttpContext context) {
+			this.context = context;
+		}
+
+		public string MapPath(string virtualPath) {
+			return context.Server.MapPath(virtualPath);
+		}
+
+		public string ResolveUrl(string url) {
+			return url.Replace("~", context.Request.ApplicationPath);
+		}
+
+		public System.Web.Caching.Cache Cache {
+			get { return context.Cache; }
+		}
+
+		public void AddCookie(HttpCookie cookie) {
+			context.Response.Cookies.Add(cookie);
+		}
+
+		public object GetApplicationState(string key) {
+			return context.Application.Get(key);
+		}
+
+		public void SetApplicationState(string key, object value) {
+			context.Application.Set(key, value);
+		}
+	}
+
 	[ToolboxData("<{0}:ClientCode runat=server></{0}:ClientCode>")]
 	public class ClientCode : Control
 	{
-		public string Source { get; set; }
+		public string Source {
+			get { return this.renderer.Source; }
+			set { this.renderer.Source = value; }
+		}
 
 		[DefaultValue(true)]
-		public bool Minify { get; set; }
+		public bool Minify {
+			get { return this.renderer.Minify; }
+			set { this.renderer.Minify = value; }
+		}
 
 		[DefaultValue("~/js/Cache")]
-		public string CacheDir { get; set; }
+		public string CacheDir {
+			get { return this.renderer.CacheDir; }
+			set { this.renderer.CacheDir = value; }
+		}
 
 		[DefaultValue("Web")]
-		public string Mode { get; set; }
+		public string Mode {
+			get { return this.renderer.Mode; }
+			set { this.renderer.Mode = value; }
+		}
 
 		[DefaultValue(true)]
-		public bool EnableCache { get; set; }
+		public bool EnableCache {
+			get { return this.renderer.EnableCache; }
+			set { this.renderer.EnableCache = value; }
+		}
 
-		private bool isDebug;
+		private ClientCodeRenderer renderer;
 
 		public ClientCode() {
-			this.CacheDir = WebConfigurationManager.AppSettings["JavaScriptCache"];
-			if (this.CacheDir == null)
-				this.CacheDir = "~/js/Cache";
-
-			this.Mode = WebConfigurationManager.AppSettings["DotWeb-Mode"];
-			if (this.Mode == null)
-				this.Mode = "Web";
-
-			this.EnableCache = true;
-			string value = WebConfigurationManager.AppSettings["DotWeb-EnableCache"];
-			if (!string.IsNullOrEmpty(value) && value != "true")
-				this.EnableCache = false;
-
-			Configuration cfg = WebConfigurationManager.OpenWebConfiguration("~");
-			ConfigurationSectionGroup grp = cfg.GetSectionGroup("system.web");
-			CompilationSection section = grp.Sections.Get("compilation") as CompilationSection;
-
-			this.isDebug = section.Debug;
-			if (this.isDebug) {
-				this.Minify = false;
-			}
-			else {
-				this.Minify = true;
-			}
-		}
-
-		private string Translate() {
-			Type srcType = Type.GetType(this.Source);
-			string typeName = srcType.FullName;
-			string filename = typeName
-				.Replace('.', '_')
-				.Replace('+', '_') + ".js";
-			Uri uri = new Uri(srcType.Assembly.CodeBase);
-			string srcPath = uri.AbsolutePath;
-			string virtualPath = string.Format("{0}/{1}", this.CacheDir, filename);
-			string tgtPath = this.MapPathSecure(virtualPath);
-
-			using (StreamWriter writer = new StreamWriter(tgtPath)) {
-				TranslationEngine translator = new TranslationEngine(writer, true);
-				translator.TranslateType(srcType);
-			}
-
-			string src = this.ResolveUrl(virtualPath);
-
-			if (this.EnableCache) {
-				Cache cache = this.Context.Cache;
-				CacheDependency depends = new CacheDependency(srcPath);
-				cache.Add(
-					this.Source,
-					src,
-					null,
-					Cache.NoAbsoluteExpiration,
-					Cache.NoSlidingExpiration,
-					CacheItemPriority.Normal,
-					null);
-			}
-			return src;
-		}
-
-		private void OnAccept(IAsyncResult ar) {
-			TcpListener listener = (TcpListener)ar.AsyncState;
-			TcpClient tcp = listener.EndAcceptTcpClient(ar);
-			NetworkStream stream = tcp.GetStream();
-			try {
-				listener.BeginAcceptTcpClient(this.OnAccept, listener);
-
-				JsBridge bridge = new JsBridge(stream);
-				bridge.DispatchForever();
-			}
-			catch (Exception ex) {
-				Debug.WriteLine(ex);
-				stream.Close();
-			}
-
-			tcp.Close();
+			HttpContextImpl impl = new HttpContextImpl(this.Context);
+			this.renderer = new ClientCodeRenderer(impl);
 		}
 
 		protected override void Render(HtmlTextWriter writer) {
-			if (this.Mode == "Hosted") {
-				RenderHostedMode(writer);
-			}
-			else if (this.Mode == "Web") {
-				RenderWebMode(writer);
-			}
-			else {
-				throw new ConfigurationErrorsException(string.Format("Invalid DotWeb-Mode: {0}", this.Mode));
-			}
-		}
-
-		private void RenderHostedMode(HtmlTextWriter writer) {
-			HttpCookie cookie = new HttpCookie("X-DotWeb");
-			this.Context.Response.Cookies.Add(cookie);
-			TcpListener listener = Context.Application["DotWeb.TcpListener"] as TcpListener;
-			if (listener == null) {
-				listener = new TcpListener(IPAddress.Loopback, 0);
-				listener.Start();
-				Context.Application["DotWeb.TcpListener"] = listener;
-				listener.BeginAcceptTcpClient(this.OnAccept, listener);
-			}
-			IPEndPoint ip = (IPEndPoint)listener.LocalEndpoint;
-
-			//<embed id="__$plugin" type="application/x-dotweb"/>
-			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
-			writer.AddAttribute(HtmlTextWriterAttribute.Type, "application/x-dotweb");
-			writer.RenderBeginTag(HtmlTextWriterTag.Embed);
-			writer.RenderEndTag();
-
-			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-			writer.RenderBeginTag(HtmlTextWriterTag.Script);
-			//				writer.WriteLine("$wnd.__$serverUrl = 'tcp://localhost:{0}';", ip.Port);
-			//				writer.WriteLine("$wnd.__$serverType = '{0}';", this.Source);
-			writer.WriteLine(Resources.JsHelper);
-			string js = string.Format(Resources.HostedEntry, ip.Port, this.Source);
-
-			writer.WriteLine(js);
-			writer.RenderEndTag();
-		}
-
-		private void RenderWebMode(HtmlTextWriter writer) {
-			string src = null;
-			if (this.EnableCache) {
-				Cache cache = this.Context.Cache;
-				src = cache.Get(this.Source) as string;
-			}
-			if (src == null) {
-				src = Translate();
-			}
-
-//			string js = string.Format(Resources.WebEntry, typeName);
-
-			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
-			writer.RenderBeginTag(HtmlTextWriterTag.Script);
-			writer.RenderEndTag();
+			this.renderer.Render(writer);
 		}
 	}
 }

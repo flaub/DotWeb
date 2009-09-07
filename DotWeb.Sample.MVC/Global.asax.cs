@@ -28,6 +28,7 @@ namespace H8.MVC
 		}
 
 		protected void Application_Start() {
+			ViewEngines.Engines.Add(new NHaml.Web.Mvc.NHamlMvcViewEngine()); 
 			RegisterRoutes(RouteTable.Routes);
 		}
 	}

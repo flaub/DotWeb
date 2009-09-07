@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NHaml, Version=1.5.0.0, Culture=neutral, PublicKeyToken=d603208bac452365, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Depends\NHaml.dll</HintPath>
+    </Reference>
+    <Reference Include="NHaml.Web.Mvc, Version=1.5.0.0, Culture=neutral, PublicKeyToken=d603208bac452365, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Depends\NHaml.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -66,6 +74,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -81,13 +90,6 @@
     </Compile>
     <Compile Include="Views\Home\ExtJs.aspx.designer.cs">
       <DependentUpon>ExtJs.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\Simple.aspx.cs">
-      <DependentUpon>Simple.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Home\Simple.aspx.designer.cs">
-      <DependentUpon>Simple.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
@@ -433,10 +435,11 @@
     <Content Include="js\ExtJs\resources\images\vista\toolbar\gray-bg.gif" />
     <Content Include="js\ExtJs\resources\images\vista\toolbar\tb-btn-sprite.gif" />
     <Content Include="js\Tuple.js" />
+    <None Include="Views\Home\Tests.haml" />
+    <None Include="Views\Home\Simple.haml" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\Home\ExtJs.aspx" />
-    <Content Include="Views\Home\Simple.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LoginUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />
@@ -450,6 +453,10 @@
     <ProjectReference Include="..\DotWeb.Sample.Script\DotWeb.Sample.Script.csproj">
       <Project>{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}</Project>
       <Name>DotWeb.Sample.Script</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj">
+      <Project>{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}</Project>
+      <Name>DotWeb.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Web\DotWeb.Web.csproj">
       <Project>{81320140-BA96-4316-AF77-34CD16952DB0}</Project>
@@ -468,11 +475,11 @@
     <None Include="js\ExtJs\resources\images\default\window\top-bottom.psd" />
     <None Include="js\ExtJs\resources\images\gray\window\left-corners.pspimage" />
     <None Include="js\ExtJs\resources\resources.jsb" />
+    <None Include="Views\Shared\Application.haml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="js\Cache\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

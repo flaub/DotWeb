@@ -19,5 +19,10 @@ namespace H8.MVC.Controllers
 			ViewData["Title"] = ".Web ExtJs Sample";
 			return View();
 		}
+
+		public ActionResult Tests() {
+			ViewData["Title"] = ".Web Tests";
+			return View();
+		}
 	}
 }
