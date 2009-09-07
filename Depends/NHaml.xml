@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NHaml</name>
+    </assembly>
+    <members>
+        <member name="T:NHaml.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.AttributesParseError">
+            <summary>
+              Looks up a localized string similar to Error parsing attributes.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.CompilationError">
+            <summary>
+              Looks up a localized string similar to An error occurred when compiling the file: {0}.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.ErrorParsingTag">
+            <summary>
+              Looks up a localized string similar to Error parsing tag.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.IllegalIndentationSpaces">
+            <summary>
+              Looks up a localized string similar to Illegal Indentation: Only {0} space character(s) allowed as indentation.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.IllegalIndentationTabs">
+            <summary>
+              Looks up a localized string similar to Illegal Indentation: Only tabs allowed as indentation.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.InvalidTemplateBaseType">
+            <summary>
+              Looks up a localized string similar to TemplateBaseType must inherit from CompiledTemplate.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.InvariantFail">
+            <summary>
+              Looks up a localized string similar to Invariant Failure.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.NoPartialName">
+            <summary>
+              Looks up a localized string similar to No partial name specified and template is not a layout.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.NotAssignableToITemplateCompiler">
+            <summary>
+              Looks up a localized string similar to Type {0} is not assignable to ITemplateCompiler.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.ObjectNull">
+            <summary>
+              Looks up a localized string similar to Expected Not Null Object.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.StringCannotBeEmpty">
+            <summary>
+              Looks up a localized string similar to The provided string argument &quot;{0}&quot; cannot be empty.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.SyntaxError">
+            <summary>
+              Looks up a localized string similar to Syntax error on line {0}: {1}: &quot;{2}&quot;.
+            </summary>
+        </member>
+        <member name="P:NHaml.Properties.Resources.TemplateCompilerTypeNotFound">
+            <summary>
+              Looks up a localized string similar to TemplateCompiler type {0} not found.
+            </summary>
+        </member>
+    </members>
+</doc>
