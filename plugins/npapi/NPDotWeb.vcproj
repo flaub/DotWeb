@@ -2,10 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="DotWeb.Agent.Firefox"
-	ProjectGUID="{D3A9C7E1-291C-4150-8014-797B827F39D7}"
-	RootNamespace="DotBug"
-	Keyword="Win32Proj"
+	Name="NPDotWeb"
+	ProjectGUID="{6D58FE29-7F53-4710-B720-A9D15A20A0DA}"
+	RootNamespace="NPDotWeb"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -18,10 +17,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\firefox"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -42,9 +41,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="npapi"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;DOTBUG_EXPORTS;_HAS_EXCEPTIONS=0"
+				PreprocessorDefinitions="_WINDOWS;WIN32;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -63,13 +61,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib"
-				OutputFile="$(OutDir)\NPDotWeb.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
-				GenerateManifest="false"
 				ModuleDefinitionFile="NPDotWeb.def"
 				GenerateDebugInformation="true"
-				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -77,7 +70,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -93,14 +85,15 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="package.cmd $(ConfigurationName)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -120,11 +113,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				Optimization="3"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="npapi"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DOTBUG_EXPORTS;_HAS_EXCEPTIONS=0"
-				ExceptionHandling="0"
+				PreprocessorDefinitions="_WINDOWS;WIN32"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -143,11 +135,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib"
-				OutputFile="$(OutDir)\NPDotWeb.dll"
-				LinkIncremental="1"
 				ModuleDefinitionFile="NPDotWeb.def"
 				GenerateDebugInformation="true"
-				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -157,8 +146,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				EmbedManifest="true"
-				VerboseOutput="true"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -174,6 +161,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="package.cmd $(ConfigurationName)"
 			/>
 		</Configuration>
 	</Configurations>
@@ -196,24 +184,6 @@
 			<File
 				RelativePath=".\dllmain.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\JsAgent.cpp"
@@ -229,6 +199,14 @@
 			</File>
 			<File
 				RelativePath=".\NPDotWeb.def"
+				>
+			</File>
+			<File
+				RelativePath=".\npapi\npn_bindings.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\package.cmd"
 				>
 			</File>
 			<File
@@ -263,14 +241,6 @@
 				RelativePath=".\Variant.cpp"
 				>
 			</File>
-			<Filter
-				Name="npapi"
-				>
-				<File
-					RelativePath=".\npapi\npn_bindings.cc"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -307,10 +277,6 @@
 			</File>
 			<File
 				RelativePath=".\Messages.h"
-				>
-			</File>
-			<File
-				RelativePath=".\npapi\NPObjectWrapper.h"
 				>
 			</File>
 			<File
@@ -353,6 +319,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\npapi\NPObjectWrapper.h"
+					>
+				</File>
+				<File
 					RelativePath=".\npapi\npruntime.h"
 					>
 				</File>
@@ -365,32 +335,6 @@
 			>
 			<File
 				RelativePath=".\DotWebNP.rc"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="install"
-			>
-			<File
-				RelativePath=".\dist\chrome.manifest"
-				DeploymentContent="true"
-				FileType="25"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\dist\skin\icon.png"
-				>
-			</File>
-			<File
-				RelativePath=".\dist\install.rdf"
 				>
 			</File>
 		</Filter>

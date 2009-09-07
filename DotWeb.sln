@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtJsParser", "ExtJsParser\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotWeb.Agent.Firefox", "plugins\npapi\DotWeb.Agent.Firefox.vcproj", "{D3A9C7E1-291C-4150-8014-797B827F39D7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Agent.Ie", "DotWeb.Hosting.Agent\DotWeb.Agent.Ie.csproj", "{D1243C40-69A0-4017-9ECA-194DE539DF83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
@@ -198,16 +196,6 @@ Global
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Release|Win32.ActiveCfg = Release|Any CPU
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Debug|Win32.Build.0 = Debug|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Release|Any CPU.ActiveCfg = Release|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Release|Win32.ActiveCfg = Release|Win32
-		{D3A9C7E1-291C-4150-8014-797B827F39D7}.Release|Win32.Build.0 = Release|Win32
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1243C40-69A0-4017-9ECA-194DE539DF83}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
