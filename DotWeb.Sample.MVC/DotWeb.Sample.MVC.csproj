@@ -98,13 +98,6 @@
     <Compile Include="Views\Shared\Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\LoginUserControl.ascx.cs">
-      <DependentUpon>LoginUserControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Shared\LoginUserControl.ascx.designer.cs">
-      <DependentUpon>LoginUserControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -441,7 +434,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Home\ExtJs.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
-    <Content Include="Views\Shared\LoginUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
