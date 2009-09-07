@@ -476,6 +476,7 @@
     <None Include="js\ExtJs\resources\images\gray\window\left-corners.pspimage" />
     <None Include="js\ExtJs\resources\resources.jsb" />
     <None Include="Views\Shared\Application.haml" />
+    <None Include="Views\Test\Sanity.haml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,7 +11,7 @@ namespace H8.MVC.Controllers
 	public class TestController : Controller
 	{
 		public ActionResult Sanity() {
-			ViewData["Title"] = ".Web Simple Sample";
+			ViewData["Title"] = "Sanity Test";
 			return View();
 		}
 	}

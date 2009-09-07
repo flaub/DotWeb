@@ -23,7 +23,7 @@ namespace H8.MVC
 			routes.MapRoute(
 				"Default",                                              // Route name
 				"{controller}/{action}/{id}",                           // URL with parameters
-				new { controller = "Home", action = "Simple", id = "" }  // Parameter defaults
+				new { controller = "Home", action = "Tests", id = "" }  // Parameter defaults
 			);
 		}
 
