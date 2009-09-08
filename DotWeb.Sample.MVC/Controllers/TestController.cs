@@ -19,5 +19,10 @@ namespace H8.MVC.Controllers
 			ViewData["Title"] = "Event Handler Test";
 			return View();
 		}
+
+		public ActionResult NativeCallback() {
+			ViewData["Title"] = "Native Callback Test";
+			return View();
+		}
 	}
 }

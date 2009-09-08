@@ -249,19 +249,17 @@ namespace DotWeb.Hosting.Bridge
 		private JsValue WrapValue(object arg) {
 			if (arg is JsNativeBase) {
 				JsNativeBase jsnb = (JsNativeBase)arg;
-				return new JsValue(JsValueType.Object, jsnb.Handle);
+				return new JsValue(JsValueType.JsObject, jsnb.Handle);
 			}
-			if (arg is JsAccessible) {
-				int id;
-				if (!GetRefId(arg, out id)) {
-					JsObjectWrapper wrapper = new JsObjectWrapper(this, arg);
-					this.refToObj.Add(id, wrapper);
-				}
-				return new JsValue(JsValueType.Object, id);
-			}
+
+			JsValue ret = JsValue.FromPrimitive(arg);
+			if (ret != null)
+				return ret;
+
 			if (arg is Delegate) {
 				int id;
 				if (!GetRefId(arg, out id)) {
+					Debug.WriteLine(string.Format("Adding refToObj: delegate[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, arg);
 				}
 				return new JsValue(JsValueType.Delegate, id);
@@ -270,11 +268,23 @@ namespace DotWeb.Hosting.Bridge
 				int id;
 				if (!GetRefId(arg, out id)) {
 					JsArrayWrapper wrapper = new JsArrayWrapper(this, arg as Array);
+					Debug.WriteLine(string.Format("Adding refToObj: JsArrayWraper[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, wrapper);
 				}
 				return new JsValue(JsValueType.Object, id);
 			}
-			return JsValue.FromPrimitive(arg);
+//			return JsValue.FromPrimitive(arg);
+			return GetObjectWrapper(arg);
+		}
+
+		private JsValue GetObjectWrapper(object arg) {
+			int id;
+			if (!GetRefId(arg, out id)) {
+				JsObjectWrapper wrapper = new JsObjectWrapper(this, arg);
+				Debug.WriteLine(string.Format("Adding refToObj: JsObjectWraper[{0}] -> {1}", arg, id));
+				this.refToObj.Add(id, wrapper);
+			}
+			return new JsValue(JsValueType.Object, id);
 		}
 
 		public object UnwrapValue(JsValue value, Type targetType) {
@@ -305,19 +315,24 @@ namespace DotWeb.Hosting.Bridge
 			return UnwrapValue(value, retType);
 		}
 
+		private JsFunction PrepareRemoteFunction(MethodBase method) {
+			JsFunction function;
+			if (!this.FunctionCache.TryGetValue(method, out function)) {
+				function = new JsFunction(method);
+				DefineFunctionMessage msgDef = new DefineFunctionMessage {
+					Name = function.Name,
+					Parameters = function.Parameters,
+					Body = function.Body
+				};
+				this.session.SendMessage(msgDef);
+				this.FunctionCache.Add(method, function);
+			}
+			return function;
+		}
+
 		public R InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args) {
 			try {
-				JsFunction function;
-				if (!this.FunctionCache.TryGetValue(method, out function)) {
-					function = new JsFunction(method);
-					DefineFunctionMessage msgDef = new DefineFunctionMessage{
-						Name = function.Name,
-						Parameters = function.Parameters,
-						Body = function.Body
-					};
-					this.session.SendMessage(msgDef);
-					this.FunctionCache.Add(method, function);
-				}
+				JsFunction function = PrepareRemoteFunction(method);
 
 				int hScope = 0;
 				if (scope != null)

@@ -63,10 +63,6 @@
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>
       <Name>DotWeb.Translator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ext\Ext.csproj">
-      <Project>{66530ECC-B564-4F33-A297-0E96189E64B6}</Project>
-      <Name>Ext</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Script.js" />

@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator", "DotWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Client", "DotWeb.Client\DotWeb.Client.csproj", "{0A46B99F-8A61-4544-8B1D-E5117DABBD90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.CLI", "DotWeb.Translator.CLI\DotWeb.Translator.CLI.csproj", "{E13C749E-8675-4307-96BC-FE3263296C62}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.Test", "DotWeb.Translator.Test\DotWeb.Translator.Test.csproj", "{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{196832FA-5DBB-45ED-8FA9-42E8C702E413}"
@@ -21,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.MVC", "DotWeb.Sample.MVC\DotWeb.Sample.MVC.csproj", "{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ext", "Ext\Ext.csproj", "{66530ECC-B564-4F33-A297-0E96189E64B6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web", "DotWeb.Web\DotWeb.Web.csproj", "{81320140-BA96-4316-AF77-34CD16952DB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkie", "Twinkie\Twinkie.csproj", "{28CB0949-C964-47B6-A5E4-38B2D32D4EFE}"
@@ -34,8 +30,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotWeb.Agent.Ie.Interop", "DotWeb.Interop.Com\DotWeb.Interop.Com.vcproj", "{79E45658-6D89-4164-B1B1-0315316F7E4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.Script", "DotWeb.Sample.Script\DotWeb.Sample.Script.csproj", "{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtJsParser", "ExtJsParser\ExtJsParser.csproj", "{44CEBE35-C9BD-40F0-91B0-3A47251382F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
 EndProject
@@ -78,16 +72,6 @@ Global
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Win32.ActiveCfg = Release|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E13C749E-8675-4307-96BC-FE3263296C62}.Release|Win32.ActiveCfg = Release|Any CPU
 		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -108,16 +92,6 @@ Global
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Release|Win32.ActiveCfg = Release|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{66530ECC-B564-4F33-A297-0E96189E64B6}.Release|Win32.ActiveCfg = Release|Any CPU
 		{81320140-BA96-4316-AF77-34CD16952DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81320140-BA96-4316-AF77-34CD16952DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81320140-BA96-4316-AF77-34CD16952DB0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -178,16 +152,6 @@ Global
 		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Release|Win32.ActiveCfg = Release|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Win32.ActiveCfg = Release|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

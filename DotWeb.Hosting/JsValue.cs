@@ -74,8 +74,9 @@ namespace DotWeb.Hosting
 			else if (value is double) {
 				return new JsValue((double)value);
 			}
-			string msg = string.Format("Cannot convert to JsValue: {0}", value);
-			throw new ArgumentException(msg, "value");
+//			string msg = string.Format("Cannot convert to JsValue: {0}", value);
+//			throw new ArgumentException(msg, "value");
+			return null;
 		}
 
 		public JsValue(string value) {
