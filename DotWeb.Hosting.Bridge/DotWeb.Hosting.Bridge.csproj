@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="IJsAccessible.cs" />
     <Compile Include="JsDelegate.cs" />
+    <Compile Include="JsFunction.cs" />
     <Compile Include="JsObjectWrapper.cs" />
     <Compile Include="JsArrayWrapper.cs" />
     <Compile Include="JsBridge.cs" />

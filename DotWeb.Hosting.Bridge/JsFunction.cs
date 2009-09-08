@@ -21,8 +21,9 @@ using System.Linq;
 using System.Text;
 using DotWeb.Client;
 using System.Reflection;
+using DotWeb.Utility;
 
-namespace DotWeb.Utility
+namespace DotWeb.Hosting.Bridge
 {
 	public class JsFunction
 	{

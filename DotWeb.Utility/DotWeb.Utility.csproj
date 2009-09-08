@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeExtensions.cs" />
-    <Compile Include="JsFunction.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="NetworkBitConverter.cs" />
     <Compile Include="NetworkReader.cs" />
