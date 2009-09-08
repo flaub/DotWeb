@@ -25,7 +25,7 @@ namespace H8
 {
 	[JsNamespace]
 	[JsAnonymous]
-	public class Config : JsAccessible
+	public class Config
 	{
 		public int id;
 		public string value;

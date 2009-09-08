@@ -32,7 +32,7 @@ namespace DotWeb.Client
 	/// This class is the primary way to allow JS-generated objects to communicate
 	/// with existing JavaScript (i.e. DOM objects, 3rd-party JS libraries)
 	/// </summary>
-	public abstract class JsNativeBase : JsAccessible
+	public abstract class JsNativeBase
 	{
 		public int Handle { get; set; }
 
@@ -40,6 +40,8 @@ namespace DotWeb.Client
 
 		protected void C_(params object[] args) {
 			StackFrame previous = new StackFrame(2);
+			// this prevents ctors from being called twice
+			// we only want the derived class's ctor to execute, not any bases
 			if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
 				return;
 			}

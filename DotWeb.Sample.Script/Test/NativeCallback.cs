@@ -7,28 +7,28 @@ using DotWeb.Client.Dom;
 
 namespace DotWeb.Sample.Script.Test
 {
+	[JsNamespace]
+	class NativeCaller : JsNativeBase
+	{
+		public NativeCaller(object cfg) { C_(cfg); }
+
+		public void Start() { _(); }
+	}
+
+	[JsNamespace]
+	class NativeObject : JsNativeBase
+	{
+		public NativeObject() { C_(); }
+
+		public void NativeCall() { _(); }
+	}
+
 	public class NativeCallback : JsScript
 	{
-		[JsNamespace]
-		class NativeCaller : JsNativeBase
-		{
-			public NativeCaller(Config cfg) { C_(cfg); }
-
-			public void Start() { _(); }
-		}
-
-		[JsNamespace]
-		class NativeObject : JsNativeBase
-		{
-			public NativeObject() { C_(); }
-
-			public void NativeCall() { _(); }
-		}
-
-		class Console : JsNativeBase
+		class Console
 		{
 			[JsCode("console.log(obj);")]
-			public static void Write(object obj) { S_(obj); }
+			public static void Write(object obj) { JsHost.S_(obj); }
 		}
 
 		[JsAnonymous]

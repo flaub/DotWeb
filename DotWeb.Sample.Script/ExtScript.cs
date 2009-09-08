@@ -37,14 +37,14 @@ namespace DotWeb.Sample.Script
 		}
 
 		[JsAnonymous]
-		class Schema : JsAccessible
+		class Schema
 		{
 			public string name;
 			public string type;
 		}
 
 		[JsAnonymous]
-		class MyRecord : JsAccessible
+		class MyRecord
 		{
 			public int id;
 			public string value;

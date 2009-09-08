@@ -32,6 +32,7 @@ namespace DotWeb.Client
 
 	public static class JsHost
 	{
+		private class VoidReturn { }
 		private const string JsHostName = "JsHost";
 
 		public static IJsHost Instance {
@@ -52,6 +53,16 @@ namespace DotWeb.Client
 			string str = string.Format("{0}: {1}, {2}\n", method, scope, args);
 			Debugger.Log(0, "DotWeb", str);
 			return Instance.InvokeRemoteMethod<R>(method, scope, args);
+		}
+
+		public static void S_(params object[] args) {
+			StackFrame frame = new StackFrame(1);
+			Execute<VoidReturn>(frame.GetMethod(), null, args);
+		}
+
+		public static R S_<R>(params object[] args) {
+			StackFrame frame = new StackFrame(1);
+			return Execute<R>(frame.GetMethod(), null, args);
 		}
 	}
 }

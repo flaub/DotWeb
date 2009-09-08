@@ -49,7 +49,7 @@ namespace DotWeb.Client.Dom
 		DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 32
 	}
 
-	public class Node : JsNativeBase
+	public abstract class Node : JsNativeBase
 	{
 		public NamedNodeMap attributes { get { return _<NamedNodeMap>(); } }
 

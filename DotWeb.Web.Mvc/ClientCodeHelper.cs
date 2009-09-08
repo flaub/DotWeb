@@ -23,7 +23,7 @@ namespace System.Web.Mvc
 		}
 
 		public string ResolveUrl(string url) {
-			return url.Replace("~", context.Request.ApplicationPath);
+			return url.Replace("~/", context.Request.ApplicationPath);
 		}
 
 		public System.Web.Caching.Cache Cache {
