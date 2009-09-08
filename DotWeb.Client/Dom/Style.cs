@@ -22,7 +22,10 @@ using System.Text;
 
 namespace DotWeb.Client.Dom
 {
-	class Style
+	public class Style : JsNativeBase
 	{
+		public string backgroundColor { get { return _<string>(); } set { _(value); } }
+
+		public string color { get { return _<string>(); } set { _(value); } }
 	}
 }
