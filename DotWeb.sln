@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.Script", "Dot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "DotWeb.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web.Mvc", "DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj", "{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}"
 EndProject

@@ -75,7 +75,7 @@
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotWeb.Translator.Decompiler\DotWeb.Decompiler.csproj">
+    <ProjectReference Include="..\DotWeb.Decompiler\DotWeb.Decompiler.csproj">
       <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
       <Name>DotWeb.Decompiler</Name>
     </ProjectReference>
