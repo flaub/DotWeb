@@ -83,10 +83,12 @@ namespace DotWeb.Sample.Script
 				}
 			};
 
+			var colModel = new ColumnModel(columns);
+
 			this.grid = new GridPanel(new GridPanelConfig {
 				height = 150,
 				renderTo = "grid",
-				colModel = new ColumnModel(columns),
+				colModel = colModel,
 				store = store
 			});
 			Console.WriteLine(this.grid);

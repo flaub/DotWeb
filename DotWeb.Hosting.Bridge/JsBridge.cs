@@ -338,7 +338,14 @@ namespace DotWeb.Hosting.Bridge
 				if (scope != null)
 					hScope = scope.Handle;
 
-				JsValue[] wrapped = WrapParameters(args);
+				JsValue[] wrapped;
+				if (method.GetParameters().Count() == 1 && args.Length > 1) {
+					wrapped = new JsValue[] { WrapValue(args) };
+				}
+				else {
+					wrapped = WrapParameters(args);
+				}
+
 				InvokeFunctionMessage msg = new InvokeFunctionMessage {
 					Name = function.Name,
 					ScopeId = hScope,

@@ -90,7 +90,7 @@ namespace DotWeb.Hosting.Bridge
 
 		public object Invoke(int id, DispatchType dispType, JsValue[] jsArgs) {
 			MemberInfo member = GetMember(id);
-			Debug.WriteLine(string.Format("Invoke: {0}, {1}", dispType, member));
+			Debug.WriteLine(string.Format("Invoke: {0}, {1} on {2}", dispType, member, this.target));
 			if (member is MethodInfo && dispType == DispatchType.PropertyGet) {
 				MethodInfo mi = member as MethodInfo;
 				Type delType = CreateTypeForMethod(mi);
