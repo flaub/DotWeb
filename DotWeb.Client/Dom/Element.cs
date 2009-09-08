@@ -24,5 +24,13 @@ namespace DotWeb.Client.Dom
 {
 	public class Element : Node
 	{
+		[JsIntrinsic]
+		public GenericEventHandler onclick { get { return _<GenericEventHandler>(); } set { _(value); } }
+
+		[JsIntrinsic]
+		public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
+
+		[JsIntrinsic]
+		public GenericEventHandler onblur { get { return _<GenericEventHandler>(); } set { _(value); } }
 	}
 }

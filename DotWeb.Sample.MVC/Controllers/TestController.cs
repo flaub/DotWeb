@@ -14,5 +14,10 @@ namespace H8.MVC.Controllers
 			ViewData["Title"] = "Sanity Test";
 			return View();
 		}
+
+		public ActionResult EventHandler() {
+			ViewData["Title"] = "Event Handler Test";
+			return View();
+		}
 	}
 }
