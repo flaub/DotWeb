@@ -30,7 +30,6 @@ namespace DotWeb.Hosting.Bridge
 		public string Name { get; set; }
 		public string Parameters { get; set; }
 		public string Body { get; set; }
-		public int FunctionId { get; set; }
 
 		public JsFunction(MethodBase method) {
 			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
@@ -41,9 +40,23 @@ namespace DotWeb.Hosting.Bridge
 				this.Body = js.Code;
 			}
 
-			string type = method.DeclaringType.FullName.Replace(".", "_").Replace("+", "$");
-			this.Name = string.Format("__{0}${1}", type, method.Name.Replace(".", "$"));
+			Type type = method.DeclaringType;
+			string typeName = type.FullName.Replace(".", "_").Replace("+", "$");
+			this.Name = string.Format("__{0}${1}", typeName, method.Name.Replace(".", "$"));
+			var members = type.GetMember(method.Name);
+			if (members.Length > 1) {
+				this.Name += string.Format("${0}", IndexOfMember(members, method));
+			}
 			this.Parameters = GetArgsString(method);
+		}
+
+		private int IndexOfMember(MemberInfo[] members, MethodBase method) {
+			for (int i = 0; i < members.Length; i++) {
+				var item = members[i];
+				if (item == method)
+					return i;
+			}
+			return -1;
 		}
 
 		private string GetTarget(MethodBase method) {
