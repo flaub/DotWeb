@@ -39,7 +39,6 @@ namespace DotWeb.Hosting.Bridge
 		public JsBridge(ISession session) {
 			this.session = session;
 			this.FunctionCache = new Dictionary<MethodBase, JsFunction>();
-			JsHost.Instance = this;
 		}
 
 		private JsValue DispatchAndReturn() {
@@ -75,7 +74,9 @@ namespace DotWeb.Hosting.Bridge
 
 		public void DispatchForever() {
 			while (true) {
-				Dispatch(false);
+				var ret = Dispatch(false);
+				if (ret == null)
+					return;
 			}
 		}
 

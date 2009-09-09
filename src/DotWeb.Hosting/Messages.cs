@@ -51,6 +51,49 @@ namespace DotWeb.Hosting
 		MessageType MessageType { get; }
 	}
 
+	public abstract class MessageBase : IMessage
+	{
+		private byte[] Serialize(IMessage msg) {
+			MemoryStream ms = new MemoryStream();
+			NetworkWriter writer = new NetworkWriter(ms);
+			msg.Write(writer);
+			return ms.ToArray(); 
+		}
+
+		public override bool Equals(object obj) {
+			IMessage rhs = obj as IMessage;
+			if (rhs == null)
+				return false;
+
+			byte[] lhsBytes = Serialize(this);
+			byte[] rhsBytes = Serialize(rhs);
+
+			return ByteArraysEqual(lhsBytes, rhsBytes);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
+		private bool ByteArraysEqual(byte[] b1, byte[] b2) {
+			if (b1 == b2) return true;
+			if (b1 == null || b2 == null) return false;
+			if (b1.Length != b2.Length) return false;
+			for (int i = 0; i < b1.Length; i++) {
+				if (b1[i] != b2[i]) return false;
+			}
+			return true;
+		}
+
+		#region IMessage Members
+
+		public abstract void Write(NetworkWriter writer);
+		public abstract void Read(NetworkReader reader);
+		public abstract MessageType MessageType { get; }
+
+		#endregion
+	}
+
 	public class LoadMessage : IMessage
 	{
 		public string TypeName;
@@ -202,21 +245,21 @@ namespace DotWeb.Hosting
 		#endregion
 	}
 
-	public class ReturnMessage : IMessage
+	public class ReturnMessage : MessageBase
 	{
 		public bool IsException;
 		public JsValue Value;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.Return; } }
+		public override MessageType MessageType { get { return MessageType.Return; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(IsException);
 			Value.Write(writer);
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			Value = new JsValue();
 			IsException = reader.ReadBoolean();
 			Value.Read(reader);
