@@ -14,6 +14,7 @@ using System.Web;
 using System.Net;
 using System.Web.UI;
 using DotWeb.Web.Properties;
+using DotWeb.Hosting;
 
 namespace DotWeb.Web
 {
@@ -112,8 +113,8 @@ namespace DotWeb.Web
 			NetworkStream stream = tcp.GetStream();
 			try {
 				listener.BeginAcceptTcpClient(this.OnAccept, listener);
-
-				JsBridge bridge = new JsBridge(stream);
+				RemoteSession session = new RemoteSession(stream);
+				JsBridge bridge = new JsBridge(session);
 				bridge.DispatchForever();
 			}
 			catch (Exception ex) {

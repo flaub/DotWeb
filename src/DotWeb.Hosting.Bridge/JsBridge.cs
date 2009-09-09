@@ -20,30 +20,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using DotWeb.Client;
-using System.Net.Sockets;
 using System.Diagnostics;
 using System.Threading;
 using DotWeb.Utility;
+using System.IO;
 
 namespace DotWeb.Hosting.Bridge
 {
 	public class JsBridge : IJsHost
 	{
-		private Session session;
+		private ISession session;
 		private Dictionary<MethodBase, JsFunction> FunctionCache { get; set; }
 		private Dictionary<object, int> objToRef = new Dictionary<object, int>();
 		private Dictionary<int, object> refToObj = new Dictionary<int, object>();
 		private int lastRefId = 1;
 
-		public JsBridge(NetworkStream stream) {
-			this.session = new Session(stream);
+		public JsBridge(ISession session) {
+			this.session = session;
 			this.FunctionCache = new Dictionary<MethodBase, JsFunction>();
 			JsHost.Instance = this;
 		}
 
-		public JsValue DispatchAndReturn() {
+		private JsValue DispatchAndReturn() {
 			ReturnMessage retMsg;
 			while (true) {
 				retMsg = Dispatch(true);
@@ -80,7 +79,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		public ReturnMessage Dispatch(bool needsReturn) {
+		private ReturnMessage Dispatch(bool needsReturn) {
 			IMessage msg = this.session.ReadMessage();
 			switch (msg.MessageType) {
 				case MessageType.Load:
@@ -180,7 +179,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		public string ExecuteToString(JsNativeBase scope) {
+		private string ExecuteToString(JsNativeBase scope) {
 			object hScope = null;
 			if (scope != null)
 				hScope = scope.Handle;
@@ -209,7 +208,7 @@ namespace DotWeb.Hosting.Bridge
 			return converted;
 		}
 
-		public object[] UnwrapParameters(JsValue[] args, DispatchType dispType, MemberInfo member) {
+		internal object[] UnwrapParameters(JsValue[] args, DispatchType dispType, MemberInfo member) {
 			FieldInfo fi = member as FieldInfo;
 			if (fi != null) {
 				throw new NotSupportedException("Fields are not supported JsAccessible members");
@@ -287,7 +286,7 @@ namespace DotWeb.Hosting.Bridge
 			return new JsValue(JsValueType.Object, id);
 		}
 
-		public object UnwrapValue(JsValue value, Type targetType) {
+		internal object UnwrapValue(JsValue value, Type targetType) {
 			if (value.IsJsObject) {
 				if (typeof(Delegate).IsAssignableFrom(targetType)) {
 					JsDelegate del = new JsDelegate(this, value.RefId, targetType);
@@ -304,7 +303,7 @@ namespace DotWeb.Hosting.Bridge
 			return value.Object;
 		}
 
-		public object InvokeRemoteDelegate(Type retType, int handle, params object[] args) {
+		internal object InvokeRemoteDelegate(Type retType, int handle, params object[] args) {
 			JsValue[] wrapped = WrapParameters(args);
 			InvokeDelegateMessage msg = new InvokeDelegateMessage {
 				TargetId = handle,
@@ -330,7 +329,7 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
-		public R InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+		R IJsHost.InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args) {
 			try {
 				JsFunction function = PrepareRemoteFunction(method);
 
