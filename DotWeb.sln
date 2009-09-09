@@ -8,10 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{196832FA-5DBB-45ED-8FA9-42E8C702E413}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG = CHANGELOG
-		CodeCoverage.testrunconfig = CodeCoverage.testrunconfig
 		COPYING = COPYING
-		Default.testrunconfig = Default.testrunconfig
-		DotWeb.vsmdi = DotWeb.vsmdi
 		README.markdown = README.markdown
 	EndProjectSection
 EndProject
@@ -31,10 +28,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "src\Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web.Mvc", "src\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj", "{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.Test", "test\DotWeb.Translator.Test\DotWeb.Translator.Test.csproj", "{4383123E-0886-4BFC-B861-C717CCB02152}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = DotWeb.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -144,6 +140,16 @@ Global
 		{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4383123E-0886-4BFC-B861-C717CCB02152}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

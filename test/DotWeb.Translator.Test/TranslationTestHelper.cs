@@ -22,8 +22,8 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using DotWeb.Translator.Generator.JavaScript;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DotWeb.Decompiler;
+using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
 {

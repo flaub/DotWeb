@@ -19,18 +19,18 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DotWeb.Decompiler;
 using System.Reflection;
 using DotWeb.Translator.Test.Properties;
 using DotWeb.Client;
+using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
 {
 	/// <summary>
 	/// Summary description for DecorationTest
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class DecorationTest : TranslationTestHelper<DecorationTest>
 	{
 		public DecorationTest()
@@ -38,39 +38,39 @@ namespace DotWeb.Translator.Test
 			this.compiledType = this.compiledAssembly.GetType("H8.DecorationTests");
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestJsCode() {
 			TestMethod(this.compiledType, "TestJsCode", Resources.DecorationTest_JsCode);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestJsAnonymous() {
 			TestMethod(this.compiledType, "TestJsAnonymous", Resources.DecorationTest_JsAnonymous, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestJsIntrinsic() {
 			TestMethod(this.compiledType, "TestJsIntrinsic", Resources.DecorationTest_JsIntrinsic, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestJsNamespace() {
 			TestMethod(this.compiledType, "TestJsNamespace", Resources.DecorationTest_JsNamespace, true);
 		}
 
-		[TestMethod]
+		[Test]
 		[ExpectedException(typeof(InvalidAnonymousUsageException))]
 		public void InvalidAnonymousClass1() {
 			GenerateMethod(this.compiledType, "InvalidAnonymousClass1", true);
 		}
 
-		[TestMethod]
+		[Test]
 		[ExpectedException(typeof(InvalidAnonymousUsageException))]
 		public void InvalidAnonymousClass2() {
 			GenerateMethod(this.compiledType, "InvalidAnonymousClass2", true);
 		}
 
-		[TestMethod]
+		[Test]
 		[ExpectedException(typeof(InvalidIntrinsicUsageException))]
 		public void InvalidIntrinsicClass() {
 			GenerateMethod(this.compiledType, "InvalidIntrinsicClass", true);

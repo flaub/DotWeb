@@ -19,118 +19,118 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using DotWeb.Translator.Test.Properties;
 using System.Reflection;
 using DotWeb.Translator.Generator.JavaScript;
 using DotWeb.Decompiler;
+using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
 {
-	[TestClass]
+	[TestFixture]
 	public class TranslationTest : TranslationTestHelper<TranslationTest>
 	{
 		public TranslationTest() : base(Resources.TranslationTest_Source) {
 			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.SourceTests");
 		}
 
-		[TestMethod]
+		[Test]
 		public void HelloWorld() {
 			this.TestMethod(this.sourceTestsCompiledType, "HelloWorld", Resources.SourceTests_HelloWorld);
 		}
 
-		[TestMethod]
+		[Test]
 		public void WhileLoop() {
 			this.TestMethod(this.sourceTestsCompiledType, "WhileLoop", Resources.SourceTests_WhileLoop);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ForLoop() {
 			this.TestMethod(this.sourceTestsCompiledType, "ForLoop", Resources.SourceTests_ForLoop);
 		}
 
-		[TestMethod]
+		[Test]
 		public void DoWhileLoop() {
 			this.TestMethod(this.sourceTestsCompiledType, "DoWhileLoop", Resources.SourceTests_DoWhileLoop);
 		}
 
-		[TestMethod]
+		[Test]
 		public void WhileBreakLoop() {
 			this.TestMethod(this.sourceTestsCompiledType, "WhileBreakLoop", Resources.SourceTests_WhileBreakLoop);
 		}
 
-		[TestMethod]
+		[Test]
 		public void WhileCondBreakLoop() {
 			this.TestMethod(this.sourceTestsCompiledType, "WhileCondBreakLoop", Resources.SourceTests_WhileCondBreakLoop);
 		}
 
-		[TestMethod]
+		[Test]
 		public void If() {
 			this.TestMethod(this.sourceTestsCompiledType, "If", Resources.SourceTests_If);
 		}
 
-		[TestMethod]
+		[Test]
 		public void IfElse() {
 			this.TestMethod(this.sourceTestsCompiledType, "IfElse", Resources.SourceTests_IfElse);
 		}
 
-		[TestMethod]
+		[Test]
 		public void IfIf() {
 			this.TestMethod(this.sourceTestsCompiledType, "IfIf", Resources.SourceTests_IfIf);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Cifuentes() {
 			this.TestMethod(this.sourceTestsCompiledType, "Cifuentes", Resources.SourceTests_Cifuentes);
 		}
 
-		[TestMethod]
+		[Test]
 		public void EnumArray() {
 			this.TestMethod(this.sourceTestsCompiledType, "EnumArray", Resources.SourceTests_EnumArray);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CreateInnerObject() {
 			this.TestMethod(this.sourceTestsCompiledType, "CreateInnerObject", Resources.SourceTests_CreateInnerObject, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CreateOuterObject() {
 			this.TestMethod(this.sourceTestsCompiledType, "CreateOuterObject", Resources.SourceTests_CreateOuterObject, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TakeParameters() {
 			this.TestMethod(this.sourceTestsCompiledType, "TakeParameters", Resources.SourceTests_TakeParameters);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Switch() {
 			this.TestMethod(this.sourceTestsCompiledType, "Switch", Resources.SourceTests_Switch);
 		}
 
-		[TestMethod]
+		[Test]
 		public void AnonymousType() {
 			this.TestMethod(this.sourceTestsCompiledType, "AnonymousType", Resources.SourceTests_AnonymousType, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Linq() {
 			this.TestMethod(this.sourceTestsCompiledType, "Linq", Resources.SourceTests_Linq, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Callback() {
 			this.TestMethod(this.sourceTestsCompiledType, "Callback", Resources.SourceTests_Callback, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CallTakeParameters() {
 			this.TestMethod(this.sourceTestsCompiledType, "CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CallDerived() {
 			this.TestMethod(this.sourceTestsCompiledType, "CallDerived", Resources.SourceTests_CallDerived, true);
 		}

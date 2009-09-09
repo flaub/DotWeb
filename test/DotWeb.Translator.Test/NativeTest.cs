@@ -19,16 +19,16 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using DotWeb.Translator.Test.Properties;
 using System.Reflection;
 using DotWeb.Translator.Generator.JavaScript;
 using DotWeb.Decompiler;
+using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
 {
-	[TestClass]
+	[TestFixture]
 	public class NativeTest : TranslationTestHelper<NativeTest>
 	{
 		public NativeTest()
@@ -36,7 +36,7 @@ namespace DotWeb.Translator.Test
 			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.NativeTest");
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestTuple() {
 			this.TestMethod(this.sourceTestsCompiledType, "TestTuple", Resources.NativeTest_TestTuple);
 		}
