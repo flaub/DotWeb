@@ -438,7 +438,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
+    <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
     </ProjectReference>
@@ -446,11 +446,11 @@
       <Project>{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}</Project>
       <Name>DotWeb.Sample.Script</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj">
+    <ProjectReference Include="..\..\src\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj">
       <Project>{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}</Project>
       <Name>DotWeb.Web.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotWeb.Web\DotWeb.Web.csproj">
+    <ProjectReference Include="..\..\src\DotWeb.Web\DotWeb.Web.csproj">
       <Project>{81320140-BA96-4316-AF77-34CD16952DB0}</Project>
       <Name>DotWeb.Web</Name>
     </ProjectReference>

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator", "DotWeb.Translator\DotWeb.Translator.csproj", "{3C90D87C-3525-4D90-B32D-CD9B56B20D99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator", "src\DotWeb.Translator\DotWeb.Translator.csproj", "{3C90D87C-3525-4D90-B32D-CD9B56B20D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Client", "DotWeb.Client\DotWeb.Client.csproj", "{0A46B99F-8A61-4544-8B1D-E5117DABBD90}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Translator.Test", "DotWeb.Translator.Test\DotWeb.Translator.Test.csproj", "{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Client", "src\DotWeb.Client\DotWeb.Client.csproj", "{0A46B99F-8A61-4544-8B1D-E5117DABBD90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{196832FA-5DBB-45ED-8FA9-42E8C702E413}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,21 +15,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.markdown = README.markdown
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.MVC", "DotWeb.Sample.MVC\DotWeb.Sample.MVC.csproj", "{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.MVC", "sample\DotWeb.Sample.MVC\DotWeb.Sample.MVC.csproj", "{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web", "DotWeb.Web\DotWeb.Web.csproj", "{81320140-BA96-4316-AF77-34CD16952DB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web", "src\DotWeb.Web\DotWeb.Web.csproj", "{81320140-BA96-4316-AF77-34CD16952DB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Bridge", "DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj", "{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Bridge", "src\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj", "{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting", "DotWeb.Hosting\DotWeb.Hosting.csproj", "{9004E34C-2D35-40EE-BE98-C1AED18081CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting", "src\DotWeb.Hosting\DotWeb.Hosting.csproj", "{9004E34C-2D35-40EE-BE98-C1AED18081CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.Script", "DotWeb.Sample.Script\DotWeb.Sample.Script.csproj", "{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.Script", "sample\DotWeb.Sample.Script\DotWeb.Sample.Script.csproj", "{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "src\DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "DotWeb.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "src\DotWeb.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web.Mvc", "DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj", "{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Web.Mvc", "src\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj", "{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -66,16 +64,6 @@ Global
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Win32.ActiveCfg = Release|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{833EE230-4A9E-41D6-A0BC-E0ABF05753F6}.Release|Win32.ActiveCfg = Release|Any CPU
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
