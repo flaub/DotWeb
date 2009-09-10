@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="Ext, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Ext\bin\Debug\Ext.dll</HintPath>
+      <HintPath>..\..\proxy\Ext\bin\Debug\Ext.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

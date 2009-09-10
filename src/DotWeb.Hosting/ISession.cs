@@ -29,6 +29,6 @@ namespace DotWeb.Hosting
 	public interface ISession
 	{
 		void SendMessage(IMessage msg);
-		IMessage ReadMessage();
+		IMessage ReceiveMessage();
 	}
 }

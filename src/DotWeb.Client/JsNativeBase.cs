@@ -69,4 +69,35 @@ namespace DotWeb.Client
 			return JsHost.Execute<R>(frame.GetMethod(), null, args);
 		}
 	}
+
+	public class JsDynamicBase
+	{
+		public JsDynamicBase() {
+			this.Properties = new Dictionary<string, object>();
+		}
+
+		public Dictionary<string, object> Properties { get; set; }
+
+		public object this[string name]
+		{
+			get{ return this.Properties[name]; }
+			set{ this.Properties[name] = value; }
+		}
+
+		protected void _(object value) {
+			StackFrame frame = new StackFrame(1);
+			string name = GetPropertyName(frame);
+			this[name] = value;
+		}
+
+		protected R _<R>() {
+			StackFrame frame = new StackFrame(1);
+			string name = GetPropertyName(frame);
+			return (R)this[name];
+		}
+
+		private string GetPropertyName(StackFrame frame) {
+			return frame.GetMethod().Name.Substring("get_".Length);
+		}
+	}
 }

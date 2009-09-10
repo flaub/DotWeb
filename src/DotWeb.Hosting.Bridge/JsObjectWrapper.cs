@@ -29,13 +29,18 @@ namespace DotWeb.Hosting.Bridge
 	public class TypeInspector
 	{
 		Type targetType;
-		MemberInfo[] members;
+		List<MemberInfo> members;
 		Dictionary<string, int> idsByName = new Dictionary<string, int>();
 
-		public TypeInspector(Type targetType) {
-			this.targetType = targetType;
+		public TypeInspector(object target) {
+			this.targetType = target.GetType();
 
-			CollectMembers();
+			if (target is JsDynamicBase) {
+				CollectDynamicMembers((JsDynamicBase)target);
+			}
+			else {
+				CollectMembers();
+			}
 		}
 
 		public MemberInfo GetMember(int id) {
@@ -78,7 +83,7 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private void CollectMembers() {
-			List<MemberInfo> infos = new List<MemberInfo>();
+			this.members = new List<MemberInfo>();
 			foreach (MemberInfo info in this.targetType.GetMembers()) {
 				if (info.DeclaringType == typeof(object) && info.Name != "ToString") {
 					continue;
@@ -93,13 +98,28 @@ namespace DotWeb.Hosting.Bridge
 					continue;
 				}
 
-				//				if (info.Name == "ToString") {
-				//					this.idsByName.Add("toString", infos.Count);
-				//				}
-				this.idsByName.Add(info.Name, infos.Count);
-				infos.Add(info);
+				string name = GetName(info.Name);
+				this.idsByName.Add(name, this.members.Count);
+				this.members.Add(info);
 			}
-			this.members = infos.ToArray();
+		}
+
+		private void CollectDynamicMembers(JsDynamicBase target) {
+			this.members = new List<MemberInfo>();
+			Type targetType = target.GetType();
+			foreach (var item in target.Properties) {
+				var property = targetType.GetProperty(item.Key);
+				string name = GetName(property.Name);
+				this.idsByName.Add(name, this.members.Count);
+				this.members.Add(property);
+			}
+		}
+
+		private string GetName(string name) {
+			if (name.EndsWith("_")) {
+				return name.Substring(0, name.Length - 1);
+			}
+			return name;
 		}
 	}
 
@@ -112,7 +132,7 @@ namespace DotWeb.Hosting.Bridge
 		public JsObjectWrapper(JsBridge bridge, object target) {
 			this.bridge = bridge;
 			this.target = target;
-			this.inspector = new TypeInspector(target.GetType());
+			this.inspector = new TypeInspector(target);
 		}
 
 		public MemberInfo GetMember(int id) {
@@ -138,7 +158,7 @@ namespace DotWeb.Hosting.Bridge
 
 		public object Invoke(int id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
 			MemberInfo member = GetMember(id);
-			Debug.WriteLine(string.Format("Invoke: {0}, {1} on {2}", dispType, member, this.target));
+			Debug.WriteLine(string.Format("{0}, {1}.{2}", dispType, this.target, member.Name));
 			if (member is MethodInfo && dispType == DispatchType.PropertyGet) {
 				MethodInfo mi = member as MethodInfo;
 				Type delType = CreateTypeForMethod(mi);

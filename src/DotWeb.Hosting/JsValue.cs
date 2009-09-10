@@ -161,6 +161,15 @@ namespace DotWeb.Hosting
 				return "<void>";
 			if (this.IsNull)
 				return "<null>";
+			if (this.IsJsObject)
+				return string.Format("JsObject[{0}]", this.RefId);
+			if (this.IsObject)
+				return string.Format("Object[{0}]", this.RefId);
+			if (this.IsDelegate)
+				return string.Format("Delegate[{0}]", this.RefId);
+			if (this.Object is string) {
+				return string.Format("\"{0}\"", this.Object);
+			}
 			return this.Object.ToString();
 		}
 	}

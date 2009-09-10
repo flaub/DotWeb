@@ -110,6 +110,10 @@ namespace DotWeb.Hosting
 			TypeName = reader.ReadString();
 		}
 		#endregion
+
+		public override string ToString() {
+			return string.Format("LoadMessage [{0}]", this.TypeName);
+		}
 	}
 
 	public class GetTypeRequestMessage : MessageBase
@@ -128,6 +132,10 @@ namespace DotWeb.Hosting
 			TargetId = reader.ReadInt32();
 		}
 		#endregion
+
+		public override string ToString() {
+			return string.Format("GetTypeRequestMessage [{0}]", this.TargetId);
+		}
 	}
 
 	public class TypeMemberInfo
@@ -177,6 +185,15 @@ namespace DotWeb.Hosting
 			}
 		}
 		#endregion
+
+		public override string ToString() {
+			string[] parts = Members.Select(x => string.Format("[{0}, {1}]", x.MemberId, x.Name)).ToArray();
+			string members = string.Join(", ", parts);
+			return string.Format(
+				"GetTypeResponseMessage [IndexerLength: {0}, Members: ({1})]", 
+				this.IndexerLength,
+				members);
+		}
 	}
 
 	public class InvokeMemberMessage : MessageBase
@@ -213,6 +230,17 @@ namespace DotWeb.Hosting
 			}
 		}
 		#endregion
+
+		public override string ToString() {
+			string[] parts = Parameters.Select(x => x.ToString()).ToArray();
+			string args = string.Join(", ", parts);
+			return string.Format(
+				"InvokeMemberMessage [Target: {0}, Member: {1}, DispatchType: {2}, Args: ({3})]", 
+				this.TargetId, 
+				this.MemberId, 
+				this.DispatchType,
+				args);
+		}
 	}
 
 	public class InvokeDelegateMessage : MessageBase
@@ -243,6 +271,12 @@ namespace DotWeb.Hosting
 			}
 		}
 		#endregion
+
+		public override string ToString() {
+			string[] parts = Parameters.Select(x => x.ToString()).ToArray();
+			string args = string.Join(", ", parts);
+			return string.Format("InvokeDelegateMessage [{0}({1})]", this.TargetId, args);
+		}
 	}
 
 	public class ReturnMessage : MessageBase
@@ -267,7 +301,9 @@ namespace DotWeb.Hosting
 		#endregion
 
 		public override string ToString() {
-			return string.Format("ReturnMessage [IsException: {0}, Value: {1}]", IsException, Value);
+			if (IsException)
+				return string.Format("ReturnMessage [Exception: {0}]", Value);
+			return string.Format("ReturnMessage [{0}]", Value);
 		}
 	}
 
@@ -313,7 +349,7 @@ namespace DotWeb.Hosting
 		#endregion
 
 		public override string ToString() {
-			return string.Format("DefineFunctionMessage [Name: {0}]", this.Name);
+			return string.Format("DefineFunctionMessage [{0}]", this.Name);
 		}
 	}
 
@@ -350,7 +386,9 @@ namespace DotWeb.Hosting
 		#endregion
 
 		public override string ToString() {
-			return string.Format("InvokeFunctionMessage [Name: {0}]", this.Name);
+			string[] parts = Parameters.Select(x => x.ToString()).ToArray();
+			string args = string.Join(", ", parts);
+			return string.Format("InvokeFunctionMessage [{0}({1})]", this.Name, args);
 		}
 	}
 }

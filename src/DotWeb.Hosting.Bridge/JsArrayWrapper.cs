@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -38,6 +39,7 @@ namespace DotWeb.Hosting.Bridge
 		public object Invoke(int id, DispatchType dispType, JsValue[] args, out Type returnType) {
 			if (id == this.target.Length) {
 				if (dispType == DispatchType.PropertyGet) {
+					Debug.WriteLine(string.Format("{0}, {1}.Length", dispType, this.target));
 					returnType = this.target.Length.GetType();
 					return this.target.Length;
 				}
@@ -47,6 +49,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 
 			if (id >= 0 && id < this.target.Length) {
+				Debug.WriteLine(string.Format("{0}, {1}[{2}]", dispType, this.target, id));
 				if (dispType == DispatchType.PropertyGet) {
 					returnType = this.elementType;
 					return this.target.GetValue(id);

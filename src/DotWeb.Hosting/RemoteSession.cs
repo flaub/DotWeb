@@ -28,10 +28,6 @@ namespace DotWeb.Hosting
 {
 	public class RemoteSession : ISession
 	{
-		private NetworkReader reader;
-		private NetworkWriter writer;
-		private Stream stream;
-
 		public RemoteSession(Stream stream) {
 			this.stream = stream;
 			this.reader = new NetworkReader(stream);
@@ -39,48 +35,40 @@ namespace DotWeb.Hosting
 		}
 
 		public void SendMessage(IMessage msg) {
+			Debug.WriteLine(string.Format("Send: {0}", msg));
 			msg.Write(this.writer);
 		}
 
-		public IMessage ReadMessage() {
-			Debug.WriteLine("Reading MessageHeader...");
+		public IMessage ReceiveMessage() {
+			Debug.WriteLine("");
 			MessageType type = (MessageType)this.reader.ReadByte();
 			IMessage ret;
 			switch (type) {
 				case MessageType.Load:
-					Debug.WriteLine("MT_Load");
 					ret = new LoadMessage();
 					break;
 				case MessageType.Return:
-					Debug.WriteLine("MT_Return");
 					ret = new ReturnMessage();
 					break;
 				case MessageType.DefineFunction:
-					Debug.WriteLine("MT_DefineFunction");
 					ret = new DefineFunctionMessage();
 					break;
 				case MessageType.GetTypeRequest:
-					Debug.WriteLine("MT_GetTypeRequest");
 					ret = new GetTypeRequestMessage();
 					break;
 				case MessageType.GetTypeResponse:
-					Debug.WriteLine("MT_GetTypeResponse");
 					ret = new GetTypeResponseMessage();
 					break;
 				case MessageType.InvokeDelegate:
-					Debug.WriteLine("MT_InvokeDelegate");
 					ret = new InvokeDelegateMessage();
 					break;
 				case MessageType.InvokeFunction:
-					Debug.WriteLine("MT_InvokeFunction");
 					ret = new InvokeFunctionMessage();
 					break;
 				case MessageType.InvokeMember:
-					Debug.WriteLine("MT_InvokeMember");
 					ret = new InvokeMemberMessage();
 					break;
 				case MessageType.Quit:
-					Debug.WriteLine("MT_Quit");
 					this.stream.Close();
 					return new QuitMessage();
 				default:
@@ -89,7 +77,12 @@ namespace DotWeb.Hosting
 			}
 
 			ret.Read(this.reader);
+			Debug.WriteLine(string.Format("Receive: {0}", ret));
 			return ret;
 		}
+
+		private NetworkReader reader;
+		private NetworkWriter writer;
+		private Stream stream;
 	}
 }

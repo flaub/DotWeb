@@ -158,7 +158,9 @@ namespace DotWeb.Translator
 				return false;
 
 			if (type.IsAnonymous()) {
-				ValidateJsAnonymousType(type);
+				if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
+					ValidateJsAnonymousType(type);
+				}
 				return false;
 			}
 

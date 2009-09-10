@@ -37,23 +37,23 @@ namespace DotWeb.Sample.Script
 		}
 
 		[JsAnonymous]
-		class Schema
+		class Schema : JsDynamicBase
 		{
-			public string name;
-			public string type;
+			public string name { get { return _<string>(); } set { _(value); } }
+			public string type { get { return _<string>(); } set { _(value); } }
 		}
 
 		[JsAnonymous]
-		class MyRecord
+		class MyRecord : JsDynamicBase
 		{
-			public int id;
-			public string value;
+			public int id { get { return _<int>(); } set { _(value); } }
+			public string value { get { return _<string>(); } set { _(value); } }
 		}
 
 		public ExtScript() {
 			Console.WriteLine("ExtScript()");
 
-			Record.Constructor record = Record.create(new Schema[] {
+			var record = Record.create(new Schema[] {
 				new Schema { name = "id", type = "int" },
 				new Schema { name = "value" }
 			});

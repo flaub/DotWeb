@@ -20,10 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using DotWeb.Client;
 using System.Diagnostics;
-using DotWeb.Utility;
-using System.IO;
+using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -43,7 +41,8 @@ namespace DotWeb.Hosting.Bridge
 	{
 		private ISession session;
 		private IObjectFactory factory;
-		private Dictionary<MethodBase, JsFunction> FunctionCache { get; set; }
+		private Dictionary<MethodBase, JsFunction> functionCache = new Dictionary<MethodBase, JsFunction>();
+		private Dictionary<Delegate, JsDelegateWrapper> remoteDelegates = new Dictionary<Delegate, JsDelegateWrapper>();
 		private Dictionary<object, int> objToRef = new Dictionary<object, int>();
 		private Dictionary<int, object> refToObj = new Dictionary<int, object>();
 		private int lastRefId = 1;
@@ -51,7 +50,10 @@ namespace DotWeb.Hosting.Bridge
 		public JsBridge(ISession session, IObjectFactory factory) {
 			this.session = session;
 			this.factory = factory;
-			this.FunctionCache = new Dictionary<MethodBase, JsFunction>();
+		}
+
+		public R GetObjectByRef<R>(int id) {
+			return (R)this.refToObj[id];
 		}
 
 		private JsValue DispatchAndReturn() {
@@ -101,7 +103,7 @@ namespace DotWeb.Hosting.Bridge
 		/// <param name="retMsg">The ReturnMessage if received.</param>
 		/// <returns>true when needsReturn is true and a QuitMessage is received, otherwise false.</returns>
 		private bool Dispatch(bool needsReturn, out ReturnMessage retMsg) {
-			IMessage msg = this.session.ReadMessage();
+			IMessage msg = this.session.ReceiveMessage();
 			switch (msg.MessageType) {
 				case MessageType.Load:
 					OnLoad((LoadMessage)msg);
@@ -140,7 +142,8 @@ namespace DotWeb.Hosting.Bridge
 
 		private void OnLoad(LoadMessage msg) {
 			try {
-				this.FunctionCache.Clear();
+				this.remoteDelegates.Clear();
+				this.functionCache.Clear();
 				this.objToRef.Clear();
 				this.refToObj.Clear();
 
@@ -182,7 +185,6 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private void InvokeMember(InvokeMemberMessage msg) {
-			Debug.WriteLine(string.Format("InvokeMember: {0}, {1}", msg.TargetId, msg.MemberId));
 			IJsAccessible target = (IJsAccessible)this.refToObj[msg.TargetId];
 			try {
 				Type retType;
@@ -200,8 +202,8 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private void InvokeDelegate(InvokeDelegateMessage msg) {
-			Debug.WriteLine(string.Format("InvokeDelegate: {0}", msg.TargetId));
 			Delegate target = (Delegate)this.refToObj[msg.TargetId];
+			Debug.WriteLine(string.Format("InvokeDelegate: {0}", target));
 			object[] args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
 			try {
 				object ret = target.DynamicInvoke(args);
@@ -298,6 +300,11 @@ namespace DotWeb.Hosting.Bridge
 				return ret;
 
 			if (arg is Delegate) {
+				JsDelegateWrapper wrapper;
+				if (this.remoteDelegates.TryGetValue((Delegate)arg, out wrapper)) {
+					return new JsValue(JsValueType.JsObject, wrapper.Handle);
+				}
+
 				int id;
 				if (!GetRefId(arg, out id)) {
 					Debug.WriteLine(string.Format("Adding refToObj: delegate[{0}] -> {1}", arg, id));
@@ -309,7 +316,7 @@ namespace DotWeb.Hosting.Bridge
 				int id;
 				if (!GetRefId(arg, out id)) {
 					JsArrayWrapper wrapper = new JsArrayWrapper(this, arg as Array);
-					Debug.WriteLine(string.Format("Adding refToObj: JsArrayWraper[{0}] -> {1}", arg, id));
+					Debug.WriteLine(string.Format("Adding refToObj: JsArrayWrapper[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, wrapper);
 				}
 				return new JsValue(JsValueType.Object, id);
@@ -322,7 +329,7 @@ namespace DotWeb.Hosting.Bridge
 			int id;
 			if (!GetRefId(arg, out id)) {
 				JsObjectWrapper wrapper = new JsObjectWrapper(this, arg);
-				Debug.WriteLine(string.Format("Adding refToObj: JsObjectWraper[{0}] -> {1}", arg, id));
+				Debug.WriteLine(string.Format("Adding refToObj: JsObjectWrapper[{0}] -> {1}", arg, id));
 				this.refToObj.Add(id, wrapper);
 			}
 			return new JsValue(JsValueType.Object, id);
@@ -331,12 +338,16 @@ namespace DotWeb.Hosting.Bridge
 		internal object UnwrapValue(JsValue value, Type targetType) {
 			if (value.IsJsObject) {
 				if (typeof(Delegate).IsAssignableFrom(targetType)) {
-					JsDelegate del = new JsDelegate(this, value.RefId, targetType);
-					return del.GetDelegate();
+					JsDelegateWrapper wrapper = new JsDelegateWrapper(this, value.RefId, targetType);
+					Delegate del = wrapper.GetDelegate();
+					this.remoteDelegates.Add(del, wrapper);
+					return del;
 				}
-				JsNativeBase jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
-				jsnb.Handle = value.RefId;
-				return jsnb;
+				else {
+					JsNativeBase jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
+					jsnb.Handle = value.RefId;
+					return jsnb;
+				}
 			}
 			if (value.IsObject || value.IsDelegate) {
 				return this.refToObj[value.RefId];
@@ -358,7 +369,7 @@ namespace DotWeb.Hosting.Bridge
 
 		private JsFunction PrepareRemoteFunction(MethodBase method) {
 			JsFunction function;
-			if (!this.FunctionCache.TryGetValue(method, out function)) {
+			if (!this.functionCache.TryGetValue(method, out function)) {
 				function = new JsFunction(method);
 				DefineFunctionMessage msgDef = new DefineFunctionMessage {
 					Name = function.Name,
@@ -366,7 +377,7 @@ namespace DotWeb.Hosting.Bridge
 					Body = function.Body
 				};
 				this.session.SendMessage(msgDef);
-				this.FunctionCache.Add(method, function);
+				this.functionCache.Add(method, function);
 			}
 			return function;
 		}

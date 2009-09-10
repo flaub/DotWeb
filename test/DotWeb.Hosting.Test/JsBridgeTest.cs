@@ -25,6 +25,18 @@ namespace DotWeb.Hosting.Test
 			public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
 
 			public void NativeCall() { _(); }
+
+			public static Delegate Constructor { get { return S_<Delegate>(); } }
+
+			public static void TakeObject(object arg) { S_(arg); }
+
+			public static Action GetAction0() { return S_<Action>(); }
+			public static Action<object> GetAction1() { return S_<Action<object>>(); }
+			public static Action<object, object> GetAction2() { return S_<Action<object, object>>(); }
+
+			public static Func<object> GetFunc0() { return S_<Func<object>>(); }
+			public static Func<object, object> GetFunc1() { return S_<Func<object, object>>(); }
+			public static Func<object, object, object> GetFunc2() { return S_<Func<object, object, object>>(); }
 		}
 
 		[JsNamespace]
@@ -86,6 +98,20 @@ namespace DotWeb.Hosting.Test
 
 				var caller = new NativeCaller(cfg);
 				caller.Start();
+			}
+		}
+
+		class DelegateWrapperTest
+		{
+			public DelegateWrapperTest() {
+				var ctor = NativeObject.Constructor;
+				NativeObject.TakeObject(ctor);
+				NativeObject.GetAction0()();
+				NativeObject.GetAction1()(1);
+				NativeObject.GetAction2()(1, 2);
+				NativeObject.GetFunc0()();
+				NativeObject.GetFunc1()(1);
+				NativeObject.GetFunc2()(1, 2);
 			}
 		}
 	}
@@ -205,7 +231,10 @@ namespace DotWeb.Hosting.Test
 
 				// the ctor for NativeCaller() will grab the nativeObject from the cfg passed in
 				session.OnGetTypeRequestMessage(cfgId);
-				TypeInspector inspector = session.GetTypeResponseMessage(typeof(Config));
+
+				var cfg = new Config();
+				TypeInspector inspector = new TypeInspector(cfg);
+				session.GetTypeResponseMessage(cfg);
 
 				int memberId = inspector.GetMemberId("nativeObject");
 				session.OnInvokeMemberMessage(cfgId, memberId, DispatchType.PropertyGet);
@@ -229,20 +258,67 @@ namespace DotWeb.Hosting.Test
 			});
 		}
 
+		[Test]
+		public void TestDelegateWrapper() {
+//			var ctor = NativeObject.Constructor;
+//			NativeObject.TakeObject(ctor);
+
+			int remoteId = 0;
+			CachingObjectFactory factory = new CachingObjectFactory();
+			TestHelper(factory, delegate(SessionHelper session) {
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(DelegateWrapperTest));
+
+				var ctor = session.DefineFunctionMessage(nativeType.GetMethod("get_Constructor"));
+				session.InvokeFunctionMessage(ctor.Name, 0);
+				var ctorId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, ctorId);
+
+				var method = session.DefineFunctionMessage(nativeType.GetMethod("TakeObject"));
+				session.InvokeFunctionMessage(method.Name, 0, new JsValue(JsValueType.JsObject, ctorId));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				SimulateAction(session, nativeType, "GetAction0", JsValueType.Void, ref remoteId);
+				SimulateAction(session, nativeType, "GetAction1", JsValueType.Void, ref remoteId, 1);
+				SimulateAction(session, nativeType, "GetAction2", JsValueType.Void, ref remoteId, 1, 2);
+
+				SimulateAction(session, nativeType, "GetFunc0", JsValueType.Null, ref remoteId);
+				SimulateAction(session, nativeType, "GetFunc1", JsValueType.Null, ref remoteId, 1);
+				SimulateAction(session, nativeType, "GetFunc2", JsValueType.Null, ref remoteId, 1, 2);
+
+				// return from initial ctor
+				session.ReturnMessage();
+
+				session.OnQuitMessage();
+			});
+		}
+
+		private void SimulateAction(SessionHelper session, Type nativeType, string name, JsValueType retType, ref int remoteId, params int[] args) {
+			var action = session.DefineFunctionMessage(nativeType.GetMethod(name));
+			session.InvokeFunctionMessage(action.Name, 0);
+			var id = ++remoteId;
+			session.OnReturnMessage(false, JsValueType.JsObject, id);
+
+			JsValue[] wrapped = args.Select(x => new JsValue(x)).ToArray();
+			session.InvokeDelegateMessage(id, wrapped);
+
+			session.OnReturnMessage(false, retType, null);
+		}
+
 		delegate void SessionHandler(SessionHelper session);
 
 		private void TestHelper(IObjectFactory factory, SessionHandler handler) {
 			MockRepository mocks = new MockRepository();
 
 			ISession session = mocks.StrictMock<ISession>();
-			SessionHelper helper = new SessionHelper(session);
+			JsBridge bridge = new JsBridge(session, factory);
+			JsHost.Instance = bridge;
+			SessionHelper helper = new SessionHelper(bridge, session);
 			using (mocks.Ordered()) {
 				handler(helper);
 			}
 			mocks.ReplayAll();
 
-			JsBridge bridge = new JsBridge(session, factory);
-			JsHost.Instance = bridge;
 			bridge.DispatchForever();
 
 			mocks.VerifyAll();
@@ -265,7 +341,10 @@ namespace DotWeb.Hosting.Test
 
 		class SessionHelper
 		{
-			public SessionHelper(ISession session) {
+			public JsBridge Bridge { get; private set; }
+
+			public SessionHelper(JsBridge bridge, ISession session) {
+				this.Bridge = bridge;
 				this.session = session;
 			}
 
@@ -295,25 +374,11 @@ namespace DotWeb.Hosting.Test
 				});
 			}
 
-			public void OnInvokeMemberMessage(int targetId, int memberId, DispatchType dispatchType) {
-				ReadMessage(new InvokeMemberMessage {
-					TargetId = targetId,
-					MemberId = memberId,
-					DispatchType = dispatchType,
-					Parameters = EmptyArgs
-				});
-			}
+			public delegate void JsBridgeHandler(JsBridge bridge);
 
 			public void OnGetTypeRequestMessage(int targetId) {
 				ReadMessage(new GetTypeRequestMessage {
 					TargetId = targetId
-				});
-			}
-
-			public void OnInvokeDelegateMessage(int targetId) {
-				ReadMessage(new InvokeDelegateMessage {
-					TargetId = targetId,
-					Parameters = EmptyArgs
 				});
 			}
 
@@ -343,15 +408,6 @@ namespace DotWeb.Hosting.Test
 				return function;
 			}
 
-			public void InvokeFunctionMessage(string name, int scope) {
-				var msg = new InvokeFunctionMessage {
-					Name = name,
-					ScopeId = scope,
-					Parameters = EmptyArgs
-				};
-				SendMessage(msg);
-			}
-
 			public void InvokeFunctionMessage(string name, int scope, params JsValue[] parameters) {
 				var msg = new InvokeFunctionMessage {
 					Name = name,
@@ -361,14 +417,21 @@ namespace DotWeb.Hosting.Test
 				SendMessage(msg);
 			}
 
-			public TypeInspector GetTypeResponseMessage(Type type) {
-				TypeInspector inspector = new TypeInspector(type);
+			public void InvokeDelegateMessage(int targetId, params JsValue[] parameters) {
+				SendMessage(new InvokeDelegateMessage {
+					TargetId = targetId,
+					Parameters = parameters
+				});
+			}
+
+			public TypeInspector GetTypeResponseMessage(object target) {
+				TypeInspector inspector = new TypeInspector(target);
 				SendMessage(inspector.GetTypeInfo());
 				return inspector;
 			}
 
 			private void ReadMessage(IMessage msg) {
-				Expect.Call(session.ReadMessage()).Return(msg);
+				Expect.Call(session.ReceiveMessage()).Return(msg);
 			}
 
 			private void SendMessage(IMessage msg) {
@@ -376,7 +439,6 @@ namespace DotWeb.Hosting.Test
 			}
 
 			private ISession session;
-			private static readonly JsValue[] EmptyArgs = new JsValue[0];
 		}
 	}
 }

@@ -26,7 +26,7 @@ using DotWeb.Utility;
 
 namespace DotWeb.Hosting.Bridge
 {
-	class JsDelegate
+	class JsDelegateWrapper
 	{
 		private JsBridge bridge;
 		public Type TargetType { get; set; }
@@ -35,7 +35,7 @@ namespace DotWeb.Hosting.Bridge
 
 		delegate void GenericVoidHandler();
 
-		public JsDelegate(JsBridge bridge, int handle, Type targetType) {
+		public JsDelegateWrapper(JsBridge bridge, int handle, Type targetType) {
 			this.bridge = bridge;
 			this.Handle = handle;
 			this.TargetType = targetType;
@@ -43,14 +43,21 @@ namespace DotWeb.Hosting.Bridge
 
 		public Delegate GetDelegate() {
 			if (TargetType == typeof(Delegate)) {
-				Target = new GenericVoidHandler(this.OnGenericVoidHandler);
+				return new GenericVoidHandler(this.OnGenericVoidHandler);
+			}
+
+			VarArgsAttribute attr = TargetType.GetCustomAttribute<VarArgsAttribute>();
+			MethodInfo invoke = TargetType.GetMethod("Invoke");
+			ParameterInfo[] parameters = invoke.GetParameters();
+			Type[] parameterTypes = parameters.Select(x => x.ParameterType).ToArray();
+			bool isVoidReturn = invoke.ReturnType == typeof(void);
+
+			if (isVoidReturn && !parameterTypes.Any()) {
+				Delegate proxy = new GenericVoidHandler(this.OnGenericVoidHandler);
+//				MethodInfo proxy = this.GetType().GetMethod("OnGenericVoidHandler");
+				return Delegate.CreateDelegate(TargetType, this, proxy.Method);
 			}
 			else {
-				VarArgsAttribute attr = TargetType.GetCustomAttribute<VarArgsAttribute>();
-				MethodInfo invoke = TargetType.GetMethod("Invoke");
-				ParameterInfo[] parameters = invoke.GetParameters();
-				Type[] parameterTypes = parameters.Select(x => x.ParameterType).ToArray();
-
 				string suffix;
 				bool isVarArgs;
 				if (attr != null) {
@@ -62,24 +69,42 @@ namespace DotWeb.Hosting.Bridge
 					isVarArgs = false;
 				}
 
-				string name = string.Format("OnGenericHandler{0}", suffix);
+				List<Type> types = new List<Type>();
+				string prefix = "";
+				if (isVoidReturn) {
+					prefix = "Void";
+				}
+				else {
+					types.Add(invoke.ReturnType);
+				}
+
+				if (!isVarArgs)
+					types.AddRange(parameterTypes);
+
+				string name = string.Format("OnGeneric{0}Handler{1}", prefix, suffix);
 				MethodInfo generic = this.GetType().GetMethod(
 					name,
 					BindingFlags.NonPublic | BindingFlags.Instance
 				);
-
-				List<Type> types = new List<Type>();
-				types.Add(invoke.ReturnType);
-				if(!isVarArgs)
-					types.AddRange(parameterTypes);
 				MethodInfo proxy = generic.MakeGenericMethod(types.ToArray());
-				Target = Delegate.CreateDelegate(TargetType, this, proxy);
+				return Delegate.CreateDelegate(TargetType, this, proxy);
 			}
-			return Target;
 		}
 
 		private void OnGenericVoidHandler() {
 			this.bridge.InvokeRemoteDelegate(null, this.Handle, null);
+		}
+
+		private void OnGenericVoidHandler1<T1>(T1 arg1) {
+			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1);
+		}
+
+		private void OnGenericVoidHandler2<T1, T2>(T1 arg1, T2 arg2) {
+			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1, arg2);
+		}
+
+		private void OnGenericVoidHandler3<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3) {
+			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1, arg2, arg3);
 		}
 
 		private R OnGenericHandlerVarArgs<R>(params object[] args) {

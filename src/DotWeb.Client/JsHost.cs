@@ -50,8 +50,12 @@ namespace DotWeb.Client
 		}
 
 		public static R Execute<R>(MethodBase method, JsNativeBase scope, params object[] args) {
-			string str = string.Format("{0}: {1}, {2}\n", method, scope, args);
-			Debugger.Log(0, "DotWeb", str);
+			Debug.WriteLine(string.Format(
+				"Execute: {0}, {1}[{2}], {3}", 
+				method, 
+				scope, 
+				scope == null ? "" : scope.Handle.ToString(), 
+				args));
 			return Instance.InvokeRemoteMethod<R>(method, scope, args);
 		}
 
