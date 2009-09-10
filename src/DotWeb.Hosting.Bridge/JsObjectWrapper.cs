@@ -26,20 +26,55 @@ using System.Reflection.Emit;
 
 namespace DotWeb.Hosting.Bridge
 {
-	class JsObjectWrapper : IJsAccessible
+	public class TypeInspector
 	{
-		JsBridge bridge;
-		object target;
 		Type targetType;
 		MemberInfo[] members;
 		Dictionary<string, int> idsByName = new Dictionary<string, int>();
 
-		public JsObjectWrapper(JsBridge bridge, object target) {
-			this.bridge = bridge;
-			this.target = target;
-			this.targetType = target.GetType();
+		public TypeInspector(Type targetType) {
+			this.targetType = targetType;
 
 			CollectMembers();
+		}
+
+		public MemberInfo GetMember(int id) {
+			return this.members[id];
+		}
+
+		public int GetMemberId(string name) {
+			return this.idsByName[name];
+		}
+
+		public GetTypeResponseMessage GetTypeInfo() {
+			GetTypeResponseMessage msg = new GetTypeResponseMessage {
+				IndexerLength = 0,
+				Members = new List<TypeMemberInfo>()
+			};
+
+			foreach (KeyValuePair<string, int> item in this.idsByName) {
+				MemberInfo mi = GetMember(item.Value);
+
+				DispatchType dt;
+				if (mi is MethodInfo) {
+					dt = DispatchType.Method;
+				}
+				else if (mi is PropertyInfo) {
+					dt = DispatchType.PropertyGet | DispatchType.PropertySet;
+				}
+				else {
+					throw new InvalidOperationException();
+				}
+
+				TypeMemberInfo tmi = new TypeMemberInfo {
+					Name = item.Key,
+					MemberId = item.Value,
+					DispatchType = dt
+				};
+				msg.Members.Add(tmi);
+			}
+
+			return msg;
 		}
 
 		private void CollectMembers() {
@@ -58,17 +93,30 @@ namespace DotWeb.Hosting.Bridge
 					continue;
 				}
 
-//				if (info.Name == "ToString") {
-//					this.idsByName.Add("toString", infos.Count);
-//				}
+				//				if (info.Name == "ToString") {
+				//					this.idsByName.Add("toString", infos.Count);
+				//				}
 				this.idsByName.Add(info.Name, infos.Count);
 				infos.Add(info);
 			}
 			this.members = infos.ToArray();
 		}
+	}
+
+	class JsObjectWrapper : IJsAccessible
+	{
+		JsBridge bridge;
+		object target;
+		TypeInspector inspector;
+
+		public JsObjectWrapper(JsBridge bridge, object target) {
+			this.bridge = bridge;
+			this.target = target;
+			this.inspector = new TypeInspector(target.GetType());
+		}
 
 		public MemberInfo GetMember(int id) {
-			return this.members[id];
+			return this.inspector.GetMember(id);
 		}
 
 		delegate R GenericDelegate<R>();
@@ -124,34 +172,7 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		public GetTypeResponseMessage GetTypeInfo() {
-			GetTypeResponseMessage msg = new GetTypeResponseMessage {
-				IndexerLength = 0,
-				Members = new List<TypeMemberInfo>()
-			};
-
-			foreach (KeyValuePair<string, int> item in this.idsByName) {
-				MemberInfo mi = GetMember(item.Value);
-
-				DispatchType dt;
-				if (mi is MethodInfo) {
-					dt = DispatchType.Method;
-				}
-				else if (mi is PropertyInfo) {
-					dt = DispatchType.PropertyGet | DispatchType.PropertySet;
-				}
-				else {
-					throw new InvalidOperationException();
-				}
-
-				TypeMemberInfo tmi = new TypeMemberInfo {
-					Name = item.Key,
-					MemberId = item.Value,
-					DispatchType = dt
-				};
-				msg.Members.Add(tmi);
-			}
-
-			return msg;
+			return this.inspector.GetTypeInfo();
 		}
 	}
 }

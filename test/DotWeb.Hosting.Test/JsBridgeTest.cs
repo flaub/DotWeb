@@ -9,51 +9,85 @@ using Rhino.Mocks.Constraints;
 using DotWeb.Client;
 using System.Reflection;
 using DotWeb.Client.Dom;
+using DotWeb.Hosting.Test.Bridge;
 
 namespace DotWeb.Hosting.Test
 {
-	class SanityTest
+	namespace Bridge
 	{
-	}
+		class NativeObject : JsNativeBase
+		{
+			public NativeObject() { C_(); }
 
-	class NativeObject : JsNativeBase
-	{
-		public NativeObject() { C_(); }
+			public void Alert(string msg) { _(msg); }
 
-		public void Alert(string msg) { _(msg); }
+			[JsIntrinsic]
+			public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
 
-		[JsIntrinsic]
-		public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
-	}
-
-	class ObjectWrapperTest
-	{
-		public const string AlertArg = "ObjectWrapperTest";
-
-		public ObjectWrapperTest() {
-			var native = new NativeObject();
-			native.Alert(AlertArg);
-		}
-	}
-
-	class EventHandlerTest
-	{
-		public const string AlertArg = "EventHandlerTest";
-
-		public EventHandlerTest() {
-			this.HasFired = false;
-			this.native = new NativeObject();
-			this.native.onmouseover = native_OnMouseOver;
+			public void NativeCall() { _(); }
 		}
 
-		public void native_OnMouseOver() {
-			this.HasFired = true;
-			this.native.Alert(AlertArg);
+		[JsNamespace]
+		class NativeCaller : JsNativeBase
+		{
+			public NativeCaller(object cfg) { C_(cfg); }
+
+			public void Start() { _(); }
 		}
 
-		public bool HasFired { get; private set; }
+		[JsAnonymous]
+		class Config
+		{
+			public NativeObject nativeObject { get; set; }
+		}
 
-		NativeObject native;
+		class SanityTest
+		{
+		}
+
+		class ObjectWrapperTest
+		{
+			public const string AlertArg = "ObjectWrapperTest";
+
+			public ObjectWrapperTest() {
+				var native = new NativeObject();
+				native.Alert(AlertArg);
+			}
+		}
+
+		class EventHandlerTest
+		{
+			public const string AlertArg = "EventHandlerTest";
+
+			public EventHandlerTest() {
+				this.HasFired = false;
+				this.native = new NativeObject();
+				this.native.onmouseover = native_OnMouseOver;
+			}
+
+			public void native_OnMouseOver() {
+				this.HasFired = true;
+				this.native.Alert(AlertArg);
+			}
+
+			public bool HasFired { get; private set; }
+
+			NativeObject native;
+		}
+
+		class NativeCallbackTest
+		{
+			public NativeCallbackTest() {
+				var obj = new NativeObject();
+
+				var cfg = new Config {
+					nativeObject = obj
+				};
+
+				var caller = new NativeCaller(cfg);
+				caller.Start();
+			}
+		}
 	}
 
 	[TestFixture]
@@ -73,7 +107,7 @@ namespace DotWeb.Hosting.Test
 			TestHelper(new ActivatorFactory(), delegate(SessionHelper session) {
 				Type nativeType = typeof(NativeObject);
 				session.OnLoadMessage(typeof(ObjectWrapperTest));
-				
+
 				// new Nativeobject();
 				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
 				session.InvokeFunctionMessage(ctor.Name, 0);
@@ -108,8 +142,8 @@ namespace DotWeb.Hosting.Test
 				session.InvokeFunctionMessage(method.Name, 1, new JsValue(JsValueType.Delegate, 1));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
+				// return from initial ctor
 				session.ReturnMessage();
-
 
 				// simulate an event firing
 				session.OnInvokeDelegateMessage(1);
@@ -127,6 +161,72 @@ namespace DotWeb.Hosting.Test
 
 			EventHandlerTest test = (EventHandlerTest)factory.Get(typeof(EventHandlerTest));
 			Assert.IsTrue(test.HasFired);
+		}
+
+		[Test]
+		public void TestNativeCallback() {
+			// Let's say the native js code looked like:
+			//function NativeCaller(config) {
+			//    for(var key in config){
+			//        this[key] = config[key];
+			//    }
+			//};
+
+			//NativeCaller.prototype.Start = function() { 
+			//    this.nativeObject.NativeCall(); 
+			//};
+
+			//function NativeObject() {
+			//};
+
+			//NativeObject.prototype.NativeCall = function() {
+			//    alert('OK');
+			//};
+
+			CachingObjectFactory factory = new CachingObjectFactory();
+			int localId = 0;
+			int remoteId = 0;
+			TestHelper(factory, delegate(SessionHelper session) {
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(NativeCallbackTest));
+
+				// new Nativeobject();
+				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
+				session.InvokeFunctionMessage(ctor.Name, 0);
+				// return the scopeId for the newly created native object
+				var nativeObjectId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, nativeObjectId);
+
+				//var caller = new NativeCaller(cfg);
+				Type nativeCallerType = typeof(NativeCaller);
+				var ctor2 = session.DefineFunctionMessage(nativeCallerType.GetConstructor(new Type[] { typeof(object) }));
+				var cfgId = ++localId;
+				session.InvokeFunctionMessage(ctor2.Name, 0, new JsValue(JsValueType.Object, cfgId));
+
+				// the ctor for NativeCaller() will grab the nativeObject from the cfg passed in
+				session.OnGetTypeRequestMessage(cfgId);
+				TypeInspector inspector = session.GetTypeResponseMessage(typeof(Config));
+
+				int memberId = inspector.GetMemberId("nativeObject");
+				session.OnInvokeMemberMessage(cfgId, memberId, DispatchType.PropertyGet);
+
+				// give back the nativeObject handle
+				session.ReturnMessage(new JsValue(JsValueType.JsObject, nativeObjectId));
+
+				// return the scopeId for the newly created native object
+				var nativeCallerId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, nativeCallerId);
+
+				//caller.Start();
+				var method = session.DefineFunctionMessage(nativeCallerType.GetMethod("Start"));
+				session.InvokeFunctionMessage(method.Name, nativeCallerId);
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				// return from initial ctor
+				session.ReturnMessage();
+
+				session.OnQuitMessage();
+			});
 		}
 
 		delegate void SessionHandler(SessionHelper session);
@@ -186,6 +286,30 @@ namespace DotWeb.Hosting.Test
 				ReadMessage(new QuitMessage());
 			}
 
+			public void OnInvokeMemberMessage(int targetId, int memberId, DispatchType dispatchType, params JsValue[] parameters) {
+				ReadMessage(new InvokeMemberMessage {
+					TargetId = targetId,
+					MemberId = memberId,
+					DispatchType = dispatchType,
+					Parameters = parameters
+				});
+			}
+
+			public void OnInvokeMemberMessage(int targetId, int memberId, DispatchType dispatchType) {
+				ReadMessage(new InvokeMemberMessage {
+					TargetId = targetId,
+					MemberId = memberId,
+					DispatchType = dispatchType,
+					Parameters = EmptyArgs
+				});
+			}
+
+			public void OnGetTypeRequestMessage(int targetId) {
+				ReadMessage(new GetTypeRequestMessage {
+					TargetId = targetId
+				});
+			}
+
 			public void OnInvokeDelegateMessage(int targetId) {
 				ReadMessage(new InvokeDelegateMessage {
 					TargetId = targetId,
@@ -235,6 +359,12 @@ namespace DotWeb.Hosting.Test
 					Parameters = parameters
 				};
 				SendMessage(msg);
+			}
+
+			public TypeInspector GetTypeResponseMessage(Type type) {
+				TypeInspector inspector = new TypeInspector(type);
+				SendMessage(inspector.GetTypeInfo());
+				return inspector;
 			}
 
 			private void ReadMessage(IMessage msg) {
