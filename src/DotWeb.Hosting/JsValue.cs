@@ -155,5 +155,9 @@ namespace DotWeb.Hosting
 					throw new InvalidDataException();
 			}
 		}
+
+		public override string ToString() {
+			return this.Object == null ? "<null>" : this.Object.ToString();
+		}
 	}
 }

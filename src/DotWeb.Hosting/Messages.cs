@@ -94,37 +94,37 @@ namespace DotWeb.Hosting
 		#endregion
 	}
 
-	public class LoadMessage : IMessage
+	public class LoadMessage : MessageBase
 	{
 		public string TypeName;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.Load; } }
+		public override MessageType MessageType { get { return MessageType.Load; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(TypeName);
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			TypeName = reader.ReadString();
 		}
 		#endregion
 	}
 
-	public class GetTypeRequestMessage : IMessage
+	public class GetTypeRequestMessage : MessageBase
 	{
 		public int TargetId;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.GetTypeRequest; } }
+		public override MessageType MessageType { get { return MessageType.GetTypeRequest; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(TargetId);
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			TargetId = reader.ReadInt32();
 		}
 		#endregion
@@ -149,15 +149,15 @@ namespace DotWeb.Hosting
 		}
 	}
 
-	public class GetTypeResponseMessage : IMessage
+	public class GetTypeResponseMessage : MessageBase
 	{
 		public int IndexerLength;
 		public List<TypeMemberInfo> Members;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.GetTypeResponse; } }
+		public override MessageType MessageType { get { return MessageType.GetTypeResponse; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(IndexerLength);
 			writer.Write(Members.Count);
@@ -166,7 +166,7 @@ namespace DotWeb.Hosting
 			}
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			IndexerLength = reader.ReadInt32();
 			int count = reader.ReadInt32();
 			Members = new List<TypeMemberInfo>();
@@ -179,7 +179,7 @@ namespace DotWeb.Hosting
 		#endregion
 	}
 
-	public class InvokeMemberMessage : IMessage
+	public class InvokeMemberMessage : MessageBase
 	{
 		public int TargetId;
 		public int MemberId;
@@ -187,9 +187,9 @@ namespace DotWeb.Hosting
 		public JsValue[] Parameters;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.InvokeMember; } }
+		public override MessageType MessageType { get { return MessageType.InvokeMember; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(this.TargetId);
 			writer.Write(this.MemberId);
@@ -200,7 +200,7 @@ namespace DotWeb.Hosting
 			}
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			TargetId = reader.ReadInt32();
 			MemberId = reader.ReadInt32();
 			DispatchType = (DispatchType)reader.ReadByte();
@@ -215,15 +215,15 @@ namespace DotWeb.Hosting
 		#endregion
 	}
 
-	public class InvokeDelegateMessage : IMessage
+	public class InvokeDelegateMessage : MessageBase
 	{
 		public int TargetId;
 		public JsValue[] Parameters;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.InvokeDelegate; } }
+		public override MessageType MessageType { get { return MessageType.InvokeDelegate; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(TargetId);
 			writer.Write(this.Parameters.Length);
@@ -232,7 +232,7 @@ namespace DotWeb.Hosting
 			}
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			TargetId = reader.ReadInt32();
 			int len = reader.ReadInt32();
 			Parameters = new JsValue[len];
@@ -265,56 +265,68 @@ namespace DotWeb.Hosting
 			Value.Read(reader);
 		}
 		#endregion
+
+		public override string ToString() {
+			return string.Format("ReturnMessage [IsException: {0}, Value: {1}]", IsException, Value);
+		}
 	}
 
-	public class QuitMessage : IMessage
+	public class QuitMessage : MessageBase
 	{
 		#region Message
-		public MessageType MessageType { get { return MessageType.Quit; } }
+		public override MessageType MessageType { get { return MessageType.Quit; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 		}
 		#endregion
+
+		public override string ToString() {
+			return "QuitMessage";
+		}
 	}
 
-	public class DefineFunctionMessage : IMessage
+	public class DefineFunctionMessage : MessageBase
 	{
 		public string Name;
 		public string Parameters;
 		public string Body;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.DefineFunction; } }
+		public override MessageType MessageType { get { return MessageType.DefineFunction; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(Name);
 			writer.Write(Parameters);
 			writer.Write(Body);
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			Name = reader.ReadString();
 			Parameters = reader.ReadString();
 			Body = reader.ReadString();
 		}
 		#endregion
+
+		public override string ToString() {
+			return string.Format("DefineFunctionMessage [Name: {0}]", this.Name);
+		}
 	}
 
-	public class InvokeFunctionMessage : IMessage
+	public class InvokeFunctionMessage : MessageBase
 	{
 		public string Name;
 		public int ScopeId;
 		public JsValue[] Parameters;
 
 		#region Message
-		public MessageType MessageType { get { return MessageType.InvokeFunction; } }
+		public override MessageType MessageType { get { return MessageType.InvokeFunction; } }
 
-		public void Write(NetworkWriter writer) {
+		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(Name);
 			writer.Write(ScopeId);
@@ -324,7 +336,7 @@ namespace DotWeb.Hosting
 			}
 		}
 
-		public void Read(NetworkReader reader) {
+		public override void Read(NetworkReader reader) {
 			Name = reader.ReadString();
 			ScopeId = reader.ReadInt32();
 			int len = reader.ReadInt32();
@@ -336,5 +348,9 @@ namespace DotWeb.Hosting
 			}
 		}
 		#endregion
+
+		public override string ToString() {
+			return string.Format("InvokeFunctionMessage [Name: {0}]", this.Name);
+		}
 	}
 }

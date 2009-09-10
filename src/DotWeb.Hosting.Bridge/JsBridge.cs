@@ -124,12 +124,19 @@ namespace DotWeb.Hosting.Bridge
 				ReturnMessage retMsg = new ReturnMessage { Value = value };
 				this.session.SendMessage(retMsg);
 			}
-			catch (Exception ex) {
-				Debug.WriteLine(ex);
-				JsValue value = new JsValue(ex.Message);
-				ReturnMessage retMsg = new ReturnMessage { Value = value, IsException = true };
-				this.session.SendMessage(retMsg);
+			catch (TargetInvocationException ex) {
+				HandleException(ex.InnerException);
 			}
+			catch (Exception ex) {
+				HandleException(ex);
+			}
+		}
+
+		private void HandleException(Exception ex) {
+			Debug.WriteLine(ex);
+			JsValue value = new JsValue(ex.Message);
+			ReturnMessage retMsg = new ReturnMessage { Value = value, IsException = true };
+			this.session.SendMessage(retMsg);
 		}
 
 		private void GetTypeInfo(GetTypeRequestMessage msg) {
