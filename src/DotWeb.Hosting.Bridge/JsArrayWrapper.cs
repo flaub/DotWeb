@@ -35,9 +35,10 @@ namespace DotWeb.Hosting.Bridge
 			this.elementType = target.GetType().GetElementType();
 		}
 
-		public object Invoke(int id, DispatchType dispType, JsValue[] args) {
+		public object Invoke(int id, DispatchType dispType, JsValue[] args, out Type returnType) {
 			if (id == this.target.Length) {
 				if (dispType == DispatchType.PropertyGet) {
+					returnType = this.target.Length.GetType();
 					return this.target.Length;
 				}
 				else {
@@ -47,11 +48,13 @@ namespace DotWeb.Hosting.Bridge
 
 			if (id >= 0 && id < this.target.Length) {
 				if (dispType == DispatchType.PropertyGet) {
+					returnType = this.elementType;
 					return this.target.GetValue(id);
 				}
 				else if (dispType == DispatchType.PropertySet) {
 					object value = this.bridge.UnwrapValue(args.First(), this.elementType);
 					this.target.SetValue(value, id);
+					returnType = typeof(void);
 					return null;
 				}
 			}
@@ -72,6 +75,10 @@ namespace DotWeb.Hosting.Bridge
 			};
 			msg.Members.Add(tmi);
 			return msg;
+		}
+
+		public Type GetReturnType(int id) {
+			return this.elementType;
 		}
 	}
 }

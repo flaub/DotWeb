@@ -8,6 +8,7 @@ using Rhino.Mocks;
 using Rhino.Mocks.Constraints;
 using DotWeb.Client;
 using System.Reflection;
+using DotWeb.Client.Dom;
 
 namespace DotWeb.Hosting.Test
 {
@@ -20,16 +21,35 @@ namespace DotWeb.Hosting.Test
 		public NativeObject() { C_(); }
 
 		public void Alert(string msg) { _(msg); }
+
+		[JsIntrinsic]
+		public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
 	}
 
 	class ObjectWrapperTest
 	{
-		public const string AlertArg = "Hello";
+		public const string AlertArg = "ObjectWrapperTest";
 
 		public ObjectWrapperTest() {
 			var native = new NativeObject();
 			native.Alert(AlertArg);
 		}
+	}
+
+	class EventHandlerTest
+	{
+		public const string AlertArg = "EventHandlerTest";
+
+		public EventHandlerTest() {
+			this.native = new NativeObject();
+			this.native.onmouseover = native_OnMouseOver;
+		}
+
+		public void native_OnMouseOver() {
+			this.native.Alert(AlertArg);
+		}
+
+		NativeObject native;
 	}
 
 	[TestFixture]
@@ -40,6 +60,7 @@ namespace DotWeb.Hosting.Test
 			TestHelper(delegate(SessionHelper session) {
 				session.OnLoadMessage(typeof(SanityTest));
 				session.ReturnMessage();
+				session.OnQuitMessage();
 			});
 		}
 
@@ -61,6 +82,41 @@ namespace DotWeb.Hosting.Test
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				session.ReturnMessage();
+				session.OnQuitMessage();
+			});
+		}
+
+		[Test]
+		public void TestEventHandler() {
+			TestHelper(delegate(SessionHelper session) {
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(EventHandlerTest));
+
+				// new Nativeobject();
+				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
+				session.InvokeFunctionMessage(ctor.Name, 0);
+				// return the scopeId for the newly created native object
+				session.OnReturnMessage(false, JsValueType.JsObject, 1);
+
+				// nativeObject.onmouseover = native_OnMouseOver;
+				var method = session.DefineFunctionMessage(nativeType.GetMethod("set_onmouseover"));
+				session.InvokeFunctionMessage(method.Name, 1, new JsValue(JsValueType.Delegate, 1));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				session.ReturnMessage();
+
+				// simulate an event firing
+				session.OnInvokeDelegateMessage(1);
+
+				// nativeObject.Alert();
+				var alert = session.DefineFunctionMessage(nativeType.GetMethod("Alert"));
+				session.InvokeFunctionMessage(alert.Name, 1, new JsValue(EventHandlerTest.AlertArg));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				// return from event handler
+				session.ReturnMessage();
+
+				session.OnQuitMessage();
 			});
 		}
 
@@ -99,6 +155,24 @@ namespace DotWeb.Hosting.Test
 				ReadMessage(new ReturnMessage {
 					IsException = isException,
 					Value = new JsValue(tag, value)
+				});
+			}
+
+			public void OnQuitMessage() {
+				ReadMessage(new QuitMessage());
+			}
+
+			public void OnInvokeDelegateMessage(int targetId) {
+				ReadMessage(new InvokeDelegateMessage {
+					TargetId = targetId,
+					Parameters = EmptyArgs
+				});
+			}
+
+			public void OnInvokeDelegateMessage(int targetId, params JsValue[] parameters) {
+				ReadMessage(new InvokeDelegateMessage {
+					TargetId = targetId,
+					Parameters = parameters
 				});
 			}
 

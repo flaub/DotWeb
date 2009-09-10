@@ -44,7 +44,7 @@ namespace DotWeb.Hosting.Bridge
 		private JsValue DispatchAndReturn() {
 			ReturnMessage retMsg;
 			while (true) {
-				retMsg = Dispatch(true);
+				Dispatch(true, out retMsg);
 				if (retMsg != null)
 					break;
 			}
@@ -74,13 +74,20 @@ namespace DotWeb.Hosting.Bridge
 
 		public void DispatchForever() {
 			while (true) {
-				var ret = Dispatch(false);
-				if (ret == null)
+				ReturnMessage msg;
+				var ret = Dispatch(false, out msg);
+				if (!ret)
 					return;
 			}
 		}
 
-		private ReturnMessage Dispatch(bool needsReturn) {
+		/// <summary>
+		/// Read a message from the session and dispatch based on the MessageType.
+		/// </summary>
+		/// <param name="needsReturn">The caller is expecting a ReturnMessage.</param>
+		/// <param name="retMsg">The ReturnMessage if received.</param>
+		/// <returns>true when needsReturn is true and a QuitMessage is received, otherwise false.</returns>
+		private bool Dispatch(bool needsReturn, out ReturnMessage retMsg) {
 			IMessage msg = this.session.ReadMessage();
 			switch (msg.MessageType) {
 				case MessageType.Load:
@@ -96,19 +103,26 @@ namespace DotWeb.Hosting.Bridge
 					InvokeMember((InvokeMemberMessage)msg);
 					break;
 				case MessageType.Return:
-					if (needsReturn)
-						return (ReturnMessage)msg;
-					else
+					if (needsReturn) {
+						retMsg = (ReturnMessage)msg;
+						return true;
+					}
+					else {
 						throw new InvalidOperationException();
+					}
 				case MessageType.Quit:
-					if (needsReturn)
+					if (needsReturn) {
 						throw new Exception("Quit");
-					else
-						return null;
+					}
+					else {
+						retMsg = null;
+						return false;
+					}
 				default:
 					throw new InvalidOperationException();
 			}
-			return null;
+			retMsg = null;
+			return true;
 		}
 
 		private void OnLoad(LoadMessage msg) {
@@ -158,8 +172,10 @@ namespace DotWeb.Hosting.Bridge
 			Debug.WriteLine(string.Format("InvokeMember: {0}, {1}", msg.TargetId, msg.MemberId));
 			IJsAccessible target = (IJsAccessible)this.refToObj[msg.TargetId];
 			try {
-				object ret = target.Invoke(msg.MemberId, msg.DispatchType, msg.Parameters);
-				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret) };
+				Type retType;
+				object ret = target.Invoke(msg.MemberId, msg.DispatchType, msg.Parameters, out retType);
+				bool isVoid = retType == typeof(void);
+				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
 				this.session.SendMessage(retMsg);
 			}
 			catch (Exception ex) {
@@ -176,7 +192,9 @@ namespace DotWeb.Hosting.Bridge
 			object[] args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
 			try {
 				object ret = target.DynamicInvoke(args);
-				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret) };
+				var retType = target.Method.ReturnType;
+				bool isVoid = retType == typeof(void);
+				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
 				this.session.SendMessage(retMsg);
 			}
 			catch (Exception ex) {
@@ -211,7 +229,7 @@ namespace DotWeb.Hosting.Bridge
 			JsValue[] converted = new JsValue[args.Length];
 			for (int i = 0; i < args.Length; i++) {
 				object arg = args[i];
-				converted[i] = WrapValue(arg);
+				converted[i] = WrapValue(arg, false);
 			}
 			return converted;
 		}
@@ -253,7 +271,10 @@ namespace DotWeb.Hosting.Bridge
 			return ret;
 		}
 
-		private JsValue WrapValue(object arg) {
+		private JsValue WrapValue(object arg, bool isVoid) {
+			if (isVoid)
+				return new JsValue(JsValueType.Void, null);
+
 			if (arg is JsNativeBase) {
 				JsNativeBase jsnb = (JsNativeBase)arg;
 				return new JsValue(JsValueType.JsObject, jsnb.Handle);
@@ -347,7 +368,7 @@ namespace DotWeb.Hosting.Bridge
 
 				JsValue[] wrapped;
 				if (method.GetParameters().Count() == 1 && args.Length > 1) {
-					wrapped = new JsValue[] { WrapValue(args) };
+					wrapped = new JsValue[] { WrapValue(args, false) };
 				}
 				else {
 					wrapped = WrapParameters(args);

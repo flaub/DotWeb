@@ -157,7 +157,11 @@ namespace DotWeb.Hosting
 		}
 
 		public override string ToString() {
-			return this.Object == null ? "<null>" : this.Object.ToString();
+			if (this.IsVoid)
+				return "<void>";
+			if (this.IsNull)
+				return "<null>";
+			return this.Object.ToString();
 		}
 	}
 }

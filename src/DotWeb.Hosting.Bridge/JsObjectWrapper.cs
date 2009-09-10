@@ -88,30 +88,39 @@ namespace DotWeb.Hosting.Bridge
 			return baked;
 		}
 
-		public object Invoke(int id, DispatchType dispType, JsValue[] jsArgs) {
+		public object Invoke(int id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
 			MemberInfo member = GetMember(id);
 			Debug.WriteLine(string.Format("Invoke: {0}, {1} on {2}", dispType, member, this.target));
 			if (member is MethodInfo && dispType == DispatchType.PropertyGet) {
 				MethodInfo mi = member as MethodInfo;
 				Type delType = CreateTypeForMethod(mi);
 				Delegate del = Delegate.CreateDelegate(delType, this.target, mi);
+				returnType = delType;
 				return del;
 			}
 
 			object[] args = this.bridge.UnwrapParameters(jsArgs, dispType, member);
 			if (dispType.IsMethod()) {
 				MethodBase method = member as MethodBase;
+				if (method.IsConstructor) {
+					returnType = method.DeclaringType;
+				}
+				else {
+					returnType = ((MethodInfo)method).ReturnType;
+				}
 				return method.Invoke(this.target, args);
 			}
 			else if (dispType.IsPropertyGet()) {
 				PropertyInfo pi = member as PropertyInfo;
+				returnType = pi.PropertyType;
 				return pi.GetValue(this.target, null);
 			}
 			else if (dispType.IsPropertyPut()) {
 				PropertyInfo pi = member as PropertyInfo;
+				returnType = typeof(void);
 				pi.SetValue(this.target, args.First(), null);
 			}
-			return null;
+			throw new NotSupportedException();
 		}
 
 		public GetTypeResponseMessage GetTypeInfo() {

@@ -25,7 +25,7 @@ namespace DotWeb.Hosting.Bridge
 {
 	public interface IJsAccessible
 	{
-		object Invoke(int id, DispatchType dispType, JsValue[] args);
+		object Invoke(int id, DispatchType dispType, JsValue[] args, out Type returnType);
 		GetTypeResponseMessage GetTypeInfo();
 	}
 }
