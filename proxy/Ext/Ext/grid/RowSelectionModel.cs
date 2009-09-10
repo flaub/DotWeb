@@ -9,7 +9,7 @@ namespace Ext.grid {
 	///     as selections and returned by {@link #getSelected}, and {@link #getSelections} are
 	///     the {@link Ext.data.Record Record}s which provide the data for the selected rows.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\RowSelectionModel.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\RowSelectionModel.js</jssource>
 	public class RowSelectionModel : Ext.grid.AbstractSelectionModel {
 
 		/// <summary></summary>
@@ -160,7 +160,7 @@ namespace Ext.grid {
 		/// <summary>Returns True if the specified record id is selected.</summary>
 		/// <param name="id">The id of record to check</param>
 		/// <returns>Boolean</returns>
-		public virtual void isIdSelected(System.String id) { _(id); }
+		public virtual void isIdSelected(string id) { _(id); }
 
 		/// <summary>Selects multiple rows.</summary>
 		/// <returns></returns>
@@ -243,15 +243,15 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class RowSelectionModelConfig : DotWeb.Client.JsAccessible {
+	public class RowSelectionModelConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  True to allow selection of only one row at a time (defaults to false)</summary>
-		public bool singleSelect { get; set; }
+		public bool singleSelect { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  False to turn off moving the editor to the next cell when the enter key is pressed</summary>
-		public bool moveEditorOnEnter { get; set; }
+		public bool moveEditorOnEnter { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

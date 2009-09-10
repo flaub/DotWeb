@@ -7,7 +7,7 @@ namespace Ext {
 	///     Ext core utilities and functions.
 	///     */
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\Ext.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\Ext.js</jssource>
 	[JsNamespace()]
 	public class ExtClass : DotWeb.Client.JsNativeBase {
 
@@ -44,13 +44,13 @@ namespace Ext {
 		///     URL to a blank file used by Ext when in secure mode for iframe src and onReady src to prevent
 		///     the IE insecure content warning (defaults to javascript:false).
 		/// </summary>
-		public static System.String SSL_SECURE_URL { get { return S_<System.String>(); } set { S_(value); } }
+		public static string SSL_SECURE_URL { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     URL to a 1x1 transparent gif image used by Ext to create inline icons with CSS background images. (Defaults to
 		///     "http://extjs.com/s.gif" and you should change this to a URL on your server).
 		/// </summary>
-		public static System.String BLANK_IMAGE_URL { get { return S_<System.String>(); } set { S_(value); } }
+		public static string BLANK_IMAGE_URL { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>True if the detected browser is Opera.</summary>
 		public static bool isOpera { get { return S_<bool>(); } set { S_(value); } }
@@ -179,7 +179,7 @@ namespace Ext {
 		/// <param name="el">(optional) The element to generate an id for</param>
 		/// <param name="prefix">(optional) Id prefix (defaults "ext-gen")</param>
 		/// <returns>String</returns>
-		public static void id(object el, System.String prefix) { S_(el, prefix); }
+		public static void id(object el, string prefix) { S_(el, prefix); }
 
 		/// <summary>
 		///     Extends one class with another class and optionally overrides members with the passed literal. This class
@@ -410,7 +410,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="args"></param>
 		/// <returns></returns>
-		public static void namespace_(params System.String[] args) { S_(args); }
+		public static void namespace_(params string[] args) { S_(args); }
 
 		/// <summary>Takes an object and converts it to an encoded URL. e.g. Ext.urlEncode({foo: 1, bar: 2}); would return "foo=1&bar=2".  Optionally, property values can be arrays, instead of keys and the resulting string that's returned will contain a name/value pair for each array value.</summary>
 		/// <returns>String</returns>
@@ -428,13 +428,13 @@ namespace Ext {
 		/// <summary>Takes an encoded URL and and converts it to an object. e.g. Ext.urlDecode("foo=1&bar=2"); would return {foo: 1, bar: 2} or Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", true); would return {foo: 1, bar: [2, 3, 4]}.</summary>
 		/// <param name="str"></param>
 		/// <returns>Object</returns>
-		public static void urlDecode(System.String str) { S_(str); }
+		public static void urlDecode(string str) { S_(str); }
 
 		/// <summary>Takes an encoded URL and and converts it to an object. e.g. Ext.urlDecode("foo=1&bar=2"); would return {foo: 1, bar: 2} or Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", true); would return {foo: 1, bar: [2, 3, 4]}.</summary>
 		/// <param name="str"></param>
 		/// <param name="overwrite">(optional) Items of the same name will overwrite previous values instead of creating an an array (Defaults to false).</param>
 		/// <returns>Object</returns>
-		public static void urlDecode(System.String str, bool overwrite) { S_(str, overwrite); }
+		public static void urlDecode(string str, bool overwrite) { S_(str, overwrite); }
 
 		/// <summary>
 		///     Iterates an array calling the passed function with each item, stopping if your function returns false. If the
@@ -511,7 +511,7 @@ namespace Ext {
 		/// <summary>Escapes the passed string for use in a regular expression</summary>
 		/// <param name="str"></param>
 		/// <returns>String</returns>
-		public static void escapeRe(System.String str) { S_(str); }
+		public static void escapeRe(string str) { S_(str); }
 
 		/// <summary>Return the dom node for the passed string (id), dom node, or Ext.Element</summary>
 		/// <returns>HTMLElement</returns>
@@ -537,7 +537,7 @@ namespace Ext {
 		/// <summary>Shorthand for {@link Ext.ComponentMgr#get}</summary>
 		/// <param name="id"></param>
 		/// <returns>Ext.Component</returns>
-		public static void getCmp(System.String id) { S_(id); }
+		public static void getCmp(string id) { S_(id); }
 
 		/// <summary>Utility method for validating that a value is numeric, returning the specified default value if it is not.</summary>
 		/// <returns>Number</returns>

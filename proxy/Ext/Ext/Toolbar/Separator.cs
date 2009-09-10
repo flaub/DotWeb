@@ -15,7 +15,7 @@ namespace Ext.Toolbar {
 	///     });
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Toolbar.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Toolbar.js</jssource>
 	public class Separator : Ext.Toolbar.Item {
 
 		/// <summary>Creates a new Separator</summary>

@@ -49,7 +49,7 @@ namespace Ext {
 	///     */
 	///     Ext.Fx = {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\Fx.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\Fx.js</jssource>
 	public class Fx : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -103,7 +103,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideIn(System.String anchor) { _(anchor); }
+		public virtual void slideIn(string anchor) { _(anchor); }
 
 		/// <summary>
 		///     Slides the element into view.  An anchor point can be optionally passed to set the point of
@@ -125,7 +125,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideIn(System.String anchor, object options) { _(anchor, options); }
+		public virtual void slideIn(string anchor, object options) { _(anchor, options); }
 
 		/// <summary>
 		///     Slides the element out of view.  An anchor point can be optionally passed to set the end point
@@ -174,7 +174,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideOut(System.String anchor) { _(anchor); }
+		public virtual void slideOut(string anchor) { _(anchor); }
 
 		/// <summary>
 		///     Slides the element out of view.  An anchor point can be optionally passed to set the end point
@@ -200,7 +200,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideOut(System.String anchor, object options) { _(anchor, options); }
+		public virtual void slideOut(string anchor, object options) { _(anchor, options); }
 
 		/// <summary>
 		///     Fades the element out while slowly expanding it in all directions.  When the effect is completed, the
@@ -327,7 +327,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="color">(optional) The highlight color. Should be a 6 char hex color without the leading # (defaults to yellow: 'ffff9c')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void highlight(System.String color) { _(color); }
+		public virtual void highlight(string color) { _(color); }
 
 		/// <summary>
 		///     Highlights the Element by setting a color (applies to the background-color by default, but can be
@@ -351,7 +351,7 @@ namespace Ext {
 		/// <param name="color">(optional) The highlight color. Should be a 6 char hex color without the leading # (defaults to yellow: 'ffff9c')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void highlight(System.String color, object options) { _(color, options); }
+		public virtual void highlight(string color, object options) { _(color, options); }
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -388,7 +388,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="color">(optional) The color of the border.  Should be a 6 char hex color without the leading # (defaults to light blue: 'C3DAF9').</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(System.String color) { _(color); }
+		public virtual void frame(string color) { _(color); }
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -408,7 +408,7 @@ namespace Ext {
 		/// <param name="color">(optional) The color of the border.  Should be a 6 char hex color without the leading # (defaults to light blue: 'C3DAF9').</param>
 		/// <param name="count">(optional) The number of ripples to display (defaults to 1)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(System.String color, double count) { _(color, count); }
+		public virtual void frame(string color, double count) { _(color, count); }
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -429,7 +429,7 @@ namespace Ext {
 		/// <param name="count">(optional) The number of ripples to display (defaults to 1)</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(System.String color, double count, object options) { _(color, count, options); }
+		public virtual void frame(string color, double count, object options) { _(color, count, options); }
 
 		/// <summary>
 		///     Creates a pause before any subsequent queued effects begin.  If there are
@@ -722,7 +722,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to bottom: 'b')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void ghost(System.String anchor) { _(anchor); }
+		public virtual void ghost(string anchor) { _(anchor); }
 
 		/// <summary>
 		///     Slides the element while fading it out of view.  An anchor point can be optionally passed to set the
@@ -745,7 +745,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to bottom: 'b')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void ghost(System.String anchor, object options) { _(anchor, options); }
+		public virtual void ghost(string anchor, object options) { _(anchor, options); }
 
 		/// <summary>
 		///     Ensures that all effects queued after syncFx is called on the element are
@@ -786,9 +786,9 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class FxConfig : DotWeb.Client.JsAccessible {
+	public class FxConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> @class Ext.Fx <p>A class to provide basic animation and visual effects support.  <b>Note:</b> This class is automatically applied to the {@link Ext.Element} interface when included, so all effects calls should be performed via Element. Conversely, since the effects are not actually defined in Element, Ext.Fx <b>must</b> be included in order for the Element effects to work.</p><br/> <p>It is important to note that although the Fx methods and many non-Fx Element methods support "method chaining" in that they return the Element object itself as the method return value, it is not always possible to mix the two in a single method chain.  The Fx methods use an internal effects queue so that each effect can be properly timed and sequenced. Non-Fx methods, on the other hand, have no such internal queueing and will always execute immediately.  For this reason, while it may be possible to mix certain Fx and non-Fx method calls in a single chain, it may not always provide the expected results and should be done with care.</p><br/> <p>Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element that will serve as either the start or end point of the animation.  Following are all of the supported anchor positions:</p> <pre> Value  Description -----  ----------------------------- tl     The top left corner t      The center of the top edge tr     The top right corner l      The center of the left edge r      The center of the right edge bl     The bottom left corner b      The center of the bottom edge br     The bottom right corner </pre> <b>Although some Fx methods accept specific custom config parameters, the ones shown in the Config Options section below are common options that can be passed to any Fx method.</b>A function called when the effect is finished.  Note that effects are queued internally by the Fx class, so do not need to use the callback parameter to specify another effect -- effects can simply be chained together and called in sequence (e.g., el.slideIn().highlight();).  The callback is intended for any additional code that should run once a particular effect has completed. The Element being operated upon is passed as the first parameter.The scope of the effect functionA valid Easing value for the effectA css class to apply after the effectThe length of time (in seconds) that the effect should lastWhether the Element should be removed from the DOM and destroyed after the effect finishesWhether to use the <i>display</i> CSS property instead of <i>visibility</i> when hiding Elements (only applies to effects that end with the element being visually hidden, ignored otherwise)A style specification string, e.g. "width:100px", or an object in the form {width:"100px"}, or a function which returns such a specification that will be applied to the Element after the effect finishesWhether the effect should block other effects from queueing while it runsWhether to allow subsequently-queued effects to run at the same time as the current effect, or to ensure that they run in sequenceWhether subsequent effects should be stopped and removed after the current effect finishes</summary>
-		public bool stopFx { get; set; }
+		public bool stopFx { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

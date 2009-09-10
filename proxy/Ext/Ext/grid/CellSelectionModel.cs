@@ -23,7 +23,7 @@ namespace Ext.grid {
 	///     </ul></div></p></li>
 	///     </ul></div>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\CellSelectionModel.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\CellSelectionModel.js</jssource>
 	public class CellSelectionModel : Ext.grid.AbstractSelectionModel {
 
 		/// <summary></summary>
@@ -82,9 +82,9 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class CellSelectionModelConfig : DotWeb.Client.JsAccessible {
+	public class CellSelectionModelConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

@@ -9,7 +9,7 @@ namespace Ext.dd {
 	///     for the event callbacks, but this way we reduce the processing cost of the
 	///     event listener and the callbacks.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
 	public class DDTarget : Ext.dd.DragDrop {
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <returns></returns>
-		public DDTarget(System.String id) { C_(id); }
+		public DDTarget(string id) { C_(id); }
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -35,7 +35,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DDTarget(System.String id, System.String sGroup) { C_(id, sGroup); }
+		public DDTarget(string id, string sGroup) { C_(id, sGroup); }
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -45,7 +45,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DDTarget(System.String id, System.String sGroup, object config) { C_(id, sGroup, config); }
+		public DDTarget(string id, string sGroup, object config) { C_(id, sGroup, config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>

@@ -63,7 +63,7 @@ namespace Ext {
 	///     */
 	///     Ext.DomQuery = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\DomQuery.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\DomQuery.js</jssource>
 	public class DomQuery : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -106,7 +106,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <returns>Function</returns>
-		public static void compile(System.String selector) { S_(selector); }
+		public static void compile(string selector) { S_(selector); }
 
 		/// <summary>
 		///     Compiles a selector/xpath query into a reusable function. The returned function
@@ -115,7 +115,7 @@ namespace Ext {
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="type">(optional) Either "select" (the default) or "simple" for a simple selector match</param>
 		/// <returns>Function</returns>
-		public static void compile(System.String selector, System.String type) { S_(selector, type); }
+		public static void compile(string selector, string type) { S_(selector, type); }
 
 		/// <summary>Selects a group of elements.</summary>
 		/// <returns>Array</returns>
@@ -124,13 +124,13 @@ namespace Ext {
 		/// <summary>Selects a group of elements.</summary>
 		/// <param name="selector">The selector/xpath query (can be a comma separated list of selectors)</param>
 		/// <returns>Array</returns>
-		public static void select(System.String selector) { S_(selector); }
+		public static void select(string selector) { S_(selector); }
 
 		/// <summary>Selects a group of elements.</summary>
 		/// <param name="selector">The selector/xpath query (can be a comma separated list of selectors)</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <returns>Array</returns>
-		public static void select(System.String selector, Ext.data.Node root) { S_(selector, root); }
+		public static void select(string selector, Ext.data.Node root) { S_(selector, root); }
 
 		/// <summary>Selects a single element.</summary>
 		/// <returns>Element</returns>
@@ -139,13 +139,13 @@ namespace Ext {
 		/// <summary>Selects a single element.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <returns>Element</returns>
-		public static void selectNode(System.String selector) { S_(selector); }
+		public static void selectNode(string selector) { S_(selector); }
 
 		/// <summary>Selects a single element.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <returns>Element</returns>
-		public static void selectNode(System.String selector, Ext.data.Node root) { S_(selector, root); }
+		public static void selectNode(string selector, Ext.data.Node root) { S_(selector, root); }
 
 		/// <summary>Selects the value of a node, optionally replacing null with the defaultValue.</summary>
 		/// <returns>String</returns>
@@ -154,20 +154,20 @@ namespace Ext {
 		/// <summary>Selects the value of a node, optionally replacing null with the defaultValue.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <returns>String</returns>
-		public static void selectValue(System.String selector) { S_(selector); }
+		public static void selectValue(string selector) { S_(selector); }
 
 		/// <summary>Selects the value of a node, optionally replacing null with the defaultValue.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <returns>String</returns>
-		public static void selectValue(System.String selector, Ext.data.Node root) { S_(selector, root); }
+		public static void selectValue(string selector, Ext.data.Node root) { S_(selector, root); }
 
 		/// <summary>Selects the value of a node, optionally replacing null with the defaultValue.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <param name="defaultValue"></param>
 		/// <returns>String</returns>
-		public static void selectValue(System.String selector, Ext.data.Node root, System.String defaultValue) { S_(selector, root, defaultValue); }
+		public static void selectValue(string selector, Ext.data.Node root, string defaultValue) { S_(selector, root, defaultValue); }
 
 		/// <summary>Selects the value of a node, parsing integers and floats. Returns the defaultValue, or 0 if none is specified.</summary>
 		/// <returns>Number</returns>
@@ -176,20 +176,20 @@ namespace Ext {
 		/// <summary>Selects the value of a node, parsing integers and floats. Returns the defaultValue, or 0 if none is specified.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <returns>Number</returns>
-		public static void selectNumber(System.String selector) { S_(selector); }
+		public static void selectNumber(string selector) { S_(selector); }
 
 		/// <summary>Selects the value of a node, parsing integers and floats. Returns the defaultValue, or 0 if none is specified.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <returns>Number</returns>
-		public static void selectNumber(System.String selector, Ext.data.Node root) { S_(selector, root); }
+		public static void selectNumber(string selector, Ext.data.Node root) { S_(selector, root); }
 
 		/// <summary>Selects the value of a node, parsing integers and floats. Returns the defaultValue, or 0 if none is specified.</summary>
 		/// <param name="selector">The selector/xpath query</param>
 		/// <param name="root">(optional) The start of the query (defaults to document).</param>
 		/// <param name="defaultValue"></param>
 		/// <returns>Number</returns>
-		public static void selectNumber(System.String selector, Ext.data.Node root, double defaultValue) { S_(selector, root, defaultValue); }
+		public static void selectNumber(string selector, Ext.data.Node root, double defaultValue) { S_(selector, root, defaultValue); }
 
 		/// <summary>Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <returns>Boolean</returns>
@@ -198,13 +198,13 @@ namespace Ext {
 		/// <summary>Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <param name="el">An element id, element or array of elements</param>
 		/// <returns>Boolean</returns>
-		public static void is_(System.String el) { S_(el); }
+		public static void is_(string el) { S_(el); }
 
 		/// <summary>Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <param name="el">An element id, element or array of elements</param>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Boolean</returns>
-		public static void is_(System.String el, System.String selector) { S_(el, selector); }
+		public static void is_(string el, string selector) { S_(el, selector); }
 
 		/// <summary>Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <param name="el">An element id, element or array of elements</param>
@@ -215,7 +215,7 @@ namespace Ext {
 		/// <param name="el">An element id, element or array of elements</param>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Boolean</returns>
-		public static void is_(DOMElement el, System.String selector) { S_(el, selector); }
+		public static void is_(DOMElement el, string selector) { S_(el, selector); }
 
 		/// <summary>Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <param name="el">An element id, element or array of elements</param>
@@ -226,7 +226,7 @@ namespace Ext {
 		/// <param name="el">An element id, element or array of elements</param>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Boolean</returns>
-		public static void is_(System.Array el, System.String selector) { S_(el, selector); }
+		public static void is_(System.Array el, string selector) { S_(el, selector); }
 
 		/// <summary>
 		///     Filters an array of elements to only include matches of a simple selector (e.g. div.some-class or span:first-child)
@@ -250,7 +250,7 @@ namespace Ext {
 		/// <param name="el">An array of elements to filter</param>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Array</returns>
-		public static void filter(System.Array el, System.String selector) { S_(el, selector); }
+		public static void filter(System.Array el, string selector) { S_(el, selector); }
 
 		/// <summary>
 		///     Filters an array of elements to only include matches of a simple selector (e.g. div.some-class or span:first-child)
@@ -260,7 +260,7 @@ namespace Ext {
 		/// <param name="selector">The simple selector to test</param>
 		/// <param name="nonMatches">If true, it returns the elements that DON'T match</param>
 		/// <returns>Array</returns>
-		public static void filter(System.Array el, System.String selector, bool nonMatches) { S_(el, selector, nonMatches); }
+		public static void filter(System.Array el, string selector, bool nonMatches) { S_(el, selector, nonMatches); }
 
 
 

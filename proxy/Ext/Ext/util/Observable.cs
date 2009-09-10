@@ -20,7 +20,7 @@ namespace Ext.util {
 	///     */
 	///     Ext.util.Observable = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\Observable.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\Observable.js</jssource>
 	public class Observable : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -48,13 +48,13 @@ namespace Ext.util {
 		/// <summary>Fires the specified event with the passed parameters (minus the event name).</summary>
 		/// <param name="eventName"></param>
 		/// <returns>Boolean</returns>
-		public virtual void fireEvent(System.String eventName) { _(eventName); }
+		public virtual void fireEvent(string eventName) { _(eventName); }
 
 		/// <summary>Fires the specified event with the passed parameters (minus the event name).</summary>
 		/// <param name="eventName"></param>
 		/// <param name="args">Variable number of parameters are passed to handlers</param>
 		/// <returns>Boolean</returns>
-		public virtual void fireEvent(System.String eventName, params object[] args) { _(eventName, args); }
+		public virtual void fireEvent(string eventName, params object[] args) { _(eventName, args); }
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -167,7 +167,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName) { _(eventName); }
+		public virtual void addListener(string eventName) { _(eventName); }
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -225,7 +225,7 @@ namespace Ext.util {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The method the event invokes</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate handler) { _(eventName, handler); }
+		public virtual void addListener(string eventName, Delegate handler) { _(eventName, handler); }
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -284,7 +284,7 @@ namespace Ext.util {
 		/// <param name="handler">The method the event invokes</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public virtual void addListener(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -344,7 +344,7 @@ namespace Ext.util {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional) An object containing handler configuration</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
+		public virtual void addListener(string eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
 
 		/// <summary>Removes a listener</summary>
 		/// <returns></returns>
@@ -353,20 +353,20 @@ namespace Ext.util {
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void removeListener(System.String eventName) { _(eventName); }
+		public virtual void removeListener(string eventName) { _(eventName); }
 
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <returns></returns>
-		public virtual void removeListener(System.String eventName, Delegate handler) { _(eventName, handler); }
+		public virtual void removeListener(string eventName, Delegate handler) { _(eventName, handler); }
 
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <param name="scope">(optional) The scope (this object) for the handler</param>
 		/// <returns></returns>
-		public virtual void removeListener(System.String eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public virtual void removeListener(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
 
 		/// <summary>Removes all listeners for this object</summary>
 		/// <returns></returns>
@@ -403,7 +403,7 @@ namespace Ext.util {
 		/// <summary>Checks to see if this object has any listeners for a specified event</summary>
 		/// <param name="eventName">The name of the event to check for</param>
 		/// <returns>Boolean</returns>
-		public virtual void hasListener(System.String eventName) { _(eventName); }
+		public virtual void hasListener(string eventName) { _(eventName); }
 
 		/// <summary>Suspend the firing of all events. (see {@link #resumeEvents})</summary>
 		/// <returns></returns>
@@ -426,7 +426,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void on(System.String eventName) { _(eventName); }
+		public virtual void on(string eventName) { _(eventName); }
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -435,7 +435,7 @@ namespace Ext.util {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The method the event invokes</param>
 		/// <returns></returns>
-		public virtual void on(System.String eventName, Delegate handler) { _(eventName, handler); }
+		public virtual void on(string eventName, Delegate handler) { _(eventName, handler); }
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -445,7 +445,7 @@ namespace Ext.util {
 		/// <param name="handler">The method the event invokes</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public virtual void on(System.String eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public virtual void on(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -456,7 +456,7 @@ namespace Ext.util {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional)</param>
 		/// <returns></returns>
-		public virtual void on(System.String eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
+		public virtual void on(string eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <returns></returns>
@@ -465,20 +465,20 @@ namespace Ext.util {
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void un(System.String eventName) { _(eventName); }
+		public virtual void un(string eventName) { _(eventName); }
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <returns></returns>
-		public virtual void un(System.String eventName, Delegate handler) { _(eventName, handler); }
+		public virtual void un(string eventName, Delegate handler) { _(eventName, handler); }
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <param name="scope">(optional) The scope (this object) for the handler</param>
 		/// <returns></returns>
-		public virtual void un(System.String eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public virtual void un(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
 
 		/// <summary>
 		///     Starts capture on the specified Observable. All events will be passed
@@ -536,9 +536,9 @@ namespace Ext.util {
 	}
 
 	[JsAnonymous]
-	public class ObservableConfig : DotWeb.Client.JsAccessible {
+	public class ObservableConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

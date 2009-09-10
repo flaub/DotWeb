@@ -19,7 +19,7 @@ namespace Ext {
 	///     */
 	///     Ext.ComponentMgr = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\ComponentMgr.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\ComponentMgr.js</jssource>
 	public class ComponentMgr : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -65,7 +65,7 @@ namespace Ext {
 		/// <summary>Returns a component by id</summary>
 		/// <param name="id">The component id</param>
 		/// <returns>Ext.Component</returns>
-		public static void get(System.String id) { S_(id); }
+		public static void get(string id) { S_(id); }
 
 		/// <summary>Registers a function that will be called when a specified component is added to ComponentMgr</summary>
 		/// <returns></returns>
@@ -74,20 +74,20 @@ namespace Ext {
 		/// <summary>Registers a function that will be called when a specified component is added to ComponentMgr</summary>
 		/// <param name="id">The component id</param>
 		/// <returns></returns>
-		public static void onAvailable(System.String id) { S_(id); }
+		public static void onAvailable(string id) { S_(id); }
 
 		/// <summary>Registers a function that will be called when a specified component is added to ComponentMgr</summary>
 		/// <param name="id">The component id</param>
 		/// <param name="fn">The callback function</param>
 		/// <returns></returns>
-		public static void onAvailable(System.String id, Delegate fn) { S_(id, fn); }
+		public static void onAvailable(string id, Delegate fn) { S_(id, fn); }
 
 		/// <summary>Registers a function that will be called when a specified component is added to ComponentMgr</summary>
 		/// <param name="id">The component id</param>
 		/// <param name="fn">The callback function</param>
 		/// <param name="scope">The scope of the callback</param>
 		/// <returns></returns>
-		public static void onAvailable(System.String id, Delegate fn, object scope) { S_(id, fn, scope); }
+		public static void onAvailable(string id, Delegate fn, object scope) { S_(id, fn, scope); }
 
 		/// <summary>
 		///     <p>Registers a new Component constructor, keyed by a new
@@ -110,7 +110,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="xtype">The mnemonic string by which the Component class</param>
 		/// <returns></returns>
-		public static void registerType(System.String xtype) { S_(xtype); }
+		public static void registerType(string xtype) { S_(xtype); }
 
 		/// <summary>
 		///     <p>Registers a new Component constructor, keyed by a new
@@ -123,7 +123,7 @@ namespace Ext {
 		/// <param name="xtype">The mnemonic string by which the Component class</param>
 		/// <param name="cls">The new Component class.</param>
 		/// <returns></returns>
-		public static void registerType(System.String xtype, Delegate cls) { S_(xtype, cls); }
+		public static void registerType(string xtype, Delegate cls) { S_(xtype, cls); }
 
 		/// <summary>
 		///     Creates a new Component from the specified config object using the

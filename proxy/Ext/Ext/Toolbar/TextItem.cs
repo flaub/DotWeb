@@ -13,7 +13,7 @@ namespace Ext.Toolbar {
 	///     });
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Toolbar.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Toolbar.js</jssource>
 	public class TextItem : Ext.Toolbar.Item {
 
 		/// <summary>Creates a new TextItem</summary>
@@ -22,7 +22,7 @@ namespace Ext.Toolbar {
 		/// <summary>Creates a new TextItem</summary>
 		/// <param name="text">A text string, or a config object containing a <tt>text</tt> property</param>
 		/// <returns></returns>
-		public TextItem(System.String text) { C_(text); }
+		public TextItem(string text) { C_(text); }
 		/// <summary>Creates a new TextItem</summary>
 		/// <param name="text">A text string, or a config object containing a <tt>text</tt> property</param>
 		/// <returns></returns>

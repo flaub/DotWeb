@@ -60,7 +60,7 @@ namespace Ext.layout {
 	///     */
 	///     Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\layout\ColumnLayout.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\layout\ColumnLayout.js</jssource>
 	public class ColumnLayout : Ext.layout.ContainerLayout {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -83,12 +83,12 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class ColumnLayoutConfig : DotWeb.Client.JsAccessible {
+	public class ColumnLayoutConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String extraCls { get; set; }
+		public string extraCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get; set; }
+		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

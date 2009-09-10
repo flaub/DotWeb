@@ -48,7 +48,7 @@ namespace Ext.data {
 	///     @cfg {String} id The DomQuery path relative from the record element to the element that contains
 	///     a record identifier value.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\XmlReader.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\XmlReader.js</jssource>
 	public class XmlReader : Ext.data.DataReader {
 
 		/// <summary>
@@ -124,18 +124,18 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class XmlReaderConfig : DotWeb.Client.JsAccessible {
+	public class XmlReaderConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The DomQuery path from which to retrieve the total number of records</summary>
-		public System.String totalRecords { get; set; }
+		public string totalRecords { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The DomQuery path to the repeated element which contains record information.</summary>
-		public System.String record { get; set; }
+		public string record { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The DomQuery path to the success attribute used by forms.</summary>
-		public System.String success { get; set; }
+		public string success { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The DomQuery path relative from the record element to the element that contains</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 	}
 }

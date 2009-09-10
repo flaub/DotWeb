@@ -7,7 +7,7 @@ namespace Ext.data {
 	///     An implementation of Ext.data.DataProxy that simply passes the data specified in its constructor
 	///     to the Reader when its load method is called.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\MemoryProxy.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\MemoryProxy.js</jssource>
 	public class MemoryProxy : Ext.data.DataProxy {
 
 		/// <summary></summary>
@@ -139,9 +139,9 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class MemoryProxyConfig : DotWeb.Client.JsAccessible {
+	public class MemoryProxyConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

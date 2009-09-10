@@ -22,7 +22,7 @@ namespace Ext {
 	///     */
 	///     Ext.EventObject = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\EventManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\EventManager.js</jssource>
 	public class EventObject : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -362,7 +362,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(System.String selector) { _(selector); }
+		public virtual void getTarget(string selector) { _(selector); }
 
 		/// <summary>
 		///     Gets the target for the event.
@@ -371,26 +371,7 @@ namespace Ext {
 		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(System.String selector, double maxDepth) { _(selector, maxDepth); }
-
-		/// <summary>
-		///     Gets the target for the event.
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
-		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(System.String selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
-
-		/// <summary>
-		///     Gets the target for the event.
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(System.String selector, object maxDepth) { _(selector, maxDepth); }
+		public virtual void getTarget(string selector, double maxDepth) { _(selector, maxDepth); }
 
 		/// <summary>
 		///     Gets the target for the event.
@@ -400,7 +381,26 @@ namespace Ext {
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(System.String selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+		public virtual void getTarget(string selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+
+		/// <summary>
+		///     Gets the target for the event.
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <returns>HTMLelement</returns>
+		public virtual void getTarget(string selector, object maxDepth) { _(selector, maxDepth); }
+
+		/// <summary>
+		///     Gets the target for the event.
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
+		/// <returns>HTMLelement</returns>
+		public virtual void getTarget(string selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
 
 		/// <summary>Gets the related target.</summary>
 		/// <returns>HTMLElement</returns>

@@ -11,7 +11,7 @@ namespace Ext.SplitBar {
 	///     */
 	///     Ext.SplitBar.AbsoluteLayoutAdapter = function(container){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\SplitBar.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\SplitBar.js</jssource>
 	public class AbsoluteLayoutAdapter : Ext.SplitBar.BasicLayoutAdapter {
 
 		/// <summary>Auto-generated default constructor</summary>

@@ -71,7 +71,7 @@ namespace Ext.data {
 	///     @cfg {String} root name of the property which contains the Array of row objects.
 	///     @cfg {String} id Name of the property within a row object that contains a record identifier value.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\JsonReader.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\JsonReader.js</jssource>
 	public class JsonReader : Ext.data.DataReader {
 
 		/// <summary>
@@ -158,18 +158,18 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class JsonReaderConfig : DotWeb.Client.JsAccessible {
+	public class JsonReaderConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> Name of the property from which to retrieve the total number of records</summary>
-		public System.String totalProperty { get; set; }
+		public string totalProperty { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Name of the property from which to retrieve the success attribute used by forms.</summary>
-		public System.String successProperty { get; set; }
+		public string successProperty { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> name of the property which contains the Array of row objects.</summary>
-		public System.String root { get; set; }
+		public string root { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Name of the property within a row object that contains a record identifier value.</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 	}
 }

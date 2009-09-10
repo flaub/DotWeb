@@ -8,7 +8,7 @@ namespace Ext.data {
 	///     */
 	///     Ext.data.SortTypes = {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\SortTypes.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\SortTypes.js</jssource>
 	public class SortTypes : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>

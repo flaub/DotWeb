@@ -53,7 +53,7 @@ namespace Ext {
 	///     <b> Composite (Collections of) Elements</b><br />
 	///     For working with collections of Elements, see {@link Ext.CompositeElement}
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\Element.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\Element.js</jssource>
 	public class Element : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -62,12 +62,12 @@ namespace Ext {
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
-		public Element(System.String element) { C_(element); }
+		public Element(string element) { C_(element); }
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <param name="forceNew">(optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).</param>
 		/// <returns></returns>
-		public Element(System.String element, bool forceNew) { C_(element, forceNew); }
+		public Element(string element, bool forceNew) { C_(element, forceNew); }
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
@@ -89,13 +89,13 @@ namespace Ext {
 		public DOMElement dom { get { return _<DOMElement>(); } set { _(value); } }
 
 		/// <summary>The DOM element ID</summary>
-		public System.String id { get { return _<System.String>(); } set { _(value); } }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The element's default display mode  (defaults to "")</summary>
-		public System.String originalDisplay { get { return _<System.String>(); } set { _(value); } }
+		public string originalDisplay { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The default unit to append to CSS values where a unit isn't provided (defaults to px).</summary>
-		public System.String defaultUnit { get { return _<System.String>(); } set { _(value); } }
+		public string defaultUnit { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>true to automatically adjust width and height settings for box-model issues (default to true)</summary>
 		public object autoBoxAdjust { get { return _<object>(); } set { _(value); } }
@@ -129,7 +129,7 @@ namespace Ext {
 		/// <summary>Convenience method for setVisibilityMode(Element.DISPLAY)</summary>
 		/// <param name="display">(optional) What to set display to when visible</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void enableDisplayMode(System.String display) { _(display); }
+		public virtual void enableDisplayMode(string display) { _(display); }
 
 		/// <summary>
 		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -144,7 +144,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParent(System.String selector) { _(selector); }
+		public virtual void findParent(string selector) { _(selector); }
 
 		/// <summary>
 		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -153,26 +153,7 @@ namespace Ext {
 		/// <param name="selector">The simple selector to test</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParent(System.String selector, double maxDepth) { _(selector, maxDepth); }
-
-		/// <summary>
-		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">The simple selector to test</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
-		/// <returns>HTMLElement</returns>
-		public virtual void findParent(System.String selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
-
-		/// <summary>
-		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">The simple selector to test</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <returns>HTMLElement</returns>
-		public virtual void findParent(System.String selector, object maxDepth) { _(selector, maxDepth); }
+		public virtual void findParent(string selector, double maxDepth) { _(selector, maxDepth); }
 
 		/// <summary>
 		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -182,7 +163,26 @@ namespace Ext {
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParent(System.String selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+		public virtual void findParent(string selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+
+		/// <summary>
+		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">The simple selector to test</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <returns>HTMLElement</returns>
+		public virtual void findParent(string selector, object maxDepth) { _(selector, maxDepth); }
+
+		/// <summary>
+		///     Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">The simple selector to test</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
+		/// <returns>HTMLElement</returns>
+		public virtual void findParent(string selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
 
 		/// <summary>
 		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -197,7 +197,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParentNode(System.String selector) { _(selector); }
+		public virtual void findParentNode(string selector) { _(selector); }
 
 		/// <summary>
 		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -206,26 +206,7 @@ namespace Ext {
 		/// <param name="selector">The simple selector to test</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParentNode(System.String selector, double maxDepth) { _(selector, maxDepth); }
-
-		/// <summary>
-		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">The simple selector to test</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
-		/// <returns>HTMLElement</returns>
-		public virtual void findParentNode(System.String selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
-
-		/// <summary>
-		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">The simple selector to test</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <returns>HTMLElement</returns>
-		public virtual void findParentNode(System.String selector, object maxDepth) { _(selector, maxDepth); }
+		public virtual void findParentNode(string selector, double maxDepth) { _(selector, maxDepth); }
 
 		/// <summary>
 		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
@@ -235,7 +216,26 @@ namespace Ext {
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void findParentNode(System.String selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+		public virtual void findParentNode(string selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+
+		/// <summary>
+		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">The simple selector to test</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <returns>HTMLElement</returns>
+		public virtual void findParentNode(string selector, object maxDepth) { _(selector, maxDepth); }
+
+		/// <summary>
+		///     Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">The simple selector to test</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
+		/// <returns>HTMLElement</returns>
+		public virtual void findParentNode(string selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
 
 		/// <summary>
 		///     Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
@@ -252,7 +252,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void up(System.String selector) { _(selector); }
+		public virtual void up(string selector) { _(selector); }
 
 		/// <summary>
 		///     Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
@@ -262,7 +262,7 @@ namespace Ext {
 		/// <param name="selector">The simple selector to test</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void up(System.String selector, double maxDepth) { _(selector, maxDepth); }
+		public virtual void up(string selector, double maxDepth) { _(selector, maxDepth); }
 
 		/// <summary>
 		///     Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
@@ -272,7 +272,7 @@ namespace Ext {
 		/// <param name="selector">The simple selector to test</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void up(System.String selector, object maxDepth) { _(selector, maxDepth); }
+		public virtual void up(string selector, object maxDepth) { _(selector, maxDepth); }
 
 		/// <summary>Returns true if this element matches the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <returns>Boolean</returns>
@@ -281,7 +281,7 @@ namespace Ext {
 		/// <summary>Returns true if this element matches the passed simple selector (e.g. div.some-class or span:first-child)</summary>
 		/// <param name="selector">The simple selector to test</param>
 		/// <returns>Boolean</returns>
-		public virtual void is_(System.String selector) { _(selector); }
+		public virtual void is_(string selector) { _(selector); }
 
 		/// <summary>Perform animation on this element.</summary>
 		/// <returns>Ext.Element</returns>
@@ -311,7 +311,7 @@ namespace Ext {
 		/// <param name="onComplete">(optional) Function to call when animation completes</param>
 		/// <param name="easing">(optional) Easing method to use (defaults to 'easeOut')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void animate(object args, double duration, Delegate onComplete, System.String easing) { _(args, duration, onComplete, easing); }
+		public virtual void animate(object args, double duration, Delegate onComplete, string easing) { _(args, duration, onComplete, easing); }
 
 		/// <summary>Perform animation on this element.</summary>
 		/// <param name="args">The animation control args</param>
@@ -320,7 +320,7 @@ namespace Ext {
 		/// <param name="easing">(optional) Easing method to use (defaults to 'easeOut')</param>
 		/// <param name="animType">(optional) 'run' is the default. Can also be 'color', 'motion', or 'scroll'</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void animate(object args, double duration, Delegate onComplete, System.String easing, System.String animType) { _(args, duration, onComplete, easing, animType); }
+		public virtual void animate(object args, double duration, Delegate onComplete, string easing, string animType) { _(args, duration, onComplete, easing, animType); }
 
 		/// <summary>
 		///     Removes worthless text nodes
@@ -408,7 +408,7 @@ namespace Ext {
 		/// <param name="onComplete">(optional) Function to call when animation completes</param>
 		/// <param name="easing">(optional) Easing method to use (defaults to easeOut)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void autoHeight(bool animate, double duration, Delegate onComplete, System.String easing) { _(animate, duration, onComplete, easing); }
+		public virtual void autoHeight(bool animate, double duration, Delegate onComplete, string easing) { _(animate, duration, onComplete, easing); }
 
 		/// <summary>Returns true if this element is an ancestor of the passed element</summary>
 		/// <returns>Boolean</returns>
@@ -422,7 +422,7 @@ namespace Ext {
 		/// <summary>Returns true if this element is an ancestor of the passed element</summary>
 		/// <param name="el">The element to check</param>
 		/// <returns>Boolean</returns>
-		public virtual void contains(System.String el) { _(el); }
+		public virtual void contains(string el) { _(el); }
 
 		/// <summary>Checks whether the element is currently visible using both visibility and display properties.</summary>
 		/// <returns>Boolean</returns>
@@ -440,13 +440,13 @@ namespace Ext {
 		/// <summary>Creates a {@link Ext.CompositeElement} for child nodes based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <returns>CompositeElement/CompositeElementLite</returns>
-		public virtual void select(System.String selector) { _(selector); }
+		public virtual void select(string selector) { _(selector); }
 
 		/// <summary>Creates a {@link Ext.CompositeElement} for child nodes based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <param name="unique">(optional) True to create a unique Ext.Element for each child (defaults to false, which creates a single shared flyweight object)</param>
 		/// <returns>CompositeElement/CompositeElementLite</returns>
-		public virtual void select(System.String selector, bool unique) { _(selector, unique); }
+		public virtual void select(string selector, bool unique) { _(selector, unique); }
 
 		/// <summary>Selects child nodes based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <returns>Array</returns>
@@ -455,7 +455,7 @@ namespace Ext {
 		/// <summary>Selects child nodes based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <returns>Array</returns>
-		public virtual void query(System.String selector) { _(selector); }
+		public virtual void query(string selector) { _(selector); }
 
 		/// <summary>Selects a single child at any depth below this element based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -464,13 +464,13 @@ namespace Ext {
 		/// <summary>Selects a single child at any depth below this element based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void child(System.String selector) { _(selector); }
+		public virtual void child(string selector) { _(selector); }
 
 		/// <summary>Selects a single child at any depth below this element based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <param name="returnDom">(optional) True to return the DOM node instead of Ext.Element (defaults to false)</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void child(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void child(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -479,13 +479,13 @@ namespace Ext {
 		/// <summary>Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void down(System.String selector) { _(selector); }
+		public virtual void down(string selector) { _(selector); }
 
 		/// <summary>Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id).</summary>
 		/// <param name="selector">The CSS selector</param>
 		/// <param name="returnDom">(optional) True to return the DOM node instead of Ext.Element (defaults to false)</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void down(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void down(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Initializes a {@link Ext.dd.DD} drag drop object for this element.</summary>
 		/// <returns>Ext.dd.DD</returns>
@@ -494,20 +494,20 @@ namespace Ext {
 		/// <summary>Initializes a {@link Ext.dd.DD} drag drop object for this element.</summary>
 		/// <param name="group">The group the DD object is member of</param>
 		/// <returns>Ext.dd.DD</returns>
-		public virtual void initDD(System.String group) { _(group); }
+		public virtual void initDD(string group) { _(group); }
 
 		/// <summary>Initializes a {@link Ext.dd.DD} drag drop object for this element.</summary>
 		/// <param name="group">The group the DD object is member of</param>
 		/// <param name="config">The DD config object</param>
 		/// <returns>Ext.dd.DD</returns>
-		public virtual void initDD(System.String group, object config) { _(group, config); }
+		public virtual void initDD(string group, object config) { _(group, config); }
 
 		/// <summary>Initializes a {@link Ext.dd.DD} drag drop object for this element.</summary>
 		/// <param name="group">The group the DD object is member of</param>
 		/// <param name="config">The DD config object</param>
 		/// <param name="overrides">An object containing methods to override/implement on the DD object</param>
 		/// <returns>Ext.dd.DD</returns>
-		public virtual void initDD(System.String group, object config, object overrides) { _(group, config, overrides); }
+		public virtual void initDD(string group, object config, object overrides) { _(group, config, overrides); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDProxy} object for this element.</summary>
 		/// <returns>Ext.dd.DDProxy</returns>
@@ -516,20 +516,20 @@ namespace Ext {
 		/// <summary>Initializes a {@link Ext.dd.DDProxy} object for this element.</summary>
 		/// <param name="group">The group the DDProxy object is member of</param>
 		/// <returns>Ext.dd.DDProxy</returns>
-		public virtual void initDDProxy(System.String group) { _(group); }
+		public virtual void initDDProxy(string group) { _(group); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDProxy} object for this element.</summary>
 		/// <param name="group">The group the DDProxy object is member of</param>
 		/// <param name="config">The DDProxy config object</param>
 		/// <returns>Ext.dd.DDProxy</returns>
-		public virtual void initDDProxy(System.String group, object config) { _(group, config); }
+		public virtual void initDDProxy(string group, object config) { _(group, config); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDProxy} object for this element.</summary>
 		/// <param name="group">The group the DDProxy object is member of</param>
 		/// <param name="config">The DDProxy config object</param>
 		/// <param name="overrides">An object containing methods to override/implement on the DDProxy object</param>
 		/// <returns>Ext.dd.DDProxy</returns>
-		public virtual void initDDProxy(System.String group, object config, object overrides) { _(group, config, overrides); }
+		public virtual void initDDProxy(string group, object config, object overrides) { _(group, config, overrides); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDTarget} object for this element.</summary>
 		/// <returns>Ext.dd.DDTarget</returns>
@@ -538,20 +538,20 @@ namespace Ext {
 		/// <summary>Initializes a {@link Ext.dd.DDTarget} object for this element.</summary>
 		/// <param name="group">The group the DDTarget object is member of</param>
 		/// <returns>Ext.dd.DDTarget</returns>
-		public virtual void initDDTarget(System.String group) { _(group); }
+		public virtual void initDDTarget(string group) { _(group); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDTarget} object for this element.</summary>
 		/// <param name="group">The group the DDTarget object is member of</param>
 		/// <param name="config">The DDTarget config object</param>
 		/// <returns>Ext.dd.DDTarget</returns>
-		public virtual void initDDTarget(System.String group, object config) { _(group, config); }
+		public virtual void initDDTarget(string group, object config) { _(group, config); }
 
 		/// <summary>Initializes a {@link Ext.dd.DDTarget} object for this element.</summary>
 		/// <param name="group">The group the DDTarget object is member of</param>
 		/// <param name="config">The DDTarget config object</param>
 		/// <param name="overrides">An object containing methods to override/implement on the DDTarget object</param>
 		/// <returns>Ext.dd.DDTarget</returns>
-		public virtual void initDDTarget(System.String group, object config, object overrides) { _(group, config, overrides); }
+		public virtual void initDDTarget(string group, object config, object overrides) { _(group, config, overrides); }
 
 		/// <summary>
 		///     Sets the visibility of the element (see details). If the visibilityMode is set to Element.DISPLAY, it will use
@@ -628,7 +628,7 @@ namespace Ext {
 		/// <summary>Adds one or more CSS classes to the element. Duplicate classes are automatically filtered out.</summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void addClass(System.String className) { _(className); }
+		public virtual void addClass(string className) { _(className); }
 
 		/// <summary>Adds one or more CSS classes to the element. Duplicate classes are automatically filtered out.</summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
@@ -642,7 +642,7 @@ namespace Ext {
 		/// <summary>Adds one or more CSS classes to this element and removes the same class(es) from all siblings.</summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void radioClass(System.String className) { _(className); }
+		public virtual void radioClass(string className) { _(className); }
 
 		/// <summary>Adds one or more CSS classes to this element and removes the same class(es) from all siblings.</summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
@@ -656,7 +656,7 @@ namespace Ext {
 		/// <summary>Removes one or more CSS classes from the element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void removeClass(System.String className) { _(className); }
+		public virtual void removeClass(string className) { _(className); }
 
 		/// <summary>Removes one or more CSS classes from the element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>
@@ -670,7 +670,7 @@ namespace Ext {
 		/// <summary>Toggles the specified CSS class on this element (removes it if it already exists, otherwise adds it).</summary>
 		/// <param name="className">The CSS class to toggle</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void toggleClass(System.String className) { _(className); }
+		public virtual void toggleClass(string className) { _(className); }
 
 		/// <summary>Checks if the specified CSS class exists on this element's DOM node.</summary>
 		/// <returns>Boolean</returns>
@@ -679,7 +679,7 @@ namespace Ext {
 		/// <summary>Checks if the specified CSS class exists on this element's DOM node.</summary>
 		/// <param name="className">The CSS class to check for</param>
 		/// <returns>Boolean</returns>
-		public virtual void hasClass(System.String className) { _(className); }
+		public virtual void hasClass(string className) { _(className); }
 
 		/// <summary>Replaces a CSS class on the element with another.  If the old name does not exist, the new name will simply be added.</summary>
 		/// <returns>Ext.Element</returns>
@@ -688,13 +688,13 @@ namespace Ext {
 		/// <summary>Replaces a CSS class on the element with another.  If the old name does not exist, the new name will simply be added.</summary>
 		/// <param name="oldClassName">The CSS class to replace</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void replaceClass(System.String oldClassName) { _(oldClassName); }
+		public virtual void replaceClass(string oldClassName) { _(oldClassName); }
 
 		/// <summary>Replaces a CSS class on the element with another.  If the old name does not exist, the new name will simply be added.</summary>
 		/// <param name="oldClassName">The CSS class to replace</param>
 		/// <param name="newClassName">The replacement CSS class</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void replaceClass(System.String oldClassName, System.String newClassName) { _(oldClassName, newClassName); }
+		public virtual void replaceClass(string oldClassName, string newClassName) { _(oldClassName, newClassName); }
 
 		/// <summary>
 		///     Returns an object with properties matching the styles requested.
@@ -711,7 +711,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="args"></param>
 		/// <returns>Object</returns>
-		public virtual void getStyles(params System.String[] args) { _(args); }
+		public virtual void getStyles(params string[] args) { _(args); }
 
 		/// <summary>Normalizes currentStyle and computedStyle.</summary>
 		/// <returns>String</returns>
@@ -720,7 +720,7 @@ namespace Ext {
 		/// <summary>Normalizes currentStyle and computedStyle.</summary>
 		/// <param name="property">The style property whose value is returned.</param>
 		/// <returns>String</returns>
-		public virtual void getStyle(System.String property) { _(property); }
+		public virtual void getStyle(string property) { _(property); }
 
 		/// <summary>Wrapper for setting style properties, also takes single object parameter of multiple styles.</summary>
 		/// <returns>Ext.Element</returns>
@@ -729,13 +729,13 @@ namespace Ext {
 		/// <summary>Wrapper for setting style properties, also takes single object parameter of multiple styles.</summary>
 		/// <param name="property">The style property to be set, or an object of multiple styles.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setStyle(System.String property) { _(property); }
+		public virtual void setStyle(string property) { _(property); }
 
 		/// <summary>Wrapper for setting style properties, also takes single object parameter of multiple styles.</summary>
 		/// <param name="property">The style property to be set, or an object of multiple styles.</param>
 		/// <param name="value">(optional) The value to apply to the given property, or null if an object was passed.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setStyle(System.String property, System.String value) { _(property, value); }
+		public virtual void setStyle(string property, string value) { _(property, value); }
 
 		/// <summary>Wrapper for setting style properties, also takes single object parameter of multiple styles.</summary>
 		/// <param name="property">The style property to be set, or an object of multiple styles.</param>
@@ -746,7 +746,7 @@ namespace Ext {
 		/// <param name="property">The style property to be set, or an object of multiple styles.</param>
 		/// <param name="value">(optional) The value to apply to the given property, or null if an object was passed.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setStyle(object property, System.String value) { _(property, value); }
+		public virtual void setStyle(object property, string value) { _(property, value); }
 
 		/// <summary>
 		///     More flexible version of {@link #setStyle} for setting style properties.
@@ -761,7 +761,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="styles">A style specification string, e.g. "width:100px", or object in the form {width:"100px"}, or</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void applyStyles(System.String styles) { _(styles); }
+		public virtual void applyStyles(string styles) { _(styles); }
 
 		/// <summary>
 		///     More flexible version of {@link #setStyle} for setting style properties.
@@ -849,7 +849,7 @@ namespace Ext {
 		/// <summary>Sets the element's left position directly using CSS style (instead of {@link #setX}).</summary>
 		/// <param name="left">The left CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setLeft(System.String left) { _(left); }
+		public virtual void setLeft(string left) { _(left); }
 
 		/// <summary>Sets the element's top position directly using CSS style (instead of {@link #setY}).</summary>
 		/// <returns>Ext.Element</returns>
@@ -858,7 +858,7 @@ namespace Ext {
 		/// <summary>Sets the element's top position directly using CSS style (instead of {@link #setY}).</summary>
 		/// <param name="top">The top CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setTop(System.String top) { _(top); }
+		public virtual void setTop(string top) { _(top); }
 
 		/// <summary>Sets the element's CSS right style.</summary>
 		/// <returns>Ext.Element</returns>
@@ -867,7 +867,7 @@ namespace Ext {
 		/// <summary>Sets the element's CSS right style.</summary>
 		/// <param name="right">The right CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setRight(System.String right) { _(right); }
+		public virtual void setRight(string right) { _(right); }
 
 		/// <summary>Sets the element's CSS bottom style.</summary>
 		/// <returns>Ext.Element</returns>
@@ -876,7 +876,7 @@ namespace Ext {
 		/// <summary>Sets the element's CSS bottom style.</summary>
 		/// <param name="bottom">The bottom CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setBottom(System.String bottom) { _(bottom); }
+		public virtual void setBottom(string bottom) { _(bottom); }
 
 		/// <summary>
 		///     Sets the position of the element in page coordinates, regardless of how the element is positioned.
@@ -1343,7 +1343,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="eventName">The type of event to handle</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName) { _(eventName); }
+		public virtual void addListener(string eventName) { _(eventName); }
 
 		/// <summary>
 		///     Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
@@ -1416,7 +1416,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event to handle</param>
 		/// <param name="fn">The handler function the event invokes. This function is passed</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate fn) { _(eventName, fn); }
+		public virtual void addListener(string eventName, Delegate fn) { _(eventName, fn); }
 
 		/// <summary>
 		///     Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
@@ -1490,7 +1490,7 @@ namespace Ext {
 		/// <param name="fn">The handler function the event invokes. This function is passed</param>
 		/// <param name="scope">(optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate fn, object scope) { _(eventName, fn, scope); }
+		public virtual void addListener(string eventName, Delegate fn, object scope) { _(eventName, fn, scope); }
 
 		/// <summary>
 		///     Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
@@ -1565,7 +1565,7 @@ namespace Ext {
 		/// <param name="scope">(optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults</param>
 		/// <param name="options">(optional) An object containing handler configuration properties.</param>
 		/// <returns></returns>
-		public virtual void addListener(System.String eventName, Delegate fn, object scope, object options) { _(eventName, fn, scope, options); }
+		public virtual void addListener(string eventName, Delegate fn, object scope, object options) { _(eventName, fn, scope, options); }
 
 		/// <summary>
 		///     Removes an event handler from this element.  The shorthand version {@link #un} is equivalent.  Example:
@@ -1590,7 +1590,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="eventName">the type of event to remove</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void removeListener(System.String eventName) { _(eventName); }
+		public virtual void removeListener(string eventName) { _(eventName); }
 
 		/// <summary>
 		///     Removes an event handler from this element.  The shorthand version {@link #un} is equivalent.  Example:
@@ -1604,7 +1604,7 @@ namespace Ext {
 		/// <param name="eventName">the type of event to remove</param>
 		/// <param name="fn">the method the event invokes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void removeListener(System.String eventName, Delegate fn) { _(eventName, fn); }
+		public virtual void removeListener(string eventName, Delegate fn) { _(eventName, fn); }
 
 		/// <summary>
 		///     Removes an event handler from this element.  The shorthand version {@link #un} is equivalent.  Example:
@@ -1619,7 +1619,7 @@ namespace Ext {
 		/// <param name="fn">the method the event invokes</param>
 		/// <param name="scope">(optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void removeListener(System.String eventName, Delegate fn, object scope) { _(eventName, fn, scope); }
+		public virtual void removeListener(string eventName, Delegate fn, object scope) { _(eventName, fn, scope); }
 
 		/// <summary>Removes all previous added listeners from this element</summary>
 		/// <returns>Ext.Element</returns>
@@ -1640,7 +1640,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="eventName">The type of event to relay</param>
 		/// <returns></returns>
-		public virtual void relayEvent(System.String eventName) { _(eventName); }
+		public virtual void relayEvent(string eventName) { _(eventName); }
 
 		/// <summary>
 		///     Create an event handler on this element such that when the event fires and is handled by this element,
@@ -1650,7 +1650,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event to relay</param>
 		/// <param name="obj">Any object that extends {@link Ext.util.Observable} that will provide the context</param>
 		/// <returns></returns>
-		public virtual void relayEvent(System.String eventName, object obj) { _(eventName, obj); }
+		public virtual void relayEvent(string eventName, object obj) { _(eventName, obj); }
 
 		/// <summary>Set the opacity of the element</summary>
 		/// <returns>Ext.Element</returns>
@@ -1722,7 +1722,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="pos">(optional) Positioning to use "relative", "absolute" or "fixed"</param>
 		/// <returns></returns>
-		public virtual void position(System.String pos) { _(pos); }
+		public virtual void position(string pos) { _(pos); }
 
 		/// <summary>
 		///     Initializes positioning on this element. If a desired position is not passed, it will make the
@@ -1731,7 +1731,7 @@ namespace Ext {
 		/// <param name="pos">(optional) Positioning to use "relative", "absolute" or "fixed"</param>
 		/// <param name="zIndex">(optional) The zIndex to apply</param>
 		/// <returns></returns>
-		public virtual void position(System.String pos, double zIndex) { _(pos, zIndex); }
+		public virtual void position(string pos, double zIndex) { _(pos, zIndex); }
 
 		/// <summary>
 		///     Initializes positioning on this element. If a desired position is not passed, it will make the
@@ -1741,7 +1741,7 @@ namespace Ext {
 		/// <param name="zIndex">(optional) The zIndex to apply</param>
 		/// <param name="x">(optional) Set the page X position</param>
 		/// <returns></returns>
-		public virtual void position(System.String pos, double zIndex, double x) { _(pos, zIndex, x); }
+		public virtual void position(string pos, double zIndex, double x) { _(pos, zIndex, x); }
 
 		/// <summary>
 		///     Initializes positioning on this element. If a desired position is not passed, it will make the
@@ -1752,7 +1752,7 @@ namespace Ext {
 		/// <param name="x">(optional) Set the page X position</param>
 		/// <param name="y">(optional) Set the page Y position</param>
 		/// <returns></returns>
-		public virtual void position(System.String pos, double zIndex, double x, double y) { _(pos, zIndex, x, y); }
+		public virtual void position(string pos, double zIndex, double x, double y) { _(pos, zIndex, x, y); }
 
 		/// <summary>Clear positioning back to the default when the document was loaded</summary>
 		/// <returns>Ext.Element</returns>
@@ -1761,7 +1761,7 @@ namespace Ext {
 		/// <summary>Clear positioning back to the default when the document was loaded</summary>
 		/// <param name="value">(optional) The value to use for the left,right,top,bottom, defaults to '' (empty string). You could use 'auto'.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void clearPositioning(System.String value) { _(value); }
+		public virtual void clearPositioning(string value) { _(value); }
 
 		/// <summary>
 		///     Gets an object with all CSS positioning properties. Useful along with setPostioning to get
@@ -1783,7 +1783,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="side">Can be t, l, r, b or any combination of those to add multiple values. For example,</param>
 		/// <returns>Number</returns>
-		public virtual void getBorderWidth(System.String side) { _(side); }
+		public virtual void getBorderWidth(string side) { _(side); }
 
 		/// <summary>
 		///     Gets the width of the padding(s) for the specified side(s)
@@ -1798,7 +1798,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="side">Can be t, l, r, b or any combination of those to add multiple values. For example,</param>
 		/// <returns>Number</returns>
-		public virtual void getPadding(System.String side) { _(side); }
+		public virtual void getPadding(string side) { _(side); }
 
 		/// <summary>Set positioning with an object returned by getPositioning().</summary>
 		/// <returns>Ext.Element</returns>
@@ -1816,13 +1816,13 @@ namespace Ext {
 		/// <summary>Quick set left and top adding default units</summary>
 		/// <param name="left">The left CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setLeftTop(System.String left) { _(left); }
+		public virtual void setLeftTop(string left) { _(left); }
 
 		/// <summary>Quick set left and top adding default units</summary>
 		/// <param name="left">The left CSS property value</param>
 		/// <param name="top">The top CSS property value</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void setLeftTop(System.String left, System.String top) { _(left, top); }
+		public virtual void setLeftTop(string left, string top) { _(left, top); }
 
 		/// <summary>Move this element relative to its current position.</summary>
 		/// <returns>Ext.Element</returns>
@@ -1831,27 +1831,27 @@ namespace Ext {
 		/// <summary>Move this element relative to its current position.</summary>
 		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void move(System.String direction) { _(direction); }
+		public virtual void move(string direction) { _(direction); }
 
 		/// <summary>Move this element relative to its current position.</summary>
 		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
 		/// <param name="distance">How far to move the element in pixels</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void move(System.String direction, double distance) { _(direction, distance); }
-
-		/// <summary>Move this element relative to its current position.</summary>
-		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
-		/// <param name="distance">How far to move the element in pixels</param>
-		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void move(System.String direction, double distance, bool animate) { _(direction, distance, animate); }
+		public virtual void move(string direction, double distance) { _(direction, distance); }
 
 		/// <summary>Move this element relative to its current position.</summary>
 		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
 		/// <param name="distance">How far to move the element in pixels</param>
 		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void move(System.String direction, double distance, object animate) { _(direction, distance, animate); }
+		public virtual void move(string direction, double distance, bool animate) { _(direction, distance, animate); }
+
+		/// <summary>Move this element relative to its current position.</summary>
+		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
+		/// <param name="distance">How far to move the element in pixels</param>
+		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void move(string direction, double distance, object animate) { _(direction, distance, animate); }
 
 		/// <summary>Store the current overflow setting and clip overflow on the element - use {@link #unclip} to remove</summary>
 		/// <returns>Ext.Element</returns>
@@ -1878,7 +1878,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) The specified anchor position (defaults to "c").  See {@link #alignTo}</param>
 		/// <returns>Array</returns>
-		public virtual void getAnchorXY(System.String anchor) { _(anchor); }
+		public virtual void getAnchorXY(string anchor) { _(anchor); }
 
 		/// <summary>
 		///     Gets the x,y coordinates specified by the anchor position on the element.
@@ -1889,7 +1889,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) The specified anchor position (defaults to "c").  See {@link #alignTo}</param>
 		/// <param name="local">(optional) True to get the local (element top/left-relative) anchor position instead</param>
 		/// <returns>Array</returns>
-		public virtual void getAnchorXY(System.String anchor, bool local) { _(anchor, local); }
+		public virtual void getAnchorXY(string anchor, bool local) { _(anchor, local); }
 
 		/// <summary>
 		///     Gets the x,y coordinates specified by the anchor position on the element.
@@ -1901,7 +1901,7 @@ namespace Ext {
 		/// <param name="local">(optional) True to get the local (element top/left-relative) anchor position instead</param>
 		/// <param name="size">(optional) An object containing the size to use for calculating anchor position</param>
 		/// <returns>Array</returns>
-		public virtual void getAnchorXY(System.String anchor, bool local, object size) { _(anchor, local, size); }
+		public virtual void getAnchorXY(string anchor, bool local, object size) { _(anchor, local, size); }
 
 		/// <summary>
 		///     Gets the x,y coordinates to align this element with another element. See {@link #alignTo} for more info on the
@@ -1925,7 +1925,7 @@ namespace Ext {
 		/// <param name="element">The element to align to.</param>
 		/// <param name="position">The position to align to.</param>
 		/// <returns>Array</returns>
-		public virtual void getAlignToXY(object element, System.String position) { _(element, position); }
+		public virtual void getAlignToXY(object element, string position) { _(element, position); }
 
 		/// <summary>
 		///     Gets the x,y coordinates to align this element with another element. See {@link #alignTo} for more info on the
@@ -1935,7 +1935,7 @@ namespace Ext {
 		/// <param name="position">The position to align to.</param>
 		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
 		/// <returns>Array</returns>
-		public virtual void getAlignToXY(object element, System.String position, System.Array offsets) { _(element, position, offsets); }
+		public virtual void getAlignToXY(object element, string position, System.Array offsets) { _(element, position, offsets); }
 
 		/// <summary>
 		///     Aligns this element with another element relative to the specified anchor points. If the other element is the
@@ -2076,7 +2076,7 @@ namespace Ext {
 		/// <param name="element">The element to align to.</param>
 		/// <param name="position">The position to align to.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void alignTo(object element, System.String position) { _(element, position); }
+		public virtual void alignTo(object element, string position) { _(element, position); }
 
 		/// <summary>
 		///     Aligns this element with another element relative to the specified anchor points. If the other element is the
@@ -2125,57 +2125,7 @@ namespace Ext {
 		/// <param name="position">The position to align to.</param>
 		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void alignTo(object element, System.String position, System.Array offsets) { _(element, position, offsets); }
-
-		/// <summary>
-		///     Aligns this element with another element relative to the specified anchor points. If the other element is the
-		///     document it aligns it to the viewport.
-		///     The position parameter is optional, and can be specified in any one of the following formats:
-		///     <ul>
-		///     <li><b>Blank</b>: Defaults to aligning the element's top-left corner to the target's bottom-left corner ("tl-bl").</li>
-		///     <li><b>One anchor (deprecated)</b>: The passed anchor position is used as the target element's anchor point.
-		///     The element being aligned will position its top-left corner (tl) to that point.  <i>This method has been
-		///     deprecated in favor of the newer two anchor syntax below</i>.</li>
-		///     <li><b>Two anchors</b>: If two values from the table below are passed separated by a dash, the first value is used as the
-		///     element's anchor point, and the second value is used as the target's anchor point.</li>
-		///     </ul>
-		///     In addition to the anchor points, the position parameter also supports the "?" character.  If "?" is passed at the end of
-		///     the position string, the element will attempt to align as specified, but the position will be adjusted to constrain to
-		///     the viewport if necessary.  Note that the element being aligned might be swapped to align to a different position than
-		///     that specified in order to enforce the viewport constraints.
-		///     Following are all of the supported anchor positions:
-		///     <pre>
-		///     Value  Description
-		///     -----  -----------------------------
-		///     tl     The top left corner (default)
-		///     t      The center of the top edge
-		///     tr     The top right corner
-		///     l      The center of the left edge
-		///     c      In the center of the element
-		///     r      The center of the right edge
-		///     bl     The bottom left corner
-		///     b      The center of the bottom edge
-		///     br     The bottom right corner
-		///     </pre>
-		///     Example Usage:
-		///     <pre><code>
-		///     // align el to other-el using the default positioning ("tl-bl", non-constrained)
-		///     el.alignTo("other-el");
-		///     // align the top left corner of el with the top right corner of other-el (constrained to viewport)
-		///     el.alignTo("other-el", "tr?");
-		///     // align the bottom right corner of el with the center left edge of other-el
-		///     el.alignTo("other-el", "br-l?");
-		///     // align the center of el with the bottom left corner of other-el and
-		///     // adjust the x position by -6 pixels (and the y position by 0)
-		///     el.alignTo("other-el", "c-bl", [-6, 0]);
-		///     </code></pre>
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void alignTo(object element, System.String position, System.Array offsets, bool animate) { _(element, position, offsets, animate); }
+		public virtual void alignTo(object element, string position, System.Array offsets) { _(element, position, offsets); }
 
 		/// <summary>
 		///     Aligns this element with another element relative to the specified anchor points. If the other element is the
@@ -2225,7 +2175,57 @@ namespace Ext {
 		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
 		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void alignTo(object element, System.String position, System.Array offsets, object animate) { _(element, position, offsets, animate); }
+		public virtual void alignTo(object element, string position, System.Array offsets, bool animate) { _(element, position, offsets, animate); }
+
+		/// <summary>
+		///     Aligns this element with another element relative to the specified anchor points. If the other element is the
+		///     document it aligns it to the viewport.
+		///     The position parameter is optional, and can be specified in any one of the following formats:
+		///     <ul>
+		///     <li><b>Blank</b>: Defaults to aligning the element's top-left corner to the target's bottom-left corner ("tl-bl").</li>
+		///     <li><b>One anchor (deprecated)</b>: The passed anchor position is used as the target element's anchor point.
+		///     The element being aligned will position its top-left corner (tl) to that point.  <i>This method has been
+		///     deprecated in favor of the newer two anchor syntax below</i>.</li>
+		///     <li><b>Two anchors</b>: If two values from the table below are passed separated by a dash, the first value is used as the
+		///     element's anchor point, and the second value is used as the target's anchor point.</li>
+		///     </ul>
+		///     In addition to the anchor points, the position parameter also supports the "?" character.  If "?" is passed at the end of
+		///     the position string, the element will attempt to align as specified, but the position will be adjusted to constrain to
+		///     the viewport if necessary.  Note that the element being aligned might be swapped to align to a different position than
+		///     that specified in order to enforce the viewport constraints.
+		///     Following are all of the supported anchor positions:
+		///     <pre>
+		///     Value  Description
+		///     -----  -----------------------------
+		///     tl     The top left corner (default)
+		///     t      The center of the top edge
+		///     tr     The top right corner
+		///     l      The center of the left edge
+		///     c      In the center of the element
+		///     r      The center of the right edge
+		///     bl     The bottom left corner
+		///     b      The center of the bottom edge
+		///     br     The bottom right corner
+		///     </pre>
+		///     Example Usage:
+		///     <pre><code>
+		///     // align el to other-el using the default positioning ("tl-bl", non-constrained)
+		///     el.alignTo("other-el");
+		///     // align the top left corner of el with the top right corner of other-el (constrained to viewport)
+		///     el.alignTo("other-el", "tr?");
+		///     // align the bottom right corner of el with the center left edge of other-el
+		///     el.alignTo("other-el", "br-l?");
+		///     // align the center of el with the bottom left corner of other-el and
+		///     // adjust the x position by -6 pixels (and the y position by 0)
+		///     el.alignTo("other-el", "c-bl", [-6, 0]);
+		///     </code></pre>
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void alignTo(object element, string position, System.Array offsets, object animate) { _(element, position, offsets, animate); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2249,7 +2249,7 @@ namespace Ext {
 		/// <param name="element">The element to align to.</param>
 		/// <param name="position">The position to align to.</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position) { _(element, position); }
+		public virtual void anchorTo(object element, string position) { _(element, position); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2259,43 +2259,7 @@ namespace Ext {
 		/// <param name="position">The position to align to.</param>
 		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets) { _(element, position, offsets); }
-
-		/// <summary>
-		///     Anchors an element to another element and realigns it when the window is resized.
-		///     is a number, it is used as the buffer delay (defaults to 50ms).
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, bool animate) { _(element, position, offsets, animate); }
-
-		/// <summary>
-		///     Anchors an element to another element and realigns it when the window is resized.
-		///     is a number, it is used as the buffer delay (defaults to 50ms).
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
-		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, bool animate, bool monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
-
-		/// <summary>
-		///     Anchors an element to another element and realigns it when the window is resized.
-		///     is a number, it is used as the buffer delay (defaults to 50ms).
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
-		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
-		/// <param name="callback">The function to call after the animation finishes</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, bool animate, bool monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+		public virtual void anchorTo(object element, string position, System.Array offsets) { _(element, position, offsets); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2306,7 +2270,7 @@ namespace Ext {
 		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
 		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, object animate) { _(element, position, offsets, animate); }
+		public virtual void anchorTo(object element, string position, System.Array offsets, bool animate) { _(element, position, offsets, animate); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2318,7 +2282,7 @@ namespace Ext {
 		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
 		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, object animate, bool monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
+		public virtual void anchorTo(object element, string position, System.Array offsets, bool animate, bool monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2331,7 +2295,18 @@ namespace Ext {
 		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
 		/// <param name="callback">The function to call after the animation finishes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, object animate, bool monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+		public virtual void anchorTo(object element, string position, System.Array offsets, bool animate, bool monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+
+		/// <summary>
+		///     Anchors an element to another element and realigns it when the window is resized.
+		///     is a number, it is used as the buffer delay (defaults to 50ms).
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void anchorTo(object element, string position, System.Array offsets, object animate) { _(element, position, offsets, animate); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2343,32 +2318,7 @@ namespace Ext {
 		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
 		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, bool animate, double monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
-
-		/// <summary>
-		///     Anchors an element to another element and realigns it when the window is resized.
-		///     is a number, it is used as the buffer delay (defaults to 50ms).
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
-		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
-		/// <param name="callback">The function to call after the animation finishes</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, bool animate, double monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
-
-		/// <summary>
-		///     Anchors an element to another element and realigns it when the window is resized.
-		///     is a number, it is used as the buffer delay (defaults to 50ms).
-		/// </summary>
-		/// <param name="element">The element to align to.</param>
-		/// <param name="position">The position to align to.</param>
-		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
-		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
-		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
-		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, object animate, double monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
+		public virtual void anchorTo(object element, string position, System.Array offsets, object animate, bool monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
 
 		/// <summary>
 		///     Anchors an element to another element and realigns it when the window is resized.
@@ -2381,7 +2331,57 @@ namespace Ext {
 		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
 		/// <param name="callback">The function to call after the animation finishes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void anchorTo(object element, System.String position, System.Array offsets, object animate, double monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+		public virtual void anchorTo(object element, string position, System.Array offsets, object animate, bool monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+
+		/// <summary>
+		///     Anchors an element to another element and realigns it when the window is resized.
+		///     is a number, it is used as the buffer delay (defaults to 50ms).
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
+		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void anchorTo(object element, string position, System.Array offsets, bool animate, double monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
+
+		/// <summary>
+		///     Anchors an element to another element and realigns it when the window is resized.
+		///     is a number, it is used as the buffer delay (defaults to 50ms).
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
+		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
+		/// <param name="callback">The function to call after the animation finishes</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void anchorTo(object element, string position, System.Array offsets, bool animate, double monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
+
+		/// <summary>
+		///     Anchors an element to another element and realigns it when the window is resized.
+		///     is a number, it is used as the buffer delay (defaults to 50ms).
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
+		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void anchorTo(object element, string position, System.Array offsets, object animate, double monitorScroll) { _(element, position, offsets, animate, monitorScroll); }
+
+		/// <summary>
+		///     Anchors an element to another element and realigns it when the window is resized.
+		///     is a number, it is used as the buffer delay (defaults to 50ms).
+		/// </summary>
+		/// <param name="element">The element to align to.</param>
+		/// <param name="position">The position to align to.</param>
+		/// <param name="offsets">(optional) Offset the positioning by [x, y]</param>
+		/// <param name="animate">(optional) True for the default animation or a standard Element animation config object</param>
+		/// <param name="monitorScroll">(optional) True to monitor body scroll and reposition. If this parameter</param>
+		/// <param name="callback">The function to call after the animation finishes</param>
+		/// <returns>Ext.Element</returns>
+		public virtual void anchorTo(object element, string position, System.Array offsets, object animate, double monitorScroll, Delegate callback) { _(element, position, offsets, animate, monitorScroll, callback); }
 
 		/// <summary>Clears any opacity settings from this element. Required in some cases for IE.</summary>
 		/// <returns>Ext.Element</returns>
@@ -2422,20 +2422,20 @@ namespace Ext {
 		/// <summary>Update the innerHTML of this element, optionally searching for and processing scripts</summary>
 		/// <param name="html">The new HTML</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void update(System.String html) { _(html); }
+		public virtual void update(string html) { _(html); }
 
 		/// <summary>Update the innerHTML of this element, optionally searching for and processing scripts</summary>
 		/// <param name="html">The new HTML</param>
 		/// <param name="loadScripts">(optional) True to look for and process scripts (defaults to false)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void update(System.String html, bool loadScripts) { _(html, loadScripts); }
+		public virtual void update(string html, bool loadScripts) { _(html, loadScripts); }
 
 		/// <summary>Update the innerHTML of this element, optionally searching for and processing scripts</summary>
 		/// <param name="html">The new HTML</param>
 		/// <param name="loadScripts">(optional) True to look for and process scripts (defaults to false)</param>
 		/// <param name="callback">(optional) For async script loading you can be notified when the update completes</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void update(System.String html, bool loadScripts, Delegate callback) { _(html, loadScripts, callback); }
+		public virtual void update(string html, bool loadScripts, Delegate callback) { _(html, loadScripts, callback); }
 
 		/// <summary>
 		///     Direct access to the Updater {@link Ext.Updater#update} method. The method takes the same object
@@ -2506,7 +2506,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="sides"></param>
 		/// <returns>Number</returns>
-		public virtual void getFrameWidth(System.String sides) { _(sides); }
+		public virtual void getFrameWidth(string sides) { _(sides); }
 
 		/// <summary>Sets the element's box. Use getBox() on another element to get a box obj. If animate is true then width, height, x and y will be animated concurrently.</summary>
 		/// <returns>Ext.Element</returns>
@@ -2554,7 +2554,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="sides">(optional) Any combination of l, r, t, b to get the sum of those sides</param>
 		/// <returns>Object/Number</returns>
-		public virtual void getMargins(System.String sides) { _(sides); }
+		public virtual void getMargins(string sides) { _(sides); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <returns>Ext.Element</returns>
@@ -2563,20 +2563,20 @@ namespace Ext {
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(System.String config) { _(config); }
+		public virtual void createProxy(string config) { _(config); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(System.String config, System.String renderTo) { _(config, renderTo); }
+		public virtual void createProxy(string config, string renderTo) { _(config, renderTo); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <param name="matchBox">(optional) True to align and size the proxy to this element now (defaults to false)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(System.String config, System.String renderTo, bool matchBox) { _(config, renderTo, matchBox); }
+		public virtual void createProxy(string config, string renderTo, bool matchBox) { _(config, renderTo, matchBox); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
@@ -2587,27 +2587,27 @@ namespace Ext {
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(object config, System.String renderTo) { _(config, renderTo); }
+		public virtual void createProxy(object config, string renderTo) { _(config, renderTo); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <param name="matchBox">(optional) True to align and size the proxy to this element now (defaults to false)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(object config, System.String renderTo, bool matchBox) { _(config, renderTo, matchBox); }
+		public virtual void createProxy(object config, string renderTo, bool matchBox) { _(config, renderTo, matchBox); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(System.String config, DOMElement renderTo) { _(config, renderTo); }
+		public virtual void createProxy(string config, DOMElement renderTo) { _(config, renderTo); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
 		/// <param name="renderTo">(optional) The element or element id to render the proxy to (defaults to document.body)</param>
 		/// <param name="matchBox">(optional) True to align and size the proxy to this element now (defaults to false)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void createProxy(System.String config, DOMElement renderTo, bool matchBox) { _(config, renderTo, matchBox); }
+		public virtual void createProxy(string config, DOMElement renderTo, bool matchBox) { _(config, renderTo, matchBox); }
 
 		/// <summary>Creates a proxy element of this element</summary>
 		/// <param name="config">The class name of the proxy element or a DomHelper config object</param>
@@ -2635,7 +2635,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="msg">(optional) A message to display in the mask</param>
 		/// <returns>Element</returns>
-		public virtual void mask(System.String msg) { _(msg); }
+		public virtual void mask(string msg) { _(msg); }
 
 		/// <summary>
 		///     Puts a mask over this element to disable user interaction. Requires core.css.
@@ -2644,7 +2644,7 @@ namespace Ext {
 		/// <param name="msg">(optional) A message to display in the mask</param>
 		/// <param name="msgCls">(optional) A css class to apply to the msg element</param>
 		/// <returns>Element</returns>
-		public virtual void mask(System.String msg, System.String msgCls) { _(msg, msgCls); }
+		public virtual void mask(string msg, string msgCls) { _(msg, msgCls); }
 
 		/// <summary>Removes a previously applied mask.</summary>
 		/// <returns></returns>
@@ -2706,7 +2706,7 @@ namespace Ext {
 		/// <summary>Sets up event handlers to add and remove a css class when the mouse is over this element</summary>
 		/// <param name="className"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void addClassOnOver(System.String className) { _(className); }
+		public virtual void addClassOnOver(string className) { _(className); }
 
 		/// <summary>Sets up event handlers to add and remove a css class when this element has the focus</summary>
 		/// <returns>Ext.Element</returns>
@@ -2715,7 +2715,7 @@ namespace Ext {
 		/// <summary>Sets up event handlers to add and remove a css class when this element has the focus</summary>
 		/// <param name="className"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void addClassOnFocus(System.String className) { _(className); }
+		public virtual void addClassOnFocus(string className) { _(className); }
 
 		/// <summary>Sets up event handlers to add and remove a css class when the mouse is down and then up on this element (a click effect)</summary>
 		/// <returns>Ext.Element</returns>
@@ -2724,7 +2724,7 @@ namespace Ext {
 		/// <summary>Sets up event handlers to add and remove a css class when the mouse is down and then up on this element (a click effect)</summary>
 		/// <param name="className"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void addClassOnClick(System.String className) { _(className); }
+		public virtual void addClassOnClick(string className) { _(className); }
 
 		/// <summary>Stops the specified event from bubbling and optionally prevents the default action</summary>
 		/// <returns>Ext.Element</returns>
@@ -2733,13 +2733,13 @@ namespace Ext {
 		/// <summary>Stops the specified event from bubbling and optionally prevents the default action</summary>
 		/// <param name="eventName"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void swallowEvent(System.String eventName) { _(eventName); }
+		public virtual void swallowEvent(string eventName) { _(eventName); }
 
 		/// <summary>Stops the specified event from bubbling and optionally prevents the default action</summary>
 		/// <param name="eventName"></param>
 		/// <param name="preventDefault">(optional) true to prevent the default action too</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void swallowEvent(System.String eventName, bool preventDefault) { _(eventName, preventDefault); }
+		public virtual void swallowEvent(string eventName, bool preventDefault) { _(eventName, preventDefault); }
 
 		/// <summary>Gets the parent node for this element, optionally chaining up trying to match a selector</summary>
 		/// <returns>Ext.Element/HTMLElement</returns>
@@ -2748,13 +2748,13 @@ namespace Ext {
 		/// <summary>Gets the parent node for this element, optionally chaining up trying to match a selector</summary>
 		/// <param name="selector">(optional) Find a parent node that matches the passed simple selector</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void parent(System.String selector) { _(selector); }
+		public virtual void parent(string selector) { _(selector); }
 
 		/// <summary>Gets the parent node for this element, optionally chaining up trying to match a selector</summary>
 		/// <param name="selector">(optional) Find a parent node that matches the passed simple selector</param>
 		/// <param name="returnDom">(optional) True to return a raw dom node instead of an Ext.Element</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void parent(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void parent(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Gets the next sibling, skipping text nodes</summary>
 		/// <returns>Ext.Element/HTMLElement</returns>
@@ -2763,13 +2763,13 @@ namespace Ext {
 		/// <summary>Gets the next sibling, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the next sibling that matches the passed simple selector</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void next(System.String selector) { _(selector); }
+		public virtual void next(string selector) { _(selector); }
 
 		/// <summary>Gets the next sibling, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the next sibling that matches the passed simple selector</param>
 		/// <param name="returnDom">(optional) True to return a raw dom node instead of an Ext.Element</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void next(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void next(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Gets the previous sibling, skipping text nodes</summary>
 		/// <returns>Ext.Element/HTMLElement</returns>
@@ -2778,13 +2778,13 @@ namespace Ext {
 		/// <summary>Gets the previous sibling, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the previous sibling that matches the passed simple selector</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void prev(System.String selector) { _(selector); }
+		public virtual void prev(string selector) { _(selector); }
 
 		/// <summary>Gets the previous sibling, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the previous sibling that matches the passed simple selector</param>
 		/// <param name="returnDom">(optional) True to return a raw dom node instead of an Ext.Element</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void prev(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void prev(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Gets the first child, skipping text nodes</summary>
 		/// <returns>Ext.Element/HTMLElement</returns>
@@ -2793,13 +2793,13 @@ namespace Ext {
 		/// <summary>Gets the first child, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the next sibling that matches the passed simple selector</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void first(System.String selector) { _(selector); }
+		public virtual void first(string selector) { _(selector); }
 
 		/// <summary>Gets the first child, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the next sibling that matches the passed simple selector</param>
 		/// <param name="returnDom">(optional) True to return a raw dom node instead of an Ext.Element</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void first(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void first(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Gets the last child, skipping text nodes</summary>
 		/// <returns>Ext.Element/HTMLElement</returns>
@@ -2808,13 +2808,13 @@ namespace Ext {
 		/// <summary>Gets the last child, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the previous sibling that matches the passed simple selector</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void last(System.String selector) { _(selector); }
+		public virtual void last(string selector) { _(selector); }
 
 		/// <summary>Gets the last child, skipping text nodes</summary>
 		/// <param name="selector">(optional) Find the previous sibling that matches the passed simple selector</param>
 		/// <param name="returnDom">(optional) True to return a raw dom node instead of an Ext.Element</param>
 		/// <returns>Ext.Element/HTMLElement</returns>
-		public virtual void last(System.String selector, bool returnDom) { _(selector, returnDom); }
+		public virtual void last(string selector, bool returnDom) { _(selector, returnDom); }
 
 		/// <summary>Appends the passed element(s) to this element</summary>
 		/// <returns>Ext.Element</returns>
@@ -2823,7 +2823,7 @@ namespace Ext {
 		/// <summary>Appends the passed element(s) to this element</summary>
 		/// <param name="el"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void appendChild(System.String el) { _(el); }
+		public virtual void appendChild(string el) { _(el); }
 
 		/// <summary>Appends the passed element(s) to this element</summary>
 		/// <param name="el"></param>
@@ -2928,14 +2928,14 @@ namespace Ext {
 		/// <param name="el">The id, element to insert or a DomHelper config to create and insert *or* an array of any of those.</param>
 		/// <param name="where">(optional) 'before' or 'after' defaults to before</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void insertSibling(object el, System.String where) { _(el, where); }
+		public virtual void insertSibling(object el, string where) { _(el, where); }
 
 		/// <summary>Inserts (or creates) the passed element (or DomHelper config) as a sibling of this element</summary>
 		/// <param name="el">The id, element to insert or a DomHelper config to create and insert *or* an array of any of those.</param>
 		/// <param name="where">(optional) 'before' or 'after' defaults to before</param>
 		/// <param name="returnDom">(optional) True to return the raw DOM element instead of Ext.Element</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void insertSibling(object el, System.String where, bool returnDom) { _(el, where, returnDom); }
+		public virtual void insertSibling(object el, string where, bool returnDom) { _(el, where, returnDom); }
 
 		/// <summary>Inserts (or creates) the passed element (or DomHelper config) as a sibling of this element</summary>
 		/// <param name="el">The id, element to insert or a DomHelper config to create and insert *or* an array of any of those.</param>
@@ -2946,14 +2946,14 @@ namespace Ext {
 		/// <param name="el">The id, element to insert or a DomHelper config to create and insert *or* an array of any of those.</param>
 		/// <param name="where">(optional) 'before' or 'after' defaults to before</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void insertSibling(System.Array el, System.String where) { _(el, where); }
+		public virtual void insertSibling(System.Array el, string where) { _(el, where); }
 
 		/// <summary>Inserts (or creates) the passed element (or DomHelper config) as a sibling of this element</summary>
 		/// <param name="el">The id, element to insert or a DomHelper config to create and insert *or* an array of any of those.</param>
 		/// <param name="where">(optional) 'before' or 'after' defaults to before</param>
 		/// <param name="returnDom">(optional) True to return the raw DOM element instead of Ext.Element</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void insertSibling(System.Array el, System.String where, bool returnDom) { _(el, where, returnDom); }
+		public virtual void insertSibling(System.Array el, string where, bool returnDom) { _(el, where, returnDom); }
 
 		/// <summary>Creates and wraps this element with another element</summary>
 		/// <returns>HTMLElement/Element</returns>
@@ -2995,20 +2995,20 @@ namespace Ext {
 		/// <summary>Inserts an html fragment into this element</summary>
 		/// <param name="where">Where to insert the html in relation to this element - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void insertHtml(System.String where) { _(where); }
+		public virtual void insertHtml(string where) { _(where); }
 
 		/// <summary>Inserts an html fragment into this element</summary>
 		/// <param name="where">Where to insert the html in relation to this element - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <param name="html">The HTML fragment</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void insertHtml(System.String where, System.String html) { _(where, html); }
+		public virtual void insertHtml(string where, string html) { _(where, html); }
 
 		/// <summary>Inserts an html fragment into this element</summary>
 		/// <param name="where">Where to insert the html in relation to this element - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <param name="html">The HTML fragment</param>
 		/// <param name="returnEl">(optional) True to return an Ext.Element (defaults to false)</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public virtual void insertHtml(System.String where, System.String html, bool returnEl) { _(where, html, returnEl); }
+		public virtual void insertHtml(string where, string html, bool returnEl) { _(where, html, returnEl); }
 
 		/// <summary>Sets the passed attributes as attributes of this element (a style attribute can be a string, object or function)</summary>
 		/// <returns>Ext.Element</returns>
@@ -3119,7 +3119,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="key">Either a string with the keys to listen for, the numeric key code, array of key codes or an object with the following options:</param>
 		/// <returns>Ext.KeyMap</returns>
-		public virtual void addKeyListener(System.String key) { _(key); }
+		public virtual void addKeyListener(string key) { _(key); }
 
 		/// <summary>
 		///     Convenience method for constructing a KeyMap
@@ -3128,7 +3128,7 @@ namespace Ext {
 		/// <param name="key">Either a string with the keys to listen for, the numeric key code, array of key codes or an object with the following options:</param>
 		/// <param name="fn">The function to call</param>
 		/// <returns>Ext.KeyMap</returns>
-		public virtual void addKeyListener(System.String key, Delegate fn) { _(key, fn); }
+		public virtual void addKeyListener(string key, Delegate fn) { _(key, fn); }
 
 		/// <summary>
 		///     Convenience method for constructing a KeyMap
@@ -3138,7 +3138,7 @@ namespace Ext {
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope of the function</param>
 		/// <returns>Ext.KeyMap</returns>
-		public virtual void addKeyListener(System.String key, Delegate fn, object scope) { _(key, fn, scope); }
+		public virtual void addKeyListener(string key, Delegate fn, object scope) { _(key, fn, scope); }
 
 		/// <summary>Creates a KeyMap for this element</summary>
 		/// <returns>Ext.KeyMap</returns>
@@ -3160,27 +3160,27 @@ namespace Ext {
 		/// <summary>Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().</summary>
 		/// <param name="side">Either "left" for scrollLeft values or "top" for scrollTop values.</param>
 		/// <returns>Element</returns>
-		public virtual void scrollTo(System.String side) { _(side); }
+		public virtual void scrollTo(string side) { _(side); }
 
 		/// <summary>Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().</summary>
 		/// <param name="side">Either "left" for scrollLeft values or "top" for scrollTop values.</param>
 		/// <param name="value">The new scroll value</param>
 		/// <returns>Element</returns>
-		public virtual void scrollTo(System.String side, double value) { _(side, value); }
-
-		/// <summary>Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().</summary>
-		/// <param name="side">Either "left" for scrollLeft values or "top" for scrollTop values.</param>
-		/// <param name="value">The new scroll value</param>
-		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
-		/// <returns>Element</returns>
-		public virtual void scrollTo(System.String side, double value, bool animate) { _(side, value, animate); }
+		public virtual void scrollTo(string side, double value) { _(side, value); }
 
 		/// <summary>Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().</summary>
 		/// <param name="side">Either "left" for scrollLeft values or "top" for scrollTop values.</param>
 		/// <param name="value">The new scroll value</param>
 		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
 		/// <returns>Element</returns>
-		public virtual void scrollTo(System.String side, double value, object animate) { _(side, value, animate); }
+		public virtual void scrollTo(string side, double value, bool animate) { _(side, value, animate); }
+
+		/// <summary>Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().</summary>
+		/// <param name="side">Either "left" for scrollLeft values or "top" for scrollTop values.</param>
+		/// <param name="value">The new scroll value</param>
+		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
+		/// <returns>Element</returns>
+		public virtual void scrollTo(string side, double value, object animate) { _(side, value, animate); }
 
 		/// <summary>
 		///     Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
@@ -3197,7 +3197,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
 		/// <returns>Boolean</returns>
-		public virtual void scroll(System.String direction) { _(direction); }
+		public virtual void scroll(string direction) { _(direction); }
 
 		/// <summary>
 		///     Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
@@ -3207,18 +3207,7 @@ namespace Ext {
 		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
 		/// <param name="distance">How far to scroll the element in pixels</param>
 		/// <returns>Boolean</returns>
-		public virtual void scroll(System.String direction, double distance) { _(direction, distance); }
-
-		/// <summary>
-		///     Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
-		///     within this element's scrollable range.
-		///     was scrolled as far as it could go.
-		/// </summary>
-		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
-		/// <param name="distance">How far to scroll the element in pixels</param>
-		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
-		/// <returns>Boolean</returns>
-		public virtual void scroll(System.String direction, double distance, bool animate) { _(direction, distance, animate); }
+		public virtual void scroll(string direction, double distance) { _(direction, distance); }
 
 		/// <summary>
 		///     Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
@@ -3229,7 +3218,18 @@ namespace Ext {
 		/// <param name="distance">How far to scroll the element in pixels</param>
 		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
 		/// <returns>Boolean</returns>
-		public virtual void scroll(System.String direction, double distance, object animate) { _(direction, distance, animate); }
+		public virtual void scroll(string direction, double distance, bool animate) { _(direction, distance, animate); }
+
+		/// <summary>
+		///     Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
+		///     within this element's scrollable range.
+		///     was scrolled as far as it could go.
+		/// </summary>
+		/// <param name="direction">Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").</param>
+		/// <param name="distance">How far to scroll the element in pixels</param>
+		/// <param name="animate">(optional) true for the default animation or a standard Element animation config object</param>
+		/// <returns>Boolean</returns>
+		public virtual void scroll(string direction, double distance, object animate) { _(direction, distance, animate); }
 
 		/// <summary>Translates the passed page coordinates into left/top css values for this element</summary>
 		/// <returns>Object</returns>
@@ -3276,7 +3276,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="attr">The css attribute</param>
 		/// <returns></returns>
-		public virtual void getColor(System.String attr) { _(attr); }
+		public virtual void getColor(string attr) { _(attr); }
 
 		/// <summary>
 		///     Return the CSS color for the specified CSS attribute. rgb, 3 digit (like #fff) and valid values
@@ -3286,7 +3286,7 @@ namespace Ext {
 		/// <param name="attr">The css attribute</param>
 		/// <param name="defaultValue">The default value to use when a valid color isn't found</param>
 		/// <returns></returns>
-		public virtual void getColor(System.String attr, System.String defaultValue) { _(attr, defaultValue); }
+		public virtual void getColor(string attr, string defaultValue) { _(attr, defaultValue); }
 
 		/// <summary>
 		///     Return the CSS color for the specified CSS attribute. rgb, 3 digit (like #fff) and valid values
@@ -3297,7 +3297,7 @@ namespace Ext {
 		/// <param name="defaultValue">The default value to use when a valid color isn't found</param>
 		/// <param name="prefix">(optional) defaults to #. Use an empty string when working with</param>
 		/// <returns></returns>
-		public virtual void getColor(System.String attr, System.String defaultValue, System.String prefix) { _(attr, defaultValue, prefix); }
+		public virtual void getColor(string attr, string defaultValue, string prefix) { _(attr, defaultValue, prefix); }
 
 		/// <summary>
 		///     Wraps the specified element with a special markup/CSS block that renders by default as a gray container with a
@@ -3332,7 +3332,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="cls">(optional) A base CSS class to apply to the containing wrapper element (defaults to 'x-box').</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void boxWrap(System.String cls) { _(cls); }
+		public virtual void boxWrap(string cls) { _(cls); }
 
 		/// <summary>Returns the value of a namespaced attribute from the element's underlying DOM node.</summary>
 		/// <returns>String</returns>
@@ -3341,13 +3341,13 @@ namespace Ext {
 		/// <summary>Returns the value of a namespaced attribute from the element's underlying DOM node.</summary>
 		/// <param name="ns">The namespace in which to look for the attribute</param>
 		/// <returns>String</returns>
-		public virtual void getAttributeNS(System.String ns) { _(ns); }
+		public virtual void getAttributeNS(string ns) { _(ns); }
 
 		/// <summary>Returns the value of a namespaced attribute from the element's underlying DOM node.</summary>
 		/// <param name="ns">The namespace in which to look for the attribute</param>
 		/// <param name="name">The attribute name</param>
 		/// <returns>String</returns>
-		public virtual void getAttributeNS(System.String ns, System.String name) { _(ns, name); }
+		public virtual void getAttributeNS(string ns, string name) { _(ns, name); }
 
 		/// <summary>Returns the width in pixels of the passed text, or the width of the text in this Element.</summary>
 		/// <returns>Number</returns>
@@ -3356,20 +3356,20 @@ namespace Ext {
 		/// <summary>Returns the width in pixels of the passed text, or the width of the text in this Element.</summary>
 		/// <param name="text">The text to measure. Defaults to the innerHTML of the element.</param>
 		/// <returns>Number</returns>
-		public virtual void getTextWidth(System.String text) { _(text); }
+		public virtual void getTextWidth(string text) { _(text); }
 
 		/// <summary>Returns the width in pixels of the passed text, or the width of the text in this Element.</summary>
 		/// <param name="text">The text to measure. Defaults to the innerHTML of the element.</param>
 		/// <param name="min">(Optional) The minumum value to return.</param>
 		/// <returns>Number</returns>
-		public virtual void getTextWidth(System.String text, double min) { _(text, min); }
+		public virtual void getTextWidth(string text, double min) { _(text, min); }
 
 		/// <summary>Returns the width in pixels of the passed text, or the width of the text in this Element.</summary>
 		/// <param name="text">The text to measure. Defaults to the innerHTML of the element.</param>
 		/// <param name="min">(Optional) The minumum value to return.</param>
 		/// <param name="max">(Optional) The maximum value to return.</param>
 		/// <returns>Number</returns>
-		public virtual void getTextWidth(System.String text, double min, double max) { _(text, min, max); }
+		public virtual void getTextWidth(string text, double min, double max) { _(text, min, max); }
 
 		/// <summary>
 		///     Static method to retrieve Ext.Element objects.
@@ -3409,7 +3409,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The dom node or id</param>
 		/// <returns>Element</returns>
-		public static void fly(System.String el) { S_(el); }
+		public static void fly(string el) { S_(el); }
 
 		/// <summary>
 		///     Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
@@ -3419,7 +3419,7 @@ namespace Ext {
 		/// <param name="el">The dom node or id</param>
 		/// <param name="named">(optional) Allows for creation of named reusable flyweights to</param>
 		/// <returns>Element</returns>
-		public static void fly(System.String el, System.String named) { S_(el, named); }
+		public static void fly(string el, string named) { S_(el, named); }
 
 		/// <summary>
 		///     Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
@@ -3438,7 +3438,7 @@ namespace Ext {
 		/// <param name="el">The dom node or id</param>
 		/// <param name="named">(optional) Allows for creation of named reusable flyweights to</param>
 		/// <returns>Element</returns>
-		public static void fly(DOMElement el, System.String named) { S_(el, named); }
+		public static void fly(DOMElement el, string named) { S_(el, named); }
 
 
 

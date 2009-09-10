@@ -17,7 +17,7 @@ namespace Ext {
 	///     </code></pre>
 	///     For more information see this blog post with examples: <a href="http://www.jackslocum.com/blog/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">DomHelper - Create Elements using DOM, HTML fragments and Templates</a>.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\Template.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\Template.js</jssource>
 	public class Template : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -26,7 +26,7 @@ namespace Ext {
 		/// <summary></summary>
 		/// <param name="html">The HTML fragment or an array of fragments to join("") or multiple arguments to join("")</param>
 		/// <returns></returns>
-		public Template(System.String html) { C_(html); }
+		public Template(string html) { C_(html); }
 		/// <summary></summary>
 		/// <param name="html">The HTML fragment or an array of fragments to join("") or multiple arguments to join("")</param>
 		/// <returns></returns>
@@ -67,13 +67,13 @@ namespace Ext {
 		/// <summary>Sets the HTML used as the template and optionally compiles it.</summary>
 		/// <param name="html"></param>
 		/// <returns>Ext.Template</returns>
-		public virtual void set(System.String html) { _(html); }
+		public virtual void set(string html) { _(html); }
 
 		/// <summary>Sets the HTML used as the template and optionally compiles it.</summary>
 		/// <param name="html"></param>
 		/// <param name="compile">(optional) True to compile the template (defaults to undefined)</param>
 		/// <returns>Ext.Template</returns>
-		public virtual void set(System.String html, bool compile) { _(html, compile); }
+		public virtual void set(string html, bool compile) { _(html, compile); }
 
 		/// <summary>Compiles the template into an internal function, eliminating the RegEx overhead.</summary>
 		/// <returns>Ext.Template</returns>
@@ -261,13 +261,13 @@ namespace Ext {
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>
 		/// <returns>Ext.Template</returns>
-		public static void from(System.String el) { S_(el); }
+		public static void from(string el) { S_(el); }
 
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>
 		/// <param name="config">A configuration object</param>
 		/// <returns>Ext.Template</returns>
-		public static void from(System.String el, object config) { S_(el, config); }
+		public static void from(string el, object config) { S_(el, config); }
 
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>

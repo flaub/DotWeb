@@ -62,7 +62,7 @@ namespace Ext.layout {
 	///     */
 	///     Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\layout\TableLayout.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\layout\TableLayout.js</jssource>
 	public class TableLayout : Ext.layout.ContainerLayout {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -91,15 +91,15 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class TableLayoutConfig : DotWeb.Client.JsAccessible {
+	public class TableLayoutConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The total number of columns to create in the table for this layout.  If not specified, all panels added to this layout will be rendered into a single row using a column per panel.</summary>
-		public double columns { get; set; }
+		public double columns { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String extraCls { get; set; }
+		public string extraCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get; set; }
+		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

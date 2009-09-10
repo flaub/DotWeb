@@ -11,7 +11,7 @@ namespace Ext {
 	///     */
 	///     Ext.History = (function () {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\History.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\History.js</jssource>
 	public class History : Ext.util.Observable {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -29,10 +29,10 @@ namespace Ext {
 		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
 
 		/// <summary>The id of the hidden field required for storing the current history token.</summary>
-		public static System.String fieldId { get { return S_<System.String>(); } set { S_(value); } }
+		public static string fieldId { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The id of the iframe required by IE to manage the history stack.</summary>
-		public static System.String iframeId { get { return S_<System.String>(); } set { S_(value); } }
+		public static string iframeId { get { return S_<string>(); } set { S_(value); } }
 
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="token">The value that defines a particular application-specific history state</param>
 		/// <returns></returns>
-		public static void add(System.String token) { S_(token); }
+		public static void add(string token) { S_(token); }
 
 		/// <summary>
 		///     Add a new token to the history stack. This can be any arbitrary value, although it would
@@ -108,7 +108,7 @@ namespace Ext {
 		/// <param name="token">The value that defines a particular application-specific history state</param>
 		/// <param name="preventDuplicates">When true, if the passed token matches the current token</param>
 		/// <returns></returns>
-		public static void add(System.String token, bool preventDuplicates) { S_(token, preventDuplicates); }
+		public static void add(string token, bool preventDuplicates) { S_(token, preventDuplicates); }
 
 		/// <summary>Programmatically steps back one step in browser history (equivalent to the user pressing the Back button).</summary>
 		/// <returns></returns>
@@ -127,9 +127,9 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class HistoryConfig : DotWeb.Client.JsAccessible {
+	public class HistoryConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

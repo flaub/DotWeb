@@ -7,7 +7,7 @@ namespace Ext.menu {
 	///     A menu object.  This is the container to which you add all other menu items.  Menu can also serve as a base class
 	///     when you want a specialized menu based off of another component (like {@link Ext.menu.DateMenu} for example).
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\menu\Menu.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\menu\Menu.js</jssource>
 	public class Menu : Ext.util.Observable {
 
 		/// <summary>Creates a new Menu</summary>
@@ -46,10 +46,10 @@ namespace Ext.menu {
 		public object shadow { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>The {@link Ext.Element#alignTo} anchor position value to use for submenus ofthis menu (defaults to "tl-tr?")</summary>
-		public System.String subMenuAlign { get { return _<System.String>(); } set { _(value); } }
+		public string subMenuAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The default {@link Ext.Element#alignTo} anchor position value for this menurelative to its element of origin (defaults to "tl-bl?")</summary>
-		public System.String defaultAlign { get { return _<System.String>(); } set { _(value); } }
+		public string defaultAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True to allow multiple menus to be displayed at the same time (defaults to false)</summary>
 		public bool allowOtherMenus { get { return _<bool>(); } set { _(value); } }
@@ -87,7 +87,7 @@ namespace Ext.menu {
 		/// <param name="element">The element to align to</param>
 		/// <param name="position">(optional) The {@link Ext.Element#alignTo} anchor position to use in aligning to</param>
 		/// <returns></returns>
-		public virtual void show(object element, System.String position) { _(element, position); }
+		public virtual void show(object element, string position) { _(element, position); }
 
 		/// <summary>
 		///     Displays this menu relative to another element
@@ -97,7 +97,7 @@ namespace Ext.menu {
 		/// <param name="position">(optional) The {@link Ext.Element#alignTo} anchor position to use in aligning to</param>
 		/// <param name="parentMenu">(optional) This menu's parent menu, if applicable (defaults to undefined)</param>
 		/// <returns></returns>
-		public virtual void show(object element, System.String position, Ext.menu.Menu parentMenu) { _(element, position, parentMenu); }
+		public virtual void show(object element, string position, Ext.menu.Menu parentMenu) { _(element, position, parentMenu); }
 
 		/// <summary>Displays this menu at a specific xy position</summary>
 		/// <returns></returns>
@@ -224,7 +224,7 @@ namespace Ext.menu {
 		/// <summary>Creates a new {@link Ext.menu.TextItem} with the supplied text and adds it to the menu</summary>
 		/// <param name="text">The text to display in the menu item</param>
 		/// <returns>Ext.menu.Item</returns>
-		public virtual void addText(System.String text) { _(text); }
+		public virtual void addText(string text) { _(text); }
 
 		/// <summary>Inserts an existing object based on {@link Ext.menu.BaseItem} to the menu at a specified index</summary>
 		/// <returns>Ext.menu.Item</returns>
@@ -266,33 +266,33 @@ namespace Ext.menu {
 	}
 
 	[JsAnonymous]
-	public class MenuConfig : DotWeb.Client.JsAccessible {
+	public class MenuConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  A config object that will be applied to all items added to this container either via the {@link #items} config or via the {@link #add} method.  The defaults config can contain any number of name/value property pairs to be added to each item, and should be valid for the types of items being added to the menu.</summary>
-		public object defaults { get; set; }
+		public object defaults { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  An array of items to be added to this menu.  See {@link #add} for a list of valid item types.</summary>
-		public object items { get; set; }
+		public object items { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The minimum width of the menu in pixels (defaults to 120)</summary>
-		public double minWidth { get; set; }
+		public double minWidth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>{Boolean/String} True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right shadow (defaults to "sides")</summary>
-		public object shadow { get; set; }
+		public object shadow { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The {@link Ext.Element#alignTo} anchor position value to use for submenus of this menu (defaults to "tl-tr?")</summary>
-		public System.String subMenuAlign { get; set; }
+		public string subMenuAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The default {@link Ext.Element#alignTo} anchor position value for this menu relative to its element of origin (defaults to "tl-bl?")</summary>
-		public System.String defaultAlign { get; set; }
+		public string defaultAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True to allow multiple menus to be displayed at the same time (defaults to false)</summary>
-		public bool allowOtherMenus { get; set; }
+		public bool allowOtherMenus { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to ignore clicks on any item in this menu that is a parent item (displays a submenu) so that the submenu is not dismissed when clicking the parent item (defaults to false).</summary>
-		public bool ignoreParentClicks { get; set; }
+		public bool ignoreParentClicks { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

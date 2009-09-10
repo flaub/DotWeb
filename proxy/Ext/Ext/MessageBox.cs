@@ -32,7 +32,7 @@ namespace Ext {
 	///     */
 	///     Ext.MessageBox = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\MessageBox.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\MessageBox.js</jssource>
 	public class MessageBox : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -62,16 +62,16 @@ namespace Ext {
 		public static object YESNOCANCEL { get { return S_<object>(); } set { S_(value); } }
 
 		/// <summary>The CSS class that provides the INFO icon image</summary>
-		public static System.String INFO { get { return S_<System.String>(); } set { S_(value); } }
+		public static string INFO { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The CSS class that provides the WARNING icon image</summary>
-		public static System.String WARNING { get { return S_<System.String>(); } set { S_(value); } }
+		public static string WARNING { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The CSS class that provides the QUESTION icon image</summary>
-		public static System.String QUESTION { get { return S_<System.String>(); } set { S_(value); } }
+		public static string QUESTION { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The CSS class that provides the ERROR icon image</summary>
-		public static System.String ERROR { get { return S_<System.String>(); } set { S_(value); } }
+		public static string ERROR { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The default height in pixels of the message box's multiline textarea if displayed (defaults to 75)</summary>
 		public static double defaultTextHeight { get { return S_<double>(); } set { S_(value); } }
@@ -117,7 +117,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="text">(optional) Replaces the message box element's innerHTML with the specified string (defaults to</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void updateText(System.String text) { S_(text); }
+		public static void updateText(string text) { S_(text); }
 
 		/// <summary>
 		///     Updates a progress-style message box's text and progress bar.  Only relevant on message boxes
@@ -144,7 +144,7 @@ namespace Ext {
 		/// <param name="value">Any number between 0 and 1 (e.g., .5, defaults to 0)</param>
 		/// <param name="progressText">The progress text to display inside the progress bar (defaults to '')</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void updateProgress(double value, System.String progressText) { S_(value, progressText); }
+		public static void updateProgress(double value, string progressText) { S_(value, progressText); }
 
 		/// <summary>
 		///     Updates a progress-style message box's text and progress bar.  Only relevant on message boxes
@@ -155,7 +155,7 @@ namespace Ext {
 		/// <param name="progressText">The progress text to display inside the progress bar (defaults to '')</param>
 		/// <param name="msg">The message box's body text is replaced with the specified string (defaults to undefined</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void updateProgress(double value, System.String progressText, System.String msg) { S_(value, progressText, msg); }
+		public static void updateProgress(double value, string progressText, string msg) { S_(value, progressText, msg); }
 
 		/// <summary>Returns true if the message box is currently displayed</summary>
 		/// <returns>Boolean</returns>
@@ -333,7 +333,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="icon">A CSS classname specifying the icon's background image url, or empty string to clear the icon</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void setIcon(System.String icon) { S_(icon); }
+		public static void setIcon(string icon) { S_(icon); }
 
 		/// <summary>
 		///     Displays a message box with a progress bar.  This message box has no buttons and is not closeable by
@@ -350,7 +350,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="title">The title bar text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void progress(System.String title) { S_(title); }
+		public static void progress(string title) { S_(title); }
 
 		/// <summary>
 		///     Displays a message box with a progress bar.  This message box has no buttons and is not closeable by
@@ -360,7 +360,7 @@ namespace Ext {
 		/// <param name="title">The title bar text</param>
 		/// <param name="msg">The message box body text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void progress(System.String title, System.String msg) { S_(title, msg); }
+		public static void progress(string title, string msg) { S_(title, msg); }
 
 		/// <summary>
 		///     Displays a message box with a progress bar.  This message box has no buttons and is not closeable by
@@ -371,7 +371,7 @@ namespace Ext {
 		/// <param name="msg">The message box body text</param>
 		/// <param name="progressText">(optional) The text to display inside the progress bar (defaults to '')</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void progress(System.String title, System.String msg, System.String progressText) { S_(title, msg, progressText); }
+		public static void progress(string title, string msg, string progressText) { S_(title, msg, progressText); }
 
 		/// <summary>
 		///     Displays a message box with an infinitely auto-updating progress bar.  This can be used to block user
@@ -388,7 +388,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="msg">The message box body text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void wait(System.String msg) { S_(msg); }
+		public static void wait(string msg) { S_(msg); }
 
 		/// <summary>
 		///     Displays a message box with an infinitely auto-updating progress bar.  This can be used to block user
@@ -398,7 +398,7 @@ namespace Ext {
 		/// <param name="msg">The message box body text</param>
 		/// <param name="title">(optional) The title bar text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void wait(System.String msg, System.String title) { S_(msg, title); }
+		public static void wait(string msg, string title) { S_(msg, title); }
 
 		/// <summary>
 		///     Displays a message box with an infinitely auto-updating progress bar.  This can be used to block user
@@ -409,7 +409,7 @@ namespace Ext {
 		/// <param name="title">(optional) The title bar text</param>
 		/// <param name="config">(optional) A {@link Ext.ProgressBar#waitConfig} object</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void wait(System.String msg, System.String title, object config) { S_(msg, title, config); }
+		public static void wait(string msg, string title, object config) { S_(msg, title, config); }
 
 		/// <summary>
 		///     Displays a standard read-only message box with an OK button (comparable to the basic JavaScript alert prompt).
@@ -428,7 +428,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="title">The title bar text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void alert(System.String title) { S_(title); }
+		public static void alert(string title) { S_(title); }
 
 		/// <summary>
 		///     Displays a standard read-only message box with an OK button (comparable to the basic JavaScript alert prompt).
@@ -439,7 +439,7 @@ namespace Ext {
 		/// <param name="title">The title bar text</param>
 		/// <param name="msg">The message box body text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void alert(System.String title, System.String msg) { S_(title, msg); }
+		public static void alert(string title, string msg) { S_(title, msg); }
 
 		/// <summary>
 		///     Displays a standard read-only message box with an OK button (comparable to the basic JavaScript alert prompt).
@@ -451,7 +451,7 @@ namespace Ext {
 		/// <param name="msg">The message box body text</param>
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void alert(System.String title, System.String msg, Delegate fn) { S_(title, msg, fn); }
+		public static void alert(string title, string msg, Delegate fn) { S_(title, msg, fn); }
 
 		/// <summary>
 		///     Displays a standard read-only message box with an OK button (comparable to the basic JavaScript alert prompt).
@@ -464,7 +464,7 @@ namespace Ext {
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
 		/// <param name="scope">(optional) The scope of the callback function</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void alert(System.String title, System.String msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
+		public static void alert(string title, string msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
 
 		/// <summary>
 		///     Displays a confirmation message box with Yes and No buttons (comparable to JavaScript's confirm).
@@ -483,7 +483,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="title">The title bar text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void confirm(System.String title) { S_(title); }
+		public static void confirm(string title) { S_(title); }
 
 		/// <summary>
 		///     Displays a confirmation message box with Yes and No buttons (comparable to JavaScript's confirm).
@@ -494,7 +494,7 @@ namespace Ext {
 		/// <param name="title">The title bar text</param>
 		/// <param name="msg">The message box body text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void confirm(System.String title, System.String msg) { S_(title, msg); }
+		public static void confirm(string title, string msg) { S_(title, msg); }
 
 		/// <summary>
 		///     Displays a confirmation message box with Yes and No buttons (comparable to JavaScript's confirm).
@@ -506,7 +506,7 @@ namespace Ext {
 		/// <param name="msg">The message box body text</param>
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void confirm(System.String title, System.String msg, Delegate fn) { S_(title, msg, fn); }
+		public static void confirm(string title, string msg, Delegate fn) { S_(title, msg, fn); }
 
 		/// <summary>
 		///     Displays a confirmation message box with Yes and No buttons (comparable to JavaScript's confirm).
@@ -519,7 +519,7 @@ namespace Ext {
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
 		/// <param name="scope">(optional) The scope of the callback function</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void confirm(System.String title, System.String msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
+		public static void confirm(string title, string msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -540,7 +540,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="title">The title bar text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title) { S_(title); }
+		public static void prompt(string title) { S_(title); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -552,20 +552,7 @@ namespace Ext {
 		/// <param name="title">The title bar text</param>
 		/// <param name="msg">The message box body text</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg) { S_(title, msg); }
-
-		/// <summary>
-		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
-		///     The prompt can be a single-line or multi-line textbox.  If a callback function is passed it will be called after the user
-		///     clicks either button, and the id of the button that was clicked (could also be the top-right
-		///     close button) and the text that was entered will be passed as the two parameters to the callback.
-		///     property, or the height in pixels to create the textbox (defaults to false / single-line)
-		/// </summary>
-		/// <param name="title">The title bar text</param>
-		/// <param name="msg">The message box body text</param>
-		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
-		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn) { S_(title, msg, fn); }
+		public static void prompt(string title, string msg) { S_(title, msg); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -577,9 +564,8 @@ namespace Ext {
 		/// <param name="title">The title bar text</param>
 		/// <param name="msg">The message box body text</param>
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
-		/// <param name="scope">(optional) The scope of the callback function</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
+		public static void prompt(string title, string msg, Delegate fn) { S_(title, msg, fn); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -592,25 +578,8 @@ namespace Ext {
 		/// <param name="msg">The message box body text</param>
 		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
 		/// <param name="scope">(optional) The scope of the callback function</param>
-		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn, object scope, bool multiline) { S_(title, msg, fn, scope, multiline); }
-
-		/// <summary>
-		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
-		///     The prompt can be a single-line or multi-line textbox.  If a callback function is passed it will be called after the user
-		///     clicks either button, and the id of the button that was clicked (could also be the top-right
-		///     close button) and the text that was entered will be passed as the two parameters to the callback.
-		///     property, or the height in pixels to create the textbox (defaults to false / single-line)
-		/// </summary>
-		/// <param name="title">The title bar text</param>
-		/// <param name="msg">The message box body text</param>
-		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
-		/// <param name="scope">(optional) The scope of the callback function</param>
-		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
-		/// <param name="value">(optional) Default value of the text input element (defaults to '')</param>
-		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn, object scope, bool multiline, System.String value) { S_(title, msg, fn, scope, multiline, value); }
+		public static void prompt(string title, string msg, Delegate fn, object scope) { S_(title, msg, fn, scope); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -625,7 +594,7 @@ namespace Ext {
 		/// <param name="scope">(optional) The scope of the callback function</param>
 		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn, object scope, double multiline) { S_(title, msg, fn, scope, multiline); }
+		public static void prompt(string title, string msg, Delegate fn, object scope, bool multiline) { S_(title, msg, fn, scope, multiline); }
 
 		/// <summary>
 		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
@@ -641,7 +610,38 @@ namespace Ext {
 		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
 		/// <param name="value">(optional) Default value of the text input element (defaults to '')</param>
 		/// <returns>Ext.MessageBox</returns>
-		public static void prompt(System.String title, System.String msg, Delegate fn, object scope, double multiline, System.String value) { S_(title, msg, fn, scope, multiline, value); }
+		public static void prompt(string title, string msg, Delegate fn, object scope, bool multiline, string value) { S_(title, msg, fn, scope, multiline, value); }
+
+		/// <summary>
+		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
+		///     The prompt can be a single-line or multi-line textbox.  If a callback function is passed it will be called after the user
+		///     clicks either button, and the id of the button that was clicked (could also be the top-right
+		///     close button) and the text that was entered will be passed as the two parameters to the callback.
+		///     property, or the height in pixels to create the textbox (defaults to false / single-line)
+		/// </summary>
+		/// <param name="title">The title bar text</param>
+		/// <param name="msg">The message box body text</param>
+		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
+		/// <param name="scope">(optional) The scope of the callback function</param>
+		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
+		/// <returns>Ext.MessageBox</returns>
+		public static void prompt(string title, string msg, Delegate fn, object scope, double multiline) { S_(title, msg, fn, scope, multiline); }
+
+		/// <summary>
+		///     Displays a message box with OK and Cancel buttons prompting the user to enter some text (comparable to JavaScript's prompt).
+		///     The prompt can be a single-line or multi-line textbox.  If a callback function is passed it will be called after the user
+		///     clicks either button, and the id of the button that was clicked (could also be the top-right
+		///     close button) and the text that was entered will be passed as the two parameters to the callback.
+		///     property, or the height in pixels to create the textbox (defaults to false / single-line)
+		/// </summary>
+		/// <param name="title">The title bar text</param>
+		/// <param name="msg">The message box body text</param>
+		/// <param name="fn">(optional) The callback function invoked after the message box is closed</param>
+		/// <param name="scope">(optional) The scope of the callback function</param>
+		/// <param name="multiline">(optional) True to create a multiline textbox using the defaultTextHeight</param>
+		/// <param name="value">(optional) Default value of the text input element (defaults to '')</param>
+		/// <returns>Ext.MessageBox</returns>
+		public static void prompt(string title, string msg, Delegate fn, object scope, double multiline, string value) { S_(title, msg, fn, scope, multiline, value); }
 
 
 

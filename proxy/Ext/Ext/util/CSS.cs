@@ -8,7 +8,7 @@ namespace Ext.util {
 	///     */
 	///     Ext.util.CSS = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\CSS.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\CSS.js</jssource>
 	public class CSS : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -36,7 +36,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="cssText">The text containing the css rules</param>
 		/// <returns>StyleSheet</returns>
-		public static void createStyleSheet(System.String cssText) { S_(cssText); }
+		public static void createStyleSheet(string cssText) { S_(cssText); }
 
 		/// <summary>
 		///     Creates a stylesheet from a text blob of rules.
@@ -45,7 +45,7 @@ namespace Ext.util {
 		/// <param name="cssText">The text containing the css rules</param>
 		/// <param name="id">An id to add to the stylesheet for later removal</param>
 		/// <returns>StyleSheet</returns>
-		public static void createStyleSheet(System.String cssText, System.String id) { S_(cssText, id); }
+		public static void createStyleSheet(string cssText, string id) { S_(cssText, id); }
 
 		/// <summary>Removes a style or link tag by id</summary>
 		/// <returns></returns>
@@ -54,7 +54,7 @@ namespace Ext.util {
 		/// <summary>Removes a style or link tag by id</summary>
 		/// <param name="id">The id of the tag</param>
 		/// <returns></returns>
-		public static void removeStyleSheet(System.String id) { S_(id); }
+		public static void removeStyleSheet(string id) { S_(id); }
 
 		/// <summary>Dynamically swaps an existing stylesheet reference for a new one</summary>
 		/// <returns></returns>
@@ -63,13 +63,13 @@ namespace Ext.util {
 		/// <summary>Dynamically swaps an existing stylesheet reference for a new one</summary>
 		/// <param name="id">The id of an existing link tag to remove</param>
 		/// <returns></returns>
-		public static void swapStyleSheet(System.String id) { S_(id); }
+		public static void swapStyleSheet(string id) { S_(id); }
 
 		/// <summary>Dynamically swaps an existing stylesheet reference for a new one</summary>
 		/// <param name="id">The id of an existing link tag to remove</param>
 		/// <param name="url">The href of the new stylesheet to include</param>
 		/// <returns></returns>
-		public static void swapStyleSheet(System.String id, System.String url) { S_(id, url); }
+		public static void swapStyleSheet(string id, string url) { S_(id, url); }
 
 		/// <summary>Refresh the rule cache if you have dynamically added stylesheets</summary>
 		/// <returns>Object</returns>
@@ -91,13 +91,13 @@ namespace Ext.util {
 		/// <summary>Gets an an individual CSS rule by selector(s)</summary>
 		/// <param name="selector">The CSS selector or an array of selectors to try. The first selector that is found is returned.</param>
 		/// <returns>CSSRule</returns>
-		public static void getRule(System.String selector) { S_(selector); }
+		public static void getRule(string selector) { S_(selector); }
 
 		/// <summary>Gets an an individual CSS rule by selector(s)</summary>
 		/// <param name="selector">The CSS selector or an array of selectors to try. The first selector that is found is returned.</param>
 		/// <param name="refreshCache">true to refresh the internal cache if you have recently updated any rules or added styles dynamically</param>
 		/// <returns>CSSRule</returns>
-		public static void getRule(System.String selector, bool refreshCache) { S_(selector, refreshCache); }
+		public static void getRule(string selector, bool refreshCache) { S_(selector, refreshCache); }
 
 		/// <summary>Gets an an individual CSS rule by selector(s)</summary>
 		/// <param name="selector">The CSS selector or an array of selectors to try. The first selector that is found is returned.</param>
@@ -117,20 +117,20 @@ namespace Ext.util {
 		/// <summary>Updates a rule property</summary>
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
 		/// <returns>Boolean</returns>
-		public static void updateRule(System.String selector) { S_(selector); }
+		public static void updateRule(string selector) { S_(selector); }
 
 		/// <summary>Updates a rule property</summary>
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
 		/// <param name="property">The css property</param>
 		/// <returns>Boolean</returns>
-		public static void updateRule(System.String selector, System.String property) { S_(selector, property); }
+		public static void updateRule(string selector, string property) { S_(selector, property); }
 
 		/// <summary>Updates a rule property</summary>
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
 		/// <param name="property">The css property</param>
 		/// <param name="value">The new value for the property</param>
 		/// <returns>Boolean</returns>
-		public static void updateRule(System.String selector, System.String property, System.String value) { S_(selector, property, value); }
+		public static void updateRule(string selector, string property, string value) { S_(selector, property, value); }
 
 		/// <summary>Updates a rule property</summary>
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
@@ -141,14 +141,14 @@ namespace Ext.util {
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
 		/// <param name="property">The css property</param>
 		/// <returns>Boolean</returns>
-		public static void updateRule(System.Array selector, System.String property) { S_(selector, property); }
+		public static void updateRule(System.Array selector, string property) { S_(selector, property); }
 
 		/// <summary>Updates a rule property</summary>
 		/// <param name="selector">If it's an array it tries each selector until it finds one. Stops immediately once one is found.</param>
 		/// <param name="property">The css property</param>
 		/// <param name="value">The new value for the property</param>
 		/// <returns>Boolean</returns>
-		public static void updateRule(System.Array selector, System.String property, System.String value) { S_(selector, property, value); }
+		public static void updateRule(System.Array selector, string property, string value) { S_(selector, property, value); }
 
 
 

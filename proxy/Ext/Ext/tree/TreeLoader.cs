@@ -37,7 +37,7 @@ namespace Ext.tree {
 	///     This would pass an HTTP parameter called "category" to the server containing
 	///     the value of the Node's "category" attribute.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeLoader.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeLoader.js</jssource>
 	public class TreeLoader : Ext.util.Observable {
 
 		/// <summary>Creates a new Treeloader.</summary>
@@ -62,13 +62,13 @@ namespace Ext.tree {
 		///     The URL from which to request a Json string whichspecifies an array of node definition objects representing the child nodes
 		///     to be loaded.
 		/// </summary>
-		public System.String dataUrl { get { return _<System.String>(); } set { _(value); } }
+		public string dataUrl { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The HTTP request method for loading data (defaults to the value of {@link Ext.Ajax#method}).</summary>
-		public System.String requestMethod { get { return _<System.String>(); } set { _(value); } }
+		public string requestMethod { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Equivalent to {@link #dataUrl}.</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>If set to true, the loader recursively loads "children" attributes when doing the first load on nodes.</summary>
 		public bool preloadChildren { get { return _<bool>(); } set { _(value); } }
@@ -130,33 +130,33 @@ namespace Ext.tree {
 	}
 
 	[JsAnonymous]
-	public class TreeLoaderConfig : DotWeb.Client.JsAccessible {
+	public class TreeLoaderConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The URL from which to request a Json string which specifies an array of node definition objects representing the child nodes to be loaded.</summary>
-		public System.String dataUrl { get; set; }
+		public string dataUrl { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The HTTP request method for loading data (defaults to the value of {@link Ext.Ajax#method}).</summary>
-		public System.String requestMethod { get; set; }
+		public string requestMethod { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Equivalent to {@link #dataUrl}.</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> If set to true, the loader recursively loads "children" attributes when doing the first load on nodes.</summary>
-		public bool preloadChildren { get; set; }
+		public bool preloadChildren { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) An object containing properties which specify HTTP parameters to be passed to each request for child nodes.</summary>
-		public object baseParams { get; set; }
+		public object baseParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (optional) An object containing attributes to be added to all nodes created by this loader. If the attributes sent by the server have an attribute in this object, they take priority.</summary>
-		public object baseAttrs { get; set; }
+		public object baseAttrs { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (optional) An object containing properties which specify custom {@link Ext.tree.TreeNodeUI} implementations. If the optional <i>uiProvider</i> attribute of a returned child node is a string rather than a reference to a TreeNodeUI implementation, then that string value is used as a property name in the uiProviders object.</summary>
-		public object uiProviders { get; set; }
+		public object uiProviders { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (optional) Default to true. Remove previously existing child nodes before loading.</summary>
-		public bool clearOnLoad { get; set; }
+		public bool clearOnLoad { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

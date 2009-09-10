@@ -23,7 +23,7 @@ namespace Ext {
 	///     */
 	///     Ext.CompositeElement = function(els){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\CompositeElement.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\CompositeElement.js</jssource>
 	public class CompositeElement : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -45,7 +45,7 @@ namespace Ext {
 		/// <summary>Clears this composite and adds the elements returned by the passed selector.</summary>
 		/// <param name="els">A string CSS selector, an array of elements or an element</param>
 		/// <returns>CompositeElement</returns>
-		public virtual void fill(System.String els) { _(els); }
+		public virtual void fill(string els) { _(els); }
 
 		/// <summary>Clears this composite and adds the elements returned by the passed selector.</summary>
 		/// <param name="els">A string CSS selector, an array of elements or an element</param>
@@ -59,7 +59,7 @@ namespace Ext {
 		/// <summary>Filters this composite to only elements that match the passed selector.</summary>
 		/// <param name="selector">A string CSS selector</param>
 		/// <returns>CompositeElement</returns>
-		public virtual void filter(System.String selector) { _(selector); }
+		public virtual void filter(string selector) { _(selector); }
 
 		/// <summary>Adds elements to this composite.</summary>
 		/// <returns>CompositeElement</returns>
@@ -68,7 +68,7 @@ namespace Ext {
 		/// <summary>Adds elements to this composite.</summary>
 		/// <param name="els">A string CSS selector, an array of elements or an element</param>
 		/// <returns>CompositeElement</returns>
-		public virtual void add(System.String els) { _(els); }
+		public virtual void add(string els) { _(els); }
 
 		/// <summary>Adds elements to this composite.</summary>
 		/// <param name="els">A string CSS selector, an array of elements or an element</param>

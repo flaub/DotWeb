@@ -40,7 +40,7 @@ namespace Ext.dd {
 	///     }
 	///     </pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
 	public class DragDrop : DotWeb.Client.JsNativeBase {
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">of the element that is linked to this instance</param>
 		/// <returns></returns>
-		public DragDrop(System.String id) { C_(id); }
+		public DragDrop(string id) { C_(id); }
 		/// <summary>
 		///     Valid properties for DragDrop:
 		///     padding, isTarget, maintainOffset, primaryButtonOnly
@@ -63,7 +63,7 @@ namespace Ext.dd {
 		/// <param name="id">of the element that is linked to this instance</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DragDrop(System.String id, System.String sGroup) { C_(id, sGroup); }
+		public DragDrop(string id, string sGroup) { C_(id, sGroup); }
 		/// <summary>
 		///     Valid properties for DragDrop:
 		///     padding, isTarget, maintainOffset, primaryButtonOnly
@@ -72,7 +72,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DragDrop(System.String id, System.String sGroup, object config) { C_(id, sGroup, config); }
+		public DragDrop(string id, string sGroup, object config) { C_(id, sGroup, config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -87,7 +87,7 @@ namespace Ext.dd {
 		///     this element is used to determine when the drag and drop objects have
 		///     interacted.
 		/// </summary>
-		public System.String id { get { return _<System.String>(); } set { _(value); } }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Configuration attributes passed into the constructor</summary>
 		public object config { get { return _<object>(); } set { _(value); } }
@@ -583,7 +583,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the linked element</param>
 		/// <param name="sGroup">the group of related items</param>
 		/// <returns></returns>
-		public virtual void init(object id, System.String sGroup) { _(id, sGroup); }
+		public virtual void init(object id, string sGroup) { _(id, sGroup); }
 
 		/// <summary>
 		///     Sets up the DragDrop object.  Must be called in the constructor of any
@@ -593,7 +593,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related items</param>
 		/// <param name="config">configuration attributes</param>
 		/// <returns></returns>
-		public virtual void init(object id, System.String sGroup, object config) { _(id, sGroup, config); }
+		public virtual void init(object id, string sGroup, object config) { _(id, sGroup, config); }
 
 		/// <summary>
 		///     Initializes Targeting functionality only... the object does not
@@ -617,7 +617,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the linked element</param>
 		/// <param name="sGroup">the group of related items</param>
 		/// <returns></returns>
-		public virtual void initTarget(object id, System.String sGroup) { _(id, sGroup); }
+		public virtual void initTarget(object id, string sGroup) { _(id, sGroup); }
 
 		/// <summary>
 		///     Initializes Targeting functionality only... the object does not
@@ -627,7 +627,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related items</param>
 		/// <param name="config">configuration attributes</param>
 		/// <returns></returns>
-		public virtual void initTarget(object id, System.String sGroup, object config) { _(id, sGroup, config); }
+		public virtual void initTarget(object id, string sGroup, object config) { _(id, sGroup, config); }
 
 		/// <summary>
 		///     Applies the configuration parameters that were passed into the constructor.

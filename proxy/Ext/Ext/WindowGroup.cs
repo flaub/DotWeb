@@ -7,7 +7,7 @@ namespace Ext {
 	///     An object that represents a group of {@link Ext.Window} instances and provides z-order management
 	///     and window activation behavior.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\WindowManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\WindowManager.js</jssource>
 	public class WindowGroup : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -32,7 +32,7 @@ namespace Ext {
 		/// <summary>Gets a registered window by id.</summary>
 		/// <param name="id">The id of the window or a {@link Ext.Window} instance</param>
 		/// <returns>Ext.Window</returns>
-		public virtual void get(System.String id) { _(id); }
+		public virtual void get(string id) { _(id); }
 
 		/// <summary>Gets a registered window by id.</summary>
 		/// <param name="id">The id of the window or a {@link Ext.Window} instance</param>
@@ -52,7 +52,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="win">The id of the window or a {@link Ext.Window} instance</param>
 		/// <returns>Boolean</returns>
-		public virtual void bringToFront(System.String win) { _(win); }
+		public virtual void bringToFront(string win) { _(win); }
 
 		/// <summary>
 		///     Brings the specified window to the front of any other active windows.
@@ -69,7 +69,7 @@ namespace Ext {
 		/// <summary>Sends the specified window to the back of other active windows.</summary>
 		/// <param name="win">The id of the window or a {@link Ext.Window} instance</param>
 		/// <returns>Ext.Window</returns>
-		public virtual void sendToBack(System.String win) { _(win); }
+		public virtual void sendToBack(string win) { _(win); }
 
 		/// <summary>Sends the specified window to the back of other active windows.</summary>
 		/// <param name="win">The id of the window or a {@link Ext.Window} instance</param>

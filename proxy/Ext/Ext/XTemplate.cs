@@ -160,7 +160,7 @@ namespace Ext {
 	///     tpl.overwrite(panel.body, data);
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\XTemplate.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\XTemplate.js</jssource>
 	public class XTemplate : Ext.Template {
 
 		/// <summary>to join("") that can also include a config object</summary>
@@ -169,7 +169,7 @@ namespace Ext {
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <param name="parts">The HTML fragment or an array of fragments to join(""), or multiple arguments</param>
 		/// <returns></returns>
-		public XTemplate(System.String parts) { C_(parts); }
+		public XTemplate(string parts) { C_(parts); }
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <param name="parts">The HTML fragment or an array of fragments to join(""), or multiple arguments</param>
 		/// <returns></returns>
@@ -214,7 +214,7 @@ namespace Ext {
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>
 		/// <returns>Ext.Template</returns>
-		public static void from(System.String el) { S_(el); }
+		public static void from(string el) { S_(el); }
 
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>

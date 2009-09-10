@@ -14,7 +14,7 @@ namespace Ext.data {
 	///     to create {@link Ext.data.Record Record} instances from the data object. These Records
 	///     are cached and made available through accessor functions.</p>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\Store.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\Store.js</jssource>
 	public class Store : Ext.util.Observable {
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="config">A config object containing the objects needed for the Store to access data,</param>
 		/// <returns></returns>
-		public Store(StoreConfig config) { C_(config); }
+		public Store(object config) { C_(config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -48,10 +48,10 @@ namespace Ext.data {
 		public object baseParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>If passed, the id to use to register with the StoreMgr</summary>
-		public System.String storeId { get { return _<System.String>(); } set { _(value); } }
+		public string storeId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>If passed, an HttpProxy is created for the passed URL</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>If passed, this store's load method is automatically called after creation with the autoLoad object</summary>
 		public object autoLoad { get { return _<object>(); } set { _(value); } }
@@ -161,7 +161,7 @@ namespace Ext.data {
 		/// <summary>Get the index within the cache of the Record with the passed id.</summary>
 		/// <param name="id">The id of the Record to find.</param>
 		/// <returns>Number</returns>
-		public virtual void indexOfId(System.String id) { _(id); }
+		public virtual void indexOfId(string id) { _(id); }
 
 		/// <summary>Get the Record with the specified id.</summary>
 		/// <returns>Ext.data.Record</returns>
@@ -170,7 +170,7 @@ namespace Ext.data {
 		/// <summary>Get the Record with the specified id.</summary>
 		/// <param name="id">The id of the Record to find.</param>
 		/// <returns>Ext.data.Record</returns>
-		public virtual void getById(System.String id) { _(id); }
+		public virtual void getById(string id) { _(id); }
 
 		/// <summary>Get the Record at the specified index.</summary>
 		/// <returns>Ext.data.Record</returns>
@@ -320,13 +320,13 @@ namespace Ext.data {
 		/// <summary>Sets the default sort column and order to be used by the next load operation.</summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <returns></returns>
-		public virtual void setDefaultSort(System.String fieldName) { _(fieldName); }
+		public virtual void setDefaultSort(string fieldName) { _(fieldName); }
 
 		/// <summary>Sets the default sort column and order to be used by the next load operation.</summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <param name="dir">(optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")</param>
 		/// <returns></returns>
-		public virtual void setDefaultSort(System.String fieldName, System.String dir) { _(fieldName, dir); }
+		public virtual void setDefaultSort(string fieldName, string dir) { _(fieldName, dir); }
 
 		/// <summary>
 		///     Sort the Records.
@@ -343,7 +343,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <returns></returns>
-		public virtual void sort(System.String fieldName) { _(fieldName); }
+		public virtual void sort(string fieldName) { _(fieldName); }
 
 		/// <summary>
 		///     Sort the Records.
@@ -353,7 +353,7 @@ namespace Ext.data {
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <param name="dir">(optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")</param>
 		/// <returns></returns>
-		public virtual void sort(System.String fieldName, System.String dir) { _(fieldName, dir); }
+		public virtual void sort(string fieldName, string dir) { _(fieldName, dir); }
 
 		/// <summary>
 		///     Calls the specified function for each of the Records in the cache.
@@ -393,20 +393,20 @@ namespace Ext.data {
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <returns>Number</returns>
-		public virtual void sum(System.String property) { _(property); }
+		public virtual void sum(string property) { _(property); }
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <param name="start">The record index to start at (defaults to 0)</param>
 		/// <returns>Number</returns>
-		public virtual void sum(System.String property, double start) { _(property, start); }
+		public virtual void sum(string property, double start) { _(property, start); }
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <param name="start">The record index to start at (defaults to 0)</param>
 		/// <param name="end">The last record index to include (defaults to length - 1)</param>
 		/// <returns>Number</returns>
-		public virtual void sum(System.String property, double start, double end) { _(property, start, end); }
+		public virtual void sum(string property, double start, double end) { _(property, start, end); }
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -421,7 +421,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="field">A field on your records</param>
 		/// <returns></returns>
-		public virtual void filter(System.String field) { _(field); }
+		public virtual void filter(string field) { _(field); }
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -430,37 +430,7 @@ namespace Ext.data {
 		/// <param name="field">A field on your records</param>
 		/// <param name="value">Either a string that the field</param>
 		/// <returns></returns>
-		public virtual void filter(System.String field, System.String value) { _(field, value); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <returns></returns>
-		public virtual void filter(System.String field, System.String value, bool anyMatch) { _(field, value, anyMatch); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
-		/// <returns></returns>
-		public virtual void filter(System.String field, System.String value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <returns></returns>
-		public virtual void filter(System.String field, object value) { _(field, value); }
+		public virtual void filter(string field, string value) { _(field, value); }
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -470,7 +440,7 @@ namespace Ext.data {
 		/// <param name="value">Either a string that the field</param>
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <returns></returns>
-		public virtual void filter(System.String field, object value, bool anyMatch) { _(field, value, anyMatch); }
+		public virtual void filter(string field, string value, bool anyMatch) { _(field, value, anyMatch); }
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -481,7 +451,37 @@ namespace Ext.data {
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
 		/// <returns></returns>
-		public virtual void filter(System.String field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public virtual void filter(string field, string value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <returns></returns>
+		public virtual void filter(string field, object value) { _(field, value); }
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <returns></returns>
+		public virtual void filter(string field, object value, bool anyMatch) { _(field, value, anyMatch); }
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
+		/// <returns></returns>
+		public virtual void filter(string field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
 
 		/// <summary>
 		///     Filter by a function. The specified function will be called for each
@@ -535,7 +535,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="field">A field on your records</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field) { _(field); }
+		public virtual void query(string field) { _(field); }
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -544,37 +544,7 @@ namespace Ext.data {
 		/// <param name="field">A field on your records</param>
 		/// <param name="value">Either a string that the field</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, System.String value) { _(field, value); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, System.String value, bool anyMatch) { _(field, value, anyMatch); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, System.String value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, object value) { _(field, value); }
+		public virtual void query(string field, string value) { _(field, value); }
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -584,7 +554,7 @@ namespace Ext.data {
 		/// <param name="value">Either a string that the field</param>
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, object value, bool anyMatch) { _(field, value, anyMatch); }
+		public virtual void query(string field, string value, bool anyMatch) { _(field, value, anyMatch); }
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -595,7 +565,37 @@ namespace Ext.data {
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(System.String field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public virtual void query(string field, string value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void query(string field, object value) { _(field, value); }
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void query(string field, object value, bool anyMatch) { _(field, value, anyMatch); }
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void query(string field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
 
 		/// <summary>
 		///     Query the cached records in this Store using a filtering function. The specified function
@@ -693,20 +693,20 @@ namespace Ext.data {
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(System.String dataIndex) { _(dataIndex); }
+		public virtual void clearFilter(string dataIndex) { _(dataIndex); }
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <param name="allowNull">(optional) Pass true to allow null, undefined or empty string values</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(System.String dataIndex, bool allowNull) { _(dataIndex, allowNull); }
+		public virtual void clearFilter(string dataIndex, bool allowNull) { _(dataIndex, allowNull); }
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <param name="allowNull">(optional) Pass true to allow null, undefined or empty string values</param>
 		/// <param name="bypassFilter">(optional) Pass true to collect from all records, even ones which are filtered</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(System.String dataIndex, bool allowNull, bool bypassFilter) { _(dataIndex, allowNull, bypassFilter); }
+		public virtual void clearFilter(string dataIndex, bool allowNull, bool bypassFilter) { _(dataIndex, allowNull, bypassFilter); }
 
 		/// <summary>Returns true if this store is currently filtered</summary>
 		/// <returns>Boolean</returns>
@@ -728,39 +728,39 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class StoreConfig : DotWeb.Client.JsAccessible {
+	public class StoreConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> If passed, the id to use to register with the StoreMgr</summary>
-		public System.String storeId { get; set; }
+		public string storeId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> If passed, an HttpProxy is created for the passed URL</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>{Boolean/Object} If passed, this store's load method is automatically called after creation with the autoLoad object</summary>
-		public object autoLoad { get; set; }
+		public object autoLoad { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The Proxy object which provides access to a data object.</summary>
-		public Ext.data.DataProxy proxy { get; set; }
+		public Ext.data.DataProxy proxy { get { return _<Ext.data.DataProxy>(); } set { _(value); } }
 
-		///// <summary> Inline data to be loaded when the store is initialized.</summary>
-		//public System.Array data { get; set; }
+		/// <summary> Inline data to be loaded when the store is initialized.</summary>
+		public System.Array data { get { return _<System.Array>(); } set { _(value); } }
 
 		/// <summary> The DataReader object which processes the data object and returns an Array of Ext.data.Record objects which are cached keyed by their <em>id</em> property.</summary>
-		public Ext.data.DataReader reader { get; set; }
+		public Ext.data.DataReader reader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
 
 		/// <summary> An object containing properties which are to be sent as parameters on any HTTP request</summary>
-		public object baseParams { get; set; }
+		public object baseParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> A config object in the format: {field: "fieldName", direction: "ASC|DESC"}.  The direction property is case-sensitive.</summary>
-		public object sortInfo { get; set; }
+		public object sortInfo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> True if sorting is to be handled by requesting the Proxy to provide a refreshed version of the data object in sorted order, as opposed to sorting the Record cache in place (defaults to false). <p>If remote sorting is specified, then clicking on a column header causes the current page to be requested from the server with the addition of the following two parameters: <div class="mdetail-params"><ul> <li><b>sort</b> : String<p class="sub-desc">The name (as specified in the Record's Field definition) of the field to sort on.</p></li> <li><b>dir</b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li> </ul></div></p></summary>
-		public bool remoteSort { get; set; }
+		public bool remoteSort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to clear all modified record information each time the store is loaded or when a record is removed. (defaults to false).</summary>
-		public bool pruneModifiedRecords { get; set; }
+		public bool pruneModifiedRecords { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 
@@ -877,7 +877,7 @@ namespace Ext.data {
     public delegate void StoreMetachangeDelegate(Ext.data.Store objthis, object meta);
     public delegate void StoreAddDelegate(Ext.data.Store objthis, Ext.data.Record[] records, double index);
     public delegate void StoreRemoveDelegate(Ext.data.Store objthis, Ext.data.Record record, double index);
-    public delegate void StoreUpdateDelegate(Ext.data.Store objthis, Ext.data.Record record, System.String operation);
+    public delegate void StoreUpdateDelegate(Ext.data.Store objthis, Ext.data.Record record, string operation);
     public delegate void StoreClearDelegate(Ext.data.Store objthis);
     public delegate void StoreBeforeloadDelegate(Ext.data.Store objthis, object options);
     public delegate void StoreLoadDelegate(Ext.data.Store objthis, Ext.data.Record[] records, object options);

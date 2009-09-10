@@ -37,7 +37,7 @@ namespace Ext.data {
 	///     }
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\ScriptTagProxy.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\ScriptTagProxy.js</jssource>
 	public class ScriptTagProxy : Ext.data.DataProxy {
 
 		/// <summary></summary>
@@ -59,7 +59,7 @@ namespace Ext.data {
 		public static Ext.data.DataProxy superclass { get { return S_<Ext.data.DataProxy>(); } set { S_(value); } }
 
 		/// <summary>The URL from which to request the data object.</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.</summary>
 		public double timeout { get { return _<double>(); } set { _(value); } }
@@ -69,7 +69,7 @@ namespace Ext.data {
 		///     Defaults to "callback".<p>The server-side processing must read this parameter value, and generate
 		///     javascript output which calls this named function passing the data object as its only parameter.
 		/// </summary>
-		public System.String callbackParam { get { return _<System.String>(); } set { _(value); } }
+		public string callbackParam { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(optional) Defaults to true. Disable caching by adding a unique parametername to the request.</summary>
 		public bool nocache { get { return _<bool>(); } set { _(value); } }
@@ -189,21 +189,21 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class ScriptTagProxyConfig : DotWeb.Client.JsAccessible {
+	public class ScriptTagProxyConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The URL from which to request the data object.</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.</summary>
-		public double timeout { get; set; }
+		public double timeout { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> (Optional) The name of the parameter to pass to the server which tells the server the name of the callback function set up by the load call to process the returned data object. Defaults to "callback".<p>The server-side processing must read this parameter value, and generate javascript output which calls this named function passing the data object as its only parameter.</summary>
-		public System.String callbackParam { get; set; }
+		public string callbackParam { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) Defaults to true. Disable caching by adding a unique parameter name to the request.</summary>
-		public bool nocache { get; set; }
+		public bool nocache { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

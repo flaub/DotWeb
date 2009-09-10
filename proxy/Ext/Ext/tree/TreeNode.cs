@@ -26,7 +26,7 @@ namespace Ext.tree {
 	///     @cfg {Boolean} isTarget False to not allow this node to act as a drop target (defaults to true)
 	///     @cfg {Boolean} allowChildren False to not allow this node to have child nodes (defaults to true)
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeNode.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeNode.js</jssource>
 	public class TreeNode : Ext.data.Node {
 
 		/// <summary></summary>
@@ -39,7 +39,7 @@ namespace Ext.tree {
 		/// <summary></summary>
 		/// <param name="attributes">The attributes/config for the node or just a string with the text for the node</param>
 		/// <returns></returns>
-		public TreeNode(System.String attributes) { C_(attributes); }
+		public TreeNode(string attributes) { C_(attributes); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -52,7 +52,7 @@ namespace Ext.tree {
 		public static Ext.data.Node superclass { get { return S_<Ext.data.Node>(); } set { S_(value); } }
 
 		/// <summary>Read-only. The text for this node. To change it use setText().</summary>
-		public System.String text { get { return _<System.String>(); } set { _(value); } }
+		public string text { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True if this node is disabled.</summary>
 		public bool disabled { get { return _<bool>(); } set { _(value); } }
@@ -80,7 +80,7 @@ namespace Ext.tree {
 		/// <summary>Sets the text for this node</summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public virtual void setText(System.String text) { _(text); }
+		public virtual void setText(string text) { _(text); }
 
 		/// <summary>Triggers selection of this node</summary>
 		/// <returns></returns>
@@ -189,72 +189,72 @@ namespace Ext.tree {
 	}
 
 	[JsAnonymous]
-	public class TreeNodeConfig : DotWeb.Client.JsAccessible {
+	public class TreeNodeConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The text for this node</summary>
-		public System.String text { get; set; }
+		public string text { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> true to start the node expanded</summary>
-		public bool expanded { get; set; }
+		public bool expanded { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> False to make this node undraggable if {@link #draggable} = true (defaults to true)</summary>
-		public bool allowDrag { get; set; }
+		public bool allowDrag { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> False if this node cannot have child nodes dropped on it (defaults to true)</summary>
-		public bool allowDrop { get; set; }
+		public bool allowDrop { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> true to start the node disabled</summary>
-		public bool disabled { get; set; }
+		public bool disabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The path to an icon for the node. The preferred way to do this</summary>
-		public System.String icon { get; set; }
+		public string icon { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A css class to be added to the node</summary>
-		public System.String cls { get; set; }
+		public string cls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A css class to be added to the nodes icon element for applying css background images</summary>
-		public System.String iconCls { get; set; }
+		public string iconCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> URL of the link used for the node (defaults to #)</summary>
-		public System.String href { get; set; }
+		public string href { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> target frame for the link</summary>
-		public System.String hrefTarget { get; set; }
+		public string hrefTarget { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> An Ext QuickTip for the node</summary>
-		public System.String qtip { get; set; }
+		public string qtip { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> If set to true, the node will always show a plus/minus icon, even when empty</summary>
-		public bool expandable { get; set; }
+		public bool expandable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> An Ext QuickTip config for the node (used instead of qtip)</summary>
-		public System.String qtipCfg { get; set; }
+		public string qtipCfg { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True for single click expand on this node</summary>
-		public bool singleClickExpand { get; set; }
+		public bool singleClickExpand { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)</summary>
-		public Delegate uiProvider { get; set; }
+		public Delegate uiProvider { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary> True to render a checked checkbox for this node, false to render an unchecked checkbox</summary>
-		public bool checked_ { get; set; }
+		public bool checked_ { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to make this node draggable (defaults to false)</summary>
-		public bool draggable { get; set; }
+		public bool draggable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> False to not allow this node to act as a drop target (defaults to true)</summary>
-		public bool isTarget { get; set; }
+		public bool isTarget { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> False to not allow this node to have child nodes (defaults to true)</summary>
-		public bool allowChildren { get; set; }
+		public bool allowChildren { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> true if this node is a leaf and does not have children</summary>
-		public bool leaf { get; set; }
+		public bool leaf { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The id for this node. If one is not specified, one is generated.</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 
@@ -381,7 +381,7 @@ namespace Ext.tree {
         public static string beforechildrenrendered { get { return "beforechildrenrendered"; } }
     }
 
-    public delegate void TreeNodeTextchangeDelegate(Ext.data.Node objthis, System.String text, System.String oldText);
+    public delegate void TreeNodeTextchangeDelegate(Ext.data.Node objthis, string text, string oldText);
     public delegate void TreeNodeBeforeexpandDelegate(Ext.data.Node objthis, bool deep, bool anim);
     public delegate void TreeNodeBeforecollapseDelegate(Ext.data.Node objthis, bool deep, bool anim);
     public delegate void TreeNodeExpandDelegate(Ext.data.Node objthis);

@@ -12,7 +12,7 @@ namespace Ext.dd {
 	///     was created to be dragged in place of all DDProxy elements on the
 	///     page.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
 	public class DDProxy : Ext.dd.DD {
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the linked html element</param>
 		/// <returns></returns>
-		public DDProxy(System.String id) { C_(id); }
+		public DDProxy(string id) { C_(id); }
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -35,7 +35,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the linked html element</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DDProxy(System.String id, System.String sGroup) { C_(id, sGroup); }
+		public DDProxy(string id, string sGroup) { C_(id, sGroup); }
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -44,7 +44,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DDProxy(System.String id, System.String sGroup, object config) { C_(id, sGroup, config); }
+		public DDProxy(string id, string sGroup, object config) { C_(id, sGroup, config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -57,7 +57,7 @@ namespace Ext.dd {
 		public static Ext.dd.DD superclass { get { return S_<Ext.dd.DD>(); } set { S_(value); } }
 
 		/// <summary>The default drag frame div id</summary>
-		public static System.String Ext { get { return S_<System.String>(); } set { S_(value); } }
+		public static string Ext { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     By default we resize the drag frame to be the same size as the element

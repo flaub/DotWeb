@@ -17,7 +17,7 @@ namespace Ext.grid {
 	///     ]);
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\RowNumberer.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\RowNumberer.js</jssource>
 	public class RowNumberer : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -36,7 +36,7 @@ namespace Ext.grid {
 		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
 
 		/// <summary>Any valid text or HTML fragment to display in the header cell for the rownumber column (defaults to '').</summary>
-		public System.String header { get { return _<System.String>(); } set { _(value); } }
+		public string header { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The default width in pixels of the row number column (defaults to 23).</summary>
 		public double width { get { return _<double>(); } set { _(value); } }
@@ -50,15 +50,15 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class RowNumbererConfig : DotWeb.Client.JsAccessible {
+	public class RowNumbererConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> Any valid text or HTML fragment to display in the header cell for the row number column (defaults to '').</summary>
-		public System.String header { get; set; }
+		public string header { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The default width in pixels of the row number column (defaults to 23).</summary>
-		public double width { get; set; }
+		public double width { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> True if the row number column is sortable (defaults to false).</summary>
-		public bool sortable { get; set; }
+		public bool sortable { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

@@ -67,7 +67,7 @@ namespace Ext.layout {
 	///     */
 	///     Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\layout\CardLayout.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\layout\CardLayout.js</jssource>
 	public class CardLayout : Ext.layout.FitLayout {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -100,7 +100,7 @@ namespace Ext.layout {
 		/// <summary>Sets the active (visible) item in the layout.</summary>
 		/// <param name="item">The string component id or numeric index of the item to activate</param>
 		/// <returns></returns>
-		public virtual void setActiveItem(System.String item) { _(item); }
+		public virtual void setActiveItem(string item) { _(item); }
 
 		/// <summary>Sets the active (visible) item in the layout.</summary>
 		/// <param name="item">The string component id or numeric index of the item to activate</param>
@@ -112,15 +112,15 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class CardLayoutConfig : DotWeb.Client.JsAccessible {
+	public class CardLayoutConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  True to render each contained item at the time it becomes active, false to render all contained items as soon as the layout is rendered (defaults to false).  If there is a significant amount of content or a lot of heavy controls being rendered into panels that are not displayed by default, setting this to true might improve performance.</summary>
-		public bool deferredRender { get; set; }
+		public bool deferredRender { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String extraCls { get; set; }
+		public string extraCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get; set; }
+		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

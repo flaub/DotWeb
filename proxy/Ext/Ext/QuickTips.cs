@@ -69,7 +69,7 @@ namespace Ext {
 	///     */
 	///     Ext.QuickTips = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tips\QuickTips.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tips\QuickTips.js</jssource>
 	public class QuickTips : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -131,7 +131,7 @@ namespace Ext {
 		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
 		/// <param name="el">The element from which the quick tip is to be removed.</param>
 		/// <returns></returns>
-		public static void unregister(System.String el) { S_(el); }
+		public static void unregister(string el) { S_(el); }
 
 		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
 		/// <param name="el">The element from which the quick tip is to be removed.</param>

@@ -15,7 +15,7 @@ namespace Ext.data {
 	///     Be aware that to enable the browser to parse an XML document, the server must set
 	///     the Content-Type header in the HTTP response to "text/xml".
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\HttpProxy.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\HttpProxy.js</jssource>
 	public class HttpProxy : Ext.data.DataProxy {
 
 		/// <summary>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</summary>
@@ -160,9 +160,9 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class HttpProxyConfig : DotWeb.Client.JsAccessible {
+	public class HttpProxyConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

@@ -44,7 +44,7 @@ namespace Ext {
 	///     action.setText('Something else');
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Action.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Action.js</jssource>
 	public class Action : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -63,10 +63,10 @@ namespace Ext {
 		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
 
 		/// <summary>The text to set for all components using this action (defaults to '').</summary>
-		public System.String text { get { return _<System.String>(); } set { _(value); } }
+		public string text { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The icon CSS class for all components using this action (defaults to '').The class should supply a background image that will be used as the icon image.</summary>
-		public System.String iconCls { get { return _<System.String>(); } set { _(value); } }
+		public string iconCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True to disable all components using this action, false to enable them (defaults to false).</summary>
 		public bool disabled { get { return _<bool>(); } set { _(value); } }
@@ -88,7 +88,7 @@ namespace Ext {
 		/// <summary>Sets the text to be displayed by all components using this action.</summary>
 		/// <param name="text">The text to display</param>
 		/// <returns></returns>
-		public virtual void setText(System.String text) { _(text); }
+		public virtual void setText(string text) { _(text); }
 
 		/// <summary>Gets the text currently displayed by all components using this action.</summary>
 		/// <returns></returns>
@@ -107,7 +107,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="cls">The CSS class supplying the icon image</param>
 		/// <returns></returns>
-		public virtual void setIconClass(System.String cls) { _(cls); }
+		public virtual void setIconClass(string cls) { _(cls); }
 
 		/// <summary>Gets the icon CSS class currently used by all components using this action.</summary>
 		/// <returns></returns>
@@ -241,24 +241,24 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class ActionConfig : DotWeb.Client.JsAccessible {
+	public class ActionConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The text to set for all components using this action (defaults to '').</summary>
-		public System.String text { get; set; }
+		public string text { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The icon CSS class for all components using this action (defaults to ''). The class should supply a background image that will be used as the icon image.</summary>
-		public System.String iconCls { get; set; }
+		public string iconCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True to disable all components using this action, false to enable them (defaults to false).</summary>
-		public bool disabled { get; set; }
+		public bool disabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to hide all components using this action, false to show them (defaults to false).</summary>
-		public bool hidden { get; set; }
+		public bool hidden { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The function that will be invoked by each component tied to this action when the component's primary event is triggered (defaults to undefined).</summary>
-		public Delegate handler { get; set; }
+		public Delegate handler { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary> The scope in which the {@link #handler} function will execute.</summary>
-		public object scope { get; set; }
+		public object scope { get { return _<object>(); } set { _(value); } }
 
 	}
 }

@@ -8,7 +8,7 @@ namespace Ext.menu {
 	///     */
 	///     Ext.menu.MenuMgr = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\menu\MenuMgr.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\menu\MenuMgr.js</jssource>
 	public class MenuMgr : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -40,7 +40,7 @@ namespace Ext.menu {
 		/// </summary>
 		/// <param name="menu">The string menu id, an existing menu object reference, or a Menu config that will</param>
 		/// <returns>Ext.menu.Menu</returns>
-		public static void get(System.String menu) { S_(menu); }
+		public static void get(string menu) { S_(menu); }
 
 		/// <summary>
 		///     Returns a {@link Ext.menu.Menu} object

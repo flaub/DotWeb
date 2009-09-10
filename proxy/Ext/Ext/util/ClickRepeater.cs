@@ -22,7 +22,7 @@ namespace Ext.util {
 	///     2007-02-02 jvs Renamed to ClickRepeater
 	///     2007-02-03 jvs Modifications for FF Mac and Safari
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\ClickRepeater.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\ClickRepeater.js</jssource>
 	public class ClickRepeater : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -54,30 +54,30 @@ namespace Ext.util {
 	}
 
 	[JsAnonymous]
-	public class ClickRepeaterConfig : DotWeb.Client.JsAccessible {
+	public class ClickRepeaterConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The element to act as a button.</summary>
-		public object el { get; set; }
+		public object el { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The initial delay before the repeating event begins firing.</summary>
-		public double delay { get; set; }
+		public double delay { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The interval between firings of the "click" event. Default 20 ms.</summary>
-		public double interval { get; set; }
+		public double interval { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> A CSS class name to be applied to the element while pressed.</summary>
-		public System.String pressClass { get; set; }
+		public string pressClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True if autorepeating should start slowly and accelerate.</summary>
-		public bool accelerate { get; set; }
+		public bool accelerate { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to prevent the default click event</summary>
-		public bool preventDefault { get; set; }
+		public bool preventDefault { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to stop the default click event</summary>
-		public bool stopDefault { get; set; }
+		public bool stopDefault { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

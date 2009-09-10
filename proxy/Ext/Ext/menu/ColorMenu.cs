@@ -6,7 +6,7 @@ namespace Ext.menu {
 	///     /**
 	///     A menu containing a {@link Ext.menu.ColorItem} component (which provides a basic color picker).
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\menu\ColorMenu.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\menu\ColorMenu.js</jssource>
 	public class ColorMenu : Ext.menu.Menu {
 
 		/// <summary>Creates a new ColorMenu</summary>
@@ -36,33 +36,33 @@ namespace Ext.menu {
 	}
 
 	[JsAnonymous]
-	public class ColorMenuConfig : DotWeb.Client.JsAccessible {
+	public class ColorMenuConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  A config object that will be applied to all items added to this container either via the {@link #items} config or via the {@link #add} method.  The defaults config can contain any number of name/value property pairs to be added to each item, and should be valid for the types of items being added to the menu.</summary>
-		public object defaults { get; set; }
+		public object defaults { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  An array of items to be added to this menu.  See {@link #add} for a list of valid item types.</summary>
-		public object items { get; set; }
+		public object items { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The minimum width of the menu in pixels (defaults to 120)</summary>
-		public double minWidth { get; set; }
+		public double minWidth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>{Boolean/String} True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right shadow (defaults to "sides")</summary>
-		public object shadow { get; set; }
+		public object shadow { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The {@link Ext.Element#alignTo} anchor position value to use for submenus of this menu (defaults to "tl-tr?")</summary>
-		public System.String subMenuAlign { get; set; }
+		public string subMenuAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The default {@link Ext.Element#alignTo} anchor position value for this menu relative to its element of origin (defaults to "tl-bl?")</summary>
-		public System.String defaultAlign { get; set; }
+		public string defaultAlign { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True to allow multiple menus to be displayed at the same time (defaults to false)</summary>
-		public bool allowOtherMenus { get; set; }
+		public bool allowOtherMenus { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to ignore clicks on any item in this menu that is a parent item (displays a submenu) so that the submenu is not dismissed when clicking the parent item (defaults to false).</summary>
-		public bool ignoreParentClicks { get; set; }
+		public bool ignoreParentClicks { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 
@@ -79,5 +79,5 @@ namespace Ext.menu {
         public static string select { get { return "select"; } }
     }
 
-    public delegate void ColorMenuSelectDelegate(ColorPalette palette, System.String color);
+    public delegate void ColorMenuSelectDelegate(ColorPalette palette, string color);
 }

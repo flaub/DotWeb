@@ -18,7 +18,7 @@ namespace Ext.tree {
 	///     });
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeSorter.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeSorter.js</jssource>
 	public class TreeSorter : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -45,13 +45,13 @@ namespace Ext.tree {
 		public bool folderSort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>The named attribute on the node to sort by (defaults to "text").  Note that thisproperty is only used if no {@link #sortType} function is specified, otherwise it is ignored.</summary>
-		public System.String property { get { return _<System.String>(); } set { _(value); } }
+		public string property { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The direction to sort ("asc" or "desc," case-insensitive, defaults to "asc")</summary>
-		public System.String dir { get { return _<System.String>(); } set { _(value); } }
+		public string dir { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The attribute used to determine leaf nodes when {@link #folderSort} = true (defaults to "leaf")</summary>
-		public System.String leafAttr { get { return _<System.String>(); } set { _(value); } }
+		public string leafAttr { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>true for case-sensitive sort (defaults to false)</summary>
 		public bool caseSensitive { get { return _<bool>(); } set { _(value); } }
@@ -70,24 +70,24 @@ namespace Ext.tree {
 	}
 
 	[JsAnonymous]
-	public class TreeSorterConfig : DotWeb.Client.JsAccessible {
+	public class TreeSorterConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> True to sort leaf nodes under non-leaf nodes (defaults to false)</summary>
-		public bool folderSort { get; set; }
+		public bool folderSort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The named attribute on the node to sort by (defaults to "text").  Note that this property is only used if no {@link #sortType} function is specified, otherwise it is ignored.</summary>
-		public System.String property { get; set; }
+		public string property { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The direction to sort ("asc" or "desc," case-insensitive, defaults to "asc")</summary>
-		public System.String dir { get; set; }
+		public string dir { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The attribute used to determine leaf nodes when {@link #folderSort} = true (defaults to "leaf")</summary>
-		public System.String leafAttr { get; set; }
+		public string leafAttr { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> true for case-sensitive sort (defaults to false)</summary>
-		public bool caseSensitive { get; set; }
+		public bool caseSensitive { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A custom "casting" function used to convert node values before sorting.  The function will be called with a single parameter (the {@link Ext.tree.TreeNode} being evaluated) and is expected to return the node's sort value cast to the specific data type required for sorting.  This could be used, for example, when a node's text (or other attribute) should be sorted as a date or numeric value.  See the class description for example usage.  Note that if a sortType is specified, any {@link #property} config will be ignored.</summary>
-		public Delegate sortType { get; set; }
+		public Delegate sortType { get { return _<Delegate>(); } set { _(value); } }
 
 	}
 }

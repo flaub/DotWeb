@@ -8,7 +8,7 @@ namespace Ext.util {
 	///     */
 	///     Ext.util.Format = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\Format.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\Format.js</jssource>
 	public class Format : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -30,13 +30,13 @@ namespace Ext.util {
 		/// <summary>Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length</summary>
 		/// <param name="value">The string to truncate</param>
 		/// <returns>String</returns>
-		public static void ellipsis(System.String value) { S_(value); }
+		public static void ellipsis(string value) { S_(value); }
 
 		/// <summary>Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length</summary>
 		/// <param name="value">The string to truncate</param>
 		/// <param name="length">The maximum length to allow before truncating</param>
 		/// <returns>String</returns>
-		public static void ellipsis(System.String value, double length) { S_(value, length); }
+		public static void ellipsis(string value, double length) { S_(value, length); }
 
 		/// <summary>Checks a reference and converts it to empty string if it is undefined</summary>
 		/// <returns>Mixed</returns>
@@ -60,7 +60,7 @@ namespace Ext.util {
 		/// <param name="value">Reference to check</param>
 		/// <param name="defaultValue">The value to insert of it's undefined (defaults to "")</param>
 		/// <returns>String</returns>
-		public static void defaultValue(object value, System.String defaultValue) { S_(value, defaultValue); }
+		public static void defaultValue(object value, string defaultValue) { S_(value, defaultValue); }
 
 		/// <summary>Convert certain characters (&, <, >, and ') to their HTML character equivalents for literal display in web pages.</summary>
 		/// <returns>String</returns>
@@ -69,7 +69,7 @@ namespace Ext.util {
 		/// <summary>Convert certain characters (&, <, >, and ') to their HTML character equivalents for literal display in web pages.</summary>
 		/// <param name="value">The string to encode</param>
 		/// <returns>String</returns>
-		public static void htmlEncode(System.String value) { S_(value); }
+		public static void htmlEncode(string value) { S_(value); }
 
 		/// <summary>Convert certain characters (&, <, >, and ') from their HTML character equivalents.</summary>
 		/// <returns>String</returns>
@@ -78,7 +78,7 @@ namespace Ext.util {
 		/// <summary>Convert certain characters (&, <, >, and ') from their HTML character equivalents.</summary>
 		/// <param name="value">The string to decode</param>
 		/// <returns>String</returns>
-		public static void htmlDecode(System.String value) { S_(value); }
+		public static void htmlDecode(string value) { S_(value); }
 
 		/// <summary>Trims any whitespace from either side of a string</summary>
 		/// <returns>String</returns>
@@ -87,7 +87,7 @@ namespace Ext.util {
 		/// <summary>Trims any whitespace from either side of a string</summary>
 		/// <param name="value">The text to trim</param>
 		/// <returns>String</returns>
-		public static void trim(System.String value) { S_(value); }
+		public static void trim(string value) { S_(value); }
 
 		/// <summary>Returns a substring from within an original string</summary>
 		/// <returns>String</returns>
@@ -96,20 +96,20 @@ namespace Ext.util {
 		/// <summary>Returns a substring from within an original string</summary>
 		/// <param name="value">The original text</param>
 		/// <returns>String</returns>
-		public static void substr(System.String value) { S_(value); }
+		public static void substr(string value) { S_(value); }
 
 		/// <summary>Returns a substring from within an original string</summary>
 		/// <param name="value">The original text</param>
 		/// <param name="start">The start index of the substring</param>
 		/// <returns>String</returns>
-		public static void substr(System.String value, double start) { S_(value, start); }
+		public static void substr(string value, double start) { S_(value, start); }
 
 		/// <summary>Returns a substring from within an original string</summary>
 		/// <param name="value">The original text</param>
 		/// <param name="start">The start index of the substring</param>
 		/// <param name="length">The length of the substring</param>
 		/// <returns>String</returns>
-		public static void substr(System.String value, double start, double length) { S_(value, start, length); }
+		public static void substr(string value, double start, double length) { S_(value, start, length); }
 
 		/// <summary>Converts a string to all lower case letters</summary>
 		/// <returns>String</returns>
@@ -118,7 +118,7 @@ namespace Ext.util {
 		/// <summary>Converts a string to all lower case letters</summary>
 		/// <param name="value">The text to convert</param>
 		/// <returns>String</returns>
-		public static void lowercase(System.String value) { S_(value); }
+		public static void lowercase(string value) { S_(value); }
 
 		/// <summary>Converts a string to all upper case letters</summary>
 		/// <returns>String</returns>
@@ -127,7 +127,7 @@ namespace Ext.util {
 		/// <summary>Converts a string to all upper case letters</summary>
 		/// <param name="value">The text to convert</param>
 		/// <returns>String</returns>
-		public static void uppercase(System.String value) { S_(value); }
+		public static void uppercase(string value) { S_(value); }
 
 		/// <summary>Converts the first character only of a string to upper case</summary>
 		/// <returns>String</returns>
@@ -136,7 +136,7 @@ namespace Ext.util {
 		/// <summary>Converts the first character only of a string to upper case</summary>
 		/// <param name="value">The text to convert</param>
 		/// <returns>String</returns>
-		public static void capitalize(System.String value) { S_(value); }
+		public static void capitalize(string value) { S_(value); }
 
 		/// <summary>Format a number as US currency</summary>
 		/// <returns>String</returns>
@@ -150,7 +150,7 @@ namespace Ext.util {
 		/// <summary>Format a number as US currency</summary>
 		/// <param name="value">The numeric value to format</param>
 		/// <returns>String</returns>
-		public static void usMoney(System.String value) { S_(value); }
+		public static void usMoney(string value) { S_(value); }
 
 		/// <summary>Parse a value into a formatted date using the specified format pattern.</summary>
 		/// <returns>String</returns>
@@ -159,13 +159,13 @@ namespace Ext.util {
 		/// <summary>Parse a value into a formatted date using the specified format pattern.</summary>
 		/// <param name="value">The value to format (Strings must conform to the format expected by the javascript Date object's <a href="http://www.w3schools.com/jsref/jsref_parse.asp">parse()</a> method)</param>
 		/// <returns>String</returns>
-		public static void date(System.String value) { S_(value); }
+		public static void date(string value) { S_(value); }
 
 		/// <summary>Parse a value into a formatted date using the specified format pattern.</summary>
 		/// <param name="value">The value to format (Strings must conform to the format expected by the javascript Date object's <a href="http://www.w3schools.com/jsref/jsref_parse.asp">parse()</a> method)</param>
 		/// <param name="format">(optional) Any valid date format string (defaults to 'm/d/Y')</param>
 		/// <returns>String</returns>
-		public static void date(System.String value, System.String format) { S_(value, format); }
+		public static void date(string value, string format) { S_(value, format); }
 
 		/// <summary>Parse a value into a formatted date using the specified format pattern.</summary>
 		/// <param name="value">The value to format (Strings must conform to the format expected by the javascript Date object's <a href="http://www.w3schools.com/jsref/jsref_parse.asp">parse()</a> method)</param>
@@ -176,7 +176,7 @@ namespace Ext.util {
 		/// <param name="value">The value to format (Strings must conform to the format expected by the javascript Date object's <a href="http://www.w3schools.com/jsref/jsref_parse.asp">parse()</a> method)</param>
 		/// <param name="format">(optional) Any valid date format string (defaults to 'm/d/Y')</param>
 		/// <returns>String</returns>
-		public static void date(System.DateTime value, System.String format) { S_(value, format); }
+		public static void date(System.DateTime value, string format) { S_(value, format); }
 
 		/// <summary>Returns a date rendering function that can be reused to apply a date format multiple times efficiently</summary>
 		/// <returns>Function</returns>
@@ -185,7 +185,7 @@ namespace Ext.util {
 		/// <summary>Returns a date rendering function that can be reused to apply a date format multiple times efficiently</summary>
 		/// <param name="format">Any valid date format string</param>
 		/// <returns>Function</returns>
-		public static void dateRenderer(System.String format) { S_(format); }
+		public static void dateRenderer(string format) { S_(format); }
 
 		/// <summary>Strips all HTML tags</summary>
 		/// <returns>String</returns>
@@ -217,7 +217,7 @@ namespace Ext.util {
 		/// <summary>Simple format for a file size (xxx bytes, xxx KB, xxx MB)</summary>
 		/// <param name="size">The numeric value to format</param>
 		/// <returns>String</returns>
-		public static void fileSize(System.String size) { S_(size); }
+		public static void fileSize(string size) { S_(size); }
 
 
 

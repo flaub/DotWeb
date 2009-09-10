@@ -22,7 +22,7 @@ namespace Ext.state {
 	///     domain the page is running on including the 'www' like 'www.extjs.com')
 	///     @cfg {Boolean} secure True if the site is using SSL (defaults to false)
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\state\CookieProvider.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\state\CookieProvider.js</jssource>
 	public class CookieProvider : Ext.state.Provider {
 
 		/// <summary>Create a new CookieProvider</summary>
@@ -49,18 +49,18 @@ namespace Ext.state {
 	}
 
 	[JsAnonymous]
-	public class CookieProviderConfig : DotWeb.Client.JsAccessible {
+	public class CookieProviderConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The path for which the cookie is active (defaults to root '/' which makes it active for all pages in the site)</summary>
-		public System.String path { get; set; }
+		public string path { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The cookie expiration date (defaults to 7 days from now)</summary>
-		public System.DateTime expires { get; set; }
+		public System.DateTime expires { get { return _<System.DateTime>(); } set { _(value); } }
 
 		/// <summary> The domain to save the cookie for.  Note that you cannot specify a different domain than</summary>
-		public System.String domain { get; set; }
+		public string domain { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True if the site is using SSL (defaults to false)</summary>
-		public bool secure { get; set; }
+		public bool secure { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

@@ -66,7 +66,7 @@ namespace Ext {
 	///     trigger          Ext.form.TriggerField
 	///     </pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Component.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Component.js</jssource>
 	public class Component : Ext.util.Observable {
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="config">The configuration options.  If an element is passed, it is set as the internal</param>
 		/// <returns></returns>
-		public Component(System.String config) { C_(config); }
+		public Component(string config) { C_(config); }
 		/// <summary>
 		///     element and its id used as the component id.  If a string is passed, it is assumed to be the id of an existing element
 		///     and is used as the component id.  Otherwise, it is assumed to be a standard config object and is applied to the component.
@@ -111,7 +111,7 @@ namespace Ext {
 		public object initialConfig { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>The unique id of this component (defaults to an auto-assigned id).</summary>
-		public System.String id { get { return _<System.String>(); } set { _(value); } }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     A tag name or DomHelper spec to create an element with. This is intended to create shorthand
@@ -137,32 +137,32 @@ namespace Ext {
 		///     them using {@link Ext.ComponentMgr#registerType} in order to be able to
 		///     take advantage of lazy instantiation and rendering.
 		/// </summary>
-		public System.String xtype { get { return _<System.String>(); } set { _(value); } }
+		public string xtype { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     An optional extra CSS class that will be added to this component's Element (defaults to '').  This can be
 		///     useful for adding customized styles to the component or any of its children using standard CSS rules.
 		/// </summary>
-		public System.String cls { get { return _<System.String>(); } set { _(value); } }
+		public string cls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     An optional extra CSS class that will be added to this component's Element when the mouse moves
 		///     over the Element, and removed when the mouse moves out. (defaults to '').  This can be
 		///     useful for adding customized "active" or "hover" styles to the component or any of its children using standard CSS rules.
 		/// </summary>
-		public System.String overCls { get { return _<System.String>(); } set { _(value); } }
+		public string overCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     A custom style specification to be applied to this component's Element.  Should be a valid argument to
 		///     {@link Ext.Element#applyStyles}.
 		/// </summary>
-		public System.String style { get { return _<System.String>(); } set { _(value); } }
+		public string style { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     An optional extra CSS class that will be added to this component's container (defaults to '').  This can be
 		///     useful for adding customized styles to the container or any of its children using standard CSS rules.
 		/// </summary>
-		public System.String ctCls { get { return _<System.String>(); } set { _(value); } }
+		public string ctCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Render this component disabled (default is false).</summary>
 		public bool disabled { get { return _<bool>(); } set { _(value); } }
@@ -217,10 +217,10 @@ namespace Ext {
 		///     The unique id for this component to use for state management purposes (defaults to the component id).
 		///     <p>See {@link #stateful} for an explanation of saving and restoring Component state.</p>
 		/// </summary>
-		public System.String stateId { get { return _<System.String>(); } set { _(value); } }
+		public string stateId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>CSS class added to the component when it is disabled (defaults to "x-item-disabled").</summary>
-		public System.String disabledClass { get { return _<System.String>(); } set { _(value); } }
+		public string disabledClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Whether the component can move the Dom node when rendering (defaults to true).</summary>
 		public bool allowDomMove { get { return _<bool>(); } set { _(value); } }
@@ -235,7 +235,7 @@ namespace Ext {
 		///     How this component should hidden. Supported values are "visibility" (css visibility), "offsets" (negative
 		///     offset position) and "display" (css display) - defaults to "display".
 		/// </summary>
-		public System.String hideMode { get { return _<System.String>(); } set { _(value); } }
+		public string hideMode { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     True to hide and show the component's container when hide/show is called on the component, false to hide
@@ -336,7 +336,7 @@ namespace Ext {
 		/// <param name="container">(optional) The element this Component should be</param>
 		/// <param name="position">(optional) The element ID or DOM node index within the container <b>before</b></param>
 		/// <returns></returns>
-		public virtual void render(Element container, System.String position) { _(container, position); }
+		public virtual void render(Element container, string position) { _(container, position); }
 
 		/// <summary>
 		///     <p>Render this Components into the passed HTML element.</p>
@@ -393,7 +393,7 @@ namespace Ext {
 		/// <param name="container">(optional) The element this Component should be</param>
 		/// <param name="position">(optional) The element ID or DOM node index within the container <b>before</b></param>
 		/// <returns></returns>
-		public virtual void render(DOMElement container, System.String position) { _(container, position); }
+		public virtual void render(DOMElement container, string position) { _(container, position); }
 
 		/// <summary>
 		///     <p>Render this Components into the passed HTML element.</p>
@@ -421,7 +421,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="container">(optional) The element this Component should be</param>
 		/// <returns></returns>
-		public virtual void render(System.String container) { _(container); }
+		public virtual void render(string container) { _(container); }
 
 		/// <summary>
 		///     <p>Render this Components into the passed HTML element.</p>
@@ -450,7 +450,7 @@ namespace Ext {
 		/// <param name="container">(optional) The element this Component should be</param>
 		/// <param name="position">(optional) The element ID or DOM node index within the container <b>before</b></param>
 		/// <returns></returns>
-		public virtual void render(System.String container, System.String position) { _(container, position); }
+		public virtual void render(string container, string position) { _(container, position); }
 
 		/// <summary>
 		///     <p>Render this Components into the passed HTML element.</p>
@@ -537,7 +537,7 @@ namespace Ext {
 		/// <param name="container">(optional) The element this Component should be</param>
 		/// <param name="position">(optional) The element ID or DOM node index within the container <b>before</b></param>
 		/// <returns></returns>
-		public virtual void render(System.String container, double position) { _(container, position); }
+		public virtual void render(string container, double position) { _(container, position); }
 
 		/// <summary>Apply this component to existing markup that is valid. With this function, no call to render() is required.</summary>
 		/// <returns></returns>
@@ -546,7 +546,7 @@ namespace Ext {
 		/// <summary>Apply this component to existing markup that is valid. With this function, no call to render() is required.</summary>
 		/// <param name="el"></param>
 		/// <returns></returns>
-		public virtual void applyToMarkup(System.String el) { _(el); }
+		public virtual void applyToMarkup(string el) { _(el); }
 
 		/// <summary>Apply this component to existing markup that is valid. With this function, no call to render() is required.</summary>
 		/// <param name="el"></param>
@@ -712,7 +712,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="xtype">The xtype to check for this Component</param>
 		/// <returns></returns>
-		public virtual void isXType(System.String xtype) { _(xtype); }
+		public virtual void isXType(string xtype) { _(xtype); }
 
 		/// <summary>
 		///     <p>Tests whether or not this Component is of a specific xtype. This can test whether this Component is descended
@@ -732,7 +732,7 @@ namespace Ext {
 		/// <param name="xtype">The xtype to check for this Component</param>
 		/// <param name="shallow">(optional) False to check whether this Component is descended from the xtype (this is</param>
 		/// <returns></returns>
-		public virtual void isXType(System.String xtype, bool shallow) { _(xtype, shallow); }
+		public virtual void isXType(string xtype, bool shallow) { _(xtype, shallow); }
 
 		/// <summary>
 		///     <p>Returns this Component's xtype hierarchy as a slash-delimited string. For a list of all
@@ -779,7 +779,7 @@ namespace Ext {
 		/// <summary>Find a container above this component at any level by xtype or class</summary>
 		/// <param name="xtype">The xtype string for a component, or the class of the component directly</param>
 		/// <returns>Container</returns>
-		public virtual void findParentByType(System.String xtype) { _(xtype); }
+		public virtual void findParentByType(string xtype) { _(xtype); }
 
 		/// <summary>Find a container above this component at any level by xtype or class</summary>
 		/// <param name="xtype">The xtype string for a component, or the class of the component directly</param>
@@ -791,70 +791,70 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class ComponentConfig : DotWeb.Client.JsAccessible {
+	public class ComponentConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> 
 		///     The registered xtype to create. This config option is not used when passing a config object into a constructor. This config option is used only when lazy instantiation is being used, and a child item of a Container is being specified not as a fully instantiated Component, but as a Component config object. The xtype will be looked up at render time up to determine what type of child Component to create.
 		///     The predefined xtypes are listed at the top of this document.
 		///     If you subclass Components to create your own Components, you may register them using Ext.ComponentMgr.registerType in order to be able to take advantage of lazy instantiation and rendering.
 		/// </summary>
-		public string xtype { get; set; }
+		public string xtype { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The unique id of this component (defaults to an auto-assigned id).</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>{String/Object}  A tag name or DomHelper spec to create an element with. This is intended to create shorthand utility components inline via JSON. It should not be used for higher level components which already create their own elements. Example usage: <pre><code> {xtype:'box', autoEl: 'div', cls:'my-class'} {xtype:'box', autoEl: {tag:'blockquote', html:'autoEl is cool!'}} // with DomHelper </code></pre></summary>
-		public object autoEl { get; set; }
+		public object autoEl { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's Element (defaults to '').  This can be useful for adding customized styles to the component or any of its children using standard CSS rules.</summary>
-		public System.String cls { get; set; }
+		public string cls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's Element when the mouse moves over the Element, and removed when the mouse moves out. (defaults to '').  This can be useful for adding customized "active" or "hover" styles to the component or any of its children using standard CSS rules.</summary>
-		public System.String overCls { get; set; }
+		public string overCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A custom style specification to be applied to this component's Element.  Should be a valid argument to {@link Ext.Element#applyStyles}.</summary>
-		public System.String style { get; set; }
+		public string style { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String ctCls { get; set; }
+		public string ctCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Render this component disabled (default is false).</summary>
-		public bool disabled { get; set; }
+		public bool disabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  Render this component hidden (default is false).</summary>
-		public bool hidden { get; set; }
+		public bool hidden { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>{Object/Array}  An object or array of objects that will provide custom functionality for this component.  The only requirement for a valid plugin is that it contain an init method that accepts a reference of type Ext.Component. When a component is created, if any plugins are available, the component will call the init method on each plugin, passing a reference to itself.  Each plugin can then call methods or respond to events on the component as needed to provide its functionality.</summary>
-		public object plugins { get; set; }
+		public object plugins { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  The id of the node, a DOM node or an existing Element corresponding to a DIV that is already present in the document that specifies some structural markup for this component.  When applyTo is used, constituent parts of the component can also be specified by id or CSS class name within the main element, and the component being created may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is not required.  If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target element's parent node will automatically be used as the component's container.</summary>
-		public object applyTo { get; set; }
+		public object applyTo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  The id of the node, a DOM node or an existing Element that will be the container to render this component into. Using this config, a call to render() is not required.</summary>
-		public object renderTo { get; set; }
+		public object renderTo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  A flag which causes the Component to attempt to restore the state of internal properties from a saved state on startup.<p> For state saving to work, the state manager's provider must have been set to an implementation of {@link Ext.state.Provider} which overrides the {@link Ext.state.Provider#set set} and {@link Ext.state.Provider#get get} methods to save and recall name/value pairs. A built-in implementation, {@link Ext.state.CookieProvider} is available.</p> <p>To set the state provider for the current page:</p> <pre><code> Ext.state.Manager.setProvider(new Ext.state.CookieProvider()); </code></pre> <p>Components attempt to save state when one of the events listed in the {@link #stateEvents} configuration fires.</p> <p>You can perform extra processing on state save and restore by attaching handlers to the {@link #beforestaterestore}, {@link staterestore}, {@link beforestatesave} and {@link statesave} events</p></summary>
-		public bool stateful { get; set; }
+		public bool stateful { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  The unique id for this component to use for state management purposes (defaults to the component id). <p>See {@link #stateful} for an explanation of saving and restoring Component state.</p></summary>
-		public System.String stateId { get; set; }
+		public string stateId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  CSS class added to the component when it is disabled (defaults to "x-item-disabled").</summary>
-		public System.String disabledClass { get; set; }
+		public string disabledClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Whether the component can move the Dom node when rendering (defaults to true).</summary>
-		public bool allowDomMove { get; set; }
+		public bool allowDomMove { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True if the component should check for hidden classes (e.g. 'x-hidden' or 'x-hide-display') and remove them on render (defaults to false).</summary>
-		public bool autoShow { get; set; }
+		public bool autoShow { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  How this component should hidden. Supported values are "visibility" (css visibility), "offsets" (negative offset position) and "display" (css display) - defaults to "display".</summary>
-		public System.String hideMode { get; set; }
+		public string hideMode { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide and show the component's container when hide/show is called on the component, false to hide and show the component itself (defaults to false).  For example, this can be used as a shortcut for a hide button on a window by setting hide:true on the button when adding it to its parent container.</summary>
-		public bool hideParent { get; set; }
+		public bool hideParent { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

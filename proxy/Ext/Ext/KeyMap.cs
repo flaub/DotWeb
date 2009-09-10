@@ -42,7 +42,7 @@ namespace Ext {
 	///     </code></pre>
 	///     <b>Note: A KeyMap starts enabled</b>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\KeyMap.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\KeyMap.js</jssource>
 	public class KeyMap : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -62,7 +62,7 @@ namespace Ext {
 		/// <param name="config">The config (see {@link #addBinding})</param>
 		/// <param name="eventName">(optional) The event to bind to (defaults to "keydown")</param>
 		/// <returns></returns>
-		public KeyMap(object el, object config, System.String eventName) { C_(el, config, eventName); }
+		public KeyMap(object el, object config, string eventName) { C_(el, config, eventName); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>

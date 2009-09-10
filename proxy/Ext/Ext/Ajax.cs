@@ -31,7 +31,7 @@ namespace Ext {
 	///     */
 	///     Ext.Ajax = new Ext.data.Connection({
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\Connection.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\Connection.js</jssource>
 	public class Ajax : Ext.data.Connection {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -56,7 +56,7 @@ namespace Ext {
 		public static bool disableCaching { get { return S_<bool>(); } set { S_(value); } }
 
 		/// <summary>The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public static System.String url { get { return S_<System.String>(); } set { S_(value); } }
+		public static string url { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     An object containing properties which are used as
@@ -71,7 +71,7 @@ namespace Ext {
 		///     The default HTTP method to be used for requests. Note that this is case-sensitive and should be all caps (defaults
 		///     to undefined; if not set but parms are present will use "POST," otherwise "GET.")
 		/// </summary>
-		public static System.String method { get { return S_<System.String>(); } set { S_(value); } }
+		public static string method { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
 		public static double timeout { get { return S_<double>(); } set { S_(value); } }
@@ -87,7 +87,7 @@ namespace Ext {
 		/// <summary>Serialize the passed form into a url encoded string</summary>
 		/// <param name="form"></param>
 		/// <returns>String</returns>
-		public static void serializeForm(System.String form) { S_(form); }
+		public static void serializeForm(string form) { S_(form); }
 
 		/// <summary>Serialize the passed form into a url encoded string</summary>
 		/// <param name="form"></param>
@@ -99,33 +99,33 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class AjaxConfig : DotWeb.Client.JsAccessible {
+	public class AjaxConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> (Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (Optional) An object containing properties which are used as extra parameters to each request made by this object. (defaults to undefined)</summary>
-		public object extraParams { get; set; }
+		public object extraParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (Optional) An object containing request headers which are added to each request made by this object. (defaults to undefined)</summary>
-		public object defaultHeaders { get; set; }
+		public object defaultHeaders { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (Optional) The default HTTP method to be used for requests. (defaults to undefined; if not set, but {@link #request} params are present, POST will be used; otherwise, GET will be used.)</summary>
-		public System.String method { get; set; }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public double timeout { get; set; }
+		public double timeout { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> (Optional) Whether this request should abort any pending requests. (defaults to false) @type Boolean</summary>
-		public bool autoAbort { get; set; }
+		public bool autoAbort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (Optional) True to add a unique cache-buster param to GET requests. (defaults to true) @type Boolean</summary>
-		public bool disableCaching { get; set; }
+		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (Optional) Change the parameter which is sent went disabling caching through a cache buster. Defaults to '_dc' @type String</summary>
-		public System.String disableCachingParam { get; set; }
+		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

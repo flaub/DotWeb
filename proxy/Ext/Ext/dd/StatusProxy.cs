@@ -7,7 +7,7 @@ namespace Ext.dd {
 	///     A specialized drag proxy that supports a drop status icon, {@link Ext.Layer} styles and auto-repair.  This is the
 	///     default drag proxy used by all Ext.dd components.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\StatusProxy.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\StatusProxy.js</jssource>
 	public class StatusProxy : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -26,10 +26,10 @@ namespace Ext.dd {
 		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
 
 		/// <summary>The CSS class to apply to the status element when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public System.String dropAllowed { get { return _<System.String>(); } set { _(value); } }
+		public string dropAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The CSS class to apply to the status element when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public System.String dropNotAllowed { get { return _<System.String>(); } set { _(value); } }
+		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
 
 
 		/// <summary>
@@ -45,7 +45,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="cssClass">The css class for the new drop status indicator image</param>
 		/// <returns></returns>
-		public virtual void setStatus(System.String cssClass) { _(cssClass); }
+		public virtual void setStatus(string cssClass) { _(cssClass); }
 
 		/// <summary>Resets the status indicator to the default dropNotAllowed value</summary>
 		/// <returns></returns>
@@ -69,7 +69,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="html">The html that will replace the current innerHTML of the ghost element, or a</param>
 		/// <returns></returns>
-		public virtual void update(System.String html) { _(html); }
+		public virtual void update(string html) { _(html); }
 
 		/// <summary>
 		///     Updates the contents of the ghost element
@@ -147,12 +147,12 @@ namespace Ext.dd {
 	}
 
 	[JsAnonymous]
-	public class StatusProxyConfig : DotWeb.Client.JsAccessible {
+	public class StatusProxyConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The CSS class to apply to the status element when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public System.String dropAllowed { get; set; }
+		public string dropAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class to apply to the status element when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public System.String dropNotAllowed { get; set; }
+		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
 
 	}
 }

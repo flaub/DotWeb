@@ -27,7 +27,7 @@ namespace Ext.data {
 	///     and some server technologies (notably JEE) may require some custom processing in order to
 	///     retrieve parameter names and parameter values from the packet content.</p>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\Connection.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\Connection.js</jssource>
 	public class Connection : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -49,7 +49,7 @@ namespace Ext.data {
 		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
 
 		/// <summary>(Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(Optional) An object containing properties which are used asextra parameters to each request made by this object. (defaults to undefined)</summary>
 		public object extraParams { get { return _<object>(); } set { _(value); } }
@@ -61,7 +61,7 @@ namespace Ext.data {
 		///     (Optional) The default HTTP method to be used for requests.(defaults to undefined; if not set, but {@link #request} params are present, POST will be used;
 		///     otherwise, GET will be used.)
 		/// </summary>
-		public System.String method { get { return _<System.String>(); } set { _(value); } }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
 		public double timeout { get { return _<double>(); } set { _(value); } }
@@ -73,7 +73,7 @@ namespace Ext.data {
 		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>(Optional) Change the parameter which is sent went disabling cachingthrough a cache buster. Defaults to '_dc'</summary>
-		public System.String disableCachingParam { get { return _<System.String>(); } set { _(value); } }
+		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
 
 
 		/// <summary>
@@ -264,33 +264,33 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class ConnectionConfig : DotWeb.Client.JsAccessible {
+	public class ConnectionConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> (Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (Optional) An object containing properties which are used as extra parameters to each request made by this object. (defaults to undefined)</summary>
-		public object extraParams { get; set; }
+		public object extraParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (Optional) An object containing request headers which are added to each request made by this object. (defaults to undefined)</summary>
-		public object defaultHeaders { get; set; }
+		public object defaultHeaders { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> (Optional) The default HTTP method to be used for requests. (defaults to undefined; if not set, but {@link #request} params are present, POST will be used; otherwise, GET will be used.)</summary>
-		public System.String method { get; set; }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public double timeout { get; set; }
+		public double timeout { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> (Optional) Whether this request should abort any pending requests. (defaults to false) @type Boolean</summary>
-		public bool autoAbort { get; set; }
+		public bool autoAbort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (Optional) True to add a unique cache-buster param to GET requests. (defaults to true) @type Boolean</summary>
-		public bool disableCaching { get; set; }
+		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (Optional) Change the parameter which is sent went disabling caching through a cache buster. Defaults to '_dc' @type String</summary>
-		public System.String disableCachingParam { get; set; }
+		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

@@ -25,7 +25,7 @@ namespace Ext.grid {
 	///     The config options <b>defined by</b< this class are options which may appear in each
 	///     individual column definition.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\ColumnModel.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\ColumnModel.js</jssource>
 	public class ColumnModel : Ext.util.Observable {
 
 		/// <summary>config objects for details.</summary>
@@ -34,7 +34,7 @@ namespace Ext.grid {
 		/// <summary>config objects for details.</summary>
 		/// <param name="config">An Array of column config objects. See this class's</param>
 		/// <returns></returns>
-		public ColumnModel(ColumnModelConfig[] config) { C_(config); }
+		public ColumnModel(object config) { C_(config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -65,16 +65,16 @@ namespace Ext.grid {
 		///     The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column
 		///     via this identifier.
 		/// </summary>
-		public System.String id { get { return _<System.String>(); } set { _(value); } }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The header text to display in the Grid view.</summary>
-		public System.String header { get { return _<System.String>(); } set { _(value); } }
+		public string header { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     (optional) The name of the field in the grid's {@link Ext.data.Store}'s{@link Ext.data.Record} definition from which to draw the column's value. If not
 		///     specified, the column's index is used as an index into the Record's data Array.
 		/// </summary>
-		public System.String dataIndex { get { return _<System.String>(); } set { _(value); } }
+		public string dataIndex { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(optional) The initial width in pixels of the column.</summary>
 		public double width { get { return _<double>(); } set { _(value); } }
@@ -101,7 +101,7 @@ namespace Ext.grid {
 		///     (optional) A text string to use as the column header's tooltip.  If Quicktips are enabled, thisvalue will be used as the text of the quick tip, otherwise it will be set as the header's HTML title attribute.
 		///     Defaults to ''.
 		/// </summary>
-		public System.String tooltip { get { return _<System.String>(); } set { _(value); } }
+		public string tooltip { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     (optional) A function used to generate HTML markup for a cellgiven the cell's data value. See {@link #setRenderer}. If not specified, the
@@ -110,10 +110,10 @@ namespace Ext.grid {
 		public Delegate renderer { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary>(optional) Set the CSS text-align property of the column.  Defaults to undefined.</summary>
-		public System.String align { get { return _<System.String>(); } set { _(value); } }
+		public string align { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>(optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.</summary>
-		public System.String css { get { return _<System.String>(); } set { _(value); } }
+		public string css { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     (optional) Specify as <tt>false</tt> to prevent the user from hiding this column(defaults to true).  To disallow column hiding globally for all columns in the grid, use
@@ -150,7 +150,7 @@ namespace Ext.grid {
 		/// <summary>Returns the column for a specified id.</summary>
 		/// <param name="id">The column id</param>
 		/// <returns>Object</returns>
-		public virtual void getColumnById(System.String id) { _(id); }
+		public virtual void getColumnById(string id) { _(id); }
 
 		/// <summary>Returns the index for a specified column id.</summary>
 		/// <returns>Number</returns>
@@ -159,7 +159,7 @@ namespace Ext.grid {
 		/// <summary>Returns the index for a specified column id.</summary>
 		/// <param name="id">The column id</param>
 		/// <returns>Number</returns>
-		public virtual void getIndexById(System.String id) { _(id); }
+		public virtual void getIndexById(string id) { _(id); }
 
 		/// <summary>Moves a column from one position to another.</summary>
 		/// <returns></returns>
@@ -334,7 +334,7 @@ namespace Ext.grid {
 		/// <param name="col">The column index</param>
 		/// <param name="header">The new header</param>
 		/// <returns></returns>
-		public virtual void setColumnHeader(double col, System.String header) { _(col, header); }
+		public virtual void setColumnHeader(double col, string header) { _(col, header); }
 
 		/// <summary>Returns the tooltip for the specified column.</summary>
 		/// <returns>String</returns>
@@ -358,7 +358,7 @@ namespace Ext.grid {
 		/// <param name="col">The column index</param>
 		/// <param name="tooltip">The new tooltip</param>
 		/// <returns></returns>
-		public virtual void setColumnTooltip(double col, System.String tooltip) { _(col, tooltip); }
+		public virtual void setColumnTooltip(double col, string tooltip) { _(col, tooltip); }
 
 		/// <summary>Returns the dataIndex for the specified column.</summary>
 		/// <returns>String</returns>
@@ -382,7 +382,7 @@ namespace Ext.grid {
 		/// <param name="col">The column index</param>
 		/// <param name="dataIndex">The new dataIndex</param>
 		/// <returns></returns>
-		public virtual void setDataIndex(double col, System.String dataIndex) { _(col, dataIndex); }
+		public virtual void setDataIndex(double col, string dataIndex) { _(col, dataIndex); }
 
 		/// <summary>Finds the index of the first matching column for the given dataIndex.</summary>
 		/// <returns>Number</returns>
@@ -391,7 +391,7 @@ namespace Ext.grid {
 		/// <summary>Finds the index of the first matching column for the given dataIndex.</summary>
 		/// <param name="col">The dataIndex to find</param>
 		/// <returns>Number</returns>
-		public virtual void findColumnIndex(System.String col) { _(col); }
+		public virtual void findColumnIndex(string col) { _(col); }
 
 		/// <summary>Returns true if the cell is editable.</summary>
 		/// <returns>Boolean</returns>
@@ -490,54 +490,54 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class ColumnModelConfig : DotWeb.Client.JsAccessible {
+	public class ColumnModelConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> (optional) Defaults to the column's initial ordinal position. A name which identifies this column. The id is used to create a CSS class name which is applied to all table cells (including headers) in that column. The class name takes the form of <pre>x-grid3-td-<b>id</b></pre> <br><br> Header cells will also recieve this class name, but will also have the class <pr>x-grid3-hd</pre>, so to target header cells, use CSS selectors such as:<pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre> The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column via this identifier.</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The header text to display in the Grid view.</summary>
-		public System.String header { get; set; }
+		public string header { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) The name of the field in the grid's {@link Ext.data.Store}'s {@link Ext.data.Record} definition from which to draw the column's value. If not specified, the column's index is used as an index into the Record's data Array.</summary>
-		public System.String dataIndex { get; set; }
+		public string dataIndex { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) The initial width in pixels of the column.</summary>
-		public double width { get; set; }
+		public double width { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> (optional) True if sorting is to be allowed on this column. Defaults to the value of the {@link #defaultSortable} property. Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.</summary>
-		public bool sortable { get; set; }
+		public bool sortable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) True if the column width cannot be changed.  Defaults to false.</summary>
-		public bool fixed_ { get; set; }
+		public bool fixed_ { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) False to disable column resizing. Defaults to true.</summary>
-		public bool resizable { get; set; }
+		public bool resizable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) True to disable the column menu. Defaults to false.</summary>
-		public bool menuDisabled { get; set; }
+		public bool menuDisabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) True to hide the column. Defaults to false.</summary>
-		public bool hidden { get; set; }
+		public bool hidden { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) A text string to use as the column header's tooltip.  If Quicktips are enabled, this value will be used as the text of the quick tip, otherwise it will be set as the header's HTML title attribute. Defaults to ''.</summary>
-		public System.String tooltip { get; set; }
+		public string tooltip { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) A function used to generate HTML markup for a cell given the cell's data value. See {@link #setRenderer}. If not specified, the default renderer uses the raw data value.</summary>
-		public Delegate renderer { get; set; }
+		public Delegate renderer { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary> (optional) Set the CSS text-align property of the column.  Defaults to undefined.</summary>
-		public System.String align { get; set; }
+		public string align { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.</summary>
-		public System.String css { get; set; }
+		public string css { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> (optional) Specify as <tt>false</tt> to prevent the user from hiding this column (defaults to true).  To disallow column hiding globally for all columns in the grid, use {@link Ext.grid.GridPanel#enableColumnHide} instead.</summary>
-		public bool hideable { get; set; }
+		public bool hideable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> (optional) The {@link Ext.form.Field} to use when editing values in this column if editing is supported by the grid.</summary>
-		public Ext.form.Field editor { get; set; }
+		public Ext.form.Field editor { get { return _<Ext.form.Field>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 
@@ -598,7 +598,7 @@ namespace Ext.grid {
     }
 
     public delegate void ColumnModelWidthchangeDelegate(ColumnModel objthis, double columnIndex, double newWidth);
-    public delegate void ColumnModelHeaderchangeDelegate(ColumnModel objthis, double columnIndex, System.String newText);
+    public delegate void ColumnModelHeaderchangeDelegate(ColumnModel objthis, double columnIndex, string newText);
     public delegate void ColumnModelHiddenchangeDelegate(ColumnModel objthis, double columnIndex, bool hidden);
     public delegate void ColumnModelColumnmovedDelegate(ColumnModel objthis, double oldIndex, double newIndex);
     public delegate void ColumnModelConfigchangeDelegate(ColumnModel objthis);

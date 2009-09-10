@@ -8,7 +8,7 @@ namespace Ext.form {
 	///     */
 	///     Ext.form.VTypes = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\form\VTypes.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\form\VTypes.js</jssource>
 	public class VTypes : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -23,7 +23,7 @@ namespace Ext.form {
 		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
 
 		/// <summary>The error text to display when the email validation function returns false</summary>
-		public static System.String emailText { get { return S_<System.String>(); } set { S_(value); } }
+		public static string emailText { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     The keystroke filter mask to be applied on email input.  See the {@link #email} method for
@@ -32,16 +32,16 @@ namespace Ext.form {
 		public static object emailMask { get { return S_<object>(); } set { S_(value); } }
 
 		/// <summary>The error text to display when the url validation function returns false</summary>
-		public static System.String urlText { get { return S_<System.String>(); } set { S_(value); } }
+		public static string urlText { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The error text to display when the alpha validation function returns false</summary>
-		public static System.String alphaText { get { return S_<System.String>(); } set { S_(value); } }
+		public static string alphaText { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The keystroke filter mask to be applied on alpha input</summary>
 		public static object alphaMask { get { return S_<object>(); } set { S_(value); } }
 
 		/// <summary>The error text to display when the alphanumeric validation function returns false</summary>
-		public static System.String alphanumText { get { return S_<System.String>(); } set { S_(value); } }
+		public static string alphanumText { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The keystroke filter mask to be applied on alphanumeric input</summary>
 		public static object alphanumMask { get { return S_<object>(); } set { S_(value); } }
@@ -66,7 +66,7 @@ namespace Ext.form {
 		/// </summary>
 		/// <param name="value">The email address</param>
 		/// <returns></returns>
-		public static void email(System.String value) { S_(value); }
+		public static void email(string value) { S_(value); }
 
 		/// <summary>The function used to validate URLs</summary>
 		/// <returns></returns>
@@ -75,7 +75,7 @@ namespace Ext.form {
 		/// <summary>The function used to validate URLs</summary>
 		/// <param name="value">The URL</param>
 		/// <returns></returns>
-		public static void url(System.String value) { S_(value); }
+		public static void url(string value) { S_(value); }
 
 		/// <summary>The function used to validate alpha values</summary>
 		/// <returns></returns>
@@ -84,7 +84,7 @@ namespace Ext.form {
 		/// <summary>The function used to validate alpha values</summary>
 		/// <param name="value">The value</param>
 		/// <returns></returns>
-		public static void alpha(System.String value) { S_(value); }
+		public static void alpha(string value) { S_(value); }
 
 		/// <summary>The function used to validate alphanumeric values</summary>
 		/// <returns></returns>
@@ -93,7 +93,7 @@ namespace Ext.form {
 		/// <summary>The function used to validate alphanumeric values</summary>
 		/// <param name="value">The value</param>
 		/// <returns></returns>
-		public static void alphanum(System.String value) { S_(value); }
+		public static void alphanum(string value) { S_(value); }
 
 
 

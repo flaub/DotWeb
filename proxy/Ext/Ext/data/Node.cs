@@ -7,7 +7,7 @@ namespace Ext.data {
 	///     @cfg {Boolean} leaf true if this node is a leaf and does not have children
 	///     @cfg {String} id The id for this node. If one is not specified, one is generated.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\Tree.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\Tree.js</jssource>
 	public class Node : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -166,7 +166,7 @@ namespace Ext.data {
 		/// <summary>Returns the path for this node. The path can be used to expand or select this node programmatically.</summary>
 		/// <param name="attr">(optional) The attr to use for the path (defaults to the node's id)</param>
 		/// <returns>String</returns>
-		public virtual void getPath(System.String attr) { _(attr); }
+		public virtual void getPath(string attr) { _(attr); }
 
 		/// <summary>
 		///     Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -301,13 +301,13 @@ namespace Ext.data {
 		/// <summary>Finds the first child that has the attribute with the specified value.</summary>
 		/// <param name="attribute">The attribute name</param>
 		/// <returns>Node</returns>
-		public virtual void findChild(System.String attribute) { _(attribute); }
+		public virtual void findChild(string attribute) { _(attribute); }
 
 		/// <summary>Finds the first child that has the attribute with the specified value.</summary>
 		/// <param name="attribute">The attribute name</param>
 		/// <param name="value">The value to search for</param>
 		/// <returns>Node</returns>
-		public virtual void findChild(System.String attribute, object value) { _(attribute, value); }
+		public virtual void findChild(string attribute, object value) { _(attribute, value); }
 
 		/// <summary>
 		///     Finds the first child by a custom function. The child matches if the function passed
@@ -371,15 +371,15 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class NodeConfig : DotWeb.Client.JsAccessible {
+	public class NodeConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> true if this node is a leaf and does not have children</summary>
-		public bool leaf { get; set; }
+		public bool leaf { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The id for this node. If one is not specified, one is generated.</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

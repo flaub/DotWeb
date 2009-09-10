@@ -65,7 +65,7 @@ namespace Ext {
 	///     @cfg {Number} minY The minimum allowed page Y for the element (only used for north resizing, defaults to 0)
 	///     @cfg {Boolean} draggable Convenience to initialize drag drop (defaults to false)
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Resizable.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Resizable.js</jssource>
 	public class Resizable : Ext.util.Observable {
 
 		/// <summary>Create a new resizable component</summary>
@@ -190,90 +190,90 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class ResizableConfig : DotWeb.Client.JsAccessible {
+	public class ResizableConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>{Boolean/String/Element} True to resize the first child, or id/element to resize (defaults to false)</summary>
-		public object resizeChild { get; set; }
+		public object resizeChild { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>{Array/String} String "auto" or an array [width, height] with values to be <b>added</b> to the</summary>
-		public object adjustments { get; set; }
+		public object adjustments { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The minimum width for the element (defaults to 5)</summary>
-		public double minWidth { get; set; }
+		public double minWidth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The minimum height for the element (defaults to 5)</summary>
-		public double minHeight { get; set; }
+		public double minHeight { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The maximum width for the element (defaults to 10000)</summary>
-		public double maxWidth { get; set; }
+		public double maxWidth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The maximum height for the element (defaults to 10000)</summary>
-		public double maxHeight { get; set; }
+		public double maxHeight { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> False to disable resizing (defaults to true)</summary>
-		public bool enabled { get; set; }
+		public bool enabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to wrap an element with a div if needed (required for textareas and images, defaults to false)</summary>
-		public bool wrap { get; set; }
+		public bool wrap { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The width of the element in pixels (defaults to null)</summary>
-		public double width { get; set; }
+		public double width { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The height of the element in pixels (defaults to null)</summary>
-		public double height { get; set; }
+		public double height { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> True to animate the resize (not compatible with dynamic sizing, defaults to false)</summary>
-		public bool animate { get; set; }
+		public bool animate { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> Animation duration if animate = true (defaults to .35)</summary>
-		public double duration { get; set; }
+		public double duration { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> True to resize the element while dragging instead of using a proxy (defaults to false)</summary>
-		public bool dynamic { get; set; }
+		public bool dynamic { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> String consisting of the resize handles to display (defaults to undefined)</summary>
-		public System.String handles { get; set; }
+		public string handles { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> <b>Deprecated</b>.  The old style of adding multi-direction resize handles, deprecated</summary>
-		public bool multiDirectional { get; set; }
+		public bool multiDirectional { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to disable mouse tracking. This is only applied at config time. (defaults to false)</summary>
-		public bool disableTrackOver { get; set; }
+		public bool disableTrackOver { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> Animation easing if animate = true (defaults to 'easingOutStrong')</summary>
-		public System.String easing { get; set; }
+		public string easing { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The increment to snap the width resize in pixels (dynamic must be true, defaults to 0)</summary>
-		public double widthIncrement { get; set; }
+		public double widthIncrement { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The increment to snap the height resize in pixels (dynamic must be true, defaults to 0)</summary>
-		public double heightIncrement { get; set; }
+		public double heightIncrement { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> True to ensure that the resize handles are always visible, false to display them only when the</summary>
-		public bool pinned { get; set; }
+		public bool pinned { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to preserve the original ratio between height and width during resize (defaults to false)</summary>
-		public bool preserveRatio { get; set; }
+		public bool preserveRatio { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True for transparent handles. This is only applied at config time. (defaults to false)</summary>
-		public bool transparent { get; set; }
+		public bool transparent { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The minimum allowed page X for the element (only used for west resizing, defaults to 0)</summary>
-		public double minX { get; set; }
+		public double minX { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The minimum allowed page Y for the element (only used for north resizing, defaults to 0)</summary>
-		public double minY { get; set; }
+		public double minY { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> Convenience to initialize drag drop (defaults to false)</summary>
-		public bool draggable { get; set; }
+		public bool draggable { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> Constrain the resize to a particular element</summary>
-		public object constrainTo { get; set; }
+		public object constrainTo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> Constrain the resize to a particular region</summary>
-		public object resizeRegion { get; set; }
+		public object resizeRegion { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

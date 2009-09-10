@@ -15,7 +15,7 @@ namespace Ext {
 	///     myMask.show();
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\LoadMask.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\LoadMask.js</jssource>
 	public class LoadMask : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Create a new LoadMask</summary>
@@ -51,10 +51,10 @@ namespace Ext {
 		public bool removeMask { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>The text to display in a centered loading message box (defaults to 'Loading...')</summary>
-		public System.String msg { get { return _<System.String>(); } set { _(value); } }
+		public string msg { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The CSS class to apply to the loading message element (defaults to "x-mask-loading")</summary>
-		public System.String msgCls { get { return _<System.String>(); } set { _(value); } }
+		public string msgCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Read-only. True if the mask is currently disabled so that it will not be displayed (defaults to false)</summary>
 		public bool disabled { get { return _<bool>(); } set { _(value); } }
@@ -81,18 +81,18 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class LoadMaskConfig : DotWeb.Client.JsAccessible {
+	public class LoadMaskConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  Optional Store to which the mask is bound. The mask is displayed when a load request is issued, and hidden on either load sucess, or load fail.</summary>
-		public Ext.data.Store store { get; set; }
+		public Ext.data.Store store { get { return _<Ext.data.Store>(); } set { _(value); } }
 
 		/// <summary>  True to create a single-use mask that is automatically destroyed after loading (useful for page loads), False to persist the mask element reference for multiple uses (e.g., for paged data widgets).  Defaults to false.</summary>
-		public bool removeMask { get; set; }
+		public bool removeMask { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  The text to display in a centered loading message box (defaults to 'Loading...')</summary>
-		public System.String msg { get; set; }
+		public string msg { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class to apply to the loading message element (defaults to "x-mask-loading")</summary>
-		public System.String msgCls { get; set; }
+		public string msgCls { get { return _<string>(); } set { _(value); } }
 
 	}
 }

@@ -10,7 +10,7 @@ namespace Ext.tree {
 	///     */
 	///     Ext.tree.TreeFilter = function(tree, config){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeFilter.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeFilter.js</jssource>
 	public class TreeFilter : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -38,7 +38,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="value">Either string that the attribute value</param>
 		/// <returns></returns>
-		public virtual void filter(System.String value) { _(value); }
+		public virtual void filter(string value) { _(value); }
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -47,7 +47,7 @@ namespace Ext.tree {
 		/// <param name="value">Either string that the attribute value</param>
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <returns></returns>
-		public virtual void filter(System.String value, System.String attr) { _(value, attr); }
+		public virtual void filter(string value, string attr) { _(value, attr); }
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -57,7 +57,7 @@ namespace Ext.tree {
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <param name="startNode">(optional) The node to start the filter at.</param>
 		/// <returns></returns>
-		public virtual void filter(System.String value, System.String attr, TreeNode startNode) { _(value, attr, startNode); }
+		public virtual void filter(string value, string attr, TreeNode startNode) { _(value, attr, startNode); }
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -74,7 +74,7 @@ namespace Ext.tree {
 		/// <param name="value">Either string that the attribute value</param>
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <returns></returns>
-		public virtual void filter(object value, System.String attr) { _(value, attr); }
+		public virtual void filter(object value, string attr) { _(value, attr); }
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -84,7 +84,7 @@ namespace Ext.tree {
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <param name="startNode">(optional) The node to start the filter at.</param>
 		/// <returns></returns>
-		public virtual void filter(object value, System.String attr, TreeNode startNode) { _(value, attr, startNode); }
+		public virtual void filter(object value, string attr, TreeNode startNode) { _(value, attr, startNode); }
 
 		/// <summary>
 		///     Filter by a function. The passed function will be called with each

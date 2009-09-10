@@ -9,7 +9,7 @@ namespace Ext.form {
 	///     By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
 	///     To enable normal browser submission of an Ext Form, use the {@link #standardSubmit} config option.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\form\BasicForm.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\form\BasicForm.js</jssource>
 	public class BasicForm : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -36,7 +36,7 @@ namespace Ext.form {
 		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
 
 		/// <summary>The request method to use (GET or POST) for form actions if one isn't supplied in the action options.</summary>
-		public System.String method { get { return _<System.String>(); } set { _(value); } }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when executing "load" actions.
@@ -51,7 +51,7 @@ namespace Ext.form {
 		public Ext.data.DataReader errorReader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
 
 		/// <summary>The URL to use for form actions if one isn't supplied in the action options.</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     Set to true if this form is a file upload.
@@ -190,7 +190,7 @@ namespace Ext.form {
 		/// </summary>
 		/// <param name="actionName">The name of the predefined action type,</param>
 		/// <returns>BasicForm</returns>
-		public virtual void doAction(System.String actionName) { _(actionName); }
+		public virtual void doAction(string actionName) { _(actionName); }
 
 		/// <summary>
 		///     Performs a predefined action ({@link Ext.form.Action.Submit} or
@@ -235,7 +235,7 @@ namespace Ext.form {
 		/// <param name="actionName">The name of the predefined action type,</param>
 		/// <param name="options">(optional) The options to pass to the {@link Ext.form.Action}.</param>
 		/// <returns>BasicForm</returns>
-		public virtual void doAction(System.String actionName, object options) { _(actionName, options); }
+		public virtual void doAction(string actionName, object options) { _(actionName, options); }
 
 		/// <summary>
 		///     Performs a predefined action ({@link Ext.form.Action.Submit} or
@@ -369,7 +369,7 @@ namespace Ext.form {
 		/// <summary>Find a Ext.form.Field in this form by id, dataIndex, name or hiddenName.</summary>
 		/// <param name="id">The value to search for</param>
 		/// <returns>Field</returns>
-		public virtual void findField(System.String id) { _(id); }
+		public virtual void findField(string id) { _(id); }
 
 		/// <summary>Mark fields in this form invalid in bulk.</summary>
 		/// <returns>BasicForm</returns>
@@ -503,36 +503,36 @@ namespace Ext.form {
 	}
 
 	[JsAnonymous]
-	public class BasicFormConfig : DotWeb.Client.JsAccessible {
+	public class BasicFormConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The request method to use (GET or POST) for form actions if one isn't supplied in the action options.</summary>
-		public System.String method { get; set; }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when executing "load" actions. This is optional as there is built-in support for processing JSON.</summary>
-		public Ext.data.DataReader reader { get; set; }
+		public Ext.data.DataReader reader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
 
 		/// <summary>  An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when reading validation errors on "submit" actions. This is completely optional as there is built-in support for processing JSON.</summary>
-		public Ext.data.DataReader errorReader { get; set; }
+		public Ext.data.DataReader errorReader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
 
 		/// <summary>  The URL to use for form actions if one isn't supplied in the action options.</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Set to true if this form is a file upload. <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document but removed after the return data has been gathered.</p> <p>The server response is parsed by the browser to create the document for the IFRAME. If the server is using JSON to send the return object, then the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p> <p>The response text is retrieved from the document, and a fake XMLHttpRequest object is created containing a <tt>responseText</tt> property in order to conform to the requirements of event handlers and callbacks.</p> <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a> and some server technologies (notably JEE) may require some custom processing in order to retrieve parameter names and parameter values from the packet content.</p></summary>
-		public bool fileUpload { get; set; }
+		public bool fileUpload { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  Parameters to pass with all requests. e.g. baseParams: {id: '123', foo: 'bar'}.</summary>
-		public object baseParams { get; set; }
+		public object baseParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> Timeout for form actions in seconds (default is 30 seconds).</summary>
-		public double timeout { get; set; }
+		public double timeout { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> If set to true, form.reset() resets to the last loaded or setValues() data instead of when the form was first created.</summary>
-		public bool trackResetOnLoad { get; set; }
+		public bool trackResetOnLoad { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> If set to true, standard HTML form submits are used instead of XHR (Ajax) style form submissions. (defaults to false)</summary>
-		public bool standardSubmit { get; set; }
+		public bool standardSubmit { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

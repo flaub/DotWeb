@@ -10,7 +10,7 @@ namespace Ext.grid {
 	///     <p>This class does not provide ways to manipulate the underlying data. The data
 	///     model of a Grid is held in an {@link Ext.data.Store}.</p>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\GridView.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\GridView.js</jssource>
 	public class GridView : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -35,7 +35,7 @@ namespace Ext.grid {
 		public bool enableRowBody { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>Default text to display in the grid body when no rows are available (defaults to '').</summary>
-		public System.String emptyText { get { return _<System.String>(); } set { _(value); } }
+		public string emptyText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     <p><b>This will only be present if the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop}<b> <tt>true</tt></b>.</p>
@@ -61,13 +61,13 @@ namespace Ext.grid {
 		public System.Array sortClasses { get { return _<System.Array>(); } set { _(value); } }
 
 		/// <summary>The text displayed in the "Sort Ascending" menu item</summary>
-		public System.String sortAscText { get { return _<System.String>(); } set { _(value); } }
+		public string sortAscText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The text displayed in the "Sort Descending" menu item</summary>
-		public System.String sortDescText { get { return _<System.String>(); } set { _(value); } }
+		public string sortDescText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The text displayed in the "Columns" menu item</summary>
-		public System.String columnsText { get { return _<System.String>(); } set { _(value); } }
+		public string columnsText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The number of levels to search for cells in event delegation (defaults to 4)</summary>
 		public double cellSelectorDepth { get { return _<double>(); } set { _(value); } }
@@ -76,10 +76,10 @@ namespace Ext.grid {
 		public double rowSelectorDepth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>The selector used to find cells internally</summary>
-		public System.String cellSelector { get { return _<System.String>(); } set { _(value); } }
+		public string cellSelector { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The selector used to find rows internally</summary>
-		public System.String rowSelector { get { return _<System.String>(); } set { _(value); } }
+		public string rowSelector { get { return _<string>(); } set { _(value); } }
 
 
 		/// <summary>
@@ -252,36 +252,36 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class GridViewConfig : DotWeb.Client.JsAccessible {
+	public class GridViewConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> True to add a second TR element per row that can be used to provide a row body that spans beneath the data row.  Use the {@link #getRowClass} method's rowParams config to customize the row body.</summary>
-		public bool enableRowBody { get; set; }
+		public bool enableRowBody { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> Default text to display in the grid body when no rows are available (defaults to '').</summary>
-		public System.String emptyText { get; set; }
+		public string emptyText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True to defer emptyText being applied until the store's first load</summary>
-		public bool deferEmptyText { get; set; }
+		public bool deferEmptyText { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to auto expand the columns to fit the grid <b>when the grid is created</b>.</summary>
-		public bool autoFill { get; set; }
+		public bool autoFill { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to auto expand/contract the size of the columns to fit the grid width and prevent horizontal scrolling.</summary>
-		public bool forceFit { get; set; }
+		public bool forceFit { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The number of levels to search for cells in event delegation (defaults to 4)</summary>
-		public double cellSelectorDepth { get; set; }
+		public double cellSelectorDepth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The number of levels to search for rows in event delegation (defaults to 10)</summary>
-		public double rowSelectorDepth { get; set; }
+		public double rowSelectorDepth { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The selector used to find cells internally</summary>
-		public System.String cellSelector { get; set; }
+		public string cellSelector { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The selector used to find rows internally</summary>
-		public System.String rowSelector { get; set; }
+		public string rowSelector { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

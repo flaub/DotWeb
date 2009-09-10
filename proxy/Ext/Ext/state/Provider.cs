@@ -10,7 +10,7 @@ namespace Ext.state {
 	///     */
 	///     Ext.state.Provider = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\state\Provider.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\state\Provider.js</jssource>
 	public class Provider : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -32,13 +32,13 @@ namespace Ext.state {
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns>Mixed</returns>
-		public virtual void get(System.String name) { _(name); }
+		public virtual void get(string name) { _(name); }
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="defaultValue">A default value to return if the key's value is not found</param>
 		/// <returns>Mixed</returns>
-		public virtual void get(System.String name, object defaultValue) { _(name, defaultValue); }
+		public virtual void get(string name, object defaultValue) { _(name, defaultValue); }
 
 		/// <summary>Clears a value from the state</summary>
 		/// <returns></returns>
@@ -47,7 +47,7 @@ namespace Ext.state {
 		/// <summary>Clears a value from the state</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public virtual void clear(System.String name) { _(name); }
+		public virtual void clear(string name) { _(name); }
 
 		/// <summary>Sets the value for a key</summary>
 		/// <returns></returns>
@@ -56,13 +56,13 @@ namespace Ext.state {
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public virtual void set(System.String name) { _(name); }
+		public virtual void set(string name) { _(name); }
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="value">The value to set</param>
 		/// <returns></returns>
-		public virtual void set(System.String name, object value) { _(name, value); }
+		public virtual void set(string name, object value) { _(name, value); }
 
 		/// <summary>Decodes a string previously encoded with {@link #encodeValue}.</summary>
 		/// <returns>Mixed</returns>
@@ -71,7 +71,7 @@ namespace Ext.state {
 		/// <summary>Decodes a string previously encoded with {@link #encodeValue}.</summary>
 		/// <param name="value">The value to decode</param>
 		/// <returns>Mixed</returns>
-		public virtual void decodeValue(System.String value) { _(value); }
+		public virtual void decodeValue(string value) { _(value); }
 
 		/// <summary>Encodes a value including type information.  Decode with {@link #decodeValue}.</summary>
 		/// <returns>String</returns>
@@ -100,5 +100,5 @@ namespace Ext.state {
         public static string statechange { get { return "statechange"; } }
     }
 
-    public delegate void ProviderStatechangeDelegate(Provider objthis, System.String key, System.String value);
+    public delegate void ProviderStatechangeDelegate(Provider objthis, string key, string value);
 }

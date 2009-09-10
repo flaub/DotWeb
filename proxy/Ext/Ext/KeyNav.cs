@@ -24,7 +24,7 @@ namespace Ext {
 	///     });
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\KeyNav.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\KeyNav.js</jssource>
 	public class KeyNav : DotWeb.Client.JsNativeBase {
 
 		/// <summary></summary>
@@ -55,7 +55,7 @@ namespace Ext {
 		///     {@link Ext.EventObject#stopEvent}, {@link Ext.EventObject#preventDefault} and
 		///     {@link Ext.EventObject#stopPropagation} (defaults to 'stopEvent')
 		/// </summary>
-		public System.String defaultEventAction { get { return _<System.String>(); } set { _(value); } }
+		public string defaultEventAction { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     Handle the keydown event instead of keypress (defaults to false).  KeyNav automatically does this for IE since
@@ -78,15 +78,15 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class KeyNavConfig : DotWeb.Client.JsAccessible {
+	public class KeyNavConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  True to disable this KeyNav instance (defaults to false)</summary>
-		public bool disabled { get; set; }
+		public bool disabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  The method to call on the {@link Ext.EventObject} after this KeyNav intercepts a key.  Valid values are {@link Ext.EventObject#stopEvent}, {@link Ext.EventObject#preventDefault} and {@link Ext.EventObject#stopPropagation} (defaults to 'stopEvent')</summary>
-		public System.String defaultEventAction { get; set; }
+		public string defaultEventAction { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Handle the keydown event instead of keypress (defaults to false).  KeyNav automatically does this for IE since IE does not propagate special keys on keypress, but setting this to true will force other browsers to also handle keydown instead of keypress.</summary>
-		public bool forceKeyDown { get; set; }
+		public bool forceKeyDown { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

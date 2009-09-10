@@ -10,7 +10,7 @@ namespace Ext {
 	///     */
 	///     Ext.EventManager = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\EventManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\EventManager.js</jssource>
 	public class EventManager : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -86,7 +86,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The html element or id to assign the event handler to</param>
 		/// <returns></returns>
-		public static void addListener(System.String el) { S_(el); }
+		public static void addListener(string el) { S_(el); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -116,7 +116,7 @@ namespace Ext {
 		/// <param name="el">The html element or id to assign the event handler to</param>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public static void addListener(System.String el, System.String eventName) { S_(el, eventName); }
+		public static void addListener(string el, string eventName) { S_(el, eventName); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -147,7 +147,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler function the event invokes This function is passed</param>
 		/// <returns></returns>
-		public static void addListener(System.String el, System.String eventName, Delegate handler) { S_(el, eventName, handler); }
+		public static void addListener(string el, string eventName, Delegate handler) { S_(el, eventName, handler); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -179,7 +179,7 @@ namespace Ext {
 		/// <param name="handler">The handler function the event invokes This function is passed</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public static void addListener(System.String el, System.String eventName, Delegate handler, object scope) { S_(el, eventName, handler, scope); }
+		public static void addListener(string el, string eventName, Delegate handler, object scope) { S_(el, eventName, handler, scope); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -212,7 +212,7 @@ namespace Ext {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional) An object containing handler configuration properties.</param>
 		/// <returns></returns>
-		public static void addListener(System.String el, System.String eventName, Delegate handler, object scope, object options) { S_(el, eventName, handler, scope, options); }
+		public static void addListener(string el, string eventName, Delegate handler, object scope, object options) { S_(el, eventName, handler, scope, options); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -271,7 +271,7 @@ namespace Ext {
 		/// <param name="el">The html element or id to assign the event handler to</param>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public static void addListener(DOMElement el, System.String eventName) { S_(el, eventName); }
+		public static void addListener(DOMElement el, string eventName) { S_(el, eventName); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -302,7 +302,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler function the event invokes This function is passed</param>
 		/// <returns></returns>
-		public static void addListener(DOMElement el, System.String eventName, Delegate handler) { S_(el, eventName, handler); }
+		public static void addListener(DOMElement el, string eventName, Delegate handler) { S_(el, eventName, handler); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -334,7 +334,7 @@ namespace Ext {
 		/// <param name="handler">The handler function the event invokes This function is passed</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public static void addListener(DOMElement el, System.String eventName, Delegate handler, object scope) { S_(el, eventName, handler, scope); }
+		public static void addListener(DOMElement el, string eventName, Delegate handler, object scope) { S_(el, eventName, handler, scope); }
 
 		/// <summary>
 		///     Appends an event handler to an element.  The shorthand version {@link #on} is equivalent.  Typically you will
@@ -367,7 +367,7 @@ namespace Ext {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional) An object containing handler configuration properties.</param>
 		/// <returns></returns>
-		public static void addListener(DOMElement el, System.String eventName, Delegate handler, object scope, object options) { S_(el, eventName, handler, scope, options); }
+		public static void addListener(DOMElement el, string eventName, Delegate handler, object scope, object options) { S_(el, eventName, handler, scope, options); }
 
 		/// <summary>
 		///     Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
@@ -382,7 +382,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The id or html element from which to remove the event</param>
 		/// <returns></returns>
-		public static void removeListener(System.String el) { S_(el); }
+		public static void removeListener(string el) { S_(el); }
 
 		/// <summary>
 		///     Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
@@ -391,7 +391,7 @@ namespace Ext {
 		/// <param name="el">The id or html element from which to remove the event</param>
 		/// <param name="eventName">The type of event</param>
 		/// <returns></returns>
-		public static void removeListener(System.String el, System.String eventName) { S_(el, eventName); }
+		public static void removeListener(string el, string eventName) { S_(el, eventName); }
 
 		/// <summary>
 		///     Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
@@ -401,7 +401,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event</param>
 		/// <param name="fn">The handler function to remove</param>
 		/// <returns></returns>
-		public static void removeListener(System.String el, System.String eventName, Delegate fn) { S_(el, eventName, fn); }
+		public static void removeListener(string el, string eventName, Delegate fn) { S_(el, eventName, fn); }
 
 		/// <summary>
 		///     Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
@@ -418,7 +418,7 @@ namespace Ext {
 		/// <param name="el">The id or html element from which to remove the event</param>
 		/// <param name="eventName">The type of event</param>
 		/// <returns></returns>
-		public static void removeListener(DOMElement el, System.String eventName) { S_(el, eventName); }
+		public static void removeListener(DOMElement el, string eventName) { S_(el, eventName); }
 
 		/// <summary>
 		///     Removes an event handler from an element.  The shorthand version {@link #un} is equivalent.  Typically
@@ -428,7 +428,7 @@ namespace Ext {
 		/// <param name="eventName">The type of event</param>
 		/// <param name="fn">The handler function to remove</param>
 		/// <returns></returns>
-		public static void removeListener(DOMElement el, System.String eventName, Delegate fn) { S_(el, eventName, fn); }
+		public static void removeListener(DOMElement el, string eventName, Delegate fn) { S_(el, eventName, fn); }
 
 		/// <summary>
 		///     Removes all event handers from an element.  Typically you will use {@link Ext.Element#removeAllListeners}
@@ -443,7 +443,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The id or html element from which to remove the event</param>
 		/// <returns></returns>
-		public static void removeAll(System.String el) { S_(el); }
+		public static void removeAll(string el) { S_(el); }
 
 		/// <summary>
 		///     Removes all event handers from an element.  Typically you will use {@link Ext.Element#removeAllListeners}

@@ -7,7 +7,7 @@ namespace Ext.grid {
 	///     Abstract base class for grid SelectionModels.  It provides the interface that should be
 	///     implemented by descendant classes.  This class should not be directly instantiated.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\AbstractSelectionModel.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\AbstractSelectionModel.js</jssource>
 	public class AbstractSelectionModel : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -42,9 +42,9 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class AbstractSelectionModelConfig : DotWeb.Client.JsAccessible {
+	public class AbstractSelectionModelConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

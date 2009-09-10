@@ -239,7 +239,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
+    <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
     </ProjectReference>

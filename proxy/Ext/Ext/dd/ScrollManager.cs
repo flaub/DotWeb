@@ -23,7 +23,7 @@ namespace Ext.dd {
 	///     */
 	///     Ext.dd.ScrollManager = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\ScrollManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\ScrollManager.js</jssource>
 	public class ScrollManager : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>

@@ -17,7 +17,7 @@ namespace Ext.form {
 	///     */
 	///     Ext.form.Action = function(form, options){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\form\Action.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\form\Action.js</jssource>
 	public class ActionClass : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -35,29 +35,29 @@ namespace Ext.form {
 		///     Failure type returned when client side validation of the Form fails
 		///     thus aborting a submit action.
 		/// </summary>
-		public static System.String CLIENT_INVALID { get { return S_<System.String>(); } set { S_(value); } }
+		public static string CLIENT_INVALID { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     Failure type returned when server side validation of the Form fails
 		///     indicating that field-specific error messages have been returned in the
 		///     response's <tt style="font-weight:bold">errors</tt> property.
 		/// </summary>
-		public static System.String SERVER_INVALID { get { return S_<System.String>(); } set { S_(value); } }
+		public static string SERVER_INVALID { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     Failure type returned when a communication error happens when attempting
 		///     to send a request to the remote server.
 		/// </summary>
-		public static System.String CONNECT_FAILURE { get { return S_<System.String>(); } set { S_(value); } }
+		public static string CONNECT_FAILURE { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>
 		///     Failure type returned when no field values are returned in the response's
 		///     <tt style="font-weight:bold">data</tt> property.
 		/// </summary>
-		public static System.String LOAD_FAILURE { get { return S_<System.String>(); } set { S_(value); } }
+		public static string LOAD_FAILURE { get { return S_<string>(); } set { S_(value); } }
 
 		/// <summary>The URL that the Action is to invoke.</summary>
-		public System.String url { get { return _<System.String>(); } set { _(value); } }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     When set to <tt><b>true</b></tt>, causes the Form to be{@link Ext.form.BasicForm.reset reset} on Action success. If specified, this happens
@@ -67,7 +67,7 @@ namespace Ext.form {
 		public bool reset { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>The HTTP method to use to access the requested URL. Defaults to the{@link Ext.form.BasicForm}'s method, or if that is not specified, the underlying DOM form's method.</summary>
-		public System.String method { get { return _<System.String>(); } set { _(value); } }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     Extra parameter values to pass. These are added to the Form's{@link Ext.form.BasicForm#baseParams} and passed to the specified URL along with the Form's
@@ -102,16 +102,16 @@ namespace Ext.form {
 		public object scope { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>The message to be displayed by a call to {@link Ext.MessageBox#wait}during the time the action is being processed.</summary>
-		public System.String waitMsg { get { return _<System.String>(); } set { _(value); } }
+		public string waitMsg { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The title to be displayed by a call to {@link Ext.MessageBox#wait}during the time the action is being processed.</summary>
-		public System.String waitTitle { get { return _<System.String>(); } set { _(value); } }
+		public string waitTitle { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     The type of action this Action instance performs.
 		///     Currently only "submit" and "load" are supported.
 		/// </summary>
-		public System.String type { get { return _<System.String>(); } set { _(value); } }
+		public string type { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     The type of failure detected. See {@link #Ext.form.Action.CLIENT_INVALID CLIENT_INVALID}, {@link #Ext.form.Action.SERVER_INVALID SERVER_INVALID},
@@ -130,36 +130,36 @@ namespace Ext.form {
 	}
 
 	[JsAnonymous]
-	public class ActionConfig : DotWeb.Client.JsAccessible {
+	public class ActionConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> The URL that the Action is to invoke.</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> When set to <tt><b>true</b></tt>, causes the Form to be {@link Ext.form.BasicForm.reset reset} on Action success. If specified, this happens <b>before</b> the {@link #success} callback is called and before the Form's {@link Ext.form.BasicForm.actioncomplete actioncomplete} event fires.</summary>
-		public bool reset { get; set; }
+		public bool reset { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> The HTTP method to use to access the requested URL. Defaults to the {@link Ext.form.BasicForm}'s method, or if that is not specified, the underlying DOM form's method.</summary>
-		public System.String method { get; set; }
+		public string method { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Extra parameter values to pass. These are added to the Form's {@link Ext.form.BasicForm#baseParams} and passed to the specified URL along with the Form's input fields.</summary>
-		public object params_ { get; set; }
+		public object params_ { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The number of milliseconds to wait for a server response before failing with the {@link #failureType} as {@link #CONNECT_FAILURE}.</summary>
-		public double timeout { get; set; }
+		public double timeout { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> The function to call when a valid success return packet is recieved. The function is passed the following parameters:<ul class="mdetail-params"> <li><b>form</b> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li> <li><b>action</b> : Ext.form.Action<div class="sub-desc">The Action class. The {@link #result} property of this object may be examined to perform custom postprocessing.</div></li> </ul></summary>
-		public Delegate success { get; set; }
+		public Delegate success { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary> The function to call when a failure packet was recieved, or when an error ocurred in the Ajax communication. The function is passed the following parameters:<ul class="mdetail-params"> <li><b>form</b> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li> <li><b>action</b> : Ext.form.Action<div class="sub-desc">The Action class. If an Ajax error ocurred, the failure type will be in {@link #failureType}. The {@link #result} property of this object may be examined to perform custom postprocessing.</div></li> </ul></summary>
-		public Delegate failure { get; set; }
+		public Delegate failure { get { return _<Delegate>(); } set { _(value); } }
 
 		/// <summary> The scope in which to call the callback functions (The <tt>this</tt> reference for the callback functions).</summary>
-		public object scope { get; set; }
+		public object scope { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The message to be displayed by a call to {@link Ext.MessageBox#wait} during the time the action is being processed.</summary>
-		public System.String waitMsg { get; set; }
+		public string waitMsg { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> The title to be displayed by a call to {@link Ext.MessageBox#wait} during the time the action is being processed.</summary>
-		public System.String waitTitle { get; set; }
+		public string waitTitle { get { return _<string>(); } set { _(value); } }
 
 	}
 }

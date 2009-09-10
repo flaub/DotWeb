@@ -5,7 +5,7 @@ namespace Ext.tree {
 	/// <summary>
 	///     /**
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeDropZone.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeDropZone.js</jssource>
 	public class TreeDropZone : Ext.dd.DropZone {
 
 		/// <summary></summary>
@@ -14,12 +14,12 @@ namespace Ext.tree {
 		/// <summary></summary>
 		/// <param name="tree">The {@link Ext.tree.TreePanel} for which to enable dropping</param>
 		/// <returns></returns>
-		public TreeDropZone(System.String tree) { C_(tree); }
+		public TreeDropZone(string tree) { C_(tree); }
 		/// <summary></summary>
 		/// <param name="tree">The {@link Ext.tree.TreePanel} for which to enable dropping</param>
 		/// <param name="config"></param>
 		/// <returns></returns>
-		public TreeDropZone(System.String tree, object config) { C_(tree, config); }
+		public TreeDropZone(string tree, object config) { C_(tree, config); }
 		/// <summary></summary>
 		/// <param name="tree">The {@link Ext.tree.TreePanel} for which to enable dropping</param>
 		/// <returns></returns>
@@ -55,7 +55,7 @@ namespace Ext.tree {
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public TreeDropZone(System.String id, System.String sGroup) { C_(id, sGroup); }
+		public TreeDropZone(string id, string sGroup) { C_(id, sGroup); }
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -65,7 +65,7 @@ namespace Ext.tree {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public TreeDropZone(System.String id, System.String sGroup, object config) { C_(id, sGroup, config); }
+		public TreeDropZone(string id, string sGroup, object config) { C_(id, sGroup, config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -84,10 +84,10 @@ namespace Ext.tree {
 		public bool allowParentInsert { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>True if drops on the tree container (outside of a specific tree node) are allowed (defaults to false)</summary>
-		public System.String allowContainerDrop { get { return _<System.String>(); } set { _(value); } }
+		public string allowContainerDrop { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True if the tree should only allow append drops (use for trees which are sorted, defaults to false)</summary>
-		public System.String appendOnly { get { return _<System.String>(); } set { _(value); } }
+		public string appendOnly { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The TreePanel for this drop zone</summary>
 		public Ext.tree.TreePanel tree { get { return _<Ext.tree.TreePanel>(); } set { _(value); } }
@@ -102,13 +102,13 @@ namespace Ext.tree {
 		///     A named drag drop group to which this object belongs.  If a group is specified, then this object will only
 		///     interact with other drag drop objects in the same group (defaults to 'TreeDD').
 		/// </summary>
-		public System.String ddGroup { get { return _<System.String>(); } set { _(value); } }
+		public string ddGroup { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     The delay in milliseconds to wait before expanding a target tree node while dragging a droppable node
 		///     over the target (defaults to 1000)
 		/// </summary>
-		public System.String expandDelay { get { return _<System.String>(); } set { _(value); } }
+		public string expandDelay { get { return _<string>(); } set { _(value); } }
 
 
 
@@ -116,30 +116,30 @@ namespace Ext.tree {
 	}
 
 	[JsAnonymous]
-	public class TreeDropZoneConfig : DotWeb.Client.JsAccessible {
+	public class TreeDropZoneConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  Allow inserting a dragged node between an expanded parent node and its first child that will become a sibling of the parent when dropped (defaults to false)</summary>
-		public bool allowParentInsert { get; set; }
+		public bool allowParentInsert { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True if drops on the tree container (outside of a specific tree node) are allowed (defaults to false)</summary>
-		public System.String allowContainerDrop { get; set; }
+		public string allowContainerDrop { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True if the tree should only allow append drops (use for trees which are sorted, defaults to false)</summary>
-		public System.String appendOnly { get; set; }
+		public string appendOnly { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A named drag drop group to which this object belongs.  If a group is specified, then this object will only interact with other drag drop objects in the same group (defaults to 'TreeDD').</summary>
-		public System.String ddGroup { get; set; }
+		public string ddGroup { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The delay in milliseconds to wait before expanding a target tree node while dragging a droppable node over the target (defaults to 1000)</summary>
-		public System.String expandDelay { get; set; }
+		public string expandDelay { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class applied to the drop target element while the drag source is over it (defaults to "").</summary>
-		public System.String overClass { get; set; }
+		public string overClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public System.String dropAllowed { get; set; }
+		public string dropAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public System.String dropNotAllowed { get; set; }
+		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
 
 	}
 }

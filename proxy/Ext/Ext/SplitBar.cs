@@ -17,7 +17,7 @@ namespace Ext {
 	///     split.on('moved', splitterMoved);
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\SplitBar.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\SplitBar.js</jssource>
 	public class SplitBarClass : Ext.util.Observable {
 
 		/// <summary>
@@ -151,9 +151,9 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class SplitBarConfig : DotWeb.Client.JsAccessible {
+	public class SplitBarConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

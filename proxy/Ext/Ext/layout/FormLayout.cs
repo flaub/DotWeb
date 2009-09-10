@@ -86,7 +86,7 @@ namespace Ext.layout {
 	///     */
 	///     Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\layout\FormLayout.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\layout\FormLayout.js</jssource>
 	public class FormLayout : Ext.layout.AnchorLayout {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -104,17 +104,17 @@ namespace Ext.layout {
 		public static Ext.layout.AnchorLayout superclass { get { return S_<Ext.layout.AnchorLayout>(); } set { S_(value); } }
 
 		/// <summary>A CSS style specification string to add to each field label in this layout (defaults to '').</summary>
-		public System.String labelStyle { get { return _<System.String>(); } set { _(value); } }
+		public string labelStyle { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>A CSS style specification string to add to each field element in this layout (defaults to '').</summary>
-		public System.String elementStyle { get { return _<System.String>(); } set { _(value); } }
+		public string elementStyle { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     The standard separator to display after the text of each form label (defaults to a colon ':').  To turn off
 		///     separators for all fields in this layout by default specify empty string '' (if the labelSeparator value is
 		///     explicitly set at the field level, those will still be displayed).
 		/// </summary>
-		public System.String labelSeparator { get { return _<System.String>(); } set { _(value); } }
+		public string labelSeparator { get { return _<string>(); } set { _(value); } }
 
 
 
@@ -122,21 +122,21 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class FormLayoutConfig : DotWeb.Client.JsAccessible {
+	public class FormLayoutConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  A CSS style specification string to add to each field label in this layout (defaults to '').</summary>
-		public System.String labelStyle { get; set; }
+		public string labelStyle { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A CSS style specification string to add to each field element in this layout (defaults to '').</summary>
-		public System.String elementStyle { get; set; }
+		public string elementStyle { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The standard separator to display after the text of each form label (defaults to a colon ':').  To turn off separators for all fields in this layout by default specify empty string '' (if the labelSeparator value is explicitly set at the field level, those will still be displayed).</summary>
-		public System.String labelSeparator { get; set; }
+		public string labelSeparator { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String extraCls { get; set; }
+		public string extraCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get; set; }
+		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
 
 	}
 }

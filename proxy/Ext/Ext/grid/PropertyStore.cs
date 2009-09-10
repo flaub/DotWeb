@@ -9,7 +9,7 @@ namespace Ext.grid {
 	///     required for compatibility with the underlying store. Generally this class should not need to be used directly --
 	///     the grid's data should be accessed from the underlying store via the {@link #store} property.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\grid\PropertyGrid.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\grid\PropertyGrid.js</jssource>
 	public class PropertyStore : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -41,9 +41,9 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class PropertyStoreConfig : DotWeb.Client.JsAccessible {
+	public class PropertyStoreConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

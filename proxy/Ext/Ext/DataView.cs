@@ -51,7 +51,7 @@ namespace Ext {
 	///     panel.render(document.body);
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\DataView.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\DataView.js</jssource>
 	public class DataView : Ext.BoxComponent {
 
 		/// <summary>Create a new DataView</summary>
@@ -68,7 +68,7 @@ namespace Ext {
 		/// <summary></summary>
 		/// <param name="config">The configuration options.</param>
 		/// <returns></returns>
-		public DataView(System.String config) { C_(config); }
+		public DataView(string config) { C_(config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -93,7 +93,7 @@ namespace Ext {
 		///     <b>This is a required setting</b>. A simple CSS selector (e.g. div.some-class or span:first-child) that will be
 		///     used to determine what nodes this DataView will be working with.
 		/// </summary>
-		public System.String itemSelector { get { return _<System.String>(); } set { _(value); } }
+		public string itemSelector { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     True to allow selection of more than one item at a time, false to allow selection of only a single item
@@ -114,20 +114,20 @@ namespace Ext {
 		public bool simpleSelect { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>A CSS class to apply to each item in the view on mouseover (defaults to undefined).</summary>
-		public System.String overClass { get { return _<System.String>(); } set { _(value); } }
+		public string overClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     A string to display during data load operations (defaults to undefined).  If specified, this text will be
 		///     displayed in a loading div and the view's contents will be cleared while loading, otherwise the view's
 		///     contents will continue to display normally until the new data is loaded and the contents are replaced.
 		/// </summary>
-		public System.String loadingText { get { return _<System.String>(); } set { _(value); } }
+		public string loadingText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>A CSS class to apply to each selected item in the view (defaults to 'x-view-selected').</summary>
-		public System.String selectedClass { get { return _<System.String>(); } set { _(value); } }
+		public string selectedClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The text to display in the view when there is no data to display (defaults to '').</summary>
-		public System.String emptyText { get { return _<System.String>(); } set { _(value); } }
+		public string emptyText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True to defer emptyText being applied until the store's first load</summary>
 		public bool deferEmptyText { get { return _<bool>(); } set { _(value); } }
@@ -398,7 +398,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node,</param>
 		/// <returns></returns>
-		public virtual void select(System.String nodeInfo) { _(nodeInfo); }
+		public virtual void select(string nodeInfo) { _(nodeInfo); }
 
 		/// <summary>
 		///     Selects a set of nodes.
@@ -407,7 +407,7 @@ namespace Ext {
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node,</param>
 		/// <param name="keepExisting">(optional) true to keep existing selections</param>
 		/// <returns></returns>
-		public virtual void select(System.String nodeInfo, bool keepExisting) { _(nodeInfo, keepExisting); }
+		public virtual void select(string nodeInfo, bool keepExisting) { _(nodeInfo, keepExisting); }
 
 		/// <summary>
 		///     Selects a set of nodes.
@@ -417,7 +417,7 @@ namespace Ext {
 		/// <param name="keepExisting">(optional) true to keep existing selections</param>
 		/// <param name="suppressEvent">(optional) true to skip firing of the selectionchange vent</param>
 		/// <returns></returns>
-		public virtual void select(System.String nodeInfo, bool keepExisting, bool suppressEvent) { _(nodeInfo, keepExisting, suppressEvent); }
+		public virtual void select(string nodeInfo, bool keepExisting, bool suppressEvent) { _(nodeInfo, keepExisting, suppressEvent); }
 
 		/// <summary>
 		///     Selects a set of nodes.
@@ -480,7 +480,7 @@ namespace Ext {
 		/// <summary>Gets a template node.</summary>
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node or the id of a template node</param>
 		/// <returns>HTMLElement</returns>
-		public virtual void getNode(System.String nodeInfo) { _(nodeInfo); }
+		public virtual void getNode(string nodeInfo) { _(nodeInfo); }
 
 		/// <summary>Gets a template node.</summary>
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node or the id of a template node</param>
@@ -514,7 +514,7 @@ namespace Ext {
 		/// <summary>Finds the index of the passed node.</summary>
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node or the id of a template node</param>
 		/// <returns>Number</returns>
-		public virtual void indexOf(System.String nodeInfo) { _(nodeInfo); }
+		public virtual void indexOf(string nodeInfo) { _(nodeInfo); }
 
 		/// <summary>Finds the index of the passed node.</summary>
 		/// <param name="nodeInfo">An HTMLElement template node, index of a template node or the id of a template node</param>
@@ -526,130 +526,130 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class DataViewConfig : DotWeb.Client.JsAccessible {
+	public class DataViewConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>{String/Array}  The HTML fragment or an array of fragments that will make up the template used by this DataView.  This should be specified in the same format expected by the constructor of {@link Ext.XTemplate}.</summary>
-		public object tpl { get; set; }
+		public object tpl { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  The {@link Ext.data.Store} to bind this DataView to.</summary>
-		public Ext.data.Store store { get; set; }
+		public Ext.data.Store store { get { return _<Ext.data.Store>(); } set { _(value); } }
 
 		/// <summary>  <b>This is a required setting</b>. A simple CSS selector (e.g. div.some-class or span:first-child) that will be used to determine what nodes this DataView will be working with.</summary>
-		public System.String itemSelector { get; set; }
+		public string itemSelector { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to allow selection of more than one item at a time, false to allow selection of only a single item at a time or no selection at all, depending on the value of {@link #singleSelect} (defaults to false).</summary>
-		public bool multiSelect { get; set; }
+		public bool multiSelect { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True to allow selection of exactly one item at a time, false to allow no selection at all (defaults to false). Note that if {@link #multiSelect} = true, this value will be ignored.</summary>
-		public bool singleSelect { get; set; }
+		public bool singleSelect { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True to enable multiselection by clicking on multiple items without requiring the user to hold Shift or Ctrl, false to force the user to hold Ctrl or Shift to select more than on item (defaults to false).</summary>
-		public bool simpleSelect { get; set; }
+		public bool simpleSelect { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  A CSS class to apply to each item in the view on mouseover (defaults to undefined).</summary>
-		public System.String overClass { get; set; }
+		public string overClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A string to display during data load operations (defaults to undefined).  If specified, this text will be displayed in a loading div and the view's contents will be cleared while loading, otherwise the view's contents will continue to display normally until the new data is loaded and the contents are replaced.</summary>
-		public System.String loadingText { get; set; }
+		public string loadingText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A CSS class to apply to each selected item in the view (defaults to 'x-view-selected').</summary>
-		public System.String selectedClass { get; set; }
+		public string selectedClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The text to display in the view when there is no data to display (defaults to '').</summary>
-		public System.String emptyText { get; set; }
+		public string emptyText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> True to defer emptyText being applied until the store's first load</summary>
-		public bool deferEmptyText { get; set; }
+		public bool deferEmptyText { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to enable mouseenter and mouseleave events</summary>
-		public bool trackOver { get; set; }
+		public bool trackOver { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  The local x (left) coordinate for this component if contained within a positioning container.</summary>
-		public double x { get; set; }
+		public double x { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  The local y (top) coordinate for this component if contained within a positioning container.</summary>
-		public double y { get; set; }
+		public double y { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  The page level x coordinate for this component if contained within a positioning container.</summary>
-		public double pageX { get; set; }
+		public double pageX { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  The page level y coordinate for this component if contained within a positioning container.</summary>
-		public double pageY { get; set; }
+		public double pageY { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  The height of this component in pixels (defaults to auto).</summary>
-		public double height { get; set; }
+		public double height { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  The width of this component in pixels (defaults to auto).</summary>
-		public double width { get; set; }
+		public double width { get { return _<double>(); } set { _(value); } }
 
 		/// <summary>  True to use height:'auto', false to use fixed height. Note: although many components inherit this config option, not all will function as expected with a height of 'auto'. (defaults to false).</summary>
-		public bool autoHeight { get; set; }
+		public bool autoHeight { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True to use width:'auto', false to use fixed width. Note: although many components inherit this config option, not all will function as expected with a width of 'auto'. (defaults to false).</summary>
-		public bool autoWidth { get; set; }
+		public bool autoWidth { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> 
 		///     The registered xtype to create. This config option is not used when passing a config object into a constructor. This config option is used only when lazy instantiation is being used, and a child item of a Container is being specified not as a fully instantiated Component, but as a Component config object. The xtype will be looked up at render time up to determine what type of child Component to create.
 		///     The predefined xtypes are listed at the top of this document.
 		///     If you subclass Components to create your own Components, you may register them using Ext.ComponentMgr.registerType in order to be able to take advantage of lazy instantiation and rendering.
 		/// </summary>
-		public string xtype { get; set; }
+		public string xtype { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The unique id of this component (defaults to an auto-assigned id).</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>{String/Object}  A tag name or DomHelper spec to create an element with. This is intended to create shorthand utility components inline via JSON. It should not be used for higher level components which already create their own elements. Example usage: <pre><code> {xtype:'box', autoEl: 'div', cls:'my-class'} {xtype:'box', autoEl: {tag:'blockquote', html:'autoEl is cool!'}} // with DomHelper </code></pre></summary>
-		public object autoEl { get; set; }
+		public object autoEl { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's Element (defaults to '').  This can be useful for adding customized styles to the component or any of its children using standard CSS rules.</summary>
-		public System.String cls { get; set; }
+		public string cls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's Element when the mouse moves over the Element, and removed when the mouse moves out. (defaults to '').  This can be useful for adding customized "active" or "hover" styles to the component or any of its children using standard CSS rules.</summary>
-		public System.String overCls { get; set; }
+		public string overCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  A custom style specification to be applied to this component's Element.  Should be a valid argument to {@link Ext.Element#applyStyles}.</summary>
-		public System.String style { get; set; }
+		public string style { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  An optional extra CSS class that will be added to this component's container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public System.String ctCls { get; set; }
+		public string ctCls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Render this component disabled (default is false).</summary>
-		public bool disabled { get; set; }
+		public bool disabled { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  Render this component hidden (default is false).</summary>
-		public bool hidden { get; set; }
+		public bool hidden { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>{Object/Array}  An object or array of objects that will provide custom functionality for this component.  The only requirement for a valid plugin is that it contain an init method that accepts a reference of type Ext.Component. When a component is created, if any plugins are available, the component will call the init method on each plugin, passing a reference to itself.  Each plugin can then call methods or respond to events on the component as needed to provide its functionality.</summary>
-		public object plugins { get; set; }
+		public object plugins { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  The id of the node, a DOM node or an existing Element corresponding to a DIV that is already present in the document that specifies some structural markup for this component.  When applyTo is used, constituent parts of the component can also be specified by id or CSS class name within the main element, and the component being created may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is not required.  If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target element's parent node will automatically be used as the component's container.</summary>
-		public object applyTo { get; set; }
+		public object applyTo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  The id of the node, a DOM node or an existing Element that will be the container to render this component into. Using this config, a call to render() is not required.</summary>
-		public object renderTo { get; set; }
+		public object renderTo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary>  A flag which causes the Component to attempt to restore the state of internal properties from a saved state on startup.<p> For state saving to work, the state manager's provider must have been set to an implementation of {@link Ext.state.Provider} which overrides the {@link Ext.state.Provider#set set} and {@link Ext.state.Provider#get get} methods to save and recall name/value pairs. A built-in implementation, {@link Ext.state.CookieProvider} is available.</p> <p>To set the state provider for the current page:</p> <pre><code> Ext.state.Manager.setProvider(new Ext.state.CookieProvider()); </code></pre> <p>Components attempt to save state when one of the events listed in the {@link #stateEvents} configuration fires.</p> <p>You can perform extra processing on state save and restore by attaching handlers to the {@link #beforestaterestore}, {@link staterestore}, {@link beforestatesave} and {@link statesave} events</p></summary>
-		public bool stateful { get; set; }
+		public bool stateful { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  The unique id for this component to use for state management purposes (defaults to the component id). <p>See {@link #stateful} for an explanation of saving and restoring Component state.</p></summary>
-		public System.String stateId { get; set; }
+		public string stateId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  CSS class added to the component when it is disabled (defaults to "x-item-disabled").</summary>
-		public System.String disabledClass { get; set; }
+		public string disabledClass { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  Whether the component can move the Dom node when rendering (defaults to true).</summary>
-		public bool allowDomMove { get; set; }
+		public bool allowDomMove { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True if the component should check for hidden classes (e.g. 'x-hidden' or 'x-hide-display') and remove them on render (defaults to false).</summary>
-		public bool autoShow { get; set; }
+		public bool autoShow { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  How this component should hidden. Supported values are "visibility" (css visibility), "offsets" (negative offset position) and "display" (css display) - defaults to "display".</summary>
-		public System.String hideMode { get; set; }
+		public string hideMode { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True to hide and show the component's container when hide/show is called on the component, false to hide and show the component itself (defaults to false).  For example, this can be used as a shortcut for a hide button on a window by setting hide:true on the button when adding it to its parent container.</summary>
-		public bool hideParent { get; set; }
+		public bool hideParent { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

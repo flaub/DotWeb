@@ -17,7 +17,7 @@ namespace Ext.tree {
 	///     */
 	///     Ext.tree.TreeNodeUI = function(node){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\tree\TreeNodeUI.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeNodeUI.js</jssource>
 	public class TreeNodeUI : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -45,7 +45,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
 		/// <returns></returns>
-		public virtual void addClass(System.String className) { _(className); }
+		public virtual void addClass(string className) { _(className); }
 
 		/// <summary>
 		///     Adds one or more CSS classes to the node's UI element.
@@ -62,7 +62,7 @@ namespace Ext.tree {
 		/// <summary>Removes one or more CSS classes from the node's UI element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>
 		/// <returns></returns>
-		public virtual void removeClass(System.String className) { _(className); }
+		public virtual void removeClass(string className) { _(className); }
 
 		/// <summary>Removes one or more CSS classes from the node's UI element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>

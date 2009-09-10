@@ -26,7 +26,7 @@ namespace Ext.data {
 	///     </code></pre>
 	///     @cfg {String} id (optional) The subscript within row Array that provides an ID for the Record
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\ArrayReader.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\ArrayReader.js</jssource>
 	public class ArrayReader : Ext.data.JsonReader {
 
 		/// <summary>
@@ -88,18 +88,18 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class ArrayReaderConfig : DotWeb.Client.JsAccessible {
+	public class ArrayReaderConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> (optional) The subscript within row Array that provides an ID for the Record</summary>
-		public System.String id { get; set; }
+		public string id { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Name of the property from which to retrieve the total number of records</summary>
-		public System.String totalProperty { get; set; }
+		public string totalProperty { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Name of the property from which to retrieve the success attribute used by forms.</summary>
-		public System.String successProperty { get; set; }
+		public string successProperty { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> name of the property which contains the Array of row objects.</summary>
-		public System.String root { get; set; }
+		public string root { get { return _<string>(); } set { _(value); } }
 
 	}
 }

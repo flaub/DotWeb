@@ -16,7 +16,7 @@ namespace Ext.data {
 	///     */
 	///     Ext.data.DataProxy = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\DataProxy.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\DataProxy.js</jssource>
 	public class DataProxy : Ext.util.Observable {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -39,9 +39,9 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class DataProxyConfig : DotWeb.Client.JsAccessible {
+	public class DataProxyConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

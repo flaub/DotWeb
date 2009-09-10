@@ -18,7 +18,7 @@ namespace Ext.state {
 	///     */
 	///     Ext.state.Manager = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\state\StateManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\state\StateManager.js</jssource>
 	public class Manager : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -49,13 +49,13 @@ namespace Ext.state {
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns>Mixed</returns>
-		public static void get(System.String name) { S_(name); }
+		public static void get(string name) { S_(name); }
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="defaultValue">The default value to return if the key lookup does not match</param>
 		/// <returns>Mixed</returns>
-		public static void get(System.String name, object defaultValue) { S_(name, defaultValue); }
+		public static void get(string name, object defaultValue) { S_(name, defaultValue); }
 
 		/// <summary>Sets the value for a key</summary>
 		/// <returns></returns>
@@ -64,13 +64,13 @@ namespace Ext.state {
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public static void set(System.String name) { S_(name); }
+		public static void set(string name) { S_(name); }
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="value">The state data</param>
 		/// <returns></returns>
-		public static void set(System.String name, object value) { S_(name, value); }
+		public static void set(string name, object value) { S_(name, value); }
 
 		/// <summary>Clears a value from the state</summary>
 		/// <returns></returns>
@@ -79,7 +79,7 @@ namespace Ext.state {
 		/// <summary>Clears a value from the state</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public static void clear(System.String name) { S_(name); }
+		public static void clear(string name) { S_(name); }
 
 		/// <summary>Gets the currently configured state provider</summary>
 		/// <returns>Provider</returns>

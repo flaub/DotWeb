@@ -6,7 +6,7 @@ namespace Ext.dd {
 	///     /**
 	///     A simple class that provides the basic implementation needed to make any element draggable.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\DragSource.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DragSource.js</jssource>
 	public class DragSource : Ext.dd.DDProxy {
 
 		/// <summary></summary>
@@ -27,7 +27,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the linked html element</param>
 		/// <returns></returns>
-		public DragSource(System.String id) { C_(id); }
+		public DragSource(string id) { C_(id); }
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -35,7 +35,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the linked html element</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DragSource(System.String id, System.String sGroup) { C_(id, sGroup); }
+		public DragSource(string id, string sGroup) { C_(id, sGroup); }
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -44,7 +44,7 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DragSource(System.String id, System.String sGroup, object config) { C_(id, sGroup, config); }
+		public DragSource(string id, string sGroup, object config) { C_(id, sGroup, config); }
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
@@ -60,13 +60,13 @@ namespace Ext.dd {
 		///     A named drag drop group to which this object belongs.  If a group is specified, then this object will only
 		///     interact with other drag drop objects in the same group (defaults to undefined).
 		/// </summary>
-		public System.String ddGroup { get { return _<System.String>(); } set { _(value); } }
+		public string ddGroup { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public System.String dropAllowed { get { return _<System.String>(); } set { _(value); } }
+		public string dropAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public System.String dropNotAllowed { get { return _<System.String>(); } set { _(value); } }
+		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action once the initial
@@ -113,7 +113,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns></returns>
-		public virtual void afterDragEnter(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void afterDragEnter(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -147,7 +147,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns>Boolean</returns>
-		public virtual void beforeDragEnter(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void beforeDragEnter(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -181,7 +181,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns></returns>
-		public virtual void afterDragOver(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void afterDragOver(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -215,7 +215,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns>Boolean</returns>
-		public virtual void beforeDragOver(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void beforeDragOver(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -249,7 +249,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns></returns>
-		public virtual void afterDragOut(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void afterDragOut(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action before the dragged
@@ -283,7 +283,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns>Boolean</returns>
-		public virtual void beforeDragOut(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void beforeDragOut(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -317,7 +317,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dropped element</param>
 		/// <returns></returns>
-		public virtual void afterDragDrop(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void afterDragDrop(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action before the dragged
@@ -351,7 +351,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns>Boolean</returns>
-		public virtual void beforeDragDrop(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void beforeDragDrop(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -385,7 +385,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dropped element</param>
 		/// <returns></returns>
-		public virtual void afterInvalidDrop(object target, Event e, System.String id) { _(target, e, id); }
+		public virtual void afterInvalidDrop(object target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action
@@ -402,7 +402,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dropped element</param>
 		/// <returns></returns>
-		public virtual void afterInvalidDrop(Event e, System.String id) { _(e, id); }
+		public virtual void afterInvalidDrop(Event e, string id) { _(e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action after an invalid
@@ -436,7 +436,7 @@ namespace Ext.dd {
 		/// <param name="e">The event object</param>
 		/// <param name="id">The id of the dragged element</param>
 		/// <returns>Boolean</returns>
-		public virtual void beforeInvalidDrop(Ext.dd.DragDrop target, Event e, System.String id) { _(target, e, id); }
+		public virtual void beforeInvalidDrop(Ext.dd.DragDrop target, Event e, string id) { _(target, e, id); }
 
 		/// <summary>
 		///     An empty function by default, but provided so that you can perform a custom action before the initial
@@ -475,15 +475,15 @@ namespace Ext.dd {
 	}
 
 	[JsAnonymous]
-	public class DragSourceConfig : DotWeb.Client.JsAccessible {
+	public class DragSourceConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  A named drag drop group to which this object belongs.  If a group is specified, then this object will only interact with other drag drop objects in the same group (defaults to undefined).</summary>
-		public System.String ddGroup { get; set; }
+		public string ddGroup { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public System.String dropAllowed { get; set; }
+		public string dropAllowed { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public System.String dropNotAllowed { get; set; }
+		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
 
 	}
 }

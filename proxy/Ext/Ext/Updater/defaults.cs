@@ -8,7 +8,7 @@ namespace Ext.Updater {
 	///     */
 	///     Ext.Updater.defaults = {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\UpdateManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\UpdateManager.js</jssource>
 	public class defaults : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -29,7 +29,7 @@ namespace Ext.Updater {
 		public bool loadScripts { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>Blank page URL to use with SSL file uploads (defaults to {@link Ext#SSL_SECURE_URL} if set, or "javascript:false").</summary>
-		public System.String sslBlankUrl { get { return _<System.String>(); } set { _(value); } }
+		public string sslBlankUrl { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>True to append a unique parameter to GET requests to disable caching (defaults to false).</summary>
 		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
@@ -38,7 +38,7 @@ namespace Ext.Updater {
 		public bool showLoadIndicator { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>Text for loading indicator (defaults to '&lt;div class="loading-indicator"&gt;Loading...&lt;/div&gt;').</summary>
-		public System.String indicatorText { get { return _<System.String>(); } set { _(value); } }
+		public string indicatorText { get { return _<string>(); } set { _(value); } }
 
 
 

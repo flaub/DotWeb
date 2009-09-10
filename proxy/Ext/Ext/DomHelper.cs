@@ -31,7 +31,7 @@ namespace Ext {
 	///     */
 	///     Ext.DomHelper = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\DomHelper.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\DomHelper.js</jssource>
 	public class DomHelper : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -71,7 +71,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The element to apply styles to</param>
 		/// <returns></returns>
-		public static void applyStyles(System.String el) { S_(el); }
+		public static void applyStyles(string el) { S_(el); }
 
 		/// <summary>
 		///     Applies a style specification to an element.
@@ -80,7 +80,7 @@ namespace Ext {
 		/// <param name="el">The element to apply styles to</param>
 		/// <param name="styles">A style specification string eg "width:100px", or object in the form {width:"100px"}, or</param>
 		/// <returns></returns>
-		public static void applyStyles(System.String el, System.String styles) { S_(el, styles); }
+		public static void applyStyles(string el, string styles) { S_(el, styles); }
 
 		/// <summary>
 		///     Applies a style specification to an element.
@@ -97,7 +97,7 @@ namespace Ext {
 		/// <param name="el">The element to apply styles to</param>
 		/// <param name="styles">A style specification string eg "width:100px", or object in the form {width:"100px"}, or</param>
 		/// <returns></returns>
-		public static void applyStyles(DOMElement el, System.String styles) { S_(el, styles); }
+		public static void applyStyles(DOMElement el, string styles) { S_(el, styles); }
 
 		/// <summary>
 		///     Applies a style specification to an element.
@@ -106,7 +106,7 @@ namespace Ext {
 		/// <param name="el">The element to apply styles to</param>
 		/// <param name="styles">A style specification string eg "width:100px", or object in the form {width:"100px"}, or</param>
 		/// <returns></returns>
-		public static void applyStyles(System.String el, object styles) { S_(el, styles); }
+		public static void applyStyles(string el, object styles) { S_(el, styles); }
 
 		/// <summary>
 		///     Applies a style specification to an element.
@@ -124,7 +124,7 @@ namespace Ext {
 		/// <param name="el">The element to apply styles to</param>
 		/// <param name="styles">A style specification string eg "width:100px", or object in the form {width:"100px"}, or</param>
 		/// <returns></returns>
-		public static void applyStyles(System.String el, Delegate styles) { S_(el, styles); }
+		public static void applyStyles(string el, Delegate styles) { S_(el, styles); }
 
 		/// <summary>
 		///     Applies a style specification to an element.
@@ -142,20 +142,20 @@ namespace Ext {
 		/// <summary>Inserts an HTML fragment into the DOM.</summary>
 		/// <param name="where">Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <returns>HTMLElement</returns>
-		public static void insertHtml(System.String where) { S_(where); }
+		public static void insertHtml(string where) { S_(where); }
 
 		/// <summary>Inserts an HTML fragment into the DOM.</summary>
 		/// <param name="where">Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <param name="el">The context element</param>
 		/// <returns>HTMLElement</returns>
-		public static void insertHtml(System.String where, DOMElement el) { S_(where, el); }
+		public static void insertHtml(string where, DOMElement el) { S_(where, el); }
 
 		/// <summary>Inserts an HTML fragment into the DOM.</summary>
 		/// <param name="where">Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.</param>
 		/// <param name="el">The context element</param>
 		/// <param name="html">The HTML fragmenet</param>
 		/// <returns>HTMLElement</returns>
-		public static void insertHtml(System.String where, DOMElement el, System.String html) { S_(where, el, html); }
+		public static void insertHtml(string where, DOMElement el, string html) { S_(where, el, html); }
 
 		/// <summary>Creates new DOM element(s) and inserts them before el.</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -183,14 +183,14 @@ namespace Ext {
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void insertBefore(object el, System.String o) { S_(el, o); }
+		public static void insertBefore(object el, string o) { S_(el, o); }
 
 		/// <summary>Creates new DOM element(s) and inserts them before el.</summary>
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <param name="returnElement">(optional) true to return a Ext.Element</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void insertBefore(object el, System.String o, bool returnElement) { S_(el, o, returnElement); }
+		public static void insertBefore(object el, string o, bool returnElement) { S_(el, o, returnElement); }
 
 		/// <summary>Creates new DOM element(s) and inserts them after el.</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -240,14 +240,14 @@ namespace Ext {
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void insertFirst(object el, System.String o) { S_(el, o); }
+		public static void insertFirst(object el, string o) { S_(el, o); }
 
 		/// <summary>Creates new DOM element(s) and inserts them as the first child of el.</summary>
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <param name="returnElement">(optional) true to return a Ext.Element</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void insertFirst(object el, System.String o, bool returnElement) { S_(el, o, returnElement); }
+		public static void insertFirst(object el, string o, bool returnElement) { S_(el, o, returnElement); }
 
 		/// <summary>Creates new DOM element(s) and appends them to el.</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -275,14 +275,14 @@ namespace Ext {
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void append(object el, System.String o) { S_(el, o); }
+		public static void append(object el, string o) { S_(el, o); }
 
 		/// <summary>Creates new DOM element(s) and appends them to el.</summary>
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <param name="returnElement">(optional) true to return a Ext.Element</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void append(object el, System.String o, bool returnElement) { S_(el, o, returnElement); }
+		public static void append(object el, string o, bool returnElement) { S_(el, o, returnElement); }
 
 		/// <summary>Creates new DOM element(s) and overwrites the contents of el with them.</summary>
 		/// <returns>HTMLElement/Ext.Element</returns>
@@ -310,14 +310,14 @@ namespace Ext {
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void overwrite(object el, System.String o) { S_(el, o); }
+		public static void overwrite(object el, string o) { S_(el, o); }
 
 		/// <summary>Creates new DOM element(s) and overwrites the contents of el with them.</summary>
 		/// <param name="el">The context element</param>
 		/// <param name="o">The DOM object spec (and children) or raw HTML blob</param>
 		/// <param name="returnElement">(optional) true to return a Ext.Element</param>
 		/// <returns>HTMLElement/Ext.Element</returns>
-		public static void overwrite(object el, System.String o, bool returnElement) { S_(el, o, returnElement); }
+		public static void overwrite(object el, string o, bool returnElement) { S_(el, o, returnElement); }
 
 		/// <summary>Creates a new Ext.Template from the DOM object spec.</summary>
 		/// <returns>Ext.Template</returns>

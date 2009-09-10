@@ -6,7 +6,7 @@ namespace Ext.data {
 	///     /**
 	///     A specialized store implementation that provides for grouping records by one of the available fields.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\GroupingStore.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\GroupingStore.js</jssource>
 	public class GroupingStore : Ext.data.Store {
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace Ext.data {
 		public static Ext.data.Store superclass { get { return S_<Ext.data.Store>(); } set { S_(value); } }
 
 		/// <summary>The field name by which to sort the store's data (defaults to '').</summary>
-		public System.String groupField { get { return _<System.String>(); } set { _(value); } }
+		public string groupField { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>
 		///     True if the grouping should apply on the server side, false if it is local only (defaults to false).  If the
@@ -67,7 +67,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="field">The field name by which to sort the store's data</param>
 		/// <returns></returns>
-		public virtual void groupBy(System.String field) { _(field); }
+		public virtual void groupBy(string field) { _(field); }
 
 		/// <summary>
 		///     Groups the data by the specified field.
@@ -76,55 +76,55 @@ namespace Ext.data {
 		/// <param name="field">The field name by which to sort the store's data</param>
 		/// <param name="forceRegroup">(optional) True to force the group to be refreshed even if the field passed</param>
 		/// <returns></returns>
-		public virtual void groupBy(System.String field, bool forceRegroup) { _(field, forceRegroup); }
+		public virtual void groupBy(string field, bool forceRegroup) { _(field, forceRegroup); }
 
 
 
 	}
 
 	[JsAnonymous]
-	public class GroupingStoreConfig : DotWeb.Client.JsAccessible {
+	public class GroupingStoreConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The field name by which to sort the store's data (defaults to '').</summary>
-		public System.String groupField { get; set; }
+		public string groupField { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  True if the grouping should apply on the server side, false if it is local only (defaults to false).  If the grouping is local, it can be applied immediately to the data.  If it is remote, then it will simply act as a helper, automatically sending the grouping field name as the 'groupBy' param with each XHR call.</summary>
-		public bool remoteGroup { get; set; }
+		public bool remoteGroup { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>  True to sort the data on the grouping field when a grouping operation occurs, false to sort based on the existing sort info (defaults to false).</summary>
-		public bool groupOnSort { get; set; }
+		public bool groupOnSort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> If passed, the id to use to register with the StoreMgr</summary>
-		public System.String storeId { get; set; }
+		public string storeId { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> If passed, an HttpProxy is created for the passed URL</summary>
-		public System.String url { get; set; }
+		public string url { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>{Boolean/Object} If passed, this store's load method is automatically called after creation with the autoLoad object</summary>
-		public object autoLoad { get; set; }
+		public object autoLoad { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> The Proxy object which provides access to a data object.</summary>
-		public Ext.data.DataProxy proxy { get; set; }
+		public Ext.data.DataProxy proxy { get { return _<Ext.data.DataProxy>(); } set { _(value); } }
 
 		/// <summary> Inline data to be loaded when the store is initialized.</summary>
-		public System.Array data { get; set; }
+		public System.Array data { get { return _<System.Array>(); } set { _(value); } }
 
 		/// <summary> The DataReader object which processes the data object and returns an Array of Ext.data.Record objects which are cached keyed by their <em>id</em> property.</summary>
-		public Ext.data.DataReader reader { get; set; }
+		public Ext.data.DataReader reader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
 
 		/// <summary> An object containing properties which are to be sent as parameters on any HTTP request</summary>
-		public object baseParams { get; set; }
+		public object baseParams { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> A config object in the format: {field: "fieldName", direction: "ASC|DESC"}.  The direction property is case-sensitive.</summary>
-		public object sortInfo { get; set; }
+		public object sortInfo { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> True if sorting is to be handled by requesting the Proxy to provide a refreshed version of the data object in sorted order, as opposed to sorting the Record cache in place (defaults to false). <p>If remote sorting is specified, then clicking on a column header causes the current page to be requested from the server with the addition of the following two parameters: <div class="mdetail-params"><ul> <li><b>sort</b> : String<p class="sub-desc">The name (as specified in the Record's Field definition) of the field to sort on.</p></li> <li><b>dir</b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li> </ul></div></p></summary>
-		public bool remoteSort { get; set; }
+		public bool remoteSort { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> True to clear all modified record information each time the store is loaded or when a record is removed. (defaults to false).</summary>
-		public bool pruneModifiedRecords { get; set; }
+		public bool pruneModifiedRecords { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

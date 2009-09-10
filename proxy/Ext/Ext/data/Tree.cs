@@ -7,7 +7,7 @@ namespace Ext.data {
 	///     Represents a tree data structure and bubbles all the events for its nodes. The nodes
 	///     in the tree have most standard DOM functionality.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\Tree.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\Tree.js</jssource>
 	public class Tree : Ext.util.Observable {
 
 		/// <summary></summary>
@@ -32,7 +32,7 @@ namespace Ext.data {
 		public Ext.data.Node root { get { return _<Ext.data.Node>(); } set { _(value); } }
 
 		/// <summary>The token used to separate paths in node ids (defaults to '/').</summary>
-		public System.String pathSeparator { get { return _<System.String>(); } set { _(value); } }
+		public string pathSeparator { get { return _<string>(); } set { _(value); } }
 
 
 		/// <summary>Returns the root node for this tree.</summary>
@@ -55,19 +55,19 @@ namespace Ext.data {
 		/// <summary>Gets a node in this tree by its id.</summary>
 		/// <param name="id"></param>
 		/// <returns>Node</returns>
-		public virtual void getNodeById(System.String id) { _(id); }
+		public virtual void getNodeById(string id) { _(id); }
 
 
 
 	}
 
 	[JsAnonymous]
-	public class TreeConfig : DotWeb.Client.JsAccessible {
+	public class TreeConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The token used to separate paths in node ids (defaults to '/').</summary>
-		public System.String pathSeparator { get; set; }
+		public string pathSeparator { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

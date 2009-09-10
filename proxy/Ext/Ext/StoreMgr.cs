@@ -8,7 +8,7 @@ namespace Ext {
 	///     */
 	///     Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\data\StoreMgr.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\StoreMgr.js</jssource>
 	public class StoreMgr : Ext.util.MixedCollection {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -67,7 +67,7 @@ namespace Ext {
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(params System.String[] args) { S_(args); }
+		public static void unregister(params string[] args) { S_(args); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
@@ -78,20 +78,20 @@ namespace Ext {
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, params System.String[] args) { S_(id1, args); }
+		public static void unregister(object id1, params string[] args) { S_(id1, args); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(System.String id1, object id2) { S_(id1, id2); }
+		public static void unregister(string id1, object id2) { S_(id1, id2); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(System.String id1, object id2, params System.String[] args) { S_(id1, id2, args); }
+		public static void unregister(string id1, object id2, params string[] args) { S_(id1, id2, args); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
@@ -104,27 +104,27 @@ namespace Ext {
 		/// <param name="id2">(optional)</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, object id2, params System.String[] args) { S_(id1, id2, args); }
+		public static void unregister(object id1, object id2, params string[] args) { S_(id1, id2, args); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(System.String id1, System.String id2) { S_(id1, id2); }
-
-		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
-		/// <param name="id1">The id of the Store, or a Store instance</param>
-		/// <param name="id2">(optional)</param>
-		/// <param name="args">(optional)</param>
-		/// <returns></returns>
-		public static void unregister(System.String id1, System.String id2, params object[] args) { S_(id1, id2, args); }
+		public static void unregister(string id1, string id2) { S_(id1, id2); }
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, System.String id2, params object[] args) { S_(id1, id2, args); }
+		public static void unregister(string id1, string id2, params object[] args) { S_(id1, id2, args); }
+
+		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
+		/// <param name="id1">The id of the Store, or a Store instance</param>
+		/// <param name="id2">(optional)</param>
+		/// <param name="args">(optional)</param>
+		/// <returns></returns>
+		public static void unregister(object id1, string id2, params object[] args) { S_(id1, id2, args); }
 
 		/// <summary>Gets a registered Store by id</summary>
 		/// <returns>Ext.data.Store</returns>
@@ -133,7 +133,7 @@ namespace Ext {
 		/// <summary>Gets a registered Store by id</summary>
 		/// <param name="id">The id of the Store, or a Store instance</param>
 		/// <returns>Ext.data.Store</returns>
-		public static void lookup(System.String id) { S_(id); }
+		public static void lookup(string id) { S_(id); }
 
 		/// <summary>Gets a registered Store by id</summary>
 		/// <param name="id">The id of the Store, or a Store instance</param>
@@ -145,9 +145,9 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class StoreMgrConfig : DotWeb.Client.JsAccessible {
+	public class StoreMgrConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 }

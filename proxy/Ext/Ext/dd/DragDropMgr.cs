@@ -11,7 +11,7 @@ namespace Ext.dd {
 	///     */
 	///     Ext.dd.DragDropMgr = function() {
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
 	public class DragDropMgr : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -108,7 +108,7 @@ namespace Ext.dd {
 		/// <param name="oDD">the DragDrop object to register</param>
 		/// <param name="sGroup">the name of the group this element belongs to</param>
 		/// <returns></returns>
-		public static void regDragDrop(DragDrop oDD, System.String sGroup) { S_(oDD, sGroup); }
+		public static void regDragDrop(DragDrop oDD, string sGroup) { S_(oDD, sGroup); }
 
 		/// <summary>
 		///     Each DragDrop handle element must be registered.  This is done
@@ -125,7 +125,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="sDDId">the DragDrop id this element is a handle for</param>
 		/// <returns></returns>
-		public static void regHandle(System.String sDDId) { S_(sDDId); }
+		public static void regHandle(string sDDId) { S_(sDDId); }
 
 		/// <summary>
 		///     Each DragDrop handle element must be registered.  This is done
@@ -135,7 +135,7 @@ namespace Ext.dd {
 		/// <param name="sDDId">the DragDrop id this element is a handle for</param>
 		/// <param name="sHandleId">the id of the element that is the drag</param>
 		/// <returns></returns>
-		public static void regHandle(System.String sDDId, System.String sHandleId) { S_(sDDId, sHandleId); }
+		public static void regHandle(string sDDId, string sHandleId) { S_(sDDId, sHandleId); }
 
 		/// <summary>
 		///     Utility function to determine if a given element has been
@@ -152,7 +152,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the element id to check</param>
 		/// <returns>boolean</returns>
-		public static void isDragDrop(System.String id) { S_(id); }
+		public static void isDragDrop(string id) { S_(id); }
 
 		/// <summary>
 		///     Returns the drag and drop instances that are in all groups the
@@ -241,7 +241,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the element id to check</param>
 		/// <returns>boolean</returns>
-		public static void isHandle(System.String id) { S_(id); }
+		public static void isHandle(string id) { S_(id); }
 
 		/// <summary>Returns the DragDrop instance for a given id</summary>
 		/// <returns>DragDrop</returns>
@@ -250,7 +250,7 @@ namespace Ext.dd {
 		/// <summary>Returns the DragDrop instance for a given id</summary>
 		/// <param name="id">the id of the DragDrop object</param>
 		/// <returns>DragDrop</returns>
-		public static void getDDById(System.String id) { S_(id); }
+		public static void getDDById(string id) { S_(id); }
 
 		/// <summary>
 		///     Fired when either the drag pixel threshol or the mousedown hold
@@ -404,7 +404,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the elment to get</param>
 		/// <returns>Object</returns>
-		public static void getElement(System.String id) { S_(id); }
+		public static void getElement(string id) { S_(id); }
 
 		/// <summary>
 		///     Returns the style property for the DOM element (i.e.,
@@ -421,7 +421,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the elment to get</param>
 		/// <returns>Object</returns>
-		public static void getCss(System.String id) { S_(id); }
+		public static void getCss(string id) { S_(id); }
 
 
 

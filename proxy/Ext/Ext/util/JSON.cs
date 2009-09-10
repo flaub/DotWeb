@@ -10,7 +10,7 @@ namespace Ext.util {
 	///     */
 	///     Ext.util.JSON = new (function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\JSON.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\JSON.js</jssource>
 	public class JSON : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -41,7 +41,7 @@ namespace Ext.util {
 		/// <summary>Decodes (parses) a JSON string to an object. If the JSON is invalid, this function throws a SyntaxError.</summary>
 		/// <param name="json">The JSON string</param>
 		/// <returns>Object</returns>
-		public static void decode(System.String json) { S_(json); }
+		public static void decode(string json) { S_(json); }
 
 
 

@@ -35,7 +35,7 @@ namespace Ext {
 	///     });
 	///     </code></pre>
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\core\UpdateManager.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\UpdateManager.js</jssource>
 	public class UpdaterClass : Ext.util.Observable {
 
 		/// <summary>
@@ -74,19 +74,19 @@ namespace Ext {
 		public Ext.Element el { get { return _<Ext.Element>(); } set { _(value); } }
 
 		/// <summary>Cached url to use for refreshes. Overwritten every time update() is called unless "discardUrl" param is set to true.</summary>
-		public System.String defaultUrl { get { return _<System.String>(); } set { _(value); } }
+		public string defaultUrl { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).</summary>
-		public System.String sslBlankUrl { get { return _<System.String>(); } set { _(value); } }
+		public string sslBlankUrl { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Whether to append unique parameter on get request to disable caching (defaults to {@link Ext.Updater.defaults#disableCaching}).</summary>
 		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>Text for loading indicator (defaults to {@link Ext.Updater.defaults#indicatorText}).</summary>
-		public System.String indicatorText { get { return _<System.String>(); } set { _(value); } }
+		public string indicatorText { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Whether to show indicatorText when loading (defaults to {@link Ext.Updater.defaults#showLoadIndicator}).</summary>
-		public System.String showLoadIndicator { get { return _<System.String>(); } set { _(value); } }
+		public string showLoadIndicator { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>Timeout for requests or form posts in seconds (defaults to {@link Ext.Updater.defaults#timeout}).</summary>
 		public double timeout { get { return _<double>(); } set { _(value); } }
@@ -264,7 +264,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="form">The form Id or form element</param>
 		/// <returns></returns>
-		public virtual void formUpdate(System.String form) { _(form); }
+		public virtual void formUpdate(string form) { _(form); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -278,7 +278,7 @@ namespace Ext {
 		/// <param name="form">The form Id or form element</param>
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <returns></returns>
-		public virtual void formUpdate(System.String form, System.String url) { _(form, url); }
+		public virtual void formUpdate(string form, string url) { _(form, url); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -293,7 +293,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <returns></returns>
-		public virtual void formUpdate(System.String form, System.String url, bool reset) { _(form, url, reset); }
+		public virtual void formUpdate(string form, string url, bool reset) { _(form, url, reset); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -309,7 +309,7 @@ namespace Ext {
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <param name="callback">(optional) Callback when transaction is complete. The following</param>
 		/// <returns></returns>
-		public virtual void formUpdate(System.String form, System.String url, bool reset, Delegate callback) { _(form, url, reset, callback); }
+		public virtual void formUpdate(string form, string url, bool reset, Delegate callback) { _(form, url, reset, callback); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -336,7 +336,7 @@ namespace Ext {
 		/// <param name="form">The form Id or form element</param>
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, System.String url) { _(form, url); }
+		public virtual void formUpdate(DOMElement form, string url) { _(form, url); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -351,7 +351,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, System.String url, bool reset) { _(form, url, reset); }
+		public virtual void formUpdate(DOMElement form, string url, bool reset) { _(form, url, reset); }
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -367,7 +367,7 @@ namespace Ext {
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <param name="callback">(optional) Callback when transaction is complete. The following</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, System.String url, bool reset, Delegate callback) { _(form, url, reset, callback); }
+		public virtual void formUpdate(DOMElement form, string url, bool reset, Delegate callback) { _(form, url, reset, callback); }
 
 		/// <summary>Refresh the element with the last used url or defaultUrl. If there is no url, it returns immediately</summary>
 		/// <returns></returns>
@@ -409,7 +409,7 @@ namespace Ext {
 		/// <param name="interval">How often to update (in seconds).</param>
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url) { _(interval, url); }
+		public virtual void startAutoRefresh(double interval, string url) { _(interval, url); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -422,7 +422,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, System.String prms) { _(interval, url, prms); }
+		public virtual void startAutoRefresh(double interval, string url, string prms) { _(interval, url, prms); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -436,7 +436,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, System.String prms, Delegate callback) { _(interval, url, prms, callback); }
+		public virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback) { _(interval, url, prms, callback); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -451,7 +451,7 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, System.String prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -476,7 +476,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, System.String prms) { _(interval, url, prms); }
+		public virtual void startAutoRefresh(double interval, object url, string prms) { _(interval, url, prms); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -490,7 +490,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, System.String prms, Delegate callback) { _(interval, url, prms, callback); }
+		public virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback) { _(interval, url, prms, callback); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -505,7 +505,7 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, System.String prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -530,7 +530,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, System.String prms) { _(interval, url, prms); }
+		public virtual void startAutoRefresh(double interval, Delegate url, string prms) { _(interval, url, prms); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -544,49 +544,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, System.String prms, Delegate callback) { _(interval, url, prms, callback); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, System.String prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, object prms) { _(interval, url, prms); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, object prms, Delegate callback) { _(interval, url, prms, callback); }
+		public virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback) { _(interval, url, prms, callback); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -601,7 +559,49 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, System.String url, object prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <returns></returns>
+		public virtual void startAutoRefresh(double interval, string url, object prms) { _(interval, url, prms); }
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <returns></returns>
+		public virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback) { _(interval, url, prms, callback); }
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
+		/// <returns></returns>
+		public virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -722,7 +722,7 @@ namespace Ext {
 		/// <summary>Sets the default URL used for updates.</summary>
 		/// <param name="defaultUrl">The url or a function to call to get the url</param>
 		/// <returns></returns>
-		public virtual void setDefaultUrl(System.String defaultUrl) { _(defaultUrl); }
+		public virtual void setDefaultUrl(string defaultUrl) { _(defaultUrl); }
 
 		/// <summary>Sets the default URL used for updates.</summary>
 		/// <param name="defaultUrl">The url or a function to call to get the url</param>
@@ -742,9 +742,9 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class UpdaterConfig : DotWeb.Client.JsAccessible {
+	public class UpdaterConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 

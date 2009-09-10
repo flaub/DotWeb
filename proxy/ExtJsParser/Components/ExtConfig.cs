@@ -26,7 +26,7 @@ namespace SourceConverter.Components
 			StringBuilder sb = new StringBuilder();
 			if (SourceConverter.ShowDoc) 
 				sb.AppendLine(String.Format("\t\t/// <summary>{0} {1}</summary>", Type.Contains("/") ? Type : "", Description.GetDocComment()));
-			sb.AppendLine(string.Format("\t\tpublic {0} {1} {{ get; set; }}", ExtType.ParseType(Type), newName));
+			sb.AppendLine(string.Format("\t\tpublic {0} {1} {{ get {{ return _<{0}>(); }} set {{ _(value); }} }}", ExtType.ParseType(Type), newName));
 			return sb.ToString();
 		}
 

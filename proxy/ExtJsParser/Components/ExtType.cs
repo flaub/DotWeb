@@ -69,7 +69,7 @@
 			if (type == "Array") type = "System.Array"; //
 			if (type == "Date") type = "System.DateTime"; //
 			if (type == "Number") type = "System.Number"; //
-			if (type == "String") type = "System.String"; //
+			if (type == "String") type = "string"; //
             if (type == "Integer") type = "System.Number"; //
 
             if (type == "Object") type = "object";

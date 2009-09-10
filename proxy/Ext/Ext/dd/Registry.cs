@@ -9,7 +9,7 @@ namespace Ext.dd {
 	///     */
 	///     Ext.dd.Registry = function(){
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\dd\Registry.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\Registry.js</jssource>
 	public class Registry : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Auto-generated default constructor</summary>
@@ -57,7 +57,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="element">The id or DOM node to register</param>
 		/// <returns></returns>
-		public static void register(System.String element) { S_(element); }
+		public static void register(string element) { S_(element); }
 
 		/// <summary>
 		///     Resgister a drag drop element
@@ -76,7 +76,7 @@ namespace Ext.dd {
 		/// <param name="element">The id or DOM node to register</param>
 		/// <param name="data">(optional) An custom data object that will be passed between the elements that are involved</param>
 		/// <returns></returns>
-		public static void register(System.String element, object data) { S_(element, data); }
+		public static void register(string element, object data) { S_(element, data); }
 
 		/// <summary>
 		///     Resgister a drag drop element
@@ -122,7 +122,7 @@ namespace Ext.dd {
 		/// <summary>Unregister a drag drop element</summary>
 		/// <param name="element">The id or DOM node to unregister</param>
 		/// <returns></returns>
-		public static void unregister(System.String element) { S_(element); }
+		public static void unregister(string element) { S_(element); }
 
 		/// <summary>Unregister a drag drop element</summary>
 		/// <param name="element">The id or DOM node to unregister</param>
@@ -136,7 +136,7 @@ namespace Ext.dd {
 		/// <summary>Returns the handle registered for a DOM Node by id</summary>
 		/// <param name="id">The DOM node or id to look up</param>
 		/// <returns>Object</returns>
-		public static void getHandle(System.String id) { S_(id); }
+		public static void getHandle(string id) { S_(id); }
 
 		/// <summary>Returns the handle registered for a DOM Node by id</summary>
 		/// <param name="id">The DOM node or id to look up</param>
@@ -159,7 +159,7 @@ namespace Ext.dd {
 		/// <summary>Returns a custom data object that is registered for a DOM node by id</summary>
 		/// <param name="id">The DOM node or id to look up</param>
 		/// <returns>Object</returns>
-		public static void getTarget(System.String id) { S_(id); }
+		public static void getTarget(string id) { S_(id); }
 
 		/// <summary>Returns a custom data object that is registered for a DOM node by id</summary>
 		/// <param name="id">The DOM node or id to look up</param>

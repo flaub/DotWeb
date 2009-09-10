@@ -15,7 +15,7 @@ namespace Ext {
 	///     @cfg {Number} zindex Starting z-index (defaults to 11000)
 	///     @cfg {Number} shadowOffset Number of pixels to offset the shadow (defaults to 3)
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Layer.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Layer.js</jssource>
 	public class Layer : Ext.Element {
 
 		/// <summary></summary>
@@ -29,7 +29,7 @@ namespace Ext {
 		/// <param name="config">An object with config options.</param>
 		/// <param name="existingEl">(optional) Uses an existing DOM element. If the element is not found it creates it.</param>
 		/// <returns></returns>
-		public Layer(object config, System.String existingEl) { C_(config, existingEl); }
+		public Layer(object config, string existingEl) { C_(config, existingEl); }
 		/// <summary></summary>
 		/// <param name="config">An object with config options.</param>
 		/// <param name="existingEl">(optional) Uses an existing DOM element. If the element is not found it creates it.</param>
@@ -38,12 +38,12 @@ namespace Ext {
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
-		public Layer(System.String element) { C_(element); }
+		public Layer(string element) { C_(element); }
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <param name="forceNew">(optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).</param>
 		/// <returns></returns>
-		public Layer(System.String element, bool forceNew) { C_(element, forceNew); }
+		public Layer(string element, bool forceNew) { C_(element, forceNew); }
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
@@ -87,27 +87,27 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class LayerConfig : DotWeb.Client.JsAccessible {
+	public class LayerConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> False to disable the iframe shim in browsers which need one (defaults to true)</summary>
-		public bool shim { get; set; }
+		public bool shim { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary>{String/Boolean} True to create a shadow element with default class "x-layer-shadow", or</summary>
-		public object shadow { get; set; }
+		public object shadow { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> DomHelper object config to create element with (defaults to {tag: "div", cls: "x-layer"}).</summary>
-		public object dh { get; set; }
+		public object dh { get { return _<object>(); } set { _(value); } }
 
 		/// <summary> False to disable constrain to viewport (defaults to true)</summary>
-		public bool constrain { get; set; }
+		public bool constrain { get { return _<bool>(); } set { _(value); } }
 
 		/// <summary> CSS class to add to the element</summary>
-		public System.String cls { get; set; }
+		public string cls { get { return _<string>(); } set { _(value); } }
 
 		/// <summary> Starting z-index (defaults to 11000)</summary>
-		public double zindex { get; set; }
+		public double zindex { get { return _<double>(); } set { _(value); } }
 
 		/// <summary> Number of pixels to offset the shadow (defaults to 3)</summary>
-		public double shadowOffset { get; set; }
+		public double shadowOffset { get { return _<double>(); } set { _(value); } }
 
 	}
 }

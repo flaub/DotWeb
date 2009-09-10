@@ -8,7 +8,7 @@ namespace Ext {
 	///     and the shadow does not provide any shimming.  This should be used only in simple cases -- for more advanced
 	///     functionality that can also provide the same shadow effect, see the {@link Ext.Layer} class.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\widgets\Shadow.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Shadow.js</jssource>
 	public class Shadow : DotWeb.Client.JsNativeBase {
 
 		/// <summary>Create a new Shadow</summary>
@@ -32,10 +32,10 @@ namespace Ext {
 		///     frame: Shadow displays equally on all four sides<br />
 		///     drop: Traditional bottom-right drop shadow (default)
 		/// </summary>
-		public System.String mode { get { return _<System.String>(); } set { _(value); } }
+		public string mode { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>The number of pixels to offset the shadow from the element (defaults to 4)</summary>
-		public System.String offset { get { return _<System.String>(); } set { _(value); } }
+		public string offset { get { return _<string>(); } set { _(value); } }
 
 
 		/// <summary>Displays the shadow under the target element</summary>
@@ -114,12 +114,12 @@ namespace Ext {
 	}
 
 	[JsAnonymous]
-	public class ShadowConfig : DotWeb.Client.JsAccessible {
+	public class ShadowConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary>  The shadow display mode.  Supports the following options:<br /> sides: Shadow displays on both sides and bottom only<br /> frame: Shadow displays equally on all four sides<br /> drop: Traditional bottom-right drop shadow (default)</summary>
-		public System.String mode { get; set; }
+		public string mode { get { return _<string>(); } set { _(value); } }
 
 		/// <summary>  The number of pixels to offset the shadow from the element (defaults to 4)</summary>
-		public System.String offset { get; set; }
+		public string offset { get { return _<string>(); } set { _(value); } }
 
 	}
 }

@@ -6,7 +6,7 @@ namespace Ext.util {
 	///     /**
 	///     A Collection class that maintains both numeric indexes and keys and exposes events.
 	/// </summary>
-	/// <jssource>C:\home\src\proto\DotWeb\ExtJsParser\ext-2.2\source\util\MixedCollection.js</jssource>
+	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\MixedCollection.js</jssource>
 	public class MixedCollection : Ext.util.Observable {
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="key"><p>The key to associate with the item, or the new item.</p></param>
 		/// <returns>Object</returns>
-		public virtual void add(System.String key) { _(key); }
+		public virtual void add(string key) { _(key); }
 
 		/// <summary>
 		///     Adds an item to the collection. Fires the {@link #add} event when complete.
@@ -79,7 +79,7 @@ namespace Ext.util {
 		/// <param name="key"><p>The key to associate with the item, or the new item.</p></param>
 		/// <param name="o">The item to add.</param>
 		/// <returns>Object</returns>
-		public virtual void add(System.String key, object o) { _(key, o); }
+		public virtual void add(string key, object o) { _(key, o); }
 
 		/// <summary>
 		///     MixedCollection has a generic way to fetch keys if you implement getKey.  The default implementation
@@ -159,7 +159,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="key"><p>The key associated with the item to replace, or the replacement item.</p></param>
 		/// <returns>Object</returns>
-		public virtual void replace(System.String key) { _(key); }
+		public virtual void replace(string key) { _(key); }
 
 		/// <summary>
 		///     Replaces an item in the collection. Fires the {@link #replace} event when complete.
@@ -172,7 +172,7 @@ namespace Ext.util {
 		/// <param name="key"><p>The key associated with the item to replace, or the replacement item.</p></param>
 		/// <param name="o">{Object} o (optional) If the first parameter passed was a key, the item to associate</param>
 		/// <returns>Object</returns>
-		public virtual void replace(System.String key, object o) { _(key, o); }
+		public virtual void replace(string key, object o) { _(key, o); }
 
 		/// <summary>
 		///     Adds all elements of an Array or an Object to the collection.
@@ -297,14 +297,14 @@ namespace Ext.util {
 		/// <param name="index">The index to insert the item at.</param>
 		/// <param name="key">The key to associate with the new item, or the item itself.</param>
 		/// <returns>Object</returns>
-		public virtual void insert(double index, System.String key) { _(index, key); }
+		public virtual void insert(double index, string key) { _(index, key); }
 
 		/// <summary>Inserts an item at the specified index in the collection. Fires the {@link #add} event when complete.</summary>
 		/// <param name="index">The index to insert the item at.</param>
 		/// <param name="key">The key to associate with the new item, or the item itself.</param>
 		/// <param name="o">(optional) If the second parameter was a key, the new item.</param>
 		/// <returns>Object</returns>
-		public virtual void insert(double index, System.String key, object o) { _(index, key, o); }
+		public virtual void insert(double index, string key, object o) { _(index, key, o); }
 
 		/// <summary>Remove an item from the collection.</summary>
 		/// <returns>Object</returns>
@@ -331,7 +331,7 @@ namespace Ext.util {
 		/// <summary>Removed an item associated with the passed key fom the collection.</summary>
 		/// <param name="key">The key of the item to remove.</param>
 		/// <returns>Object</returns>
-		public virtual void removeKey(System.String key) { _(key); }
+		public virtual void removeKey(string key) { _(key); }
 
 		/// <summary>Returns the number of items in the collection.</summary>
 		/// <returns>Number</returns>
@@ -353,7 +353,7 @@ namespace Ext.util {
 		/// <summary>Returns index within the collection of the passed key.</summary>
 		/// <param name="key">The key to find the index of.</param>
 		/// <returns>Number</returns>
-		public virtual void indexOfKey(System.String key) { _(key); }
+		public virtual void indexOfKey(string key) { _(key); }
 
 		/// <summary>
 		///     Returns the item associated with the passed key OR index. Key has priority over index.  This is the equivalent
@@ -368,7 +368,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="key">The key or index of the item.</param>
 		/// <returns>Object</returns>
-		public virtual void item(System.String key) { _(key); }
+		public virtual void item(string key) { _(key); }
 
 		/// <summary>
 		///     Returns the item associated with the passed key OR index. Key has priority over index.  This is the equivalent
@@ -394,7 +394,7 @@ namespace Ext.util {
 		/// <summary>Returns the item associated with the passed key.</summary>
 		/// <param name="key">The key of the item.</param>
 		/// <returns>Object</returns>
-		public virtual void key(System.String key) { _(key); }
+		public virtual void key(string key) { _(key); }
 
 		/// <summary>Returns the item associated with the passed key.</summary>
 		/// <param name="key">The key of the item.</param>
@@ -417,7 +417,7 @@ namespace Ext.util {
 		/// <summary>Returns true if the collection contains the passed Object as a key.</summary>
 		/// <param name="key">The key to look for in the collection.</param>
 		/// <returns>Boolean</returns>
-		public virtual void containsKey(System.String key) { _(key); }
+		public virtual void containsKey(string key) { _(key); }
 
 		/// <summary>Removes all items from the collection.  Fires the {@link #clear} event when complete.</summary>
 		/// <returns></returns>
@@ -438,13 +438,13 @@ namespace Ext.util {
 		/// <summary>Sorts this collection with the passed comparison function</summary>
 		/// <param name="direction">(optional) "ASC" or "DESC"</param>
 		/// <returns></returns>
-		public virtual void sort(System.String direction) { _(direction); }
+		public virtual void sort(string direction) { _(direction); }
 
 		/// <summary>Sorts this collection with the passed comparison function</summary>
 		/// <param name="direction">(optional) "ASC" or "DESC"</param>
 		/// <param name="fn">(optional) comparison function</param>
 		/// <returns></returns>
-		public virtual void sort(System.String direction, Delegate fn) { _(direction, fn); }
+		public virtual void sort(string direction, Delegate fn) { _(direction, fn); }
 
 		/// <summary>Sorts this collection by keys</summary>
 		/// <returns></returns>
@@ -453,13 +453,13 @@ namespace Ext.util {
 		/// <summary>Sorts this collection by keys</summary>
 		/// <param name="direction">(optional) "ASC" or "DESC"</param>
 		/// <returns></returns>
-		public virtual void keySort(System.String direction) { _(direction); }
+		public virtual void keySort(string direction) { _(direction); }
 
 		/// <summary>Sorts this collection by keys</summary>
 		/// <param name="direction">(optional) "ASC" or "DESC"</param>
 		/// <param name="fn">(optional) a comparison function (defaults to case insensitive string)</param>
 		/// <returns></returns>
-		public virtual void keySort(System.String direction, Delegate fn) { _(direction, fn); }
+		public virtual void keySort(string direction, Delegate fn) { _(direction, fn); }
 
 		/// <summary>Returns a range of items in this collection</summary>
 		/// <returns>Array</returns>
@@ -491,7 +491,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="property">A property on your objects</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property) { _(property); }
+		public virtual void filter(string property) { _(property); }
 
 		/// <summary>
 		///     Filter the <i>objects</i> in this collection by a specific property.
@@ -501,40 +501,7 @@ namespace Ext.util {
 		/// <param name="property">A property on your objects</param>
 		/// <param name="value">Either string that the property values</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, System.String value) { _(property, value); }
-
-		/// <summary>
-		///     Filter the <i>objects</i> in this collection by a specific property.
-		///     Returns a new collection that has been filtered.
-		///     should start with or a RegExp to test against the property
-		/// </summary>
-		/// <param name="property">A property on your objects</param>
-		/// <param name="value">Either string that the property values</param>
-		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, System.String value, bool anyMatch) { _(property, value, anyMatch); }
-
-		/// <summary>
-		///     Filter the <i>objects</i> in this collection by a specific property.
-		///     Returns a new collection that has been filtered.
-		///     should start with or a RegExp to test against the property
-		/// </summary>
-		/// <param name="property">A property on your objects</param>
-		/// <param name="value">Either string that the property values</param>
-		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison (defaults to False).</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, System.String value, bool anyMatch, bool caseSensitive) { _(property, value, anyMatch, caseSensitive); }
-
-		/// <summary>
-		///     Filter the <i>objects</i> in this collection by a specific property.
-		///     Returns a new collection that has been filtered.
-		///     should start with or a RegExp to test against the property
-		/// </summary>
-		/// <param name="property">A property on your objects</param>
-		/// <param name="value">Either string that the property values</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, object value) { _(property, value); }
+		public virtual void filter(string property, string value) { _(property, value); }
 
 		/// <summary>
 		///     Filter the <i>objects</i> in this collection by a specific property.
@@ -545,7 +512,7 @@ namespace Ext.util {
 		/// <param name="value">Either string that the property values</param>
 		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, object value, bool anyMatch) { _(property, value, anyMatch); }
+		public virtual void filter(string property, string value, bool anyMatch) { _(property, value, anyMatch); }
 
 		/// <summary>
 		///     Filter the <i>objects</i> in this collection by a specific property.
@@ -557,7 +524,40 @@ namespace Ext.util {
 		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison (defaults to False).</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void filter(System.String property, object value, bool anyMatch, bool caseSensitive) { _(property, value, anyMatch, caseSensitive); }
+		public virtual void filter(string property, string value, bool anyMatch, bool caseSensitive) { _(property, value, anyMatch, caseSensitive); }
+
+		/// <summary>
+		///     Filter the <i>objects</i> in this collection by a specific property.
+		///     Returns a new collection that has been filtered.
+		///     should start with or a RegExp to test against the property
+		/// </summary>
+		/// <param name="property">A property on your objects</param>
+		/// <param name="value">Either string that the property values</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void filter(string property, object value) { _(property, value); }
+
+		/// <summary>
+		///     Filter the <i>objects</i> in this collection by a specific property.
+		///     Returns a new collection that has been filtered.
+		///     should start with or a RegExp to test against the property
+		/// </summary>
+		/// <param name="property">A property on your objects</param>
+		/// <param name="value">Either string that the property values</param>
+		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void filter(string property, object value, bool anyMatch) { _(property, value, anyMatch); }
+
+		/// <summary>
+		///     Filter the <i>objects</i> in this collection by a specific property.
+		///     Returns a new collection that has been filtered.
+		///     should start with or a RegExp to test against the property
+		/// </summary>
+		/// <param name="property">A property on your objects</param>
+		/// <param name="value">Either string that the property values</param>
+		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison (defaults to False).</param>
+		/// <returns>MixedCollection</returns>
+		public virtual void filter(string property, object value, bool anyMatch, bool caseSensitive) { _(property, value, anyMatch, caseSensitive); }
 
 		/// <summary>
 		///     Filter by a function. Returns a <i>new</i> collection that has been filtered.
@@ -599,7 +599,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="property">The name of a property on your objects.</param>
 		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property) { _(property); }
+		public virtual void findIndex(string property) { _(property); }
 
 		/// <summary>
 		///     Finds the index of the first matching object in this collection by a specific property/value.
@@ -608,49 +608,7 @@ namespace Ext.util {
 		/// <param name="property">The name of a property on your objects.</param>
 		/// <param name="value">A string that the property values</param>
 		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, System.String value) { _(property, value); }
-
-		/// <summary>
-		///     Finds the index of the first matching object in this collection by a specific property/value.
-		///     should start with or a RegExp to test against the property.
-		/// </summary>
-		/// <param name="property">The name of a property on your objects.</param>
-		/// <param name="value">A string that the property values</param>
-		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
-		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, System.String value, double start) { _(property, value, start); }
-
-		/// <summary>
-		///     Finds the index of the first matching object in this collection by a specific property/value.
-		///     should start with or a RegExp to test against the property.
-		/// </summary>
-		/// <param name="property">The name of a property on your objects.</param>
-		/// <param name="value">A string that the property values</param>
-		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
-		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
-		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, System.String value, double start, bool anyMatch) { _(property, value, start, anyMatch); }
-
-		/// <summary>
-		///     Finds the index of the first matching object in this collection by a specific property/value.
-		///     should start with or a RegExp to test against the property.
-		/// </summary>
-		/// <param name="property">The name of a property on your objects.</param>
-		/// <param name="value">A string that the property values</param>
-		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
-		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison.</param>
-		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, System.String value, double start, bool anyMatch, bool caseSensitive) { _(property, value, start, anyMatch, caseSensitive); }
-
-		/// <summary>
-		///     Finds the index of the first matching object in this collection by a specific property/value.
-		///     should start with or a RegExp to test against the property.
-		/// </summary>
-		/// <param name="property">The name of a property on your objects.</param>
-		/// <param name="value">A string that the property values</param>
-		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, object value) { _(property, value); }
+		public virtual void findIndex(string property, string value) { _(property, value); }
 
 		/// <summary>
 		///     Finds the index of the first matching object in this collection by a specific property/value.
@@ -660,7 +618,7 @@ namespace Ext.util {
 		/// <param name="value">A string that the property values</param>
 		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
 		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, object value, double start) { _(property, value, start); }
+		public virtual void findIndex(string property, string value, double start) { _(property, value, start); }
 
 		/// <summary>
 		///     Finds the index of the first matching object in this collection by a specific property/value.
@@ -671,7 +629,7 @@ namespace Ext.util {
 		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
 		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
 		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, object value, double start, bool anyMatch) { _(property, value, start, anyMatch); }
+		public virtual void findIndex(string property, string value, double start, bool anyMatch) { _(property, value, start, anyMatch); }
 
 		/// <summary>
 		///     Finds the index of the first matching object in this collection by a specific property/value.
@@ -683,7 +641,49 @@ namespace Ext.util {
 		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison.</param>
 		/// <returns>Number</returns>
-		public virtual void findIndex(System.String property, object value, double start, bool anyMatch, bool caseSensitive) { _(property, value, start, anyMatch, caseSensitive); }
+		public virtual void findIndex(string property, string value, double start, bool anyMatch, bool caseSensitive) { _(property, value, start, anyMatch, caseSensitive); }
+
+		/// <summary>
+		///     Finds the index of the first matching object in this collection by a specific property/value.
+		///     should start with or a RegExp to test against the property.
+		/// </summary>
+		/// <param name="property">The name of a property on your objects.</param>
+		/// <param name="value">A string that the property values</param>
+		/// <returns>Number</returns>
+		public virtual void findIndex(string property, object value) { _(property, value); }
+
+		/// <summary>
+		///     Finds the index of the first matching object in this collection by a specific property/value.
+		///     should start with or a RegExp to test against the property.
+		/// </summary>
+		/// <param name="property">The name of a property on your objects.</param>
+		/// <param name="value">A string that the property values</param>
+		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
+		/// <returns>Number</returns>
+		public virtual void findIndex(string property, object value, double start) { _(property, value, start); }
+
+		/// <summary>
+		///     Finds the index of the first matching object in this collection by a specific property/value.
+		///     should start with or a RegExp to test against the property.
+		/// </summary>
+		/// <param name="property">The name of a property on your objects.</param>
+		/// <param name="value">A string that the property values</param>
+		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
+		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
+		/// <returns>Number</returns>
+		public virtual void findIndex(string property, object value, double start, bool anyMatch) { _(property, value, start, anyMatch); }
+
+		/// <summary>
+		///     Finds the index of the first matching object in this collection by a specific property/value.
+		///     should start with or a RegExp to test against the property.
+		/// </summary>
+		/// <param name="property">The name of a property on your objects.</param>
+		/// <param name="value">A string that the property values</param>
+		/// <param name="start">(optional) The index to start searching at (defaults to 0).</param>
+		/// <param name="anyMatch">(optional) True to match any part of the string, not just the beginning.</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison.</param>
+		/// <returns>Number</returns>
+		public virtual void findIndex(string property, object value, double start, bool anyMatch, bool caseSensitive) { _(property, value, start, anyMatch, caseSensitive); }
 
 		/// <summary>
 		///     Find the index of the first matching object in this collection by a function.
@@ -730,7 +730,7 @@ namespace Ext.util {
 		/// <summary>Returns the item associated with the passed key or index.</summary>
 		/// <param name="key">The key or index of the item.</param>
 		/// <returns>Object</returns>
-		public virtual void get(System.String key) { _(key); }
+		public virtual void get(string key) { _(key); }
 
 		/// <summary>Returns the item associated with the passed key or index.</summary>
 		/// <param name="key">The key or index of the item.</param>
@@ -742,9 +742,9 @@ namespace Ext.util {
 	}
 
 	[JsAnonymous]
-	public class MixedCollectionConfig : DotWeb.Client.JsAccessible {
+	public class MixedCollectionConfig : DotWeb.Client.JsDynamicBase {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get; set; }
+		public object listeners { get { return _<object>(); } set { _(value); } }
 
 	}
 
@@ -792,7 +792,7 @@ namespace Ext.util {
     }
 
     public delegate void MixedCollectionClearDelegate();
-    public delegate void MixedCollectionAddDelegate(double index, object o, System.String key);
-    public delegate void MixedCollectionReplaceDelegate(System.String key, object old, object newItem);
-    public delegate void MixedCollectionRemoveDelegate(object o, System.String key);
+    public delegate void MixedCollectionAddDelegate(double index, object o, string key);
+    public delegate void MixedCollectionReplaceDelegate(string key, object old, object newItem);
+    public delegate void MixedCollectionRemoveDelegate(object o, string key);
 }
