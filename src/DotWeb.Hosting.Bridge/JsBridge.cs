@@ -22,22 +22,35 @@ using System.Text;
 using System.Reflection;
 using DotWeb.Client;
 using System.Diagnostics;
-using System.Threading;
 using DotWeb.Utility;
 using System.IO;
 
 namespace DotWeb.Hosting.Bridge
 {
+	public interface IObjectFactory
+	{
+		object CreateInstance(Type type);
+	}
+
+	public class ActivatorFactory : IObjectFactory
+	{
+		public object CreateInstance(Type type) {
+			return Activator.CreateInstance(type);
+		}
+	}
+
 	public class JsBridge : IJsHost
 	{
 		private ISession session;
+		private IObjectFactory factory;
 		private Dictionary<MethodBase, JsFunction> FunctionCache { get; set; }
 		private Dictionary<object, int> objToRef = new Dictionary<object, int>();
 		private Dictionary<int, object> refToObj = new Dictionary<int, object>();
 		private int lastRefId = 1;
 
-		public JsBridge(ISession session) {
+		public JsBridge(ISession session, IObjectFactory factory) {
 			this.session = session;
+			this.factory = factory;
 			this.FunctionCache = new Dictionary<MethodBase, JsFunction>();
 		}
 
@@ -132,7 +145,7 @@ namespace DotWeb.Hosting.Bridge
 				this.refToObj.Clear();
 
 				Type type = Type.GetType(msg.TypeName);
-				Activator.CreateInstance(type);
+				this.factory.CreateInstance(type);
 
 				JsValue value = new JsValue(JsValueType.Void, null);
 				ReturnMessage retMsg = new ReturnMessage { Value = value };
@@ -321,7 +334,7 @@ namespace DotWeb.Hosting.Bridge
 					JsDelegate del = new JsDelegate(this, value.RefId, targetType);
 					return del.GetDelegate();
 				}
-				JsNativeBase jsnb = (JsNativeBase)Activator.CreateInstance(targetType);
+				JsNativeBase jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
 				jsnb.Handle = value.RefId;
 				return jsnb;
 			}

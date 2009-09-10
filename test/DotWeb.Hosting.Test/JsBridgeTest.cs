@@ -41,13 +41,17 @@ namespace DotWeb.Hosting.Test
 		public const string AlertArg = "EventHandlerTest";
 
 		public EventHandlerTest() {
+			this.HasFired = false;
 			this.native = new NativeObject();
 			this.native.onmouseover = native_OnMouseOver;
 		}
 
 		public void native_OnMouseOver() {
+			this.HasFired = true;
 			this.native.Alert(AlertArg);
 		}
+
+		public bool HasFired { get; private set; }
 
 		NativeObject native;
 	}
@@ -57,7 +61,7 @@ namespace DotWeb.Hosting.Test
 	{
 		[Test]
 		public void TestSanity() {
-			TestHelper(delegate(SessionHelper session) {
+			TestHelper(new ActivatorFactory(), delegate(SessionHelper session) {
 				session.OnLoadMessage(typeof(SanityTest));
 				session.ReturnMessage();
 				session.OnQuitMessage();
@@ -66,7 +70,7 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestObjectWrapper() {
-			TestHelper(delegate(SessionHelper session) {
+			TestHelper(new ActivatorFactory(), delegate(SessionHelper session) {
 				Type nativeType = typeof(NativeObject);
 				session.OnLoadMessage(typeof(ObjectWrapperTest));
 				
@@ -88,7 +92,8 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestEventHandler() {
-			TestHelper(delegate(SessionHelper session) {
+			CachingObjectFactory factory = new CachingObjectFactory();
+			TestHelper(factory, delegate(SessionHelper session) {
 				Type nativeType = typeof(NativeObject);
 				session.OnLoadMessage(typeof(EventHandlerTest));
 
@@ -105,6 +110,7 @@ namespace DotWeb.Hosting.Test
 
 				session.ReturnMessage();
 
+
 				// simulate an event firing
 				session.OnInvokeDelegateMessage(1);
 
@@ -118,11 +124,14 @@ namespace DotWeb.Hosting.Test
 
 				session.OnQuitMessage();
 			});
+
+			EventHandlerTest test = (EventHandlerTest)factory.Get(typeof(EventHandlerTest));
+			Assert.IsTrue(test.HasFired);
 		}
 
 		delegate void SessionHandler(SessionHelper session);
 
-		private void TestHelper(SessionHandler handler) {
+		private void TestHelper(IObjectFactory factory, SessionHandler handler) {
 			MockRepository mocks = new MockRepository();
 
 			ISession session = mocks.StrictMock<ISession>();
@@ -132,11 +141,26 @@ namespace DotWeb.Hosting.Test
 			}
 			mocks.ReplayAll();
 
-			JsBridge bridge = new JsBridge(session);
+			JsBridge bridge = new JsBridge(session, factory);
 			JsHost.Instance = bridge;
 			bridge.DispatchForever();
 
 			mocks.VerifyAll();
+		}
+
+		class CachingObjectFactory : IObjectFactory
+		{
+			private Dictionary<Type, object> cache = new Dictionary<Type, object>();
+
+			public object CreateInstance(Type type) {
+				object ret = Activator.CreateInstance(type);
+				this.cache.Add(ret.GetType(), ret);
+				return ret;
+			}
+
+			public object Get(Type type) {
+				return this.cache[type];
+			}
 		}
 
 		class SessionHelper
