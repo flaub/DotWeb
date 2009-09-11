@@ -15,15 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.IO;
-using DotWeb.Utility;
-using System.Diagnostics;
-
 namespace DotWeb.Hosting
 {
 	public interface ISession

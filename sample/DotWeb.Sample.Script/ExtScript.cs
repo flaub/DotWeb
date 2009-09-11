@@ -16,17 +16,13 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Ext;
 using DotWeb.Client;
 using Ext.grid;
 using Ext.data;
 
 namespace DotWeb.Sample.Script
 {
-	public class ExtScript : DotWeb.Client.JsScript
+	public class ExtScript : JsScript
 	{
 		private int id = NextId();
 		private GridPanel grid;

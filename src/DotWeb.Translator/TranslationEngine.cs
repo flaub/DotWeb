@@ -16,14 +16,9 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using DotWeb.Translator.Generator.JavaScript;
 using System.Reflection;
-using DotWeb.Client;
-using DotWeb.Decompiler;
+using DotWeb.Translator.Generator.JavaScript;
 
 namespace DotWeb.Translator
 {
@@ -33,27 +28,15 @@ namespace DotWeb.Translator
 	public class TranslationEngine
 	{
 		public TextWriter Writer { get; set; }
-		private JsCodeGenerator generator;
+		private readonly JsCodeGenerator generator;
 
 		public TranslationEngine(TextWriter writer, bool writeHeader) {
 			this.Writer = writer;
 			this.generator = new JsCodeGenerator(this.Writer, writeHeader);
 		}
 
-		public void TranslateAssemblyFromFile(string filename, Assembly sourceAssembly) {
-			//CSharpCompiler compiler = new CSharpCompiler();
-			//Assembly ass = compiler.CompileFile(filename, sourceAssembly);
-			//TranslateAssembly(ass);
-		}
-
-		//public void TranslateAssembly(Assembly assembly) {
-		//    TranslationContext context = new TranslationContext(this.generator);
-		//    context.AddAssembly(assembly);
-		//    context.Generate();
-		//}
-
 		public void TranslateType(Type type) {
-			TranslationContext context = new TranslationContext(this.generator);
+			var context = new TranslationContext(this.generator);
 			MethodBase method = type.GetConstructor(Type.EmptyTypes);
 			context.GenerateMethod(method, true);
 			this.generator.WriteEntryPoint(type);

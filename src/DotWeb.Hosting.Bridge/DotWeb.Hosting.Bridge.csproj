@@ -45,13 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IJsAccessible.cs" />
-    <Compile Include="JsDelegate.cs" />
+    <Compile Include="ActivatorFactory.cs" />
+    <Compile Include="IJsWrapper.cs" />
+    <Compile Include="IObjectFactory.cs" />
+    <Compile Include="JsDelegateWrapper.cs" />
     <Compile Include="JsFunction.cs" />
     <Compile Include="JsObjectWrapper.cs" />
     <Compile Include="JsArrayWrapper.cs" />
     <Compile Include="JsBridge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">

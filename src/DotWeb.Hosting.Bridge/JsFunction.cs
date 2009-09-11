@@ -16,9 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DotWeb.Client;
 using System.Reflection;
 using DotWeb.Utility;
@@ -32,13 +30,8 @@ namespace DotWeb.Hosting.Bridge
 		public string Body { get; set; }
 
 		public JsFunction(MethodBase method) {
-			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
-			if (js == null) {
-				this.Body = GenerateFunctionBody(method);
-			}
-			else {
-				this.Body = js.Code;
-			}
+			var js = method.GetCustomAttribute<JsCodeAttribute>();
+			this.Body = js == null ? GenerateFunctionBody(method) : js.Code;
 
 			Type type = method.DeclaringType;
 			string typeName = type.FullName.Replace(".", "_").Replace("+", "$");
@@ -60,17 +53,12 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private string GetTarget(MethodBase method) {
-			if (method.IsStatic) {
-				return GetTypeName(method);
-			}
-			else {
-				return "this";
-			}
+			return method.IsStatic ? GetTypeName(method) : "this";
 		}
 
 		private string GetTypeName(MethodBase method) {
 			Type type = method.DeclaringType;
-			JsNamespaceAttribute ns = type.GetCustomAttribute<JsNamespaceAttribute>();
+			var ns = type.GetCustomAttribute<JsNamespaceAttribute>();
 			string target;
 			if (ns != null) {
 				if (string.IsNullOrEmpty(ns.Namespace)) {
@@ -95,26 +83,22 @@ namespace DotWeb.Hosting.Bridge
 
 		private string CallGetter(MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
-			if (args.Length == 0) {
-				string propName = method.Name.Substring("get_".Length);
-				string target = GetTarget(method);
-				return string.Format("return {0}.{1};", target, propName);
-			}
-			else {
+			if (args.Length != 0) {
 				throw new NotSupportedException();
 			}
+			string propName = method.Name.Substring("get_".Length);
+			string target = GetTarget(method);
+			return string.Format("return {0}.{1};", target, propName);
 		}
 
 		private string CallSetter(MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
-			if (args.Length == 1) {
-				string propName = method.Name.Substring("set_".Length);
-				string target = GetTarget(method);
-				return string.Format("{0}.{1} = value;", target, propName);
-			}
-			else {
+			if (args.Length != 1) {
 				throw new NotSupportedException();
 			}
+			string propName = method.Name.Substring("set_".Length);
+			string target = GetTarget(method);
+			return string.Format("{0}.{1} = value;", target, propName);
 		}
 
 		private string CallConstructor(MethodBase method) {
@@ -135,7 +119,7 @@ namespace DotWeb.Hosting.Bridge
 				if (method.Name.StartsWith("get_")) {
 					return CallGetter(method);
 				}
-				else if (method.Name.StartsWith("set_")) {
+				if (method.Name.StartsWith("set_")) {
 					return CallSetter(method);
 				}
 			}
@@ -143,9 +127,7 @@ namespace DotWeb.Hosting.Bridge
 			if (method is ConstructorInfo) {
 				return CallConstructor(method);
 			}
-			else {
-				return CallMethod(method);
-			}
+			return CallMethod(method);
 		}
 
 	}

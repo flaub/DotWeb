@@ -1,67 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Configuration;
+﻿// Copyright 2009, Frank Laub
+//
+// This file is part of DotWeb.
+//
+// DotWeb is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// DotWeb is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Configuration;
-using System.Web.Caching;
-using System.IO;
-using DotWeb.Translator;
-using System.Net.Sockets;
-using DotWeb.Hosting.Bridge;
 using System.Diagnostics;
-using System.Web;
+using System.IO;
 using System.Net;
+using System.Net.Sockets;
+using System.Web;
+using System.Web.Caching;
+using System.Web.Configuration;
 using System.Web.UI;
-using DotWeb.Web.Properties;
-using DotWeb.Hosting;
 using DotWeb.Client;
+using DotWeb.Hosting;
+using DotWeb.Hosting.Bridge;
+using DotWeb.Translator;
+using DotWeb.Web.Properties;
 
 namespace DotWeb.Web
 {
-	public interface IHttpContext
-	{
-		string MapPath(string virtualPath);
-		string ResolveUrl(string url);
-		Cache Cache { get; }
-		void AddCookie(HttpCookie cookie);
-
-		object GetApplicationState(string key);
-		void SetApplicationState(string key, object value);
-	}
-
 	public class ClientCodeRenderer
 	{
-		public ClientCodeRenderer(IHttpContext context) {
-			this.context = context;
-
-			this.CacheDir = WebConfigurationManager.AppSettings["JavaScriptCache"];
-			if (this.CacheDir == null)
-				this.CacheDir = "~/js/Cache";
-
-			this.Mode = WebConfigurationManager.AppSettings["DotWeb-Mode"];
-			if (this.Mode == null)
-				this.Mode = "Web";
-
-			this.EnableCache = true;
-			string value = WebConfigurationManager.AppSettings["DotWeb-EnableCache"];
-			if (!string.IsNullOrEmpty(value) && value != "true")
-				this.EnableCache = false;
-
-			Configuration cfg = WebConfigurationManager.OpenWebConfiguration("~");
-			ConfigurationSectionGroup grp = cfg.GetSectionGroup("system.web");
-			CompilationSection section = grp.Sections.Get("compilation") as CompilationSection;
-
-			this.isDebug = section.Debug;
-			if (this.isDebug) {
-				this.Minify = false;
-			}
-			else {
-				this.Minify = true;
-			}
-		}
+		private const string DotWebMimeType = "application/x-dotweb";
+		private const string DotWebTcpListenerKey = "DotWeb.TcpListener";
+		private readonly IHttpContext context;
+		private readonly bool isDebug;
 
 		#region Properties
+
 		public string Source { get; set; }
 
 		public bool Minify { get; set; }
@@ -72,34 +52,54 @@ namespace DotWeb.Web
 
 		public bool EnableCache { get; set; }
 
-		private bool isDebug;
 		#endregion
 
+		public ClientCodeRenderer(IHttpContext context) {
+			this.context = context;
+
+			CacheDir = WebConfigurationManager.AppSettings["JavaScriptCache"] ?? "~/js/Cache";
+			Mode = WebConfigurationManager.AppSettings["DotWeb-Mode"] ?? "Web";
+
+			EnableCache = true;
+			string value = WebConfigurationManager.AppSettings["DotWeb-EnableCache"];
+			if (!string.IsNullOrEmpty(value) && value != "true")
+				EnableCache = false;
+
+			Configuration cfg = WebConfigurationManager.OpenWebConfiguration("~");
+			ConfigurationSectionGroup grp = cfg.GetSectionGroup("system.web");
+			if (grp != null) {
+				var section = grp.Sections.Get("compilation") as CompilationSection;
+				if (section != null)
+					isDebug = section.Debug;
+			}
+			Minify = !isDebug;
+		}
+
 		private string Translate() {
-			Type srcType = Type.GetType(this.Source);
+			Type srcType = Type.GetType(Source);
 			string typeName = srcType.FullName;
 			string filename = typeName
-				.Replace('.', '_')
-				.Replace('+', '_') + ".js";
-			Uri uri = new Uri(srcType.Assembly.CodeBase);
+			                  	.Replace('.', '_')
+			                  	.Replace('+', '_') + ".js";
+			var uri = new Uri(srcType.Assembly.CodeBase);
 			string srcPath = uri.AbsolutePath;
-			string virtualPath = string.Format("{0}/{1}", this.CacheDir, filename);
-			string tgtPath = this.context.MapPath(virtualPath);
+			string virtualPath = string.Format("{0}/{1}", CacheDir, filename);
+			string tgtPath = context.MapPath(virtualPath);
 
-			using (StreamWriter writer = new StreamWriter(tgtPath)) {
-				TranslationEngine translator = new TranslationEngine(writer, true);
+			using (var writer = new StreamWriter(tgtPath)) {
+				var translator = new TranslationEngine(writer, true);
 				translator.TranslateType(srcType);
 			}
 
-			string src = this.context.ResolveUrl(virtualPath);
+			string src = context.ResolveUrl(virtualPath);
 
-			if (this.EnableCache) {
-				Cache cache = this.context.Cache;
-				CacheDependency depends = new CacheDependency(srcPath);
+			if (EnableCache) {
+				Cache cache = context.Cache;
+				var depends = new CacheDependency(srcPath);
 				cache.Add(
-					this.Source,
+					Source,
 					src,
-					null,
+					depends,
 					Cache.NoAbsoluteExpiration,
 					Cache.NoSlidingExpiration,
 					CacheItemPriority.Normal,
@@ -109,14 +109,14 @@ namespace DotWeb.Web
 		}
 
 		private void OnAccept(IAsyncResult ar) {
-			TcpListener listener = (TcpListener)ar.AsyncState;
+			var listener = (TcpListener) ar.AsyncState;
 			TcpClient tcp = listener.EndAcceptTcpClient(ar);
 			NetworkStream stream = tcp.GetStream();
 			try {
-				listener.BeginAcceptTcpClient(this.OnAccept, listener);
-				RemoteSession session = new RemoteSession(stream);
-				ActivatorFactory factory = new ActivatorFactory();
-				JsBridge bridge = new JsBridge(session, factory);
+				listener.BeginAcceptTcpClient(OnAccept, listener);
+				var session = new RemoteSession(stream);
+				var factory = new ActivatorFactory();
+				var bridge = new JsBridge(session, factory);
 				JsHost.Instance = bridge;
 				bridge.DispatchForever();
 			}
@@ -129,28 +129,28 @@ namespace DotWeb.Web
 		}
 
 		public void Render(HtmlTextWriter writer) {
-			if (this.Mode == "Hosted") {
+			if (Mode == "Hosted") {
 				RenderHostedMode(writer);
 			}
-			else if (this.Mode == "Web") {
+			else if (Mode == "Web") {
 				RenderWebMode(writer);
 			}
 			else {
-				throw new ConfigurationErrorsException(string.Format("Invalid DotWeb-Mode: {0}", this.Mode));
+				throw new ConfigurationErrorsException(string.Format("Invalid DotWeb-Mode: {0}", Mode));
 			}
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
-			HttpCookie cookie = new HttpCookie("X-DotWeb");
-			this.context.AddCookie(cookie);
-			TcpListener listener = this.context.GetApplicationState(DotWebTcpListenerKey) as TcpListener;
+			var cookie = new HttpCookie("X-DotWeb");
+			context.AddCookie(cookie);
+			var listener = context.GetApplicationState(DotWebTcpListenerKey) as TcpListener;
 			if (listener == null) {
 				listener = new TcpListener(IPAddress.Loopback, 0);
 				listener.Start();
-				this.context.SetApplicationState(DotWebTcpListenerKey, listener);
-				listener.BeginAcceptTcpClient(this.OnAccept, listener);
+				context.SetApplicationState(DotWebTcpListenerKey, listener);
+				listener.BeginAcceptTcpClient(OnAccept, listener);
 			}
-			IPEndPoint ip = (IPEndPoint)listener.LocalEndpoint;
+			var ip = (IPEndPoint) listener.LocalEndpoint;
 
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
@@ -163,7 +163,7 @@ namespace DotWeb.Web
 			//				writer.WriteLine("$wnd.__$serverUrl = 'tcp://localhost:{0}';", ip.Port);
 			//				writer.WriteLine("$wnd.__$serverType = '{0}';", this.Source);
 			writer.WriteLine(Resources.JsHelper);
-			string js = string.Format(Resources.HostedEntry, ip.Port, this.Source);
+			string js = string.Format(Resources.HostedEntry, ip.Port, Source);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();
@@ -171,25 +171,20 @@ namespace DotWeb.Web
 
 		private void RenderWebMode(HtmlTextWriter writer) {
 			string src = null;
-			if (this.EnableCache) {
-				Cache cache = this.context.Cache;
-				src = cache.Get(this.Source) as string;
+			if (EnableCache) {
+				Cache cache = context.Cache;
+				src = cache.Get(Source) as string;
 			}
 			if (src == null) {
 				src = Translate();
 			}
 
-//			string js = string.Format(Resources.WebEntry, typeName);
+			//			string js = string.Format(Resources.WebEntry, typeName);
 
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
 			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
 			writer.RenderEndTag();
 		}
-
-		private IHttpContext context;
-
-		const string DotWebTcpListenerKey = "DotWeb.TcpListener";
-		const string DotWebMimeType = "application/x-dotweb";
 	}
 }

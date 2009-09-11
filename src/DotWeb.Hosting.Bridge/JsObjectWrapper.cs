@@ -18,116 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
-using DotWeb.Client;
 using System.Diagnostics;
-using System.Reflection.Emit;
 
 namespace DotWeb.Hosting.Bridge
 {
-	public class TypeInspector
+	class JsObjectWrapper : IJsWrapper
 	{
-		Type targetType;
-		List<MemberInfo> members;
-		Dictionary<string, int> idsByName = new Dictionary<string, int>();
-
-		public TypeInspector(object target) {
-			this.targetType = target.GetType();
-
-			if (target is JsDynamicBase) {
-				CollectDynamicMembers((JsDynamicBase)target);
-			}
-			else {
-				CollectMembers();
-			}
-		}
-
-		public MemberInfo GetMember(int id) {
-			return this.members[id];
-		}
-
-		public int GetMemberId(string name) {
-			return this.idsByName[name];
-		}
-
-		public GetTypeResponseMessage GetTypeInfo() {
-			GetTypeResponseMessage msg = new GetTypeResponseMessage {
-				IndexerLength = 0,
-				Members = new List<TypeMemberInfo>()
-			};
-
-			foreach (KeyValuePair<string, int> item in this.idsByName) {
-				MemberInfo mi = GetMember(item.Value);
-
-				DispatchType dt;
-				if (mi is MethodInfo) {
-					dt = DispatchType.Method;
-				}
-				else if (mi is PropertyInfo) {
-					dt = DispatchType.PropertyGet | DispatchType.PropertySet;
-				}
-				else {
-					throw new InvalidOperationException();
-				}
-
-				TypeMemberInfo tmi = new TypeMemberInfo {
-					Name = item.Key,
-					MemberId = item.Value,
-					DispatchType = dt
-				};
-				msg.Members.Add(tmi);
-			}
-
-			return msg;
-		}
-
-		private void CollectMembers() {
-			this.members = new List<MemberInfo>();
-			foreach (MemberInfo info in this.targetType.GetMembers()) {
-				if (info.DeclaringType == typeof(object) && info.Name != "ToString") {
-					continue;
-				}
-
-				if (info is MethodInfo) {
-					MethodInfo mi = (MethodInfo)info;
-					if (mi.IsSpecialName && mi.Name.StartsWith("get_") || mi.Name.StartsWith("set_"))
-						continue;
-				}
-				if (info is ConstructorInfo || info is FieldInfo) {
-					continue;
-				}
-
-				string name = GetName(info.Name);
-				this.idsByName.Add(name, this.members.Count);
-				this.members.Add(info);
-			}
-		}
-
-		private void CollectDynamicMembers(JsDynamicBase target) {
-			this.members = new List<MemberInfo>();
-			Type targetType = target.GetType();
-			foreach (var item in target.Properties) {
-				var property = targetType.GetProperty(item.Key);
-				string name = GetName(property.Name);
-				this.idsByName.Add(name, this.members.Count);
-				this.members.Add(property);
-			}
-		}
-
-		private string GetName(string name) {
-			if (name.EndsWith("_")) {
-				return name.Substring(0, name.Length - 1);
-			}
-			return name;
-		}
-	}
-
-	class JsObjectWrapper : IJsAccessible
-	{
-		JsBridge bridge;
-		object target;
-		TypeInspector inspector;
+		private readonly JsBridge bridge;
+		private readonly object target;
+		private readonly TypeInspector inspector;
 
 		public JsObjectWrapper(JsBridge bridge, object target) {
 			this.bridge = bridge;
@@ -149,7 +49,7 @@ namespace DotWeb.Hosting.Bridge
 			ParameterInfo[] paramaterInfos = method.GetParameters();
 			string name = string.Format("GenericDelegate`{0}", paramaterInfos.Length + 1);
 			Type type = this.GetType().GetNestedType(name, BindingFlags.NonPublic);
-			List<Type> genericTypes = new List<Type>();
+			var genericTypes = new List<Type>();
 			genericTypes.Add(method.ReturnType);
 			genericTypes.AddRange(paramaterInfos.Select(x => x.ParameterType));
 			Type baked = type.MakeGenericType(genericTypes.ToArray());
@@ -160,31 +60,28 @@ namespace DotWeb.Hosting.Bridge
 			MemberInfo member = GetMember(id);
 			Debug.WriteLine(string.Format("{0}, {1}.{2}", dispType, this.target, member.Name));
 			if (member is MethodInfo && dispType == DispatchType.PropertyGet) {
-				MethodInfo mi = member as MethodInfo;
-				Type delType = CreateTypeForMethod(mi);
-				Delegate del = Delegate.CreateDelegate(delType, this.target, mi);
+				var method = (MethodInfo)member;
+				Type delType = CreateTypeForMethod(method);
+				Delegate del = Delegate.CreateDelegate(delType, this.target, method);
 				returnType = delType;
 				return del;
 			}
 
 			object[] args = this.bridge.UnwrapParameters(jsArgs, dispType, member);
 			if (dispType.IsMethod()) {
-				MethodBase method = member as MethodBase;
-				if (method.IsConstructor) {
-					returnType = method.DeclaringType;
-				}
-				else {
-					returnType = ((MethodInfo)method).ReturnType;
-				}
+				var method = (MethodBase)member;
+				returnType = method.IsConstructor ? method.DeclaringType : ((MethodInfo)method).ReturnType;
 				return method.Invoke(this.target, args);
 			}
-			else if (dispType.IsPropertyGet()) {
-				PropertyInfo pi = member as PropertyInfo;
+
+			if (dispType.IsPropertyGet()) {
+				var pi = (PropertyInfo)member;
 				returnType = pi.PropertyType;
 				return pi.GetValue(this.target, null);
 			}
-			else if (dispType.IsPropertyPut()) {
-				PropertyInfo pi = member as PropertyInfo;
+
+			if (dispType.IsPropertyPut()) {
+				var pi = (PropertyInfo)member;
 				returnType = typeof(void);
 				pi.SetValue(this.target, args.First(), null);
 			}

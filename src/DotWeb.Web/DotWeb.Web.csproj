@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="ClientCode.cs" />
     <Compile Include="ClientCodeRenderer.cs" />
+    <Compile Include="HttpContextImpl.cs" />
+    <Compile Include="IHttpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

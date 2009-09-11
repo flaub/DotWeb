@@ -97,6 +97,7 @@
     <Compile Include="Core\BasicBlock.cs" />
     <Compile Include="Core\CodeModelGenerator.cs" />
     <Compile Include="CodeTypeEvaluator.cs" />
+    <Compile Include="Core\CodeModelVirtualMachine.cs" />
     <Compile Include="Core\ControlFlowAnalyzer.cs" />
     <Compile Include="Core\ControlFlowGraph.cs" />
     <Compile Include="Core\ILInstruction.cs" />

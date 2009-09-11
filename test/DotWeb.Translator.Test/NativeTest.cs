@@ -16,14 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using DotWeb.Translator.Test.Properties;
-using System.Reflection;
-using DotWeb.Translator.Generator.JavaScript;
-using DotWeb.Decompiler;
 using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
@@ -33,7 +26,7 @@ namespace DotWeb.Translator.Test
 	{
 		public NativeTest()
 			: base(Resources.NativeTest_Source) {
-			this.sourceTestsCompiledType = this.compiledAssembly.GetType("H8.NativeTest");
+			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.NativeTest");
 		}
 
 		[Test]

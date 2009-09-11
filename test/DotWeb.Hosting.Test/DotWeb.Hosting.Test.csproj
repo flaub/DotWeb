@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CachingObjectFactory.cs" />
     <Compile Include="JsBridgeTest.cs" />
     <Compile Include="JsFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

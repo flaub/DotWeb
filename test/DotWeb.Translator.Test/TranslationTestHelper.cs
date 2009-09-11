@@ -16,9 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.IO;
 using DotWeb.Translator.Generator.JavaScript;
@@ -27,21 +24,21 @@ using NUnit.Framework;
 
 namespace DotWeb.Translator.Test
 {
-	public abstract class TranslationTestHelper<Derived> where Derived : TranslationTestHelper<Derived>
+	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
 	{
 		protected TranslationTestHelper(string src) {
 			if (cachedAssembly == null) {
-				CSharpCompiler compiler = new CSharpCompiler();
-				this.compiledAssembly = compiler.CompileSource(src, Assembly.GetExecutingAssembly());
-				cachedAssembly = this.compiledAssembly;
+				var compiler = new CSharpCompiler();
+				this.CompiledAssembly = compiler.CompileSource(src, Assembly.GetExecutingAssembly());
+				cachedAssembly = this.CompiledAssembly;
 			}
 			else {
-				this.compiledAssembly = cachedAssembly;
+				this.CompiledAssembly = cachedAssembly;
 			}
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {
-			Type type = this.compiledAssembly.GetType(typeName);
+			Type type = this.CompiledAssembly.GetType(typeName);
 			TestMethod(type, methodName, expected);
 		}
 
@@ -50,7 +47,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected, bool followDependencies) {
-			Type type = this.compiledAssembly.GetType(typeName);
+			Type type = this.CompiledAssembly.GetType(typeName);
 			TestMethod(type, methodName, expected, followDependencies);
 		}
 
@@ -62,13 +59,13 @@ namespace DotWeb.Translator.Test
 		protected string GenerateMethod(Type type, string methodName, bool followDependencies) {
 			MethodInfo method = type.GetMethod(methodName);
 			TextWriter writer = new StringWriter();
-			JsCodeGenerator generator = new JsCodeGenerator(writer, false);
-			TranslationContext context = new TranslationContext(generator);
+			var generator = new JsCodeGenerator(writer, false);
+			var context = new TranslationContext(generator);
 			context.GenerateMethod(method, followDependencies);
 			return writer.ToString();
 		}
 
-		protected Assembly compiledAssembly;
+		protected Assembly CompiledAssembly;
 
 		private static Assembly cachedAssembly;
 	}

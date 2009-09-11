@@ -15,15 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections;
 using System.Reflection.Emit;
 using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
-using System.Reflection;
 
 namespace DotWeb.Decompiler.Core
 {

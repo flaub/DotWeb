@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection.Emit;
@@ -82,7 +81,7 @@ namespace DotWeb.Decompiler.Core
 			if (Operand != null) {
 				switch (Code.OperandType) {
 					case OperandType.InlineField:
-						System.Reflection.FieldInfo field = ((System.Reflection.FieldInfo)Operand);
+						var field = ((FieldInfo)Operand);
 						sb.AppendFormat(" {0} {1}::{2}", field.FieldType, field.ReflectedType, field.Name);
 						break;
 					case OperandType.InlineMethod:

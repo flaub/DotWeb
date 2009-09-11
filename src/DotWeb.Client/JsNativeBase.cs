@@ -15,12 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace DotWeb.Client
 {
@@ -36,7 +32,7 @@ namespace DotWeb.Client
 	{
 		public int Handle { get; set; }
 
-		private class VoidReturn { }
+		private abstract class VoidReturn { }
 
 		protected void C_(params object[] args) {
 			StackFrame previous = new StackFrame(2);

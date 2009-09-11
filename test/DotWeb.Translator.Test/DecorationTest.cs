@@ -16,11 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using DotWeb.Decompiler;
-using System.Reflection;
 using DotWeb.Translator.Test.Properties;
 using DotWeb.Client;
 using NUnit.Framework;
@@ -35,7 +30,7 @@ namespace DotWeb.Translator.Test
 	{
 		public DecorationTest()
 			: base(Resources.DecorationTest_Source) {
-			this.compiledType = this.compiledAssembly.GetType("H8.DecorationTests");
+			this.compiledType = this.CompiledAssembly.GetType("H8.DecorationTests");
 		}
 
 		[Test]

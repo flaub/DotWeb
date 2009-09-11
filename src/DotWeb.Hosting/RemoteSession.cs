@@ -16,10 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
 using System.IO;
 using DotWeb.Utility;
 using System.Diagnostics;
@@ -41,7 +37,7 @@ namespace DotWeb.Hosting
 
 		public IMessage ReceiveMessage() {
 			Debug.WriteLine("");
-			MessageType type = (MessageType)this.reader.ReadByte();
+			var type = (MessageType)this.reader.ReadByte();
 			IMessage ret;
 			switch (type) {
 				case MessageType.Load:
@@ -81,8 +77,8 @@ namespace DotWeb.Hosting
 			return ret;
 		}
 
-		private NetworkReader reader;
-		private NetworkWriter writer;
-		private Stream stream;
+		private readonly NetworkReader reader;
+		private readonly NetworkWriter writer;
+		private readonly Stream stream;
 	}
 }

@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection.Emit;
 using System.Reflection;
 using System.IO;
@@ -27,8 +26,8 @@ namespace DotWeb.Decompiler.Core
 {
 	class MethodBodyReader
 	{
-		private static OpCode[] singleByteOpCodes = new OpCode[0x100];
-		private static OpCode[] multiByteOpCodes = new OpCode[0x100];
+		private static readonly OpCode[] SingleByteOpCodes = new OpCode[0x100];
+		private static readonly OpCode[] MultiByteOpCodes = new OpCode[0x100];
 
 		static MethodBodyReader() {
 			FieldInfo[] opCodeFields = typeof(OpCodes).GetFields();
@@ -38,9 +37,9 @@ namespace DotWeb.Decompiler.Core
 					OpCode code = (OpCode)fieldInfo.GetValue(null);
 					ushort codeValue = (ushort)code.Value;
 					if (codeValue < 0x100)
-						singleByteOpCodes[(int)codeValue] = code;
+						SingleByteOpCodes[(int)codeValue] = code;
 					else
-						multiByteOpCodes[codeValue & 0xff] = code;
+						MultiByteOpCodes[codeValue & 0xff] = code;
 				}
 			}
 		}
@@ -77,10 +76,10 @@ namespace DotWeb.Decompiler.Core
 				byte value = reader.ReadByte();
 				if (value == 0xfe) {
 					value = reader.ReadByte();
-					op = multiByteOpCodes[value];
+					op = MultiByteOpCodes[value];
 				}
 				else {
-					op = singleByteOpCodes[value];
+					op = SingleByteOpCodes[value];
 				}
 				ILInstruction instruction = new ILInstruction(1) {
 					Method = method,

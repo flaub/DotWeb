@@ -16,40 +16,12 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using DotWeb.Client;
-using DotWeb.Client.Dom;
-using System.Diagnostics;
 
 namespace DotWeb.Sample.Script
 {
-	public class SimpleScript : DotWeb.Client.JsScript
+	public class SimpleScript : Client.JsScript
 	{
-		bool OnError(string msg, string url, int line) {
-			this.Window.alert(msg);
-			return true;
-		}
-
-		void OnCallback(object arg1, object arg2, object arg3) {
-			Window.alert("OnCallback");
-		}
-
-		delegate void GenericCallback(object arg1, object arg2, object arg3);
-
 		public SimpleScript() {
-			//Window.alert("Hello world!");
-			//Tuple.Callback1(new GenericCallback(this.OnCallback));
-			//Tuple.Callback2(new GenericCallback(this.OnCallback));
-			//int[] ints = new int[] { 1, 2, 3 };
-			//int sum = Tuple.Sum(ints);
-			//Console.WriteLine(sum);
-			//Window.alert(sum.ToString());
-			//Window.onerror = this.OnError;
-
-			//Window.alert("TestScript");
-
 			Config config = new Config {
 				id = 666,
 				value = "value"

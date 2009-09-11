@@ -18,33 +18,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
-	public interface IObjectFactory
-	{
-		object CreateInstance(Type type);
-	}
-
-	public class ActivatorFactory : IObjectFactory
-	{
-		public object CreateInstance(Type type) {
-			return Activator.CreateInstance(type);
-		}
-	}
-
 	public class JsBridge : IJsHost
 	{
-		private ISession session;
-		private IObjectFactory factory;
-		private Dictionary<MethodBase, JsFunction> functionCache = new Dictionary<MethodBase, JsFunction>();
-		private Dictionary<Delegate, JsDelegateWrapper> remoteDelegates = new Dictionary<Delegate, JsDelegateWrapper>();
-		private Dictionary<object, int> objToRef = new Dictionary<object, int>();
-		private Dictionary<int, object> refToObj = new Dictionary<int, object>();
+		private readonly ISession session;
+		private readonly IObjectFactory factory;
+		private readonly Dictionary<MethodBase, JsFunction> functionCache = new Dictionary<MethodBase, JsFunction>();
+		private readonly Dictionary<Delegate, JsDelegateWrapper> remoteDelegates = new Dictionary<Delegate, JsDelegateWrapper>();
+		private readonly Dictionary<object, int> objToRef = new Dictionary<object, int>();
+		private readonly Dictionary<int, object> refToObj = new Dictionary<int, object>();
 		private int lastRefId = 1;
 
 		public JsBridge(ISession session, IObjectFactory factory) {
@@ -67,22 +54,18 @@ namespace DotWeb.Hosting.Bridge
 			JsValue ret = retMsg.Value;
 			if (retMsg.IsException) {
 				if (ret.IsJsObject) {
-					JsNativeException jne = new JsNativeException();
-					jne.Handle = (int)ret.Object;
+					var jne = new JsNativeException { Handle = (int) ret.Object };
 					throw new JsException(jne);
 				}
-				else if (retMsg.Value.IsObject) {
+
+				if (retMsg.Value.IsObject) {
 					object obj = this.refToObj[ret.RefId];
 					if (obj is Exception) {
 						throw new JsException((Exception)obj);
 					}
-					else {
-						throw new JsException(obj.ToString());
-					}
+					throw new JsException(obj.ToString());
 				}
-				else {
-					throw new JsException(ret.Object.ToString());
-				}
+				throw new JsException(ret.Object.ToString());
 			}
 			return ret;
 		}
@@ -122,17 +105,13 @@ namespace DotWeb.Hosting.Bridge
 						retMsg = (ReturnMessage)msg;
 						return true;
 					}
-					else {
-						throw new InvalidOperationException();
-					}
+					throw new InvalidOperationException();
 				case MessageType.Quit:
 					if (needsReturn) {
 						throw new Exception("Quit");
 					}
-					else {
-						retMsg = null;
-						return false;
-					}
+					retMsg = null;
+					return false;
 				default:
 					throw new InvalidOperationException();
 			}
@@ -150,8 +129,8 @@ namespace DotWeb.Hosting.Bridge
 				Type type = Type.GetType(msg.TypeName);
 				this.factory.CreateInstance(type);
 
-				JsValue value = new JsValue(JsValueType.Void, null);
-				ReturnMessage retMsg = new ReturnMessage { Value = value };
+				var value = new JsValue(JsValueType.Void, null);
+				var retMsg = new ReturnMessage { Value = value };
 				this.session.SendMessage(retMsg);
 			}
 			catch (TargetInvocationException ex) {
@@ -164,8 +143,8 @@ namespace DotWeb.Hosting.Bridge
 
 		private void HandleException(Exception ex) {
 			Debug.WriteLine(ex);
-			JsValue value = new JsValue(ex.Message);
-			ReturnMessage retMsg = new ReturnMessage { Value = value, IsException = true };
+			var value = new JsValue(ex.Message);
+			var retMsg = new ReturnMessage { Value = value, IsException = true };
 			this.session.SendMessage(retMsg);
 		}
 
@@ -178,54 +157,46 @@ namespace DotWeb.Hosting.Bridge
 				};
 			}
 			else {
-				IJsAccessible target = (IJsAccessible)obj;
+				var target = (IJsWrapper)obj;
 				retMsg = target.GetTypeInfo();
 			}
 			this.session.SendMessage(retMsg);
 		}
 
 		private void InvokeMember(InvokeMemberMessage msg) {
-			IJsAccessible target = (IJsAccessible)this.refToObj[msg.TargetId];
+			var target = (IJsWrapper)this.refToObj[msg.TargetId];
 			try {
 				Type retType;
 				object ret = target.Invoke(msg.MemberId, msg.DispatchType, msg.Parameters, out retType);
 				bool isVoid = retType == typeof(void);
-				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
+				var retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
 				this.session.SendMessage(retMsg);
 			}
 			catch (Exception ex) {
 				Debug.WriteLine(ex);
-				JsValue value = new JsValue(ex.Message);
-				ReturnMessage retMsg = new ReturnMessage { Value = value, IsException = true };
+				var value = new JsValue(ex.Message);
+				var retMsg = new ReturnMessage { Value = value, IsException = true };
 				this.session.SendMessage(retMsg);
 			}
 		}
 
 		private void InvokeDelegate(InvokeDelegateMessage msg) {
-			Delegate target = (Delegate)this.refToObj[msg.TargetId];
+			var target = (Delegate)this.refToObj[msg.TargetId];
 			Debug.WriteLine(string.Format("InvokeDelegate: {0}", target));
 			object[] args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
 			try {
 				object ret = target.DynamicInvoke(args);
 				var retType = target.Method.ReturnType;
 				bool isVoid = retType == typeof(void);
-				ReturnMessage retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
+				var retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
 				this.session.SendMessage(retMsg);
 			}
 			catch (Exception ex) {
 				Debug.WriteLine(ex);
-				JsValue value = new JsValue(ex.Message);
-				ReturnMessage retMsg = new ReturnMessage { Value = value, IsException = true };
+				var value = new JsValue(ex.Message);
+				var retMsg = new ReturnMessage { Value = value, IsException = true };
 				this.session.SendMessage(retMsg);
 			}
-		}
-
-		private string ExecuteToString(JsNativeBase scope) {
-			object hScope = null;
-			if (scope != null)
-				hScope = scope.Handle;
-//			return Agent.InvokeToString(hScope);
-			return null;
 		}
 
 		private bool GetRefId(object value, out int id) {
@@ -241,7 +212,7 @@ namespace DotWeb.Hosting.Bridge
 			if (args == null) {
 				return new JsValue[0];
 			}
-			JsValue[] converted = new JsValue[args.Length];
+			var converted = new JsValue[args.Length];
 			for (int i = 0; i < args.Length; i++) {
 				object arg = args[i];
 				converted[i] = WrapValue(arg, false);
@@ -250,7 +221,7 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		internal object[] UnwrapParameters(JsValue[] args, DispatchType dispType, MemberInfo member) {
-			FieldInfo fi = member as FieldInfo;
+			var fi = member as FieldInfo;
 			if (fi != null) {
 				throw new NotSupportedException("Fields are not supported JsAccessible members");
 			}
@@ -260,14 +231,14 @@ namespace DotWeb.Hosting.Bridge
 				method = member as MethodBase;
 			}
 			else if (dispType.IsPropertyGet()) {
-				PropertyInfo pi = member as PropertyInfo;
+				var pi = member as PropertyInfo;
 				if (pi == null) {
 					throw new InvalidOperationException();
 				}
 				method = pi.GetGetMethod();
 			}
 			else if (dispType.IsPropertyPut()) {
-				PropertyInfo pi = member as PropertyInfo;
+				var pi = member as PropertyInfo;
 				if (pi == null) {
 					throw new InvalidOperationException();
 				}
@@ -278,7 +249,7 @@ namespace DotWeb.Hosting.Bridge
 
 			Type[] argTypes = method.GetParameters().Select(x => x.ParameterType).ToArray();
 			int len = argTypes.Length;
-			object[] ret = new object[len];
+			var ret = new object[len];
 			for (int i = 0; i < len; i++) {
 				Type argType = argTypes[i];
 				ret[i] = UnwrapValue(args[i], argType);
@@ -291,7 +262,7 @@ namespace DotWeb.Hosting.Bridge
 				return new JsValue(JsValueType.Void, null);
 
 			if (arg is JsNativeBase) {
-				JsNativeBase jsnb = (JsNativeBase)arg;
+				var jsnb = (JsNativeBase)arg;
 				return new JsValue(JsValueType.JsObject, jsnb.Handle);
 			}
 
@@ -315,20 +286,19 @@ namespace DotWeb.Hosting.Bridge
 			if (arg is Array) {
 				int id;
 				if (!GetRefId(arg, out id)) {
-					JsArrayWrapper wrapper = new JsArrayWrapper(this, arg as Array);
+					var wrapper = new JsArrayWrapper(this, arg as Array);
 					Debug.WriteLine(string.Format("Adding refToObj: JsArrayWrapper[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, wrapper);
 				}
 				return new JsValue(JsValueType.Object, id);
 			}
-//			return JsValue.FromPrimitive(arg);
 			return GetObjectWrapper(arg);
 		}
 
 		private JsValue GetObjectWrapper(object arg) {
 			int id;
 			if (!GetRefId(arg, out id)) {
-				JsObjectWrapper wrapper = new JsObjectWrapper(this, arg);
+				var wrapper = new JsObjectWrapper(this, arg);
 				Debug.WriteLine(string.Format("Adding refToObj: JsObjectWrapper[{0}] -> {1}", arg, id));
 				this.refToObj.Add(id, wrapper);
 			}
@@ -338,16 +308,15 @@ namespace DotWeb.Hosting.Bridge
 		internal object UnwrapValue(JsValue value, Type targetType) {
 			if (value.IsJsObject) {
 				if (typeof(Delegate).IsAssignableFrom(targetType)) {
-					JsDelegateWrapper wrapper = new JsDelegateWrapper(this, value.RefId, targetType);
+					var wrapper = new JsDelegateWrapper(this, value.RefId, targetType);
 					Delegate del = wrapper.GetDelegate();
 					this.remoteDelegates.Add(del, wrapper);
 					return del;
 				}
-				else {
-					JsNativeBase jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
-					jsnb.Handle = value.RefId;
-					return jsnb;
-				}
+
+				var jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
+				jsnb.Handle = value.RefId;
+				return jsnb;
 			}
 			if (value.IsObject || value.IsDelegate) {
 				return this.refToObj[value.RefId];
@@ -358,7 +327,7 @@ namespace DotWeb.Hosting.Bridge
 
 		internal object InvokeRemoteDelegate(Type retType, int handle, params object[] args) {
 			JsValue[] wrapped = WrapParameters(args);
-			InvokeDelegateMessage msg = new InvokeDelegateMessage {
+			var msg = new InvokeDelegateMessage {
 				TargetId = handle,
 				Parameters = wrapped
 			};
@@ -371,7 +340,7 @@ namespace DotWeb.Hosting.Bridge
 			JsFunction function;
 			if (!this.functionCache.TryGetValue(method, out function)) {
 				function = new JsFunction(method);
-				DefineFunctionMessage msgDef = new DefineFunctionMessage {
+				var msgDef = new DefineFunctionMessage {
 					Name = function.Name,
 					Parameters = function.Parameters,
 					Body = function.Body
@@ -398,7 +367,7 @@ namespace DotWeb.Hosting.Bridge
 					wrapped = WrapParameters(args);
 				}
 
-				InvokeFunctionMessage msg = new InvokeFunctionMessage {
+				var msg = new InvokeFunctionMessage {
 					Name = function.Name,
 					ScopeId = hScope,
 					Parameters = wrapped
@@ -416,12 +385,12 @@ namespace DotWeb.Hosting.Bridge
 					return default(R);
 				}
 
-				MethodInfo mi = method as MethodInfo;
+				var mi = (MethodInfo)method;
 				return (R)UnwrapValue(value, mi.ReturnType);
 			}
 			catch (Exception ex) {
 				Debug.WriteLine(ex);
-				throw ex;
+				throw;
 			}
 		}
 	}

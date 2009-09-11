@@ -18,8 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection.Emit;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using DotWeb.Decompiler.CodeModel;
@@ -28,22 +26,13 @@ using System.Diagnostics;
 
 namespace DotWeb.Decompiler.Core
 {
-	class CodeModelVirtualMachine
-	{
-		public List<MethodBase> ExternalMethods { get; private set; }
-		public Stack<CodeExpression> Stack { get; private set; }
-		public CodeModelVirtualMachine() {
-			Stack = new Stack<CodeExpression>();
-			ExternalMethods = new List<MethodBase>();
-		}
-	}
-
 	class CodeModelGenerator
 	{
-		public List<CodeStatement> Statements { get; private set; }
-		private CodeModelVirtualMachine vm;
+		private readonly CodeModelVirtualMachine vm;
 
-		public CodeModelGenerator(CodeModelVirtualMachine vm, List<ILInstruction> instructions) {
+		public List<CodeStatement> Statements { get; private set; }
+
+		public CodeModelGenerator(CodeModelVirtualMachine vm, IEnumerable<ILInstruction> instructions) {
 			this.vm = vm;
 			Statements = new List<CodeStatement>();
 			foreach (ILInstruction il in instructions) {

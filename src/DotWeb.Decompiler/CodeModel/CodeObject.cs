@@ -15,27 +15,21 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DotWeb.Decompiler.Core;
-
 namespace DotWeb.Decompiler.CodeModel
 {
-	public interface ICodeVisitor<Code, Return> where Code : CodeObject
+	public interface ICodeVisitor<TCode, TReturn> where TCode : CodeObject
 	{
-		Return VisitReturn(Code obj);
+		TReturn VisitReturn(TCode obj);
 	}
 
-	public interface ICodeVisitor<Code> where Code : CodeObject
+	public interface ICodeVisitor<TCode> where TCode : CodeObject
 	{
-		void Visit(Code obj);
+		void Visit(TCode obj);
 	}
 
 	public abstract class CodeObject
 	{
-		public abstract void Accept<Visitor>(Visitor visitor);
-		public abstract Return Accept<Visitor, Return>(Visitor visitor);
+		public abstract void Accept<TVisitor>(TVisitor visitor);
+		public abstract TReturn Accept<TVisitor, TReturn>(TVisitor visitor);
 	}
 }

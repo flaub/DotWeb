@@ -18,17 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.Diagnostics;
 
 namespace DotWeb.Hosting.Bridge
 {
-	class JsArrayWrapper : IJsAccessible
+	class JsArrayWrapper : IJsWrapper
 	{
-		JsBridge bridge;
-		Array target;
-		Type elementType;
+		private readonly JsBridge bridge;
+		private readonly Array target;
+		private readonly Type elementType;
 
 		public JsArrayWrapper(JsBridge bridge, Array target) {
 			this.bridge = bridge;
@@ -43,9 +41,7 @@ namespace DotWeb.Hosting.Bridge
 					returnType = this.target.Length.GetType();
 					return this.target.Length;
 				}
-				else {
-					throw new NotSupportedException();
-				}
+				throw new NotSupportedException();
 			}
 
 			if (id >= 0 && id < this.target.Length) {
@@ -54,7 +50,8 @@ namespace DotWeb.Hosting.Bridge
 					returnType = this.elementType;
 					return this.target.GetValue(id);
 				}
-				else if (dispType == DispatchType.PropertySet) {
+
+				if (dispType == DispatchType.PropertySet) {
 					object value = this.bridge.UnwrapValue(args.First(), this.elementType);
 					this.target.SetValue(value, id);
 					returnType = typeof(void);
@@ -66,12 +63,12 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		public GetTypeResponseMessage GetTypeInfo() {
-			GetTypeResponseMessage msg = new GetTypeResponseMessage {
+			var msg = new GetTypeResponseMessage {
 				IndexerLength = this.target.Length,
 				Members = new List<TypeMemberInfo>()
 			};
 
-			TypeMemberInfo tmi = new TypeMemberInfo {
+			var tmi = new TypeMemberInfo {
 				Name = "length",
 				MemberId = this.target.Length,
 				DispatchType = DispatchType.PropertyGet

@@ -15,10 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace DotWeb.Decompiler
@@ -41,7 +37,8 @@ namespace DotWeb.Decompiler
 						IsGetter = true
 					};
 				}
-				else if (method.Name.StartsWith("set_")) {
+
+				if (method.Name.StartsWith("set_")) {
 					string propName = method.Name.Substring("set_".Length);
 					PropertyInfo pi = method.DeclaringType.GetProperty(propName);
 					return new AssociatedProperty {

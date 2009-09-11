@@ -28,8 +28,8 @@ namespace DotWeb.Decompiler.Core
 	class ControlFlowGraph
 	{
 		private int intervalIdGenerator = 1;
-		private Dictionary<int, BasicBlock> blocks = new Dictionary<int, BasicBlock>();
-		private CodeModelVirtualMachine context = new CodeModelVirtualMachine();
+		private readonly Dictionary<int, BasicBlock> blocks = new Dictionary<int, BasicBlock>();
+		private readonly CodeModelVirtualMachine context = new CodeModelVirtualMachine();
 
 		public MethodBase Method { get; private set; } 
 		public BasicBlock Root { get; private set; }

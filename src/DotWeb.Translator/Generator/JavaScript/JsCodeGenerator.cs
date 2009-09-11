@@ -18,8 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.IO;
 using System.CodeDom.Compiler;
 using DotWeb.Client;
@@ -75,8 +73,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.WriteLine(format, args);
 		}
 
-		private void Write(List<CodeStatement> stmts) {
-			foreach (CodeStatement stmt in stmts) {
+		private void Write(IEnumerable<CodeStatement> stmts) {
+			foreach (var stmt in stmts) {
 				stmt.Accept(this);
 			}
 		}
@@ -389,9 +387,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 		#endregion
 
-		private Dictionary<int, CodeVariableReference> locals = new Dictionary<int, CodeVariableReference>();
-		private JsPrinter printer = new JsPrinter();
-		private IndentedTextWriter writer;
+		private readonly Dictionary<int, CodeVariableReference> locals = new Dictionary<int, CodeVariableReference>();
+		private readonly JsPrinter printer = new JsPrinter();
+		private readonly IndentedTextWriter writer;
 		private CodeMethodMember currentMethod;
 	}
 }

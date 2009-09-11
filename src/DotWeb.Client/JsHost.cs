@@ -15,10 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
 using System.Diagnostics;
@@ -32,7 +28,7 @@ namespace DotWeb.Client
 
 	public static class JsHost
 	{
-		private class VoidReturn { }
+		private abstract class VoidReturn { }
 		private const string JsHostName = "JsHost";
 
 		public static IJsHost Instance {

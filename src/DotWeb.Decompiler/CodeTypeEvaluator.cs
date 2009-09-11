@@ -16,9 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 
@@ -26,10 +24,10 @@ namespace DotWeb.Decompiler
 {
 	public class CodeTypeEvaluator : ICodeExpressionVisitor<Type>
 	{
-		private MethodBase method;
+		private readonly MethodBase context;
 
 		public CodeTypeEvaluator(MethodBase method) {
-			this.method = method;
+			this.context = method;
 		}
 
 		public Type Evaluate(CodeExpression exp) {
@@ -108,11 +106,11 @@ namespace DotWeb.Decompiler
 		}
 
 		public Type VisitReturn(CodeThisReference obj) {
-			return this.method.DeclaringType;
+			return this.context.DeclaringType;
 		}
 
 		public Type VisitReturn(CodeVariableReference obj) {
-			LocalVariableInfo local = this.method.GetMethodBody().LocalVariables.Single(x => x.LocalIndex == obj.Index);
+			LocalVariableInfo local = this.context.GetMethodBody().LocalVariables.Single(x => x.LocalIndex == obj.Index);
 			return local.LocalType;
 		}
 

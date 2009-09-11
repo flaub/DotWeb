@@ -16,9 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DotWeb.Client
 {
@@ -70,21 +67,6 @@ namespace DotWeb.Client
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class JsAnonymousAttribute : Attribute
-	{
-	}
-
-	public class InvalidAnonymousUsageException : Exception
-	{
-		public InvalidAnonymousUsageException(Type type) 
-			: base(string.Format("[JsAnonymous] not valid on {0}", type)) {
-			this.AppliedType = type;
-		}
-
-		public Type AppliedType { get; set; }
-	}
-
-	[AttributeUsage(AttributeTargets.Delegate)]
-	public class VarArgsAttribute : Attribute
 	{
 	}
 }

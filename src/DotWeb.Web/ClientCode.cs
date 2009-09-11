@@ -15,62 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.Configuration;
-using System.Configuration;
-using System.IO;
-using System.Web.Caching;
-using DotWeb.Translator;
-using System.Net.Sockets;
-using System.Net;
-using System.Runtime.Remoting.Messaging;
-using DotWeb.Hosting.Bridge;
-using System.Diagnostics;
-using System.Reflection;
-using DotWeb.Web.Properties;
 
 namespace DotWeb.Web
 {
-	class HttpContextImpl : IHttpContext
-	{
-		private HttpContext context;
-
-		public HttpContextImpl(HttpContext context) {
-			this.context = context;
-		}
-
-		public string MapPath(string virtualPath) {
-			return context.Server.MapPath(virtualPath);
-		}
-
-		public string ResolveUrl(string url) {
-			return url.Replace("~/", context.Request.ApplicationPath);
-		}
-
-		public System.Web.Caching.Cache Cache {
-			get { return context.Cache; }
-		}
-
-		public void AddCookie(HttpCookie cookie) {
-			context.Response.Cookies.Add(cookie);
-		}
-
-		public object GetApplicationState(string key) {
-			return context.Application.Get(key);
-		}
-
-		public void SetApplicationState(string key, object value) {
-			context.Application.Set(key, value);
-		}
-	}
-
 	[ToolboxData("<{0}:ClientCode runat=server></{0}:ClientCode>")]
 	public class ClientCode : Control
 	{

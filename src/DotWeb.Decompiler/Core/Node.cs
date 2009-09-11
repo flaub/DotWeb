@@ -15,7 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,8 +119,8 @@ namespace DotWeb.Decompiler.Core
 			this.LoopFollow = NoNode;
 			this.IfFollow = NoNode;
 			this.IsLoopNode = false;
-			this.CaseHead = Node.NoNode;
-			this.CaseTail = Node.NoNode;
+			this.CaseHead = NoNode;
+			this.CaseTail = NoNode;
 		}
 
 		public void AddInEdge(Node node) {
@@ -161,7 +160,7 @@ namespace DotWeb.Decompiler.Core
 
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
-			sb.AppendFormat("{0}", FullName, DfsFirstNumber, DfsLastNumber);
+			sb.AppendFormat("{0}", FullName);
 			if (InEdges.Any()) {
 				string[] values = InEdges.Select(x => x.RefName).ToArray();
 				string line = string.Join(", ", values);

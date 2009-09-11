@@ -15,13 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using DotWeb.Client.Dom;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace DotWeb.Client
 {

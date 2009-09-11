@@ -16,10 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 
 namespace DotWeb.Client
 {
@@ -27,15 +23,4 @@ namespace DotWeb.Client
 	public class JsIntrinsicAttribute : Attribute
 	{
 	}
-
-	public class InvalidIntrinsicUsageException : Exception
-	{
-		public InvalidIntrinsicUsageException(PropertyInfo property) 
-			: base(string.Format("[JsIntrinsic] not valid on type: '{0}', property: '{1}'", property.DeclaringType, property)) {
-			this.AppliedProperty = property;
-		}
-
-		public PropertyInfo AppliedProperty { get; set; }
-	}
-
 }

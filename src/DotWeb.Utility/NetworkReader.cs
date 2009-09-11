@@ -16,16 +16,14 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Diagnostics;
 
 namespace DotWeb.Utility
 {
 	public class NetworkReader
 	{
-		private Stream stream;
+		private readonly Stream stream;
 
 		public NetworkReader(Stream input) {
 			this.stream = input;

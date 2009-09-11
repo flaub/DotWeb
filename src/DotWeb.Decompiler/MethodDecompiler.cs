@@ -16,9 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 using DotWeb.Decompiler.Core;
@@ -30,13 +27,13 @@ namespace DotWeb.Decompiler
 		public static CodeMethodMember Parse(MethodBase method) {
 			Console.WriteLine(method);
 
-			ControlFlowGraph cfg = new ControlFlowGraph(method);
+			var cfg = new ControlFlowGraph(method);
 			Console.WriteLine(cfg);
 
-			ControlFlowAnalyzer cfa = new ControlFlowAnalyzer(cfg);
+			var cfa = new ControlFlowAnalyzer(cfg);
 			cfa.Structure();
 
-			BackEnd be = new BackEnd(cfg);
+			var be = new BackEnd(cfg);
 			be.WriteCode();
 
 			AssociatedProperty ap = method.GetAssociatedProperty();
@@ -46,15 +43,13 @@ namespace DotWeb.Decompiler
 						PropertyInfo = ap.Info
 					};
 				}
-				else {
-					return new CodePropertySetterMember(be.Method) {
-						PropertyInfo = ap.Info
-					};
-				}
+
+				return new CodePropertySetterMember(be.Method) {
+					PropertyInfo = ap.Info
+				};
 			}
-			else {
-				return be.Method;
-			}
+
+			return be.Method;
 		}
 	}
 }

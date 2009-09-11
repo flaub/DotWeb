@@ -18,9 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection.Emit;
-using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
 
 namespace DotWeb.Decompiler.Core
@@ -166,11 +164,11 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool CompoundAnd(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			return false;
+			throw new NotImplementedException();
 		}
 
 		private bool CompoundNotOr(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			return false;
+			throw new NotImplementedException();
 		}
 
 		private void DisplayDfs(BasicBlock bb) {
@@ -283,10 +281,10 @@ namespace DotWeb.Decompiler.Core
 		/// the list l, head and tail (dfsLast index to first and exit node of the case).
 		/// </summary>
 		/// <param name="node"></param>
-		/// <param name="caseNodes"></param>
-		/// <param name="i"></param>
-		/// <param name="exitNode"></param>
-		private void TagNodesInCase(BasicBlock node, List<int> list, int head, int tail) {
+		/// <param name="list"></param>
+		/// <param name="head"></param>
+		/// <param name="tail"></param>
+		private void TagNodesInCase(BasicBlock node, ICollection<int> list, int head, int tail) {
 			node.DfsTraversed = DfsTraversal.Case;
 			int current = node.DfsLastNumber;
 			if ((current != tail) &&
@@ -308,8 +306,8 @@ namespace DotWeb.Decompiler.Core
 		/// then it is a backedge. 
 		/// Also incrementes the number of backedges entries to the header node. 
 		/// </summary>
-		/// <param name="lhs"></param>
-		/// <param name="rhs"></param>
+		/// <param name="pred"></param>
+		/// <param name="succ"></param>
 		/// <returns></returns>
 		private bool IsBackEdge(Node pred, Node succ) {
 			if (pred.DfsFirstNumber >= succ.DfsFirstNumber) {

@@ -15,8 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
@@ -24,7 +22,7 @@ namespace DotWeb.Utility
 {
 	public class NetworkWriter
 	{
-		private Stream stream;
+		private readonly Stream stream;
 
 		public NetworkWriter(Stream output) {
 			this.stream = output;
