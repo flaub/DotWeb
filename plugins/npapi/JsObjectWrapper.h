@@ -42,6 +42,7 @@ private:
 	bool invokeDefault(const NPVariant* args, unsigned argCount, NPVariant* result);
 	bool hasMethod(NPIdentifier name);
 	bool hasProperty(NPIdentifier name);
+	bool removeProperty(NPIdentifier name);
 
 private:
 	bool getTypeInfo();

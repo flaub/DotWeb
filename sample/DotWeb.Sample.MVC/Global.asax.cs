@@ -1,34 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Copyright 2009, Frank Laub
+// 
+// This file is part of DotWeb.
+// 
+// DotWeb is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// DotWeb is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
+// 
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Ipc;
-using System.Runtime.Remoting;
-using System.Runtime.Serialization.Formatters;
-using System.Collections;
+using NHaml.Web.Mvc;
 
-namespace H8.MVC
+namespace DotWeb.Sample.MVC
 {
-	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-	// visit http://go.microsoft.com/?LinkId=9394801
-
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		public static void RegisterRoutes(RouteCollection routes) {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-				"Default",                                              // Route name
-				"{controller}/{action}/{id}",                           // URL with parameters
-				new { controller = "Home", action = "Tests", id = "" }  // Parameter defaults
-			);
+				"Default", // Route name
+				"{controller}/{action}/{id}", // URL with parameters
+				new {controller = "Home", action = "Tests", id = ""} // Parameter defaults
+				);
 		}
 
 		protected void Application_Start() {
-			ViewEngines.Engines.Add(new NHaml.Web.Mvc.NHamlMvcViewEngine()); 
+			ViewEngines.Engines.Add(new NHamlMvcViewEngine());
 			RegisterRoutes(RouteTable.Routes);
 		}
 	}

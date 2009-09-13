@@ -85,6 +85,11 @@ class NPObjectWrapper : public NPObject {
     return obj->setProperty(name, value);
   }
 
+  static bool RemoveProperty(NPObject *npobj, NPIdentifier name) {
+    Wrapper* obj = static_cast<Wrapper*>(npobj);
+    return obj->removeProperty(name);
+  }
+
   virtual ~NPObjectWrapper() {}
 
   /**
@@ -132,6 +137,10 @@ class NPObjectWrapper : public NPObject {
      return false;
    }
 
+   virtual bool removeProperty(NPIdentifier name) {
+	   return false;
+   }
+
   protected:
     NPObjectWrapper(NPP instance) : npp(instance) {}
 
@@ -159,7 +168,7 @@ NPClass* GetNPClass() {
     NPObjectWrapper<Wrapper>::HasProperty,
     NPObjectWrapper<Wrapper>::GetProperty,
     NPObjectWrapper<Wrapper>::SetProperty,
-    NULL,  // RemoveProperty,
+    NPObjectWrapper<Wrapper>::RemoveProperty,
     NPObjectWrapper<Wrapper>::Enumeration,
   };
 

@@ -167,7 +167,7 @@ namespace DotWeb.Hosting.Bridge
 			var target = (IJsWrapper)this.refToObj[msg.TargetId];
 			try {
 				Type retType;
-				object ret = target.Invoke(msg.MemberId, msg.DispatchType, msg.Parameters, out retType);
+				object ret = target.Invoke(msg.DispatchId, msg.DispatchType, msg.Parameters, out retType);
 				bool isVoid = retType == typeof(void);
 				var retMsg = new ReturnMessage { Value = WrapValue(ret, isVoid) };
 				this.session.SendMessage(retMsg);
@@ -183,7 +183,7 @@ namespace DotWeb.Hosting.Bridge
 		private void InvokeDelegate(InvokeDelegateMessage msg) {
 			var target = (Delegate)this.refToObj[msg.TargetId];
 			Debug.WriteLine(string.Format("InvokeDelegate: {0}", target));
-			object[] args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
+			var args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
 			try {
 				object ret = target.DynamicInvoke(args);
 				var retType = target.Method.ReturnType;
@@ -212,12 +212,7 @@ namespace DotWeb.Hosting.Bridge
 			if (args == null) {
 				return new JsValue[0];
 			}
-			var converted = new JsValue[args.Length];
-			for (int i = 0; i < args.Length; i++) {
-				object arg = args[i];
-				converted[i] = WrapValue(arg, false);
-			}
-			return converted;
+			return args.Select(x => WrapValue(x, false)).ToArray();
 		}
 
 		internal object[] UnwrapParameters(JsValue[] args, DispatchType dispType, MemberInfo member) {
@@ -247,14 +242,9 @@ namespace DotWeb.Hosting.Bridge
 			else
 				throw new InvalidOperationException();
 
-			Type[] argTypes = method.GetParameters().Select(x => x.ParameterType).ToArray();
-			int len = argTypes.Length;
-			var ret = new object[len];
-			for (int i = 0; i < len; i++) {
-				Type argType = argTypes[i];
-				ret[i] = UnwrapValue(args[i], argType);
-			}
-			return ret;
+			var argTypes = method.GetParameters().Select(x => x.ParameterType);
+			var ret = argTypes.Select((x, i) => UnwrapValue(args[i], x)); 
+			return ret.ToArray();
 		}
 
 		private JsValue WrapValue(object arg, bool isVoid) {
@@ -298,8 +288,14 @@ namespace DotWeb.Hosting.Bridge
 		private JsValue GetObjectWrapper(object arg) {
 			int id;
 			if (!GetRefId(arg, out id)) {
-				var wrapper = new JsObjectWrapper(this, arg);
-				Debug.WriteLine(string.Format("Adding refToObj: JsObjectWrapper[{0}] -> {1}", arg, id));
+				IJsWrapper wrapper;
+				if (arg is JsDynamicBase) {
+					wrapper = new JsDynamicWrapper(this, (JsDynamicBase)arg);
+				}
+				else {
+					wrapper = new JsObjectWrapper(this, arg);
+				}
+				Debug.WriteLine(string.Format("Adding refToObj: {0}[{1}] -> {2}", wrapper, arg, id));
 				this.refToObj.Add(id, wrapper);
 			}
 			return new JsValue(JsValueType.Object, id);

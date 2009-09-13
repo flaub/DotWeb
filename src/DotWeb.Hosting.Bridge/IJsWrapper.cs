@@ -21,7 +21,7 @@ namespace DotWeb.Hosting.Bridge
 {
 	public interface IJsWrapper
 	{
-		object Invoke(int id, DispatchType dispType, JsValue[] args, out Type returnType);
+		object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] args, out Type returnType);
 		GetTypeResponseMessage GetTypeInfo();
 	}
 }

@@ -20,17 +20,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
+using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
-	class JsObjectWrapper : IJsWrapper
+	class JsObjectWrapper : JsWrapperBase, IJsWrapper
 	{
-		private readonly JsBridge bridge;
 		private readonly object target;
 		private readonly TypeInspector inspector;
 
-		public JsObjectWrapper(JsBridge bridge, object target) {
-			this.bridge = bridge;
+		public JsObjectWrapper(JsBridge bridge, object target) : base(bridge) {
 			this.target = target;
 			this.inspector = new TypeInspector(target);
 		}
@@ -39,35 +38,31 @@ namespace DotWeb.Hosting.Bridge
 			return this.inspector.GetMember(id);
 		}
 
-		delegate R GenericDelegate<R>();
-		delegate R GenericDelegate<R, T1>(T1 arg1);
-		delegate R GenericDelegate<R, T1, T2>(T1 arg1, T2 arg2);
-		delegate R GenericDelegate<R, T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
-		delegate R GenericDelegate<R, T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+		public MemberInfo GetMember(string name) {
+			//return this.inspector.GetMember(id);
+			if (name == "ToString")
+				return null;
 
-		private Type CreateTypeForMethod(MethodInfo method) {
-			ParameterInfo[] paramaterInfos = method.GetParameters();
-			string name = string.Format("GenericDelegate`{0}", paramaterInfos.Length + 1);
-			Type type = this.GetType().GetNestedType(name, BindingFlags.NonPublic);
-			var genericTypes = new List<Type>();
-			genericTypes.Add(method.ReturnType);
-			genericTypes.AddRange(paramaterInfos.Select(x => x.ParameterType));
-			Type baked = type.MakeGenericType(genericTypes.ToArray());
-			return baked;
+			if (name == "toString")
+				name = "ToString";
+
+			return this.target.GetType().GetMember(name).SingleOrDefault();
 		}
 
-		public object Invoke(int id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
-			MemberInfo member = GetMember(id);
+		public object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
+			MemberInfo member = GetMember(id.AsString);
+			if (member == null) {
+				returnType = typeof(void);
+				return null;
+			}
+
 			Debug.WriteLine(string.Format("{0}, {1}.{2}", dispType, this.target, member.Name));
 			if (member is MethodInfo && dispType == DispatchType.PropertyGet) {
 				var method = (MethodInfo)member;
-				Type delType = CreateTypeForMethod(method);
-				Delegate del = Delegate.CreateDelegate(delType, this.target, method);
-				returnType = delType;
-				return del;
+				return GetMethodAsProperty((MethodInfo)member, this.target, out returnType);
 			}
 
-			object[] args = this.bridge.UnwrapParameters(jsArgs, dispType, member);
+			var args = this.bridge.UnwrapParameters(jsArgs, dispType, member);
 			if (dispType.IsMethod()) {
 				var method = (MethodBase)member;
 				returnType = method.IsConstructor ? method.DeclaringType : ((MethodInfo)method).ReturnType;
@@ -82,8 +77,9 @@ namespace DotWeb.Hosting.Bridge
 
 			if (dispType.IsPropertyPut()) {
 				var pi = (PropertyInfo)member;
-				returnType = typeof(void);
 				pi.SetValue(this.target, args.First(), null);
+				returnType = typeof(void);
+				return null;
 			}
 			throw new NotSupportedException();
 		}

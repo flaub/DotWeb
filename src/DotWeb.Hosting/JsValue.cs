@@ -57,19 +57,19 @@ namespace DotWeb.Hosting
 			if (value == null) {
 				return new JsValue(JsValueType.Null, null);
 			}
-			else if (value is string) {
+			if (value is string) {
 				return new JsValue((string)value);
 			}
-			else if (value is int) {
+			if (value is int) {
 				return new JsValue((int)value);
 			}
-			else if (value is bool) {
+			if (value is bool) {
 				return new JsValue((bool)value);
 			}
-			else if (value is double) {
+			if (value is double) {
 				return new JsValue((double)value);
 			}
-//			string msg = string.Format("Cannot convert to JsValue: {0}", value);
+			//			string msg = string.Format("Cannot convert to JsValue: {0}", value);
 //			throw new ArgumentException(msg, "value");
 			return null;
 		}

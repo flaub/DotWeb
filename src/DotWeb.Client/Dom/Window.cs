@@ -20,7 +20,7 @@ namespace DotWeb.Client.Dom
 	public delegate void GenericEventHandler();
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
-	[JsNamespace()]
+	[JsNamespace]
 	public class Window : JsNativeBase
 	{
 		public static Window Instance {

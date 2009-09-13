@@ -34,31 +34,47 @@ namespace DotWeb.Hosting.Bridge
 			this.elementType = target.GetType().GetElementType();
 		}
 
-		public object Invoke(int id, DispatchType dispType, JsValue[] args, out Type returnType) {
-			if (id == this.target.Length) {
-				if (dispType == DispatchType.PropertyGet) {
-					Debug.WriteLine(string.Format("{0}, {1}.Length", dispType, this.target));
-					returnType = this.target.Length.GetType();
-					return this.target.Length;
+		public object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] args, out Type returnType) {
+			if (id.Tag == DispatchIdentifierType.String) {
+				if (id.AsString == "length") {
+					return GetLength(dispType, out returnType);
 				}
-				throw new NotSupportedException();
-			}
-
-			if (id >= 0 && id < this.target.Length) {
-				Debug.WriteLine(string.Format("{0}, {1}[{2}]", dispType, this.target, id));
-				if (dispType == DispatchType.PropertyGet) {
-					returnType = this.elementType;
-					return this.target.GetValue(id);
-				}
-
-				if (dispType == DispatchType.PropertySet) {
-					object value = this.bridge.UnwrapValue(args.First(), this.elementType);
-					this.target.SetValue(value, id);
+				else {
 					returnType = typeof(void);
 					return null;
 				}
 			}
+			else {
+				int intId = id.AsInt;
+				if (intId == this.target.Length) {
+					return GetLength(dispType, out returnType);
+				}
 
+				if (intId >= 0 && intId < this.target.Length) {
+					Debug.WriteLine(string.Format("{0}, {1}[{2}]", dispType, this.target, id));
+					if (dispType == DispatchType.PropertyGet) {
+						returnType = this.elementType;
+						return this.target.GetValue(intId);
+					}
+
+					if (dispType == DispatchType.PropertySet) {
+						object value = this.bridge.UnwrapValue(args.First(), this.elementType);
+						this.target.SetValue(value, intId);
+						returnType = typeof(void);
+						return null;
+					}
+				}
+			}
+
+			throw new NotSupportedException();
+		}
+
+		private object GetLength(DispatchType dispType, out Type returnType) {
+			if (dispType == DispatchType.PropertyGet) {
+				Debug.WriteLine(string.Format("{0}, {1}.Length", dispType, this.target));
+				returnType = this.target.Length.GetType();
+				return this.target.Length;
+			}
 			throw new NotSupportedException();
 		}
 
@@ -70,7 +86,7 @@ namespace DotWeb.Hosting.Bridge
 
 			var tmi = new TypeMemberInfo {
 				Name = "length",
-				MemberId = this.target.Length,
+				//MemberId = this.target.Length,
 				DispatchType = DispatchType.PropertyGet
 			};
 			msg.Members.Add(tmi);

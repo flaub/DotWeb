@@ -45,7 +45,7 @@ namespace DotWeb.Hosting.Bridge
 			var attr = TargetType.GetCustomAttribute<VarArgsAttribute>();
 			MethodInfo invoke = TargetType.GetMethod("Invoke");
 			ParameterInfo[] parameters = invoke.GetParameters();
-			Type[] parameterTypes = parameters.Select(x => x.ParameterType).ToArray();
+			var parameterTypes = parameters.Select(x => x.ParameterType);
 			bool isVoidReturn = invoke.ReturnType == typeof(void);
 
 			if (isVoidReturn && !parameterTypes.Any()) {
@@ -60,7 +60,7 @@ namespace DotWeb.Hosting.Bridge
 					isVarArgs = true;
 				}
 				else {
-					suffix = parameterTypes.Length.ToString();
+					suffix = parameterTypes.Count().ToString();
 					isVarArgs = false;
 				}
 

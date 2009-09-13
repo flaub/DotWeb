@@ -108,6 +108,8 @@ public:
 	}
 
 	NPVariant* get() {
+		if(empty())
+			return NULL;
 		return (NPVariant*)&front();
 	}
 };

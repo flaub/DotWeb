@@ -21,17 +21,37 @@
 #include "Debug.h"
 #include "Variant.h"
 
-static const char* debugName(NPIdentifier name) {
+const char* debugName(NPIdentifier name) {
 	static char buf[1024];
 	if(NPN_IdentifierIsString(name)) {
 		NPUTF8* strName = NPN_UTF8FromIdentifier(name);
 		sprintf_s(buf, sizeof(buf), "'%s'", strName);
+		NPN_MemFree(strName);
 	}
 	else {
 		int intName = NPN_IntFromIdentifier(name);
 		sprintf_s(buf, sizeof(buf), "%d", intName);
 	}
 	return buf;
+}
+
+DispatchIdentifier CreateDispatchIdentifier(NPIdentifier name) {
+	static char buf[1024];
+	DispatchIdentifier ret;
+	if(NPN_IdentifierIsString(name)) {
+		NPUTF8* strName = NPN_UTF8FromIdentifier(name);
+		ret.tag = IT_String;
+		ret.name = strName;
+//		sprintf_s(buf, sizeof(buf), "'%s'", strName);
+		NPN_MemFree(strName);
+	}
+	else {
+		int id = NPN_IntFromIdentifier(name);
+//		sprintf_s(buf, sizeof(buf), "%d", intName);
+		ret.tag = IT_Int;
+		ret.id = id;
+	}
+	return ret;
 }
 
 JsObjectWrapper::JsObjectWrapper(NPP npp)
@@ -78,44 +98,57 @@ bool JsObjectWrapper::enumeration(NPIdentifier** values, uint32_t* count) {
 
 bool JsObjectWrapper::getProperty(NPIdentifier name, NPVariant* result) {
 	Debug::println("JsObjectWrapper::getProperty: %s", debugName(name));
-	TypeMemberInfo info;
-	if(!getInfo(name, info)) {
-		Debug::println("JsObjectWrapper::getProperty> not found: %s", debugName(name));
-		return false;
-	}
-	if((info.dispatchType & DT_PropertyGet) == 0) {
-		Debug::println("JsObjectWrapper::invoke> not a PropertyGet: %s", debugName(name));
-		return false;
-	}
-	return m_agent->invokeRemoteMember(m_targetId, info.memberId, DT_PropertyGet, NULL, 0, result);
+	//TypeMemberInfo info;
+	//if(!getInfo(name, info)) {
+	//	Debug::println("JsObjectWrapper::getProperty> undefined: %s", debugName(name));
+	//	Variant var;
+	//	var.setVoid();
+	//	*result = var.take();
+	//	return true;
+	//}
+	//if((info.dispatchType & DT_PropertyGet) == 0) {
+	//	Debug::println("JsObjectWrapper::invoke> not a PropertyGet: %s", debugName(name));
+	//	return false;
+	//}
+	//int dispId = NPN_IntFromIdentifier(name);
+	DispatchIdentifier dispId = CreateDispatchIdentifier(name);
+	return m_agent->invokeRemoteMember(m_targetId, dispId, DT_PropertyGet, NULL, 0, result);
 }
 
 bool JsObjectWrapper::setProperty(NPIdentifier name, const NPVariant* value) {
 	Debug::println("JsObjectWrapper::setProperty: %s", debugName(name));
-	TypeMemberInfo info;
-	if(!getInfo(name, info)) {
-		Debug::println("JsObjectWrapper::setProperty> not found: %s", debugName(name));
-		return false;
-	}
-	if((info.dispatchType & DT_PropertySet) == 0) {
-		Debug::println("JsObjectWrapper::invoke> not a PropertySet: %s", debugName(name));
-		return false;
-	}
-	return m_agent->invokeRemoteMember(m_targetId, info.memberId, DT_PropertySet, value, 1, NULL);
+	//TypeMemberInfo info;
+	//if(!getInfo(name, info)) {
+	//	Debug::println("JsObjectWrapper::setProperty> not found: %s", debugName(name));
+	//	return false;
+	//}
+	//if((info.dispatchType & DT_PropertySet) == 0) {
+	//	Debug::println("JsObjectWrapper::invoke> not a PropertySet: %s", debugName(name));
+	//	return false;
+	//}
+//	int dispId = NPN_IntFromIdentifier(name); 
+	DispatchIdentifier dispId = CreateDispatchIdentifier(name);
+	return m_agent->invokeRemoteMember(m_targetId, dispId, DT_PropertySet, value, 1, NULL);
+}
+
+bool JsObjectWrapper::removeProperty(NPIdentifier name) {
+	Debug::println("JsObjectWrapper::removeProperty: %s", debugName(name));
+	return false;
 }
 
 bool JsObjectWrapper::invoke(NPIdentifier name, const NPVariant* args, unsigned argCount, NPVariant* result) {
 	Debug::println("JsObjectWrapper::invoke: %s", debugName(name));
-	TypeMemberInfo info;
-	if(!getInfo(name, info)) {
-		Debug::println("JsObjectWrapper::invoke> not found: %s", debugName(name));
-		return false;
-	}
-	if(info.dispatchType != DT_Method) {
-		Debug::println("JsObjectWrapper::invoke> not a method: %s", debugName(name));
-		return false;
-	}
-	return m_agent->invokeRemoteMember(m_targetId, info.memberId, DT_Method, args, argCount, result);
+	//TypeMemberInfo info;
+	//if(!getInfo(name, info)) {
+	//	Debug::println("JsObjectWrapper::invoke> not found: %s", debugName(name));
+	//	return false;
+	//}
+	//if(info.dispatchType != DT_Method) {
+	//	Debug::println("JsObjectWrapper::invoke> not a method: %s", debugName(name));
+	//	return false;
+	//}
+	DispatchIdentifier dispId = CreateDispatchIdentifier(name);
+	return m_agent->invokeRemoteMember(m_targetId, dispId, DT_Method, args, argCount, result);
 }
 
 bool JsObjectWrapper::invokeDefault(const NPVariant* args, unsigned argCount, NPVariant* result) {
@@ -174,12 +207,13 @@ bool JsObjectWrapper::hasMethod(NPIdentifier name) {
 
 bool JsObjectWrapper::hasProperty(NPIdentifier name) {
 	Debug::println("JsObjectWrapper::hasProperty: %s", debugName(name));
-	TypeMemberInfo info;
-	if(!getInfo(name, info)) {
-		Debug::println("JsObjectWrapper::hasProperty> not found: %s", debugName(name));
-		return false;
-	}
-	return info.dispatchType != DT_Method;
+	//TypeMemberInfo info;
+	//if(getInfo(name, info)) {
+	//	if(info.dispatchType == DT_Method) {
+	//		return false;
+	//	}
+	//}
+	return true;
 }
 
 bool JsObjectWrapper::getTypeInfo() {
@@ -196,7 +230,7 @@ bool JsObjectWrapper::getTypeInfo() {
 			const TypeMemberInfo& info = *it;
 			m_byName.insert(std::make_pair(info.name, info));
 		}
-		m_hasInfo = true;
+		//m_hasInfo = true;
 	}
 	return true;
 }
@@ -208,6 +242,7 @@ bool JsObjectWrapper::getInfo(NPIdentifier name, TypeMemberInfo& info) {
 	if(NPN_IdentifierIsString(name)) {
 		NPUTF8* id = NPN_UTF8FromIdentifier(name);
 		MembersByName_t::const_iterator it = m_byName.find(id);
+		NPN_MemFree(id);
 		if(it == m_byName.end())
 			return false;
 
@@ -218,7 +253,7 @@ bool JsObjectWrapper::getInfo(NPIdentifier name, TypeMemberInfo& info) {
 		uint32_t index = NPN_IntFromIdentifier(name);
 		if(index < m_indexerLength) {
 			info.dispatchType = DT_PropertyGet | DT_PropertySet;
-			info.memberId = index;
+			//info.memberId = index;
 			return true;
 		}
 	}

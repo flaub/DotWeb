@@ -57,7 +57,7 @@ public:
 
 public:
 	bool getTypeInfo(uint32_t targetId, GetTypeResponseMessage& ret);
-	bool invokeRemoteMember(uint32_t targetId, uint32_t memberId, DispatchType dt, const NPVariant* args, unsigned argCount, NPVariant* result);
+	bool invokeRemoteMember(uint32_t targetId, const DispatchIdentifier& dispId, DispatchType dt, const NPVariant* args, unsigned argCount, NPVariant* result);
 	bool invokeRemoteDelegate(uint32_t targetId, const NPVariant* args, unsigned argCount, NPVariant* result);
 
 private:
@@ -98,8 +98,8 @@ private:
 	typedef std::map<int, NPObject*> RefToObj_t;
 	typedef std::map<NPObject*, int> ObjToRef_t;
 
-	RefToObj_t m_refToObj;
-	ObjToRef_t m_objToRef;
+	RefToObj_t m_localRefToObj;
+	ObjToRef_t m_localObjToRef;
 
 	RefToObj_t m_remoteObjects;
 };

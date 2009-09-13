@@ -180,10 +180,11 @@ namespace DotWeb.Hosting.Test
 
 			public void OnQuitMessage() { ReadMessage(new QuitMessage()); }
 
-			public void OnInvokeMemberMessage(int targetId, int memberId, DispatchType dispatchType, params JsValue[] parameters) {
+			public void OnInvokeMemberMessage(int targetId, DispatchIdentifier dispId, DispatchType dispatchType, params JsValue[] parameters) {
 				ReadMessage(new InvokeMemberMessage {
 					TargetId = targetId,
-					MemberId = memberId,
+					//MemberId = memberId,
+					DispatchId = dispId,
 					DispatchType = dispatchType,
 					Parameters = parameters
 				});
@@ -364,8 +365,7 @@ namespace DotWeb.Hosting.Test
 				TypeInspector inspector = new TypeInspector(cfg);
 				session.GetTypeResponseMessage(cfg);
 
-				int memberId = inspector.GetMemberId("nativeObject");
-				session.OnInvokeMemberMessage(cfgId, memberId, DispatchType.PropertyGet);
+				session.OnInvokeMemberMessage(cfgId, new DispatchIdentifier("nativeObject"), DispatchType.PropertyGet);
 
 				// give back the nativeObject handle
 				session.ReturnMessage(new JsValue(JsValueType.JsObject, nativeObjectId));

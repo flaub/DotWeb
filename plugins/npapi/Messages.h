@@ -53,6 +53,12 @@ enum ValueType
 	VT_JsObject = 8
 };
 
+enum IdentifierType
+{
+	IT_String = 0,
+	IT_Int = 1
+};
+
 struct JsValue 
 {
 	uint8_t tag;
@@ -127,14 +133,15 @@ struct LoadMessage
 
 struct TypeMemberInfo
 {
-	uint32_t memberId;
+//	uint32_t memberId;
 	std::string name;
 	uint8_t dispatchType;
 
 	template <typename Archive>
 	bool serialize(Archive& ar) {
-		return ar.transfer(memberId)
-			&& ar.transfer(name)
+		return //ar.transfer(memberId)
+			//&& 
+			ar.transfer(name)
 			&& ar.transfer(dispatchType)
 			;
 	}
@@ -211,11 +218,45 @@ struct InvokeDelegateMessage
 	}
 };
 
+struct DispatchIdentifier
+{
+	uint8_t tag;
+	std::string name;
+	uint32_t id;
+
+	template <typename Archive>
+	bool serialize(Archive& ar) {
+		bool ret = ar.transfer(tag);
+		if(!ret) return ret;
+		switch(tag) {
+			case IT_String:
+				return ar.transfer(name);
+			case IT_Int:
+				return ar.transfer(id);
+		}
+		return false;
+	}
+
+	std::string toString() const {
+		switch(tag) {
+			case IT_String:
+				return name;
+			case IT_Int:
+				char tmp[256];
+				_itoa_s(id, tmp, sizeof(tmp), 10);
+				return tmp;
+		}
+		return "<invalid>";
+	}
+};
+
 struct InvokeMemberMessage 
 {
 	static const MessageType MT = MT_InvokeMember;
 	uint32_t targetId;
-	uint32_t memberId;
+	DispatchIdentifier dispId;
+//	uint32_t memberId;
+	std::string member;
 	uint8_t dispatchType;
 	std::list<JsValue> args;
 
@@ -224,7 +265,8 @@ struct InvokeMemberMessage
 	template <typename Archive>
 	bool serialize(Archive& ar) {
 		return ar.transfer(targetId)
-			&& ar.transfer(memberId)
+//			&& ar.transfer(memberId)
+			&& ar.transfer(dispId)
 			&& ar.transfer(dispatchType)
 			&& ar.transferContainer(args)
 			;

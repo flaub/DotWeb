@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using DotWeb.Utility;
+using System;
 
 namespace DotWeb.Hosting
 {
@@ -39,6 +40,73 @@ namespace DotWeb.Hosting
 	{
 		Generic,
 		MissingMember
+	}
+
+	public enum DispatchIdentifierType
+	{
+		String,
+		Int
+	}
+
+	public class DispatchIdentifier
+	{
+		internal DispatchIdentifier() {
+		}
+
+		public DispatchIdentifier(int id) {
+			this.Tag = DispatchIdentifierType.Int;
+			this.Value = id;
+		}
+
+		public DispatchIdentifier(string name) {
+			this.Tag = DispatchIdentifierType.String;
+			this.Value = name;
+		}
+
+		public DispatchIdentifierType Tag { get; set; }
+		public object Value { get; set; }
+
+		public int AsInt { get { return Convert.ToInt32(Value); } }
+		public string AsString { get { return Convert.ToString(Value); } }
+
+		public void Write(NetworkWriter writer) {
+			writer.Write((byte)Tag);
+			switch (Tag) {
+				case DispatchIdentifierType.String:
+					writer.Write((string)Value);
+					break;
+				case DispatchIdentifierType.Int:
+					writer.Write((int)Value);
+					break;
+				default:
+					throw new InvalidDataException();
+			}
+		}
+
+		public void Read(NetworkReader reader) {
+			Tag = (DispatchIdentifierType)reader.ReadByte();
+			switch (Tag) {
+				case DispatchIdentifierType.String:
+					Value = reader.ReadString();
+					break;
+				case DispatchIdentifierType.Int:
+					Value = reader.ReadUInt32();
+					break;
+				default:
+					throw new InvalidDataException();
+			}
+		}
+
+		public override string ToString() {
+			switch (Tag) {
+				case DispatchIdentifierType.String:
+					return string.Format("\"{0}\"", this.Value);
+				case DispatchIdentifierType.Int:
+					return this.Value.ToString();
+				default:
+					throw new InvalidDataException();
+			}
+		}
 	}
 
 	public interface IMessage
@@ -138,18 +206,18 @@ namespace DotWeb.Hosting
 
 	public class TypeMemberInfo
 	{
-		public int MemberId;
+		//public int MemberId;
 		public string Name;
 		public DispatchType DispatchType;
 
 		public void Write(NetworkWriter writer) {
-			writer.Write(MemberId);
+			//writer.Write(MemberId);
 			writer.Write(Name);
 			writer.Write((byte)DispatchType);
 		}
 
 		public void Read(NetworkReader reader) {
-			MemberId = reader.ReadInt32();
+			//MemberId = reader.ReadInt32();
 			Name = reader.ReadString();
 			DispatchType = (DispatchType)reader.ReadByte();
 		}
@@ -185,7 +253,7 @@ namespace DotWeb.Hosting
 		#endregion
 
 		public override string ToString() {
-			string[] parts = Members.Select(x => string.Format("[{0}, {1}]", x.MemberId, x.Name)).ToArray();
+			string[] parts = Members.Select(x => x.Name).ToArray();
 			string members = string.Join(", ", parts);
 			return string.Format(
 				"GetTypeResponseMessage [IndexerLength: {0}, Members: ({1})]", 
@@ -197,7 +265,8 @@ namespace DotWeb.Hosting
 	public class InvokeMemberMessage : MessageBase
 	{
 		public int TargetId;
-		public int MemberId;
+//		public int MemberId;
+		public DispatchIdentifier DispatchId;
 		public DispatchType DispatchType;
 		public JsValue[] Parameters;
 
@@ -207,7 +276,8 @@ namespace DotWeb.Hosting
 		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(this.TargetId);
-			writer.Write(this.MemberId);
+//			writer.Write(this.MemberId);
+			this.DispatchId.Write(writer);
 			writer.Write((byte)this.DispatchType);
 			writer.Write(this.Parameters.Length);
 			foreach (JsValue arg in Parameters) {
@@ -217,7 +287,9 @@ namespace DotWeb.Hosting
 
 		public override void Read(NetworkReader reader) {
 			TargetId = reader.ReadInt32();
-			MemberId = reader.ReadInt32();
+//			MemberId = reader.ReadInt32();
+			DispatchId = new DispatchIdentifier();
+			DispatchId.Read(reader);
 			DispatchType = (DispatchType)reader.ReadByte();
 			int len = reader.ReadInt32();
 			Parameters = new JsValue[len];
@@ -235,7 +307,8 @@ namespace DotWeb.Hosting
 			return string.Format(
 				"InvokeMemberMessage [Target: {0}, Member: {1}, DispatchType: {2}, Args: ({3})]", 
 				this.TargetId, 
-				this.MemberId, 
+//				this.MemberId, 
+				this.DispatchId,
 				this.DispatchType,
 				args);
 		}

@@ -65,7 +65,7 @@ namespace DotWeb.Hosting.Bridge
 
 				TypeMemberInfo tmi = new TypeMemberInfo {
 					Name = item.Key,
-					MemberId = item.Value,
+					//MemberId = item.Value,
 					DispatchType = dt
 				};
 				msg.Members.Add(tmi);

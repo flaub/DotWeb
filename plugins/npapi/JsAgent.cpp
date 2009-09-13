@@ -29,6 +29,8 @@
 #define MSG_DISPATCH(_Class, _Func) \
 { _Class msg; msg.serialize(ar); _Func(msg); }
 
+const char* debugName(NPIdentifier name);
+
 JsAgent::JsAgent(NPP npp)
 	: NPObjectWrapper<JsAgent>(npp)
 	, m_channel(new Channel())
@@ -86,18 +88,18 @@ bool JsAgent::enumeration(NPIdentifier** values, uint32_t* count) {
 }
 
 bool JsAgent::getProperty(NPIdentifier name, NPVariant* result) {
-	Debug::println("JsAgent::getProperty");
+	Debug::println("JsAgent::getProperty: %s", debugName(name));
 	return false;
 }
 
 bool JsAgent::setProperty(NPIdentifier name, const NPVariant* value) {
-	Debug::println("JsAgent::setProperty");
+	Debug::println("JsAgent::setProperty: %s", debugName(name));
 	return false;
 }
 
 bool JsAgent::invoke(NPIdentifier name, const NPVariant* args, unsigned argCount, NPVariant* result) {
 	//	NPUTF8* strName = NPN_UTF8FromIdentifier(name);
-	Debug::println("JsAgent::invoke");
+	Debug::println("JsAgent::invoke: %s", debugName(name));
 
 	if(name == methods.onLoad) {
 		return onLoad(args, argCount);
@@ -122,15 +124,14 @@ bool JsAgent::invokeDefault(const NPVariant* args, unsigned argCount, NPVariant*
 }
 
 bool JsAgent::hasMethod(NPIdentifier name) {
-	//Debug::println("JsAgent::hasMethod");
+	Debug::println("JsAgent::hasMethod: %s", debugName(name));
 	return (name == methods.onLoad || 
 		name == methods.onUnload ||
 		name == methods.toString);
 }
 
 bool JsAgent::hasProperty(NPIdentifier name) {
-	//Debug::println("JsAgent::hasProperty");
-	//	return name == statsID || name == connectedID || name == savedID;
+	Debug::println("JsAgent::hasProperty: %s", debugName(name));
 	return false;
 }
 
@@ -250,12 +251,12 @@ bool JsAgent::onDefineFunction(const DefineFunctionMessage& msg) {
 
 uint32_t JsAgent::getRefId(NPObject* pObject) {
 	uint32_t id;
-	ObjToRef_t::const_iterator it = m_objToRef.find(pObject);
-	if(it == m_objToRef.end()) {
+	ObjToRef_t::const_iterator it = m_localObjToRef.find(pObject);
+	if(it == m_localObjToRef.end()) {
 		id = m_lastRefId++;
 		pObject = NPN_RetainObject(pObject);
-		m_objToRef[pObject] = id;
-		m_refToObj[id] = pObject;
+		m_localObjToRef[pObject] = id;
+		m_localRefToObj[id] = pObject;
 	}
 	else {
 		id = it->second;
@@ -269,10 +270,11 @@ void JsAgent::onDestroy(uint32_t id) {
 }
 
 NPObject* JsAgent::getLocalObject(uint32_t id) {
-	RefToObj_t::const_iterator it = m_refToObj.find(id);
-	if(it == m_refToObj.end()) 
+	RefToObj_t::const_iterator it = m_localRefToObj.find(id);
+	if(it == m_localRefToObj.end()) 
 		return NULL;
-	return NPN_RetainObject(it->second);
+	NPObject* ret = it->second;
+	return NPN_RetainObject(ret);
 }
 
 NPObject* JsAgent::getRemoteObject(uint32_t id) {
@@ -353,10 +355,16 @@ bool JsAgent::wrapLocalValue(const Variant& var, JsValue& value) {
 	}
 	else if(var.isObject()) {
 		NPObject* pObject = var.asObject();
-		uint32_t id = getRefId(pObject);
-		value.tag = VT_JsObject;
-		value.intValue = id;
-		// determine if this is a managed object
+		if(pObject->_class == GetNPClass<JsObjectWrapper>()) {
+			uint32_t id = 0;
+			value.tag = VT_Object;
+			value.intValue = id;
+		}
+		else {
+			uint32_t id = getRefId(pObject);
+			value.tag = VT_JsObject;
+			value.intValue = id;
+		}
 	}
 	else if(var.isNull()) {
 		value.tag = VT_Null;
@@ -493,22 +501,27 @@ bool JsAgent::onInvokeDelegate(const InvokeDelegateMessage& msg) {
 
 bool JsAgent::invokeRemoteMember(
 	uint32_t targetId, 
-	uint32_t memberId, 
+	const DispatchIdentifier& dispId, 
 	DispatchType dt, 
 	const NPVariant* args, 
 	unsigned argCount, 
 	NPVariant* result) {
-	Debug::println("JsAgent::invokeRemoteMember: %d, %d", targetId, memberId);
+	Debug::println("JsAgent::invokeRemoteMember: %d, %d", targetId, dispId.toString());
 
 	InvokeMemberMessage msg;
 	msg.targetId = targetId;
-	msg.memberId = memberId;
+//	msg.memberId = memberId;
+	msg.dispId = dispId;
 	msg.dispatchType = dt;
 
 	for(size_t i = 0; i < argCount; i++) {
 		JsValue value;
-		if(!wrapLocalValue(args[i], value))
+		Variant var(args[i]);
+		if(!wrapLocalValue(var, value)) {
+			var.take();
 			return false;
+		}
+		var.take();
 		msg.args.push_back(value);
 	}
 
@@ -541,8 +554,12 @@ bool JsAgent::invokeRemoteDelegate(
 
 	for(size_t i = 0; i < argCount; i++) {
 		JsValue value;
-		if(!wrapLocalValue(args[i], value))
+		Variant var(args[i]);
+		if(!wrapLocalValue(var, value)) {
+			var.take();
 			return false;
+		}
+		var.take();
 		msg.args.push_back(value);
 	}
 

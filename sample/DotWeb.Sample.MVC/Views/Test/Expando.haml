@@ -1,0 +1,63 @@
+﻿%h1 Expando Test
+
+%p 
+	This test will attempt to add a new property to a hosted object.
+	%br
+	It should produce an 'OK' alert if everything works.
+
+%script{ type="text/javascript" }
+	\function Native(config) {
+	\	this.config = config;
+	\};
+	\Native.prototype.CallHostedMethod = function() { 
+	\	this.config.HostedMethod('CallHostedMethod'); 
+	\};	
+	\
+	\Native.prototype.CallTearOffMethod = function() { 
+	\	var func = this.config.HostedMethod; 
+	\	func('CallTearOffMethod');
+	\};	
+	\
+	\Native.prototype.NativeMethod = function(msg) { 
+	\	alert('NativeMethod: ' + msg);
+	\};		
+	\
+	\Native.prototype.OverrideMethod = function() { 
+	\	this.config.HostedMethod = this.NativeMethod;
+	\	this.config.HostedMethod('OverrideMethod');
+	\};	
+	\
+	\Native.prototype.Expand = function() { 
+	\	if(this.config.x == undefined) {
+	\		this.config.x = 1;
+	\		alert('OK');
+	\	}
+	\	else {
+	\		alert('Not Good');
+	\	}
+	\};
+	\
+	\Native.prototype.Remove = function() { 
+	\	if(this.config.x == undefined) {
+	\		alert('Not Good');
+	\	}
+	\	else {
+	\		del(this.config.x);
+	\		alert('OK');
+	\	}
+	\};
+	\
+	\Native.prototype.ExpandMethod = function() { 
+	\	if(this.config.ClientMethod == undefined) {
+	\		this.config.ClientMethod = this.NativeMethod;
+	\		this.config.ClientMethod('ExpandMethod');
+	\	}
+	\	else {
+	\		alert('Not Good');
+	\	}
+	\};
+	
+#box
+	
+= Html.ClientCode("DotWeb.Sample.Script.Test.Expando, DotWeb.Sample.Script")
+
