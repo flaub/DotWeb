@@ -17,6 +17,7 @@
 
 using System.Text;
 using System.IO;
+using System;
 
 namespace DotWeb.Utility
 {
@@ -83,12 +84,14 @@ namespace DotWeb.Utility
 			this.Write(buf);
 		}
 
-		public virtual void Write(float value) {
-			this.Write((int)value);
-		}
+		// FIXME!
+		//public virtual void Write(float value) {
+		//    this.Write((int)value);
+		//}
 
 		public virtual void Write(double value) {
-			this.Write((long)value);
+			byte[] buf = NetworkBitConverter.ToBuffer(value);
+			this.stream.Write(buf, 0, buf.Length);
 		}
 	}
 }

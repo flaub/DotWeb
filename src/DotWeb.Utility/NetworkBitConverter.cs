@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 namespace DotWeb.Utility
 {
 	public class NetworkBitConverter
@@ -46,6 +47,11 @@ namespace DotWeb.Utility
 			buf[6] = ((byte)((value >> 8) & 0xff));
 			buf[7] = ((byte)(value & 0xff));
 			return buf;
+		}
+
+		public static byte[] ToBuffer(double value) {
+			long bits = BitConverter.DoubleToInt64Bits(value);
+			return ToBuffer(bits);
 		}
 
 		public static bool ToBoolean(byte[] buf, int index) {
@@ -82,6 +88,11 @@ namespace DotWeb.Utility
 				(ulong)buf[index + 7]
 			);
 			return ret;
+		}
+
+		public static double ToDouble(byte[] buf, int index) {
+			long bits = ToInt64(buf, index);
+			return BitConverter.Int64BitsToDouble(bits);
 		}
 
 		public static ushort ToUInt16(byte[] buf, int index) {

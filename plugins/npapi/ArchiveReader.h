@@ -78,10 +78,22 @@ public:
 	}
 
 	bool transfer(double& value) {
-		double temp;
-		if(!m_stream.readBuffer((uint8_t*)&temp, sizeof(double)))
+		return transfer((uint64_t&)value);
+	}
+
+	bool transfer(uint64_t& value) {
+		uint8_t bytes[sizeof(uint64_t)];
+		if(!m_stream.readBuffer(bytes, sizeof(uint64_t)))
 			return false;
-//		value = ntohl(temp);
+
+		value = bytes[0];
+		value = (value << 8) | bytes[1];
+		value = (value << 8) | bytes[2];
+		value = (value << 8) | bytes[3];
+		value = (value << 8) | bytes[4];
+		value = (value << 8) | bytes[5];
+		value = (value << 8) | bytes[6];
+		value = (value << 8) | bytes[7];
 		return true;
 	}
 

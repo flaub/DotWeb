@@ -57,7 +57,7 @@ namespace DotWeb.Sample.Script
 			JsonReader reader = new JsonReader(new JsonReaderConfig {
 				id = "id"
 			}, record);
-			Console.WriteLine(reader);
+			Log(reader);
 
 			Store store = new Store(new StoreConfig {
 				reader = reader
@@ -67,7 +67,7 @@ namespace DotWeb.Sample.Script
 				new MyRecord { id = 1, value = "first" },
 				new MyRecord { id = 2, value = "second" }
 			};
-			Console.WriteLine(data);
+			Log(data);
 			store.loadData(data);
 
 			ColumnModelConfig[] columns = new ColumnModelConfig[] {
@@ -82,14 +82,15 @@ namespace DotWeb.Sample.Script
 			var colModel = new ColumnModel(columns);
 
 			this.grid = new GridPanel(new GridPanelConfig {
-				height = 150,
+				height = 150.0,
 				renderTo = "grid",
 				colModel = colModel,
 				store = store
 			});
-			Console.WriteLine(this.grid);
+			Log(this.grid);
 
 			this.grid.on("dblclick", new GridPanelDblclickDelegate(this.OnDblClick), this);
+			Log("ready");
 		}
 
 		private void OnDblClick(Ext.EventObject e) {

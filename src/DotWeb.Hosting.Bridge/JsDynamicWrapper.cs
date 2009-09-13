@@ -41,14 +41,13 @@ namespace DotWeb.Hosting.Bridge
 			if (dispType.IsMethod()) {
 				return InvokeMethod(dispType, id, jsArgs, out returnType);
 			}
-			else {
-				if (dispType.IsPropertyPut()) {
-					return SetProperty(id, jsArgs, out returnType);
-				}
 
-				if (dispType.IsPropertyGet()) {
-					return GetProperty(id, out returnType);
-				}
+			if (dispType.IsPropertyPut()) {
+				return SetProperty(id, jsArgs, out returnType);
+			}
+
+			if (dispType.IsPropertyGet()) {
+				return GetProperty(id, out returnType);
 			}
 
 			throw new NotSupportedException();

@@ -25,5 +25,8 @@ namespace DotWeb.Client
 			[JsCode("return $wnd;")]
 			get { return JsHost.S_<Window>(); }
 		}
+
+		[JsCode("console.log(obj);")]
+		public static void Log(object obj) { JsHost.S_(obj); }
 	}
 }

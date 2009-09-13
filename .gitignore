@@ -7,4 +7,4 @@ obj
 [Dd]ebug
 [Rr]elease
 TestResult.xml
-/_ReSharper.DotWeb
+_ReSharper.*

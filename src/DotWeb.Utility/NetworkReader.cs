@@ -99,12 +99,14 @@ namespace DotWeb.Utility
 			return Encoding.UTF8.GetString(buf);
 		}
 
-		public virtual float ReadSingle() {
-			return (float)ReadInt32();
-		}
+		// FIXME!
+		//public virtual float ReadSingle() {
+		//    return (float)ReadInt32();
+		//}
 
 		public virtual double ReadDouble() {
-			return (double)ReadInt64();
+			byte[] buf = ReadBytes(sizeof(double));
+			return NetworkBitConverter.ToDouble(buf, 0);
 		}
 	}
 }

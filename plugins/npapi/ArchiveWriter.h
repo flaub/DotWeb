@@ -68,21 +68,20 @@ public:
 	}
 
 	bool transfer(const double& value) {
-		double temp = value; // conversion
-		return m_stream.writeBuffer((uint8_t*)&temp, sizeof(temp));
+		return transfer((uint64_t)value);
 	}
 
-	//bool transfer(const uint64& value) {
-	//	m_stream.writeByte(static_cast<uint8_t>(value >> 56));
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 48) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 40) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 32) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 24) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 16) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>((value >> 8) & 0xff)); 
-	//	m_stream.writeByte(static_cast<uint8_t>(value & 0xff)); 
-	//	return true;
-	//}
+	bool transfer(const uint64_t& value) {
+		m_stream.writeByte(static_cast<uint8_t>(value >> 56));
+		m_stream.writeByte(static_cast<uint8_t>((value >> 48) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>((value >> 40) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>((value >> 32) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>((value >> 24) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>((value >> 16) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>((value >> 8) & 0xff)); 
+		m_stream.writeByte(static_cast<uint8_t>(value & 0xff)); 
+		return true;
+	}
 
 	template <typename CharType>
 	bool transfer(const std::basic_string<CharType>& value) {
