@@ -17,32 +17,36 @@
 // 
 using DotWeb.Client;
 using DotWeb.Client.Dom;
+using System;
 
 namespace DotWeb.Sample.Script.Test
 {
+	[JsNamespace]
+	class ExpandoNative : JsNativeBase
+	{
+		public ExpandoNative(object cfg) { C_(cfg); }
+		public void CallHostedMethod() { _(); }
+		public void CallTearOffMethod() { _(); }
+		public void OverrideMethod() { _(); }
+		public void Expand() { _(); }
+		public void Remove() { _(); }
+		public void ExpandMethod() { _(); }
+	}
+
 	public class Expando : JsScript
 	{
-		[JsNamespace]
-		class Native : JsNativeBase
-		{
-			public Native(object cfg) { C_(cfg); }
-			public void CallHostedMethod() { _(); }
-			public void CallTearOffMethod() { _(); }
-			public void OverrideMethod() { _(); }
-			public void Expand() { _(); }
-			public void Remove() { _(); }
-			public void ExpandMethod() { _(); }
-		}
-
 		[JsAnonymous]
 		private class Config : JsDynamicBase
 		{
-			public void HostedMethod(string msg) { Window.Instance.alert("HostedMethod: " + msg); }
+			public Action<string> HostedMethod { get { return _<Action<string>>(); } set { _(value); } }
 		}
 
 		public Expando() {
-			var cfg = new Config();
-			var native = new Native(cfg);
+			var cfg = new Config {
+				HostedMethod = this.HostedMethod
+			};
+
+			var native = new ExpandoNative(cfg);
 
 			native.CallHostedMethod();
 			native.CallTearOffMethod();
@@ -50,6 +54,10 @@ namespace DotWeb.Sample.Script.Test
 			native.Expand();
 //			native.Remove();
 //			native.ExpandMethod();
+		}
+
+		public void HostedMethod(string msg) {
+			Window.alert(msg);
 		}
 	}
 }

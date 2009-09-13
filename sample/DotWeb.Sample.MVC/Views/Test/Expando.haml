@@ -6,28 +6,28 @@
 	It should produce an 'OK' alert if everything works.
 
 %script{ type="text/javascript" }
-	\function Native(config) {
+	\function ExpandoNative(config) {
 	\	this.config = config;
 	\};
-	\Native.prototype.CallHostedMethod = function() { 
+	\ExpandoNative.prototype.CallHostedMethod = function() { 
 	\	this.config.HostedMethod('CallHostedMethod'); 
 	\};	
 	\
-	\Native.prototype.CallTearOffMethod = function() { 
+	\ExpandoNative.prototype.CallTearOffMethod = function() { 
 	\	var func = this.config.HostedMethod; 
 	\	func('CallTearOffMethod');
 	\};	
 	\
-	\Native.prototype.NativeMethod = function(msg) { 
+	\ExpandoNative.prototype.NativeMethod = function(msg) { 
 	\	alert('NativeMethod: ' + msg);
 	\};		
 	\
-	\Native.prototype.OverrideMethod = function() { 
+	\ExpandoNative.prototype.OverrideMethod = function() { 
 	\	this.config.HostedMethod = this.NativeMethod;
 	\	this.config.HostedMethod('OverrideMethod');
 	\};	
 	\
-	\Native.prototype.Expand = function() { 
+	\ExpandoNative.prototype.Expand = function() { 
 	\	if(this.config.x == undefined) {
 	\		this.config.x = 1;
 	\		alert('OK');
@@ -37,7 +37,7 @@
 	\	}
 	\};
 	\
-	\Native.prototype.Remove = function() { 
+	\ExpandoNative.prototype.Remove = function() { 
 	\	if(this.config.x == undefined) {
 	\		alert('Not Good');
 	\	}
@@ -47,7 +47,7 @@
 	\	}
 	\};
 	\
-	\Native.prototype.ExpandMethod = function() { 
+	\ExpandoNative.prototype.ExpandMethod = function() { 
 	\	if(this.config.ClientMethod == undefined) {
 	\		this.config.ClientMethod = this.NativeMethod;
 	\		this.config.ClientMethod('ExpandMethod');
