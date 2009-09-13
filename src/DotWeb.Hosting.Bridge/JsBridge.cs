@@ -243,8 +243,8 @@ namespace DotWeb.Hosting.Bridge
 				throw new InvalidOperationException();
 
 			var argTypes = method.GetParameters().Select(x => x.ParameterType);
-			var ret = argTypes.Select((x, i) => UnwrapValue(args[i], x)); 
-			return ret.ToArray();
+			var ret = argTypes.Select((x, i) => UnwrapValue(args[i], x)).ToArray(); 
+			return ret;
 		}
 
 		private JsValue WrapValue(object arg, bool isVoid) {
@@ -310,7 +310,10 @@ namespace DotWeb.Hosting.Bridge
 					return del;
 				}
 
+				isUnwrapping = true;
 				var jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
+				isUnwrapping = false;
+
 				jsnb.Handle = value.RefId;
 				return jsnb;
 			}
@@ -348,6 +351,10 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		R IJsHost.InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+			if (isUnwrapping) {
+				return default(R);
+			}
+
 			try {
 				JsFunction function = PrepareRemoteFunction(method);
 
@@ -389,6 +396,8 @@ namespace DotWeb.Hosting.Bridge
 				throw;
 			}
 		}
+
+		private bool isUnwrapping = false;
 	}
 
 }

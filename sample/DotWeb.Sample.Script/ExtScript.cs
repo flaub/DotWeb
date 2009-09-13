@@ -94,9 +94,9 @@ namespace DotWeb.Sample.Script
 		}
 
 		private void OnDblClick(Ext.EventObject e) {
-			Console.WriteLine("DblClick");
-			Console.WriteLine(e);
-			Console.WriteLine(this);
+			Log("dblclick");
+			Log(e);
+			Log(this);
 		}
 	}
 }
