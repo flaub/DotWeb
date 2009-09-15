@@ -52,7 +52,7 @@ STDMETHODIMP ComDispatchInterceptor::Invoke(
 		ComEXCEPINFO exInfo;
 		UINT err;
 		Object^ ret;
-		HRESULT hr = (HRESULT)m_spImpl->Invoke(id, lcid, wFlags, args, exInfo, err, ret);
+		HRESULT hr = (HRESULT)m_spImpl->Invoke(id, lcid, (DispatchFlags)wFlags, args, exInfo, err, ret);
 
 		if(pvarResult != NULL)
 		{
@@ -125,7 +125,7 @@ STDMETHODIMP ComDispatchInterceptor::GetDispID(
 {
 	String^ name = Marshal::PtrToStringBSTR((IntPtr)bstrName);
 	DISPID% idref = *pid;
-	return (HRESULT)m_spImpl->GetDispID(name, grfdex, idref);
+	return (HRESULT)m_spImpl->GetDispID(name, (GetDispIdFlags)grfdex, idref);
 }
 
 STDMETHODIMP ComDispatchInterceptor::InvokeEx( 
@@ -159,7 +159,7 @@ STDMETHODIMP ComDispatchInterceptor::GetMemberProperties(
 	/* [in] */ DWORD grfdexFetch,
 	/* [out] */ __RPC__out DWORD *pgrfdex)
 {
-	*pgrfdex = m_spImpl->GetMemberProperties(id, grfdexFetch);
+	*pgrfdex = m_spImpl->GetMemberProperties(id, (GetMemberPropertiesFlags)grfdexFetch);
 	return S_OK;
 }
 

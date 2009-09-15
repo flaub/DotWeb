@@ -51,6 +51,7 @@ JsHelper.prototype.invokeFunction = function(name, scope) {
 JsHelper.prototype.invokeDelegate = function(f_) {
 	try {
 		var args = Array.prototype.slice.call(arguments, 1);
+		alert(args);
 		var ret = f_.apply(args);
 		return [false, ret];
 	} 

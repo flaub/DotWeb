@@ -48,10 +48,10 @@ namespace DotWeb.Sample.Script.Test
 
 			var native = new ExpandoNative(cfg);
 
-			native.CallHostedMethod();
-			native.CallTearOffMethod();
+			//native.CallHostedMethod();
+			//native.CallTearOffMethod();
 			native.OverrideMethod();
-			native.Expand();
+			//native.Expand();
 //			native.Remove();
 //			native.ExpandMethod();
 		}

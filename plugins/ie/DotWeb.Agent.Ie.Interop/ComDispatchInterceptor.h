@@ -49,10 +49,54 @@ public enum class DispatchResult : HRESULT
 	NotImpl = E_NOTIMPL,
 };
 
+[Flags]
 public enum class GetNextDispIdFlags 
 {
 	Default = fdexEnumDefault,
 	All = fdexEnumAll
+};
+
+[Flags]
+public enum class DispatchFlags
+{
+	Method = DISPATCH_METHOD,
+	PropertyGet = DISPATCH_PROPERTYGET,
+	PropertyPut = DISPATCH_PROPERTYPUT,
+	PropertyPutRef = DISPATCH_PROPERTYPUTREF
+};
+
+[Flags]
+public enum class GetDispIdFlags
+{
+	CaseSensitive = fdexNameCaseSensitive,
+	Ensure = fdexNameEnsure,
+	Implicit = fdexNameImplicit,
+	CaseInsensitive = fdexNameCaseInsensitive,
+	Internal = fdexNameInternal,
+	NoDynamicProperties = fdexNameNoDynamicProperties
+};
+
+[Flags]
+public enum class GetMemberPropertiesFlags
+{
+	CanGet = fdexPropCanGet,
+	CannotGet = fdexPropCannotGet,
+	CanPut = fdexPropCanPut,
+	CannotPut = fdexPropCannotPut,
+	CanPutRef = fdexPropCanPutRef,
+	CannotPutRef = fdexPropCannotPutRef,
+	NoSideEffects = fdexPropNoSideEffects,
+	DynamicType = fdexPropDynamicType,
+	CanCall = fdexPropCanCall,
+	CannotCall = fdexPropCannotCall,
+	CanConstruct = fdexPropCanConstruct,
+	CannotConstruct = fdexPropCannotConstruct,
+	CanSourceEvents = fdexPropCanSourceEvents,
+	CannotSourceEvents = fdexPropCannotSourceEvents,
+	CanAll = grfdexPropCanAll,
+	CannotAll = grfdexPropCannotAll,
+	ExtraAll = grfdexPropExtraAll,
+	All = grfdexPropAll
 };
 
 public ref class DispId
@@ -84,14 +128,20 @@ public interface class IDispatchImpl
 	DispatchResult Invoke( 
 		/* [in] */ DISPID id,
 		/* [in] */ LCID lcid,
-		/* [in] */ WORD flags,
+		/* [in] */ DispatchFlags flags,
 		/* [out][in] */ array<Object^>^ args,
 		/* [out] */ [Out] System::Runtime::InteropServices::ComTypes::EXCEPINFO% pExcepInfo,
 		/* [out] */ [Out] UINT% puArgErr,
 		/* [out] */ [Out] Object^% ret);
 
-	DispatchResult GetDispID(String^ name, DWORD flags, [Out] DISPID% id);
-	DWORD GetMemberProperties(DISPID id, DWORD flags);
+	DispatchResult GetDispID(
+		String^ name, 
+		GetDispIdFlags flags, 
+		[Out] DISPID% id);
+
+	DWORD GetMemberProperties(
+		DISPID id, 
+		GetMemberPropertiesFlags flags);
 
 	DispatchResult GetNextDispID( 
 		/* [in] */ GetNextDispIdFlags flags,

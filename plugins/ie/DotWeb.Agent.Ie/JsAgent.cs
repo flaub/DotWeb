@@ -50,12 +50,10 @@ namespace DotWeb.Agent.Ie
 		private IHTMLWindow2 Window { get; set; }
 		private JsHelper helper;
 		private TcpClient tcp;
-		private Session session;
+		private ISession session;
 		private Dictionary<object, int> objToRef;
 		private Dictionary<int, object> refToObj;
 		private int lastRefId = 1;
-		//private IConnectionPoint cpWindow;
-		//private int windowCookie;
 
 		#region MIME Type registration
 
@@ -83,7 +81,7 @@ namespace DotWeb.Agent.Ie
 		public static void Unregister(Type type) {
 			RegistryKey rkRoot = Registry.ClassesRoot.OpenSubKey(MIME_KEYNAME, true);
 			if (rkRoot != null)
-				rkRoot.DeleteSubKey(MIME_TYPE);
+				rkRoot.DeleteSubKey(MIME_TYPE, false);
 		}
 
 		#endregion
@@ -104,44 +102,7 @@ namespace DotWeb.Agent.Ie
 			this.session.SendMessage(new QuitMessage());
 			this.objToRef.Clear();
 			this.refToObj.Clear();
-			//if (cpWindow != null) {
-			//    cpWindow.Unadvise(this.windowCookie);
-			//    cpWindow = null;
-			//}
 		}
-
-		//void browser_NavigateComplete2(object pDisp, ref object URL) {
-		//    string url = (string)URL;
-		//    if (url == "about:blank") {
-		//        return;
-		//    }
-
-		//    WebBrowser browser = (WebBrowser)pDisp;
-		//    IHTMLDocument2 doc = (IHTMLDocument2)browser.Document;
-		//    string cookies = doc.cookie;
-		//    if (string.IsNullOrEmpty(cookies) || !cookies.Contains("X-DotWeb")) {
-		//        return;
-		//    }
-
-		//    object parent = browser.Parent;
-		//    if (parent != null && browser != parent) {
-		//        return;
-		//    }
-
-		//    Debug.Assert(this.cpWindow == null, "ConnectionPoint (Window) != null");
-		//    IHTMLWindow2 win = (IHTMLWindow2)doc.parentWindow;
-		//    IConnectionPointContainer cpc = win as IConnectionPointContainer;
-		//    Guid iid = typeof(HTMLWindowEvents2).GUID;
-		//    cpc.FindConnectionPoint(ref iid, out cpWindow);
-
-		//    WindowEvents handler = new WindowEvents(this);
-		//    cpWindow.Advise(handler, out windowCookie);
-
-		//    win.execScript("_$ = window.external;", null);
-		//    win.execScript("console = {}; console.log = function(args) { _$.Log(args); };", null);
-		//    win.execScript("window.__createArray = function() { return []; };", null);
-		//    win.execScript("window.__exec = function(fun, scope, args) { return window[fun].apply(scope, args); };", null);
-		//}
 
 		public object InvokeScript(string name, params object[] args) {
 			IReflect reflect = this.Document.Script as IReflect;
@@ -149,16 +110,16 @@ namespace DotWeb.Agent.Ie
 			return method.Invoke(this.Window, args);
 		}
 
-		public object InvokeRemoteMember(int targetId, int methodId, DispatchType dispType, object[] args) {
+		public object InvokeRemoteMember(int targetId, DispatchIdentifier dispId, DispatchType dispType, object[] args) {
 			InvokeMemberMessage msg = new InvokeMemberMessage {
 				TargetId = targetId,
-				MemberId = methodId,
+				DispatchId = dispId,
 				DispatchType = dispType,
 				Parameters = WrapParameters(args)
 			};
 			this.session.SendMessage(msg);
 			JsValue value = DispatchAndReturn();
-			return WrapValue(value);
+			return WrapRemoteValue(value);
 		}
 
 		public object InvokeRemoteDelegate(int targetId, object[] args) {
@@ -168,7 +129,7 @@ namespace DotWeb.Agent.Ie
 			};
 			this.session.SendMessage(msg);
 			JsValue value = DispatchAndReturn();
-			return WrapValue(value);
+			return WrapRemoteValue(value);
 		}
 
 		public GetTypeResponseMessage GetRemoteTypeInfo(int targetId) {
@@ -176,12 +137,11 @@ namespace DotWeb.Agent.Ie
 				TargetId = targetId
 			};
 			this.session.SendMessage(msg);
-			return (GetTypeResponseMessage)this.session.ReadMessage();
+			return (GetTypeResponseMessage)this.session.ReceiveMessage();
 		}
 
 		private void DefineFunction(DefineFunctionMessage msg) {
 			try {
-//				this.helper.DefineFunction(msg.Name, msg.Parameters, msg.Body);
 				string definition = string.Format("__$helper.functions['{0}'] = function({1}) {{ {2} }};", msg.Name, msg.Parameters, msg.Body);
 				this.Window.execScript(definition, null);
 			}
@@ -206,15 +166,10 @@ namespace DotWeb.Agent.Ie
 		private JsValue[] WrapParameters(object[] args) {
 			if (args == null)
 				return new JsValue[0];
-
-			JsValue[] ret = new JsValue[args.Length];
-			for (int i = 0; i < args.Length; i++) {
-				ret[i] = WrapJsValue(args[i]);
-			}
-			return ret;
+			return args.Select(x => WrapLocalValue(x)).ToArray();
 		}
 
-		public JsValue WrapJsValue(object value) {
+		public JsValue WrapLocalValue(object value) {
 			if (value is IReflect) {
 				int id = GetRefId(value);
 				return new JsValue(JsValueType.JsObject, id);
@@ -222,7 +177,7 @@ namespace DotWeb.Agent.Ie
 			return JsValue.FromPrimitive(value);
 		}
 
-		private object WrapValue(JsValue value) {
+		private object WrapRemoteValue(JsValue value) {
 			if (value.IsDelegate) {
 				JsDispatchDelegate disp = new JsDispatchDelegate(this, value.RefId);
 				return disp.IDispatch;
@@ -246,13 +201,15 @@ namespace DotWeb.Agent.Ie
 				throw new InvalidOperationException();
 
 			MemberInfo[] members = reflect.GetMembers(BindingFlags.Default);
+
 			PropertyInfo pi0 = reflect.GetProperty("0", BindingFlags.Default);
 			bool isException = (bool)pi0.GetValue(ret, null);
+
 			PropertyInfo pi1 = reflect.GetProperty("1", BindingFlags.Default);
 			ReturnMessage retMsg;
 			if (pi1 == null) {
 				retMsg = new ReturnMessage {
-					IsException  =isException,
+					IsException = isException,
 					Value = new JsValue(JsValueType.Void, null)
 				};
 			}
@@ -260,7 +217,7 @@ namespace DotWeb.Agent.Ie
 				object result = pi1.GetValue(ret, null);
 				retMsg = new ReturnMessage {
 					IsException = isException,
-					Value = WrapJsValue(result)
+					Value = WrapLocalValue(result)
 				};
 			}
 			this.session.SendMessage(retMsg);
@@ -280,7 +237,7 @@ namespace DotWeb.Agent.Ie
 				args.Add(msg.Name);
 				args.Add(scope);
 				foreach (JsValue arg in msg.Parameters) {
-					object item = WrapValue(arg);
+					object item = WrapRemoteValue(arg);
 					args.Add(item);
 				}
 
@@ -303,7 +260,7 @@ namespace DotWeb.Agent.Ie
 				args.Add(target);
 
 				foreach (JsValue arg in msg.Parameters) {
-					object item = WrapValue(arg);
+					object item = WrapRemoteValue(arg);
 					args.Add(item);
 				}
 
@@ -320,7 +277,7 @@ namespace DotWeb.Agent.Ie
 
 		private JsValue DispatchAndReturn() {
 			while (true) {
-				IMessage msg = this.session.ReadMessage();
+				IMessage msg = this.session.ReceiveMessage();
 				switch (msg.MessageType) {
 					case MessageType.DefineFunction:
 						DefineFunction((DefineFunctionMessage)msg);
@@ -352,7 +309,7 @@ namespace DotWeb.Agent.Ie
 			this.refToObj = new Dictionary<int, object>();
 
 			this.tcp = new TcpClient(host, port);
-			this.session = new Session(this.tcp.GetStream());
+			this.session = new RemoteSession(this.tcp.GetStream());
 
 			LoadMessage loadMsg = new LoadMessage {
 				TypeName = typeName

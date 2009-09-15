@@ -50,7 +50,7 @@ namespace DotWeb.Agent.Ie
 		public override DispatchResult Invoke(
 			int dispId, 
 			uint lcid, 
-			ushort wFlags, 
+			DispatchFlags wFlags, 
 			object[] args, 
 			out ComEXCEPINFO pExcepInfo, 
 			out uint puArgErr,
@@ -98,7 +98,7 @@ namespace DotWeb.Agent.Ie
 			return DispatchResult.MemberNotFound;
 		}
 
-		public override DispatchResult GetDispID(string name, uint flags, out int id) {
+		public override DispatchResult GetDispID(string name, GetDispIdFlags flags, out int id) {
 			switch (name) {
 				case "toString":
 					id = DispId_ToString;

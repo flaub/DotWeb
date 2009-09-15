@@ -41,7 +41,7 @@ namespace DotWeb.Agent.Ie
 		public override DispatchResult Invoke(
 			int id, 
 			uint lcid, 
-			ushort wFlags, 
+			DispatchFlags wFlags, 
 			object[] args, 
 			out System.Runtime.InteropServices.ComTypes.EXCEPINFO pExcepInfo, 
 			out uint puArgErr,
@@ -52,8 +52,8 @@ namespace DotWeb.Agent.Ie
 			return DispatchResult.Ok;
 		}
 
-		public override uint GetMemberProperties(int id, uint flags) {
-			return (uint)MemberProperties.CanCall;
+		public override uint GetMemberProperties(int id, GetMemberPropertiesFlags flags) {
+			return (uint)GetMemberPropertiesFlags.CanCall;
 		}
 
 		#endregion

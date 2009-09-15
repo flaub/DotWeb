@@ -160,8 +160,7 @@ namespace DotWeb.Web
 
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
-			//				writer.WriteLine("$wnd.__$serverUrl = 'tcp://localhost:{0}';", ip.Port);
-			//				writer.WriteLine("$wnd.__$serverType = '{0}';", this.Source);
+
 			writer.WriteLine(Resources.JsHelper);
 			string js = string.Format(Resources.HostedEntry, ip.Port, Source);
 

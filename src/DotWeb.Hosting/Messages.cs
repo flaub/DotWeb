@@ -206,18 +206,15 @@ namespace DotWeb.Hosting
 
 	public class TypeMemberInfo
 	{
-		//public int MemberId;
 		public string Name;
 		public DispatchType DispatchType;
 
 		public void Write(NetworkWriter writer) {
-			//writer.Write(MemberId);
 			writer.Write(Name);
 			writer.Write((byte)DispatchType);
 		}
 
 		public void Read(NetworkReader reader) {
-			//MemberId = reader.ReadInt32();
 			Name = reader.ReadString();
 			DispatchType = (DispatchType)reader.ReadByte();
 		}
@@ -265,7 +262,6 @@ namespace DotWeb.Hosting
 	public class InvokeMemberMessage : MessageBase
 	{
 		public int TargetId;
-//		public int MemberId;
 		public DispatchIdentifier DispatchId;
 		public DispatchType DispatchType;
 		public JsValue[] Parameters;
@@ -276,7 +272,6 @@ namespace DotWeb.Hosting
 		public override void Write(NetworkWriter writer) {
 			writer.Write((byte)MessageType);
 			writer.Write(this.TargetId);
-//			writer.Write(this.MemberId);
 			this.DispatchId.Write(writer);
 			writer.Write((byte)this.DispatchType);
 			writer.Write(this.Parameters.Length);
@@ -287,7 +282,6 @@ namespace DotWeb.Hosting
 
 		public override void Read(NetworkReader reader) {
 			TargetId = reader.ReadInt32();
-//			MemberId = reader.ReadInt32();
 			DispatchId = new DispatchIdentifier();
 			DispatchId.Read(reader);
 			DispatchType = (DispatchType)reader.ReadByte();
@@ -307,7 +301,6 @@ namespace DotWeb.Hosting
 			return string.Format(
 				"InvokeMemberMessage [Target: {0}, Member: {1}, DispatchType: {2}, Args: ({3})]", 
 				this.TargetId, 
-//				this.MemberId, 
 				this.DispatchId,
 				this.DispatchType,
 				args);

@@ -7,14 +7,12 @@
 
 %script{ type="text/javascript" }
 	\function NativeCaller(config) {
-	\	console.log(config);
 	\	for(var key in config){
 	\		this[key] = config[key];
 	\	}
 	\};
 	\
 	\NativeCaller.prototype.Start = function() { 
-	\	console.log('calling onto: %s', this.nativeObject);
 	\	this.nativeObject.NativeCall(); 
 	\};
 	\
