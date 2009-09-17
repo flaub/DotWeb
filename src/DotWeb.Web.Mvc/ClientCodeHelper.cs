@@ -21,8 +21,17 @@ using DotWeb.Web;
 
 namespace System.Web.Mvc
 {
+	/// <summary>
+	/// HtmlHelper extensions to easily emit Javascript code translated from .NET MSIL.
+	/// </summary>
 	public static class ClientCodeHelper
 	{
+		/// <summary>
+		/// HtmlHelper extension to easily emit Javascript code translated from .NET MSIL.
+		/// </summary>
+		/// <param name="html"></param>
+		/// <param name="typeName"></param>
+		/// <returns></returns>
 		public static string ClientCode(this HtmlHelper html, string typeName) {
 			StringWriter sw = new StringWriter();
 			using (HtmlTextWriter writer = new HtmlTextWriter(sw)) {
