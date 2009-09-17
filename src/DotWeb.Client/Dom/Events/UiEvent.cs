@@ -15,9 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DotWeb.Client.Dom.Html
+namespace DotWeb.Client.Dom.Events
 {
-	class Table
+	public class UiEvent : Event
 	{
+		//AbstractView  view;
+		public int detail { get { return _<int>(); } }
+//		void initUIEvent(string type, bool canBubble, bool cancelable, AbstractView view, int detail);
 	}
 }

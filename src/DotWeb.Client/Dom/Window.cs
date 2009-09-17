@@ -15,19 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
+using DotWeb.Client.Dom.Events;
+
 namespace DotWeb.Client.Dom
 {
-	public delegate void GenericEventHandler();
+	public delegate void GenericEventHandler(Event evt);
+	public delegate void MouseEventHandler(MouseEvent evt);
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]
 	public class Window : JsNativeBase
 	{
-		public static Window Instance {
-			[JsCode("return $wnd;")]
-			get { return S_<Window>(); }
-		}
-
 		#region Properties
 
 		[JsIntrinsic]

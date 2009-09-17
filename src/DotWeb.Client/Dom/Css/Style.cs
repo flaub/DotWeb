@@ -15,9 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DotWeb.Client.Dom
+namespace DotWeb.Client.Dom.Css
 {
-	public class Attribute : Node
+	public class Style : CssStyleDeclaration
 	{
+		public string backgroundColor { get { return _<string>(); } set { _(value); } }
+
+		public string color { get { return _<string>(); } set { _(value); } }
 	}
 }

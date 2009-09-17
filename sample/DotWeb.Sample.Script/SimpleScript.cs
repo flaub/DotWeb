@@ -16,10 +16,13 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DotWeb.Client.Dom;
+using DotWeb.Client;
+using DotWeb.Client.Dom.Events;
 
 namespace DotWeb.Sample.Script
 {
-	public class SimpleScript : Client.JsScript
+	public class SimpleScript : JsScript
 	{
 		public SimpleScript() {
 			Config config = new Config {
@@ -43,8 +46,9 @@ namespace DotWeb.Sample.Script
 			Window.onblur = this.OnEvent;
 		}
 
-		private void OnEvent() {
+		private void OnEvent(Event evt) {
 			Console.WriteLine("OnEvent");
+			Log(evt);
 		}
 
 		private void OnEvent(Tuple tuple, int id) {

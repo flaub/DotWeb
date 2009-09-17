@@ -24,6 +24,7 @@ using DotWeb.Hosting.Bridge;
 using DotWeb.Hosting.Test.Bridge;
 using NUnit.Framework;
 using Rhino.Mocks;
+using DotWeb.Client.Dom.Events;
 
 namespace DotWeb.Hosting.Test
 {
@@ -90,7 +91,7 @@ namespace DotWeb.Hosting.Test
 
 			public bool HasFired { get; private set; }
 
-			public void native_OnMouseOver() {
+			public void native_OnMouseOver(Event evt) {
 				HasFired = true;
 				native.Alert(AlertArg);
 			}

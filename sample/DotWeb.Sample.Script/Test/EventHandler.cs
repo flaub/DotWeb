@@ -17,24 +17,26 @@
 // 
 using DotWeb.Client;
 using DotWeb.Client.Dom;
+using DotWeb.Client.Dom.Html;
+using DotWeb.Client.Dom.Events;
 
 namespace DotWeb.Sample.Script.Test
 {
 	public class EventHandler : JsScript
 	{
-		private Element box;
+		private HtmlDivElement box;
 
 		public EventHandler() {
-			box = Window.document.getElementById("box");
+			box = (HtmlDivElement)Window.document.getElementById("box");
 			box.onmouseover = box_OnMouseOver;
 			box.onmouseout = box_OnMouseOut;
 		}
 
-		private void box_OnMouseOver() {
+		private void box_OnMouseOver(Event evt) {
 			box.style.backgroundColor = "red";
 		}
 
-		private void box_OnMouseOut() {
+		private void box_OnMouseOut(Event evt) {
 			box.style.backgroundColor = "black";
 		}
 	}

@@ -15,12 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DotWeb.Client.Dom
+namespace DotWeb.Client.Dom.Events
 {
-	public class Style : JsNativeBase
+	public class DocumentEvent : Event
 	{
-		public string backgroundColor { get { return _<string>(); } set { _(value); } }
-
-		public string color { get { return _<string>(); } set { _(value); } }
+		Event createEvent(string eventType) { return _<Event>(eventType); }
 	}
 }

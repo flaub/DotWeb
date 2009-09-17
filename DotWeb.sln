@@ -39,6 +39,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{68BADD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{5371A387-4AAD-472B-B6F8-3A85C553790E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDL", "IDL", "{513FE4C0-362B-4109-AD91-C818B83B628D}"
+	ProjectSection(SolutionItems) = preProject
+		doc\idl\css.idl = doc\idl\css.idl
+		doc\idl\dom.idl = doc\idl\dom.idl
+		doc\idl\events.idl = doc\idl\events.idl
+		doc\idl\html2.idl = doc\idl\html2.idl
+		doc\idl\stylesheets.idl = doc\idl\stylesheets.idl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,6 +193,7 @@ Global
 		{17E900D9-A0E6-4F3E-8A00-99F5B8978A07} = {5371A387-4AAD-472B-B6F8-3A85C553790E}
 		{3C90D87C-3525-4D90-B32D-CD9B56B20D99} = {5371A387-4AAD-472B-B6F8-3A85C553790E}
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90} = {68BADD68-6C2C-4D04-BCD9-84E851FF97C1}
+		{513FE4C0-362B-4109-AD91-C818B83B628D} = {68BADD68-6C2C-4D04-BCD9-84E851FF97C1}
 		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD} = {8D8A8152-36A6-4BB3-85C9-D4A587EEC03A}
 		{2350D2AD-CE9D-41F7-AB47-18D2824FADD2} = {8D8A8152-36A6-4BB3-85C9-D4A587EEC03A}
 	EndGlobalSection

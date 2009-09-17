@@ -47,25 +47,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dom\Css\CssRule.cs" />
+    <Compile Include="Dom\Css\CssStyleDeclaration.cs" />
+    <Compile Include="Dom\Events\UiEvent.cs" />
+    <Compile Include="Dom\Events\DocumentEvent.cs" />
+    <Compile Include="Dom\Events\MouseEvent.cs" />
+    <Compile Include="Dom\Html\HtmlBodyElement.cs" />
+    <Compile Include="Dom\Html\HtmlCollection.cs" />
+    <Compile Include="Dom\Html\HtmlDivElement.cs" />
+    <Compile Include="Dom\Html\HtmlDocument.cs" />
+    <Compile Include="Dom\Html\HtmlElement.cs" />
+    <Compile Include="Dom\NodeList.cs" />
     <Compile Include="InvalidAnonymousUsageException.cs" />
     <Compile Include="InvalidIntrinsicUsageException.cs" />
     <Compile Include="JsAnonymousAttribute.cs" />
-    <Compile Include="Dom\Attribute.cs" />
+    <Compile Include="Dom\Attr.cs" />
     <Compile Include="Dom\Document.cs" />
     <Compile Include="Dom\Element.cs" />
-    <Compile Include="Dom\Event.cs" />
-    <Compile Include="Dom\Html\Form.cs" />
-    <Compile Include="Dom\Html\Table.cs" />
-    <Compile Include="Dom\Html\TableRow.cs" />
+    <Compile Include="Dom\Events\Event.cs" />
     <Compile Include="Dom\Location.cs" />
     <Compile Include="Dom\History.cs" />
     <Compile Include="Dom\NamedNodeMap.cs" />
     <Compile Include="Dom\Node.cs" />
-    <Compile Include="Dom\Range.cs" />
-    <Compile Include="Dom\Screen.cs" />
+    <Compile Include="Dom\Ranges\Range.cs" />
     <Compile Include="Dom\Navigator.cs" />
-    <Compile Include="Dom\Selection.cs" />
-    <Compile Include="Dom\Style.cs" />
+    <Compile Include="Dom\Css\Style.cs" />
     <Compile Include="Dom\Window.cs" />
     <Compile Include="JsCodeAttribute.cs" />
     <Compile Include="JsAccessible.cs" />
@@ -78,6 +84,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsScript.cs" />
     <Compile Include="VarArgsAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dom\Styesheets\" />
+    <Folder Include="Dom\Traversal\" />
+    <Folder Include="Dom\Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

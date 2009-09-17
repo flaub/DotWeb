@@ -47,66 +47,103 @@ namespace DotWeb.Client.Dom
 		DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 32
 	}
 
-	public abstract class Node : JsNativeBase
+	/// <summary>
+	/// <para>
+	/// The Node interface is the primary datatype for the entire Document Object Model. 
+	/// It represents a single node in the document tree. While all objects implementing 
+	/// the Node interface expose methods for dealing with children, not all objects implementing 
+	/// the Node interface may have children. For example, Text nodes may not have children, 
+	/// and adding children to such nodes results in a DOMException being raised.
+	/// </para>
+	/// <para>
+	/// The attributes nodeName, nodeValue and attributes are included as a mechanism to 
+	/// get at node information without casting down to the specific derived interface. 
+	/// In cases where there is no obvious mapping of these attributes for a specific nodeType 
+	/// (e.g., nodeValue for an Element or attributes for a Comment ), this returns null. 
+	/// Note that the specialized interfaces may contain additional and more convenient mechanisms 
+	/// to get and set the relevant information.
+	/// </para>
+	/// </summary>
+	public class Node : JsNativeBase
 	{
-		public NamedNodeMap attributes { get { return _<NamedNodeMap>(); } }
-
-		public IList<Node> childNodes { get { return _<IList<Node>>(); } }
-
-		public Node firstChild { get { return _<Node>(); } }
-
-		public Node lastChild { get { return _<Node>(); } }
-
-		public string localName { get { return _<string>(); } }
-
-		public string namespaceURI { get { return _<string>(); } }
-
-		public Node nextSibling { get { return _<Node>(); } }
-
+		#region Properties
+		
+		[JsIntrinsic]
 		public string nodeName { get { return _<string>(); } }
-//		object nodePrincipal;
 
+		[JsIntrinsic]
+		public string nodeValue { get { return _<string>(); } set { _(value); } }
+
+		[JsIntrinsic]
 		public NodeType nodeType { get { return _<NodeType>(); } }
 
-		public object nodeValue { get { return _<object>(); } set { _(value); } }
+		[JsIntrinsic]
+		public Node parentNode { get { return _<Node>(); } }
+
+		[JsIntrinsic]
+		public NodeList childNodes { get { return _<NodeList>(); } }
+
+		[JsIntrinsic]
+		public Node firstChild { get { return _<Node>(); } }
+
+		[JsIntrinsic]
+		public Node lastChild { get { return _<Node>(); } }
+
+		[JsIntrinsic]
+		public Node previousSibling { get { return _<Node>(); } }
+
+		[JsIntrinsic]
+		public Node nextSibling { get { return _<Node>(); } }
+
+		[JsIntrinsic]
+		public NamedNodeMap attributes { get { return _<NamedNodeMap>(); } }
 
 		/// <summary>
 		/// Returns a reference to the document object that contains the current element/node.
 		/// </summary>
+		[JsIntrinsic]
 		public Document ownerDocument { get { return _<Document>(); } }
 
-		public Node parentNode { get { return _<Node>(); } }
+		#region DOM Level 2
+		[JsIntrinsic]
+		public string namespaceURI { get { return _<string>(); } }
 
+		[JsIntrinsic]
 		public string prefix { get { return _<string>(); } set { _(value); } }
 
-		public Node previousSibling { get { return _<Node>(); } }
+		[JsIntrinsic]
+		public string localName { get { return _<string>(); } }
+		#endregion
 
+		#region Gecko
+		[JsIntrinsic]
 		public string textContent { get { return _<string>(); } set { _(value); } }
+		#endregion
 
-		public Node appendChild(Node child) { return _<Node>(child); }
+		#endregion
 
-		public Node cloneNode(bool deep) { return _<Node>(deep); }
-
-		public void compareDocumentPosition() { _(); }
-
-		public bool hasAttributes() { return _<bool>(); }
-
-		public bool hasChildNodes() { return _<bool>(); }
+		#region Methods
 
 		public Node insertBefore(Node newChild, Node refChild) { return _<Node>(newChild, refChild); }
-
-		public bool isDefaultNamespace() { return _<bool>(); }
-
-		public bool isEqualNode() { return _<bool>(); }
-
-		public bool isSameNode() { return _<bool>(); }
-
-		public bool isSupported() { return _<bool>(); }
-
-		public void normalize() { _(); }
-
-		public Node removeChild(Node child) { return _<Node>(child); }
-
 		public Node replaceChild(Node newChild, Node oldChild) { return _<Node>(newChild, oldChild); }
+		public Node removeChild(Node child) { return _<Node>(child); }
+		public Node appendChild(Node child) { return _<Node>(child); }
+		public bool hasChildNodes() { return _<bool>(); }
+		public Node cloneNode(bool deep) { return _<Node>(deep); }
+		public void normalize() { _(); }
+		public bool isSupported(string feature, string version) { return _<bool>(feature, version); }
+
+		#region DOM Level 2
+		public bool hasAttributes() { return _<bool>(); }
+		#endregion
+
+		#region Gecko
+		public void compareDocumentPosition() { _(); }
+		public bool isDefaultNamespace() { return _<bool>(); }
+		public bool isEqualNode() { return _<bool>(); }
+		public bool isSameNode() { return _<bool>(); }
+		#endregion
+
+		#endregion
 	}
 }
