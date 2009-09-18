@@ -20,14 +20,14 @@ using System.Collections.Generic;
 
 namespace DotWeb.Client.Dom
 {
-	public class Document : Node
+	public interface Document : Node
 	{
 		/// <summary>
 		/// References the root element of the document, 
 		/// in the case of HTML documents, the html element. 
 		/// This read only property is useful for accessing all elements on the page, such as the HEAD.
 		/// </summary>
-		public Element documentElement { get { return _<Element>(); } }
+		Element documentElement { get; }
 
 		/// <summary>
 		/// Creates a new attribute, ready to be inserted somewhere in the document. 
@@ -42,9 +42,9 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public Attr createAttribute(string name) { return _<Attr>(name); }
+		Attr createAttribute(string name);
 
-		public Node createCDATASection() { return _<Node>(); }
+		Node createCDATASection();
 		
 		/// <summary>
 		/// Creates an instance of the comment node. 
@@ -58,7 +58,7 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="comment"></param>
 		/// <returns></returns>
-		public Node createComment(string comment) { return _<Node>(comment); }
+		Node createComment(string comment);
 		
 		/// <summary>
 		/// Creates an empty document fragment. 
@@ -85,7 +85,7 @@ namespace DotWeb.Client.Dom
 		/// </code>
 		/// </example>
 		/// <returns></returns>
-		public Document createDocumentFragment() { return _<Document>(); }
+		Document createDocumentFragment();
 		
 		/// <summary>
 		/// Creates an instance of the element object, 
@@ -101,21 +101,21 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="tag"></param>
 		/// <returns></returns>
-		public Element createElement(string tag) { return _<Element>(tag); }
+		Element createElement(string tag);
 
-		public Node createElementNS() { return _<Node>(); }
+		Node createElementNS();
 
-		public Node createEntityReference() { return _<Node>(); }
+		Node createEntityReference();
 
-		public Node createEvent() { return _<Node>(); }
+		Node createEvent();
 
-		public Node createNodeIterator() { return _<Node>(); }
+		Node createNodeIterator();
 
-		public Node createNSResolver() { return _<Node>(); }
+		Node createNSResolver();
 
-		public Node createProcessingInstruction() { return _<Node>(); }
+		Node createProcessingInstruction();
 
-		public Node createRange() { return _<Node>(); }
+		Node createRange();
 
 		/// <summary>
 		/// Creates a new text node, which can then be added to an element in the document tree.
@@ -128,7 +128,7 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public Node createTextNode(string text) { return _<Node>(text); }
+		Node createTextNode(string text);
 
 		/// <summary>
 		/// Accesses any element on the page via its ID attribute. 
@@ -136,7 +136,7 @@ namespace DotWeb.Client.Dom
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public Element getElementById(string id) { return _<Element>(id); }
+		Element getElementById(string id);
 
 		/// <summary>
 		/// Returns an array of elements whose tag name matches the parameter. 
@@ -151,11 +151,11 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="tag"></param>
 		/// <returns></returns>
-		IEnumerable<Element> getElementsByTagName(string tag) { return _<IEnumerable<Element>>(tag); }
+		IEnumerable<Element> getElementsByTagName(string tag);
 
-		public IEnumerable<Element> getElementsByTagNameNS() { return _<IEnumerable<Element>>(); }
+		IEnumerable<Element> getElementsByTagNameNS();
 
-		public void importNode() { _(); }
+		void importNode();
 
 		/// <summary>
 		/// Accepts a CSS selector(s) and returns the first matching element 
@@ -166,7 +166,7 @@ namespace DotWeb.Client.Dom
 		/// </remarks>
 		/// <param name="selector"></param>
 		/// <returns></returns>
-//		public IEnumerable<Element> querySelector(string selector) { return _<IEnumerable<Element>>(selector); }
+//		IEnumerable<Element> querySelector(string selector) { return _<IEnumerable<Element>>(selector); }
 
 		/// <summary>
 		/// Accepts a CSS selector(s) and returns all matching elements 
@@ -179,6 +179,6 @@ namespace DotWeb.Client.Dom
 		/// </remarks>
 		/// <param name="selector"></param>
 		/// <returns></returns>
-//		public IEnumerable<Element> querySelectorAll(string selector) { return _<IEnumerable<Element>>(selector); }
+//		IEnumerable<Element> querySelectorAll(string selector) { return _<IEnumerable<Element>>(selector); }
 	}
 }

@@ -17,8 +17,8 @@
 // 
 namespace DotWeb.Client.Dom.Html
 {
-	public class HtmlDivElement : HtmlElement
+	public interface HtmlDivElement : HtmlElement
 	{
-		public string align { get { return _<string>(); } set { _(value); } }
+		string align { get; set; }
 	}
 }

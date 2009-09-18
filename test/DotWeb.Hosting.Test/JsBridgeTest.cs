@@ -302,7 +302,7 @@ namespace DotWeb.Hosting.Test
 				session.ReturnMessage();
 
 				// simulate an event firing
-				session.OnInvokeDelegateMessage(1);
+				session.OnInvokeDelegateMessage(1, new JsValue(JsValueType.JsObject, 2));
 
 				// nativeObject.Alert();
 				var alert = session.DefineFunctionMessage(nativeType.GetMethod("Alert"));
@@ -389,7 +389,7 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestObjectWrapper() {
-			TestHelper(new ActivatorFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
 				Type nativeType = typeof (NativeObject);
 				session.OnLoadMessage(typeof (ObjectWrapperTest));
 
@@ -411,7 +411,7 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestSanity() {
-			TestHelper(new ActivatorFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
 				session.OnLoadMessage(typeof (SanityTest));
 				session.ReturnMessage();
 				session.OnQuitMessage();

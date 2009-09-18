@@ -16,37 +16,29 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System;
-using System.Collections.Generic;
-using DotWeb.Hosting.Bridge;
-using Castle.DynamicProxy;
 using DotWeb.Client;
+using Castle.DynamicProxy;
+using Castle.Core.Interceptor;
 
-namespace DotWeb.Hosting.Test
+namespace DotWeb.Hosting.Bridge
 {
-	internal class CachingObjectFactory : IObjectFactory
+	public class DefaultFactory : IObjectFactory
 	{
-		private readonly Dictionary<Type, object> cache = new Dictionary<Type, object>();
 		private ProxyGenerator proxyGenerator = new ProxyGenerator();
 		private ProxyInterceptor interceptor = new ProxyInterceptor();
 
 		#region IObjectFactory Members
 
 		public object CreateInstance(Type type) {
-			object ret;
 			if (type.IsInterface) {
-				ret = CreateInstanceForInterface(type);
+				return CreateInstanceForInterface(type);
 			}
 			else {
-				ret = Activator.CreateInstance(type);
+				return Activator.CreateInstance(type);
 			}
-
-			cache.Add(ret.GetType(), ret);
-			return ret;
 		}
 
 		#endregion
-
-		public object Get(Type type) { return cache[type]; }
 
 		private object CreateInstanceForInterface(Type type) {
 			//var options = new ProxyGenerationOptions {
@@ -55,5 +47,22 @@ namespace DotWeb.Hosting.Test
 			var ret = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, options, interceptor);
 			return ret;
 		}
+	}
+
+	public class ProxyInterceptor : IInterceptor
+	{
+		#region IInterceptor Members
+
+		public void Intercept(IInvocation invocation) {
+			Type declaringType = invocation.Method.DeclaringType;
+			if (declaringType == typeof(object)) {
+				invocation.Proceed();
+			}
+			else {
+				invocation.ReturnValue = JsHost.Execute(invocation.Method, (JsObject)invocation.Proxy, invocation.Arguments);
+			}
+		}
+
+		#endregion
 	}
 }

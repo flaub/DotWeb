@@ -17,36 +17,36 @@
 // 
 namespace DotWeb.Client.Dom.Html
 {
-	public class HtmlBodyElement : HtmlElement
+	public interface HtmlBodyElement : HtmlElement
 	{
 		/// <summary>
 		/// Specifies the color of activated links in the document (Alink attribute).
 		/// </summary>
-		public string aLink { get { return _<string>(); } set { _(value); } }
+		string aLink { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
-		public string background { get { return _<string>(); } set { _(value); } }
+		string background { get; set; }
 
 		/// <summary>
 		/// Specifies the background color of the document.
 		/// </summary>
-		public string bgColor { get { return _<string>(); } set { _(value); } }
+		string bgColor { get; set; }
 
 		/// <summary>
 		/// Specifies the color of unvisited links in the document (link attribute).
 		/// </summary>
-		public string link { get { return _<string>(); } set { _(value); } }
+		string link { get; set; }
 
 		/// <summary>
 		/// Specifies the default text color of the document (text attribute).
 		/// </summary>
-		public string text { get { return _<string>(); } set { _(value); } }
+		string text { get; set; }
 
 		/// <summary>
 		/// Specifies the color of visited links in the document (vlink attribute).
 		/// </summary>
-		public string vLink { get { return _<string>(); } set { _(value); } }
+		string vLink { get; set; }
 	}
 }

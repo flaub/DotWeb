@@ -24,12 +24,12 @@ namespace DotWeb.Client.Dom
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]
-	public class Window : JsNativeBase
+	public interface Window
 	{
 		#region Properties
 
 		[JsIntrinsic]
-		public Document document { get { return _<Document>(); } }
+		Document document { get; }
 
 		#endregion
 
@@ -39,19 +39,19 @@ namespace DotWeb.Client.Dom
 		/// Fires when the window loses focus.
 		/// </summary>
 		[JsIntrinsic]
-		public GenericEventHandler onblur { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onblur { get; set; }
 
 		/// <summary>
 		/// Fires when the focus is set on the current window.
 		/// </summary>
 		[JsIntrinsic]
-		public GenericEventHandler onfocus { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onfocus { get; set; }
 
 		/// <summary>
 		/// Fires when the window is resized.
 		/// </summary>
 		[JsIntrinsic]
-		public GenericEventHandler onresize { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onresize { get; set; }
 
 		/// <summary>
 		/// Fires when the window is scrolled. 
@@ -67,7 +67,7 @@ namespace DotWeb.Client.Dom
 		/// </code>
 		/// </example>
 		[JsIntrinsic]
-		public GenericEventHandler onscroll { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onscroll { get; set; }
 
 		/// <summary>
 		/// Fires when the page is about to be unloaded, 
@@ -87,7 +87,7 @@ namespace DotWeb.Client.Dom
 		/// </code>
 		/// </example>
 		[JsIntrinsic]
-		public GenericEventHandler onbeforeunload { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onbeforeunload { get; set; }
 
 		/// <summary>
 		/// Fires when a JavaScript error occurs. 
@@ -105,7 +105,7 @@ namespace DotWeb.Client.Dom
 		///	</code>
 		/// </example>
 		[JsIntrinsic]
-		public ErrorEventHandler onerror { get { return _<ErrorEventHandler>(); } set { _(value); } }
+		ErrorEventHandler onerror { get; set; }
 		#endregion
 
 		#region Methods
@@ -113,98 +113,98 @@ namespace DotWeb.Client.Dom
 		/// <summary>
 		/// Displays an alert box with a message and an OK button
 		/// </summary>
-		public void alert(object message) { _(message); }
+		void alert(object message);
 
 		/// <summary>
 		/// Removes focus from the current window
 		/// </summary>
-		public void blur() { _(); }
+		void blur();
 
 		/// <summary>
 		/// Cancels a timeout set with setInterval()
 		/// </summary>
-		public void clearInterval(int id) { _(id); }
+		void clearInterval(int id);
 
 		/// <summary>
 		/// Cancels a timeout set with setTimeout()
 		/// </summary>
-		public void clearTimeout(int id) { _(id); }
+		void clearTimeout(int id);
 
 		/// <summary>
 		/// Closes the current window
 		/// </summary>
-		public void close() { _(); }
+		void close();
 
 		/// <summary>
 		/// Displays a dialog box with a message and an OK and a Cancel button
 		/// </summary>
-		public bool confirm(string message) { return _<bool>(message); }
+		bool confirm(string message);
 
 		/// <summary>
 		/// Creates a pop-up window
 		/// </summary>
-		public Window createPopup() { return _<Window>(); }
+		Window createPopup();
 
 		/// <summary>
 		/// Sets focus to the current window
 		/// </summary>
-		public void focus() { _(); }
+		void focus();
 
 		/// <summary>
 		/// Moves a window relative to its current position
 		/// </summary>
-		public void moveBy(int x, int y) { _(x, y); }
+		void moveBy(int x, int y);
 
 		/// <summary>
 		/// Moves a window to the specified position
 		/// </summary>
-		public void moveTo(int x, int y) { _(x, y); }
+		void moveTo(int x, int y);
 
 		/// <summary>
 		/// Opens a new browser window
 		/// </summary>
-		public Window open(string url, string name, string features, bool replace) { return _<Window>(url, name, features, replace); }
+		Window open(string url, string name, string features, bool replace);
 
 		/// <summary>
 		/// Prints the contents of the current window
 		/// </summary>
-		public void print() { _(); }
+		void print();
 
 		/// <summary>
 		/// Displays a dialog box that prompts the user for input
 		/// </summary>
-		public string prompt(string message) { return _<string>(message); }
-		public string prompt(string message, object value) { return _<string>(message, value); }
+		string prompt(string message);
+		string prompt(string message, object value);
 
 		/// <summary>
 		/// Resizes a window by the specified pixels
 		/// </summary>
-		public void resizeBy(int x, int y) { _(x, y); }
+		void resizeBy(int x, int y);
 
 		/// <summary>
 		/// Resizes a window to the specified width and height
 		/// </summary>
-		public void resizeTo(int x, int y) { _(x, y); }
+		void resizeTo(int x, int y);
 
 		/// <summary>
 		/// Scrolls the content by the specified number of pixels
 		/// </summary>
-		public void scrollBy(int x, int y) { _(x, y); }
+		void scrollBy(int x, int y);
 
 		/// <summary>
 		/// Scrolls the content to the specified coordinates
 		/// </summary>
-		public void scrollTo(int x, int y) { _(x, y); }
+		void scrollTo(int x, int y);
 
 		/// <summary>
 		/// Evaluates an expression at specified intervals
 		/// </summary>
-		public int setInterval(string expression, int msec) { return _<int>(expression, msec); }
+		int setInterval(string expression, int msec);
 
 		/// <summary>
 		/// Evaluates an expression after a specified number of milliseconds
 		/// </summary>
-		public int setTimeout(string expression, int msec) { return _<int>(expression, msec); }
+		int setTimeout(string expression, int msec);
 
 		#endregion
 	}

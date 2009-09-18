@@ -24,14 +24,26 @@ using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
+	using FunctionCacheMap = Dictionary<MethodBase, JsFunction>;
+	using DelegateWrapperMap = Dictionary<Delegate, JsDelegateWrapper>;
+	
+	using ObjectToReferenceMap = Dictionary<object, int>;
+	using ReferenceToObjectMap = Dictionary<int, object>;
+
+	using JsObjectToReferenceMap = Dictionary<JsObject, int>;
+
 	public class JsBridge : IJsHost
 	{
 		private readonly ISession session;
 		private readonly IObjectFactory factory;
-		private readonly Dictionary<MethodBase, JsFunction> functionCache = new Dictionary<MethodBase, JsFunction>();
-		private readonly Dictionary<Delegate, JsDelegateWrapper> remoteDelegates = new Dictionary<Delegate, JsDelegateWrapper>();
-		private readonly Dictionary<object, int> objToRef = new Dictionary<object, int>();
-		private readonly Dictionary<int, object> refToObj = new Dictionary<int, object>();
+		private readonly FunctionCacheMap functionCache = new FunctionCacheMap();
+		private readonly DelegateWrapperMap remoteDelegates = new DelegateWrapperMap();
+	
+		private readonly ObjectToReferenceMap objToRef = new ObjectToReferenceMap();
+		private readonly ReferenceToObjectMap refToObj = new ReferenceToObjectMap();
+
+		private readonly JsObjectToReferenceMap jsObjectToRef = new JsObjectToReferenceMap();
+
 		private int lastRefId = 1;
 
 		public JsBridge(ISession session, IObjectFactory factory) {
@@ -54,7 +66,8 @@ namespace DotWeb.Hosting.Bridge
 			JsValue ret = retMsg.Value;
 			if (retMsg.IsException) {
 				if (ret.IsJsObject) {
-					var jne = new JsNativeException { Handle = (int) ret.Object };
+					var jne = new JsNativeException();
+					AddRemoteReference(jne, ret.RefId);
 					throw new JsException(jne);
 				}
 
@@ -125,6 +138,7 @@ namespace DotWeb.Hosting.Bridge
 				this.functionCache.Clear();
 				this.objToRef.Clear();
 				this.refToObj.Clear();
+				this.jsObjectToRef.Clear();
 
 				Type type = Type.GetType(msg.TypeName);
 				this.factory.CreateInstance(type);
@@ -182,6 +196,7 @@ namespace DotWeb.Hosting.Bridge
 
 		private void InvokeDelegate(InvokeDelegateMessage msg) {
 			var target = (Delegate)this.refToObj[msg.TargetId];
+			var targetType = target.GetType();
 			Debug.WriteLine(string.Format("InvokeDelegate: {0}", target));
 			var args = UnwrapParameters(msg.Parameters, DispatchType.Method, target.Method);
 			try {
@@ -199,13 +214,25 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		private bool GetRefId(object value, out int id) {
+		private bool GetLocalReference(object value, out int id) {
 			if (!this.objToRef.TryGetValue(value, out id)) {
 				id = lastRefId++;
 				this.objToRef.Add(value, id);
 				return false;
 			}
 			return true;
+		}
+
+		private int GetRemoteReference(JsObject remote) {
+			int id = 0;
+			this.jsObjectToRef.TryGetValue(remote, out id);
+			return id;
+		}
+
+		private void AddRemoteReference(JsObject remote, int handle) {
+			if (!this.jsObjectToRef.ContainsKey(remote)) {
+				this.jsObjectToRef.Add(remote, handle);
+			}
 		}
 
 		private JsValue[] WrapParameters(object[] args) {
@@ -251,9 +278,10 @@ namespace DotWeb.Hosting.Bridge
 			if (isVoid)
 				return new JsValue(JsValueType.Void, null);
 
-			if (arg is JsNativeBase) {
-				var jsnb = (JsNativeBase)arg;
-				return new JsValue(JsValueType.JsObject, jsnb.Handle);
+			if (arg is JsObject) {
+				int handle = GetRemoteReference((JsObject)arg);
+				Debug.Assert(handle != 0);
+				return new JsValue(JsValueType.JsObject, handle);
 			}
 
 			JsValue ret = JsValue.FromPrimitive(arg);
@@ -267,7 +295,7 @@ namespace DotWeb.Hosting.Bridge
 				}
 
 				int id;
-				if (!GetRefId(arg, out id)) {
+				if (!GetLocalReference(arg, out id)) {
 					Debug.WriteLine(string.Format("Adding refToObj: delegate[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, arg);
 				}
@@ -275,7 +303,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 			if (arg is Array) {
 				int id;
-				if (!GetRefId(arg, out id)) {
+				if (!GetLocalReference(arg, out id)) {
 					var wrapper = new JsArrayWrapper(this, arg as Array);
 					Debug.WriteLine(string.Format("Adding refToObj: JsArrayWrapper[{0}] -> {1}", arg, id));
 					this.refToObj.Add(id, wrapper);
@@ -287,7 +315,7 @@ namespace DotWeb.Hosting.Bridge
 
 		private JsValue GetObjectWrapper(object arg) {
 			int id;
-			if (!GetRefId(arg, out id)) {
+			if (!GetLocalReference(arg, out id)) {
 				IJsWrapper wrapper;
 				if (arg is JsDynamicBase) {
 					wrapper = new JsDynamicWrapper(this, (JsDynamicBase)arg);
@@ -311,11 +339,12 @@ namespace DotWeb.Hosting.Bridge
 				}
 
 				isUnwrapping = true;
-				var jsnb = (JsNativeBase)this.factory.CreateInstance(targetType);
+				JsObject ret = (JsObject)this.factory.CreateInstance(targetType);
 				isUnwrapping = false;
 
-				jsnb.Handle = value.RefId;
-				return jsnb;
+				AddRemoteReference(ret, value.RefId);
+
+				return ret;
 			}
 			if (value.IsObject || value.IsDelegate) {
 				return this.refToObj[value.RefId];
@@ -350,9 +379,9 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
-		R IJsHost.InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+		object IJsHost.InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args) {
 			if (isUnwrapping) {
-				return default(R);
+				return null;
 			}
 
 			try {
@@ -360,7 +389,7 @@ namespace DotWeb.Hosting.Bridge
 
 				int hScope = 0;
 				if (scope != null)
-					hScope = scope.Handle;
+					hScope = GetRemoteReference(scope);
 
 				JsValue[] wrapped;
 				if (method.GetParameters().Count() == 1 && args.Length > 1) {
@@ -379,22 +408,30 @@ namespace DotWeb.Hosting.Bridge
 				this.session.SendMessage(msg);
 				JsValue value = DispatchAndReturn();
 				if (value.IsNull || value.IsVoid) {
-					return default(R);
+					return null;
 				}
 
 				if (method.IsConstructor) {
 					Debug.Assert(value.IsJsObject);
-					scope.Handle = value.RefId;
-					return default(R);
+					AddRemoteReference(scope, value.RefId);
+					return null;
 				}
 
 				var mi = (MethodInfo)method;
-				return (R)UnwrapValue(value, mi.ReturnType);
+				return UnwrapValue(value, mi.ReturnType);
 			}
 			catch (Exception ex) {
 				Debug.WriteLine(ex);
 				throw;
 			}
+		}
+
+		T IJsHost.Cast<T>(object obj) {
+			JsObject remote = (JsObject)obj;
+			int handle = GetRemoteReference(remote);
+			var brother = this.factory.CreateInstance(typeof(T));
+			AddRemoteReference((JsObject)brother, handle);
+			return (T)brother;
 		}
 
 		private bool isUnwrapping = false;

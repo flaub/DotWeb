@@ -34,27 +34,27 @@ namespace DotWeb.Client.Dom
 	/// Note: In DOM Level 2, the method normalize is inherited from the Node interface where it was moved.
 	/// </remarks>
 	/// </summary>
-	public class Element : Node
+	public interface Element : Node
 	{
 		/// <summary>
 		/// The name of the element.
 		/// </summary>
 		/// <returns></returns>
-		public string tagName { get { return _<string>(); } }
+		string tagName { get; }
 
 		/// <summary>
 		/// Retrieves an attribute value by name.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public string getAttribute(string name) { return _<string>(); }
+		string getAttribute(string name);
 
 		/// <summary>
 		/// Retrieves an attribute node by name.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public Attr getAttributeNode(string name) { return _<Attr>(); }
+		Attr getAttributeNode(string name);
 
 		/// <summary>
 		/// Retrieves an Attr node by local name and namespace URI.
@@ -62,7 +62,7 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		public Attr getAttributeNodeNS(string namespaceURI, string localName) { return _<Attr>(namespaceURI, localName); }
+		Attr getAttributeNodeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Retrieves an attribute value by local name and namespace URI.
@@ -70,14 +70,14 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		public string getAttributeNS(string namespaceURI, string localName) { return _<string>(namespaceURI, localName); }
+		string getAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Returns a NodeList of all descendant Elements with a given tag name, in the order in which they are encountered in a preorder traversal of this Element tree.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public NodeList getElementsByTagName(string name) { return _<NodeList>(name); }
+		NodeList getElementsByTagName(string name);
 
 		/// <summary>
 		/// Returns a NodeList of all the descendant Elements with a given local name and namespace URI in the order in which they are encountered in a preorder traversal of this Element tree.
@@ -85,14 +85,14 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		public NodeList getElementsByTagNameNS(string namespaceURI, string localName) { return _<NodeList>(namespaceURI, localName); }
+		NodeList getElementsByTagNameNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Returns true when an attribute with a given name is specified on this element or has a default value, false otherwise.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public bool hasAttribute(string name) { return _<bool>(); }
+		bool hasAttribute(string name);
 
 		/// <summary>
 		/// Returns true when an attribute with a given local name and namespace URI is specified on this element or has a default value, false otherwise.
@@ -100,48 +100,48 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		public bool hasAttributeNS(string namespaceURI, string localName) { return _<bool>(namespaceURI, localName); }
+		bool hasAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Removes an attribute by name.
 		/// </summary>
 		/// <param name="name"></param>
-		public void removeAttribute(string name) { _(name); }
+		void removeAttribute(string name);
 
 		/// <summary>
 		/// Removes the specified attribute node.
 		/// </summary>
 		/// <param name="oldAttr"></param>
 		/// <returns></returns>
-		public Attr removeAttributeNode(Attr oldAttr) { return _<Attr>(oldAttr); }
+		Attr removeAttributeNode(Attr oldAttr);
 
 		/// <summary>
 		/// Removes an attribute by local name and namespace URI.
 		/// </summary>
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
-		public void removeAttributeNS(string namespaceURI, string localName) { _(namespaceURI, localName); }
+		void removeAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Adds a new attribute.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="value"></param>
-		public void setAttribute(string name, string value) { _(name, value); }
+		void setAttribute(string name, string value);
 
 		/// <summary>
 		/// Adds a new attribute node.
 		/// </summary>
 		/// <param name="newAttr"></param>
 		/// <returns></returns>
-		public Attr setAttributeNode(Attr newAttr) { return _<Attr>(newAttr); }
+		Attr setAttributeNode(Attr newAttr);
 
 		/// <summary>
 		/// Adds a new attribute.
 		/// </summary>
 		/// <param name="newAttr"></param>
 		/// <returns></returns>
-		public Attr setAttributeNodeNS(Attr newAttr) { return _<Attr>(newAttr); }
+		Attr setAttributeNodeNS(Attr newAttr);
 
 		/// <summary>
 		/// Adds a new attribute.
@@ -149,6 +149,6 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="qualifiedName"></param>
 		/// <param name="value"></param>
-		public void setAttributeNS(string namespaceURI, string qualifiedName, string value) { _(namespaceURI, qualifiedName, value); }
+		void setAttributeNS(string namespaceURI, string qualifiedName, string value);
 	}
 }

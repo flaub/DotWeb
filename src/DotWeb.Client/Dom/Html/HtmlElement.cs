@@ -38,36 +38,36 @@ namespace DotWeb.Client.Dom.Html
 	/// ElementCSSInlineStyle interface which is defined in the CSS module [DOM Level 2 Style Sheets and CSS] .
 	/// </remarks>
 	/// </summary>
-	public class HtmlElement : Element
+	public interface HtmlElement : Element
 	{
 		[JsIntrinsic]
-		public string id { get { return _<string>(); } set { _(value); } }
+		string id { get; set; }
 
 		[JsIntrinsic]
-		public string title { get { return _<string>(); } set { _(value); } }
+		string title { get; set; }
 
 		[JsIntrinsic]
-		public string lang { get { return _<string>(); } set { _(value); } }
+		string lang { get; set; }
 
 		[JsIntrinsic]
-		public string dir { get { return _<string>(); } set { _(value); } }
+		string dir { get; set; }
 
 		[JsIntrinsic]
-		public string className { get { return _<string>(); } set { _(value); } }
+		string className { get; set; }
 
 		[JsIntrinsic]
-		public Style style { get { return _<Style>(); } set { _(value); } }
+		Style style { get; set; }
 
 		[JsIntrinsic]
-		public MouseEventHandler onclick { get { return _<MouseEventHandler>(); } set { _(value); } }
+		MouseEventHandler onclick { get; set; }
 
 		[JsIntrinsic]
-		public MouseEventHandler onmouseover { get { return _<MouseEventHandler>(); } set { _(value); } }
+		MouseEventHandler onmouseover { get; set; }
 
 		[JsIntrinsic]
-		public MouseEventHandler onmouseout { get { return _<MouseEventHandler>(); } set { _(value); } }
+		MouseEventHandler onmouseout { get; set; }
 
 		[JsIntrinsic]
-		public GenericEventHandler onblur { get { return _<GenericEventHandler>(); } set { _(value); } }
+		GenericEventHandler onblur { get; set; }
 	}
 }

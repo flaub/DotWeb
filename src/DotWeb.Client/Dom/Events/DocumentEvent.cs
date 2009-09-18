@@ -17,8 +17,8 @@
 
 namespace DotWeb.Client.Dom.Events
 {
-	public class DocumentEvent : Event
+	public interface DocumentEvent : Event
 	{
-		Event createEvent(string eventType) { return _<Event>(eventType); }
+		Event createEvent(string eventType);
 	}
 }

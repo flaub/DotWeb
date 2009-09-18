@@ -20,18 +20,18 @@ using System.Diagnostics;
 
 namespace DotWeb.Client
 {
+	public class JsObject
+	{
+	}
+
 	/// <summary>
 	/// A derivative of this class means that its definition actually exists
 	/// as a native type in JavaScript.
-	/// This base class is derived from JsAccessible because it can be called
-	/// from JavaScript code.
 	/// This class is the primary way to allow JS-generated objects to communicate
 	/// with existing JavaScript (i.e. DOM objects, 3rd-party JS libraries)
 	/// </summary>
-	public abstract class JsNativeBase
+	public abstract class JsNativeBase : JsObject
 	{
-		public int Handle { get; set; }
-
 		private abstract class VoidReturn { }
 
 		protected void C_(params object[] args) {

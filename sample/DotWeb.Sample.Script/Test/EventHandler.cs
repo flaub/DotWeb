@@ -27,16 +27,17 @@ namespace DotWeb.Sample.Script.Test
 		private HtmlDivElement box;
 
 		public EventHandler() {
-			box = (HtmlDivElement)Window.document.getElementById("box");
+			var element = Window.document.getElementById("box");
+			box = JsRuntime.Cast<HtmlDivElement>(element);
 			box.onmouseover = box_OnMouseOver;
 			box.onmouseout = box_OnMouseOut;
 		}
 
-		private void box_OnMouseOver(Event evt) {
+		private void box_OnMouseOver(MouseEvent evt) {
 			box.style.backgroundColor = "red";
 		}
 
-		private void box_OnMouseOut(Event evt) {
+		private void box_OnMouseOut(MouseEvent evt) {
 			box.style.backgroundColor = "black";
 		}
 	}

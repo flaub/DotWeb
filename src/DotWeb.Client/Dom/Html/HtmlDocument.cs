@@ -20,70 +20,70 @@ using System.Collections.Generic;
 
 namespace DotWeb.Client.Dom.Html
 {
-	public class HtmlDocument : Document
+	public interface HtmlDocument : Document
 	{
 		/// <summary>
 		/// Specifies the title of the document. Read/write in modern browsers.
 		/// </summary>
-		public string title { get { return _<string>(); } set { _(value); } }
+		string title { get; set; }
 
 		/// <summary>
 		/// A string that specifies the URL in which the user 
 		/// derived from to reach the current, usually via a link.
 		/// </summary>
-		public string referrer { get { return _<string>(); } }
+		string referrer { get; }
 
 		/// <summary>
 		/// Gets the domain of the current document. 
 		/// Useful in cross domain scripting when one domain is to communicate with another.
 		/// </summary>
-		public string domain { get { return _<string>(); } }
+		string domain { get; }
 
 		/// <summary>
 		/// A string that specifies the complete URL of the document.
 		/// </summary>
-		public string URL { get { return _<string>(); } }
+		string URL { get; }
 
 		/// <summary>
 		/// References the body element of the page. 
 		/// From there, you can then access other nodes contained within the body.
 		/// </summary>
-		public HtmlBodyElement body { get { return _<HtmlBodyElement>(); } set { _(value); } }
+		HtmlBodyElement body { get; set; }
 
-		public HtmlCollection images { get { return _<HtmlCollection>(); } }
-		public HtmlCollection applets { get { return _<HtmlCollection>(); } }
-		public HtmlCollection links { get { return _<HtmlCollection>(); } }
-		public HtmlCollection forms { get { return _<HtmlCollection>(); } }
-		public HtmlCollection anchors { get { return _<HtmlCollection>(); } }
+		HtmlCollection images { get; }
+		HtmlCollection applets { get; }
+		HtmlCollection links { get; }
+		HtmlCollection forms { get; }
+		HtmlCollection anchors { get; }
 
 		/// <summary>
 		/// A string containing the name/value pair of cookies in the document.
 		/// </summary>
-		public string cookie { get { return _<string>(); } }
+		string cookie { get; }
 
 		/// <summary>
 		/// Opens a document stream in preparation for document.write() to write to it. 
 		/// </summary>
 		/// <param name="mimeType"></param>
-		public void open() { _(); }
+		void open();
 
 		/// <summary>
 		/// Closes a document stream opened using document.open().
 		/// </summary>
-		public void close() { _(); }
+		void close();
 
 		/// <summary>
 		/// Writes to the document (as it's loading) or document stream the <paramref name="markup"/> entered.
 		/// </summary>
 		/// <param name="markup"></param>
-		public void write(string markup) { _(markup); }
+		void write(string markup);
 
 		/// <summary>
 		/// Writes to the document (as it's loading) or document stream the <paramref name="line"/> entered 
 		/// and inserts a newline character at the end.
 		/// </summary>
 		/// <param name="line"></param>
-		public void writeln(string line) { _(line); }
+		void writeln(string line);
 
 		/// <summary>
 		/// Returns an array of elements with a name attribute whose value matches 
@@ -107,6 +107,6 @@ namespace DotWeb.Client.Dom.Html
 		/// </example>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public NodeList getElementsByName(string name) { return _<NodeList>(name); }
+		NodeList getElementsByName(string name);
 	}
 }

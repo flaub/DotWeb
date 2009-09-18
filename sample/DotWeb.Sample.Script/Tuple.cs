@@ -28,6 +28,31 @@ namespace DotWeb.Sample.Script
 		public string value;
 	}
 
+	public delegate void ITupleHandler(ITuple tuple, int id);
+
+//	[ClassInterface(typeof(TupleClass))]
+	public interface ITuple
+	{
+		TupleClass Class { get; }
+
+		object Value { get; set; }
+
+		ITupleHandler handler { set; }
+		void fireEvent();
+	}
+
+	public interface TupleClass
+	{
+		ITuple Constructor(object config);
+
+		int Sum(int[] args);
+		void StaticMethod(int x, int y);
+		ITuple Factory();
+
+		void Callback1(Delegate cb);
+		void Callback2(Delegate cb);
+	}
+
 	[JsNamespace]
 	public class Tuple : JsNativeBase
 	{

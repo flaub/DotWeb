@@ -23,7 +23,8 @@ namespace DotWeb.Client
 {
 	public interface IJsHost
 	{
-		R InvokeRemoteMethod<R>(MethodBase method, JsNativeBase scope, params object[] args);
+		object InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args);
+		T Cast<T>(object obj);
 	}
 
 	public static class JsHost
@@ -45,14 +46,20 @@ namespace DotWeb.Client
 			}
 		}
 
-		public static R Execute<R>(MethodBase method, JsNativeBase scope, params object[] args) {
+		public static R Execute<R>(MethodBase method, JsObject scope, params object[] args) {
+			object ret = Execute(method, scope, args);
+			if (ret == null)
+				return default(R);
+			return (R)ret;
+		}
+
+		public static object Execute(MethodBase method, JsObject scope, params object[] args) {
 			Debug.WriteLine(string.Format(
-				"Execute: {0}, {1}[{2}], {3}", 
-				method, 
-				scope, 
-				scope == null ? "" : scope.Handle.ToString(), 
+				"Execute: {0}, {1}, {2}",
+				method,
+				scope,
 				args));
-			return Instance.InvokeRemoteMethod<R>(method, scope, args);
+			return Instance.InvokeRemoteMethod(method, scope, args);
 		}
 
 		public static void S_(params object[] args) {
@@ -63,6 +70,10 @@ namespace DotWeb.Client
 		public static R S_<R>(params object[] args) {
 			StackFrame frame = new StackFrame(1);
 			return Execute<R>(frame.GetMethod(), null, args);
+		}
+
+		public static T Cast<T>(object obj) {
+			return Instance.Cast<T>(obj);
 		}
 	}
 }

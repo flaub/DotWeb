@@ -17,10 +17,10 @@
 
 namespace DotWeb.Client.Dom.Events
 {
-	public class UiEvent : Event
+	public interface UiEvent : Event
 	{
 		//AbstractView  view;
-		public int detail { get { return _<int>(); } }
+		int detail { get; }
 //		void initUIEvent(string type, bool canBubble, bool cancelable, AbstractView view, int detail);
 	}
 }

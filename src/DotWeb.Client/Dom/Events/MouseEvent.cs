@@ -17,17 +17,17 @@
 
 namespace DotWeb.Client.Dom.Events
 {
-	public class MouseEvent : UiEvent
+	public interface MouseEvent : UiEvent
 	{
-		public int screenX { get { return _<int>(); } }
-		public int screenY { get { return _<int>(); } }
-		public int clientX { get { return _<int>(); } }
-		public int clientY { get { return _<int>(); } }
-		public bool ctrlKey { get { return _<bool>(); } }
-		public bool shiftKey { get { return _<bool>(); } }
-		public bool altKey { get { return _<bool>(); } }
-		public bool metaKey { get { return _<bool>(); } }
-		public int button { get { return _<int>(); } }
-		//public EventTarget relatedTarget;
+		int screenX { get; }
+		int screenY { get; }
+		int clientX { get; }
+		int clientY { get; }
+		bool ctrlKey { get; }
+		bool shiftKey { get; }
+		bool altKey { get; }
+		bool metaKey { get; }
+		int button { get; }
+		//EventTarget relatedTarget;
 	}
 }

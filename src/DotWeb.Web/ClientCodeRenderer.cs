@@ -115,7 +115,7 @@ namespace DotWeb.Web
 			try {
 				listener.BeginAcceptTcpClient(OnAccept, listener);
 				var session = new RemoteSession(stream);
-				var factory = new ActivatorFactory();
+				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
 				JsHost.Instance = bridge;
 				bridge.DispatchForever();

@@ -64,84 +64,84 @@ namespace DotWeb.Client.Dom
 	/// to get and set the relevant information.
 	/// </para>
 	/// </summary>
-	public class Node : JsNativeBase
+	public interface Node
 	{
 		#region Properties
-		
-		[JsIntrinsic]
-		public string nodeName { get { return _<string>(); } }
 
 		[JsIntrinsic]
-		public string nodeValue { get { return _<string>(); } set { _(value); } }
+		string nodeName { get; }
 
 		[JsIntrinsic]
-		public NodeType nodeType { get { return _<NodeType>(); } }
+		string nodeValue { get; set; }
 
 		[JsIntrinsic]
-		public Node parentNode { get { return _<Node>(); } }
+		NodeType nodeType { get; }
 
 		[JsIntrinsic]
-		public NodeList childNodes { get { return _<NodeList>(); } }
+		Node parentNode { get; }
 
 		[JsIntrinsic]
-		public Node firstChild { get { return _<Node>(); } }
+		NodeList childNodes { get; }
 
 		[JsIntrinsic]
-		public Node lastChild { get { return _<Node>(); } }
+		Node firstChild { get; }
 
 		[JsIntrinsic]
-		public Node previousSibling { get { return _<Node>(); } }
+		Node lastChild { get; }
 
 		[JsIntrinsic]
-		public Node nextSibling { get { return _<Node>(); } }
+		Node previousSibling { get; }
 
 		[JsIntrinsic]
-		public NamedNodeMap attributes { get { return _<NamedNodeMap>(); } }
+		Node nextSibling { get; }
+
+		[JsIntrinsic]
+		NamedNodeMap attributes { get; }
 
 		/// <summary>
 		/// Returns a reference to the document object that contains the current element/node.
 		/// </summary>
 		[JsIntrinsic]
-		public Document ownerDocument { get { return _<Document>(); } }
+		Document ownerDocument { get; }
 
 		#region DOM Level 2
 		[JsIntrinsic]
-		public string namespaceURI { get { return _<string>(); } }
+		string namespaceURI { get; }
 
 		[JsIntrinsic]
-		public string prefix { get { return _<string>(); } set { _(value); } }
+		string prefix { get; set; }
 
 		[JsIntrinsic]
-		public string localName { get { return _<string>(); } }
+		string localName { get; }
 		#endregion
 
 		#region Gecko
 		[JsIntrinsic]
-		public string textContent { get { return _<string>(); } set { _(value); } }
+		string textContent { get; set; }
 		#endregion
 
 		#endregion
 
 		#region Methods
 
-		public Node insertBefore(Node newChild, Node refChild) { return _<Node>(newChild, refChild); }
-		public Node replaceChild(Node newChild, Node oldChild) { return _<Node>(newChild, oldChild); }
-		public Node removeChild(Node child) { return _<Node>(child); }
-		public Node appendChild(Node child) { return _<Node>(child); }
-		public bool hasChildNodes() { return _<bool>(); }
-		public Node cloneNode(bool deep) { return _<Node>(deep); }
-		public void normalize() { _(); }
-		public bool isSupported(string feature, string version) { return _<bool>(feature, version); }
+		Node insertBefore(Node newChild, Node refChild);
+		Node replaceChild(Node newChild, Node oldChild);
+		Node removeChild(Node child);
+		Node appendChild(Node child);
+		bool hasChildNodes();
+		Node cloneNode(bool deep);
+		void normalize();
+		bool isSupported(string feature, string version);
 
 		#region DOM Level 2
-		public bool hasAttributes() { return _<bool>(); }
+		bool hasAttributes();
 		#endregion
 
 		#region Gecko
-		public void compareDocumentPosition() { _(); }
-		public bool isDefaultNamespace() { return _<bool>(); }
-		public bool isEqualNode() { return _<bool>(); }
-		public bool isSameNode() { return _<bool>(); }
+		void compareDocumentPosition();
+		bool isDefaultNamespace();
+		bool isEqualNode();
+		bool isSameNode();
 		#endregion
 
 		#endregion
