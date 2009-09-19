@@ -17,7 +17,6 @@
 // 
 using System;
 using System.Linq;
-using System.Reflection;
 using DotWeb.Client;
 using DotWeb.Client.Dom;
 using DotWeb.Hosting.Bridge;
@@ -25,6 +24,7 @@ using DotWeb.Hosting.Test.Bridge;
 using NUnit.Framework;
 using Rhino.Mocks;
 using DotWeb.Client.Dom.Events;
+using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Hosting.Test
 {
@@ -66,7 +66,7 @@ namespace DotWeb.Hosting.Test
 			public NativeObject nativeObject { get; set; }
 		}
 
-		internal class SanityTest {}
+		internal class SanityTest { }
 
 		internal class ObjectWrapperTest
 		{
@@ -124,6 +124,18 @@ namespace DotWeb.Hosting.Test
 				NativeObject.GetFunc2()(1, 2);
 			}
 		}
+
+		class CastInterfaceTest : JsScript
+		{
+			public CastInterfaceTest() {
+				var element = Window.document.getElementById("box");
+				var box = JsRuntime.Cast<HtmlDivElement>(element);
+				box.onmouseover = box_OnMouseOver;
+			}
+
+			private void box_OnMouseOver(MouseEvent evt) {
+			}
+		}
 	}
 
 	[TestFixture]
@@ -161,90 +173,6 @@ namespace DotWeb.Hosting.Test
 			mocks.VerifyAll();
 		}
 
-		private class SessionHelper
-		{
-			private readonly ISession session;
-			public SessionHelper(ISession session) { this.session = session; }
-
-			public void OnLoadMessage(Type type) {
-				ReadMessage(new LoadMessage {
-					TypeName = type.AssemblyQualifiedName
-				});
-			}
-
-			public void OnReturnMessage(bool isException, JsValueType tag, object value) {
-				ReadMessage(new ReturnMessage {
-					IsException = isException,
-					Value = new JsValue(tag, value)
-				});
-			}
-
-			public void OnQuitMessage() { ReadMessage(new QuitMessage()); }
-
-			public void OnInvokeMemberMessage(int targetId, DispatchIdentifier dispId, DispatchType dispatchType, params JsValue[] parameters) {
-				ReadMessage(new InvokeMemberMessage {
-					TargetId = targetId,
-					//MemberId = memberId,
-					DispatchId = dispId,
-					DispatchType = dispatchType,
-					Parameters = parameters
-				});
-			}
-
-			public void OnGetTypeRequestMessage(int targetId) {
-				ReadMessage(new GetTypeRequestMessage {
-					TargetId = targetId
-				});
-			}
-
-			public void OnInvokeDelegateMessage(int targetId, params JsValue[] parameters) {
-				ReadMessage(new InvokeDelegateMessage {
-					TargetId = targetId,
-					Parameters = parameters
-				});
-			}
-
-			public void ReturnMessage(JsValue value) { SendMessage(new ReturnMessage {Value = value}); }
-
-			public void ReturnMessage() { ReturnMessage(new JsValue(JsValueType.Void, null)); }
-
-			public JsFunction DefineFunctionMessage(MethodBase method) {
-				JsFunction function = new JsFunction(method);
-				DefineFunctionMessage msgDef = new DefineFunctionMessage {
-					Name = function.Name,
-					Parameters = function.Parameters,
-					Body = function.Body
-				};
-				SendMessage(msgDef);
-				return function;
-			}
-
-			public void InvokeFunctionMessage(string name, int scope, params JsValue[] parameters) {
-				var msg = new InvokeFunctionMessage {
-					Name = name,
-					ScopeId = scope,
-					Parameters = parameters
-				};
-				SendMessage(msg);
-			}
-
-			public void InvokeDelegateMessage(int targetId, params JsValue[] parameters) {
-				SendMessage(new InvokeDelegateMessage {
-					TargetId = targetId,
-					Parameters = parameters
-				});
-			}
-
-			public void GetTypeResponseMessage(object target) {
-				TypeInspector inspector = new TypeInspector(target);
-				SendMessage(inspector.GetTypeInfo());
-			}
-
-			private void ReadMessage(IMessage msg) { Expect.Call(session.ReceiveMessage()).Return(msg); }
-
-			private void SendMessage(IMessage msg) { Expect.Call(() => session.SendMessage(msg)); }
-		}
-
 		[Test]
 		public void TestDelegateWrapper() {
 			//			var ctor = NativeObject.Constructor;
@@ -253,8 +181,8 @@ namespace DotWeb.Hosting.Test
 			int remoteId = 0;
 			CachingObjectFactory factory = new CachingObjectFactory();
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof (NativeObject);
-				session.OnLoadMessage(typeof (DelegateWrapperTest));
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(DelegateWrapperTest));
 
 				var ctor = session.DefineFunctionMessage(nativeType.GetMethod("get_Constructor"));
 				session.InvokeFunctionMessage(ctor.Name, 0);
@@ -284,8 +212,8 @@ namespace DotWeb.Hosting.Test
 		public void TestEventHandler() {
 			CachingObjectFactory factory = new CachingObjectFactory();
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof (NativeObject);
-				session.OnLoadMessage(typeof (EventHandlerTest));
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(EventHandlerTest));
 
 				// new Nativeobject();
 				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
@@ -315,7 +243,7 @@ namespace DotWeb.Hosting.Test
 				session.OnQuitMessage();
 			});
 
-			EventHandlerTest test = (EventHandlerTest) factory.Get(typeof (EventHandlerTest));
+			EventHandlerTest test = (EventHandlerTest)factory.Get(typeof(EventHandlerTest));
 			Assert.IsTrue(test.HasFired);
 		}
 
@@ -343,8 +271,8 @@ namespace DotWeb.Hosting.Test
 			int localId = 0;
 			int remoteId = 0;
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof (NativeObject);
-				session.OnLoadMessage(typeof (NativeCallbackTest));
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(NativeCallbackTest));
 
 				// new Nativeobject();
 				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
@@ -354,8 +282,8 @@ namespace DotWeb.Hosting.Test
 				session.OnReturnMessage(false, JsValueType.JsObject, nativeObjectId);
 
 				//var caller = new NativeCaller(cfg);
-				Type nativeCallerType = typeof (NativeCaller);
-				var ctor2 = session.DefineFunctionMessage(nativeCallerType.GetConstructor(new Type[] {typeof (object)}));
+				Type nativeCallerType = typeof(NativeCaller);
+				var ctor2 = session.DefineFunctionMessage(nativeCallerType.GetConstructor(new Type[] { typeof(object) }));
 				var cfgId = ++localId;
 				session.InvokeFunctionMessage(ctor2.Name, 0, new JsValue(JsValueType.Object, cfgId));
 
@@ -390,8 +318,8 @@ namespace DotWeb.Hosting.Test
 		[Test]
 		public void TestObjectWrapper() {
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
-				Type nativeType = typeof (NativeObject);
-				session.OnLoadMessage(typeof (ObjectWrapperTest));
+				Type nativeType = typeof(NativeObject);
+				session.OnLoadMessage(typeof(ObjectWrapperTest));
 
 				// new Nativeobject();
 				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
@@ -412,7 +340,42 @@ namespace DotWeb.Hosting.Test
 		[Test]
 		public void TestSanity() {
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
-				session.OnLoadMessage(typeof (SanityTest));
+				session.OnLoadMessage(typeof(SanityTest));
+				session.ReturnMessage();
+				session.OnQuitMessage();
+			});
+		}
+
+		[Test]
+		public void TestCastInterface() {
+			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+				int localId = 0;
+				int remoteId = 0;
+				session.OnLoadMessage(typeof(CastInterfaceTest));
+
+				//var element = Window.document.getElementById("box");
+				var window = session.DefineFunctionMessage(typeof(JsScript).GetMethod("get_Window"));
+				var windowId = ++remoteId;
+				session.InvokeFunctionMessage(window.Name, 0);
+				session.OnReturnMessage(false, JsValueType.JsObject, windowId);
+
+				var document = session.DefineFunctionMessage(typeof(Window).GetMethod("get_document"));
+				var documentId = ++remoteId;
+				session.InvokeFunctionMessage(document.Name, windowId);
+				session.OnReturnMessage(false, JsValueType.JsObject, documentId);
+
+				var getElement = session.DefineFunctionMessage(typeof(Document).GetMethod("getElementById"));
+				var elementId = ++remoteId;
+				session.InvokeFunctionMessage(getElement.Name, documentId, new JsValue("box"));
+				session.OnReturnMessage(false, JsValueType.JsObject, elementId);
+
+				//var box = JsRuntime.Cast<HtmlDivElement>(element);
+				
+				//box.onmouseover = box_OnMouseOver;
+				var setHandler = session.DefineFunctionMessage(typeof(HtmlElement).GetMethod("set_onmouseover"));
+				session.InvokeFunctionMessage(setHandler.Name, elementId, new JsValue(JsValueType.Delegate, ++localId));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
 				session.ReturnMessage();
 				session.OnQuitMessage();
 			});

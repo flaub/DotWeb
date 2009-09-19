@@ -25,21 +25,13 @@ namespace DotWeb.Hosting.Test
 {
 	internal class CachingObjectFactory : IObjectFactory
 	{
+		private readonly DefaultFactory chain = new DefaultFactory();
 		private readonly Dictionary<Type, object> cache = new Dictionary<Type, object>();
-		private ProxyGenerator proxyGenerator = new ProxyGenerator();
-		private ProxyInterceptor interceptor = new ProxyInterceptor();
 
 		#region IObjectFactory Members
 
 		public object CreateInstance(Type type) {
-			object ret;
-			if (type.IsInterface) {
-				ret = CreateInstanceForInterface(type);
-			}
-			else {
-				ret = Activator.CreateInstance(type);
-			}
-
+			object ret = chain.CreateInstance(type);
 			cache.Add(ret.GetType(), ret);
 			return ret;
 		}
@@ -47,13 +39,5 @@ namespace DotWeb.Hosting.Test
 		#endregion
 
 		public object Get(Type type) { return cache[type]; }
-
-		private object CreateInstanceForInterface(Type type) {
-			//var options = new ProxyGenerationOptions {
-			//};
-			var options = ProxyGenerationOptions.Default;
-			var ret = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, options, interceptor);
-			return ret;
-		}
 	}
 }
