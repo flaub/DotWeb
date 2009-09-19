@@ -327,7 +327,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void Call(ILInstruction il) {
 			MethodBase method = il.Operand as MethodBase;
-			this.vm.ExternalMethods.AddUnique(method);
+			this.vm.ExternalMethods.Add(method);
 
 			AssociatedProperty ap = method.GetAssociatedProperty();
 			if (ap != null) {
@@ -373,7 +373,7 @@ namespace DotWeb.Decompiler.Core
 			MethodBase method = il.Operand as MethodBase;
 			CodeTypeReference type = new CodeTypeReference(method.DeclaringType);
 			CodeMethodReference expr = new CodeMethodReference(type, method);
-			this.vm.ExternalMethods.AddUnique(method);
+			this.vm.ExternalMethods.Add(method);
 			vm.Stack.Push(expr);
 		}
 
@@ -572,7 +572,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void NewObject(ILInstruction il) {
 			ConstructorInfo ctor = (ConstructorInfo)il.Operand;
-			this.vm.ExternalMethods.AddUnique(ctor);
+			this.vm.ExternalMethods.Add(ctor);
 
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Constructor = ctor

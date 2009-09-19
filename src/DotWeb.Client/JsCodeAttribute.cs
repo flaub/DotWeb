@@ -19,11 +19,22 @@ using System;
 
 namespace DotWeb.Client
 {
-	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Property)]
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
 	public class JsCodeAttribute : Attribute
 	{
 		public string Code { get; private set; }
+
 		public JsCodeAttribute(string code) {
+			this.Code = code;
+		}
+	}
+
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+	public class JsInlineCodeAttribute : Attribute
+	{
+		public string Code { get; private set; }
+
+		public JsInlineCodeAttribute(string code) {
 			this.Code = code;
 		}
 	}

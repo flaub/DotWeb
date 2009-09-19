@@ -65,7 +65,7 @@ namespace DotWeb.Client
 	/// </code>
 	/// </example>
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Class)]
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public class JsAnonymousAttribute : Attribute
 	{
 	}

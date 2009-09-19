@@ -19,7 +19,7 @@ using System;
 
 namespace DotWeb.Client
 {
-	[AttributeUsage(AttributeTargets.Property)]
+	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = false, Inherited = false)]
 	public class JsIntrinsicAttribute : Attribute
 	{
 	}

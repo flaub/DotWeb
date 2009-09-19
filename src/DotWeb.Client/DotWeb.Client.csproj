@@ -70,13 +70,13 @@
     <Compile Include="Dom\Css\Style.cs" />
     <Compile Include="Dom\Window.cs" />
     <Compile Include="JsCodeAttribute.cs" />
-    <Compile Include="JsAccessible.cs" />
     <Compile Include="JsException.cs" />
     <Compile Include="JsHost.cs" />
     <Compile Include="JsIntrinsicAttribute.cs" />
     <Compile Include="JsNamespaceAttribute.cs" />
     <Compile Include="JsNativeBase.cs" />
     <Compile Include="JsNativeException.cs" />
+    <Compile Include="JsRuntime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsScript.cs" />
     <Compile Include="VarArgsAttribute.cs" />

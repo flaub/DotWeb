@@ -51,8 +51,7 @@ namespace DotWeb.Translator
 		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache, List<string> namespaceCache) {
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
-				var externalType = external.DeclaringType;
-				if (IsEmittable(externalType)) {
+				if (IsEmittable(external)) {
 					if (!methodsCache.Contains(external)) {
 						GenerateMethod(external, typesCache, methodsCache, namespaceCache);
 					}
@@ -143,10 +142,10 @@ namespace DotWeb.Translator
 			if (type.Namespace != null && type.Namespace.StartsWith("System"))
 				return false;
 
-			if (type == typeof(object))
+			if (type.IsInterface)
 				return false;
 
-			if (type == typeof(JsAccessible))
+			if (type == typeof(object))
 				return false;
 
 			if (type.IsSubclassOf(typeof(JsNativeBase)))
@@ -163,6 +162,14 @@ namespace DotWeb.Translator
 			}
 
 			return true;
+		}
+
+		private bool IsEmittable(MethodBase method) {
+			if (method.HasJsInlineCode())
+				return false;
+
+			var type = method.DeclaringType;
+			return IsEmittable(type);
 		}
 
 		const BindingFlags BindingFlagsForMembers =

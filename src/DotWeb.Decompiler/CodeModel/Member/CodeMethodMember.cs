@@ -28,7 +28,7 @@ namespace DotWeb.Decompiler.CodeModel
 		public CodeMethodMember() {
 			this.Statements = new List<CodeStatement>();
 			this.Parameters = new List<CodeParameterDeclarationExpression>();
-			this.ExternalMethods = new List<MethodBase>();
+			this.ExternalMethods = new HashSet<MethodBase>();
 		}
 
 		public CodeMethodMember(MethodBase method)
@@ -54,7 +54,7 @@ namespace DotWeb.Decompiler.CodeModel
 		public string Name { get { return Info.Name; } }
 		public List<CodeStatement> Statements { get; set; }
 		public List<CodeParameterDeclarationExpression> Parameters { get; set; }
-		public List<MethodBase> ExternalMethods { get; set; }
+		public HashSet<MethodBase> ExternalMethods { get; set; }
 		public string NativeCode { get; set; }
 	}
 }

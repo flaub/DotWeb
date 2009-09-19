@@ -1,30 +1,25 @@
-﻿// Copyright 2009, Frank Laub
-//
+// Copyright 2009, Frank Laub
+// 
 // This file is part of DotWeb.
-//
+// 
 // DotWeb is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
+// 
 // DotWeb is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//
+// 
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
-
+// 
 namespace DotWeb.Client
 {
-	/// <summary>
-	/// This is a marker class that tells the DotWeb system
-	/// that derived classes can be accessed from JavaScript.
-	/// A class dervied from JsAccessible will be translated into
-	/// JavaScript and in debug-mode, a proxy will be constructed for 
-	/// this type.
-	/// </summary>
-	public class JsAccessible
+	public static class JsRuntime
 	{
+		[JsCode("return obj;")]
+		public static T Cast<T>(object obj) { return JsHost.Cast<T>(obj); }
 	}
 }

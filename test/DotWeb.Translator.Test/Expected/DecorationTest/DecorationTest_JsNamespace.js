@@ -30,8 +30,17 @@ Foo.FooNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-H8.DecorationTests = function() {
+if(typeof(DotWeb) == 'undefined') DotWeb = {};
+
+if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+
+DotWeb.Client.JsScript = function() {
 };
+
+H8.DecorationTests = function() {
+	this.$super.constructor();
+};
+H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsNamespace = function() {
 	var loc2 = new DefaultNamespaceTest().$ctor();

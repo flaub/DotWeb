@@ -17,6 +17,8 @@
 
 using System;
 using DotWeb.Client;
+using DotWeb.Client.Dom.Html;
+using DotWeb.Client.Dom.Events;
 
 namespace H8
 {
@@ -71,7 +73,7 @@ namespace H8
 		public int Value { get; set; }
 	}
 
-	class DecorationTests
+	class DecorationTests : JsScript
 	{
 		[JsCode("alert(arg);")]
 		public void TestJsCode(string arg) {
@@ -126,6 +128,15 @@ namespace H8
 			};
 
 			Console.WriteLine(item2.Value);
+		}
+
+		public void TestCastInterface() {
+			var element = Window.document.getElementById("box");
+			var box = JsRuntime.Cast<HtmlDivElement>(element);
+			box.onmouseover = box_OnMouseOver;
+		}
+
+		private void box_OnMouseOver(MouseEvent evt) {
 		}
 	}
 }

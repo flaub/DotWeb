@@ -29,15 +29,4 @@ namespace DotWeb.Client
 		[JsCode("console.log(obj);")]
 		public static void Log(object obj) { JsHost.S_(obj); }
 	}
-
-	public static class JsRuntime
-	{
-		public static T CreateInstance<T>() {
-			return default(T);
-		}
-
-		public static T Cast<T>(object obj) {
-			return JsHost.Cast<T>(obj);
-		}
-	}
 }

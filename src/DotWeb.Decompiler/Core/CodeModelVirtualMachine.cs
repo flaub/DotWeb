@@ -25,10 +25,10 @@ namespace DotWeb.Decompiler.Core
 	{
 		public CodeModelVirtualMachine() {
 			Stack = new Stack<CodeExpression>();
-			ExternalMethods = new List<MethodBase>();
+			ExternalMethods = new HashSet<MethodBase>();
 		}
 
-		public List<MethodBase> ExternalMethods { get; private set; }
+		public HashSet<MethodBase> ExternalMethods { get; private set; }
 		public Stack<CodeExpression> Stack { get; private set; }
 	}
 }

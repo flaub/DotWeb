@@ -27,7 +27,6 @@ namespace DotWeb.Translator
 	{
 		public static bool HasBase(this Type type) {
 			if (type.BaseType == typeof(object) ||
-				type.BaseType == typeof(JsAccessible) ||
 				type.BaseType == typeof(JsNativeBase)) {
 				return false;
 			}
@@ -78,6 +77,14 @@ namespace DotWeb.Translator
 				}
 			}
 			return false;
+		}
+
+		public static bool HasJsCode(this MethodBase method) {
+			return method.IsDefined(typeof(JsCodeAttribute), false);
+		}
+
+		public static bool HasJsInlineCode(this MethodBase method) {
+			return method.IsDefined(typeof(JsInlineCodeAttribute), false);
 		}
 
 		public static bool IsAnonymous(this Type type) {

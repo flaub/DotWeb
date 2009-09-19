@@ -245,7 +245,7 @@ namespace DotWeb.Hosting.Bridge
 		internal object[] UnwrapParameters(JsValue[] args, DispatchType dispType, MemberInfo member) {
 			var fi = member as FieldInfo;
 			if (fi != null) {
-				throw new NotSupportedException("Fields are not supported JsAccessible members");
+				throw new NotSupportedException("Fields are not supported JsObject members");
 			}
 
 			MethodBase method;

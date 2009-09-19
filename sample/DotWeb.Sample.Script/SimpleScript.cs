@@ -30,10 +30,7 @@ namespace DotWeb.Sample.Script
 				value = "value"
 			};
 			
-//			var tuple = JsActivator.CreateInstance<ITuple>();
-
 			Tuple tuple = new Tuple(config);
-//			var foo = JsRuntime.Cast<Tuple>(tuple);
 			int id = tuple.id;
 			Console.WriteLine("id: ");
 			Console.WriteLine(id);

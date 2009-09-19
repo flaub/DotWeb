@@ -53,7 +53,16 @@ namespace DotWeb.Translator.Test
 
 		protected void TestMethod(Type type, string methodName, string expected, bool followDependencies) {
 			string result = GenerateMethod(type, methodName, followDependencies);
-			Assert.AreEqual(expected.Trim(), result.Trim());
+			string lhs = expected.Trim();
+			string rhs = result.Trim();
+
+			Console.WriteLine("Expected:");
+			Console.WriteLine(lhs);
+
+			Console.WriteLine("Actual:");
+			Console.WriteLine(rhs);
+
+			Assert.AreEqual(lhs, rhs);
 		}
 
 		protected string GenerateMethod(Type type, string methodName, bool followDependencies) {

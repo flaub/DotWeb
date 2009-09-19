@@ -7,8 +7,17 @@ H8.IntrinsicClass.prototype.$ctor = function() {
 	return this;
 };
 
-H8.DecorationTests = function() {
+if(typeof(DotWeb) == 'undefined') DotWeb = {};
+
+if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+
+DotWeb.Client.JsScript = function() {
 };
+
+H8.DecorationTests = function() {
+	this.$super.constructor();
+};
+H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsIntrinsic = function() {
 	var loc1 = new H8.IntrinsicClass().$ctor();

@@ -19,11 +19,13 @@ using System;
 
 namespace DotWeb.Client
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
 	public class JsNamespaceAttribute : Attribute
 	{
 		public string Namespace { get; private set; }
+
 		public JsNamespaceAttribute() {
+			this.Namespace = string.Empty;
 		}
 
 		public JsNamespaceAttribute(string ns) {

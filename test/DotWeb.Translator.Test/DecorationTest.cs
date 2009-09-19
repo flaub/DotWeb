@@ -71,6 +71,11 @@ namespace DotWeb.Translator.Test
 			GenerateMethod(this.compiledType, "InvalidIntrinsicClass", true);
 		}
 
+		[Test]
+		public void TestCastInterface() {
+			TestMethod(this.compiledType, "TestCastInterface", Resources.DecorationTest_CastInterface, true);
+		}
+
 		private Type compiledType;
 	}
 }

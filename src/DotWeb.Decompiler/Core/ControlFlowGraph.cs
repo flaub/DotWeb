@@ -36,7 +36,7 @@ namespace DotWeb.Decompiler.Core
 		public List<IntervalGraph> Graphs { get; private set; }
 		public BasicBlock[] DfsList { get; private set; }
 		public bool HasCases { get; private set; }
-		public List<MethodBase> ExternalMethods { get; private set; }
+		public HashSet<MethodBase> ExternalMethods { get; private set; }
 
 		public ControlFlowGraph(MethodBase method) {
 			this.Method = method;

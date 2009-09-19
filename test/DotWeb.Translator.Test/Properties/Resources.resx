@@ -118,17 +118,38 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DecorationTest_CastInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_castinterface.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DecorationTest_JsAnonymous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsanonymous.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="DecorationTest_JsCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\decorationtest\decorationtest_jscode.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="DecorationTest_JsIntrinsic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsintrinsic.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DecorationTest_JsNamespace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsnamespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="DecorationTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\decorationtest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="NativeTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\nativetest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="NativeTest_TestTuple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\nativetest\nativetest_testtuple.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SourceTests_AnonymousType" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_anonymoustype.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SourceTests_Callback" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_callback.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_CallDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_callderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SourceTests_CallTakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_calltakeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -186,23 +207,5 @@
   </data>
   <data name="TranslationTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\translationtest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsAnonymous" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsanonymous.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsIntrinsic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsintrinsic.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsNamespace" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsnamespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="NativeTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\nativetest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="NativeTest_TestTuple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\nativetest\nativetest_testtuple.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_CallDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_callderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

@@ -1,7 +1,16 @@
-﻿if(typeof(H8) == 'undefined') H8 = {};
+﻿if(typeof(DotWeb) == 'undefined') DotWeb = {};
+
+if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+
+DotWeb.Client.JsScript = function() {
+};
+
+if(typeof(H8) == 'undefined') H8 = {};
 
 H8.DecorationTests = function() {
+	this.$super.constructor();
 };
+H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	var loc3 = {};

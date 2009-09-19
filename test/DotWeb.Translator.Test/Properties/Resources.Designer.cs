@@ -63,6 +63,39 @@ namespace DotWeb.Translator.Test.Properties {
         /// <summary>
         ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
         ///
+        ///DefaultNamespaceTest = function() {
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
+        ///	this._Value_k__BackingField = value;
+        ///};
+        ///
+        ///Foo.FooNamespaceTest = function() {
+        ///};
+        ///
+        ///Foo.FooNamespaceTest.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///DefaultNamespaceTest.prototype.get_Value = function() {
+        ///	return this._Value_k__BackingField;
+        ///};
+        ///
+        ///Foo.FooName [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecorationTest_CastInterface {
+            get {
+                return ResourceManager.GetString("DecorationTest_CastInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///
         ///H8.DecorationTests = function() {
         ///};
         ///
@@ -287,31 +320,27 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.Base = function() {
         ///};
         ///
-        ///H8.Base.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
         ///H8.Derived = function() {
         ///	this.$super.constructor();
         ///};
         ///H8.Derived.$extend(H8.Base);
         ///
+        ///H8.Derived.NextId = function() {
+        ///	H8.Derived.counter = H8.Derived.counter + 1;
+        ///	return H8.Derived.counter;
+        ///};
+        ///
+        ///H8.Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
         ///H8.Derived.prototype.$ctor = function() {
+        ///	this.id = H8.Derived.NextId();
         ///	this.$super.$ctor.call(this);
         ///	return this;
         ///};
         ///
-        ///H8.Base.prototype.BaseMethod = function() {
-        ///};
-        ///
-        ///H8.Derived.prototype.DerviedMethod = function() {
-        ///	this.BaseMethod();
-        ///};
-        ///
-        ///H8.SourceTests = function() {
-        ///};
-        ///
-        ///H8.SourceTests.prototype. [rest of string was truncated]&quot;;.
+        ///H8.Base.prototype.BaseMethod = function()  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CallDerived {
             get {
