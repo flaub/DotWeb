@@ -15,9 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-using System.Diagnostics;
-
 namespace DotWeb.Client
 {
 	public class JsObject
@@ -32,68 +29,42 @@ namespace DotWeb.Client
 	/// </summary>
 	public abstract class JsNativeBase : JsObject
 	{
-		private abstract class VoidReturn { }
+//		private abstract class VoidReturn { }
 
 		protected void C_(params object[] args) {
-			StackFrame previous = new StackFrame(2);
-			// this prevents ctors from being called twice
-			// we only want the derived class's ctor to execute, not any bases
-			if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
-				return;
-			}
-			StackFrame frame = new StackFrame(1);
-			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
+			//StackFrame previous = new StackFrame(2);
+			//// this prevents ctors from being called twice
+			//// we only want the derived class's ctor to execute, not any bases
+			//if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
+			//    return;
+			//}
+			//StackFrame frame = new StackFrame(1);
+			//JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
+			JsHost.Invoke(this, args);
 		}
 
 		protected void _(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
+//			StackFrame frame = new StackFrame(1);
+//			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
+			JsHost.Invoke(this, args);
 		}
 
 		protected R _<R>(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			return JsHost.Execute<R>(frame.GetMethod(), this, args);
+//			StackFrame frame = new StackFrame(1);
+//			return JsHost.Execute<R>(frame.GetMethod(), this, args);
+			return JsHost.Invoke<R>(this, args);
 		}
 
 		protected static void S_(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			JsHost.Execute<VoidReturn>(frame.GetMethod(), null, args);
+//			StackFrame frame = new StackFrame(1);
+//			JsHost.Execute<VoidReturn>(frame.GetMethod(), null, args);
+			JsHost.Invoke(null, args);
 		}
 
 		protected static R S_<R>(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			return JsHost.Execute<R>(frame.GetMethod(), null, args);
-		}
-	}
-
-	public class JsDynamicBase
-	{
-		public JsDynamicBase() {
-			this.Properties = new Dictionary<string, object>();
-		}
-
-		public Dictionary<string, object> Properties { get; set; }
-
-		public object this[string name]
-		{
-			get{ return this.Properties[name]; }
-			set{ this.Properties[name] = value; }
-		}
-
-		protected void _(object value) {
-			StackFrame frame = new StackFrame(1);
-			string name = GetPropertyName(frame);
-			this[name] = value;
-		}
-
-		protected R _<R>() {
-			StackFrame frame = new StackFrame(1);
-			string name = GetPropertyName(frame);
-			return (R)this[name];
-		}
-
-		private string GetPropertyName(StackFrame frame) {
-			return frame.GetMethod().Name.Substring("get_".Length);
+//			StackFrame frame = new StackFrame(1);
+//			return JsHost.Execute<R>(frame.GetMethod(), null, args);
+			return JsHost.Invoke<R>(null, args);
 		}
 	}
 }

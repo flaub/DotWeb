@@ -25,7 +25,7 @@ namespace DotWeb.Client
 		public string Namespace { get; private set; }
 
 		public JsNamespaceAttribute() {
-			this.Namespace = string.Empty;
+			this.Namespace = "";
 		}
 
 		public JsNamespaceAttribute(string ns) {

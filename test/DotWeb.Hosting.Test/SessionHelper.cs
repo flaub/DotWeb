@@ -25,7 +25,13 @@ namespace DotWeb.Hosting.Test
 	internal class SessionHelper
 	{
 		private readonly ISession session;
-		public SessionHelper(ISession session) { this.session = session; }
+
+		public JsBridge Bridge { get; private set; }
+
+		public SessionHelper(JsBridge bridge, ISession session) {
+			this.Bridge = bridge;
+			this.session = session; 
+		}
 
 		public void OnLoadMessage(Type type) {
 			ReadMessage(new LoadMessage {
@@ -97,8 +103,8 @@ namespace DotWeb.Hosting.Test
 			});
 		}
 
-		public void GetTypeResponseMessage(object target) {
-			TypeInspector inspector = new TypeInspector(target);
+		public void GetTypeResponseMessage(JsBridge bridge, object target) {
+			TypeInspector inspector = new TypeInspector(bridge, target);
 			SendMessage(inspector.GetTypeInfo());
 		}
 

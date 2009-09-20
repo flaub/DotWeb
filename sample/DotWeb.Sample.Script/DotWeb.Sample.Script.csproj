@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,10 +35,6 @@
     <Reference Include="Ext, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\proxy\Ext\bin\Debug\Ext.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +51,10 @@
     <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
+      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
+      <Name>DotWeb.System</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

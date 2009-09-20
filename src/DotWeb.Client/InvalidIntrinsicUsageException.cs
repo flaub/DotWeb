@@ -22,18 +22,15 @@ namespace DotWeb.Client
 {
 	public class InvalidIntrinsicUsageException : Exception
 	{
-		public InvalidIntrinsicUsageException(PropertyInfo property)
-			: base(CreateMessage(property)) {
-			AppliedProperty = property;
+		public InvalidIntrinsicUsageException(string typeName, string propertyName)
+			: base(CreateMessage(typeName, propertyName)) {
 		}
 
-		private static string CreateMessage(PropertyInfo property) {
+		private static string CreateMessage(string typeName, string propertyName) {
 			return string.Format(
 				"[JsIntrinsic] not valid on type: '{0}', property: '{1}'", 
-				property.DeclaringType, 
-				property);
+				typeName, 
+				propertyName);
 		}
-
-		public PropertyInfo AppliedProperty { get; set; }
 	}
 }

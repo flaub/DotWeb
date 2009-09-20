@@ -77,6 +77,15 @@
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
+      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
+      <Name>DotWeb.System</Name>
+      <Aliases>dw</Aliases>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Hosting.Test.Script\DotWeb.Hosting.Test.Script.csproj">
+      <Project>{4AE3435E-B364-4362-9911-ACAEDC6E1A99}</Project>
+      <Name>DotWeb.Hosting.Test.Script</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

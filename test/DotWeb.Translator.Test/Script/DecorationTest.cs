@@ -73,7 +73,7 @@ namespace H8
 		public int Value { get; set; }
 	}
 
-	class DecorationTests : JsScript
+	public class DecorationTests : JsScript
 	{
 		[JsCode("alert(arg);")]
 		public void TestJsCode(string arg) {

@@ -20,43 +20,13 @@ using System.Reflection;
 using DotWeb.Client;
 using DotWeb.Hosting.Bridge;
 using NUnit.Framework;
+using DotWeb.Hosting.Test.Script;
 
 namespace DotWeb.Hosting.Test
 {
 	[TestFixture]
 	public class JsFunctionTest
 	{
-		private const string JsCode = "alert('hi');";
-
-		private class CrashTestDummy
-		{
-			public CrashTestDummy() { }
-			public CrashTestDummy(int x) { }
-			public int TestProperty { get; set; }
-
-			[JsCode(JsCode)]
-			public void TestJsCode() { }
-
-			public void TestNoArgs() { }
-			public void TestOneArg(int x) { }
-			public void TestTwoArgs(int x, int y) { }
-
-			public void TestMethod() { }
-
-			public static void TestStatic() { }
-		}
-
-		[JsNamespace]
-		private class DefaultNamesapce
-		{
-			public void TestNoArgs() { }
-		}
-
-		[JsNamespace]
-		private class FooNamesapce
-		{
-			public void TestNoArgs() { }
-		}
 
 		private void AssertJsFunction(JsFunction function, string name, string parameters, string body) {
 			Assert.AreEqual(name, function.Name);
@@ -70,7 +40,7 @@ namespace DotWeb.Hosting.Test
 		}
 
 		private void RunTest(string methodName, string name, string parameters, string body) {
-			RunTest(typeof (CrashTestDummy), methodName, name, parameters, body);
+			RunTest(typeof(CrashTestDummy), methodName, name, parameters, body);
 		}
 
 		private void RunTest(MethodBase method, string name, string parameters, string body) {
@@ -98,7 +68,7 @@ namespace DotWeb.Hosting.Test
 				"TestJsCode",
 				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestJsCode",
 				"",
-				JsCode);
+				CrashTestDummy.JsCode);
 		}
 
 		[Test]

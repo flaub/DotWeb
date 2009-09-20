@@ -30,6 +30,7 @@ using DotWeb.Hosting;
 using DotWeb.Hosting.Bridge;
 using DotWeb.Translator;
 using DotWeb.Web.Properties;
+using System.Runtime.Remoting.Messaging;
 
 namespace DotWeb.Web
 {
@@ -108,6 +109,26 @@ namespace DotWeb.Web
 			return src;
 		}
 
+		class CallContextStorage : IJsHostStorage
+		{
+			private const string JsHostName = "JsHost";
+
+			public CallContextStorage(IJsHost host) {
+				CallContext.SetData(JsHostName, host);
+			}
+
+			public IJsHost Host {
+				get { 
+					var host = CallContext.GetData(JsHostName) as IJsHost;
+					if (host == null) {
+						Debugger.Log(0, "DotWeb", "Lost my mind");
+						Debugger.Break();
+					}
+					return host;
+				}
+			}
+		}
+
 		private void OnAccept(IAsyncResult ar) {
 			var listener = (TcpListener) ar.AsyncState;
 			TcpClient tcp = listener.EndAcceptTcpClient(ar);
@@ -117,7 +138,7 @@ namespace DotWeb.Web
 				var session = new RemoteSession(stream);
 				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
-				JsHost.Instance = bridge;
+				JsHost.Storage = new CallContextStorage(bridge);
 				bridge.DispatchForever();
 			}
 			catch (Exception ex) {

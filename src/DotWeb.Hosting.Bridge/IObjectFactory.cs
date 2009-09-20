@@ -21,6 +21,6 @@ namespace DotWeb.Hosting.Bridge
 {
 	public interface IObjectFactory
 	{
-		object CreateInstance(Type type);
+		object CreateInstance(JsBridge bridge, Type type);
 	}
 }

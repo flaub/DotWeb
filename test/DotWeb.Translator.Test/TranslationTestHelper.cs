@@ -26,10 +26,12 @@ namespace DotWeb.Translator.Test
 {
 	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
 	{
-		protected TranslationTestHelper(string src) {
+		protected TranslationTestHelper(string assName, string src) {
 			if (cachedAssembly == null) {
 				var compiler = new CSharpCompiler();
-				this.CompiledAssembly = compiler.CompileSource(src, Assembly.GetExecutingAssembly());
+				//var ass = Assembly.GetAssembly(assType);
+				var ass = Assembly.LoadFrom(assName);
+				this.CompiledAssembly = compiler.CompileSource(src, ass);
 				cachedAssembly = this.CompiledAssembly;
 			}
 			else {

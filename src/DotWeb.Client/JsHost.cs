@@ -15,65 +15,71 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Runtime.Remoting.Messaging;
 using System.Reflection;
-using System.Diagnostics;
 
 namespace DotWeb.Client
 {
 	public interface IJsHost
 	{
-		object InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args);
+		object InvokeRemoteMethod(JsObject scope, params object[] args);
 		T Cast<T>(object obj);
+
+		object GetImplicitDynamicProperty(JsDynamicBase obj);
+		void SetImplicitDynamicProperty(JsDynamicBase obj, object value);
+
+		object GetDynamicProperty(JsDynamicBase obj, string name);
+		void SetDynamicProperty(JsDynamicBase obj, string propertyName, object value);
+	}
+
+	public interface IJsHostStorage
+	{
+		IJsHost Host { get; }
 	}
 
 	public static class JsHost
 	{
 		private abstract class VoidReturn { }
-		private const string JsHostName = "JsHost";
+
+		public static IJsHostStorage Storage { get; set; }
 
 		public static IJsHost Instance {
-			get {
-				IJsHost host = CallContext.GetData(JsHostName) as IJsHost;
-				if (host == null) {
-					Debugger.Log(0, "DotWeb", "Lost my mind");
-					Debugger.Break();
-				}
-				return host;
-			}
-			set {
-				CallContext.SetData(JsHostName, value);
-			}
+			get { return Storage.Host; }
 		}
 
-		public static R Execute<R>(MethodBase method, JsObject scope, params object[] args) {
-			object ret = Execute(method, scope, args);
+		public static R Invoke<R>(JsObject scope, params object[] args) {
+			object ret = Invoke(scope, args);
 			if (ret == null)
 				return default(R);
 			return (R)ret;
 		}
 
-		public static object Execute(MethodBase method, JsObject scope, params object[] args) {
-			Debug.WriteLine(string.Format(
-				"Execute: {0}, {1}, {2}",
-				method,
-				scope,
-				args));
-			return Instance.InvokeRemoteMethod(method, scope, args);
-		}
-
-		public static void S_(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			Execute<VoidReturn>(frame.GetMethod(), null, args);
-		}
-
-		public static R S_<R>(params object[] args) {
-			StackFrame frame = new StackFrame(1);
-			return Execute<R>(frame.GetMethod(), null, args);
+		public static object Invoke(JsObject scope, params object[] args) {
+			//Debug.WriteLine(string.Format(
+			//    "Execute: {0}, {1}, {2}",
+			//    method,
+			//    scope,
+			//    args));
+			return Instance.InvokeRemoteMethod(scope, args);
 		}
 
 		public static T Cast<T>(object obj) {
 			return Instance.Cast<T>(obj);
+		}
+
+		public static object GetImplicitDynamicProperty(JsDynamicBase obj) {
+			return Instance.GetImplicitDynamicProperty(obj);
+		}
+
+		public static void SetImplicitDynamicProperty(JsDynamicBase obj, object value) {
+			Instance.SetImplicitDynamicProperty(obj, value);
+		}
+
+		public static object GetDynamicProperty(JsDynamicBase obj, string propertyName) {
+			return Instance.GetDynamicProperty(obj, propertyName);
+		}
+
+		public static void SetDynamicProperty(JsDynamicBase obj, string propertyName, object value) {
+			Instance.SetDynamicProperty(obj, propertyName, value);
 		}
 	}
 }

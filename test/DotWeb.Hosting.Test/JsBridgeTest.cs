@@ -24,6 +24,7 @@ using DotWeb.Hosting.Bridge;
 using DotWeb.Hosting.Test.Bridge;
 using NUnit.Framework;
 using Rhino.Mocks;
+using DotWeb.Hosting.Test.Script;
 
 namespace DotWeb.Hosting.Test
 {
@@ -45,13 +46,27 @@ namespace DotWeb.Hosting.Test
 
 		private delegate void SessionHandler(SessionHelper session);
 
+		class SimpleStorage : IJsHostStorage
+		{
+			private IJsHost host;
+
+			public SimpleStorage(IJsHost host) {
+				this.host = host;
+			}
+
+			public IJsHost Host {
+				get { return this.host; }
+			}
+		}
+
 		private void TestHelper(IObjectFactory factory, SessionHandler handler) {
 			MockRepository mocks = new MockRepository();
 
 			ISession session = mocks.StrictMock<ISession>();
 			JsBridge bridge = new JsBridge(session, factory);
-			JsHost.Instance = bridge;
-			SessionHelper helper = new SessionHelper(session);
+			var storage = new SimpleStorage(bridge);
+			JsHost.Storage = storage;
+			SessionHelper helper = new SessionHelper(bridge, session);
 			using (mocks.Ordered()) {
 				handler(helper);
 			}
@@ -180,8 +195,7 @@ namespace DotWeb.Hosting.Test
 				session.OnGetTypeRequestMessage(cfgId);
 
 				var cfg = new Config();
-				TypeInspector inspector = new TypeInspector(cfg);
-				session.GetTypeResponseMessage(cfg);
+				session.GetTypeResponseMessage(session.Bridge, cfg);
 
 				session.OnInvokeMemberMessage(cfgId, new DispatchIdentifier("nativeObject"), DispatchType.PropertyGet);
 

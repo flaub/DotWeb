@@ -69,7 +69,7 @@ namespace DotWeb.Sample.Script.Test
 		private class Console
 		{
 			[JsCode("console.log(obj);")]
-			public static void Write(object obj) { JsHost.S_(obj); }
+			public static void Write(object obj) { JsHost.Invoke(null, obj); }
 		}
 
 		#endregion

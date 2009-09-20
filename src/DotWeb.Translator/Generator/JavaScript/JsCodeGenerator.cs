@@ -307,8 +307,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void Visit(CodePropertyGetterMember method) {
 			if (method.PropertyInfo.IsIntrinsic()) {
-				if (!method.IsAutoImplemented())
-					throw new InvalidIntrinsicUsageException(method.PropertyInfo);
+				// FIXME: how to throw exceptions?
+				//if (!method.IsAutoImplemented())
+				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo.DeclaringType.ToString(), method.PropertyInfo.ToString());
 				return;
 			}
 			// This is to look and optimize for properties that have automatic implementations
@@ -320,8 +321,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void Visit(CodePropertySetterMember method) {
 			if (method.PropertyInfo.IsIntrinsic()) {
-				if (!method.IsAutoImplemented())
-					throw new InvalidIntrinsicUsageException(method.PropertyInfo);
+				// FIXME: how to throw exceptions?
+				//if (!method.IsAutoImplemented())
+				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo);
 				return;
 			}
 			// This is to look and optimize for properties that have automatic implementations

@@ -23,10 +23,10 @@ namespace DotWeb.Client
 	{
 		public Window Window {
 			[JsCode("return $wnd;")]
-			get { return JsHost.S_<Window>(); }
+			get { return JsHost.Invoke<Window>(null); }
 		}
 
 		[JsCode("console.log(obj);")]
-		public static void Log(object obj) { JsHost.S_(obj); }
+		public static void Log(object obj) { JsHost.Invoke(null, obj); }
 	}
 }

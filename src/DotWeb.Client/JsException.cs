@@ -19,7 +19,7 @@ using System;
 
 namespace DotWeb.Client
 {
-	public class JsException : ApplicationException
+	public class JsException : Exception
 	{
 		public JsNativeException NativeException { get; set; }
 

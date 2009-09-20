@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>System</RootNamespace>
+    <AssemblyName>DotWeb.System</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="Byte.cs" />
+    <Compile Include="Char.cs" />
+    <Compile Include="Boolean.cs" />
+    <Compile Include="Array.cs" />
+    <Compile Include="Attribute.cs" />
+    <Compile Include="AttributeUsageAttribute.cs" />
+    <Compile Include="Console.cs" />
+    <Compile Include="Func.cs" />
+    <Compile Include="FlagsAttribute.cs" />
+    <Compile Include="Math.cs" />
+    <Compile Include="NotImplementedException.cs" />
+    <Compile Include="Reflection\AssemblyTitleAttribute.cs" />
+    <Compile Include="Reflection\AssemblyDescriptionAttribute.cs" />
+    <Compile Include="Reflection\AssemblyConfigurationAttribute.cs" />
+    <Compile Include="Reflection\AssemblyCompanyAttribute.cs" />
+    <Compile Include="Reflection\AssemblyProductAttribute.cs" />
+    <Compile Include="Reflection\AssemblyCopyrightAttribute.cs" />
+    <Compile Include="Reflection\AssemblyTrademarkAttribute.cs" />
+    <Compile Include="Reflection\AssemblyCultureAttribute.cs" />
+    <Compile Include="Reflection\AssemblyVersionAttribute.cs" />
+    <Compile Include="Reflection\AssemblyFileVersionAttribute.cs" />
+    <Compile Include="Reflection\DefaultMemberAttribute.cs" />
+    <Compile Include="IEnumerator.cs" />
+    <Compile Include="IEnumerable.cs" />
+    <Compile Include="IDisposable.cs" />
+    <Compile Include="RuntimeFieldHandle.cs" />
+    <Compile Include="RuntimeTypeHandle.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />
+    <Compile Include="Runtime\InteropServices\ComVisibleAttribute.cs" />
+    <Compile Include="Runtime\InteropServices\OutAttribute.cs" />
+    <Compile Include="Runtime\InteropServices\GuidAttribute.cs" />
+    <Compile Include="SystemException.cs" />
+    <Compile Include="Text\StringBuilder.cs" />
+    <Compile Include="ValueType.cs" />
+    <Compile Include="Type.cs" />
+    <Compile Include="Exception.cs" />
+    <Compile Include="Delegate.cs" />
+    <Compile Include="String.cs" />
+    <Compile Include="IntPtr.cs" />
+    <Compile Include="Double.cs" />
+    <Compile Include="Single.cs" />
+    <Compile Include="Int64.cs" />
+    <Compile Include="Int16.cs" />
+    <Compile Include="Int32.cs" />
+    <Compile Include="Void.cs" />
+    <Compile Include="Object.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

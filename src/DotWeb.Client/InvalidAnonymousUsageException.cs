@@ -21,13 +21,12 @@ namespace DotWeb.Client
 {
 	public class InvalidAnonymousUsageException : Exception
 	{
-		public InvalidAnonymousUsageException(Type type)
-			: base(CreateMessage(type)) { AppliedType = type; }
-
-		private static string CreateMessage(Type type) {
-			return string.Format("[JsAnonymous] not valid on {0}", type);
+		public InvalidAnonymousUsageException(string typeName)
+			: base(CreateMessage(typeName)) {
 		}
 
-		public Type AppliedType { get; set; }
+		private static string CreateMessage(string typeName) {
+			return string.Format("[JsAnonymous] not valid on {0}", typeName);
+		}
 	}
 }

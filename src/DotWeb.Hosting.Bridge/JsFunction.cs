@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
+extern alias dw;
+
 using System;
 using System.Linq;
 using DotWeb.Client;
@@ -31,6 +33,8 @@ namespace DotWeb.Hosting.Bridge
 
 		public JsFunction(MethodBase method) {
 			var js = method.GetCustomAttribute<JsCodeAttribute>();
+//			var attributes = method.GetCustomAttributes(typeof(JsCodeAttribute), false);
+//			var js = attributes.First() as JsCodeAttribute;
 			this.Body = js == null ? GenerateFunctionBody(method) : js.Code;
 
 			Type type = method.DeclaringType;

@@ -19,7 +19,7 @@ namespace DotWeb.Client
 {
 	public class JsNativeException : JsNativeBase
 	{
-		[JsCode("return this.toString();")]
-		public override string ToString() { return _<string>(); }
+//		[JsCode("return this.toString();")]
+//		public override string ToString() { return _<string>(); }
 	}
 }

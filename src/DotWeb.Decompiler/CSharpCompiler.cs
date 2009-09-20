@@ -71,7 +71,8 @@ namespace DotWeb.Decompiler
 
 		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile) {
 			CompilerParameters options = new CompilerParameters {
-				GenerateInMemory = true
+				GenerateInMemory = true,
+				CompilerOptions = "/nostdlib"
 			};
 
 			foreach (Assembly assRef in references) {

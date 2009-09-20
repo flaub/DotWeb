@@ -31,7 +31,7 @@ namespace DotWeb.Hosting.Bridge
 
 		public JsObjectWrapper(JsBridge bridge, object target) : base(bridge) {
 			this.target = target;
-			this.inspector = new TypeInspector(target);
+			this.inspector = new TypeInspector(bridge, target);
 		}
 
 		public MemberInfo GetMember(int id) {

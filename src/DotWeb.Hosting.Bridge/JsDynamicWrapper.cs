@@ -27,15 +27,18 @@ namespace DotWeb.Hosting.Bridge
 	class JsDynamicWrapper : JsWrapperBase, IJsWrapper
 	{
 		private readonly JsDynamicBase target;
+		private readonly Type targetType;
 
 		public JsDynamicWrapper(JsBridge bridge, JsDynamicBase target) 
 			: base(bridge) {
 			this.target = target;
+			var handle = Type.GetTypeHandle(this.target);
+			this.targetType = Type.GetTypeFromHandle(handle);
 		}
 
-		class JsNativeHolder : JsNativeBase
-		{
-		}
+//		class JsNativeHolder : JsNativeBase
+//		{
+//		}
 
 		public object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
 			if (dispType.IsMethod()) {
@@ -58,10 +61,11 @@ namespace DotWeb.Hosting.Bridge
 			// overridden methods might exist in the properties map, 
 			// otherwise try and invoke the method on the target
 
-			MethodBase method = this.target.GetType().GetMethod(id.AsString);
+			MethodBase method = this.targetType.GetMethod(id.AsString);
 			if (method == null) {
 				object value;
-				if (this.target.Properties.TryGetValue(id.AsString, out value)) {
+				if (this.bridge.TryGetDynamicProperty(this.target, id.AsString, out value)) {
+					//if (this.target.Properties.TryGetValue(id.AsString, out value)) {
 					Delegate del = value as Delegate;
 					if (del != null) {
 						var args = this.bridge.UnwrapParameters(jsArgs, dispType, del.Method);
@@ -80,8 +84,9 @@ namespace DotWeb.Hosting.Bridge
 
 		private object GetProperty(DispatchIdentifier id, out Type returnType) {
 			object value;
-			if (!this.target.Properties.TryGetValue(id.AsString, out value)) {
-				MethodBase method = this.target.GetType().GetMethod(id.AsString);
+			if (!this.bridge.TryGetDynamicProperty(this.target, id.AsString, out value)) {
+				//if (!this.target.Properties.TryGetValue(id.AsString, out value)) {
+				MethodBase method = this.targetType.GetMethod(id.AsString);
 				if (method != null) {
 					return GetMethodAsProperty((MethodInfo)method, this.target, out returnType);
 				}
@@ -97,15 +102,19 @@ namespace DotWeb.Hosting.Bridge
 		private object SetProperty(DispatchIdentifier id, JsValue[] jsArgs, out Type returnType) {
 			Type targetType;
 			object value;
-			if (this.target.Properties.TryGetValue(id.AsString, out value)) {
+			if (this.bridge.TryGetDynamicProperty(this.target, id.AsString, out value)) {
+				//if (this.target.Properties.TryGetValue(id.AsString, out value)) {
 				targetType = value.GetType();
 			}
 			else {
-				targetType = typeof(JsNativeHolder);
+				targetType = typeof(object);
+				//targetType = typeof(JsNativeHolder);
+				Debug.Fail("What is this for again?");
 			}
 
 			value = this.bridge.UnwrapValue(jsArgs.First(), targetType);
-			this.target.Properties[id.AsString] = value;
+			this.bridge.SetDynamicProperty(this.target, id.AsString, value);
+//			this.target.Properties[id.AsString] = value;
 			returnType = typeof(void);
 			return null;
 		}
@@ -116,7 +125,8 @@ namespace DotWeb.Hosting.Bridge
 				Members = new List<TypeMemberInfo>()
 			};
 
-			foreach (var item in target.Properties) {
+			var properties = this.bridge.GetDynamicPropertyMap(this.target);
+			foreach (var item in properties) {
 				ret.Members.Add(new TypeMemberInfo {
 					DispatchType = DispatchType.PropertyGet | DispatchType.PropertySet,
 					//MemberId = 0,

@@ -24,14 +24,13 @@ namespace DotWeb.Hosting.Bridge
 {
 	public class DefaultFactory : IObjectFactory
 	{
-		private ProxyGenerator proxyGenerator = new ProxyGenerator();
-		private ProxyInterceptor interceptor = new ProxyInterceptor();
+		private readonly ProxyGenerator proxyGenerator = new ProxyGenerator();
 
 		#region IObjectFactory Members
 
-		public object CreateInstance(Type type) {
+		public object CreateInstance(JsBridge bridge, Type type) {
 			if (type.IsInterface) {
-				return CreateInstanceForInterface(type);
+				return CreateInstanceForInterface(bridge, type);
 			}
 			else {
 				return Activator.CreateInstance(type);
@@ -40,29 +39,36 @@ namespace DotWeb.Hosting.Bridge
 
 		#endregion
 
-		private object CreateInstanceForInterface(Type type) {
+		private object CreateInstanceForInterface(JsBridge bridge, Type type) {
+			var interceptor = new Interceptor(bridge);
 			//var options = new ProxyGenerationOptions {
 			//};
 			var options = ProxyGenerationOptions.Default;
 			var ret = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, options, interceptor);
 			return ret;
 		}
-	}
 
-	public class ProxyInterceptor : IInterceptor
-	{
-		#region IInterceptor Members
+		private class Interceptor : IInterceptor
+		{
+			private readonly JsBridge bridge;
 
-		public void Intercept(IInvocation invocation) {
-			Type declaringType = invocation.Method.DeclaringType;
-			if (declaringType == typeof(object)) {
-				invocation.Proceed();
+			public Interceptor(JsBridge bridge) {
+				this.bridge = bridge;
 			}
-			else {
-				invocation.ReturnValue = JsHost.Execute(invocation.Method, (JsObject)invocation.Proxy, invocation.Arguments);
+
+			#region IInterceptor Members
+
+			public void Intercept(IInvocation invocation) {
+				Type declaringType = invocation.Method.DeclaringType;
+				if (declaringType == typeof(object)) {
+					invocation.Proceed();
+				}
+				else {
+					invocation.ReturnValue = this.bridge.InvokeRemoteMethod(invocation.Method, (JsObject)invocation.Proxy, invocation.Arguments);
+				}
 			}
+
+			#endregion
 		}
-
-		#endregion
 	}
 }

@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 
 namespace DotWeb.Client.Dom
 {
@@ -151,9 +150,9 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="tag"></param>
 		/// <returns></returns>
-		IEnumerable<Element> getElementsByTagName(string tag);
+		NodeList getElementsByTagName(string tag);
 
-		IEnumerable<Element> getElementsByTagNameNS();
+		NodeList getElementsByTagNameNS();
 
 		void importNode();
 

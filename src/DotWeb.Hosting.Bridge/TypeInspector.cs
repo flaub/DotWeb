@@ -25,14 +25,16 @@ namespace DotWeb.Hosting.Bridge
 	public class TypeInspector
 	{
 		private Dictionary<string, int> idsByName = new Dictionary<string, int>();
-		private List<MemberInfo> members;
+		private List<MemberInfo> members = new List<MemberInfo>();
 		private Type targetType;
+		private JsBridge bridge;
 
-		public TypeInspector(object target) {
-			targetType = target.GetType();
+		public TypeInspector(JsBridge bridge, object target) {
+			this.bridge = bridge;
+			this.targetType = target.GetType();
 
 			if (target is JsDynamicBase) {
-				CollectDynamicMembers((JsDynamicBase) target);
+				CollectDynamicMembers((JsDynamicBase)target);
 			}
 			else {
 				CollectMembers();
@@ -75,14 +77,13 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private void CollectMembers() {
-			members = new List<MemberInfo>();
 			foreach (MemberInfo info in targetType.GetMembers()) {
-				if (info.DeclaringType == typeof (object) && info.Name != "ToString") {
+				if (info.DeclaringType == typeof(object) && info.Name != "ToString") {
 					continue;
 				}
 
 				if (info is MethodInfo) {
-					MethodInfo mi = (MethodInfo) info;
+					MethodInfo mi = (MethodInfo)info;
 					if (mi.IsSpecialName && mi.Name.StartsWith("get_") || mi.Name.StartsWith("set_"))
 						continue;
 				}
@@ -97,8 +98,8 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private void CollectDynamicMembers(JsDynamicBase target) {
-			members = new List<MemberInfo>();
-			foreach (var item in target.Properties) {
+			var properties = this.bridge.GetDynamicPropertyMap(target);
+			foreach (var item in properties) {
 				var property = targetType.GetProperty(item.Key);
 				string name = GetName(property.Name);
 				idsByName.Add(name, members.Count);

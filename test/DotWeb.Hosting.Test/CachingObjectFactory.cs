@@ -30,8 +30,8 @@ namespace DotWeb.Hosting.Test
 
 		#region IObjectFactory Members
 
-		public object CreateInstance(Type type) {
-			object ret = chain.CreateInstance(type);
+		public object CreateInstance(JsBridge bridge, Type type) {
+			object ret = chain.CreateInstance(bridge, type);
 			cache.Add(ret.GetType(), ret);
 			return ret;
 		}

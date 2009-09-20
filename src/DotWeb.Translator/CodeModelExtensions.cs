@@ -83,10 +83,6 @@ namespace DotWeb.Translator
 			return method.IsDefined(typeof(JsCodeAttribute), false);
 		}
 
-		public static bool HasJsInlineCode(this MethodBase method) {
-			return method.IsDefined(typeof(JsInlineCodeAttribute), false);
-		}
-
 		public static bool IsAnonymous(this Type type) {
 			return type.IsDefined(typeof(JsAnonymousAttribute), false);
 		}

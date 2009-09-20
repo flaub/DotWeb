@@ -32,6 +32,9 @@ namespace DotWeb.Hosting.Bridge
 
 	using JsObjectToReferenceMap = Dictionary<JsObject, int>;
 
+	using DynamicPropertyMap = Dictionary<string, object>;
+	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
+
 	public class JsBridge : IJsHost
 	{
 		private readonly ISession session;
@@ -68,17 +71,14 @@ namespace DotWeb.Hosting.Bridge
 				if (ret.IsJsObject) {
 					var jne = new JsNativeException();
 					AddRemoteReference(jne, ret.RefId);
-					throw new JsException(jne);
+//					throw new JsException(jne);
 				}
 
 				if (retMsg.Value.IsObject) {
 					object obj = this.refToObj[ret.RefId];
-					if (obj is Exception) {
-						throw new JsException((Exception)obj);
-					}
-					throw new JsException(obj.ToString());
+//					throw new JsException(obj.ToString());
 				}
-				throw new JsException(ret.Object.ToString());
+//				throw new JsException(ret.Object.ToString());
 			}
 			return ret;
 		}
@@ -141,7 +141,7 @@ namespace DotWeb.Hosting.Bridge
 				this.jsObjectToRef.Clear();
 
 				Type type = Type.GetType(msg.TypeName);
-				this.factory.CreateInstance(type);
+				CreateInstance(type);
 
 				var value = new JsValue(JsValueType.Void, null);
 				var retMsg = new ReturnMessage { Value = value };
@@ -153,6 +153,10 @@ namespace DotWeb.Hosting.Bridge
 			catch (Exception ex) {
 				HandleException(ex);
 			}
+		}
+
+		private object CreateInstance(Type type) {
+			return this.factory.CreateInstance(this, type);
 		}
 
 		private void HandleException(Exception ex) {
@@ -339,7 +343,7 @@ namespace DotWeb.Hosting.Bridge
 				}
 
 				isUnwrapping = true;
-				JsObject ret = (JsObject)this.factory.CreateInstance(targetType);
+				JsObject ret = (JsObject)CreateInstance(targetType);
 				isUnwrapping = false;
 
 				AddRemoteReference(ret, value.RefId);
@@ -379,11 +383,7 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
-		object IJsHost.InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args) {
-			if (isUnwrapping) {
-				return null;
-			}
-
+		internal object InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args) {
 			try {
 				JsFunction function = PrepareRemoteFunction(method);
 
@@ -426,12 +426,65 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
+		object IJsHost.InvokeRemoteMethod(JsObject scope, params object[] args) {
+			if (isUnwrapping) {
+				return null;
+			}
+			
+			StackFrame frame = new StackFrame(2);
+			var method = frame.GetMethod();
+
+			return InvokeRemoteMethod(method, scope, args);
+		}
+
 		T IJsHost.Cast<T>(object obj) {
 			JsObject remote = (JsObject)obj;
 			int handle = GetRemoteReference(remote);
-			var brother = this.factory.CreateInstance(typeof(T));
+			var brother = CreateInstance(typeof(T));
 			AddRemoteReference((JsObject)brother, handle);
 			return (T)brother;
+		}
+
+		private DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
+
+		public object GetImplicitDynamicProperty(JsDynamicBase obj) {
+			StackFrame frame = new StackFrame(2);
+			string name = GetPropertyName(frame);
+			return GetDynamicProperty(obj, name);
+		}
+
+		public void SetImplicitDynamicProperty(JsDynamicBase obj, object value) {
+			StackFrame frame = new StackFrame(2);
+			string name = GetPropertyName(frame);
+			SetDynamicProperty(obj, name, value);
+		}
+
+		public bool TryGetDynamicProperty(JsDynamicBase obj, string name, out object value) {
+			var map = GetDynamicPropertyMap(obj);
+			return map.TryGetValue(name, out value);
+		}
+
+		public object GetDynamicProperty(JsDynamicBase obj, string name) {
+			var map = GetDynamicPropertyMap(obj);
+			return map[name];
+		}
+
+		public void SetDynamicProperty(JsDynamicBase obj, string propertyName, object value) {
+			var map = GetDynamicPropertyMap(obj);
+			map[propertyName] = value;
+		}
+
+		public DynamicPropertyMap GetDynamicPropertyMap(JsDynamicBase obj) {
+			DynamicPropertyMap map;
+			if (!this.dynamicObjects.TryGetValue(obj, out map)) {
+				map = new DynamicPropertyMap();
+				this.dynamicObjects.Add(obj, map);
+			}
+			return map;
+		}
+
+		private string GetPropertyName(StackFrame frame) {
+			return frame.GetMethod().Name.Substring("get_".Length);
 		}
 
 		private bool isUnwrapping = false;

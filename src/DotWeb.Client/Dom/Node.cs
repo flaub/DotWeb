@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 
 namespace DotWeb.Client.Dom
 {

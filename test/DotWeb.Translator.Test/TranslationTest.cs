@@ -24,7 +24,8 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class TranslationTest : TranslationTestHelper<TranslationTest>
 	{
-		public TranslationTest() : base(Resources.TranslationTest_Source) {
+		public TranslationTest()
+			: base("DotWeb.Translator.Test.Script.dll", Resources.TranslationTest) {
 			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.SourceTests");
 		}
 

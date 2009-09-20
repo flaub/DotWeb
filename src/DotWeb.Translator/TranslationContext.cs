@@ -118,20 +118,23 @@ namespace DotWeb.Translator
 			foreach (var method in type.GetMethods(BindingFlagsForMembers)) {
 				var ap = method.GetAssociatedProperty();
 				if (ap == null) {
-					throw new InvalidAnonymousUsageException(type);
+					// FIXME: exceptions
+					//throw new InvalidAnonymousUsageException(type);
 				}
 
 				var cmm = Parse(method);
 				if (ap.IsGetter) {
 					var getter = (CodePropertyGetterMember)cmm;
 					if (!getter.IsAutoImplemented()) {
-						throw new InvalidAnonymousUsageException(type);
+						// FIXME: exceptions
+						//throw new InvalidAnonymousUsageException(type);
 					}
 				}
 				else {
 					var setter = (CodePropertySetterMember)cmm;
 					if (!setter.IsAutoImplemented()) {
-						throw new InvalidAnonymousUsageException(type);
+						// FIXME: exceptions
+						//throw new InvalidAnonymousUsageException(type);
 					}
 				}
 			}
@@ -165,9 +168,6 @@ namespace DotWeb.Translator
 		}
 
 		private bool IsEmittable(MethodBase method) {
-			if (method.HasJsInlineCode())
-				return false;
-
 			var type = method.DeclaringType;
 			return IsEmittable(type);
 		}

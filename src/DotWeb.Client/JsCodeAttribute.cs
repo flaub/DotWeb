@@ -28,14 +28,4 @@ namespace DotWeb.Client
 			this.Code = code;
 		}
 	}
-
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-	public class JsInlineCodeAttribute : Attribute
-	{
-		public string Code { get; private set; }
-
-		public JsInlineCodeAttribute(string code) {
-			this.Code = code;
-		}
-	}
 }

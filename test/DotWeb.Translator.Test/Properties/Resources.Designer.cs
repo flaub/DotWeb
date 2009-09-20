@@ -61,31 +61,50 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
+        /////
+        ///// This file is part of DotWeb.
+        /////
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        /////
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecorationTest {
+            get {
+                return ResourceManager.GetString("DecorationTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
         ///
-        ///DefaultNamespaceTest = function() {
+        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///
+        ///DotWeb.Client.JsScript = function() {
         ///};
         ///
-        ///DefaultNamespaceTest.prototype.$ctor = function() {
-        ///	return this;
+        ///DotWeb.Client.JsScript.prototype.get_Window = function() {
+        ///	return $wnd;
         ///};
         ///
-        ///DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
-        ///	this._Value_k__BackingField = value;
+        ///DotWeb.Client.JsRuntime = function() {
         ///};
         ///
-        ///Foo.FooNamespaceTest = function() {
+        ///DotWeb.Client.JsRuntime.Cast = function(obj /*System.Object*/) {
+        ///	return obj;
         ///};
         ///
-        ///Foo.FooNamespaceTest.prototype.$ctor = function() {
-        ///	return this;
-        ///};
+        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
         ///
-        ///DefaultNamespaceTest.prototype.get_Value = function() {
-        ///	return this._Value_k__BackingField;
+        ///H8.DecorationTests = function() {
+        ///	this.$super.constructor();
         ///};
-        ///
-        ///Foo.FooName [rest of string was truncated]&quot;;.
+        ///H8.DecorationTests.$extend(Dot [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_CastInterface {
             get {
@@ -94,10 +113,19 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
+        ///
+        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///
+        ///DotWeb.Client.JsScript = function() {
+        ///};
+        ///
+        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
         ///
         ///H8.DecorationTests = function() {
+        ///	this.$super.constructor();
         ///};
+        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
         ///
         ///H8.DecorationTests.prototype.TestJsAnonymous = function() {
         ///	var loc3 = {};
@@ -107,19 +135,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	loc0.X = loc0.y;
         ///	loc0.y = loc0.X;
         ///	var loc6 = [];
-        ///	var loc4 = {};
-        ///	loc4.X = 0;
-        ///	loc4.y = 0;
-        ///	loc6[0] = loc4;
-        ///	var loc5 = {};
-        ///	loc5.X = 1;
-        ///	loc5.y = 1;
-        ///	loc6[1] = loc5;
-        ///	var loc1 = loc6;
-        ///	var loc2 = loc1[0];
-        ///	console.log(loc2);
-        ///};
-        ///.
+        ///	var loc [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsAnonymous {
             get {
@@ -149,16 +165,20 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///H8.DecorationTests = function() {
+        ///if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
+        ///
+        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///
+        ///DotWeb.Client.JsScript = function() {
         ///};
         ///
-        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
-        ///	var loc1 = new H8.IntrinsicClass().$ctor();
-        ///	loc1.Value = 1;
-        ///	var loc0 = loc1;
-        ///	System.Console.Write(loc0.Value);
+        ///H8.DecorationTests = function() {
+        ///	this.$super.constructor();
         ///};
-        ///.
+        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
+        ///
+        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
+        ///	var loc1 = new  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsIntrinsic {
             get {
@@ -213,29 +233,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DecorationTest_Source {
+        internal static string NativeTest {
             get {
-                return ResourceManager.GetString("DecorationTest_Source", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
-        /////
-        ///// This file is part of DotWeb.
-        /////
-        ///// DotWeb is free software: you can redistribute it and/or modify
-        ///// it under the terms of the GNU General Public License as published by
-        ///// the Free Software Foundation, either version 3 of the License, or
-        ///// (at your option) any later version.
-        /////
-        ///// DotWeb is distributed in the hope that it will be useful,
-        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string NativeTest_Source {
-            get {
-                return ResourceManager.GetString("NativeTest_Source", resourceCulture);
+                return ResourceManager.GetString("NativeTest", resourceCulture);
             }
         }
         
@@ -748,9 +748,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TranslationTest_Source {
+        internal static string TranslationTest {
             get {
-                return ResourceManager.GetString("TranslationTest_Source", resourceCulture);
+                return ResourceManager.GetString("TranslationTest", resourceCulture);
             }
         }
     }

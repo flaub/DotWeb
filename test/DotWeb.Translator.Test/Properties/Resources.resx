@@ -133,12 +133,6 @@
   <data name="DecorationTest_JsNamespace" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\decorationtest\decorationtest_jsnamespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="DecorationTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\decorationtest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="NativeTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\nativetest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="NativeTest_TestTuple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\nativetest\nativetest_testtuple.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -205,7 +199,13 @@
   <data name="SourceTests_WhileLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_whileloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="TranslationTest_Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\translationtest_source.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="DecorationTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Script\DecorationTest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="NativeTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Script\NativeTest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TranslationTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Script\TranslationTest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

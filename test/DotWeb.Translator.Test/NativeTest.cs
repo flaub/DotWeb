@@ -25,7 +25,7 @@ namespace DotWeb.Translator.Test
 	public class NativeTest : TranslationTestHelper<NativeTest>
 	{
 		public NativeTest()
-			: base(Resources.NativeTest_Source) {
+			: base("DotWeb.Translator.Test.Script", Resources.NativeTest) {
 			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.NativeTest");
 		}
 
