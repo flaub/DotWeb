@@ -19,36 +19,18 @@ namespace DotWeb.Client
 {
 	public class JsDynamicBase
 	{
-		public JsDynamicBase() {
-//			this.Properties = new Dictionary<string, object>();
-		}
-
-//		public Dictionary<string, object> Properties { get; set; }
-
 		public object this[string name]
 		{
 			get { return JsHost.GetDynamicProperty(this, name); }
 			set { JsHost.SetDynamicProperty(this, name, value); }
-//			get{ return this.Properties[name]; }
-//			set{ this.Properties[name] = value; }
 		}
 
 		protected void _(object value) {
-//			StackFrame frame = new StackFrame(1);
-//			string name = GetPropertyName(frame);
-//			this[name] = value;
-			JsHost.SetImplicitDynamicProperty(this, value);
+			JsHost.SetImplicitDynamicProperty(this, 1, value);
 		}
 
 		protected R _<R>() {
-//			StackFrame frame = new StackFrame(1);
-//			string name = GetPropertyName(frame);
-//			return (R)this[name];
-			return (R)JsHost.GetImplicitDynamicProperty(this);
+			return (R)JsHost.GetImplicitDynamicProperty(this, 1);
 		}
-
-//		private string GetPropertyName(StackFrame frame) {
-//			return frame.GetMethod().Name.Substring("get_".Length);
-//		}
 	}
 }

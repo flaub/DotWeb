@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
+using DotWeb.Utility;
 
 namespace DotWeb.Hoister
 {

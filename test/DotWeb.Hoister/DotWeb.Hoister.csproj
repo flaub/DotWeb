@@ -41,9 +41,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DotWeb.Runtime\DotWeb.Runtime.csproj">
-      <Project>{214AEF3A-77F6-4207-A0EB-CB543189E1C3}</Project>
-      <Name>DotWeb.Runtime</Name>
+    <ProjectReference Include="..\..\src\DotWeb.Utility\DotWeb.Utility.csproj">
+      <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>
+      <Name>DotWeb.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mono.Cecil\Mono.Cecil.csproj">
       <Project>{3EC06433-F168-4C5B-A885-99CE4AB617E1}</Project>

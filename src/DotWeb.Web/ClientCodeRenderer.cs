@@ -25,19 +25,18 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Configuration;
 using System.Web.UI;
-using DotWeb.Client;
-using DotWeb.Hosting;
-using DotWeb.Hosting.Bridge;
 using DotWeb.Translator;
 using DotWeb.Web.Properties;
 using System.Runtime.Remoting.Messaging;
+using DotWeb.Runtime;
+using System.Reflection;
 
 namespace DotWeb.Web
 {
 	public class ClientCodeRenderer
 	{
 		private const string DotWebMimeType = "application/x-dotweb";
-		private const string DotWebTcpListenerKey = "DotWeb.TcpListener";
+		private const string DotWebHostedMode = "DotWeb.HostedMode";
 		private readonly IHttpContext context;
 		private readonly bool isDebug;
 
@@ -109,46 +108,6 @@ namespace DotWeb.Web
 			return src;
 		}
 
-		class CallContextStorage : IJsHostStorage
-		{
-			private const string JsHostName = "JsHost";
-
-			public CallContextStorage(IJsHost host) {
-				CallContext.SetData(JsHostName, host);
-			}
-
-			public IJsHost Host {
-				get { 
-					var host = CallContext.GetData(JsHostName) as IJsHost;
-					if (host == null) {
-						Debugger.Log(0, "DotWeb", "Lost my mind");
-						Debugger.Break();
-					}
-					return host;
-				}
-			}
-		}
-
-		private void OnAccept(IAsyncResult ar) {
-			var listener = (TcpListener) ar.AsyncState;
-			TcpClient tcp = listener.EndAcceptTcpClient(ar);
-			NetworkStream stream = tcp.GetStream();
-			try {
-				listener.BeginAcceptTcpClient(OnAccept, listener);
-				var session = new RemoteSession(stream);
-				var factory = new DefaultFactory();
-				var bridge = new JsBridge(session, factory);
-				JsHost.Storage = new CallContextStorage(bridge);
-				bridge.DispatchForever();
-			}
-			catch (Exception ex) {
-				Debug.WriteLine(ex);
-				stream.Close();
-			}
-
-			tcp.Close();
-		}
-
 		public void Render(HtmlTextWriter writer) {
 			if (Mode == "Hosted") {
 				RenderHostedMode(writer);
@@ -164,14 +123,17 @@ namespace DotWeb.Web
 		private void RenderHostedMode(HtmlTextWriter writer) {
 			var cookie = new HttpCookie("X-DotWeb");
 			context.AddCookie(cookie);
-			var listener = context.GetApplicationState(DotWebTcpListenerKey) as TcpListener;
-			if (listener == null) {
-				listener = new TcpListener(IPAddress.Loopback, 0);
-				listener.Start();
-				context.SetApplicationState(DotWebTcpListenerKey, listener);
-				listener.BeginAcceptTcpClient(OnAccept, listener);
+
+			var hostedMode = context.GetApplicationState(DotWebHostedMode) as HostedMode;
+			if (hostedMode == null) {
+				var binPath = context.MapPath("/bin");
+				hostedMode = new HostedMode(binPath);
+				context.SetApplicationState(DotWebHostedMode, hostedMode);
+				hostedMode.Start();
 			}
-			var ip = (IPEndPoint) listener.LocalEndpoint;
+
+			var ip = hostedMode.EndPoint;
+			var src = hostedMode.PrepareType(Source);
 
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
@@ -183,7 +145,7 @@ namespace DotWeb.Web
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
 
 			writer.WriteLine(Resources.JsHelper);
-			string js = string.Format(Resources.HostedEntry, ip.Port, Source);
+			string js = string.Format(Resources.HostedEntry, ip.Port, src);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();
@@ -199,7 +161,7 @@ namespace DotWeb.Web
 				src = Translate();
 			}
 
-			//			string js = string.Format(Resources.WebEntry, typeName);
+			//string js = string.Format(Resources.WebEntry, typeName);
 
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
 			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);

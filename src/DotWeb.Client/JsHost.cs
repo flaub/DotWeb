@@ -74,12 +74,12 @@ namespace DotWeb.Client
 			return Instance.Cast<T>(obj);
 		}
 
-		public static object GetImplicitDynamicProperty(JsDynamicBase obj) {
-			return Instance.GetImplicitDynamicProperty(obj, 1);
+		public static object GetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth) {
+			return Instance.GetImplicitDynamicProperty(obj, stackDepth + 1);
 		}
 
-		public static void SetImplicitDynamicProperty(JsDynamicBase obj, object value) {
-			Instance.SetImplicitDynamicProperty(obj, 1, value);
+		public static void SetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth, object value) {
+			Instance.SetImplicitDynamicProperty(obj, stackDepth + 1, value);
 		}
 
 		public static object GetDynamicProperty(JsDynamicBase obj, string propertyName) {

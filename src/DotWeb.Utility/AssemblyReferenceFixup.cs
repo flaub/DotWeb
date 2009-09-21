@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Mono.Cecil;
 using System.IO;
+using System.Reflection;
 
-namespace DotWeb.Hoister
+namespace DotWeb.Utility
 {
 	static class AssemblyNameReferenceExtensions
 	{
@@ -27,7 +28,6 @@ namespace DotWeb.Hoister
 
 		private string outputPath;
 		private AssemblyNameReference mscorlibRef;
-		private IAssemblyResolver resolver = new DefaultAssemblyResolver();
 
 		public AssemblyReferenceFixup(string outputPath) {
 			this.outputPath = outputPath;
@@ -67,19 +67,44 @@ namespace DotWeb.Hoister
 				return ret;
 			}
 
-			var asm = this.resolver.Resolve(assemblyName);
+			string srcPath = Path.Combine(this.outputPath, assemblyName + DllSuffix);
+			if (!File.Exists(srcPath)) {
+				// assume it's a system/gac assembly
+				ret = AssemblyNameReference.Parse(assemblyName);
+				if (cache != null) {
+					cache.Add(assemblyName, ret);
+				}
+				return ret;
+			}
+
+			var asm = AssemblyFactory.GetAssembly(srcPath);
+
 			ret = asm.Name;
 
-			bool dirty = FixupAssemblyReferences(asm.MainModule.AssemblyReferences, cache);
-			if (dirty) {
-				string altName = Prefix + ret.Name;
-				ret.Name = altName;
+			string altName = Prefix + ret.Name;
+			var filename = altName + DllSuffix;
+			string tgtPath = Path.Combine(this.outputPath, filename);
 
-				var filename = altName + DllSuffix;
-				string path = Path.Combine(this.outputPath, filename);
+			// check to see if the target already exists
+			bool doAnalysis = true;
+			if (File.Exists(tgtPath)) {
+				var dtSource = File.GetLastWriteTime(srcPath);
+				var dtTarget = File.GetLastWriteTime(tgtPath);
 
-				//asm.MainModule.SaveSymbols(this.outputPath);
-				AssemblyFactory.SaveAssembly(asm, path);
+				// only analyze the source if source is newer
+				if (dtSource < dtTarget) {
+					ret.Name = altName;
+					doAnalysis = false;
+				}
+			}
+
+			if (doAnalysis) {
+				bool dirty = FixupAssemblyReferences(asm.MainModule.AssemblyReferences, cache);
+				if (dirty) {
+					ret.Name = altName;
+					//asm.MainModule.SaveSymbols(this.outputPath);
+					AssemblyFactory.SaveAssembly(asm, tgtPath);
+				}
 			}
 
 			if (cache != null) {
