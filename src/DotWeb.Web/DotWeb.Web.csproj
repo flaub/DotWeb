@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\build\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,16 +32,13 @@
     <DocumentationFile>bin\Release\DotWeb.Web.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hosted-DotWeb.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientCode.cs" />
@@ -56,10 +53,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
-      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
-      <Name>DotWeb.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
       <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>
       <Name>DotWeb.Hosting.Bridge</Name>
@@ -67,11 +60,6 @@
     <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DotWeb.System\DotWeb.System.csproj">
-      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
-      <Name>DotWeb.System</Name>
-      <Aliases>dw</Aliases>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Translator\DotWeb.Translator.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>

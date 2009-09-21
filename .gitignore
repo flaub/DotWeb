@@ -8,3 +8,4 @@ obj
 [Rr]elease
 TestResult.xml
 _ReSharper.*
+tools/*.pdb

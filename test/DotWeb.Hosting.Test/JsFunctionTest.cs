@@ -21,13 +21,13 @@ using DotWeb.Client;
 using DotWeb.Hosting.Bridge;
 using NUnit.Framework;
 using DotWeb.Hosting.Test.Script;
+using System.IO;
 
 namespace DotWeb.Hosting.Test
 {
 	[TestFixture]
 	public class JsFunctionTest
 	{
-
 		private void AssertJsFunction(JsFunction function, string name, string parameters, string body) {
 			Assert.AreEqual(name, function.Name);
 			Assert.AreEqual(parameters, function.Parameters);
@@ -52,21 +52,21 @@ namespace DotWeb.Hosting.Test
 		public void TestConstructor() {
 			RunTest(
 				typeof (CrashTestDummy).GetConstructor(Type.EmptyTypes),
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$$ctor$0",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$$ctor$0",
 				"",
-				"return new DotWeb.Hosting.Test.JsFunctionTest+CrashTestDummy();");
+				"return new DotWeb.Hosting.Test.Script.CrashTestDummy();");
 			RunTest(
 				typeof (CrashTestDummy).GetConstructor(new[] {typeof (int)}),
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$$ctor$1",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$$ctor$1",
 				"x",
-				"return new DotWeb.Hosting.Test.JsFunctionTest+CrashTestDummy(x);");
+				"return new DotWeb.Hosting.Test.Script.CrashTestDummy(x);");
 		}
 
 		[Test]
 		public void TestJsCode() {
 			RunTest(
 				"TestJsCode",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestJsCode",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsCode",
 				"",
 				CrashTestDummy.JsCode);
 		}
@@ -75,19 +75,19 @@ namespace DotWeb.Hosting.Test
 		public void TestJsNamespace() {
 			RunTest(
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
 				typeof (DefaultNamesapce),
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_JsFunctionTest$DefaultNamesapce$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_DefaultNamesapce$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
 				typeof (FooNamesapce),
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_JsFunctionTest$FooNamesapce$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_FooNamesapce$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 		}
@@ -96,7 +96,7 @@ namespace DotWeb.Hosting.Test
 		public void TestMethod() {
 			RunTest(
 				"TestMethod",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestMethod",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestMethod",
 				"",
 				"return this.TestMethod();");
 		}
@@ -105,17 +105,17 @@ namespace DotWeb.Hosting.Test
 		public void TestParameters() {
 			RunTest(
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
 				"TestOneArg",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestOneArg",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestOneArg",
 				"x",
 				"return this.TestOneArg(x);");
 			RunTest(
 				"TestTwoArgs",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestTwoArgs",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestTwoArgs",
 				"x, y",
 				"return this.TestTwoArgs(x, y);");
 		}
@@ -124,7 +124,7 @@ namespace DotWeb.Hosting.Test
 		public void TestPropertyGetter() {
 			RunTest(
 				"get_TestProperty",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$get_TestProperty",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$get_TestProperty",
 				"",
 				"return this.TestProperty;");
 		}
@@ -133,7 +133,7 @@ namespace DotWeb.Hosting.Test
 		public void TestPropertySetter() {
 			RunTest(
 				"set_TestProperty",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$set_TestProperty",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$set_TestProperty",
 				"value",
 				"this.TestProperty = value;");
 		}
@@ -142,9 +142,9 @@ namespace DotWeb.Hosting.Test
 		public void TestStaticMethod() {
 			RunTest(
 				"TestStatic",
-				"__DotWeb_Hosting_Test_JsFunctionTest$CrashTestDummy$TestStatic",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestStatic",
 				"",
-				"return DotWeb.Hosting.Test.JsFunctionTest+CrashTestDummy.TestStatic();");
+				"return DotWeb.Hosting.Test.Script.CrashTestDummy.TestStatic();");
 		}
 	}
 }

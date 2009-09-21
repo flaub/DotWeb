@@ -21,9 +21,11 @@ using DotWeb.Client;
 using DotWeb.Client.Dom;
 using DotWeb.Client.Dom.Html;
 using DotWeb.Hosting.Bridge;
-using DotWeb.Hosting.Test.Bridge;
 using NUnit.Framework;
 using Rhino.Mocks;
+using System.Reflection;
+using System.IO;
+using System.Runtime.Remoting;
 using DotWeb.Hosting.Test.Script;
 
 namespace DotWeb.Hosting.Test
@@ -79,8 +81,8 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestDelegateWrapper() {
-			//			var ctor = NativeObject.Constructor;
-			//			NativeObject.TakeObject(ctor);
+			//var ctor = NativeObject.Constructor;
+			//NativeObject.TakeObject(ctor);
 
 			int remoteId = 0;
 			CachingObjectFactory factory = new CachingObjectFactory();

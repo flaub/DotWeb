@@ -61,8 +61,8 @@ namespace DotWeb.Decompiler
 		//    return CompileFile(filename, startingReference).GetType(typeName);
 		//}
 
-		public Assembly CompileSource(string source, Assembly startingReference) {
-			return DoCompile(source, GetReferences(startingReference), false).CompiledAssembly;
+		public CompilerResults CompileSource(string source, Assembly startingReference) {
+			return DoCompile(source, GetReferences(startingReference), false);
 		}
 
 		//public Type CompileSource(string source, Assembly startingReference, string typeName) {
@@ -71,7 +71,7 @@ namespace DotWeb.Decompiler
 
 		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile) {
 			CompilerParameters options = new CompilerParameters {
-				GenerateInMemory = true,
+//				GenerateInMemory = true,
 				CompilerOptions = "/nostdlib"
 			};
 

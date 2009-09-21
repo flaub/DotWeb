@@ -21,11 +21,11 @@ namespace DotWeb.Client
 {
 	public interface IJsHost
 	{
-		object InvokeRemoteMethod(JsObject scope, params object[] args);
+		object InvokeRemoteMethod(JsObject scope, int stackDepth, params object[] args);
 		T Cast<T>(object obj);
 
-		object GetImplicitDynamicProperty(JsDynamicBase obj);
-		void SetImplicitDynamicProperty(JsDynamicBase obj, object value);
+		object GetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth);
+		void SetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth, object value);
 
 		object GetDynamicProperty(JsDynamicBase obj, string name);
 		void SetDynamicProperty(JsDynamicBase obj, string propertyName, object value);
@@ -47,19 +47,27 @@ namespace DotWeb.Client
 		}
 
 		public static R Invoke<R>(JsObject scope, params object[] args) {
-			object ret = Invoke(scope, args);
+			return InternalInvoke<R>(scope, 1, args);
+		}
+
+		public static void Invoke(JsObject scope, params object[] args) {
+			InternalInvoke(scope, 1, args);
+		}
+
+		internal static R InternalInvoke<R>(JsObject scope, int stackDepth, params object[] args) {
+			object ret = InternalInvoke(scope, stackDepth + 1, args);
 			if (ret == null)
 				return default(R);
 			return (R)ret;
 		}
 
-		public static object Invoke(JsObject scope, params object[] args) {
+		internal static object InternalInvoke(JsObject scope, int stackDepth, params object[] args) {
 			//Debug.WriteLine(string.Format(
 			//    "Execute: {0}, {1}, {2}",
 			//    method,
 			//    scope,
 			//    args));
-			return Instance.InvokeRemoteMethod(scope, args);
+			return Instance.InvokeRemoteMethod(scope, stackDepth + 1, args);
 		}
 
 		public static T Cast<T>(object obj) {
@@ -67,11 +75,11 @@ namespace DotWeb.Client
 		}
 
 		public static object GetImplicitDynamicProperty(JsDynamicBase obj) {
-			return Instance.GetImplicitDynamicProperty(obj);
+			return Instance.GetImplicitDynamicProperty(obj, 1);
 		}
 
 		public static void SetImplicitDynamicProperty(JsDynamicBase obj, object value) {
-			Instance.SetImplicitDynamicProperty(obj, value);
+			Instance.SetImplicitDynamicProperty(obj, 1, value);
 		}
 
 		public static object GetDynamicProperty(JsDynamicBase obj, string propertyName) {

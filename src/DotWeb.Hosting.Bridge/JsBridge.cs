@@ -71,14 +71,14 @@ namespace DotWeb.Hosting.Bridge
 				if (ret.IsJsObject) {
 					var jne = new JsNativeException();
 					AddRemoteReference(jne, ret.RefId);
-//					throw new JsException(jne);
+					throw new Exception("JsException");
 				}
 
 				if (retMsg.Value.IsObject) {
 					object obj = this.refToObj[ret.RefId];
-//					throw new JsException(obj.ToString());
+					throw (Exception)obj;
 				}
-//				throw new JsException(ret.Object.ToString());
+				throw new Exception(ret.Object.ToString());
 			}
 			return ret;
 		}
@@ -426,13 +426,22 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		object IJsHost.InvokeRemoteMethod(JsObject scope, params object[] args) {
+		object IJsHost.InvokeRemoteMethod(JsObject scope, int stackDepth, params object[] args) {
 			if (isUnwrapping) {
 				return null;
 			}
 			
-			StackFrame frame = new StackFrame(2);
+			StackFrame frame = new StackFrame(stackDepth + 1);
 			var method = frame.GetMethod();
+
+			if (method.IsConstructor) {
+				StackFrame previous = new StackFrame(stackDepth + 2);
+				// this prevents ctors from being called twice
+				// we only want the derived class's ctor to execute, not any bases
+				if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
+					return null;
+				}
+			}
 
 			return InvokeRemoteMethod(method, scope, args);
 		}
@@ -447,14 +456,14 @@ namespace DotWeb.Hosting.Bridge
 
 		private DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
 
-		public object GetImplicitDynamicProperty(JsDynamicBase obj) {
-			StackFrame frame = new StackFrame(2);
+		public object GetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth) {
+			StackFrame frame = new StackFrame(stackDepth + 1);
 			string name = GetPropertyName(frame);
 			return GetDynamicProperty(obj, name);
 		}
 
-		public void SetImplicitDynamicProperty(JsDynamicBase obj, object value) {
-			StackFrame frame = new StackFrame(2);
+		public void SetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth, object value) {
+			StackFrame frame = new StackFrame(stackDepth + 1);
 			string name = GetPropertyName(frame);
 			SetDynamicProperty(obj, name, value);
 		}

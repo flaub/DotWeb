@@ -26,6 +26,8 @@ namespace DotWeb.Translator.Test
 	{
 		public TranslationTest()
 			: base("DotWeb.Translator.Test.Script.dll", Resources.TranslationTest) {
+			var type = this.CompiledAssemblyDef.MainModule.Types["H8.SourceTests"];
+//			var types = this.CompiledAssembly.GetTypes();
 			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.SourceTests");
 		}
 

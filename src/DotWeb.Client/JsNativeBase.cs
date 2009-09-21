@@ -29,42 +29,24 @@ namespace DotWeb.Client
 	/// </summary>
 	public abstract class JsNativeBase : JsObject
 	{
-//		private abstract class VoidReturn { }
-
 		protected void C_(params object[] args) {
-			//StackFrame previous = new StackFrame(2);
-			//// this prevents ctors from being called twice
-			//// we only want the derived class's ctor to execute, not any bases
-			//if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
-			//    return;
-			//}
-			//StackFrame frame = new StackFrame(1);
-			//JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
-			JsHost.Invoke(this, args);
+			JsHost.InternalInvoke(this, 1, args);
 		}
 
 		protected void _(params object[] args) {
-//			StackFrame frame = new StackFrame(1);
-//			JsHost.Execute<VoidReturn>(frame.GetMethod(), this, args);
-			JsHost.Invoke(this, args);
+			JsHost.InternalInvoke(this, 1, args);
 		}
 
 		protected R _<R>(params object[] args) {
-//			StackFrame frame = new StackFrame(1);
-//			return JsHost.Execute<R>(frame.GetMethod(), this, args);
-			return JsHost.Invoke<R>(this, args);
+			return JsHost.InternalInvoke<R>(this, 1, args);
 		}
 
 		protected static void S_(params object[] args) {
-//			StackFrame frame = new StackFrame(1);
-//			JsHost.Execute<VoidReturn>(frame.GetMethod(), null, args);
-			JsHost.Invoke(null, args);
+			JsHost.InternalInvoke(null, 1, args);
 		}
 
 		protected static R S_<R>(params object[] args) {
-//			StackFrame frame = new StackFrame(1);
-//			return JsHost.Execute<R>(frame.GetMethod(), null, args);
-			return JsHost.Invoke<R>(null, args);
+			return JsHost.InternalInvoke<R>(null, 1, args);
 		}
 	}
 }

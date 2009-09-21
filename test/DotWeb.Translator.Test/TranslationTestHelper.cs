@@ -21,18 +21,23 @@ using System.IO;
 using DotWeb.Translator.Generator.JavaScript;
 using DotWeb.Decompiler;
 using NUnit.Framework;
+using Mono.Cecil;
 
 namespace DotWeb.Translator.Test
 {
 	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
 	{
+		protected AssemblyDefinition CompiledAssemblyDef;
+
 		protected TranslationTestHelper(string assName, string src) {
 			if (cachedAssembly == null) {
 				var compiler = new CSharpCompiler();
 				//var ass = Assembly.GetAssembly(assType);
 				var ass = Assembly.LoadFrom(assName);
-				this.CompiledAssembly = compiler.CompileSource(src, ass);
-				cachedAssembly = this.CompiledAssembly;
+				var result = compiler.CompileSource(src, ass);
+				this.CompiledAssemblyDef = AssemblyFactory.GetAssembly(result.PathToAssembly);
+				//this.CompiledAssembly = compiler.CompileSource(src, ass);
+				//cachedAssembly = this.CompiledAssembly;
 			}
 			else {
 				this.CompiledAssembly = cachedAssembly;
