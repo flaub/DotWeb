@@ -1,5 +1,4 @@
-﻿
-namespace System
+﻿namespace DotWeb.System
 {
 	public class String
 	{

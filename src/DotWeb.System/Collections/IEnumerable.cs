@@ -1,5 +1,5 @@
 ﻿
-namespace System.Collections
+namespace DotWeb.System.Collections
 {
 	public interface IEnumerable
 	{

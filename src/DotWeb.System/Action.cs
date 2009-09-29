@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace DotWeb.System
 {
 	public delegate void Action();
 	public delegate void Action<T>(T obj);

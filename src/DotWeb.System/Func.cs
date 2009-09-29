@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace DotWeb.System
 {
 	public delegate R Func<R>();
 	public delegate R Func<R, T>(T obj);

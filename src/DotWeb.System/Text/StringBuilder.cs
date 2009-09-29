@@ -1,4 +1,4 @@
-﻿namespace System.Text
+﻿namespace DotWeb.System.Text
 {
 	public class StringBuilder
 	{

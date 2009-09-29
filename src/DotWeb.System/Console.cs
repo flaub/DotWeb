@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace DotWeb.System
 {
 	public static class Console
 	{

@@ -1,4 +1,6 @@
-namespace System.Reflection
+using DotWeb.System;
+
+namespace System.System.Reflection
 {
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
 	public class DefaultMemberAttribute : Attribute

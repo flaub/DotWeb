@@ -1,4 +1,4 @@
-﻿namespace System.Runtime.CompilerServices
+﻿namespace DotWeb.System.Runtime.CompilerServices
 {
 	public static class RuntimeHelpers
 	{

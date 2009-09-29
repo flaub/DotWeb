@@ -1,0 +1,75 @@
+mscorlib:
+
+YES (required):
+System
+	ValueTypes (byte, bool, char, short, int, long, float, double, void, IntPtr)
+	Object
+	Type
+	String
+	Math
+	Action, Func
+	Array
+	Attribute
+	Delegate
+	Console
+	Enum
+	Exception
+System.Reflection
+	(Assembly attributes)
+System.Text
+	StringBuilder
+System.Runtime.CompilerServices
+	RuntimeHelpers
+System.Runtime.InteropServices
+	[ComVisible], [Guid], [Out]
+	
+YES near-term:
+System.Collections
+System.Collections.Generic
+System.Collections.ObjectModel
+System.IO
+
+Definately NO:
+Microsoft.Win32
+System.Configuration.Assemblies
+System.Deployment.Internal
+System.Diagnostics.SymbolStore
+System.Runtime
+System.Runtime.CompilerServices
+System.Runtime.ConstrainedExecution
+System.Runtime.Hosting
+System.Runtime.InteropServices
+System.Runtime.InteropServices.ComTypes
+System.Runtime.InteropServices.Expando
+System.Runtime.Versioning
+
+Probably NO:
+System.Security
+System.Security.AccessControl
+System.Security.Cryptography
+System.Security.Cryptography.X509Certificates
+System.Security.Permissions
+System.Security.Policy
+System.Security.Principal
+System.Threading
+
+Probably NO for awhile:
+System.Reflection
+System.Resources
+System.Reflection.Emit
+
+YES someday:
+System.IO.IsolatedStorage
+System.Runtime.Remoting
+System.Runtime.Remoting.Activation
+System.Runtime.Remoting.Channels
+System.Runtime.Remoting.Contexts
+System.Runtime.Remoting.Lifetime
+System.Runtime.Remoting.Messaging
+System.Runtime.Remoting.Metadata
+System.Runtime.Remoting.Proxies
+System.Runtime.Remoting.Services
+System.Runtime.Serialization
+System.Runtime.Serialization.Formatters
+System.Runtime.Serialization.Formatters.Binary
+
