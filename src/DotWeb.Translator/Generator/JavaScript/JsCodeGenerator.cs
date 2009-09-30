@@ -375,7 +375,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void WriteNamespaceDecl(CodeNamespace ns) {
 			if (!string.IsNullOrEmpty(ns.Name)) {
-				WriteLine("if(typeof({0}) == 'undefined') {0} = {{}};", ns.Name);
+//				WriteLine("if(typeof({0}) == 'undefined') {0} = {{}};", ns.Name);
+				WriteLine("$Namespace('{0}');", ns.Name);
 				WriteLine();
 			}
 		}

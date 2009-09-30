@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hosted-DotWeb.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\bin\Debug\Hosted-DotWeb.Client.dll</HintPath>
+      <HintPath>..\..\Depends\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\test\Mono.Cecil\Mono.Cecil.csproj">
-      <Project>{3EC06433-F168-4C5B-A885-99CE4AB617E1}</Project>
-      <Name>Mono.Cecil</Name>
+    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
+      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
+      <Name>DotWeb.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
       <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>

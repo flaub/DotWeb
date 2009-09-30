@@ -41,7 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Depends\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include="Hosted-DotWeb.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -62,6 +61,10 @@
     <Compile Include="TypeInspector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
+      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
+      <Name>DotWeb.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>

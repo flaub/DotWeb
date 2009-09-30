@@ -27,19 +27,13 @@ using DotWeb.Decompiler.CodeModel;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
-	class TypeMap : Dictionary<Type, string> { }
-	class MethodMap : Dictionary<string, string> { }
-
 	class JsPrinter : ICodeExpressionVisitor<string>
 	{
 		public const string CtorMethodName = "$ctor";
 		private const string LocalVarPrefix = "loc";
-		private TypeMap typeMap = new TypeMap();
-		private MethodMap methodMap = new MethodMap();
 		public MethodBase CurrentMethod { get; set; }
 
 		public JsPrinter() {
-			methodMap.Add("System.Console.WriteLine", "console.log");
 		}
 
 		#region Operators
@@ -238,9 +232,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeMethodReference exp) {
 			string ret = string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Info.Name));
-			string alt;
-			if (methodMap.TryGetValue(ret, out alt))
-				return alt;
+			//string alt;
+			//if (methodMap.TryGetValue(ret, out alt))
+			//    return alt;
 			return ret;
 		}
 

@@ -27,8 +27,8 @@ using DotWeb.Decompiler;
 
 namespace DotWeb.Translator
 {
-	class CodeNamespaceCollection : Dictionary<string, CodeNamespace> { }
-	class CodeTypeDeclarationCollection : Dictionary<string, CodeTypeDeclaration> { }
+	using CodeNamespaceCollection = Dictionary<string, CodeNamespace>;
+	using CodeTypeDeclarationCollection = Dictionary<string, CodeTypeDeclaration>;
 
 	public class TranslationContext
 	{
@@ -49,6 +49,12 @@ namespace DotWeb.Translator
 		}
 
 		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache, List<string> namespaceCache) {
+			var type = method.DeclaringType;
+			if (type.FullName.StartsWith("System")) {
+				var newTypeName = "DotWeb." + type.FullName;
+				type = Type.GetType(newTypeName);
+			}
+
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
 				if (IsEmittable(external)) {
@@ -58,7 +64,7 @@ namespace DotWeb.Translator
 				}
 			}
 
-			var type = parsedMethod.Info.DeclaringType;
+			//var type = parsedMethod.Info.DeclaringType;
 			GenerateTypeDecl(type, typesCache, namespaceCache);
 
 			this.generator.Write(parsedMethod);
@@ -92,7 +98,12 @@ namespace DotWeb.Translator
 				}
 
 				if (type.Namespace != null) {
-					GenerateNamespace(type.Namespace, namespaceCache);
+					//GenerateNamespace(type.Namespace, namespaceCache);
+					if (!namespaceCache.Contains(type.Namespace)) {
+						CodeNamespace ns = new CodeNamespace { Name = type.Namespace };
+						this.generator.WriteNamespaceDecl(ns);
+						namespaceCache.Add(type.Namespace);
+					}
 				}
 				this.generator.WriteTypeConstructor(type);
 				typesCache.Add(type);
@@ -142,8 +153,8 @@ namespace DotWeb.Translator
 
 		private bool IsEmittable(Type type) {
 			// FIXME: need a better way to filter out mscorlib, et. al.
-			if (type.Namespace != null && type.Namespace.StartsWith("System"))
-				return false;
+//			if (type.Namespace != null && type.Namespace.StartsWith("System"))
+//				return false;
 
 			if (type.IsInterface)
 				return false;

@@ -53,12 +53,12 @@ namespace DotWeb.Runtime
 			string asmName = parts[1].Trim();
 
 			var fixup = new AssemblyReferenceFixup(this.binPath);
-			var altName = fixup.FixupReferences(asmName, true);
+			var altName = fixup.FixupReferences(asmName, false);
 
 			var ret = string.Format("{0}, {1}", typeName, altName.Name);
 			return ret;
 		}
-
+		
 		public void Start() {
 			this.listener.Start();
 			this.listener.BeginAcceptTcpClient(OnAccept, listener);

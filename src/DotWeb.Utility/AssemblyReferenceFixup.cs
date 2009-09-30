@@ -14,8 +14,8 @@ namespace DotWeb.Utility
 			tgt.Hash = src.Hash;
 			tgt.HashAlgorithm = src.HashAlgorithm;
 			tgt.Name = src.Name;
-			tgt.PublicKeyToken = src.PublicKeyToken;
 			tgt.PublicKey = src.PublicKey;
+			tgt.PublicKeyToken = src.PublicKeyToken;
 			tgt.Version = src.Version;
 		}
 	}
@@ -51,6 +51,24 @@ namespace DotWeb.Utility
 				}
 			}
 			return dirty;
+		}
+
+		public void FixupReferences(string assemblyPath) {
+			string filename = Path.GetFileName(assemblyPath);
+			string tgtPath = Path.Combine(this.outputPath, filename);
+
+			var asm = AssemblyFactory.GetAssembly(assemblyPath);
+			asm.MainModule.LoadSymbols();
+
+			foreach (AssemblyNameReference item in asm.MainModule.AssemblyReferences) {
+				if (item.Name == DotWebSystem) {
+					item.CopyFrom(this.mscorlibRef);
+					break;
+				}
+			}
+
+			asm.MainModule.SaveSymbols(this.outputPath);
+			AssemblyFactory.SaveAssembly(asm, tgtPath);
 		}
 
 		public AssemblyNameReference FixupReferences(string assemblyName, bool followDependencies) {
@@ -92,17 +110,18 @@ namespace DotWeb.Utility
 				var dtTarget = File.GetLastWriteTime(tgtPath);
 
 				// only analyze the source if source is newer
-				if (dtSource < dtTarget) {
-					ret.Name = altName;
-					doAnalysis = false;
-				}
+				//if (dtSource < dtTarget) {
+				//    ret.Name = altName;
+				//    doAnalysis = false;
+				//}
 			}
 
 			if (doAnalysis) {
 				bool dirty = FixupAssemblyReferences(asm.MainModule.AssemblyReferences, cache);
 				if (dirty) {
 					ret.Name = altName;
-					//asm.MainModule.SaveSymbols(this.outputPath);
+					asm.MainModule.LoadSymbols();
+					asm.MainModule.SaveSymbols(this.outputPath);
 					AssemblyFactory.SaveAssembly(asm, tgtPath);
 				}
 			}

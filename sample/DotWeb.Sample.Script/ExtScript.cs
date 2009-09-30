@@ -17,8 +17,8 @@
 
 using System;
 using DotWeb.Client;
-using Ext.grid;
-using Ext.data;
+//using Ext.grid;
+//using Ext.data;
 
 namespace DotWeb.Sample.Script
 {
@@ -93,10 +93,10 @@ namespace DotWeb.Sample.Script
 			//Log("ready");
 		}
 
-		private void OnDblClick(Ext.EventObject e) {
-			Log("dblclick");
-			Log(e);
-			Log(this);
-		}
+		//private void OnDblClick(Ext.EventObject e) {
+		//    Log("dblclick");
+		//    Log(e);
+		//    Log(this);
+		//}
 	}
 }
