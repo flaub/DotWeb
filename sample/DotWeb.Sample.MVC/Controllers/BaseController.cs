@@ -16,30 +16,23 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System.Web.Mvc;
+using System.Web;
+using System.Web.Routing;
 
 namespace DotWeb.Sample.MVC.Controllers
 {
-	[HandleError]
-	public class TestController : BaseController
+	public abstract class BaseController : Controller
 	{
-		public ActionResult Sanity() {
-			ViewData["Title"] = "Sanity Test";
-			return View();
-		}
+		protected override void Initialize(RequestContext requestContext) {
+			base.Initialize(requestContext);
 
-		public ActionResult EventHandler() {
-			ViewData["Title"] = "Event Handler Test";
-			return View();
-		}
+			var mode = Request.Cookies.Get("DotWeb-Mode");
+			if (mode == null) {
+				mode = new HttpCookie("DotWeb-Mode", "Web");
+				Response.Cookies.Add(mode);
+			}
 
-		public ActionResult NativeCallback() {
-			ViewData["Title"] = "Native Callback Test";
-			return View();
-		}
-
-		public ActionResult Expando() {
-			ViewData["Title"] = "Expando Test";
-			return View();
+			ViewData["Mode"] = mode.Value;
 		}
 	}
 }

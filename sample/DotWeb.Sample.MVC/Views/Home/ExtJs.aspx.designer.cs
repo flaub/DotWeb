@@ -12,14 +12,5 @@ namespace H8.MVC.Views.Home {
     
     
     public partial class ExtJs {
-        
-        /// <summary>
-        /// clientCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DotWeb.Web.ClientCode clientCode;
     }
 }

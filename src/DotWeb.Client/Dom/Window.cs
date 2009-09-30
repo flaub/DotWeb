@@ -31,6 +31,9 @@ namespace DotWeb.Client.Dom
 		[JsIntrinsic]
 		Document document { get; }
 
+		[JsIntrinsic]
+		object this[string name] { get; set; }
+
 		#endregion
 
 		#region Events

@@ -1,8 +1,8 @@
-﻿%h2 .Web Simple Sample
+﻿%h2 DotWeb Simple Sample
 %p
-	To learn more about the .Web Toolkit visit 
-		%a{ href="http://dotweb.com" title=".WEB Toolkit Website" }
-			http://dotweb.com
+	To learn more about the DotWeb Toolkit visit 
+		%a{ href="http://flaub.github.com/DotWeb" title="DotWeb Toolkit Sample Site" }
+			http://flaub.github.com/DotWeb
 %script{ type="text/javascript" src="../../js/Tuple.js" }
 
-= Html.ClientCode("DotWeb.Sample.Script.SimpleScript, DotWeb.Sample.Script")
+= Html.ClientCode("DotWeb.Sample.Script.SimpleScript, DotWeb.Sample.Script", (string)ViewData["Mode"])

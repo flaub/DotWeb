@@ -8,5 +8,5 @@
 
 	<h2>ExtJs Sample</h2>
 	<div id="grid"></div>
-	<web:ClientCode ID="clientCode" runat="server" Source="DotWeb.Sample.Script.ExtScript, DotWeb.Sample.Script" />
+	<%= Html.ClientCode("DotWeb.Sample.Script.ExtScript, DotWeb.Sample.Script", (string)ViewData["Mode"]) %>
 </asp:Content>

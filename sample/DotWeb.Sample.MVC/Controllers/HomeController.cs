@@ -16,11 +16,12 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System.Web.Mvc;
+using System.Web;
 
 namespace DotWeb.Sample.MVC.Controllers
 {
 	[HandleError]
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
 		public ActionResult Simple() {
 			ViewData["Title"] = ".Web Simple Sample";
@@ -35,6 +36,26 @@ namespace DotWeb.Sample.MVC.Controllers
 		public ActionResult Tests() {
 			ViewData["Title"] = ".Web Tests";
 			return View();
+		}
+
+		public ActionResult Mode() {
+			ViewData["Title"] = "Change Mode";
+			var mode = Request.Cookies["DotWeb-Mode"];
+			mode.Value = (mode.Value == "Web") ? "Hosted" : "Web";
+			Response.Cookies.Set(mode);
+			return Redirect(Request.UrlReferrer.ToString());
+		}
+
+		public ActionResult WebMode() {
+			var mode = new HttpCookie("DotWeb-Mode", "Web");
+			Response.Cookies.Set(mode);
+			return RedirectToAction("Mode");
+		}
+
+		public ActionResult HostedMode() {
+			var mode = new HttpCookie("DotWeb-Mode", "Hosted");
+			Response.Cookies.Set(mode);
+			return RedirectToAction("Mode");
 		}
 	}
 }

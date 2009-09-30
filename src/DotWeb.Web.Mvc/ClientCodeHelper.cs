@@ -36,8 +36,29 @@ namespace System.Web.Mvc
 			StringWriter sw = new StringWriter();
 			using (HtmlTextWriter writer = new HtmlTextWriter(sw)) {
 				HttpContextImpl impl = new HttpContextImpl(html.ViewContext.HttpContext);
-				ClientCodeRenderer renderer = new ClientCodeRenderer(impl);
-				renderer.Source = typeName;
+				ClientCodeRenderer renderer = new ClientCodeRenderer(impl) {
+					Source = typeName
+				};
+				renderer.Render(writer);
+			}
+			return sw.ToString();
+		}
+
+		/// <summary>
+		/// HtmlHelper extension to easily emit Javascript code translated from .NET MSIL.
+		/// </summary>
+		/// <param name="html"></param>
+		/// <param name="typeName"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		public static string ClientCode(this HtmlHelper html, string typeName, string mode) {
+			StringWriter sw = new StringWriter();
+			using (HtmlTextWriter writer = new HtmlTextWriter(sw)) {
+				HttpContextImpl impl = new HttpContextImpl(html.ViewContext.HttpContext);
+				ClientCodeRenderer renderer = new ClientCodeRenderer(impl) {
+					Source = typeName,
+					Mode = mode
+				};
 				renderer.Render(writer);
 			}
 			return sw.ToString();

@@ -22,7 +22,10 @@ namespace DotWeb.Sample.Script.Test
 	public class Sanity : JsScript
 	{
 		public Sanity() {
-			Window.alert("OK");
+			if (Window["__$helper"] != null)
+				Window.alert("Hosted-Mode: OK");
+			else
+				Window.alert("Web-Mode: OK");
 		}
 	}
 }
