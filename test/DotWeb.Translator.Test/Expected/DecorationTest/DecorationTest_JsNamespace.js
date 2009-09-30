@@ -1,4 +1,4 @@
-﻿if(typeof(H8) == 'undefined') H8 = {};
+﻿$Namespace('H8');
 
 DefaultNamespaceTest = function() {
 };
@@ -30,9 +30,7 @@ Foo.FooNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-if(typeof(DotWeb) == 'undefined') DotWeb = {};
-
-if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+$Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {
 };
@@ -49,5 +47,5 @@ H8.DecorationTests.prototype.TestJsNamespace = function() {
 	var loc3 = new Foo.FooNamespaceTest().$ctor();
 	loc3.set_Value(loc0.get_Value());
 	var loc1 = loc3;
-	console.log(loc1.get_Value());
+	System.Console.WriteLine(loc1.get_Value());
 };

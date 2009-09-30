@@ -1,24 +1,24 @@
 ﻿H8.SourceTests.prototype.Switch = function(val /*System.Int32*/) {
-	console.log("Hello");
+	System.Console.WriteLine("Hello");
 	var loc0 = val;
 	switch(loc0 - 1) {
 		default:
-			console.log("default");
+			System.Console.WriteLine("default");
 			break;
 		case 0:
-			console.log("1");
+			System.Console.WriteLine("1");
 			break;
 		case 1:
-			console.log("2");
+			System.Console.WriteLine("2");
 			break;
 		case 2:
-			console.log("3");
+			System.Console.WriteLine("3");
 			break;
 		case 3:
 		case 4:
-			console.log("4, 5");
+			System.Console.WriteLine("4, 5");
 			break;
 	}
-	console.log("Bye");
+	System.Console.WriteLine("Bye");
 };
 

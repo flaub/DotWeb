@@ -16,7 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-//using System.Linq;
+using System.Linq;
 
 namespace H8
 {
@@ -472,7 +472,7 @@ namespace H8
 			Console.WriteLine("{0}, {1}", test2.Text, test2.Value);
 		}
 
-//		public void Linq() {
+		public void Linq() {
 			//0000: ldstr "ABCDE99F-J74-12-89A" Next
 			//0005: stloc.0 Next
 			//0006: ldloc.0 Next
@@ -504,15 +504,15 @@ namespace H8
 			//0078: callvirt instance System.Void System.IDisposable::Dispose() Call
 			//0083: endfinally Return
 			//0084: ret Return
-		//    string str = "ABCDE99F-J74-12-89A";
-		//    var query = from ch in str
-		//                where Char.IsDigit(ch)
-		//                select ch;
+			string str = "ABCDE99F-J74-12-89A";
+			var query = from ch in str
+						where Char.IsDigit(ch)
+						select ch;
 
-		//    foreach (var item in query) {
-		//        Console.WriteLine(item);
-		//    }
-		//}
+			foreach (var item in query) {
+				Console.WriteLine(item);
+			}
+		}
 
 		public delegate void SimpleDelegate();
 		public event SimpleDelegate SimpleEvent;
@@ -577,13 +577,13 @@ namespace H8
 			Console.WriteLine("Bye");
 		}
 
-		//public void AnonymousType() {
-		//    var value = new { 
-		//        Key = "Hi",
-		//        Value = 1
-		//    };
-		//    Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
-		//}
+		public void AnonymousType() {
+			var value = new {
+				Key = "Hi",
+				Value = 1
+			};
+			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
+		}
 
 		public void CallDerived() {
 			Derived derived = new Derived();

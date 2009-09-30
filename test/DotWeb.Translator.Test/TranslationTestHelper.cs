@@ -27,17 +27,17 @@ namespace DotWeb.Translator.Test
 {
 	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
 	{
-		protected AssemblyDefinition CompiledAssemblyDef;
+//		protected AssemblyDefinition CompiledAssemblyDef;
 
-		protected TranslationTestHelper(string assName, string src) {
+		protected TranslationTestHelper(string asmName, string src) {
 			if (cachedAssembly == null) {
 				var compiler = new CSharpCompiler();
-				//var ass = Assembly.GetAssembly(assType);
-				var ass = Assembly.LoadFrom(assName);
-				var result = compiler.CompileSource(src, ass);
-				this.CompiledAssemblyDef = AssemblyFactory.GetAssembly(result.PathToAssembly);
-				//this.CompiledAssembly = compiler.CompileSource(src, ass);
-				//cachedAssembly = this.CompiledAssembly;
+				var asm = Assembly.Load(asmName);
+				var result = compiler.CompileSource(src, asm);
+				//this.CompiledAssemblyDef = AssemblyFactory.GetAssembly(result.PathToAssembly);
+				//this.CompiledAssembly = compiler.CompileSource(src, asm);
+				this.CompiledAssembly = result.CompiledAssembly;
+				cachedAssembly = this.CompiledAssembly;
 			}
 			else {
 				this.CompiledAssembly = cachedAssembly;

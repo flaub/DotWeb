@@ -17,11 +17,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\build\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoStdLib>true</NoStdLib>
+    <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,10 +42,11 @@
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\DotWeb.System\DotWeb.System.csproj">
-      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
-      <Name>DotWeb.System</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

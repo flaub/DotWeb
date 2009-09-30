@@ -5,7 +5,7 @@
 			return;
 		}
 		else {
-			console.log(loc0);
+			System.Console.WriteLine(loc0);
 			loc0 = loc0 + 1;
 		}
 	}

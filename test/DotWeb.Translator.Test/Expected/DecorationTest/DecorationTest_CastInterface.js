@@ -1,6 +1,4 @@
-﻿if(typeof(DotWeb) == 'undefined') DotWeb = {};
-
-if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+﻿$Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {
 };
@@ -16,7 +14,7 @@ DotWeb.Client.JsRuntime.Cast = function(obj /*System.Object*/) {
 	return obj;
 };
 
-if(typeof(H8) == 'undefined') H8 = {};
+$Namespace('H8');
 
 H8.DecorationTests = function() {
 	this.$super.constructor();

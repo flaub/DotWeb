@@ -1,4 +1,4 @@
-﻿if(typeof(H8) == 'undefined') H8 = {};
+﻿$Namespace('H8');
 
 H8.IntrinsicClass = function() {
 };
@@ -7,9 +7,7 @@ H8.IntrinsicClass.prototype.$ctor = function() {
 	return this;
 };
 
-if(typeof(DotWeb) == 'undefined') DotWeb = {};
-
-if(typeof(DotWeb.Client) == 'undefined') DotWeb.Client = {};
+$Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {
 };

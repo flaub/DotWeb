@@ -10,24 +10,26 @@ namespace DotWeb.Hoister
 		const string HostedDirName = "Hosted";
 
 		static void Main(string[] args) {
-			if (args.Length != 1) {
+			if (args.Length != 2) {
 				string exe = Path.GetFileName(Assembly.GetEntryAssembly().Location);
-				Console.Error.WriteLine("Usage: {0} <AssemblyName>", exe);
+				Console.Error.WriteLine("Usage: {0} <AssemblyName> <OutputPath>", exe);
 				Environment.Exit(-1);
 			}
 
 			string path = args[0];
-			string dir = Path.GetDirectoryName(path);
+//			string dir = Path.GetDirectoryName(path);
+			string dir = args[1];
 			//string hostedDir = Path.Combine(dir, HostedDirName);
-			//if (!Directory.Exists(hostedDir)) {
-			//    Directory.CreateDirectory(hostedDir);
-			//}
+			if (!Directory.Exists(dir)) {
+				Directory.CreateDirectory(dir);
+			}
 
-			string assemblyName = Path.GetFileNameWithoutExtension(path);
+//			string assemblyName = Path.GetFileNameWithoutExtension(path);
 
 //			Environment.CurrentDirectory = dir;
 			var fixup = new AssemblyReferenceFixup(dir);
-			fixup.FixupReferences(assemblyName, false);
+//			fixup.FixupReferences(assemblyName, false);
+			fixup.FixupReferences(path);
 		}
 	}
 }

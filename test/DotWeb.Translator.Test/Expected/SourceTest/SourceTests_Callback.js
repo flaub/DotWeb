@@ -1,4 +1,4 @@
-﻿if(typeof(H8) == 'undefined') H8 = {};
+﻿$Namespace('H8');
 
 H8.SourceTests = function() {
 };

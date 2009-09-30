@@ -56,6 +56,7 @@ namespace H8
 			};
 			Tuple tuple = new Tuple(config);
 			int id = tuple.id;
+			Console.WriteLine(id);
 			tuple.id = 9;
 		}
 	}

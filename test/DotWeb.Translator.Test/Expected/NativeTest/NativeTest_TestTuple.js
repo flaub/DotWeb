@@ -5,6 +5,6 @@
 	var loc0 = loc3;
 	var loc1 = new Tuple(loc0);
 	var loc2 = loc1.id;
-	console.log(loc2);
+	System.Console.WriteLine(loc2);
 	loc1.id = 9;
 };

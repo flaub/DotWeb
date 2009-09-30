@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Depends\Mono.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Depends\nunit.framework.dll</HintPath>
@@ -93,18 +97,9 @@
       <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
       <Name>DotWeb.Decompiler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
-      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
-      <Name>DotWeb.System</Name>
-      <Aliases>dw</Aliases>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\DotWeb.Translator\DotWeb.Translator.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>
       <Name>DotWeb.Translator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mono.Cecil\Mono.Cecil.csproj">
-      <Project>{3EC06433-F168-4C5B-A885-99CE4AB617E1}</Project>
-      <Name>Mono.Cecil</Name>
     </ProjectReference>
     <ProjectReference Include="Script\DotWeb.Translator.Test.Script.csproj">
       <Project>{64CEF2DB-5B54-4F4F-BEEE-F32C5DC428DB}</Project>

@@ -1,4 +1,4 @@
-﻿if(typeof(H8) == 'undefined') H8 = {};
+﻿$Namespace('H8');
 
 H8.SourceTests = function() {
 };
@@ -16,7 +16,7 @@ H8.SourceTests.prototype.Linq = function() {
 	var loc3 = loc1.GetEnumerator();
 	while(loc3.MoveNext()) {
 		var loc2 = loc3.get_Current();
-		console.log(loc2);
+		System.Console.WriteLine(loc2);
 	}
 };
 

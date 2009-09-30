@@ -15,7 +15,7 @@
 		var loc3 = loc2;
 		do {
 			loc3 = loc3 + 1;
-			console.log("{0}, {1}", loc2, loc3);
+			System.Console.WriteLine("{0}, {1}", loc2, loc3);
 		} while(loc3 < 5);
 		loc2 = loc2 + 1;
 	}

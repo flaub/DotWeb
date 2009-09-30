@@ -5,7 +5,7 @@
 	var loc3 = 0;
 	while(loc3 < loc2.length) {
 		var loc1 = loc2[loc3];
-		console.log(loc1);
+		System.Console.WriteLine(loc1);
 		loc3 = loc3 + 1;
 	}
 };
