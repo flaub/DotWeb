@@ -1,4 +1,4 @@
-﻿namespace DotWeb.System
+﻿namespace DotWeb.Client.System
 {
 	public struct Boolean
 	{
@@ -12,8 +12,12 @@
 	{
 	}
 
+	[JsNamespace("System")]
 	public struct Char
 	{
+		public static bool IsDigit(char ch) {
+			return false;
+		}
 	}
 
 	public struct Int16

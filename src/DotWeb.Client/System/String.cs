@@ -1,5 +1,6 @@
-﻿namespace DotWeb.System
+﻿namespace DotWeb.Client.System
 {
+	[JsNamespace("System")]
 	public class String
 	{
 		public int Length { get; private set; }
