@@ -132,6 +132,11 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "CallDerived", Resources.SourceTests_CallDerived, true);
 		}
 
+		[Test]
+		public void Indexer() {
+			this.TestMethod(this.sourceTestsCompiledType, "Indexer", Resources.SourceTests_Indexer, true);
+		}
+
 		private Type sourceTestsCompiledType;
 	}
 }

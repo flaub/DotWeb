@@ -57,8 +57,9 @@ namespace DotWeb.Decompiler
 		}
 
 		public Type VisitReturn(CodeIndexerExpression obj) {
-			// FIXME: resolve this to an actual method
-			throw new NotImplementedException();
+			var target = Evaluate(obj.TargetObject);
+			var property = target.GetProperty("Item");
+			return property.PropertyType;
 		}
 
 		public Type VisitReturn(CodeInvokeExpression obj) {

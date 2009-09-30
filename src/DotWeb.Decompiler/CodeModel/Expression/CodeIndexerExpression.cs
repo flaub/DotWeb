@@ -24,6 +24,10 @@ namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeIndexerExpression : CodeExpression
 	{
+		public CodeIndexerExpression() {
+			this.Indices = new List<CodeExpression>();
+		}
+
 		#region Visitor Pattern
 		public override void Accept<V>(V visitor) {
 			((ICodeVisitor<CodeIndexerExpression>)visitor).Visit(this);

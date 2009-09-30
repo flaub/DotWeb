@@ -81,6 +81,7 @@
     <Content Include="Expected\SourceTest\SourceTests_IfElse.js" />
     <Content Include="Expected\SourceTest\SourceTests_IfElseIf.js" />
     <Content Include="Expected\SourceTest\SourceTests_IfIf.js" />
+    <Content Include="Expected\SourceTest\SourceTests_Indexer.js" />
     <Content Include="Expected\SourceTest\SourceTests_Linq.js" />
     <Content Include="Expected\SourceTest\SourceTests_Switch.js" />
     <Content Include="Expected\SourceTest\SourceTests_TakeParameters.js" />

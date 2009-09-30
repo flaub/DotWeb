@@ -81,9 +81,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
-        ///
-        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;DotWeb.Client&apos;);
         ///
         ///DotWeb.Client.JsScript = function() {
         ///};
@@ -99,12 +97,14 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return obj;
         ///};
         ///
-        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///$Namespace(&apos;H8&apos;);
         ///
         ///H8.DecorationTests = function() {
         ///	this.$super.constructor();
         ///};
-        ///H8.DecorationTests.$extend(Dot [rest of string was truncated]&quot;;.
+        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
+        ///
+        ///H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Do [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_CastInterface {
             get {
@@ -113,14 +113,21 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;System&apos;);
         ///
-        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(value /*System.Object*/) {
+        ///	// nop
+        ///};
+        ///
+        ///$Namespace(&apos;DotWeb.Client&apos;);
         ///
         ///DotWeb.Client.JsScript = function() {
         ///};
         ///
-        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///$Namespace(&apos;H8&apos;);
         ///
         ///H8.DecorationTests = function() {
         ///	this.$super.constructor();
@@ -133,9 +140,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	loc3.y = 2;
         ///	var loc0 = loc3;
         ///	loc0.X = loc0.y;
-        ///	loc0.y = loc0.X;
-        ///	var loc6 = [];
-        ///	var loc [rest of string was truncated]&quot;;.
+        ///	loc0. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsAnonymous {
             get {
@@ -156,7 +161,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.IntrinsicClass = function() {
         ///};
@@ -165,9 +170,16 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///if(typeof(DotWeb) == &apos;undefined&apos;) DotWeb = {};
+        ///$Namespace(&apos;System&apos;);
         ///
-        ///if(typeof(DotWeb.Client) == &apos;undefined&apos;) DotWeb.Client = {};
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.Write = function(value /*System.Int32*/) {
+        ///	// nop
+        ///};
+        ///
+        ///$Namespace(&apos;DotWeb.Client&apos;);
         ///
         ///DotWeb.Client.JsScript = function() {
         ///};
@@ -177,8 +189,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///};
         ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
         ///
-        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
-        ///	var loc1 = new  [rest of string was truncated]&quot;;.
+        ///H8.DecorationTests.prototype.TestJsIntrinsic [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsIntrinsic {
             get {
@@ -187,9 +198,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
-        ///
-        ///DefaultNamespaceTest = function() {
+        ///   Looks up a localized string similar to DefaultNamespaceTest = function() {
         ///};
         ///
         ///DefaultNamespaceTest.prototype.$ctor = function() {
@@ -199,6 +208,8 @@ namespace DotWeb.Translator.Test.Properties {
         ///DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
         ///	this._Value_k__BackingField = value;
         ///};
+        ///
+        ///$Namespace(&apos;Foo&apos;);
         ///
         ///Foo.FooNamespaceTest = function() {
         ///};
@@ -211,7 +222,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this._Value_k__BackingField;
         ///};
         ///
-        ///Foo.FooName [rest of string was truncated]&quot;;.
+        ///Foo.FooNamespaceTest.prototype. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsNamespace {
             get {
@@ -247,7 +258,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var loc0 = loc3;
         ///	var loc1 = new Tuple(loc0);
         ///	var loc2 = loc1.id;
-        ///	console.log(loc2);
+        ///	System.Console.WriteLine(loc2);
         ///	loc1.id = 9;
         ///};
         ///.
@@ -272,16 +283,17 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this._Key_i__Field;
         ///};
         ///
-        ///__f__AnonymousType0$2.prototype.get_Value = function() {
-        ///	return this._Value_i__Field;
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.String = function() {
         ///};
         ///
-        ///if(typeof(H8) == &apos;undefined&apos;) H8 = {};
-        ///
-        ///H8.SourceTests = function() {
+        ///System.String.prototype.get_Length = function() {
+        ///	var loc0 = this._Length_k__BackingField;
+        ///	return loc0;
         ///};
         ///
-        ///H8.SourceTests.prototyp [rest of string was truncated]&quot;;.
+        ///__f__AnonymousType0$2 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_AnonymousType {
             get {
@@ -290,23 +302,35 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;System&apos;);
         ///
-        ///H8.SourceTests = function() {
+        ///System.Exception = function() {
         ///};
         ///
-        ///H8.SourceTests.prototype.SourceTests_SimpleEvent = function() {
-        ///	throw new System.NotImplementedException().$ctor()
+        ///System.Exception.prototype.$ctor = function() {
+        ///	// nop
+        ///	// nop
+        ///	// nop
+        ///	return this;
         ///};
         ///
-        ///H8.SourceTests.prototype.Callback = function(del /*H8.SourceTests_SimpleDelegate*/) {
-        ///	if (del) {
-        ///		del.Invoke();
-        ///	}
-        ///	if (this.SimpleEvent) {
-        ///		this.SimpleEvent.Invoke();
-        ///	}
-        ///	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTest [rest of string was truncated]&quot;;.
+        ///System.SystemException = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///System.SystemException.$extend(System.Exception);
+        ///
+        ///System.SystemException.prototype.$ctor = function() {
+        ///	this.$super.$ctor.call(this);
+        ///	// nop
+        ///	// nop
+        ///	// nop
+        ///	return this;
+        ///};
+        ///
+        ///System.NotImplementedException = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///System.NotI [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Callback {
             get {
@@ -315,7 +339,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.Base = function() {
         ///};
@@ -340,7 +364,10 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///H8.Base.prototype.BaseMethod = function()  [rest of string was truncated]&quot;;.
+        ///H8.Base.prototype.BaseMethod = function() {
+        ///};
+        ///
+        ///H8.Derived.p [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CallDerived {
             get {
@@ -349,23 +376,32 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(value /*System.Object*/) {
+        ///	// nop
+        ///};
+        ///
+        ///System.Math = function() {
+        ///};
+        ///
+        ///System.Math.Sin = function(a /*System.Double*/) {
+        ///	return Math.sin(a);
+        ///};
+        ///
+        ///System.Math.Cos = function(a /*System.Double*/) {
+        ///	return Math.cos(a);
+        ///};
+        ///
+        ///$Namespace(&apos;H8&apos;);
         ///
         ///H8.SourceTests = function() {
         ///};
         ///
-        ///H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
-        ///	console.log(str);
-        ///	var loc0 = System.Math.Sin(rad[value] * 1.5707963267949);
-        ///	return System.Math.Cosh(loc0);
-        ///};
-        ///
-        ///H8.SourceTests.prototype.CallTakeParameters = function() {
-        ///	var loc1 = new System.Double[2];
-        ///	loc1[0] = 1;
-        ///	loc1[1] = 2;
-        ///	var loc0 = this.TakeParameters(&quot;Hi&quot;, 1, loc1);
-        ///	console.log(l [rest of string was truncated]&quot;;.
+        ///H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CallTakeParameters {
             get {
@@ -391,17 +427,13 @@ namespace DotWeb.Translator.Test.Properties {
         ///		var loc3 = loc2;
         ///		do {
         ///			loc3 = loc3 + 1;
-        ///			console.log(&quot;{0}, {1}&quot;, loc2, loc3);
+        ///			System.Console.WriteLine(&quot;{0}, {1}&quot;, loc2, loc3);
         ///		} while(loc3 &lt; 5);
         ///		loc2 = loc2 + 1;
         ///	}
         ///	if ((loc0 &lt; loc1) || ((loc1 * 2) &gt; loc0)) {
         ///		loc0 = (loc0 + loc1) - 10;
-        ///		loc1 = loc1 / 2;
-        ///	}
-        ///};
-        ///
-        ///.
+        ///		loc1 = loc1 / 2;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Cifuentes {
             get {
@@ -410,7 +442,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.SourceTests_InnerClassTest = function() {
         ///};
@@ -425,7 +457,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///
         ///H8.SourceTests_InnerClassTest.prototype.$ctor = function(text /*System.String*/, value /*System.Int32*/) {
         ///	this.set_Text(text);
-        ///	this.set_Value(value) [rest of string was truncated]&quot;;.
+        ///	this.set_Value(value);
+        ///	return this;
+        ///};        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CreateInnerObject {
             get {
@@ -434,7 +468,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.OuterClassTest = function() {
         ///};
@@ -453,7 +487,8 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///H8.OuterClassTest.prototype.$ctor = fun [rest of string was truncated]&quot;;.
+        ///H8.OuterClassTest.prototype.$ctor = function() {
+        ///	return th [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_CreateOuterObject {
             get {
@@ -465,7 +500,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.DoWhileLoop = function() {
         ///	var loc0 = 0;
         ///	do {
-        ///		console.log(loc0);
+        ///		System.Console.WriteLine(loc0);
         ///		loc0 = loc0 + 1;
         ///	} while(loc0 &lt; 10);
         ///};
@@ -486,7 +521,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var loc3 = 0;
         ///	while(loc3 &lt; loc2.length) {
         ///		var loc1 = loc2[loc3];
-        ///		console.log(loc1);
+        ///		System.Console.WriteLine(loc1);
         ///		loc3 = loc3 + 1;
         ///	}
         ///};
@@ -503,7 +538,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.ForLoop = function() {
         ///	var loc0 = 0;
         ///	while(loc0 &lt; 10) {
-        ///		console.log(loc0);
+        ///		System.Console.WriteLine(loc0);
         ///		loc0 = loc0 + 1;
         ///	}
         ///};
@@ -518,7 +553,7 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.HelloWorld = function() {
-        ///	console.log(&quot;Hello World!&quot;);
+        ///	System.Console.WriteLine(&quot;Hello World!&quot;);
         ///};
         ///
         ///.
@@ -533,7 +568,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.If = function() {
         ///	var loc0 = 0;
         ///	if (loc0 == 1) {
-        ///		console.log(&quot;True&quot;);
+        ///		System.Console.WriteLine(&quot;True&quot;);
         ///	}
         ///};
         ///
@@ -549,12 +584,12 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.IfElse = function() {
         ///	var loc0 = 0;
         ///	if (loc0 == 1) {
-        ///		console.log(&quot;True&quot;);
+        ///		System.Console.WriteLine(&quot;True&quot;);
         ///	}
         ///	else {
-        ///		console.log(&quot;False&quot;);
+        ///		System.Console.WriteLine(&quot;False&quot;);
         ///	}
-        ///	console.log(&quot;Yep&quot;);
+        ///	System.Console.WriteLine(&quot;Yep&quot;);
         ///};
         ///
         ///.
@@ -569,12 +604,12 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.IfElseIf = function() {
         ///	var loc0 = 0;
         ///	if (loc0 == 1) {
-        ///		console.log(&quot;True&quot;);
+        ///		System.Console.WriteLine(&quot;True&quot;);
         ///		return;
         ///	}
         ///	else {
         ///		if (loc0 == 2) {
-        ///			console.log(&quot;False&quot;);
+        ///			System.Console.WriteLine(&quot;False&quot;);
         ///		}
         ///		return;
         ///	}
@@ -592,10 +627,10 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.IfIf = function() {
         ///	var loc0 = 0;
         ///	if (loc0 == 1) {
-        ///		console.log(&quot;True&quot;);
+        ///		System.Console.WriteLine(&quot;True&quot;);
         ///	}
         ///	if (loc0 == 2) {
-        ///		console.log(&quot;False&quot;);
+        ///		System.Console.WriteLine(&quot;False&quot;);
         ///	}
         ///};
         ///
@@ -608,7 +643,44 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to if(typeof(H8) == &apos;undefined&apos;) H8 = {};
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.IndexerTest = function() {
+        ///};
+        ///
+        ///H8.IndexerTest.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.IndexerTest.prototype.set_Item = function(name /*System.String*/, value /*System.Object*/) {
+        ///};
+        ///
+        ///H8.IndexerTest.prototype.get_Item = function(name /*System.String*/) {
+        ///	return null;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(value /*System.Object*/) {
+        ///	// nop
+        ///};
+        ///
+        ///H8.SourceTests = function() {
+        ///};
+        ///
+        ///H8.SourceTes [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SourceTests_Indexer {
+            get {
+                return ResourceManager.GetString("SourceTests_Indexer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.SourceTests = function() {
         ///};
@@ -622,7 +694,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3) {
         ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.SourceTests, H8.SourceTests._Linq_b__2);
         ///	}
-        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__ [rest of string was truncated]&quot;;.
+        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.SourceTests.CS$__9__CachedAnonymousMethod [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Linq {
             get {
@@ -632,27 +704,27 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.Switch = function(val /*System.Int32*/) {
-        ///	console.log(&quot;Hello&quot;);
+        ///	System.Console.WriteLine(&quot;Hello&quot;);
         ///	var loc0 = val;
         ///	switch(loc0 - 1) {
         ///		default:
-        ///			console.log(&quot;default&quot;);
+        ///			System.Console.WriteLine(&quot;default&quot;);
         ///			break;
         ///		case 0:
-        ///			console.log(&quot;1&quot;);
+        ///			System.Console.WriteLine(&quot;1&quot;);
         ///			break;
         ///		case 1:
-        ///			console.log(&quot;2&quot;);
+        ///			System.Console.WriteLine(&quot;2&quot;);
         ///			break;
         ///		case 2:
-        ///			console.log(&quot;3&quot;);
+        ///			System.Console.WriteLine(&quot;3&quot;);
         ///			break;
         ///		case 3:
         ///		case 4:
-        ///			console.log(&quot;4, 5&quot;);
+        ///			System.Console.WriteLine(&quot;4, 5&quot;);
         ///			break;
         ///	}
-        ///	console.log(&quot;Bye&quot;);
+        ///	System.Console.WriteLine(&quot;Bye&quot;);
         ///};
         ///
         ///.
@@ -665,11 +737,10 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
-        ///	console.log(str);
+        ///	System.Console.WriteLine(str);
         ///	var loc0 = System.Math.Sin(rad[value] * 1.5707963267949);
-        ///	return System.Math.Cosh(loc0);
+        ///	return System.Math.Cos(loc0);
         ///};
-        ///
         ///.
         /// </summary>
         internal static string SourceTests_TakeParameters {
@@ -682,7 +753,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.WhileBreakLoop = function() {
         ///	var loc0 = 0;
         ///	while(loc0 != 10) {
-        ///		console.log(loc0);
+        ///		System.Console.WriteLine(loc0);
         ///		loc0 = loc0 + 1;
         ///	}
         ///};
@@ -703,7 +774,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///			return;
         ///		}
         ///		else {
-        ///			console.log(loc0);
+        ///			System.Console.WriteLine(loc0);
         ///			loc0 = loc0 + 1;
         ///		}
         ///	}
@@ -721,7 +792,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///   Looks up a localized string similar to H8.SourceTests.prototype.WhileLoop = function() {
         ///	var loc0 = 0;
         ///	while(loc0 &lt; 10) {
-        ///		console.log(loc0);
+        ///		System.Console.WriteLine(loc0);
         ///		loc0 = loc0 + 1;
         ///	}
         ///};

@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using DotWeb.Client;
 
 namespace H8
 {
@@ -60,6 +61,18 @@ namespace H8
 
 		public void DerviedMethod() {
 			BaseMethod();
+		}
+	}
+
+	class IndexerTest
+	{
+		[JsIntrinsic]
+		public object this[string name] {
+			get {
+				return null;
+			}
+			set {
+			}
 		}
 	}
 
@@ -589,6 +602,13 @@ namespace H8
 			Derived derived = new Derived();
 			derived.DerviedMethod();
 			derived.BaseMethod();
+		}
+
+		public void Indexer() {
+			var indexer = new IndexerTest();
+			indexer["Test"] = 1;
+			var value = indexer["Test"];
+			Console.WriteLine(value);
 		}
 	}
 }
