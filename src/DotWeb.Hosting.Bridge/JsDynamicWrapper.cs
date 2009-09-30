@@ -36,9 +36,9 @@ namespace DotWeb.Hosting.Bridge
 			this.targetType = Type.GetTypeFromHandle(handle);
 		}
 
-//		class JsNativeHolder : JsNativeBase
-//		{
-//		}
+		class JsNativeHolder : JsNativeBase
+		{
+		}
 
 		public object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
 			if (dispType.IsMethod()) {
@@ -85,7 +85,6 @@ namespace DotWeb.Hosting.Bridge
 		private object GetProperty(DispatchIdentifier id, out Type returnType) {
 			object value;
 			if (!this.bridge.TryGetDynamicProperty(this.target, id.AsString, out value)) {
-				//if (!this.target.Properties.TryGetValue(id.AsString, out value)) {
 				MethodBase method = this.targetType.GetMethod(id.AsString);
 				if (method != null) {
 					return GetMethodAsProperty((MethodInfo)method, this.target, out returnType);
@@ -103,18 +102,15 @@ namespace DotWeb.Hosting.Bridge
 			Type targetType;
 			object value;
 			if (this.bridge.TryGetDynamicProperty(this.target, id.AsString, out value)) {
-				//if (this.target.Properties.TryGetValue(id.AsString, out value)) {
 				targetType = value.GetType();
 			}
 			else {
-				targetType = typeof(object);
-				//targetType = typeof(JsNativeHolder);
-				Debug.Fail("What is this for again?");
+				// this is needed so that we can make a dummy object instance
+				targetType = typeof(JsNativeHolder);
 			}
 
 			value = this.bridge.UnwrapValue(jsArgs.First(), targetType);
 			this.bridge.SetDynamicProperty(this.target, id.AsString, value);
-//			this.target.Properties[id.AsString] = value;
 			returnType = typeof(void);
 			return null;
 		}
