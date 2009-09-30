@@ -42,7 +42,7 @@ namespace DotWeb.Hosting.Bridge
 				return new Action(this.OnGenericVoidHandler);
 			}
 
-			var attr = TargetType.GetCustomAttribute<VarArgsAttribute>();
+			var attr = TargetType.GetCustomAttribute<ParamArrayAttribute>();
 			MethodInfo invoke = TargetType.GetMethod("Invoke");
 			ParameterInfo[] parameters = invoke.GetParameters();
 			var parameterTypes = parameters.Select(x => x.ParameterType);

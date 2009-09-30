@@ -97,7 +97,6 @@
     <Compile Include="System\Text\StringBuilder.cs" />
     <Compile Include="System\Type.cs" />
     <Compile Include="System\ValueType.cs" />
-    <Compile Include="VarArgsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="System\plan.txt" />
