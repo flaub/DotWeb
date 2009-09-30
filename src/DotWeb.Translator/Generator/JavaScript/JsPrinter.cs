@@ -108,6 +108,13 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		#region Helpers
 
+		public static string GetNamespace(Type type) {
+			JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
+			if (jsNamespace != null)
+				return jsNamespace.Namespace;
+			return type.Namespace;
+		}
+
 		public string Print(CodeExpression expr) {
 			return expr.Accept<JsPrinter, string>(this);
 		}
@@ -126,13 +133,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string Print(Type type) {
-			JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
-
-			string ns;
-			if (jsNamespace != null)
-				ns = jsNamespace.Namespace;
-			else
-				ns = type.Namespace;
+			string ns = GetNamespace(type);
 
 			string name;
 			if (string.IsNullOrEmpty(ns))

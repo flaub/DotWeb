@@ -1,4 +1,13 @@
-﻿$Namespace('DotWeb.Client');
+﻿$Namespace('System');
+
+System.Console = function() {
+};
+
+System.Console.WriteLine = function(value /*System.Object*/) {
+	// nop
+};
+
+$Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {
 };

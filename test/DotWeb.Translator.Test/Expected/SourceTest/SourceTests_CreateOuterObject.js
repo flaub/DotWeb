@@ -29,6 +29,15 @@ H8.OuterClassTest.prototype.get_Value = function() {
 	return this.m_value;
 };
 
+$Namespace('System');
+
+System.Console = function() {
+};
+
+System.Console.WriteLine = function(format /*System.String*/, arg0 /*System.Object*/, arg1 /*System.Object*/) {
+	// nop
+};
+
 H8.SourceTests = function() {
 };
 
@@ -41,4 +50,3 @@ H8.SourceTests.prototype.CreateOuterObject = function() {
 	System.Console.WriteLine("{0}, {1}", loc0.get_Text(), loc0.get_Value());
 	System.Console.WriteLine("{0}, {1}", loc1.get_Text(), loc1.get_Value());
 };
-

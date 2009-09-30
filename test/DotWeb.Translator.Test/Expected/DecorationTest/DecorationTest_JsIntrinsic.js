@@ -7,6 +7,15 @@ H8.IntrinsicClass.prototype.$ctor = function() {
 	return this;
 };
 
+$Namespace('System');
+
+System.Console = function() {
+};
+
+System.Console.Write = function(value /*System.Int32*/) {
+	// nop
+};
+
 $Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {

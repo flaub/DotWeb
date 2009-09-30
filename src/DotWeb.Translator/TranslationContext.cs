@@ -16,6 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using DotWeb.Translator.Generator.JavaScript;
@@ -48,11 +49,37 @@ namespace DotWeb.Translator
 			}
 		}
 
+		private MethodBase FindCorrespondingMethodFrom(MethodBase method, Type type) {
+			var args = method.GetParameters();
+			var types = args.Select(x => x.ParameterType).ToArray();
+
+			if (method is ConstructorInfo) {
+				return type.GetConstructor(types);
+			}
+
+			//MethodInfo info = (MethodInfo)method;
+			//if (info.IsGenericMethod) {
+			//    method = info.GetGenericMethodDefinition();
+			//    args = method.GetParameters();
+			//    types = args.Select(x => x.ParameterType).ToArray();
+			//}
+
+			return type.GetMethod(method.Name, types);
+		}
+
 		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache, List<string> namespaceCache) {
 			var type = method.DeclaringType;
-			if (type.FullName.StartsWith("System")) {
-				var newTypeName = "DotWeb." + type.FullName;
+			if (type.FullName.StartsWith("System.")) {
+				var newTypeName = string.Format("DotWeb.Client.{0}, DotWeb.Client", type.FullName);
 				type = Type.GetType(newTypeName);
+				if(type == null)
+					throw new NullReferenceException(string.Format("Could not find type: {0}", method.DeclaringType));
+
+				var found = FindCorrespondingMethodFrom(method, type);
+				if (found == null)
+					throw new NullReferenceException(string.Format("Could not find method: {0} on {1}", method, method.DeclaringType));
+
+				method = found;
 			}
 
 			var parsedMethod = Parse(method);
@@ -90,6 +117,18 @@ namespace DotWeb.Translator
 			}
 		}
 
+		private void GenerateNamespace(Type type, List<string> namespaceCache) {
+			string ns = JsPrinter.GetNamespace(type);
+			if (!string.IsNullOrEmpty(ns)) {
+				//GenerateNamespace(type.Namespace, namespaceCache);
+				if (!namespaceCache.Contains(ns)) {
+					CodeNamespace cns = new CodeNamespace { Name = ns };
+					this.generator.WriteNamespaceDecl(cns);
+					namespaceCache.Add(ns);
+				}
+			}
+		}
+
 		private void GenerateTypeDecl(Type type, List<Type> typesCache, List<string> namespaceCache) {
 			if (!typesCache.Contains(type)) {
 				Type baseType = type.BaseType;
@@ -97,14 +136,7 @@ namespace DotWeb.Translator
 					GenerateTypeDecl(baseType, typesCache, namespaceCache);
 				}
 
-				if (type.Namespace != null) {
-					//GenerateNamespace(type.Namespace, namespaceCache);
-					if (!namespaceCache.Contains(type.Namespace)) {
-						CodeNamespace ns = new CodeNamespace { Name = type.Namespace };
-						this.generator.WriteNamespaceDecl(ns);
-						namespaceCache.Add(type.Namespace);
-					}
-				}
+				GenerateNamespace(type, namespaceCache);
 				this.generator.WriteTypeConstructor(type);
 				typesCache.Add(type);
 			}

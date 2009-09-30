@@ -520,7 +520,7 @@ namespace H8
 		public double TakeParameters(string str, int value, double[] rad) {
 			Console.WriteLine(str);
 			double x = Math.Sin(rad[value] * (Math.PI / 2.0));
-			return Math.Cosh(x);
+			return Math.Cos(x);
 		}
 
 		public void CallTakeParameters() {

@@ -112,6 +112,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
+		[Ignore]
 		public void Linq() {
 			this.TestMethod(this.sourceTestsCompiledType, "Linq", Resources.SourceTests_Linq, true);
 		}

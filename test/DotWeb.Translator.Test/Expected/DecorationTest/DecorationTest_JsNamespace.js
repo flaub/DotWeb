@@ -1,6 +1,4 @@
-﻿$Namespace('H8');
-
-DefaultNamespaceTest = function() {
+﻿DefaultNamespaceTest = function() {
 };
 
 DefaultNamespaceTest.prototype.$ctor = function() {
@@ -10,6 +8,8 @@ DefaultNamespaceTest.prototype.$ctor = function() {
 DefaultNamespaceTest.prototype.set_Value = function(value /*System.Int32*/) {
 	this._Value_k__BackingField = value;
 };
+
+$Namespace('Foo');
 
 Foo.FooNamespaceTest = function() {
 };
@@ -30,10 +30,21 @@ Foo.FooNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
+$Namespace('System');
+
+System.Console = function() {
+};
+
+System.Console.WriteLine = function(value /*System.Object*/) {
+	// nop
+};
+
 $Namespace('DotWeb.Client');
 
 DotWeb.Client.JsScript = function() {
 };
+
+$Namespace('H8');
 
 H8.DecorationTests = function() {
 	this.$super.constructor();
