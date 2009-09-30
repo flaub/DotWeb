@@ -83,22 +83,28 @@ namespace DotWeb.Hosting.Bridge
 
 		private string CallGetter(MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
-			if (args.Length != 0) {
-				throw new NotSupportedException();
-			}
-			string propName = method.Name.Substring("get_".Length);
 			string target = GetTarget(method);
-			return string.Format("return {0}.{1};", target, propName);
+			if (args.Length == 1) {
+				return string.Format("return {0}[{1}];", target, args.First().Name);
+			}
+			else if (args.Length == 0) {
+				string propName = method.Name.Substring("get_".Length);
+				return string.Format("return {0}.{1};", target, propName);
+			}
+			throw new NotSupportedException();
 		}
 
 		private string CallSetter(MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
-			if (args.Length != 1) {
-				throw new NotSupportedException();
-			}
-			string propName = method.Name.Substring("set_".Length);
 			string target = GetTarget(method);
-			return string.Format("{0}.{1} = value;", target, propName);
+			if (args.Length == 2) {
+				return string.Format("{0}[{1}] = value;", target, args.First().Name);
+			}
+			else if (args.Length == 1) {
+				string propName = method.Name.Substring("set_".Length);
+				return string.Format("{0}.{1} = value;", target, propName);
+			}
+			throw new NotSupportedException();
 		}
 
 		private string CallConstructor(MethodBase method) {

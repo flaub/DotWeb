@@ -20,6 +20,14 @@ namespace DotWeb.Hosting.Test.Script
 		public void TestMethod() { }
 
 		public static void TestStatic() { }
+
+		public object this[string name] {
+			get {
+				return null;
+			}
+			set {
+			}
+		}
 	}
 
 	[JsNamespace]

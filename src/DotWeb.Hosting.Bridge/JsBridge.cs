@@ -30,7 +30,7 @@ namespace DotWeb.Hosting.Bridge
 	using ObjectToReferenceMap = Dictionary<object, int>;
 	using ReferenceToObjectMap = Dictionary<int, object>;
 
-	using JsObjectToReferenceMap = Dictionary<JsObject, int>;
+	using JsObjectToReferenceMap = Dictionary<object, int>;
 
 	using DynamicPropertyMap = Dictionary<string, object>;
 	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
@@ -139,6 +139,7 @@ namespace DotWeb.Hosting.Bridge
 				this.objToRef.Clear();
 				this.refToObj.Clear();
 				this.jsObjectToRef.Clear();
+				this.isUnwrapping = false;
 
 				Type type = Type.GetType(msg.TypeName);
 				CreateInstance(type);
@@ -227,13 +228,13 @@ namespace DotWeb.Hosting.Bridge
 			return true;
 		}
 
-		private int GetRemoteReference(JsObject remote) {
+		private int GetRemoteReference(object remote) {
 			int id = 0;
 			this.jsObjectToRef.TryGetValue(remote, out id);
 			return id;
 		}
 
-		private void AddRemoteReference(JsObject remote, int handle) {
+		private void AddRemoteReference(object remote, int handle) {
 			if (!this.jsObjectToRef.ContainsKey(remote)) {
 				this.jsObjectToRef.Add(remote, handle);
 			}
@@ -283,7 +284,7 @@ namespace DotWeb.Hosting.Bridge
 				return new JsValue(JsValueType.Void, null);
 
 			if (arg is JsObject) {
-				int handle = GetRemoteReference((JsObject)arg);
+				int handle = GetRemoteReference(arg);
 				Debug.Assert(handle != 0);
 				return new JsValue(JsValueType.JsObject, handle);
 			}
@@ -343,8 +344,13 @@ namespace DotWeb.Hosting.Bridge
 				}
 
 				isUnwrapping = true;
-				JsObject ret = (JsObject)CreateInstance(targetType);
-				isUnwrapping = false;
+				object ret;
+				try {
+					ret = CreateInstance(targetType);
+				}
+				finally {
+					isUnwrapping = false;
+				}
 
 				AddRemoteReference(ret, value.RefId);
 
@@ -427,7 +433,7 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		object IJsHost.InvokeRemoteMethod(JsObject scope, int stackDepth, params object[] args) {
-			if (isUnwrapping) {
+			if (this.isUnwrapping) {
 				return null;
 			}
 			

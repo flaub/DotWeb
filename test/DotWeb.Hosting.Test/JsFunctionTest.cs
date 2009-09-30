@@ -146,5 +146,21 @@ namespace DotWeb.Hosting.Test
 				"",
 				"return DotWeb.Hosting.Test.Script.CrashTestDummy.TestStatic();");
 		}
+
+		[Test]
+		public void TestIndexer() {
+			RunTest(
+				"get_Item",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$get_Item",
+				"name",
+				"return this[name];");
+
+			RunTest(
+				"set_Item",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$set_Item",
+				"name, value",
+				"this[name] = value;");
+		}
+
 	}
 }
