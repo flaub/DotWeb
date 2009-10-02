@@ -22,7 +22,7 @@ using System.Reflection.Emit;
 
 namespace DotWeb.Decompiler.Core
 {
-	enum LoopType
+	public enum LoopType
 	{
 		None,
 		While,
@@ -30,7 +30,7 @@ namespace DotWeb.Decompiler.Core
 		Endless
 	}
 
-	enum DfsTraversal
+	public enum DfsTraversal
 	{
 		None,
 		Display,
@@ -42,7 +42,7 @@ namespace DotWeb.Decompiler.Core
 		Jump
 	}
 
-	class Node
+	public class Node
 	{
 		public const int NoNode = -1;
 		public const int NoDominator = -1;

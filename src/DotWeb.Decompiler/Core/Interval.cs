@@ -38,7 +38,7 @@ namespace DotWeb.Decompiler.Core
 		}
 	}
 
-	class Interval : Node
+	public class Interval : Node
 	{
 		public int ExternalEdgeCount { get; private set; }
 

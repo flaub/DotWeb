@@ -23,7 +23,7 @@ using System.Reflection;
 
 namespace DotWeb.Decompiler.Core
 {
-	class ILInstruction : Node
+	public class ILInstruction : Node
 	{
 		public MethodBase Method { get; set; }
 		public OpCode Code { get; set; }

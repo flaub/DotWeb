@@ -24,7 +24,7 @@ using System.IO;
 
 namespace DotWeb.Decompiler.Core
 {
-	class MethodBodyReader
+	public class MethodBodyReader
 	{
 		private static readonly OpCode[] SingleByteOpCodes = new OpCode[0x100];
 		private static readonly OpCode[] MultiByteOpCodes = new OpCode[0x100];
