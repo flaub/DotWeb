@@ -9,10 +9,13 @@ using System.Diagnostics.SymbolStore;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using DotWeb.Decompiler.Core;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
+using System.IO;
 
 namespace DotWeb.Sandbox
 {
-	[Guid("809c652e-7396-11d2-9771-00a0c9b4d50c"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[System.Runtime.InteropServices.GuidAttribute("809c652e-7396-11d2-9771-00a0c9b4d50c"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true)]
 	interface IMetaDataDispenser
 	{
@@ -38,7 +41,7 @@ namespace DotWeb.Sandbox
 	// importing the specific methods.
 	// This needs to be public so that we can call Marshal.GetComInterfaceForObject() on it to get the
 	// underlying metadata pointer.
-	[Guid("7DAC8207-D3AE-4c75-9B67-92801A497D44"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[System.Runtime.InteropServices.Guid("7DAC8207-D3AE-4c75-9B67-92801A497D44"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true)]
 	public interface IMetadataImport
 	{
@@ -47,7 +50,7 @@ namespace DotWeb.Sandbox
 	}
 
 	[ComImport]
-	[Guid("e5cb7a31-7512-11d2-89ce-0080c792e5d8")]
+	[System.Runtime.InteropServices.Guid("e5cb7a31-7512-11d2-89ce-0080c792e5d8")]
 	[ClassInterface(ClassInterfaceType.None)]
 	[TypeLibType(TypeLibTypeFlags.FCanCreate)]
 	public class CorMetaDataDispenser : IMetaDataDispenser
@@ -65,7 +68,7 @@ namespace DotWeb.Sandbox
 
 	public class Program
 	{
-		static ISymbolReader GetReaderFor(string path) {
+		static System.Diagnostics.SymbolStore.ISymbolReader GetReaderFor(string path) {
 			CorMetaDataDispenser dispenser = null;
 			object objImporter = null;
 			IntPtr pImporter = IntPtr.Zero;
@@ -147,15 +150,52 @@ namespace DotWeb.Sandbox
 		}
 
 		static void Main(string[] args) {
+			DotNetRedirection(args);
+		}
+
+		static void CecilRedirection() {
 			string path = @"F:\src\git\DotWeb\build\bin\Debug\DotWeb.Sample.Script.dll";
-			//string searchPath = @"F:\src\git\DotWeb\test\DotWeb.Sandbox\DotWeb.Sandbox\bin\Debug";
+			var asmDef = AssemblyFactory.GetAssembly(path);
+			asmDef.MainModule.LoadSymbols();
+			asmDef.MainModule.FullLoad();
+
+			var sourceType = asmDef.MainModule.Types["DotWeb.Sample.Script.Test.Sandbox"];
+			var sourceMethod = sourceType.Constructors[0];
+
+//			var targetAsmDef = AssemblyFactory.DefineAssembly("Test", AssemblyKind.Dll);
+//			var moduleDef = new ModuleDefinition("Test", targetAsmDef, true);
+//			var typeDef = new TypeDefinition("Test", "", sourceType.Attributes, sourceType.BaseType);
+			
+//			var ctorDef = new MethodDefinition(sourceMethod.Name, sourceMethod.Attributes, sourceMethod.ReturnType.ReturnType);
+//			typeDef.Constructors.Add(ctorDef);
+//			targetAsmDef.MainModule.Types.Add(typeDef);
+//			moduleDef.Types.Add(typeDef);
+//			targetAsmDef.Modules.Add(moduleDef);
+
+			foreach (Instruction il in sourceMethod.Body.Instructions) {
+//				ctorDef.Body.CilWorker.Append(il);
+				if (il.SequencePoint != null) {
+					var sp = il.SequencePoint;
+					Console.WriteLine("{0}:{1}", sp.Document.Url, sp.StartLine);
+				}
+				Console.WriteLine("\t{0} {1}", il.OpCode, il.Operand);
+			}
+
+			asmDef.MainModule.SaveSymbols();
+			string outPath = @"F:\src\git\DotWeb\build\bin\Debug\Test.dll";
+			AssemblyFactory.SaveAssembly(asmDef, outPath);
+
+//			var asm = AssemblyFactory.CreateReflectionAssembly(asmDef);
+			var asm = Assembly.LoadFile(outPath);
+			var type = asm.GetType(sourceType.FullName);
+			var types = asm.GetTypes();
+			var obj = Activator.CreateInstance(type);
+		}
+
+		static void DotNetRedirection(string[] args) {
+			string path = @"F:\src\git\DotWeb\build\bin\Debug\DotWeb.Sample.Script.dll";
 
 			var reader = GetReaderFor(path);
-
-			//var docs = reader.GetDocuments();
-			//foreach (var item in docs) {
-			//    Console.WriteLine(item.URL);
-			//}
 
 			var sourceType = Type.GetType("DotWeb.Sample.Script.Test.Sandbox, DotWeb.Sample.Script");
 			var sourceMethod = sourceType.GetConstructor(Type.EmptyTypes);
@@ -164,30 +204,17 @@ namespace DotWeb.Sandbox
 			var symMethod = reader.GetMethod(token);
 			var points = new SequencePointCollection(symMethod);
 
+			string fileName = "Test.dll";
+			string outDir = @"F:\src\git\DotWeb\build\bin\Debug";
+			string outPath = Path.Combine(outDir, fileName);
+
 			var asmName = new AssemblyName("Test");
-			var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Run);
-			var moduleBuilder = asmBuilder.DefineDynamicModule(asmName.Name, true);
-			//var doc = documents.First();
-			//var docWriter = moduleBuilder.DefineDocument(doc.URL, doc.Language, doc.LanguageVendor, doc.DocumentType);
-			var typeBuilder = moduleBuilder.DefineType("Test");
-			var ctorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes);
+			var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Save, outDir);
+			var moduleBuilder = asmBuilder.DefineDynamicModule(fileName, fileName, true);
+			var typeBuilder = moduleBuilder.DefineType("Test", System.Reflection.TypeAttributes.Public | System.Reflection.TypeAttributes.Class);
+			var ctorBuilder = typeBuilder.DefineConstructor(System.Reflection.MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes);
 			var ilg = ctorBuilder.GetILGenerator();
-			//ilg.Emit(OpCodes.Ret);
 
-			//var ctor = type.GetConstructor(Type.EmptyTypes);
-
-			//var methodBody = sourceMethod.GetMethodBody().GetILAsByteArray();
-			//var hMemory = GCHandle.Alloc(methodBody, GCHandleType.Pinned);
-			//var pBody = hMemory.AddrOfPinnedObject();
-			//MethodRental.SwapMethodBody(type, ctor.MetadataToken, pBody, methodBody.Length, MethodRental.JitOnDemand);
-
-			//var writer = moduleBuilder.GetSymWriter();
-			//writer.OpenMethod(new SymbolToken(ctor.MetadataToken));
-			//writer.DefineSequencePoints(docWriter, offsets, lines, columns, endColumns, endColumns);
-			//writer.CloseMethod();
-			//writer.Close();
-
-			//var ilg = ctorBuilder.GetILGenerator();
 			var methodReader = new MethodBodyReader(sourceMethod);
 
 			foreach (var il in methodReader.Instructions) {
@@ -197,36 +224,18 @@ namespace DotWeb.Sandbox
 					ilg.MarkSequencePoint(doc, point.Line, point.Column, point.EndLine, point.EndColumn);
 				}
 
-				if (il.Operand == null) {
-					ilg.Emit(il.Code);
+				if (il.Operand is MethodInfo) {
+					RedirectMethodInfo(il);
 				}
-				else {
-					if (il.Operand is byte)
-						ilg.Emit(il.Code, (byte)il.Operand);
-					else if(il.Operand is double)
-						ilg.Emit(il.Code, (double)il.Operand);
-					else if (il.Operand is int)
-						ilg.Emit(il.Code, (int)il.Operand);
-					else if (il.Operand is long)
-						ilg.Emit(il.Code, (long)il.Operand);
-					else if (il.Operand is short)
-						ilg.Emit(il.Code, (short)il.Operand);
-					else if (il.Operand is string)
-						ilg.Emit(il.Code, (string)il.Operand);
-					else if (il.Operand is ConstructorInfo)
-						ilg.Emit(il.Code, (ConstructorInfo)il.Operand);
-					else if (il.Operand is MethodInfo)
-						EmitMethodInfo(ilg, il);
-					else if (il.Operand is FieldInfo)
-						ilg.Emit(il.Code, (FieldInfo)il.Operand);
-					else if (il.Operand is Label)
-						ilg.Emit(il.Code, (Label)il.Operand);
-					else if (il.Operand is Type)
-						ilg.Emit(il.Code, (Type)il.Operand);
-				}
+				ilg.Emit(il);
 			}
 
-			var type = typeBuilder.CreateType();
+			typeBuilder.CreateType();
+			asmBuilder.Save(fileName);
+
+			var asm = Assembly.LoadFile(outPath);
+			var types = asm.GetTypes();
+			var type = asm.GetType("Test");
 			var obj = Activator.CreateInstance(type);
 		}
 
@@ -234,23 +243,16 @@ namespace DotWeb.Sandbox
 			return moduleBuilder.DefineDocument(doc.URL, doc.Language, doc.LanguageVendor, doc.DocumentType);
 		}
 
-		static void EmitMethodInfo(ILGenerator ilg, ILInstruction il) {
+		static void RedirectMethodInfo(ILInstruction il) {
 			Type targetType = typeof(Console);
 			var targetMethod = targetType.GetMethod("WriteLine", new Type[] { typeof(string) });
 
 			var redirect = typeof(Program).GetMethod("WriteLine");
 
 			var method = (MethodInfo)il.Operand;
-			if (method == targetMethod) {
-				ilg.Emit(il.Code, redirect);
+			if (il.Operand.Equals(targetMethod)) {
+				il.Operand = redirect;
 			}
-			else {
-				ilg.Emit(il.Code, method);
-			}
-		}
-
-		public static void RelinkMe() {
-			Console.WriteLine();
 		}
 
 		public static void WriteLine(string value) {
@@ -300,4 +302,69 @@ namespace DotWeb.Sandbox
 		}
 #endif
 	}
+
+	static class ILGeneratorExtensions
+	{
+		class OperandTypeNames
+		{
+			public const string Byte = "Byte";
+			public const string Double = "Double";
+			public const string Float = "Single";
+			public const string Int = "Int32";
+			public const string Short = "Int16";
+			public const string Long = "Int64";
+			public const string String = "String";
+			public const string Method = "RuntimeMethodInfo";
+			public const string Constructor = "RuntimeConstructorInfo";
+			public const string Field = "RuntimeFieldInfo";
+			public const string Type = "Type";
+			public const string Label = "Label";
+		}
+
+		public static void Emit(this ILGenerator ilg, ILInstruction il) {
+			if (il.Operand == null) {
+				ilg.Emit(il.Code);
+				return;
+			}
+			var typeName = il.Operand.GetType().Name;
+			switch (typeName) {
+				case OperandTypeNames.Byte:
+					ilg.Emit(il.Code, (byte)il.Operand);
+					break;
+				case OperandTypeNames.Float:
+					ilg.Emit(il.Code, (float)il.Operand);
+					break;
+				case OperandTypeNames.Double:
+					ilg.Emit(il.Code, (double)il.Operand);
+					break;
+				case OperandTypeNames.Short:
+					ilg.Emit(il.Code, (short)il.Operand);
+					break;
+				case OperandTypeNames.Int:
+					ilg.Emit(il.Code, (int)il.Operand);
+					break;
+				case OperandTypeNames.Long:
+					ilg.Emit(il.Code, (long)il.Operand);
+					break;
+				case OperandTypeNames.String:
+					ilg.Emit(il.Code, (string)il.Operand);
+					break;
+				case OperandTypeNames.Method:
+					ilg.Emit(il.Code, (MethodInfo)il.Operand);
+					break;
+				case OperandTypeNames.Constructor:
+					ilg.Emit(il.Code, (ConstructorInfo)il.Operand);
+					break;
+				case OperandTypeNames.Field:
+					ilg.Emit(il.Code, (FieldInfo)il.Operand);
+					break;
+				case OperandTypeNames.Label:
+					ilg.Emit(il.Code, (Label)il.Operand);
+					break;
+				default:
+					throw new NotSupportedException(string.Format("OperandType: {0}", typeName));
+			}
+		}
+	}
+
 }

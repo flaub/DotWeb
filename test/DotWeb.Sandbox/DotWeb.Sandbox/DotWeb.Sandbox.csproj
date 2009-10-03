@@ -41,6 +41,14 @@
       <HintPath>..\..\..\Depends\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
     <Reference Include="ISymWrapper" />
+    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Depends\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Depends\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
