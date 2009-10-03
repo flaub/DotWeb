@@ -121,9 +121,6 @@ namespace DotWeb.Web
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
-			var cookie = new HttpCookie("X-DotWeb");
-			context.AddCookie(cookie);
-
 			var hostedMode = context.GetApplicationState(DotWebHostedMode) as HostedMode;
 			if (hostedMode == null) {
 				var binPath = context.MapPath("/bin");

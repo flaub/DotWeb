@@ -25,7 +25,6 @@ namespace DotWeb.Web
 		string MapPath(string virtualPath);
 		string ResolveUrl(string url);
 		Cache Cache { get; }
-		void AddCookie(HttpCookie cookie);
 
 		object GetApplicationState(string key);
 		void SetApplicationState(string key, object value);

@@ -24,48 +24,6 @@ using System.Runtime.InteropServices;
 
 namespace DotWeb.Agent.Ie
 {
-	//[Flags]
-	//enum GetDispIdFlags : byte
-	//{
-	//    CaseSensitive = 0x00000001,
-	//    Ensure = 0x00000002,
-	//    Implicit = 0x00000004,
-	//    CaseInsensitive = 0x00000008,
-	//    Internal = 0x00000010,
-	//    NoDynamicProperties = 0x00000020,
-	//}
-
-	//[Flags]
-	//enum MemberProperties : uint
-	//{
-	//    CanGet = 0x00000001,
-	//    CannotGet = 0x00000002,
-	//    CanPut = 0x00000004,
-	//    CannotPut = 0x00000008,
-	//    CanPutRef = 0x00000010,
-	//    CannotPutRef = 0x00000020,
-	//    NoSideEffects = 0x00000040,
-	//    DynamicType = 0x00000080,
-	//    CanCall = 0x00000100,
-	//    CannotCall = 0x00000200,
-	//    CanConstruct = 0x00000400,
-	//    CannotConstruct = 0x00000800,
-	//    CanSourceEvents = 0x00001000,
-	//    CannotSourceEvents = 0x00002000,
-
-	//    CanAll =
-	//           (CanGet | CanPut | CanPutRef |
-	//            CanCall | CanConstruct | CanSourceEvents),
-	//    CannotAll =
-	//           (CannotGet | CannotPut | CannotPutRef |
-	//            CannotCall | CannotConstruct | CannotSourceEvents),
-	//    ExtraAll =
-	//           (NoSideEffects | DynamicType),
-	//    All =
-	//           (CanAll | CannotAll | ExtraAll)
-	//}
-
-
 	[ClassInterface(ClassInterfaceType.None)]
 	class DispatchImpl : IDispatchImpl
 	{

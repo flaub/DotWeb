@@ -39,10 +39,6 @@ namespace DotWeb.Web
 			get { return context.Cache; }
 		}
 
-		public void AddCookie(HttpCookie cookie) {
-			context.Response.Cookies.Add(cookie);
-		}
-
 		public object GetApplicationState(string key) {
 			return context.Application.Get(key);
 		}
