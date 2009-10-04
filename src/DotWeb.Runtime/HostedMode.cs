@@ -47,17 +47,17 @@ namespace DotWeb.Runtime
 
 		public IPEndPoint EndPoint { get { return (IPEndPoint)this.listener.LocalEndpoint; } }
 
-		public string PrepareType(string fullTypeName) {
-			string[] parts = fullTypeName.Split(',');
-			string typeName = parts[0].Trim();
-			string asmName = parts[1].Trim();
+		//public string PrepareType(string fullTypeName) {
+		//    string[] parts = fullTypeName.Split(',');
+		//    string typeName = parts[0].Trim();
+		//    string asmName = parts[1].Trim();
 
-			var fixup = new AssemblyReferenceFixup(this.binPath);
-			var altName = fixup.FixupReferences(asmName, false);
+		//    var fixup = new AssemblyReferenceFixup(this.binPath);
+		//    var altName = fixup.FixupReferences(asmName, false);
 
-			var ret = string.Format("{0}, {1}", typeName, altName.Name);
-			return ret;
-		}
+		//    var ret = string.Format("{0}, {1}", typeName, altName.Name);
+		//    return ret;
+		//}
 		
 		public void Start() {
 			this.listener.Start();

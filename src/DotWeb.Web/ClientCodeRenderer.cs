@@ -130,7 +130,7 @@ namespace DotWeb.Web
 			}
 
 			var ip = hostedMode.EndPoint;
-			var src = hostedMode.PrepareType(Source);
+//			var src = hostedMode.PrepareType(Source);
 
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
@@ -142,7 +142,7 @@ namespace DotWeb.Web
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
 
 			writer.WriteLine(Resources.JsHelper);
-			string js = string.Format(Resources.HostedEntry, ip.Port, src);
+			string js = string.Format(Resources.HostedEntry, ip.Port, Source);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();

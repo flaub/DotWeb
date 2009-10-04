@@ -27,27 +27,28 @@ namespace DotWeb.Sample.Script
 	public class ConsoleScript : JsScript
 	{
 		/*
-#fauxconsole{
-	position:absolute;
-	top:0;
-	right:0;
-	width:300px;
-	border:1px solid #999;
-	font-family:courier,monospace;
-	background:#eee;
-	font-size:10px;
-	padding:10px;
-}
-html>body #fauxconsole{
-	position:fixed;
-}
-#fauxconsole a{
-	float:right;
-	padding-left:1em;
-	padding-bottom:.5em;
-	text-align:right;
-}
-		 */
+		#fauxconsole{
+			position:absolute;
+			top:0;
+			right:0;
+			width:300px;
+			border:1px solid #999;
+			font-family:courier,monospace;
+			background:#eee;
+			font-size:10px;
+			padding:10px;
+		}
+		html>body #fauxconsole{
+			position:fixed;
+		}
+		#fauxconsole a{
+			float:right;
+			padding-left:1em;
+			padding-bottom:.5em;
+			text-align:right;
+		}
+		*/
+
 		private const string ConsoleDivId = "JavaScriptConsole";
 		private HtmlDivElement div;
 		private Element inner;
@@ -57,7 +58,6 @@ html>body #fauxconsole{
 			this.div = JsRuntime.Cast<HtmlDivElement>(element);
 			this.div.id = ConsoleDivId;
 
-//			this.div.style.position = "absolute";
 			this.div.style.top = "0";
 			this.div.style.right = "0";
 			this.div.style.width = "300px";
