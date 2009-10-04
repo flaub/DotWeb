@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using DotWeb.Decompiler.Core;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -56,5 +57,10 @@ namespace DotWeb.Decompiler.CodeModel
 		public List<CodeParameterDeclarationExpression> Parameters { get; set; }
 		public HashSet<MethodBase> ExternalMethods { get; set; }
 		public string NativeCode { get; set; }
+
+		/// <summary>
+		/// Used for debugging purposes
+		/// </summary>
+		public List<ILInstruction> Instructions { get; set; }
 	}
 }

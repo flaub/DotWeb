@@ -32,7 +32,8 @@ namespace DotWeb.Decompiler.Core
 			this.Cfg = cfg;
 
 			this.Method = new CodeMethodMember(cfg.Method) {
-				ExternalMethods = cfg.ExternalMethods
+				ExternalMethods = cfg.ExternalMethods,
+				Instructions = cfg.Instructions
 			};
 
 			//foreach (LocalVariableInfo local in cfg.Method.GetMethodBody().LocalVariables) {

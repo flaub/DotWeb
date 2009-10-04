@@ -37,16 +37,18 @@ namespace DotWeb.Decompiler.Core
 		public BasicBlock[] DfsList { get; private set; }
 		public bool HasCases { get; private set; }
 		public HashSet<MethodBase> ExternalMethods { get; private set; }
+		public List<ILInstruction> Instructions { get; private set; }
 
 		public ControlFlowGraph(MethodBase method) {
 			this.Method = method;
 
 			MethodBodyReader reader = new MethodBodyReader(method);
+			this.Instructions = reader.Instructions;
 			this.HasCases = reader.HasCases;
 
-			foreach (ILInstruction item in reader.Instructions) {
-				Console.WriteLine(item);
-			}
+			//foreach (ILInstruction item in reader.Instructions) {
+			//    Console.WriteLine(item);
+			//}
 			
 			CreateBlocks(reader.Instructions);
 			ResolveBranches();
