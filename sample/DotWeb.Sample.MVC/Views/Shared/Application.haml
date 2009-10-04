@@ -12,10 +12,12 @@
 					%ul#menu
 						%li= Html.ActionLink(string.Format("Mode: {0}", ViewData["Mode"]), "Mode", "Home")
 						%li= Html.ActionLink("Simple Sample", "Simple", "Home")
+						%li= Html.ActionLink("Console", "Console", "Home")
 						%li= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")
 						%li= Html.ActionLink("Tests", "Tests", "Home")
 			#main
-				_
+				#content
+					_
 				#footer
 					DotWeb Sample MVC Application 
 					%br

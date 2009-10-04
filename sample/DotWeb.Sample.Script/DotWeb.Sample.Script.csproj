@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ConsoleScript.cs" />
     <Compile Include="ExtScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleScript.cs" />
@@ -56,6 +57,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\proxy\Ext\bin\Debug\Ext.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="console.js" />
+    <Content Include="fauxconsole.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -24,17 +24,22 @@ namespace DotWeb.Sample.MVC.Controllers
 	public class HomeController : BaseController
 	{
 		public ActionResult Simple() {
-			ViewData["Title"] = ".Web Simple Sample";
+			ViewData["Title"] = "DotWeb Simple Sample";
+			return View();
+		}
+
+		public ActionResult Console() {
+			ViewData["Title"] = "DotWeb Console";
 			return View();
 		}
 
 		public ActionResult ExtJs() {
-			ViewData["Title"] = ".Web ExtJs Sample";
+			ViewData["Title"] = "DotWeb ExtJs Sample";
 			return View();
 		}
 
 		public ActionResult Tests() {
-			ViewData["Title"] = ".Web Tests";
+			ViewData["Title"] = "DotWeb Tests";
 			return View();
 		}
 

@@ -32,28 +32,28 @@ namespace DotWeb.Sample.Script
 			
 			Tuple tuple = new Tuple(config);
 			int id = tuple.id;
-			Log("id: ");
-			Log(id);
+			Console.WriteLine("id: ");
+			Console.WriteLine(id);
 			tuple.id = 9;
 			tuple.handler = this.OnEvent;
-			Log("before");
+			Console.WriteLine("before");
 			tuple.fireEvent();
 
 			Tuple.StaticMethod(2, 5);
 
 			Tuple t2 = Tuple.Factory();
-			Log(t2.id);
+			Console.WriteLine(t2.id);
 
 			Window.onblur = this.OnEvent;
 		}
 
 		private void OnEvent(Event evt) {
-			Log(evt);
+			Console.WriteLine(evt);
 		}
 
 		private void OnEvent(Tuple tuple, int id) {
 //			Console.WriteLine(string.Format("OnEvent: {0}, {1}", tuple, id));
-			Log(tuple.Value);
+			Console.WriteLine(tuple.Value);
 		}
 	}
 }

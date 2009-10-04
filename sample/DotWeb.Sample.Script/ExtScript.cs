@@ -47,7 +47,7 @@ namespace DotWeb.Sample.Script
 		}
 
 		public ExtScript() {
-			Log("ExtScript()");
+			Console.WriteLine("ExtScript()");
 
 			var record = Record.create(new Schema[] {
 			    new Schema { name = "id", type = "int" },
@@ -57,7 +57,7 @@ namespace DotWeb.Sample.Script
 			JsonReader reader = new JsonReader(new JsonReaderConfig {
 				id = "id"
 			}, record);
-			Log(reader);
+			Console.WriteLine(reader);
 
 			Store store = new Store(new StoreConfig {
 				reader = reader
@@ -67,7 +67,7 @@ namespace DotWeb.Sample.Script
 			    new MyRecord { id = 1, value = "first" },
 			    new MyRecord { id = 2, value = "second" }
 			};
-			Log(data);
+			Console.WriteLine(data);
 			store.loadData(data);
 
 			ColumnModelConfig[] columns = new ColumnModelConfig[] {
@@ -87,16 +87,16 @@ namespace DotWeb.Sample.Script
 				colModel = colModel,
 				store = store
 			});
-			Log(this.grid);
+			Console.WriteLine(this.grid);
 
 			this.grid.on("dblclick", new GridPanelDblclickDelegate(this.OnDblClick), this);
-			Log("ready");
+			Console.WriteLine("ready");
 		}
 
 		private void OnDblClick(Ext.EventObject e) {
-			Log("dblclick");
-			Log(e);
-			Log(this);
+			Console.WriteLine("dblclick");
+			Console.WriteLine(e);
+			Console.WriteLine(this);
 		}
 	}
 }

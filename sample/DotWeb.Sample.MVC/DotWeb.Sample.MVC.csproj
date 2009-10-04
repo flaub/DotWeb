@@ -468,6 +468,7 @@
     <None Include="js\ExtJs\resources\images\default\window\top-bottom.psd" />
     <None Include="js\ExtJs\resources\images\gray\window\left-corners.pspimage" />
     <None Include="js\ExtJs\resources\resources.jsb" />
+    <None Include="Views\Home\Console.haml" />
     <None Include="Views\Home\Mode.haml" />
     <None Include="Views\Shared\Application.haml" />
     <None Include="Views\Test\Expando.haml" />
