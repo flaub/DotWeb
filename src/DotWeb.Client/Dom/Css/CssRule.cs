@@ -17,7 +17,8 @@
 // 
 namespace DotWeb.Client.Dom.Css
 {
-	public class CssRule : JsNativeBase 
+	[JsIntrinsic]
+	public interface CssRule 
 	{
 	}
 }

@@ -19,6 +19,7 @@ using System;
 
 namespace DotWeb.Client.Dom.Html
 {
+	[JsIntrinsic]
 	public interface HtmlDocument : Document
 	{
 		/// <summary>

@@ -17,20 +17,19 @@
 
 namespace DotWeb.Client.Dom
 {
-	public abstract class NamedNodeMap : JsNativeBase
+	[JsIntrinsic]
+	public interface NamedNodeMap
 	{
-		public Node getNamedItem(string name) { return _<Node>(name); }
-		public Node setNamedItem(Node node) { return _<Node>(node); }
-		public Node removeNamedItem(string name) { return _<Node>(name); }
+		Node getNamedItem(string name);
+		Node setNamedItem(Node node);
+		Node removeNamedItem(string name);
 
-		[JsIntrinsic]
-		public int length { get { return _<int>(); } }
-
+		int length { get; } 
 
 		#region DOM Level 2
-		public Node getNamedItemNS(string namespaceURI, string localName) { return _<Node>(namespaceURI, localName); }
-		public Node setNamedItemNS(Node arg) { return _<Node>(arg); }
-		public Node removeNamedItemNS(string namespaceURI, string localName) { return _<Node>(namespaceURI, localName); }
+		Node getNamedItemNS(string namespaceURI, string localName);
+		Node setNamedItemNS(Node arg);
+		Node removeNamedItemNS(string namespaceURI, string localName);
 		#endregion
 	}
 }

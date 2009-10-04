@@ -52,30 +52,27 @@ namespace DotWeb.Client.Dom
 	/// schema declares them as having tokenized types.
 	/// </para>
 	/// </summary>
+	[JsIntrinsic]
 	public interface Attr : Node
 	{
 		/// <summary>
 		/// Returns the name of this attribute.
 		/// </summary>
-		[JsIntrinsic]
 		string name { get; }
 		
 		/// <summary>
 		/// If this attribute was explicitly given a value in the original document, this is true; otherwise, it is false.
 		/// </summary>
-		[JsIntrinsic]
 		bool specified { get; }
 
 		/// <summary>
 		/// The value of the attribute as a string.
 		/// </summary>
-		[JsIntrinsic]
 		string value { get; set; }
 
 		/// <summary>
 		/// The Element node this attribute is attached to or null if this attribute is not in use
 		/// </summary>
-		[JsIntrinsic]
 		Element ownerElement { get; }
 	}
 }

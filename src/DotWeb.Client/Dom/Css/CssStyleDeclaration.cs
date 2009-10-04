@@ -17,22 +17,24 @@
 
 namespace DotWeb.Client.Dom.Css
 {
-	public class CssValue : JsNativeBase
+	[JsIntrinsic]
+	public interface CssValue
 	{
 	}
 
-	public class CssStyleDeclaration : JsNativeBase
+	[JsIntrinsic]
+	public interface CssStyleDeclaration
 	{
-		public string cssText { get { return _<string>(); } set { _(value); } }
-		public int length { get { return _<int>(); } }
-		public CssRule parentRule { get { return _<CssRule>(); } }
+		string cssText { get; set; }
+		int length { get; }
+		CssRule parentRule { get; }
 
-		public string item(int index) { return _<string>(index); }
+		string item(int index);
 
-		public string getPropertyValue(string propertyName) { return _<string>(propertyName); }
-		public CssValue getPropertyCSSValue(string propertyName) { return _<CssValue>(propertyName); }
-		public string removeProperty(string propertyName) { return _<string>(propertyName); }
-		public string getPropertyPriority(string propertyName) { return _<string>(propertyName); }
-		public void setProperty(string propertyName, string value, string priority) { _(propertyName, value, priority); }
+		string getPropertyValue(string propertyName);
+		CssValue getPropertyCSSValue(string propertyName);
+		string removeProperty(string propertyName);
+		string getPropertyPriority(string propertyName);
+		void setProperty(string propertyName, string value, string priority);
 	}
 }

@@ -38,36 +38,19 @@ namespace DotWeb.Client.Dom.Html
 	/// ElementCSSInlineStyle interface which is defined in the CSS module [DOM Level 2 Style Sheets and CSS] .
 	/// </remarks>
 	/// </summary>
+	[JsIntrinsic]
 	public interface HtmlElement : Element
 	{
-		[JsIntrinsic]
 		string id { get; set; }
-
-		[JsIntrinsic]
 		string title { get; set; }
-
-		[JsIntrinsic]
 		string lang { get; set; }
-
-		[JsIntrinsic]
 		string dir { get; set; }
-
-		[JsIntrinsic]
 		string className { get; set; }
-
-		[JsIntrinsic]
 		Style style { get; set; }
 
-		[JsIntrinsic]
 		MouseEventHandler onclick { get; set; }
-
-		[JsIntrinsic]
 		MouseEventHandler onmouseover { get; set; }
-
-		[JsIntrinsic]
 		MouseEventHandler onmouseout { get; set; }
-
-		[JsIntrinsic]
 		GenericEventHandler onblur { get; set; }
 	}
 }

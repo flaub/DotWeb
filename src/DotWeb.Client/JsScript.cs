@@ -16,7 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using DotWeb.Client.Dom;
-using DotWeb.System;
+using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Client
 {
@@ -27,7 +27,9 @@ namespace DotWeb.Client
 			get { return JsHost.Invoke<Window>(null); }
 		}
 
-		[JsCode("console.log(obj);")]
-		public static void Log(object obj) { JsHost.Invoke(null, obj); }
+		public HtmlDocument Document {
+			[JsCode("return $doc;")]
+			get { return JsHost.Invoke<HtmlDocument>(null); }
+		}
 	}
 }

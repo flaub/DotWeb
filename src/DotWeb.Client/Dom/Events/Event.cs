@@ -26,27 +26,15 @@ namespace DotWeb.Client.Dom.Events
 	/// type of event they accompany. 
 	/// These derived interfaces are also implemented by the object passed to the event listener.
 	/// </summary>
+	[JsIntrinsic]
 	public interface Event
 	{
-		[JsIntrinsic]
 		bool bubbles { get; }
-
-		[JsIntrinsic]
 		bool cancelable { get; }
-
-		[JsIntrinsic]
 		Window currentTarget { get; }
-
-		[JsIntrinsic]
 		Window target { get; }
-
-		[JsIntrinsic]
 		int eventPhase { get; }
-
-		[JsIntrinsic]
 		int timeStamp { get; }
-
-		[JsIntrinsic]
 		string type { get; }
 
 		void stopPropagation();

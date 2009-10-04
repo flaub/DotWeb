@@ -34,6 +34,7 @@ namespace DotWeb.Client.Dom
 	/// Note: In DOM Level 2, the method normalize is inherited from the Node interface where it was moved.
 	/// </remarks>
 	/// </summary>
+	[JsIntrinsic]
 	public interface Element : Node
 	{
 		/// <summary>

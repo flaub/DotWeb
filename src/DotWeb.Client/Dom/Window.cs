@@ -16,6 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using DotWeb.Client.Dom.Events;
+using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Client.Dom
 {
@@ -24,14 +25,13 @@ namespace DotWeb.Client.Dom
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]
+	[JsIntrinsic]
 	public interface Window
 	{
 		#region Properties
 
-		[JsIntrinsic]
-		Document document { get; }
+		HtmlDocument document { get; }
 
-		[JsIntrinsic]
 		object this[string name] { get; set; }
 
 		#endregion
@@ -41,19 +41,16 @@ namespace DotWeb.Client.Dom
 		/// <summary>
 		/// Fires when the window loses focus.
 		/// </summary>
-		[JsIntrinsic]
 		GenericEventHandler onblur { get; set; }
 
 		/// <summary>
 		/// Fires when the focus is set on the current window.
 		/// </summary>
-		[JsIntrinsic]
 		GenericEventHandler onfocus { get; set; }
 
 		/// <summary>
 		/// Fires when the window is resized.
 		/// </summary>
-		[JsIntrinsic]
 		GenericEventHandler onresize { get; set; }
 
 		/// <summary>
@@ -69,7 +66,6 @@ namespace DotWeb.Client.Dom
 		///	}
 		/// </code>
 		/// </example>
-		[JsIntrinsic]
 		GenericEventHandler onscroll { get; set; }
 
 		/// <summary>
@@ -89,7 +85,6 @@ namespace DotWeb.Client.Dom
 		/// window.location="http://www.google.com" //prompt is invoked
 		/// </code>
 		/// </example>
-		[JsIntrinsic]
 		GenericEventHandler onbeforeunload { get; set; }
 
 		/// <summary>
@@ -107,7 +102,6 @@ namespace DotWeb.Client.Dom
 		///	}
 		///	</code>
 		/// </example>
-		[JsIntrinsic]
 		ErrorEventHandler onerror { get; set; }
 		#endregion
 

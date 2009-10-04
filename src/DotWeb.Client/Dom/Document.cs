@@ -16,9 +16,11 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Client.Dom
 {
+	[JsIntrinsic]
 	public interface Document : Node
 	{
 		/// <summary>
@@ -26,7 +28,7 @@ namespace DotWeb.Client.Dom
 		/// in the case of HTML documents, the html element. 
 		/// This read only property is useful for accessing all elements on the page, such as the HEAD.
 		/// </summary>
-		Element documentElement { get; }
+		HtmlDocument documentElement { get; }
 
 		/// <summary>
 		/// Creates a new attribute, ready to be inserted somewhere in the document. 
@@ -127,7 +129,7 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		Node createTextNode(string text);
+		Text createTextNode(string text);
 
 		/// <summary>
 		/// Accesses any element on the page via its ID attribute. 

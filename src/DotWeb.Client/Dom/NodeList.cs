@@ -17,11 +17,11 @@
 // 
 namespace DotWeb.Client.Dom
 {
-	public class NodeList : JsNativeBase
+	[JsIntrinsic]
+	public interface NodeList
 	{
-		[JsIntrinsic]
-		public int length { get { return _<int>(); } }
+		int length { get; }
 
-		public Node item(int index) { return _<Node>(); }
+		Node item(int index);
 	}
 }

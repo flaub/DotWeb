@@ -17,9 +17,9 @@
 // 
 namespace DotWeb.Client.Dom.Html
 {
+	[JsIntrinsic]
 	public class HtmlCollection : JsNativeBase
 	{
-		[JsIntrinsic]
 		public int length { get { return _<int>(); } }
 
 		public Node item(int index) { return _<Node>(); }

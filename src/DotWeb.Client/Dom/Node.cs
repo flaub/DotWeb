@@ -63,59 +63,34 @@ namespace DotWeb.Client.Dom
 	/// to get and set the relevant information.
 	/// </para>
 	/// </summary>
+	[JsIntrinsic]
 	public interface Node
 	{
 		#region Properties
 
-		[JsIntrinsic]
 		string nodeName { get; }
-
-		[JsIntrinsic]
 		string nodeValue { get; set; }
-
-		[JsIntrinsic]
 		NodeType nodeType { get; }
-
-		[JsIntrinsic]
 		Node parentNode { get; }
-
-		[JsIntrinsic]
 		NodeList childNodes { get; }
-
-		[JsIntrinsic]
 		Node firstChild { get; }
-
-		[JsIntrinsic]
 		Node lastChild { get; }
-
-		[JsIntrinsic]
 		Node previousSibling { get; }
-
-		[JsIntrinsic]
 		Node nextSibling { get; }
-
-		[JsIntrinsic]
 		NamedNodeMap attributes { get; }
 
 		/// <summary>
 		/// Returns a reference to the document object that contains the current element/node.
 		/// </summary>
-		[JsIntrinsic]
 		Document ownerDocument { get; }
 
 		#region DOM Level 2
-		[JsIntrinsic]
 		string namespaceURI { get; }
-
-		[JsIntrinsic]
 		string prefix { get; set; }
-
-		[JsIntrinsic]
 		string localName { get; }
 		#endregion
 
 		#region Gecko
-		[JsIntrinsic]
 		string textContent { get; set; }
 		#endregion
 

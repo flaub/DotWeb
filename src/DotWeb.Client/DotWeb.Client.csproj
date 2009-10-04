@@ -36,6 +36,10 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Dom\CharacterData.cs" />
+    <Compile Include="Dom\Text.cs" />
+    <Compile Include="Dom\Css\CssProperties.cs" />
+    <Compile Include="Dom\Html\HtmlAnchorElement.cs" />
     <Compile Include="JsCodeAttribute.cs" />
     <Compile Include="JsDynamicBase.cs" />
     <Compile Include="Dom\Css\CssRule.cs" />
@@ -106,6 +110,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dom\Styesheets\" />
