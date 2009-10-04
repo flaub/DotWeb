@@ -263,6 +263,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.currentMethod = method;
 			this.locals.Clear();
 
+			//if (method.Instructions != null) {
+			//    WriteLine("/*");
+			//    foreach (var il in method.Instructions) {
+			//        this.WriteLine(il);
+			//    }
+			//    WriteLine(" */");
+			//}
+
 			string[] args = method.Parameters.Select(x => Print(x)).ToArray();
 			string name = method.Name;
 			if (method.Info.IsConstructor) {
