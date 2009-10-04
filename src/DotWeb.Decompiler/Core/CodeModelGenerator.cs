@@ -242,8 +242,12 @@ namespace DotWeb.Decompiler.Core
 
 		private void Pop(ILInstruction il) {
 			CodeExpression exp = vm.Stack.Pop();
-			if (exp is CodeObjectCreateExpression) {
+			if (exp is CodeObjectCreateExpression ||
+				exp is CodeInvokeExpression) {
 				AddStatment(new CodeExpressionStatement(exp), il);
+			}
+			else {
+				throw new NotSupportedException(exp.ToString());
 			}
 		}
 
