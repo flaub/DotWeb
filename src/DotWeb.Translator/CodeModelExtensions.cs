@@ -88,7 +88,9 @@ namespace DotWeb.Translator
 		}
 
 		public static bool IsIntrinsic(this PropertyInfo pi) {
-			return pi.IsDefined(typeof(JsIntrinsicAttribute), false);
+			return
+				pi.IsDefined(typeof(JsIntrinsicAttribute), false) ||
+				pi.DeclaringType.IsDefined(typeof(JsIntrinsicAttribute), false);
 		}
 
 		private static string GetAutomaticBackingFieldName(PropertyInfo property) {
