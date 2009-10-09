@@ -20,10 +20,49 @@ using System;
 
 namespace DotWeb.Sample.Script.Test
 {
-	public class Sandbox
+	public class Sandbox : JsScript
 	{
 		public Sandbox() {
+			int x = 1;
+			x++;
+			//Foo("Hello");
 			Console.WriteLine("Hi");
+			Console.WriteLine("{0}: {1}", 1, "two");
+			Console.WriteLine("{0}", 1);
+			Console.WriteLine(Math.Sin(1));
+
+			Window.alert("hi");
+		}
+
+		public void Foo(string value) {
+			for (int i = 0; i < 10; i++) {
+				Console.Write(i);
+			}
+
+			if (value == "Hello") {
+				int y = value.Length;
+				if (y == 2) {
+					Console.WriteLine(y * 2);
+				}
+			}
+			else {
+				double y = value.Length * 4;
+				if (y > 0) {
+					Console.WriteLine(y);
+				}
+			}
+			{
+				int x = 2;
+				{
+					int z = 3;
+					Console.WriteLine(x);
+				}
+			}
+		}
+
+		public void Bar() {
+			Foo("again");
+			Bar();
 		}
 	}
 }

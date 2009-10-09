@@ -213,8 +213,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return;
 
 			string typeName = Print(type);
-
-			bool isNative = type.IsSubclassOf(typeof(JsNativeBase));
+			
+			bool isNative = false;// FIXME: type.IsSubclassOf(typeof(JsNativeBase));
 			if (isNative) {
 				WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
 				this.writer.Indent++;

@@ -20,6 +20,7 @@ using System.Linq;
 using DotWeb.Client;
 using System.Reflection;
 using DotWeb.Utility;
+using System.DotWeb;
 
 namespace DotWeb.Hosting.Bridge
 {

@@ -31,10 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Dom\Attr.cs" />
+    <Compile Include="Dom\CharacterData.cs" />
+    <Compile Include="Dom\Css\CssProperties.cs" />
     <Compile Include="Dom\Css\CssRule.cs" />
     <Compile Include="Dom\Css\CssStyleDeclaration.cs" />
     <Compile Include="Dom\Css\Style.cs" />
@@ -45,6 +44,7 @@
     <Compile Include="Dom\Events\MouseEvent.cs" />
     <Compile Include="Dom\Events\UiEvent.cs" />
     <Compile Include="Dom\History.cs" />
+    <Compile Include="Dom\Html\HtmlAnchorElement.cs" />
     <Compile Include="Dom\Html\HtmlBodyElement.cs" />
     <Compile Include="Dom\Html\HtmlCollection.cs" />
     <Compile Include="Dom\Html\HtmlDivElement.cs" />
@@ -56,22 +56,26 @@
     <Compile Include="Dom\Node.cs" />
     <Compile Include="Dom\NodeList.cs" />
     <Compile Include="Dom\Ranges\Range.cs" />
+    <Compile Include="Dom\Text.cs" />
     <Compile Include="Dom\Window.cs" />
     <Compile Include="InvalidAnonymousUsageException.cs" />
     <Compile Include="InvalidIntrinsicUsageException.cs" />
     <Compile Include="JsAnonymousAttribute.cs" />
-    <Compile Include="JsCodeAttribute.cs" />
     <Compile Include="JsDynamicBase.cs" />
     <Compile Include="JsException.cs" />
     <Compile Include="JsHost.cs" />
     <Compile Include="JsIntrinsicAttribute.cs" />
-    <Compile Include="JsNamespaceAttribute.cs" />
     <Compile Include="JsNativeBase.cs" />
     <Compile Include="JsNativeException.cs" />
     <Compile Include="JsRuntime.cs" />
     <Compile Include="JsScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VarArgsAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotWeb.System\Hosted-DotWeb.System.csproj">
+      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
+      <Name>Hosted-DotWeb.System</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dom\Styesheets\" />

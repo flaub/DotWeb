@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Client", "..\src\Dot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtJsParser", "ExtJsParser\ExtJsParser.csproj", "{44CEBE35-C9BD-40F0-91B0-3A47251382F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.System", "..\src\DotWeb.System\DotWeb.System.csproj", "{45AD857D-00EA-44CF-A3D4-8355DDFE1623}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44CEBE35-C9BD-40F0-91B0-3A47251382F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

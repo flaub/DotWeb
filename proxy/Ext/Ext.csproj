@@ -27,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0108,0114,1591,1570</NoWarn>
     <DocumentationFile>bin\Debug\Ext.xml</DocumentationFile>
-    <NoStdLib>false</NoStdLib>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -231,15 +231,13 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
+      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Name>DotWeb.System</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

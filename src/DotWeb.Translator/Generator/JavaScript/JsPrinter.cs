@@ -109,9 +109,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#region Helpers
 
 		public static string GetNamespace(Type type) {
-			JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
-			if (jsNamespace != null)
-				return jsNamespace.Namespace;
+			// FIXME:
+			//JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
+			//if (jsNamespace != null)
+			//    return jsNamespace.Namespace;
 			return type.Namespace;
 		}
 
@@ -323,9 +324,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			if (exp.Type.IsAnonymous()) {
 				return "{}";
 			}
-			if (exp.Type.IsSubclassOf(typeof(JsNativeBase))) {
-				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
-			}
+			// FIXME:
+			//if (exp.Type.IsSubclassOf(typeof(JsNativeBase))) {
+			//    return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
+			//}
 
 			return string.Format("new {0}().{1}({2})", Print(exp.Type), CtorMethodName, Print(exp.Parameters));
 		}

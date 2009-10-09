@@ -16,6 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.DotWeb;
 
 namespace DotWeb.Client.Dom
 {

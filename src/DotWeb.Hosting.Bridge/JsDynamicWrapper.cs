@@ -36,9 +36,9 @@ namespace DotWeb.Hosting.Bridge
 			this.targetType = Type.GetTypeFromHandle(handle);
 		}
 
-		class JsNativeHolder : JsNativeBase
-		{
-		}
+		//class JsNativeHolder : JsNativeBase
+		//{
+		//}
 
 		public object Invoke(DispatchIdentifier id, DispatchType dispType, JsValue[] jsArgs, out Type returnType) {
 			if (dispType.IsMethod()) {
@@ -106,7 +106,11 @@ namespace DotWeb.Hosting.Bridge
 			}
 			else {
 				// this is needed so that we can make a dummy object instance
+#if FIXME
 				targetType = typeof(JsNativeHolder);
+#else
+				targetType = null;
+#endif
 			}
 
 			value = this.bridge.UnwrapValue(jsArgs.First(), targetType);

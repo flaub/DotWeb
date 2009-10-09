@@ -15,15 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
+using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public class HtmlCollection : JsNativeBase
+	public interface HtmlCollection
 	{
-		public int length { get { return _<int>(); } }
+		int length { get; }
 
-		public Node item(int index) { return _<Node>(); }
-		
-		public Node namedItem(string name) { return _<Node>(); }
+		Node item(int index);
+
+		Node namedItem(string name);
 	}
 }

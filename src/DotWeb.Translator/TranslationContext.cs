@@ -143,13 +143,14 @@ namespace DotWeb.Translator
 		}
 
 		private CodeMethodMember Parse(MethodBase method) {
-			JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
-			if (js != null) {
-				var ret = new CodeMethodMember(method) {
-					NativeCode = js.Code
-				};
-				return ret;
-			}
+			// FIXME:
+			//JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
+			//if (js != null) {
+			//    var ret = new CodeMethodMember(method) {
+			//        NativeCode = js.Code
+			//    };
+			//    return ret;
+			//}
 			return MethodDecompiler.Parse(method);
 		}
 
@@ -194,16 +195,18 @@ namespace DotWeb.Translator
 			if (type == typeof(object))
 				return false;
 
-			if (type.IsSubclassOf(typeof(JsNativeBase)))
-				return false;
+			// FIXME:
+			//if (type.IsSubclassOf(typeof(JsNativeBase)))
+			//    return false;
 
 			if (type.IsSubclassOf(typeof(Delegate)))
 				return false;
 
 			if (type.IsAnonymous()) {
-				if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
-					ValidateJsAnonymousType(type);
-				}
+				// FIXME:
+				//if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
+				//    ValidateJsAnonymousType(type);
+				//}
 				return false;
 			}
 

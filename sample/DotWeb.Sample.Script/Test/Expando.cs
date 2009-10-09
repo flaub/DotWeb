@@ -18,6 +18,7 @@
 using DotWeb.Client;
 using DotWeb.Client.Dom;
 using System;
+using System.DotWeb;
 
 namespace DotWeb.Sample.Script.Test
 {

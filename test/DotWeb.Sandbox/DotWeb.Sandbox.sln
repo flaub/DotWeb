@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hoister", "..\DotWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "..\..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.System", "..\..\src\DotWeb.System\DotWeb.System.csproj", "{45AD857D-00EA-44CF-A3D4-8355DDFE1623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosted-DotWeb.System", "..\..\src\DotWeb.System\Hosted-DotWeb.System.csproj", "{F02F94A5-422E-4585-BB7B-160A8C6B488F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,14 @@ Global
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45AD857D-00EA-44CF-A3D4-8355DDFE1623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02F94A5-422E-4585-BB7B-160A8C6B488F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02F94A5-422E-4585-BB7B-160A8C6B488F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02F94A5-422E-4585-BB7B-160A8C6B488F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02F94A5-422E-4585-BB7B-160A8C6B488F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

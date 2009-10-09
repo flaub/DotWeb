@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\DotWeb.Client.csproj">
-      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
-      <Name>DotWeb.Client</Name>
+    <ProjectReference Include="..\DotWeb.Client\Hosted-DotWeb.Client.csproj">
+      <Project>{472CE4FC-1377-494B-AC0D-14EC9D98ABB3}</Project>
+      <Name>Hosted-DotWeb.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
       <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>

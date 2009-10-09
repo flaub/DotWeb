@@ -21,7 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoStdLib>false</NoStdLib>
+    <NoStdLib>true</NoStdLib>
+    <NoWarn>824,626</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +48,10 @@
     <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
       <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
       <Name>DotWeb.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
+      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Name>DotWeb.System</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

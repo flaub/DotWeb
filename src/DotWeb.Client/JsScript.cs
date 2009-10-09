@@ -17,19 +17,20 @@
 
 using DotWeb.Client.Dom;
 using DotWeb.Client.Dom.Html;
+using System.DotWeb;
 
 namespace DotWeb.Client
 {
 	public class JsScript
 	{
-		public Window Window {
+		public extern Window Window {
 			[JsCode("return $wnd;")]
-			get { return JsHost.Invoke<Window>(null); }
+			get;
 		}
 
-		public HtmlDocument Document {
+		public extern HtmlDocument Document {
 			[JsCode("return $doc;")]
-			get { return JsHost.Invoke<HtmlDocument>(null); }
+			get;
 		}
 	}
 }

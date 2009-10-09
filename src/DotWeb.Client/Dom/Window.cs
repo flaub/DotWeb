@@ -17,6 +17,7 @@
 
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;
+using System.DotWeb;
 
 namespace DotWeb.Client.Dom
 {

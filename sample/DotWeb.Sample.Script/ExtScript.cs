@@ -17,15 +17,15 @@
 
 using System;
 using DotWeb.Client;
-using Ext.grid;
-using Ext.data;
+//using Ext.grid;
+//using Ext.data;
 
 namespace DotWeb.Sample.Script
 {
 	public class ExtScript : JsScript
 	{
 		private int id = NextId();
-		private GridPanel grid;
+		//private GridPanel grid;
 
 		private static int counter = 0;
 		private static int NextId() {
@@ -47,50 +47,50 @@ namespace DotWeb.Sample.Script
 		}
 
 		public ExtScript() {
-			Console.WriteLine("ExtScript()");
+			//Console.WriteLine("ExtScript()");
 
-			var record = Record.create(new Schema[] {
-			    new Schema { name = "id", type = "int" },
-			    new Schema { name = "value" }
-			});
+			//var record = Record.create(new Schema[] {
+			//    new Schema { name = "id", type = "int" },
+			//    new Schema { name = "value" }
+			//});
 
-			JsonReader reader = new JsonReader(new JsonReaderConfig {
-				id = "id"
-			}, record);
-			Console.WriteLine(reader);
+			//JsonReader reader = new JsonReader(new JsonReaderConfig {
+			//    id = "id"
+			//}, record);
+			//Console.WriteLine(reader);
 
-			Store store = new Store(new StoreConfig {
-				reader = reader
-			});
+			//Store store = new Store(new StoreConfig {
+			//    reader = reader
+			//});
 
-			var data = new MyRecord[] {
-			    new MyRecord { id = 1, value = "first" },
-			    new MyRecord { id = 2, value = "second" }
-			};
-			Console.WriteLine(data);
-			store.loadData(data);
+			//var data = new MyRecord[] {
+			//    new MyRecord { id = 1, value = "first" },
+			//    new MyRecord { id = 2, value = "second" }
+			//};
+			//Console.WriteLine(data);
+			//store.loadData(data);
 
-			ColumnModelConfig[] columns = new ColumnModelConfig[] {
-			    new ColumnModelConfig {
-			        dataIndex = "id", header = "ID"
-			    },
-			    new ColumnModelConfig {
-			        dataIndex = "value", header = "Value"
-			    }
-			};
+			//ColumnModelConfig[] columns = new ColumnModelConfig[] {
+			//    new ColumnModelConfig {
+			//        dataIndex = "id", header = "ID"
+			//    },
+			//    new ColumnModelConfig {
+			//        dataIndex = "value", header = "Value"
+			//    }
+			//};
 
-			var colModel = new ColumnModel(columns);
+			//var colModel = new ColumnModel(columns);
 
-			this.grid = new GridPanel(new GridPanelConfig {
-				height = 150.0,
-				renderTo = "grid",
-				colModel = colModel,
-				store = store
-			});
-			Console.WriteLine(this.grid);
+			//this.grid = new GridPanel(new GridPanelConfig {
+			//    height = 150.0,
+			//    renderTo = "grid",
+			//    colModel = colModel,
+			//    store = store
+			//});
+			//Console.WriteLine(this.grid);
 
-			this.grid.on("dblclick", new GridPanelDblclickDelegate(this.OnDblClick), this);
-			Console.WriteLine("ready");
+			//this.grid.on("dblclick", new GridPanelDblclickDelegate(this.OnDblClick), this);
+			//Console.WriteLine("ready");
 		}
 
 		private void OnDblClick(Ext.EventObject e) {

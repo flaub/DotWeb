@@ -17,6 +17,8 @@
 
 using System;
 using DotWeb.Client;
+using System.Runtime.CompilerServices;
+using System.DotWeb;
 
 namespace DotWeb.Sample.Script
 {
@@ -54,35 +56,32 @@ namespace DotWeb.Sample.Script
 	}
 
 	[JsNamespace]
-	public class Tuple : JsNativeBase
+	public class Tuple
 	{
-		public Tuple() { }
-		public Tuple(object config) { C_(config); }
+		public extern Tuple();
 
-		public int id {
-			get { return _<int>(); }
-			set { _(value); }
-		}
+		public extern Tuple(object config);
 
-		public object Value {
+		public extern int id { get; set; }
+
+		public extern object Value {
 			[JsCode("return this.value;")]
-			get { return _<object>(); }
+			get;
+
 			[JsCode("this.value;")]
-			set { _(value); }
+			set;
 		}
 
 		public delegate void Handler(Tuple tuple, int id);
-		public Handler handler {
-			set { _(value); }
-		}
+		public extern Handler handler { set; }
 
-		public void fireEvent() { _(); }
+		public extern void fireEvent();
 
-		public static int Sum(int[] args) { return S_<int>(args); }
-		public static void StaticMethod(int x, int y) { S_(x, y); }
-		public static Tuple Factory() { return S_<Tuple>(); }
+		public static extern int Sum(int[] args);
+		public static extern void StaticMethod(int x, int y);
+		public static extern Tuple Factory();
 
-		public static void Callback1(Delegate cb) { S_(cb); }
-		public static void Callback2(Delegate cb) { S_(cb); }
+		public static extern void Callback1(Delegate cb);
+		public static extern void Callback2(Delegate cb);
 	}
 }

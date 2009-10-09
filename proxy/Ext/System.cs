@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Ext
 {
-	public class Dictionary : Dictionary<object, object>
-	{
-	}
+	//public class Dictionary : Dictionary<object, object>
+	//{
+	//}
 
 	public class Event
 	{

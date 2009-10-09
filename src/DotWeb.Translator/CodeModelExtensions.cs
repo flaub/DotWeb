@@ -26,8 +26,8 @@ namespace DotWeb.Translator
 	static class CodeModelExtensions
 	{
 		public static bool HasBase(this Type type) {
-			if (type.BaseType == typeof(object) ||
-				type.BaseType == typeof(JsNativeBase)) {
+			if (type.BaseType == typeof(object) /* FIXME: ||
+				type.BaseType == typeof(JsNativeBase)*/) {
 				return false;
 			}
 			return true;
@@ -36,8 +36,9 @@ namespace DotWeb.Translator
 		public static bool IsFieldLike(this CodePropertyReference cpr) {
 			return
 				cpr.Property.IsIntrinsic() ||
-				cpr.Property.DeclaringType.IsAnonymous() ||
-				cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase));
+				cpr.Property.DeclaringType.IsAnonymous() /* FIXME: ||
+				cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase))*/
+			;
 		}
 
 		private static bool IsAutoImplemented(CodeFieldReference field, PropertyInfo property) {
@@ -80,17 +81,21 @@ namespace DotWeb.Translator
 		}
 
 		public static bool HasJsCode(this MethodBase method) {
-			return method.IsDefined(typeof(JsCodeAttribute), false);
+//			FIXME: return method.IsDefined(typeof(JsCodeAttribute), false);
+			return false;
 		}
 
 		public static bool IsAnonymous(this Type type) {
-			return type.IsDefined(typeof(JsAnonymousAttribute), false);
+			//FIXME: return type.IsDefined(typeof(JsAnonymousAttribute), false);
+			return false;
 		}
 
 		public static bool IsIntrinsic(this PropertyInfo pi) {
-			return
-				pi.IsDefined(typeof(JsIntrinsicAttribute), false) ||
-				pi.DeclaringType.IsDefined(typeof(JsIntrinsicAttribute), false);
+			return false;
+			// FIXME:
+			//return
+			//    pi.IsDefined(typeof(JsIntrinsicAttribute), false) ||
+			//    pi.DeclaringType.IsDefined(typeof(JsIntrinsicAttribute), false);
 		}
 
 		private static string GetAutomaticBackingFieldName(PropertyInfo property) {

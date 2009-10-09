@@ -47,6 +47,8 @@ namespace DotWeb.Hosting.Bridge
 
 		private readonly JsObjectToReferenceMap jsObjectToRef = new JsObjectToReferenceMap();
 
+		private readonly DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
+
 		private int lastRefId = 1;
 
 		public JsBridge(ISession session, IObjectFactory factory) {
@@ -459,8 +461,6 @@ namespace DotWeb.Hosting.Bridge
 			AddRemoteReference((JsObject)brother, handle);
 			return (T)brother;
 		}
-
-		private DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
 
 		public object GetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth) {
 			StackFrame frame = new StackFrame(stackDepth + 1);
