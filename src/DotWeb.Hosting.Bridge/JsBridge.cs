@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
-using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -33,9 +32,18 @@ namespace DotWeb.Hosting.Bridge
 	using JsObjectToReferenceMap = Dictionary<object, int>;
 
 	using DynamicPropertyMap = Dictionary<string, object>;
-	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
+//	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
+	using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
 
-	public class JsBridge : IJsHost
+	class JsObject
+	{
+	}
+
+	class JsDynamicBase
+	{
+	}
+
+	public class JsBridge //: IJsHost
 	{
 		private readonly ISession session;
 		private readonly IObjectFactory factory;
@@ -71,8 +79,8 @@ namespace DotWeb.Hosting.Bridge
 			JsValue ret = retMsg.Value;
 			if (retMsg.IsException) {
 				if (ret.IsJsObject) {
-					var jne = new JsNativeException();
-					AddRemoteReference(jne, ret.RefId);
+//					var jne = new JsNativeException();
+//					AddRemoteReference(jne, ret.RefId);
 					throw new Exception("JsException");
 				}
 
@@ -391,7 +399,7 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
-		internal object InvokeRemoteMethod(MethodBase method, JsObject scope, params object[] args) {
+		internal object InvokeRemoteMethod(MethodBase method, object scope, params object[] args) {
 			try {
 				JsFunction function = PrepareRemoteFunction(method);
 
@@ -434,7 +442,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		object IJsHost.InvokeRemoteMethod(JsObject scope, int stackDepth, params object[] args) {
+		public object InvokeRemoteMethod(object scope, int stackDepth, params object[] args) {
 			if (this.isUnwrapping) {
 				return null;
 			}
@@ -446,15 +454,15 @@ namespace DotWeb.Hosting.Bridge
 				StackFrame previous = new StackFrame(stackDepth + 2);
 				// this prevents ctors from being called twice
 				// we only want the derived class's ctor to execute, not any bases
-				if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
-					return null;
-				}
+				//if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
+				//    return null;
+				//}
 			}
 
 			return InvokeRemoteMethod(method, scope, args);
 		}
 
-		T IJsHost.Cast<T>(object obj) {
+		public T Cast<T>(object obj) {
 			JsObject remote = (JsObject)obj;
 			int handle = GetRemoteReference(remote);
 			var brother = CreateInstance(typeof(T));
@@ -462,34 +470,34 @@ namespace DotWeb.Hosting.Bridge
 			return (T)brother;
 		}
 
-		public object GetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth) {
+		public object GetImplicitDynamicProperty(object obj, int stackDepth) {
 			StackFrame frame = new StackFrame(stackDepth + 1);
 			string name = GetPropertyName(frame);
 			return GetDynamicProperty(obj, name);
 		}
 
-		public void SetImplicitDynamicProperty(JsDynamicBase obj, int stackDepth, object value) {
+		public void SetImplicitDynamicProperty(object obj, int stackDepth, object value) {
 			StackFrame frame = new StackFrame(stackDepth + 1);
 			string name = GetPropertyName(frame);
 			SetDynamicProperty(obj, name, value);
 		}
 
-		public bool TryGetDynamicProperty(JsDynamicBase obj, string name, out object value) {
+		public bool TryGetDynamicProperty(object obj, string name, out object value) {
 			var map = GetDynamicPropertyMap(obj);
 			return map.TryGetValue(name, out value);
 		}
 
-		public object GetDynamicProperty(JsDynamicBase obj, string name) {
+		public object GetDynamicProperty(object obj, string name) {
 			var map = GetDynamicPropertyMap(obj);
 			return map[name];
 		}
 
-		public void SetDynamicProperty(JsDynamicBase obj, string propertyName, object value) {
+		public void SetDynamicProperty(object obj, string propertyName, object value) {
 			var map = GetDynamicPropertyMap(obj);
 			map[propertyName] = value;
 		}
 
-		public DynamicPropertyMap GetDynamicPropertyMap(JsDynamicBase obj) {
+		public DynamicPropertyMap GetDynamicPropertyMap(object obj) {
 			DynamicPropertyMap map;
 			if (!this.dynamicObjects.TryGetValue(obj, out map)) {
 				map = new DynamicPropertyMap();

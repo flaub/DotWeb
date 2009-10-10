@@ -20,16 +20,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
-using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
 	class JsDynamicWrapper : JsWrapperBase, IJsWrapper
 	{
-		private readonly JsDynamicBase target;
+		private readonly object target;
 		private readonly Type targetType;
 
-		public JsDynamicWrapper(JsBridge bridge, JsDynamicBase target) 
+		public JsDynamicWrapper(JsBridge bridge, object target) 
 			: base(bridge) {
 			this.target = target;
 			var handle = Type.GetTypeHandle(this.target);

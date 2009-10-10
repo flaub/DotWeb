@@ -11,7 +11,7 @@ using SR = System.Reflection;
 using SRE = System.Reflection.Emit;
 using System.Diagnostics;
 
-namespace DotWeb.Sandbox
+namespace DotWeb.Tools.Weaver
 {
 	public interface IExternalImpl
 	{
@@ -20,10 +20,8 @@ namespace DotWeb.Sandbox
 
 	public static class ExternalCall
 	{
-		public static object Invoke(object scope, object[] args) {
-			var frame = new StackFrame(1);
-			var method = frame.GetMethod();
-			return Impl.InvokeExternal(scope, method, args);
+		public static object Invoke(object scope, object method, object[] args) {
+			return Impl.InvokeExternal(scope, (MethodBase)method, args);
 		}
 
 		public static IExternalImpl Impl { get; set; }
@@ -32,40 +30,62 @@ namespace DotWeb.Sandbox
 	class MethodProcessor
 	{
 		private TypeProcessor parent;
-		private Hoister hoister;
+		private IResolver resolver;
 		private MethodDefinition methodDef;
 		private MethodBase method;
 		private Dictionary<Instruction, Label> labels = new Dictionary<Instruction, Label>();
 		private Dictionary<VariableDefinition, LocalBuilder> locals = new Dictionary<VariableDefinition, LocalBuilder>();
+		private GenericMethodProcessor genericProc;
 
-		public MethodProcessor(Hoister hoister, TypeProcessor parent, MethodDefinition methodDef) {
-			this.hoister = hoister;
+		public MethodProcessor(IResolver resolver, TypeProcessor parent, MethodDefinition methodDef) {
+			this.resolver = resolver;
 			this.parent = parent;
 			this.methodDef = methodDef;
+			this.genericProc = new GenericMethodProcessor(this.resolver);
 		}
 
 		public void ProcessMethod(MethodBuilder methodBuilder) {
 			Debug.Assert(this.method == null);
 			this.method = methodBuilder;
 
+			if (methodDef.HasGenericParameters) {
+				this.genericProc.ProcessMethod(methodDef, methodBuilder);
+			}
+
+			var returnType = ResolveTypeReference(methodDef.ReturnType.ReturnType);
+			methodBuilder.SetReturnType(returnType);
+
 			if (methodDef.HasParameters) {
+				var argTypes = ResolveParameterTypes(methodDef.Parameters);
+				methodBuilder.SetParameters(argTypes);
+
 				foreach (ParameterDefinition parameter in methodDef.Parameters) {
 					methodBuilder.DefineParameter(parameter.Sequence, (SR.ParameterAttributes)parameter.Attributes, parameter.Name);
 				}
 			}
 
-			if (methodDef.HasGenericParameters) {
-				var genericNames = methodDef.GenericParameters.Cast<GenericParameter>().Select(x => x.Name);
-				methodBuilder.DefineGenericParameters(genericNames.ToArray());
+			if (methodDef.HasCustomAttributes) {
+				foreach (CustomAttribute item in methodDef.CustomAttributes) {
+					var ctor = (ConstructorInfo)this.resolver.ResolveMethodReference(item.Constructor);
+					methodBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
+				}
 			}
 
-			var generator = methodBuilder.GetILGenerator();
-			ProcessMethodBody(generator);
+			methodBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
+
+			if (this.methodDef.HasBody) {
+				var generator = methodBuilder.GetILGenerator();
+				ProcessMethodBody(generator);
+			}
 		}
 
 		public void ProcessConstructor(ConstructorBuilder ctorBuilder) {
 			Debug.Assert(this.method == null);
 			this.method = ctorBuilder;
+
+			if (methodDef.HasGenericParameters) {
+				throw new NotSupportedException();
+			}
 
 			if (methodDef.HasParameters) {
 				foreach (ParameterDefinition parameter in methodDef.Parameters) {
@@ -73,17 +93,25 @@ namespace DotWeb.Sandbox
 				}
 			}
 
-			if (methodDef.HasGenericParameters) {
-				throw new NotSupportedException();
+			if (methodDef.HasCustomAttributes) {
+				foreach (CustomAttribute item in methodDef.CustomAttributes) {
+					var ctor = (ConstructorInfo)this.resolver.ResolveMethodReference(item.Constructor);
+					ctorBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
+				}
 			}
 
-			var generator = ctorBuilder.GetILGenerator();
-			ProcessMethodBody(generator);
+			ctorBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
+
+			if (this.methodDef.HasBody) {
+//			if (!this.methodDef.IsAbstract && !this.methodDef.IsRuntime) {
+				var generator = ctorBuilder.GetILGenerator();
+				ProcessMethodBody(generator);
+			}
 		}
 
 		public void DeclareLocals(ILGenerator generator, VariableDefinitionCollection variables) {
 			foreach (VariableDefinition variable in variables) {
-				var type = this.hoister.ResolveTypeReference(variable.VariableType);
+				var type = ResolveTypeReference(variable.VariableType);
 				var local = generator.DeclareLocal(type);
 				local.SetLocalSymInfo(variable.Name);
 
@@ -105,7 +133,7 @@ namespace DotWeb.Sandbox
 
 		public void ProcessMethodBody(ILGenerator generator) {
 			var body = methodDef.Body;
-			if (body.CodeSize == 0) {
+			if (body == null || body.CodeSize == 0) {
 				GenerateExternMethodBody(generator);
 				return;
 			}
@@ -151,13 +179,26 @@ namespace DotWeb.Sandbox
 			var args = new object[2];
 			args[0] = value1;
 			args[1] = value2;
-			return ExternalCall.Invoke(this, args);
+			return ExternalCall.Invoke(this, MethodBase.GetCurrentMethod(), args);
+		}
+
+		static class TypeCache
+		{
+			public static readonly Type Arguments = typeof(object[]);
+			public static readonly Type Object = typeof(object);
+			public static readonly Type MethodBase = typeof(MethodBase);
+			public static readonly Type ExternalCall = typeof(ExternalCall);
+
+			public static readonly MethodInfo ExternalCall_Invoke;
+			public static readonly MethodInfo MethodBase_GetCurrentMethod;
+
+			static TypeCache() {
+				ExternalCall_Invoke = ExternalCall.GetMethod("Invoke");
+				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
+			}
 		}
 
 		public void GenerateExternMethodBody(ILGenerator generator) {
-			var implType = typeof(ExternalCall);
-			var implMethod = implType.GetMethod("Invoke");
-
 			bool needsReturn = (this.methodDef.ReturnType.ReturnType.FullName != Constants.Void);
 
 			int indexOffset;
@@ -167,23 +208,31 @@ namespace DotWeb.Sandbox
 				indexOffset = 1;
 
 			var argCount = this.methodDef.Parameters.Count;
-			var arrayType = typeof(object[]);
-			var objType = typeof(object);
-			var local = generator.DeclareLocal(arrayType);
-			local.SetLocalSymInfo("__args");
+
+			var method = generator.DeclareLocal(TypeCache.MethodBase);
+			method.SetLocalSymInfo("__method");
+
+			var args = generator.DeclareLocal(TypeCache.Arguments);
+			args.SetLocalSymInfo("__args");
+
+			// __method = MethodBase.GetCurrentMethod();
+			generator.EmitCall(SRE.OpCodes.Call, TypeCache.MethodBase_GetCurrentMethod, Type.EmptyTypes);
+			generator.Emit(SRE.OpCodes.Stloc, method.LocalIndex);
 			
 			LocalBuilder ret = null;
 			if (needsReturn) {
-				ret = generator.DeclareLocal(objType);
+				ret = generator.DeclareLocal(TypeCache.Object);
 				ret.SetLocalSymInfo("__ret");
 			}
 
+			// var args = new object[argCount];
 			generator.Emit(SRE.OpCodes.Ldc_I4, argCount);
-			generator.Emit(SRE.OpCodes.Newarr, objType);
-			generator.Emit(SRE.OpCodes.Stloc, local.LocalIndex);
+			generator.Emit(SRE.OpCodes.Newarr, TypeCache.Object);
+			generator.Emit(SRE.OpCodes.Stloc, args.LocalIndex);
 
 			for (int i = 0; i < argCount; i++) {
-				generator.Emit(SRE.OpCodes.Ldloc, local.LocalIndex);
+				// __args[i] = <argument[i]>;
+				generator.Emit(SRE.OpCodes.Ldloc, args.LocalIndex);
 				generator.Emit(SRE.OpCodes.Ldc_I4, i);
 				generator.Emit(SRE.OpCodes.Ldarg, i + indexOffset);
 				var arg = this.methodDef.Parameters[i];
@@ -194,15 +243,18 @@ namespace DotWeb.Sandbox
 				generator.Emit(SRE.OpCodes.Stelem_Ref);
 			}
 
+			// __ret = ExternalCall.Invoke(this|null, __method, __args); 
 			if (this.methodDef.IsStatic)
 				generator.Emit(SRE.OpCodes.Ldnull);
 			else
 				generator.Emit(SRE.OpCodes.Ldarg_0);
 
-			generator.Emit(SRE.OpCodes.Ldloc, local.LocalIndex);
-			generator.EmitCall(SRE.OpCodes.Call, implMethod, null);
+			generator.Emit(SRE.OpCodes.Ldloc, method.LocalIndex);
+			generator.Emit(SRE.OpCodes.Ldloc, args.LocalIndex);
+			generator.EmitCall(SRE.OpCodes.Call, TypeCache.ExternalCall_Invoke, null);
 
 			if (needsReturn) {
+				// return __ret;
 				generator.Emit(SRE.OpCodes.Stloc, ret.LocalIndex);
 				generator.Emit(SRE.OpCodes.Ldloc, ret.LocalIndex);
 
@@ -270,10 +322,7 @@ namespace DotWeb.Sandbox
 		}
 
 		public void EmitMethod(ILGenerator generator, SRE.OpCode code, MethodReference methodRef) {
-			var type = this.hoister.ResolveTypeReference(methodRef.DeclaringType);
-			var argTypes = this.hoister.ResolveParameterTypes(methodRef.Parameters);
-
-			var methodBase = this.hoister.ResolveMethodReference(methodRef);
+			var methodBase = this.resolver.ResolveMethodReference(methodRef);
 			if (methodBase is ConstructorInfo)
 				generator.Emit(code, (ConstructorInfo)methodBase);
 			else
@@ -281,14 +330,34 @@ namespace DotWeb.Sandbox
 		}
 
 		public void EmitType(ILGenerator generator, SRE.OpCode code, TypeReference typeRef) {
-			var type = this.hoister.ResolveTypeReference(typeRef);
+			var type = ResolveTypeReference(typeRef);
 			generator.Emit(code, type);
 		}
 
 		public void EmitField(ILGenerator generator, SRE.OpCode code, FieldReference fieldRef) {
-			var type = this.hoister.ResolveTypeReference(fieldRef.DeclaringType);
-			var field = type.GetField(fieldRef.Name);
+			var field = this.resolver.ResolveFieldReference(fieldRef);
 			generator.Emit(code, field);
+		}
+
+		private Type ResolveTypeReference(TypeReference typeRef) {
+			if (typeRef is GenericParameter) {
+				var arg = this.genericProc.GetGenericParameter(typeRef.Name);
+				if (arg != null)
+					return arg;
+				return this.parent.GetGenericParameter(typeRef.Name);
+			}
+
+			return this.resolver.ResolveTypeReference(typeRef);
+		}
+
+		private Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters) {
+			Type[] ret = new Type[parameters.Count];
+			for (int i = 0; i < parameters.Count; i++) {
+				var arg = parameters[i];
+				var argType = arg.ParameterType;
+				ret[i] = ResolveTypeReference(argType);
+			}
+			return ret;
 		}
 
 	}

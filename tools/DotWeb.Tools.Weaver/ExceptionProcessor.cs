@@ -6,7 +6,7 @@ using Mono.Cecil.Cil;
 using System.Reflection.Emit;
 using System.Collections;
 
-namespace DotWeb.Sandbox
+namespace DotWeb.Tools.Weaver
 {
 	class ExceptionProcessor
 	{

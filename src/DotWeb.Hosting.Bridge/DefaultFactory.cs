@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System;
-using DotWeb.Client;
 using Castle.DynamicProxy;
 using Castle.Core.Interceptor;
 
@@ -44,7 +43,7 @@ namespace DotWeb.Hosting.Bridge
 			//var options = new ProxyGenerationOptions {
 			//};
 			var options = ProxyGenerationOptions.Default;
-			var ret = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, options, interceptor);
+			var ret = this.proxyGenerator.CreateClassProxy(typeof(object), new Type[] { type }, options, interceptor);
 			return ret;
 		}
 
@@ -64,7 +63,7 @@ namespace DotWeb.Hosting.Bridge
 					invocation.Proceed();
 				}
 				else {
-					invocation.ReturnValue = this.bridge.InvokeRemoteMethod(invocation.Method, (JsObject)invocation.Proxy, invocation.Arguments);
+					invocation.ReturnValue = this.bridge.InvokeRemoteMethod(invocation.Method, invocation.Proxy, invocation.Arguments);
 				}
 			}
 

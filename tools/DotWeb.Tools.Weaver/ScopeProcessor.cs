@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 using Mono.Cecil.Cil;
 using System.Collections;
 
-namespace DotWeb.Sandbox
+namespace DotWeb.Tools.Weaver
 {
 	class ScopeProcessor
 	{

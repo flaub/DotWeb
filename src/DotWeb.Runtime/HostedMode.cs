@@ -73,7 +73,7 @@ namespace DotWeb.Runtime
 				var session = new RemoteSession(stream);
 				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
-				JsHost.Storage = new CallContextStorage(bridge);
+//				JsHost.Storage = new CallContextStorage(bridge);
 				bridge.DispatchForever();
 			}
 			catch (Exception ex) {

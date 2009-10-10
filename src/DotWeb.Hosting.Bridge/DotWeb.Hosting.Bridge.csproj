@@ -61,10 +61,6 @@
     <Compile Include="TypeInspector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\Hosted-DotWeb.Client.csproj">
-      <Project>{472CE4FC-1377-494B-AC0D-14EC9D98ABB3}</Project>
-      <Name>Hosted-DotWeb.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>

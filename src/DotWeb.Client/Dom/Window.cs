@@ -27,6 +27,7 @@ namespace DotWeb.Client.Dom
 
 	[JsNamespace]
 	[JsIntrinsic]
+	[JsNative]
 	public interface Window
 	{
 		#region Properties

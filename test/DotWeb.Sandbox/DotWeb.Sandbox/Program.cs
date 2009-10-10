@@ -29,31 +29,31 @@ namespace DotWeb.Sandbox
 		}
 
 		static void ReadCecilWriteDotNet() {
-			var impl = new ExternImpl();
-			ExternalCall.Impl = impl;
-			var dir = @"F:\src\git\DotWeb\build\bin\Debug";
-			var hoister = new Hoister(dir, dir);
-			var str = "DotWeb.Sample.Script.Test.Sandbox, DotWeb.Sample.Script";
-			var asmQualifiedTypeName = new AssemblyQualifiedTypeName(str);
-			var hosted = hoister.ProcessEntry(asmQualifiedTypeName);
+			//var impl = new ExternImpl();
+			//ExternalCall.Impl = impl;
+			//var dir = @"F:\src\git\DotWeb\build\bin\Debug";
+			//var hoister = new Hoister(dir, dir);
+			//var str = "DotWeb.Sample.Script.Test.Sandbox, DotWeb.Sample.Script";
+			//var asmQualifiedTypeName = new AssemblyQualifiedTypeName(str);
+			//var hosted = hoister.ProcessEntry(asmQualifiedTypeName);
 
-			var asm = Assembly.LoadFile(hosted);
-			var types = asm.GetTypes();
-			var type = asm.GetType(asmQualifiedTypeName.TypeName);
-			try {
-				var obj = Activator.CreateInstance(type);
-			}
-			catch (TargetInvocationException ex) {
-				throw ex.InnerException;
-			}
+			//var asm = Assembly.LoadFile(hosted);
+			//var types = asm.GetTypes();
+			//var type = asm.GetType(asmQualifiedTypeName.TypeName);
+			//try {
+			//    var obj = Activator.CreateInstance(type);
+			//}
+			//catch (TargetInvocationException ex) {
+			//    throw ex.InnerException;
+			//}
 		}
 
-		class ExternImpl : IExternalImpl
-		{
-			public object InvokeExternal(object scope, MethodBase method, object[] args) {
-				return null;
-			}
-		}
+		//class ExternImpl : IExternalImpl
+		//{
+		//    public object InvokeExternal(object scope, MethodBase method, object[] args) {
+		//        return null;
+		//    }
+		//}
 
 
 #if false

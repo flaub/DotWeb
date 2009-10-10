@@ -7,7 +7,6 @@ namespace DotWeb.System
 namespace System
 #endif
 {
-	[DotWebInternal]
 	public static class Console
 	{
 		public static extern void Write(int value);

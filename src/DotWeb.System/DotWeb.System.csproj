@@ -41,9 +41,11 @@
     <Compile Include="Console.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
+    <Compile Include="DotWeb\ExternalCall.cs" />
     <Compile Include="DotWeb\JsCodeAttribute.cs" />
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
+    <Compile Include="DotWeb\JsNativeAttribute.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Func.cs" />

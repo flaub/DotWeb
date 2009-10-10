@@ -10,7 +10,7 @@ using CecilOpCodes = Mono.Cecil.Cil.OpCodes;
 using SysOpCode = System.Reflection.Emit.OpCode;
 using SysOpCodes = System.Reflection.Emit.OpCodes;
 
-namespace DotWeb.Sandbox
+namespace DotWeb.Tools.Weaver
 {
 	class OperandTypeNames
 	{

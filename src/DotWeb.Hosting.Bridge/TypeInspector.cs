@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using DotWeb.Client;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -97,7 +96,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		private void CollectDynamicMembers(JsDynamicBase target) {
+		private void CollectDynamicMembers(object target) {
 			var properties = this.bridge.GetDynamicPropertyMap(target);
 			foreach (var item in properties) {
 				var property = targetType.GetProperty(item.Key);

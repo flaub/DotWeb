@@ -55,7 +55,7 @@ namespace DotWeb.Sample.Script.Test
 				int x = 2;
 				{
 					int z = 3;
-					Console.WriteLine(x);
+					Console.WriteLine(x + z);
 				}
 			}
 		}
