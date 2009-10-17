@@ -47,6 +47,10 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		public void Process() {
+			if (this.typeDef.HasCustomAttributes) {
+				CustomAttributeProcessor.Process(this.resolver, this.typeDef, this.enumBuilder);
+			}
+
 			foreach (FieldDefinition fieldDef in this.typeDef.Fields) {
 				if (fieldDef.HasConstant) {
 					this.enumBuilder.DefineLiteral(fieldDef.Name, fieldDef.Constant);

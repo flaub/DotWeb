@@ -119,7 +119,6 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		public MethodBase ResolveMethodReference(MethodReference methodRef) {
-			//var methodDef = methodRef.Resolve();
 			var type = ResolveType(methodRef.DeclaringType);
 			if (type == null)
 				throw new NullReferenceException(string.Format("Could not find DeclaringType for method: {0}", methodRef.ToString()));
@@ -135,82 +134,5 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		#endregion
-	}
-
-	class DotWebSystemAssembly : ITypeResolver
-	{
-		private IResolver resolver;
-		private Assembly asm;
-		private Type useSystemAttribute;
-		private Dictionary<TypeReference, ExternalType> cache = new Dictionary<TypeReference, ExternalType>();
-
-		public DotWebSystemAssembly(IResolver resolver) {
-			this.resolver = resolver;
-			this.asm = Assembly.Load("Hosted-DotWeb.System");
-			this.useSystemAttribute = this.asm.GetType("DotWeb.System.DotWeb.UseSystemAttribute");
-		}
-
-		public IType ResolveTypeReference(TypeReference typeRef) {
-			var key = typeRef;
-			ExternalType ret;
-			if (this.cache.TryGetValue(key, out ret)) {
-				return ret;
-			}
-				
-			GenericInstanceType genericType = null;
-			if (typeRef is GenericInstanceType) {
-				genericType = (GenericInstanceType)typeRef;
-				var original = typeRef.GetOriginalType();
-				typeRef = original;
-			}
-
-			string fullName = typeRef.FullName.Replace("/", "+");
-			var modifiedName = "DotWeb." + fullName;
-			var type = this.asm.GetType(modifiedName);
-			if (type == null)
-				throw new NullReferenceException(string.Format("Could not find Type: {0}, for {1}", modifiedName, typeRef.ToString()));
-
-			if (genericType != null) {
-				var genericArgs = genericType.GenericArguments.Cast<TypeReference>();
-				var genericTypes = genericArgs.Select(x => this.resolver.ResolveTypeReference(x).Type).ToArray();
-				type = type.MakeGenericType(genericTypes);
-			}
-			
-			if (type.IsDefined(this.useSystemAttribute, false)) {
-				ret = new ExternalType(this.resolver, Type.GetType(fullName));
-			}
-			else {
-				ret = new ExternalType(this.resolver, type);
-			}
-
-			this.cache.Add(key, ret);
-
-			return ret;
-		}
-	}
-
-	class ExternalAssembly : ITypeResolver
-	{
-		private IResolver resolver;
-		private Assembly asm;
-		private Dictionary<TypeReference, ExternalType> cache = new Dictionary<TypeReference, ExternalType>();
-	
-		public ExternalAssembly(IResolver resolver, Assembly asm) {
-			this.resolver = resolver;
-			this.asm = asm;
-		}
-
-		public IType ResolveTypeReference(TypeReference typeRef) {
-			ExternalType ret;
-			if (!this.cache.TryGetValue(typeRef, out ret)) {
-				string fullName = typeRef.FullName.Replace("/", "+");
-				var type = this.asm.GetType(fullName);
-				ret = new ExternalType(this.resolver, type);
-				if (ret == null)
-					throw new NullReferenceException(string.Format("Could not find Type: {0}", typeRef.ToString()));
-				this.cache.Add(typeRef, ret);
-			}
-			return ret;
-		}
 	}
 }

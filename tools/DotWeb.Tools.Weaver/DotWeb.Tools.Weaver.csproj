@@ -50,9 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomAttributeProcessor.cs" />
+    <Compile Include="DotWebSystemAssembly.cs" />
     <Compile Include="EnumProcessor.cs" />
     <Compile Include="ExceptionProcessor.cs" />
     <Compile Include="AssemblyProcessor.cs" />
+    <Compile Include="ExternalAssembly.cs" />
     <Compile Include="ExternalType.cs" />
     <Compile Include="GenericProcessor.cs" />
     <Compile Include="HostingWeaver.cs" />

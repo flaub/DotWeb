@@ -127,5 +127,17 @@ namespace DotWeb.Tools.Weaver
 				}
 			}
 		}
+
+		public static void Process(IResolver resolver, TypeDefinition def, EnumBuilder builder) {
+			foreach (CustomAttribute item in def.CustomAttributes) {
+				if (item.Blob == null) {
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+				}
+				else {
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					builder.SetCustomAttribute(ctor, item.Blob);
+				}
+			}
+		}
 	}
 }
