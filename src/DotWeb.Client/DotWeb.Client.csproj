@@ -41,7 +41,6 @@
     <Compile Include="Dom\Text.cs" />
     <Compile Include="Dom\Css\CssProperties.cs" />
     <Compile Include="Dom\Html\HtmlAnchorElement.cs" />
-    <Compile Include="JsDynamicBase.cs" />
     <Compile Include="Dom\Css\CssRule.cs" />
     <Compile Include="Dom\Css\CssStyleDeclaration.cs" />
     <Compile Include="Dom\Events\UiEvent.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="Dom\NodeList.cs" />
     <Compile Include="InvalidAnonymousUsageException.cs" />
     <Compile Include="InvalidIntrinsicUsageException.cs" />
-    <Compile Include="JsAnonymousAttribute.cs" />
     <Compile Include="Dom\Attr.cs" />
     <Compile Include="Dom\Document.cs" />
     <Compile Include="Dom\Element.cs" />
@@ -68,17 +66,8 @@
     <Compile Include="Dom\Navigator.cs" />
     <Compile Include="Dom\Css\Style.cs" />
     <Compile Include="Dom\Window.cs" />
-    <Compile Include="JsHost.cs" />
-    <Compile Include="JsNativeBase.cs" />
-    <Compile Include="JsNativeException.cs" />
-    <Compile Include="JsRuntime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsScript.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="JsException.cs">
-      <SubType>Code</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.System\DotWeb.System.csproj">

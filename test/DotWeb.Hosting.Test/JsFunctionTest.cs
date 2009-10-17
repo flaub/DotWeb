@@ -17,10 +17,8 @@
 // 
 using System;
 using System.Reflection;
-using DotWeb.Client;
 using DotWeb.Hosting.Bridge;
 using NUnit.Framework;
-using DotWeb.Hosting.Test.Script;
 using System.IO;
 
 namespace DotWeb.Hosting.Test
@@ -28,6 +26,19 @@ namespace DotWeb.Hosting.Test
 	[TestFixture]
 	public class JsFunctionTest
 	{
+		class CrashTestDummy
+		{
+			public const string JsCode = "";
+		}
+
+		class DefaultNamespace
+		{
+		}
+
+		class FooNamespace
+		{
+		}
+
 		private void AssertJsFunction(JsFunction function, string name, string parameters, string body) {
 			Assert.AreEqual(name, function.Name);
 			Assert.AreEqual(parameters, function.Parameters);
@@ -79,13 +90,13 @@ namespace DotWeb.Hosting.Test
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
-				typeof (DefaultNamesapce),
+				typeof (DefaultNamespace),
 				"TestNoArgs",
 				"__DotWeb_Hosting_Test_Script_DefaultNamesapce$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
-				typeof (FooNamesapce),
+				typeof (FooNamespace),
 				"TestNoArgs",
 				"__DotWeb_Hosting_Test_Script_FooNamesapce$TestNoArgs",
 				"",

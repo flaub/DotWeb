@@ -6,7 +6,6 @@ using System.Net.Sockets;
 using System.Net;
 using DotWeb.Hosting;
 using DotWeb.Hosting.Bridge;
-using DotWeb.Client;
 using System.Diagnostics;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
@@ -15,30 +14,46 @@ using DotWeb.Utility;
 
 namespace DotWeb.Runtime
 {
-	class CallContextStorage : IJsHostStorage
+	class CallContextStorage : IDotWebHost
 	{
-		private const string JsHostName = "JsHost";
+		private const string DataSlotName = "DotWebHost";
 
-		public CallContextStorage(IJsHost host) {
-			CallContext.SetData(JsHostName, host);
-		}
-
-		public IJsHost Host {
+		public IDotWebHost Host {
 			get {
-				var host = CallContext.GetData(JsHostName) as IJsHost;
+				var host = CallContext.GetData(DataSlotName) as IDotWebHost;
 				if (host == null) {
 					Debugger.Log(0, "DotWeb", "Lost my mind");
 					Debugger.Break();
 				}
 				return host;
 			}
+
+			set {
+				CallContext.SetData(DataSlotName, value);
+			}
 		}
+
+		#region IDotWebHost Members
+
+		public object Invoke(object scope, object method, object[] args) {
+			return this.Host.Invoke(scope, method, args);
+		}
+
+		public T Cast<T>(object obj) {
+			return this.Host.Cast<T>(obj);
+		}
+
+		#endregion
 	}
 
 	public class HostedMode
 	{
 		string binPath;
 		TcpListener listener;
+
+		static HostedMode() {
+			DotWeb.Hosting.HostedMode.Host = new CallContextStorage();
+		}
 
 		public HostedMode(string binPath) {
 			this.binPath = binPath;
@@ -73,7 +88,7 @@ namespace DotWeb.Runtime
 				var session = new RemoteSession(stream);
 				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
-//				JsHost.Storage = new CallContextStorage(bridge);
+				DotWeb.Hosting.HostedMode.Host = bridge;
 				bridge.DispatchForever();
 			}
 			catch (Exception ex) {

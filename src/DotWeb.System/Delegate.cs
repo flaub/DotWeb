@@ -1,12 +1,14 @@
 ﻿using System.Runtime.CompilerServices;
-using System.DotWeb;
 
 #if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System
 #else
+using System.DotWeb;
 namespace System
 #endif
 {
+	[UseSystem]
 	public class Delegate
 	{
 		//public static Delegate Combine(params Delegate[] delegates) {
@@ -20,6 +22,7 @@ namespace System
 		public static extern Delegate Remove(Delegate source, Delegate value);
 	}
 
+	[UseSystem]
 	public class MulticastDelegate : Delegate
 	{
 	}

@@ -58,12 +58,6 @@
     <None Include="build.cmd" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Ext, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\proxy\Ext\bin\Debug\Ext.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="console.js" />
     <Content Include="fauxconsole.js" />
   </ItemGroup>

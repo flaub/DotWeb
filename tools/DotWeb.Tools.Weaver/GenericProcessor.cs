@@ -32,7 +32,7 @@ namespace DotWeb.Tools.Weaver
 
 				foreach (TypeReference item in genericParameter.Constraints) {
 					var constraint = item.Resolve();
-					var type = resolver.ResolveTypeReference(constraint);
+					var type = resolver.ResolveTypeReference(constraint).Type;
 					if (constraint.IsInterface) {
 						interfaces.Add(type);
 					}

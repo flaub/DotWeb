@@ -17,6 +17,7 @@
 
 using System;
 using DotWeb.Client;
+using System.DotWeb;
 //using Ext.grid;
 //using Ext.data;
 
@@ -33,17 +34,17 @@ namespace DotWeb.Sample.Script
 		}
 
 		[JsAnonymous]
-		class Schema : JsDynamicBase
+		class Schema : JsDynamic
 		{
-			public string name { get { return _<string>(); } set { _(value); } }
-			public string type { get { return _<string>(); } set { _(value); } }
+			public extern string name { get; set; }
+			public extern string type { get; set; }
 		}
 
 		[JsAnonymous]
-		class MyRecord : JsDynamicBase
+		class MyRecord : JsDynamic
 		{
-			public int id { get { return _<int>(); } set { _(value); } }
-			public string value { get { return _<string>(); } set { _(value); } }
+			public extern int id { get; set; }
+			public extern string value { get; set; }
 		}
 
 		public ExtScript() {
@@ -93,10 +94,10 @@ namespace DotWeb.Sample.Script
 			//Console.WriteLine("ready");
 		}
 
-		private void OnDblClick(Ext.EventObject e) {
-			Console.WriteLine("dblclick");
-			Console.WriteLine(e);
-			Console.WriteLine(this);
-		}
+		//private void OnDblClick(Ext.EventObject e) {
+		//    Console.WriteLine("dblclick");
+		//    Console.WriteLine(e);
+		//    Console.WriteLine(this);
+		//}
 	}
 }

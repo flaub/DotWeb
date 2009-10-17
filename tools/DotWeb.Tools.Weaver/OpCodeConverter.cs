@@ -29,6 +29,7 @@ namespace DotWeb.Tools.Weaver
 		public const string TypeReference = "TypeReference";
 		public const string TypeDefinition = "TypeDefinition";
 		public const string VariableDefinition = "VariableDefinition";
+		public const string ParameterDefinition = "ParameterDefinition";
 		public const string Instruction = "Instruction";
 	}
 

@@ -1,5 +1,5 @@
-﻿#if HOSTED_MODE
-namespace System.DotWeb
+﻿using System;
+namespace DotWeb.Hosting
 {
 	public interface IDotWebHost
 	{
@@ -11,5 +11,9 @@ namespace System.DotWeb
 	{
 		public static IDotWebHost Host { get; set; }
 	}
+
+	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
+	public class AssemblyWeavedAttribute : Attribute
+	{
+	}
 }
-#endif

@@ -23,23 +23,23 @@ using System.DotWeb;
 namespace DotWeb.Sample.Script.Test
 {
 	[JsNamespace]
-	class ExpandoNative : JsNativeBase
+	class ExpandoNative
 	{
-		public ExpandoNative(object cfg) { C_(cfg); }
-		public void CallHostedMethod() { _(); }
-		public void CallTearOffMethod() { _(); }
-		public void OverrideMethod() { _(); }
-		public void Expand() { _(); }
-		public void Remove() { _(); }
-		public void ExpandMethod() { _(); }
+		public extern ExpandoNative(object cfg);
+		public extern void CallHostedMethod();
+		public extern void CallTearOffMethod();
+		public extern void OverrideMethod();
+		public extern void Expand();
+		public extern void Remove();
+		public extern void ExpandMethod();
 	}
 
 	public class Expando : JsScript
 	{
 		[JsAnonymous]
-		private class Config : JsDynamicBase
+		private class Config : JsDynamic
 		{
-			public Action<string> HostedMethod { get { return _<Action<string>>(); } set { _(value); } }
+			public extern Action<string> HostedMethod { get; set; }
 		}
 
 		public Expando() {

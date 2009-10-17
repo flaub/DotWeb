@@ -33,6 +33,7 @@ namespace SourceConverter.Components
 
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("using System;");
+			sb.AppendLine("using System.DotWeb;");
 			sb.AppendLine("using DotWeb.Client;");
 			sb.AppendLine();
 

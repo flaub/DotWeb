@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using DotWeb.Tools.Weaver;
-using DotWeb.Utility;
-using System.Reflection;
 using System.IO;
 
 namespace DotWebWeaver
@@ -11,16 +8,20 @@ namespace DotWebWeaver
 	class Program
 	{
 		static void Main(string[] args) {
-			if (args.Length != 1) {
-				Console.WriteLine("Usage: DotWebWeaver <assemblyPath>");
+			if (args.Length != 2) {
+				Console.WriteLine("Usage: DotWebWeaver <inputPath> <outputPath>");
 				return;
 			}
 
-			string path = args.First();
-			string dir = Path.GetDirectoryName(path);
+			string inputPath = args[0];
+			string outputPath = args[1];
 
-			var asmProc = new AssemblyProcessor(dir, dir);
-			asmProc.ProcessAssembly(path);
+			string inputDir = Path.GetDirectoryName(inputPath);
+			string outputDir = Path.GetDirectoryName(outputPath);
+			string fileName = Path.GetFileName(outputPath);
+
+			var weaver = new HostingWeaver(inputDir, outputDir);
+			weaver.ProcessAssembly(inputPath, fileName);
 		}
 	}
 }

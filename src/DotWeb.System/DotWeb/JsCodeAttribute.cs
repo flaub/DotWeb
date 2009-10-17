@@ -15,10 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
+using SysAttribute = System.Attribute;
+
+#if HOSTED_MODE
+namespace DotWeb.System.DotWeb
+#else
 namespace System.DotWeb
+#endif
 {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-	public class JsCodeAttribute : Attribute
+	public class JsCodeAttribute : SysAttribute
 	{
 		public string Code { get; private set; }
 

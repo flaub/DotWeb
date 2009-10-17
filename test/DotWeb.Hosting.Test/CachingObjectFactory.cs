@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using DotWeb.Hosting.Bridge;
 using Castle.DynamicProxy;
-using DotWeb.Client;
 
 namespace DotWeb.Hosting.Test
 {

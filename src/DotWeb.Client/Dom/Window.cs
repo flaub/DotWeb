@@ -21,8 +21,6 @@ using System.DotWeb;
 
 namespace DotWeb.Client.Dom
 {
-	public delegate void GenericEventHandler(Event evt);
-	public delegate void MouseEventHandler(MouseEvent evt);
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]

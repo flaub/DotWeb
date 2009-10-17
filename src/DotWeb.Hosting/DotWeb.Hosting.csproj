@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispatchType.cs" />
+    <Compile Include="ExternalCallBridge.cs" />
     <Compile Include="JsValue.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

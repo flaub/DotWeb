@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mono.Cecil;
 using System.Reflection;
 
 namespace DotWeb.Tools.Weaver
 {
-	interface IResolver
+	public interface ITypeResolver
 	{
-		Type ResolveTypeReference(TypeReference typeRef);
+		IType ResolveTypeReference(TypeReference typeRef);
+	}
+
+	public interface IResolver : ITypeResolver
+	{
 		MethodBase ResolveMethodReference(MethodReference methodRef);
 		FieldInfo ResolveFieldReference(FieldReference fieldRef);
-//		Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters);
 	}
 }

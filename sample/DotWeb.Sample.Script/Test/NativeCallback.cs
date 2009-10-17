@@ -21,19 +21,19 @@ using System.DotWeb;
 namespace DotWeb.Sample.Script.Test
 {
 	[JsNamespace]
-	internal class NativeCaller : JsNativeBase
+	internal class NativeCaller
 	{
-		public NativeCaller(object cfg) { C_(cfg); }
+		public extern NativeCaller(object cfg);
 
-		public void Start() { _(); }
+		public extern void Start();
 	}
 
 	[JsNamespace]
-	internal class NativeObject : JsNativeBase
+	internal class NativeObject
 	{
-		public NativeObject() { C_(); }
+		public extern NativeObject();
 
-		public void NativeCall() { _(); }
+		public extern void NativeCall();
 	}
 
 	public class NativeCallback : JsScript
@@ -70,7 +70,7 @@ namespace DotWeb.Sample.Script.Test
 		private class Console
 		{
 			[JsCode("console.log(obj);")]
-			public static void Write(object obj) { JsHost.Invoke(null, obj); }
+			public static extern void Write(object obj);
 		}
 
 		#endregion

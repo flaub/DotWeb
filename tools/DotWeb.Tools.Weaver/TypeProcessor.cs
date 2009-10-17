@@ -8,30 +8,36 @@ using Mono.Cecil.Cil;
 using SR = System.Reflection;
 using SRE = System.Reflection.Emit;
 using System.Collections;
+using Mono.Cecil.Metadata;
 
 namespace DotWeb.Tools.Weaver
 {
 	class TypeProcessor : IType
 	{
 		public Type Type { get { return this.typeBuilder; } }
+		public ModuleBuilder ModuleBuilder { get; private set; }
 
 		private TypeDefinition typeDef;
-		public ModuleBuilder ModuleBuilder { get; private set; }
+		private AssemblyProcessor parent;
 		private TypeBuilder typeBuilder;
-		private Dictionary<MethodDefinition, MethodBase> methodsByDef = new Dictionary<MethodDefinition, MethodBase>();
-		private Dictionary<FieldDefinition, FieldBuilder> fieldsByDef = new Dictionary<FieldDefinition, FieldBuilder>();
+		private Dictionary<MetadataToken, MethodBase> methods = new Dictionary<MetadataToken, MethodBase>();
+		private Dictionary<FieldDefinition, FieldBuilder> fields = new Dictionary<FieldDefinition, FieldBuilder>();
+		private List<IType> referencedTypes = new List<IType>();
 		private IResolver resolver;
 		private GenericTypeProcessor genericProc;
+		private bool isClosing = false;
 
-		public TypeProcessor(IResolver resolver, TypeReference typeRef, ModuleBuilder moduleBuilder) {
+		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeReference typeRef, ModuleBuilder moduleBuilder) {
 			this.resolver = resolver;
+			this.parent = parent;
 			this.typeDef = typeRef.Resolve();
 			this.ModuleBuilder = moduleBuilder;
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
 
-			this.typeBuilder = moduleBuilder.DefineType(this.typeDef.FullName, typeAttrs);
+			string fullName = this.typeDef.FullName.Replace("/", "+");
+			this.typeBuilder = moduleBuilder.DefineType(fullName, typeAttrs);
 
 			if (this.typeDef.HasGenericParameters) {
 				this.genericProc.ProcessType(typeDef, typeBuilder);
@@ -43,32 +49,49 @@ namespace DotWeb.Tools.Weaver
 			}
 		}
 
+		public override string ToString() {
+			return string.Format("TypeProcessor: {0}", this.typeBuilder.ToString());
+		}
+
 		public void Close() {
 			this.typeBuilder.CreateType();
+		}
+
+		public void MarkForClosing() {
+			if (this.isClosing)
+				return;
+
+			this.isClosing = true;
+			foreach (var type in referencedTypes) {
+				var typeProc = type as TypeProcessor;
+				if (typeProc != null) {
+					this.parent.QueueClose(typeProc);
+				}
+			}
+			this.parent.QueueClose(this);
 		}
 
 		public GenericTypeParameterBuilder GetGenericParameter(string name) {
 			return this.genericProc.GetGenericParameter(name);
 		}
 
-		public void ProcessAll() {
-			foreach (CustomAttribute item in this.typeDef.CustomAttributes) {
-				var ctor = ResolveCustomAttributeCtor(item);
-				this.typeBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
+		public void Process() {
+			if (this.typeDef.HasCustomAttributes) {
+				CustomAttributeProcessor.Process(this.resolver, this.typeDef, this.typeBuilder);
 			}
 
 			foreach (FieldDefinition item in this.typeDef.Fields) {
-				if (!this.fieldsByDef.ContainsKey(item))
+				if (!this.fields.ContainsKey(item))
 					ProcessField(item);
 			}
 
 			foreach (MethodDefinition item in this.typeDef.Constructors) {
-				if (!this.methodsByDef.ContainsKey(item))
+				if (!this.methods.ContainsKey(item.MetadataToken))
 					ProcessConstructor(item);
 			}
 
 			foreach (MethodDefinition item in this.typeDef.Methods) {
-				if (!this.methodsByDef.ContainsKey(item))
+				if (!this.methods.ContainsKey(item.MetadataToken))
 					ProcessMethod(item);
 			}
 
@@ -84,13 +107,7 @@ namespace DotWeb.Tools.Weaver
 				ProcessNestedType(item);
 			}
 
-			Close();
-		}
-
-		private ConstructorInfo ResolveCustomAttributeCtor(CustomAttribute attr) {
-			var method = this.resolver.ResolveMethodReference(attr.Constructor);
-			var ctor = (ConstructorInfo)method;
-			return ctor;
+			MarkForClosing();
 		}
 
 		private void ProcessNestedType(TypeDefinition typeDef) {
@@ -102,10 +119,7 @@ namespace DotWeb.Tools.Weaver
 			var eventBuilder = this.typeBuilder.DefineEvent(eventDef.Name, (SR.EventAttributes)eventDef.Attributes, eventType);
 
 			if (eventDef.HasCustomAttributes) {
-				foreach (CustomAttribute item in eventDef.CustomAttributes) {
-					var ctor = ResolveCustomAttributeCtor(item);
-					eventBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
-				}
+				CustomAttributeProcessor.Process(this.resolver, eventDef, eventBuilder);
 			}
 
 			if (eventDef.AddMethod != null) {
@@ -124,14 +138,17 @@ namespace DotWeb.Tools.Weaver
 			var fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
 
 			if (fieldDef.HasConstant) {
-				fieldBuilder.SetConstant(fieldDef.Constant);
+				if (fieldBuilder.FieldType.IsEnum) {
+					object value = Enum.ToObject(fieldBuilder.FieldType, fieldDef.Constant);
+					fieldBuilder.SetConstant(value);
+				}
+				else {
+					fieldBuilder.SetConstant(fieldDef.Constant);
+				}
 			}
 
 			if (fieldDef.HasCustomAttributes) {
-				foreach (CustomAttribute item in fieldDef.CustomAttributes) {
-					var ctor = ResolveCustomAttributeCtor(item);
-					fieldBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
-				}
+				CustomAttributeProcessor.Process(this.resolver, fieldDef, fieldBuilder);
 			}
 
 			RegisterField(fieldDef, fieldBuilder);
@@ -149,10 +166,7 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			if (propertyDef.HasCustomAttributes) {
-				foreach (CustomAttribute item in propertyDef.CustomAttributes) {
-					var ctor = ResolveCustomAttributeCtor(item);
-					propertyBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
-				}
+				CustomAttributeProcessor.Process(this.resolver, propertyDef, propertyBuilder);
 			}
 
 			if (propertyDef.GetMethod != null) {
@@ -227,9 +241,10 @@ namespace DotWeb.Tools.Weaver
 			return methodRef.Resolve();
 		}
 
-		public MethodBase ResolveMethod(MethodDefinition methodDef) {
+		public MethodBase ResolveMethod(MethodReference methodRef) {
+			var methodDef = methodRef.Resolve();
 			MethodBase method;
-			if (!this.methodsByDef.TryGetValue(methodDef, out method)) {
+			if (!this.methods.TryGetValue(methodDef.MetadataToken, out method)) {
 				method = ProcessMethod(methodDef);
 			}
 
@@ -238,7 +253,7 @@ namespace DotWeb.Tools.Weaver
 
 		public FieldInfo ResolveField(FieldDefinition fieldDef) {
 			FieldBuilder field;
-			if (!this.fieldsByDef.TryGetValue(fieldDef, out field)) {
+			if (!this.fields.TryGetValue(fieldDef, out field)) {
 				field = ProcessField(fieldDef);
 			}
 
@@ -246,11 +261,11 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void RegisterMethod(MethodDefinition methodDef, MethodBase method) {
-			this.methodsByDef.Add(methodDef, method);
+			this.methods.Add(methodDef.MetadataToken, method);
 		}
 
 		private void RegisterField(FieldDefinition fieldDef, FieldBuilder field) {
-			this.fieldsByDef.Add(fieldDef, field);
+			this.fields.Add(fieldDef, field);
 		}
 
 		private Type ResolveTypeReference(TypeReference typeRef) {
@@ -258,7 +273,10 @@ namespace DotWeb.Tools.Weaver
 				return this.genericProc.GetGenericParameter(typeRef.Name);
 			}
 
-			return this.resolver.ResolveTypeReference(typeRef);
+			var type = this.resolver.ResolveTypeReference(typeRef);
+			if (!this.referencedTypes.Contains(type))
+				this.referencedTypes.Add(type);
+			return type.Type;
 		}
 
 		private Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters) {

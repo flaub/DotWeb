@@ -12,7 +12,7 @@
     <AssemblyName>Hosted-DotWeb.System</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +41,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
@@ -50,11 +52,13 @@
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Console.cs" />
     <Compile Include="Delegate.cs" />
+    <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
+    <Compile Include="DotWeb\JsDynamic.cs" />
     <Compile Include="DotWeb\JsNativeAttribute.cs" />
-    <Compile Include="DotWeb\ExternalCall.cs" />
     <Compile Include="DotWeb\JsCodeAttribute.cs" />
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
+    <Compile Include="DotWeb\UseSystemAttribute.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Func.cs" />
@@ -90,6 +94,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(TargetDir)DotWebWeaver.exe $(TargetPath)</PostBuildEvent>
+    <PostBuildEvent>$(TargetDir)DotWebWeaver.exe $(TargetPath) $(TargetPath)</PostBuildEvent>
   </PropertyGroup>
 </Project>

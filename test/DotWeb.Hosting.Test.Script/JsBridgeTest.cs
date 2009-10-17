@@ -3,37 +3,38 @@ using DotWeb.Client.Dom;
 using System;
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;
+using System.DotWeb;
 
 namespace DotWeb.Hosting.Test.Script
 {
-	public class NativeObject : JsNativeBase
+	public class NativeObject
 	{
-		public NativeObject() { C_(); }
+		public extern NativeObject();
 
 		[JsIntrinsic]
-		public GenericEventHandler onmouseover { get { return _<GenericEventHandler>(); } set { _(value); } }
+		public extern GenericEventHandler onmouseover { get; set; }
 
-		public static Delegate Constructor { get { return S_<Delegate>(); } }
-		public void Alert(string msg) { _(msg); }
-		public void NativeCall() { _(); }
+		public static extern Delegate Constructor { get; }
+		public extern void Alert(string msg);
+		public extern void NativeCall();
 
-		public static void TakeObject(object arg) { S_(arg); }
+		public static extern void TakeObject(object arg);
 
-		public static Action GetAction0() { return S_<Action>(); }
-		public static Action<object> GetAction1() { return S_<Action<object>>(); }
-		public static Action<object, object> GetAction2() { return S_<Action<object, object>>(); }
+		public static extern Action GetAction0();
+		public static extern Action<object> GetAction1();
+		public static extern Action<object, object> GetAction2();
 
-		public static Func<object> GetFunc0() { return S_<Func<object>>(); }
-		public static Func<object, object> GetFunc1() { return S_<Func<object, object>>(); }
-		public static Func<object, object, object> GetFunc2() { return S_<Func<object, object, object>>(); }
+		public static extern Func<object> GetFunc0();
+		public static extern Func<object, object> GetFunc1();
+		public static extern Func<object, object, object> GetFunc2();
 	}
 
 	[JsNamespace]
-	public class NativeCaller : JsNativeBase
+	public class NativeCaller
 	{
-		public NativeCaller(object cfg) { C_(cfg); }
+		public extern NativeCaller(object cfg);
 
-		public void Start() { _(); }
+		public extern void Start();
 	}
 
 	[JsAnonymous]
@@ -105,7 +106,7 @@ namespace DotWeb.Hosting.Test.Script
 	{
 		public CastInterfaceTest() {
 			var element = Window.document.getElementById("box");
-			var box = JsRuntime.Cast<HtmlDivElement>(element);
+			var box = (HtmlDivElement)element;
 			box.onmouseover = box_OnMouseOver;
 		}
 

@@ -30,4 +30,6 @@ namespace DotWeb.Client.Dom.Events
 		int button { get; }
 		//EventTarget relatedTarget;
 	}
+
+	public delegate void MouseEventHandler(MouseEvent evt);
 }

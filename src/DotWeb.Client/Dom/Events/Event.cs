@@ -43,4 +43,6 @@ namespace DotWeb.Client.Dom.Events
 
 		void initEvent(string eventType, bool canBubble, bool cancelable);
 	}
+
+	public delegate void GenericEventHandler(Event evt);
 }

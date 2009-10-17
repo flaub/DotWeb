@@ -10,23 +10,10 @@ using System.Collections;
 using SR = System.Reflection;
 using SRE = System.Reflection.Emit;
 using System.Diagnostics;
+using DotWeb.Hosting;
 
 namespace DotWeb.Tools.Weaver
 {
-	public interface IExternalImpl
-	{
-		object InvokeExternal(object scope, MethodBase method, object[] args);
-	}
-
-	public static class ExternalCall
-	{
-		public static object Invoke(object scope, object method, object[] args) {
-			return Impl.InvokeExternal(scope, (MethodBase)method, args);
-		}
-
-		public static IExternalImpl Impl { get; set; }
-	}
-
 	class MethodProcessor
 	{
 		private TypeProcessor parent;
@@ -65,10 +52,7 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			if (methodDef.HasCustomAttributes) {
-				foreach (CustomAttribute item in methodDef.CustomAttributes) {
-					var ctor = (ConstructorInfo)this.resolver.ResolveMethodReference(item.Constructor);
-					methodBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
-				}
+				CustomAttributeProcessor.Process(this.resolver, methodDef, methodBuilder);
 			}
 
 			methodBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
@@ -94,16 +78,12 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			if (methodDef.HasCustomAttributes) {
-				foreach (CustomAttribute item in methodDef.CustomAttributes) {
-					var ctor = (ConstructorInfo)this.resolver.ResolveMethodReference(item.Constructor);
-					ctorBuilder.SetCustomAttribute(ctor, item.Blob ?? new byte[0]);
-				}
+				CustomAttributeProcessor.Process(this.resolver, methodDef, ctorBuilder);
 			}
 
 			ctorBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
 
 			if (this.methodDef.HasBody) {
-//			if (!this.methodDef.IsAbstract && !this.methodDef.IsRuntime) {
 				var generator = ctorBuilder.GetILGenerator();
 				ProcessMethodBody(generator);
 			}
@@ -175,25 +155,21 @@ namespace DotWeb.Tools.Weaver
 			}
 		}
 
-		public object Test(string value1, string value2) {
-			var args = new object[2];
-			args[0] = value1;
-			args[1] = value2;
-			return ExternalCall.Invoke(this, MethodBase.GetCurrentMethod(), args);
-		}
-
 		static class TypeCache
 		{
 			public static readonly Type Arguments = typeof(object[]);
 			public static readonly Type Object = typeof(object);
 			public static readonly Type MethodBase = typeof(MethodBase);
-			public static readonly Type ExternalCall = typeof(ExternalCall);
+			public static readonly Type IDotWebHost = typeof(IDotWebHost);
+			public static readonly Type HostedMode = typeof(HostedMode);
 
-			public static readonly MethodInfo ExternalCall_Invoke;
+			public static readonly MethodInfo HostedMode_get_Host;
+			public static readonly MethodInfo IDotWebHost_Invoke;
 			public static readonly MethodInfo MethodBase_GetCurrentMethod;
 
 			static TypeCache() {
-				ExternalCall_Invoke = ExternalCall.GetMethod("Invoke");
+				HostedMode_get_Host = HostedMode.GetMethod("get_Host");
+				IDotWebHost_Invoke = IDotWebHost.GetMethod("Invoke");
 				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
 			}
 		}
@@ -243,7 +219,9 @@ namespace DotWeb.Tools.Weaver
 				generator.Emit(SRE.OpCodes.Stelem_Ref);
 			}
 
-			// __ret = ExternalCall.Invoke(this|null, __method, __args); 
+			// __ret = HostedMode.Host.Invoke(this|null, __method, __args); 
+			generator.EmitCall(SRE.OpCodes.Call, TypeCache.HostedMode_get_Host, null);
+
 			if (this.methodDef.IsStatic)
 				generator.Emit(SRE.OpCodes.Ldnull);
 			else
@@ -251,7 +229,7 @@ namespace DotWeb.Tools.Weaver
 
 			generator.Emit(SRE.OpCodes.Ldloc, method.LocalIndex);
 			generator.Emit(SRE.OpCodes.Ldloc, args.LocalIndex);
-			generator.EmitCall(SRE.OpCodes.Call, TypeCache.ExternalCall_Invoke, null);
+			generator.EmitCall(SRE.OpCodes.Callvirt, TypeCache.IDotWebHost_Invoke, null);
 
 			if (needsReturn) {
 				// return __ret;
@@ -316,9 +294,16 @@ namespace DotWeb.Tools.Weaver
 				case OperandTypeNames.VariableDefinition:
 					generator.Emit(code, locals[(VariableDefinition)cil.Operand]);
 					break;
+				case OperandTypeNames.ParameterDefinition:
+					EmitParameter(generator, code, (ParameterDefinition)cil.Operand);
+					break;
 				default:
 					throw new NotSupportedException(string.Format("OperandType: {0}", typeName));
 			}
+		}
+
+		private void EmitParameter(ILGenerator generator, SRE.OpCode code, ParameterDefinition parameterDef) {
+			generator.Emit(code, parameterDef.Sequence);
 		}
 
 		public void EmitMethod(ILGenerator generator, SRE.OpCode code, MethodReference methodRef) {
@@ -347,7 +332,7 @@ namespace DotWeb.Tools.Weaver
 				return this.parent.GetGenericParameter(typeRef.Name);
 			}
 
-			return this.resolver.ResolveTypeReference(typeRef);
+			return this.resolver.ResolveTypeReference(typeRef).Type;
 		}
 
 		private Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters) {

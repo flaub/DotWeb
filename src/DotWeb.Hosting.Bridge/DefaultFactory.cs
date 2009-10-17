@@ -63,7 +63,7 @@ namespace DotWeb.Hosting.Bridge
 					invocation.Proceed();
 				}
 				else {
-					invocation.ReturnValue = this.bridge.InvokeRemoteMethod(invocation.Method, invocation.Proxy, invocation.Arguments);
+					invocation.ReturnValue = this.bridge.Invoke(invocation.Proxy, invocation.Method, invocation.Arguments);
 				}
 			}
 

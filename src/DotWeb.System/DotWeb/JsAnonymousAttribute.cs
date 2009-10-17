@@ -15,9 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using SysAttribute = System.Attribute;
 
-namespace DotWeb.Client
+#if HOSTED_MODE
+namespace DotWeb.System.DotWeb
+#else
+namespace System.DotWeb
+#endif
 {
 	/// <summary>
 	/// Classes decorated with this attribute mean that they
@@ -66,7 +70,7 @@ namespace DotWeb.Client
 	/// </example>
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-	public class JsAnonymousAttribute : Attribute
+	public class JsAnonymousAttribute : SysAttribute
 	{
 	}
 }

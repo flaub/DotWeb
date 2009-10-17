@@ -43,7 +43,7 @@ namespace DotWeb.Hosting.Bridge
 	{
 	}
 
-	public class JsBridge //: IJsHost
+	public class JsBridge : IDotWebHost
 	{
 		private readonly ISession session;
 		private readonly IObjectFactory factory;
@@ -399,8 +399,9 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
-		internal object InvokeRemoteMethod(MethodBase method, object scope, params object[] args) {
+		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
+				MethodBase method = (MethodBase)objMethod;
 				JsFunction function = PrepareRemoteFunction(method);
 
 				int hScope = 0;
@@ -442,25 +443,25 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		public object InvokeRemoteMethod(object scope, int stackDepth, params object[] args) {
-			if (this.isUnwrapping) {
-				return null;
-			}
+		//public object InvokeRemoteMethod(object scope, int stackDepth, params object[] args) {
+		//    if (this.isUnwrapping) {
+		//        return null;
+		//    }
 			
-			StackFrame frame = new StackFrame(stackDepth + 1);
-			var method = frame.GetMethod();
+		//    StackFrame frame = new StackFrame(stackDepth + 1);
+		//    var method = frame.GetMethod();
 
-			if (method.IsConstructor) {
-				StackFrame previous = new StackFrame(stackDepth + 2);
-				// this prevents ctors from being called twice
-				// we only want the derived class's ctor to execute, not any bases
-				//if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
-				//    return null;
-				//}
-			}
+		//    if (method.IsConstructor) {
+		//        StackFrame previous = new StackFrame(stackDepth + 2);
+		//        // this prevents ctors from being called twice
+		//        // we only want the derived class's ctor to execute, not any bases
+		//        //if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
+		//        //    return null;
+		//        //}
+		//    }
 
-			return InvokeRemoteMethod(method, scope, args);
-		}
+		//    return InvokeRemoteMethod(method, scope, args);
+		//}
 
 		public T Cast<T>(object obj) {
 			JsObject remote = (JsObject)obj;

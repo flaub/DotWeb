@@ -55,7 +55,7 @@ namespace DotWeb.Sample.Script
 
 		public ConsoleScript() {
 			var element = Document.createElement("div");
-			this.div = JsRuntime.Cast<HtmlDivElement>(element);
+			this.div = (HtmlDivElement)element;
 			this.div.id = ConsoleDivId;
 
 			this.div.style.top = "0";
@@ -84,7 +84,7 @@ namespace DotWeb.Sample.Script
 
 		private void AddLink(MouseEventHandler handler, string text) {
 			var element = Document.createElement("a");
-			var anchor = JsRuntime.Cast<HtmlAnchorElement>(element);
+			var anchor = (HtmlAnchorElement)element;
 			anchor.href = "#";
 			anchor.onclick = handler;
 			var textNode = Document.createTextNode(text);

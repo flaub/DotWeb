@@ -1,8 +1,8 @@
 ﻿using DotWeb.Client;
+using System.DotWeb;
 
 namespace DotWeb.Hosting.Test.Script
 {
-
 	public class CrashTestDummy
 	{
 		public const string JsCode = "alert('hi');";
@@ -21,6 +21,14 @@ namespace DotWeb.Hosting.Test.Script
 		public void TestMethod() { }
 
 		public static void TestStatic() { }
+
+		public object this[string name] {
+			get {
+				return null;
+			}
+			set {
+			}
+		}
 	}
 
 	[JsNamespace]

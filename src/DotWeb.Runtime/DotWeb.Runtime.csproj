@@ -39,15 +39,17 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HostedMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Client\Hosted-DotWeb.Client.csproj">
-      <Project>{472CE4FC-1377-494B-AC0D-14EC9D98ABB3}</Project>
-      <Name>Hosted-DotWeb.Client</Name>
+    <ProjectReference Include="..\..\tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj">
+      <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
+      <Name>DotWeb.Tools.Weaver</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
       <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>

@@ -28,7 +28,7 @@ namespace DotWeb.Sample.Script.Test
 
 		public EventHandler() {
 			var element = Window.document.getElementById("box");
-			box = JsRuntime.Cast<HtmlDivElement>(element);
+			box = (HtmlDivElement)element;
 			box.onmouseover = box_OnMouseOver;
 			box.onmouseout = box_OnMouseOut;
 		}

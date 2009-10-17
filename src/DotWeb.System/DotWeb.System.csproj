@@ -41,11 +41,13 @@
     <Compile Include="Console.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
-    <Compile Include="DotWeb\ExternalCall.cs" />
+    <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsCodeAttribute.cs" />
+    <Compile Include="DotWeb\JsDynamic.cs" />
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
     <Compile Include="DotWeb\JsNativeAttribute.cs" />
+    <Compile Include="DotWeb\UseSystemAttribute.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Func.cs" />
@@ -71,11 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="plan.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

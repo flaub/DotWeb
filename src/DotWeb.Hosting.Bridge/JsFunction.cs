@@ -19,7 +19,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using DotWeb.Utility;
-using System.DotWeb;
+using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Bridge
 {
