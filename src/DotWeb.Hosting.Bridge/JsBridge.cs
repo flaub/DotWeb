@@ -34,10 +34,7 @@ namespace DotWeb.Hosting.Bridge
 	using DynamicPropertyMap = Dictionary<string, object>;
 //	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
 	using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
-
-	class JsObject
-	{
-	}
+	using DotWeb.System.DotWeb;
 
 	class JsDynamicBase
 	{

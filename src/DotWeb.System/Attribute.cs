@@ -1,24 +1,30 @@
 ﻿using SysAttribute = System.Attribute;
 
 #if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System
 #else
+using System.DotWeb;
 namespace System
 #endif
 {
+	[UseSystem]
 	public class Attribute
 	{
 	}
 
+	[UseSystem]
 	[AttributeUsage(AttributeTargets.Enum, Inherited = false)]
 	public class FlagsAttribute : SysAttribute
 	{
 	}
 
+	[UseSystem]
 	public class ParamArrayAttribute : SysAttribute
 	{
 	}
 
+	[UseSystem]
 	[Flags]
 	public enum AttributeTargets
 	{
@@ -40,6 +46,7 @@ namespace System
 		All = 0x8000
 	}
 
+	[UseSystem]
 	[AttributeUsage(AttributeTargets.Class, Inherited = true)]
 	public class AttributeUsageAttribute : SysAttribute
 	{
@@ -50,10 +57,5 @@ namespace System
 		public AttributeTargets ValidOn { get; set; }
 		public bool AllowMultiple { get; set; }
 		public bool Inherited { get; set; }
-	}
-
-	[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-	internal class DotWebInternal : SysAttribute
-	{
 	}
 }

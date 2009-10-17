@@ -1,9 +1,12 @@
 ﻿#if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System.Text
 #else
+using System.DotWeb;
 namespace System.Text
 #endif
 {
+	[UseSystem]
 	public class StringBuilder
 	{
 		public StringBuilder() {

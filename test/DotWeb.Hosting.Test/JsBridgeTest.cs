@@ -29,6 +29,14 @@ namespace DotWeb.Hosting.Test
 	[TestFixture]
 	public class JsBridgeTest
 	{
+		private Assembly asm;
+		private Type nativeObject;
+
+		public JsBridgeTest() {
+			this.asm = Assembly.Load("Hosted-DotWeb.Hosting.Test.Script");
+			this.nativeObject = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeObject");
+		}
+
 		private void SimulateAction(SessionHelper session, Type nativeType, string name, JsValueType retType, ref int remoteId,
 			params int[] args) {
 			var action = session.DefineFunctionMessage(nativeType.GetMethod(name));
@@ -44,26 +52,12 @@ namespace DotWeb.Hosting.Test
 
 		private delegate void SessionHandler(SessionHelper session);
 
-		//class SimpleStorage : IJsHostStorage
-		//{
-		//    private IJsHost host;
-
-		//    public SimpleStorage(IJsHost host) {
-		//        this.host = host;
-		//    }
-
-		//    public IJsHost Host {
-		//        get { return this.host; }
-		//    }
-		//}
-
 		private void TestHelper(IObjectFactory factory, SessionHandler handler) {
 			MockRepository mocks = new MockRepository();
 
 			ISession session = mocks.StrictMock<ISession>();
 			JsBridge bridge = new JsBridge(session, factory);
-			//var storage = new SimpleStorage(bridge);
-			//JsHost.Storage = storage;
+			HostedMode.Host = bridge;
 			SessionHelper helper = new SessionHelper(bridge, session);
 			using (mocks.Ordered()) {
 				handler(helper);
@@ -75,48 +69,45 @@ namespace DotWeb.Hosting.Test
 			mocks.VerifyAll();
 		}
 
-		class NativeObject { }
-		class DelegateWrapperTest { }
-		class EventHandlerTest { }
-		class NativeCallbackTest { }
-		class NativeCaller { }
-		class Config { }
-		class ObjectWrapperTest { }
-		class SanityTest { }
-		class CastInterfaceTest { }
-		class JsScript { }
-		class Window { }
-		class Document { }
-		class HtmlElement { }
+		[Test]
+		public void TestSanity() {
+			var loadType = asm.GetType("DotWeb.Hosting.Test.Script.SanityTest");
+
+			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+				session.OnLoadMessage(loadType);
+				session.ReturnMessage();
+				session.OnQuitMessage();
+			});
+		}
 
 		[Test]
 		public void TestDelegateWrapper() {
 			//var ctor = NativeObject.Constructor;
 			//NativeObject.TakeObject(ctor);
 
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.DelegateWrapperTest");
+
 			int remoteId = 0;
 			CachingObjectFactory factory = new CachingObjectFactory();
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof(NativeObject);
-				Type loadType = typeof(DelegateWrapperTest);
 				session.OnLoadMessage(loadType);
 
-				var ctor = session.DefineFunctionMessage(nativeType.GetMethod("get_Constructor"));
+				var ctor = session.DefineFunctionMessage(this.nativeObject.GetMethod("get_Constructor"));
 				session.InvokeFunctionMessage(ctor.Name, 0);
 				var ctorId = ++remoteId;
 				session.OnReturnMessage(false, JsValueType.JsObject, ctorId);
 
-				var method = session.DefineFunctionMessage(nativeType.GetMethod("TakeObject"));
+				var method = session.DefineFunctionMessage(this.nativeObject.GetMethod("TakeObject"));
 				session.InvokeFunctionMessage(method.Name, 0, new JsValue(JsValueType.JsObject, ctorId));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
-				SimulateAction(session, nativeType, "GetAction0", JsValueType.Void, ref remoteId);
-				SimulateAction(session, nativeType, "GetAction1", JsValueType.Void, ref remoteId, 1);
-				SimulateAction(session, nativeType, "GetAction2", JsValueType.Void, ref remoteId, 1, 2);
+				SimulateAction(session, this.nativeObject, "GetAction0", JsValueType.Void, ref remoteId);
+				SimulateAction(session, this.nativeObject, "GetAction1", JsValueType.Void, ref remoteId, 1);
+				SimulateAction(session, this.nativeObject, "GetAction2", JsValueType.Void, ref remoteId, 1, 2);
 
-				SimulateAction(session, nativeType, "GetFunc0", JsValueType.Null, ref remoteId);
-				SimulateAction(session, nativeType, "GetFunc1", JsValueType.Null, ref remoteId, 1);
-				SimulateAction(session, nativeType, "GetFunc2", JsValueType.Null, ref remoteId, 1, 2);
+				SimulateAction(session, this.nativeObject, "GetFunc0", JsValueType.Null, ref remoteId);
+				SimulateAction(session, this.nativeObject, "GetFunc1", JsValueType.Null, ref remoteId, 1);
+				SimulateAction(session, this.nativeObject, "GetFunc2", JsValueType.Null, ref remoteId, 1, 2);
 
 				// return from initial ctor
 				session.ReturnMessage();
@@ -127,19 +118,20 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestEventHandler() {
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.EventHandlerTest");
+			var alertArg = (string)loadType.GetField("AlertArg").GetValue(null);
 			CachingObjectFactory factory = new CachingObjectFactory();
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof(NativeObject);
-				session.OnLoadMessage(typeof(EventHandlerTest));
+				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
-				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
+				var ctor = session.DefineFunctionMessage(this.nativeObject.GetConstructor(Type.EmptyTypes));
 				session.InvokeFunctionMessage(ctor.Name, 0);
 				// return the scopeId for the newly created native object
 				session.OnReturnMessage(false, JsValueType.JsObject, 1);
 
 				// nativeObject.onmouseover = native_OnMouseOver;
-				var method = session.DefineFunctionMessage(nativeType.GetMethod("set_onmouseover"));
+				var method = session.DefineFunctionMessage(this.nativeObject.GetMethod("set_onmouseover"));
 				session.InvokeFunctionMessage(method.Name, 1, new JsValue(JsValueType.Delegate, 1));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
@@ -150,8 +142,8 @@ namespace DotWeb.Hosting.Test
 				session.OnInvokeDelegateMessage(1, new JsValue(JsValueType.JsObject, 2));
 
 				// nativeObject.Alert();
-				var alert = session.DefineFunctionMessage(nativeType.GetMethod("Alert"));
-//				session.InvokeFunctionMessage(alert.Name, 1, new JsValue(EventHandlerTest.AlertArg));
+				var alert = session.DefineFunctionMessage(this.nativeObject.GetMethod("Alert"));
+				session.InvokeFunctionMessage(alert.Name, 1, new JsValue(alertArg));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				// return from event handler
@@ -187,27 +179,28 @@ namespace DotWeb.Hosting.Test
 			CachingObjectFactory factory = new CachingObjectFactory();
 			int localId = 0;
 			int remoteId = 0;
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeCallbackTest");
+			var nativeCaller = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeCaller");
+			var configType = this.asm.GetType("DotWeb.Hosting.Test.Script.Config");
+			var cfg = Activator.CreateInstance(configType);
 			TestHelper(factory, delegate(SessionHelper session) {
-				Type nativeType = typeof(NativeObject);
-				session.OnLoadMessage(typeof(NativeCallbackTest));
+				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
-				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
+				var ctor = session.DefineFunctionMessage(this.nativeObject.GetConstructor(Type.EmptyTypes));
 				session.InvokeFunctionMessage(ctor.Name, 0);
 				// return the scopeId for the newly created native object
 				var nativeObjectId = ++remoteId;
 				session.OnReturnMessage(false, JsValueType.JsObject, nativeObjectId);
 
 				//var caller = new NativeCaller(cfg);
-				Type nativeCallerType = typeof(NativeCaller);
-				var ctor2 = session.DefineFunctionMessage(nativeCallerType.GetConstructor(new Type[] { typeof(object) }));
+				var ctor2 = session.DefineFunctionMessage(nativeCaller.GetConstructor(new Type[] { typeof(object) }));
 				var cfgId = ++localId;
 				session.InvokeFunctionMessage(ctor2.Name, 0, new JsValue(JsValueType.Object, cfgId));
 
 				// the ctor for NativeCaller() will grab the nativeObject from the cfg passed in
 				session.OnGetTypeRequestMessage(cfgId);
 
-				var cfg = new Config();
 				session.GetTypeResponseMessage(session.Bridge, cfg);
 
 				session.OnInvokeMemberMessage(cfgId, new DispatchIdentifier("nativeObject"), DispatchType.PropertyGet);
@@ -220,7 +213,7 @@ namespace DotWeb.Hosting.Test
 				session.OnReturnMessage(false, JsValueType.JsObject, nativeCallerId);
 
 				//caller.Start();
-				var method = session.DefineFunctionMessage(nativeCallerType.GetMethod("Start"));
+				var method = session.DefineFunctionMessage(nativeCaller.GetMethod("Start"));
 				session.InvokeFunctionMessage(method.Name, nativeCallerId);
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
@@ -233,19 +226,20 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TestObjectWrapper() {
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.ObjectWrapperTest");
+			string argValue = (string)loadType.GetField("AlertArg").GetValue(null);
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
-				Type nativeType = typeof(NativeObject);
-				session.OnLoadMessage(typeof(ObjectWrapperTest));
+				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
-				var ctor = session.DefineFunctionMessage(nativeType.GetConstructor(Type.EmptyTypes));
+				var ctor = session.DefineFunctionMessage(this.nativeObject.GetConstructor(Type.EmptyTypes));
 				session.InvokeFunctionMessage(ctor.Name, 0);
 				// return the scopeId for the newly created native object
 				session.OnReturnMessage(false, JsValueType.JsObject, 1);
 
 				// nativeObject.Alert();
-				var alert = session.DefineFunctionMessage(nativeType.GetMethod("Alert"));
-//				session.InvokeFunctionMessage(alert.Name, 1, new JsValue(ObjectWrapperTest.AlertArg));
+				var alert = session.DefineFunctionMessage(this.nativeObject.GetMethod("Alert"));
+				session.InvokeFunctionMessage(alert.Name, 1, new JsValue(argValue));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				session.ReturnMessage();
@@ -254,33 +248,30 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		public void TestSanity() {
-			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
-				session.OnLoadMessage(typeof(SanityTest));
-				session.ReturnMessage();
-				session.OnQuitMessage();
-			});
-		}
-
-		[Test]
 		public void TestCastInterface() {
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.CastInterfaceTest");
+			var jsScriptType = Type.GetType("DotWeb.Client.JsScript, Hosted-DotWeb.Client.dll");
+			var windowType = Type.GetType("DotWeb.Client.Dom.Window, Hosted-DotWeb.Client.dll");
+			var documentType = Type.GetType("DotWeb.Client.Dom.Document, Hosted-DotWeb.Client.dll");
+			var htmlElementType = Type.GetType("DotWeb.Client.Dom.Html.HtmlElement, Hosted-DotWeb.Client.dll");
+
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
 				int localId = 0;
 				int remoteId = 0;
-				session.OnLoadMessage(typeof(CastInterfaceTest));
+				session.OnLoadMessage(loadType);
 
 				//var element = Window.document.getElementById("box");
-				var window = session.DefineFunctionMessage(typeof(JsScript).GetMethod("get_Window"));
+				var window = session.DefineFunctionMessage(jsScriptType.GetMethod("get_Window"));
 				var windowId = ++remoteId;
 				session.InvokeFunctionMessage(window.Name, 0);
 				session.OnReturnMessage(false, JsValueType.JsObject, windowId);
 
-				var document = session.DefineFunctionMessage(typeof(Window).GetMethod("get_document"));
+				var document = session.DefineFunctionMessage(windowType.GetMethod("get_document"));
 				var documentId = ++remoteId;
 				session.InvokeFunctionMessage(document.Name, windowId);
 				session.OnReturnMessage(false, JsValueType.JsObject, documentId);
 
-				var getElement = session.DefineFunctionMessage(typeof(Document).GetMethod("getElementById"));
+				var getElement = session.DefineFunctionMessage(documentType.GetMethod("getElementById"));
 				var elementId = ++remoteId;
 				session.InvokeFunctionMessage(getElement.Name, documentId, new JsValue("box"));
 				session.OnReturnMessage(false, JsValueType.JsObject, elementId);
@@ -288,7 +279,7 @@ namespace DotWeb.Hosting.Test
 				//var box = JsRuntime.Cast<HtmlDivElement>(element);
 				
 				//box.onmouseover = box_OnMouseOver;
-				var setHandler = session.DefineFunctionMessage(typeof(HtmlElement).GetMethod("set_onmouseover"));
+				var setHandler = session.DefineFunctionMessage(htmlElementType.GetMethod("set_onmouseover"));
 				session.InvokeFunctionMessage(setHandler.Name, elementId, new JsValue(JsValueType.Delegate, ++localId));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 

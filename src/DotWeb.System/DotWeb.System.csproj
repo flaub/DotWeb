@@ -47,6 +47,7 @@
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
     <Compile Include="DotWeb\JsNativeAttribute.cs" />
+    <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\UseSystemAttribute.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />

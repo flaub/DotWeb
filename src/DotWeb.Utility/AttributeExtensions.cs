@@ -26,7 +26,6 @@ namespace DotWeb.Utility
 	public static class AttributeExtensions
 	{
 		public static R GetCustomAttribute<R>(this MemberInfo member) where R : class {
-//			return Attribute.GetCustomAttribute(member, typeof(R)) as R;
 			return member.GetCustomAttributes(typeof(R), false).FirstOrDefault() as R;
 		}
 

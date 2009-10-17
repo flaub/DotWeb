@@ -49,6 +49,7 @@
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Console.cs" />
     <Compile Include="Delegate.cs" />
+    <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
     <Compile Include="DotWeb\JsNativeAttribute.cs" />
