@@ -8,7 +8,7 @@
     <ProjectGuid>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hosted_DotWeb.System</RootNamespace>
+    <RootNamespace>DotWeb.System</RootNamespace>
     <AssemblyName>Hosted-DotWeb.System</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mscorlib">
-      <Aliases>system</Aliases>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

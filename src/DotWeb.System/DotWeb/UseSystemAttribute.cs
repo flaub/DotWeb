@@ -6,7 +6,7 @@ namespace DotWeb.System.DotWeb
 namespace System.DotWeb
 #endif
 {
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
 	internal class UseSystemAttribute : SysAttribute
 	{
 	}

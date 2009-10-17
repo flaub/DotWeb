@@ -32,13 +32,13 @@ namespace DotWeb.Hosting.Test.Script
 	}
 
 	[JsNamespace]
-	public class DefaultNamesapce
+	public class DefaultNamespace
 	{
 		public void TestNoArgs() { }
 	}
 
 	[JsNamespace]
-	public class FooNamesapce
+	public class FooNamespace
 	{
 		public void TestNoArgs() { }
 	}

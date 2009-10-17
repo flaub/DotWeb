@@ -46,6 +46,13 @@ namespace DotWeb.Runtime
 		#endregion
 	}
 
+	public static class HostedTypeHelper
+	{
+		public static Type GetType(string name) {
+			return null;
+		}
+	}
+
 	public class HostedMode
 	{
 		string binPath;

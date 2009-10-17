@@ -26,17 +26,19 @@ namespace DotWeb.Hosting.Test
 	[TestFixture]
 	public class JsFunctionTest
 	{
-		class CrashTestDummy
-		{
-			public const string JsCode = "";
-		}
+		private Type crashTestDummy;
+		private Type defaultNamespace;
+		private Type fooNamespace;
+		private string crashTestDummyJsCode;
 
-		class DefaultNamespace
-		{
-		}
+		public JsFunctionTest() {
+			var asm = Assembly.Load("Hosted-DotWeb.Hosting.Test.Script");
 
-		class FooNamespace
-		{
+			this.crashTestDummy = asm.GetType("DotWeb.Hosting.Test.Script.CrashTestDummy");
+			this.crashTestDummyJsCode = (string)this.crashTestDummy.GetField("JsCode").GetValue(null);
+
+			this.defaultNamespace = asm.GetType("DotWeb.Hosting.Test.Script.DefaultNamespace");
+			this.fooNamespace = asm.GetType("DotWeb.Hosting.Test.Script.FooNamespace");
 		}
 
 		private void AssertJsFunction(JsFunction function, string name, string parameters, string body) {
@@ -51,7 +53,7 @@ namespace DotWeb.Hosting.Test
 		}
 
 		private void RunTest(string methodName, string name, string parameters, string body) {
-			RunTest(typeof(CrashTestDummy), methodName, name, parameters, body);
+			RunTest(this.crashTestDummy, methodName, name, parameters, body);
 		}
 
 		private void RunTest(MethodBase method, string name, string parameters, string body) {
@@ -62,12 +64,12 @@ namespace DotWeb.Hosting.Test
 		[Test]
 		public void TestConstructor() {
 			RunTest(
-				typeof (CrashTestDummy).GetConstructor(Type.EmptyTypes),
+				this.crashTestDummy.GetConstructor(Type.EmptyTypes),
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$$ctor$0",
 				"",
 				"return new DotWeb.Hosting.Test.Script.CrashTestDummy();");
 			RunTest(
-				typeof (CrashTestDummy).GetConstructor(new[] {typeof (int)}),
+				this.crashTestDummy.GetConstructor(new[] { typeof(int) }),
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$$ctor$1",
 				"x",
 				"return new DotWeb.Hosting.Test.Script.CrashTestDummy(x);");
@@ -79,7 +81,7 @@ namespace DotWeb.Hosting.Test
 				"TestJsCode",
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsCode",
 				"",
-				CrashTestDummy.JsCode);
+				this.crashTestDummyJsCode);
 		}
 
 		[Test]
@@ -90,15 +92,15 @@ namespace DotWeb.Hosting.Test
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
-				typeof (DefaultNamespace),
+				this.defaultNamespace,
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_Script_DefaultNamesapce$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_DefaultNamespace$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 			RunTest(
-				typeof (FooNamespace),
+				this.fooNamespace,
 				"TestNoArgs",
-				"__DotWeb_Hosting_Test_Script_FooNamesapce$TestNoArgs",
+				"__DotWeb_Hosting_Test_Script_FooNamespace$TestNoArgs",
 				"",
 				"return this.TestNoArgs();");
 		}

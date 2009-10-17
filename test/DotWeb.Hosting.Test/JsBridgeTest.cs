@@ -98,7 +98,8 @@ namespace DotWeb.Hosting.Test
 			CachingObjectFactory factory = new CachingObjectFactory();
 			TestHelper(factory, delegate(SessionHelper session) {
 				Type nativeType = typeof(NativeObject);
-				session.OnLoadMessage(typeof(DelegateWrapperTest));
+				Type loadType = typeof(DelegateWrapperTest);
+				session.OnLoadMessage(loadType);
 
 				var ctor = session.DefineFunctionMessage(nativeType.GetMethod("get_Constructor"));
 				session.InvokeFunctionMessage(ctor.Name, 0);

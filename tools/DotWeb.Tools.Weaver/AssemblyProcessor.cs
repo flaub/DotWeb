@@ -8,6 +8,7 @@ using Mono.Cecil.Cil;
 using System.IO;
 using DotWeb.Utility;
 using System.Diagnostics;
+using DotWeb.Hosting;
 
 namespace DotWeb.Tools.Weaver
 {
@@ -16,22 +17,33 @@ namespace DotWeb.Tools.Weaver
 		private IResolver resolver;
 		private AssemblyDefinition asmDef;
 		private ModuleDefinition moduleDef;
+		private AssemblyBuilder asmBuilder;
 		private ModuleBuilder moduleBuilder;
+		private string fileName;
 
 		private Dictionary<string, IType> typesByDef = new Dictionary<string, IType>();
 		private List<IType> pendingCloses = new List<IType>();
 
-		public AssemblyProcessor(IResolver resolver, AssemblyDefinition asmDef, AssemblyBuilder asmBuilder) {
+		private const string HostedPrefix = "Hosted-";
+
+		public AssemblyProcessor(IResolver resolver, AssemblyDefinition asmDef, string outputDir) {
 			this.resolver = resolver;
 			this.asmDef = asmDef;
 			this.moduleDef = asmDef.MainModule;
 			this.moduleDef.LoadSymbols();
-			var asmName = asmDef.Name.Name;
-			string fileName = asmName + ".dll";
-			this.moduleBuilder = asmBuilder.DefineDynamicModule(asmName, fileName, true);
+
+			var name = asmDef.Name.Name;
+			if (!name.StartsWith(HostedPrefix))
+				name = HostedPrefix + name;
+
+			this.fileName = name + ".dll";
+			var asmName = new AssemblyName(name);
+
+			this.asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave, outputDir);
+			this.moduleBuilder = asmBuilder.DefineDynamicModule(name, this.fileName, true);
 		}
 
-		public void ProcessModule() {
+		public Assembly ProcessModule() {
 			foreach (TypeDefinition typeDef in this.moduleDef.Types) {
 				if (typeDef.Name == Constants.ModuleType)
 					continue;
@@ -47,6 +59,18 @@ namespace DotWeb.Tools.Weaver
 			foreach (var item in this.pendingCloses) {
 				item.Close();
 			}
+
+			if (this.asmDef.HasCustomAttributes) {
+				CustomAttributeProcessor.Process(this.resolver, this.asmDef, this.asmBuilder);
+			}
+
+			var type = typeof(AssemblyWeavedAttribute);
+			var ctor = type.GetConstructor(Type.EmptyTypes);
+			this.asmBuilder.SetCustomAttribute(new CustomAttributeBuilder(ctor, new object[0]));
+
+			this.asmBuilder.Save(this.fileName);
+
+			return this.asmBuilder;
 		}
 
 		//public string ProcessEntry(AssemblyQualifiedTypeName asmQualifiedTypeName) {

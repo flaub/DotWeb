@@ -16,7 +16,6 @@ namespace DotWeb.Tools.Weaver
 		private string inputDir;
 		private string outputDir;
 		private DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver();
-		private AssemblyBuilder asmBuilder;
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
 
 		public HostingWeaver(string inputDir, string outputDir) {
@@ -43,37 +42,28 @@ namespace DotWeb.Tools.Weaver
 			this.modules.Add("DotWeb.System.dll", proc);
 		}
 
-		public void ProcessAssembly(string asmPath, string fileName) {
+		public Assembly ProcessAssembly(string asmPath) {
 			var asmDef = AssemblyFactory.GetAssembly(asmPath);
 
 			foreach (CustomAttribute item in asmDef.CustomAttributes) {
 				if (item.Constructor.DeclaringType.Name == "AssemblyWeavedAttribute") {
 					Console.WriteLine("This assembly has already been weaved and is ready for hosted mode");
-					return;
+					return Assembly.LoadFrom(asmPath);
 				}
 			}
 
-			var asmName = new AssemblyName(asmDef.Name.FullName);
+			//string name = Path.GetFileNameWithoutExtension(fileName);
+			//var asmName = new AssemblyName(name);
 			//var ext = Path.GetExtension(asmPath);
 			//string fileName = asmName.Name + ext;
 
-			this.asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Save, this.outputDir);
+//			this.asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave, this.outputDir);
 //			var moduleBuilder = this.asmBuilder.DefineDynamicModule(asmDef.Name.Name, fileName, true);
 
-			ProcessAssembly(asmDef);
-
-			if (asmDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this, asmDef, asmBuilder);
-			}
-
-			var type = typeof(AssemblyWeavedAttribute);
-			var ctor = type.GetConstructor(Type.EmptyTypes);
-			this.asmBuilder.SetCustomAttribute(new CustomAttributeBuilder(ctor, new object[0]));
-
-			this.asmBuilder.Save(fileName);
+			return ProcessAssembly(asmDef);
 		}
 
-		private void ProcessAssembly(AssemblyDefinition asmDef) {
+		private Assembly ProcessAssembly(AssemblyDefinition asmDef) {
 			foreach (AssemblyNameReference asmRef in asmDef.MainModule.AssemblyReferences) {
 				if (this.modules.ContainsKey(asmRef.Name))
 					continue;
@@ -87,14 +77,14 @@ namespace DotWeb.Tools.Weaver
 				ProcessAssembly(child);
 			}
 
-			var asmProc = new AssemblyProcessor(this, asmDef, this.asmBuilder);
+			var asmProc = new AssemblyProcessor(this, asmDef, this.outputDir);
 			string name = asmDef.MainModule.Name;
 			string altName = Path.GetFileNameWithoutExtension(name);
 			this.modules.Add(name, asmProc);
 			if (name != altName)
 				this.modules.Add(altName, asmProc);
 
-			asmProc.ProcessModule();
+			return asmProc.ProcessModule();
 		}
 
 		private IType ResolveType(TypeReference typeRef) {

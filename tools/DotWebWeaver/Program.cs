@@ -21,7 +21,7 @@ namespace DotWebWeaver
 			string fileName = Path.GetFileName(outputPath);
 
 			var weaver = new HostingWeaver(inputDir, outputDir);
-			weaver.ProcessAssembly(inputPath, fileName);
+			weaver.ProcessAssembly(inputPath);
 		}
 	}
 }
