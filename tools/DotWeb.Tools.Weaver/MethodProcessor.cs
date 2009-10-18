@@ -155,7 +155,7 @@ namespace DotWeb.Tools.Weaver
 			}
 		}
 
-		static class TypeCache
+		static class PredefinedTypes
 		{
 			public static readonly Type Arguments = typeof(object[]);
 			public static readonly Type Object = typeof(object);
@@ -167,7 +167,7 @@ namespace DotWeb.Tools.Weaver
 			public static readonly MethodInfo IDotWebHost_Invoke;
 			public static readonly MethodInfo MethodBase_GetCurrentMethod;
 
-			static TypeCache() {
+			static PredefinedTypes() {
 				HostedMode_get_Host = HostedMode.GetMethod("get_Host");
 				IDotWebHost_Invoke = IDotWebHost.GetMethod("Invoke");
 				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
@@ -185,25 +185,25 @@ namespace DotWeb.Tools.Weaver
 
 			var argCount = this.methodDef.Parameters.Count;
 
-			var method = generator.DeclareLocal(TypeCache.MethodBase);
+			var method = generator.DeclareLocal(PredefinedTypes.MethodBase);
 			method.SetLocalSymInfo("__method");
 
-			var args = generator.DeclareLocal(TypeCache.Arguments);
+			var args = generator.DeclareLocal(PredefinedTypes.Arguments);
 			args.SetLocalSymInfo("__args");
 
 			// __method = MethodBase.GetCurrentMethod();
-			generator.EmitCall(SRE.OpCodes.Call, TypeCache.MethodBase_GetCurrentMethod, Type.EmptyTypes);
+			generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.MethodBase_GetCurrentMethod, Type.EmptyTypes);
 			generator.Emit(SRE.OpCodes.Stloc, method.LocalIndex);
 			
 			LocalBuilder ret = null;
 			if (needsReturn) {
-				ret = generator.DeclareLocal(TypeCache.Object);
+				ret = generator.DeclareLocal(PredefinedTypes.Object);
 				ret.SetLocalSymInfo("__ret");
 			}
 
 			// var args = new object[argCount];
 			generator.Emit(SRE.OpCodes.Ldc_I4, argCount);
-			generator.Emit(SRE.OpCodes.Newarr, TypeCache.Object);
+			generator.Emit(SRE.OpCodes.Newarr, PredefinedTypes.Object);
 			generator.Emit(SRE.OpCodes.Stloc, args.LocalIndex);
 
 			for (int i = 0; i < argCount; i++) {
@@ -220,7 +220,7 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			// __ret = HostedMode.Host.Invoke(this|null, __method, __args); 
-			generator.EmitCall(SRE.OpCodes.Call, TypeCache.HostedMode_get_Host, null);
+			generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.HostedMode_get_Host, null);
 
 			if (this.methodDef.IsStatic)
 				generator.Emit(SRE.OpCodes.Ldnull);
@@ -229,7 +229,7 @@ namespace DotWeb.Tools.Weaver
 
 			generator.Emit(SRE.OpCodes.Ldloc, method.LocalIndex);
 			generator.Emit(SRE.OpCodes.Ldloc, args.LocalIndex);
-			generator.EmitCall(SRE.OpCodes.Callvirt, TypeCache.IDotWebHost_Invoke, null);
+			generator.EmitCall(SRE.OpCodes.Callvirt, PredefinedTypes.IDotWebHost_Invoke, null);
 
 			if (needsReturn) {
 				// return __ret;

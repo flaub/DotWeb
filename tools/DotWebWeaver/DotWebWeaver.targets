@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="DotWebWeaver" 
+			Inputs="@(IntermediateAssembly->'%(FullPath)')" 
+			Outputs="@(IntermediateAssembly->'%(FullPath).dotweb')" 
+			DependsOnTargets="_CopyFilesMarkedCopyLocal">
+		<Message Text="DotWebWeaver: @(IntermediateAssembly->'%(FullPath).dotweb')" Importance="high"></Message>
+
+		<Exec Command="$(TargetDir)DotWebWeaver.exe @(IntermediateAssembly->'%(FullPath)') @(IntermediateAssembly->'%(FullPath)') $(TargetDir)">
+		</Exec>
+
+		<Touch AlwaysCreate="true" Files="@(IntermediateAssembly->'%(FullPath).dotweb')" />
+	</Target>
+	<PropertyGroup>
+		<CompileDependsOn>
+			$(CompileDependsOn);
+			DotWebWeaver
+		</CompileDependsOn>
+	</PropertyGroup>
+</Project>
+

@@ -57,6 +57,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(TargetDir)DotWebWeaver.exe $(TargetPath) $(TargetDir)Hosted-$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>$(TargetDir)DotWebWeaver.exe $(TargetPath) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>

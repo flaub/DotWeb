@@ -18,10 +18,16 @@ namespace DotWeb.Tools.Weaver
 		private DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver();
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
 
-		public HostingWeaver(string inputDir, string outputDir) {
+		public HostingWeaver(string inputDir, string outputDir, string[] searchDirs) {
 			this.inputDir = inputDir;
 			this.outputDir = outputDir;
+
 			this.asmResolver.AddSearchDirectory(this.inputDir);
+			if (searchDirs != null) {
+				foreach (var dir in searchDirs) {
+					this.asmResolver.AddSearchDirectory(dir);
+				}
+			}
 
 			PrepareMscorlib();
 		}
