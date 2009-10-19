@@ -109,6 +109,10 @@ namespace DotWeb.Hosting.Test.Script
 			var doc = window.document;
 			var element = doc.getElementById("box");
 			var box = (HtmlDivElement)element;
+
+			var div = (HtmlDivElement)doc.createElement("div");
+			box.appendChild(div);
+
 			box.onmouseover = box_OnMouseOver;
 		}
 

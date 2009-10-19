@@ -89,51 +89,35 @@ namespace DotWeb.Hosting.Bridge
 			this.bridge.InvokeRemoteDelegate(null, this.Handle, null);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private void OnGenericVoidHandler1<T1>(T1 arg1) {
-// ReSharper restore UnusedMember.Local
 			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private void OnGenericVoidHandler2<T1, T2>(T1 arg1, T2 arg2) {
-// ReSharper restore UnusedMember.Local
 			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1, arg2);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private void OnGenericVoidHandler3<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3) {
-// ReSharper restore UnusedMember.Local
 			this.bridge.InvokeRemoteDelegate(null, this.Handle, arg1, arg2, arg3);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private R OnGenericHandlerVarArgs<R>(params object[] args) {
-// ReSharper restore UnusedMember.Local
 			return (R)this.bridge.InvokeRemoteDelegate(typeof(R), this.Handle, args);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private R OnGenericHandler0<R>() {
-// ReSharper restore UnusedMember.Local
 			return (R)this.bridge.InvokeRemoteDelegate(typeof(R), this.Handle, null);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private R OnGenericHandler1<R, T1>(T1 arg1) {
-// ReSharper restore UnusedMember.Local
 			return (R)this.bridge.InvokeRemoteDelegate(typeof(R), this.Handle, arg1);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private R OnGenericHandler2<R, T1, T2>(T1 arg1, T2 arg2) {
-// ReSharper restore UnusedMember.Local
 			return (R)this.bridge.InvokeRemoteDelegate(typeof(R), this.Handle, arg1, arg2);
 		}
 
-// ReSharper disable UnusedMember.Local
 		private R OnGenericHandler3<R, T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3) {
-// ReSharper restore UnusedMember.Local
 			return (R)this.bridge.InvokeRemoteDelegate(typeof(R), this.Handle, arg1, arg2, arg3);
 		}
 	}

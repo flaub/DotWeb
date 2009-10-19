@@ -255,6 +255,7 @@ namespace DotWeb.Hosting.Test
 			var windowType = asmClient.GetType("DotWeb.Client.Dom.Window");
 			var documentType = asmClient.GetType("DotWeb.Client.Dom.Document");
 			var htmlElementType = asmClient.GetType("DotWeb.Client.Dom.Html.HtmlElement");
+			var nodeType = asmClient.GetType("DotWeb.Client.Dom.Node");
 
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
 				int localId = 0;
@@ -265,27 +266,40 @@ namespace DotWeb.Hosting.Test
 				
 				//var window = Window;
 				var window = session.DefineFunctionMessage(jsScriptType.GetMethod("get_Window"));
-				var windowId = ++remoteId;
 				session.InvokeFunctionMessage(window.Name, 0);
+				var windowId = ++remoteId;
 				session.OnReturnMessage(false, JsValueType.JsObject, windowId);
 
 				// var doc = window.document;
 				var document = session.DefineFunctionMessage(windowType.GetMethod("get_document"));
-				var documentId = ++remoteId;
 				session.InvokeFunctionMessage(document.Name, windowId);
+				var documentId = ++remoteId;
 				session.OnReturnMessage(false, JsValueType.JsObject, documentId);
 
 				// var element = doc.getElementById("box");
 				var getElement = session.DefineFunctionMessage(documentType.GetMethod("getElementById"));
-				var elementId = ++remoteId;
 				session.InvokeFunctionMessage(getElement.Name, documentId, new JsValue("box"));
-				session.OnReturnMessage(false, JsValueType.JsObject, elementId);
+				var boxId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, boxId);
 
-				//var box = (HtmlDivElement)element;
+				// var box = (HtmlDivElement)element;
+				// internally does a Cast() on the bridge, would be nice to test this
+
+				// var div = (HtmlDivElement)doc.createElement("div");
+				var createElement = session.DefineFunctionMessage(documentType.GetMethod("createElement"));
+				session.InvokeFunctionMessage(createElement.Name, documentId, new JsValue("div"));
+				var divId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, divId);
+
+				// box.appendChild(div);
+				var appendChild = session.DefineFunctionMessage(nodeType.GetMethod("appendChild"));
+				session.InvokeFunctionMessage(appendChild.Name, boxId, new JsValue(JsValueType.JsObject, divId));
+				var nodeId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, nodeId);
 
 				//box.onmouseover = box_OnMouseOver;
 				var setHandler = session.DefineFunctionMessage(htmlElementType.GetMethod("set_onmouseover"));
-				session.InvokeFunctionMessage(setHandler.Name, elementId, new JsValue(JsValueType.Delegate, ++localId));
+				session.InvokeFunctionMessage(setHandler.Name, boxId, new JsValue(JsValueType.Delegate, ++localId));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				session.ReturnMessage();

@@ -4,7 +4,14 @@ namespace DotWeb.System.DotWeb
 namespace System.DotWeb
 #endif
 {
-	public class JsObject
+	public class JsDynamic
 	{
+		public extern object this[string name] {
+			[JsCode("return this[name];")]
+			get;
+
+			[JsCode("this[name] = value;")]
+			set;
+		}
 	}
 }

@@ -19,6 +19,7 @@ using System;
 using Castle.DynamicProxy;
 using Castle.Core.Interceptor;
 using System.Collections.Generic;
+using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -41,8 +42,8 @@ namespace DotWeb.Hosting.Bridge
 
 		private object CreateInstanceForInterface(JsBridge bridge, Type type) {
 			var interceptor = new Interceptor(bridge);
-			var ret = this.proxyGenerator.CreateInterfaceProxyWithoutTarget(type, interceptor);
-			return ret;
+			var proxy = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, interceptor);
+			return proxy;
 		}
 
 		private class Interceptor : IInterceptor
