@@ -22,7 +22,6 @@ namespace DotWeb.Tools.Weaver
 		private string fileName;
 
 		private Dictionary<string, IType> typesByDef = new Dictionary<string, IType>();
-		private List<IType> pendingCloses = new List<IType>();
 
 		private const string HostedPrefix = "Hosted-";
 
@@ -56,7 +55,7 @@ namespace DotWeb.Tools.Weaver
 				item.Process();
 			}
 
-			foreach (var item in this.pendingCloses) {
+			foreach (var item in this.typesByDef.Values) {
 				item.Close();
 			}
 
@@ -102,12 +101,7 @@ namespace DotWeb.Tools.Weaver
 		//}
 
 		private string GetTypeKey(TypeReference typeRef) {
-//			if (typeRef.Scope.Name.StartsWith("DotWeb.System")) {
-//				return "DotWeb." + typeRef.FullName;
-//			}
 			return typeRef.FullName;
-//			var scope = Path.GetFileNameWithoutExtension(typeRef.Scope.Name);
-//			return string.Format("{0}, {1}", typeRef.FullName, scope);
 		}
 
 		public IType ResolveTypeReference(TypeReference typeRef) {
@@ -137,11 +131,6 @@ namespace DotWeb.Tools.Weaver
 		private void RegisterType(TypeReference typeRef, IType type) {
 			string key = GetTypeKey(typeRef);
 			this.typesByDef.Add(key, type);
-		}
-
-		internal void QueueClose(TypeProcessor type) {
-			if (!this.pendingCloses.Contains(type))
-				this.pendingCloses.Add(type);
 		}
 	}
 }

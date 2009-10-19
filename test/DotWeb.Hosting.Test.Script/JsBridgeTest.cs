@@ -105,7 +105,9 @@ namespace DotWeb.Hosting.Test.Script
 	public class CastInterfaceTest : JsScript
 	{
 		public CastInterfaceTest() {
-			var element = Window.document.getElementById("box");
+			var window = Window;
+			var doc = window.document;
+			var element = doc.getElementById("box");
 			var box = (HtmlDivElement)element;
 			box.onmouseover = box_OnMouseOver;
 		}

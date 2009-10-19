@@ -22,10 +22,11 @@ namespace DotWeb.Tools.Weaver
 		private TypeBuilder typeBuilder;
 		private Dictionary<MetadataToken, MethodBase> methods = new Dictionary<MetadataToken, MethodBase>();
 		private Dictionary<FieldDefinition, FieldBuilder> fields = new Dictionary<FieldDefinition, FieldBuilder>();
-		private List<IType> referencedTypes = new List<IType>();
+//		private List<IType> referencedTypes = new List<IType>();
 		private IResolver resolver;
 		private GenericTypeProcessor genericProc;
 		private bool isClosing = false;
+		private List<TypeProcessor> dependentTypes = new List<TypeProcessor>();
 
 		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeReference typeRef, ModuleBuilder moduleBuilder) {
 			this.resolver = resolver;
@@ -44,8 +45,13 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			if (this.typeDef.BaseType != null) {
-				var baseType = ResolveTypeReference(typeDef.BaseType);
+				var baseType = ResolveTypeReference(typeDef.BaseType, true);
 				this.typeBuilder.SetParent(baseType);
+			}
+
+			foreach (TypeReference item in this.typeDef.Interfaces) {
+				var type = ResolveTypeReference(item, true);
+				this.typeBuilder.AddInterfaceImplementation(type);
 			}
 		}
 
@@ -54,21 +60,16 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		public void Close() {
-			this.typeBuilder.CreateType();
-		}
-
-		public void MarkForClosing() {
 			if (this.isClosing)
 				return;
 
 			this.isClosing = true;
-			foreach (var type in referencedTypes) {
-				var typeProc = type as TypeProcessor;
-				if (typeProc != null) {
-					this.parent.QueueClose(typeProc);
-				}
+
+			foreach (var type in dependentTypes) {
+				type.Close();
 			}
-			this.parent.QueueClose(this);
+
+			this.typeBuilder.CreateType();
 		}
 
 		public GenericTypeParameterBuilder GetGenericParameter(string name) {
@@ -106,8 +107,6 @@ namespace DotWeb.Tools.Weaver
 			foreach (TypeDefinition item in this.typeDef.NestedTypes) {
 				ProcessNestedType(item);
 			}
-
-			MarkForClosing();
 		}
 
 		private void ProcessNestedType(TypeDefinition typeDef) {
@@ -115,7 +114,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessEvent(EventDefinition eventDef) {
-			var eventType = ResolveTypeReference(eventDef.EventType);
+			var eventType = ResolveTypeReference(eventDef.EventType, false);
 			var eventBuilder = this.typeBuilder.DefineEvent(eventDef.Name, (SR.EventAttributes)eventDef.Attributes, eventType);
 
 			if (eventDef.HasCustomAttributes) {
@@ -134,7 +133,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private FieldBuilder ProcessField(FieldDefinition fieldDef) {
-			var fieldType = ResolveTypeReference(fieldDef.FieldType);
+			var fieldType = ResolveTypeReference(fieldDef.FieldType, false);
 			var fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
 
 			if (fieldDef.HasConstant) {
@@ -157,7 +156,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessProperty(PropertyDefinition propertyDef) {
-			var returnType = ResolveTypeReference(propertyDef.PropertyType);
+			var returnType = ResolveTypeReference(propertyDef.PropertyType, false);
 			var argTypes = ResolveParameterTypes(propertyDef.Parameters);
 			var propertyBuilder = this.typeBuilder.DefineProperty(propertyDef.Name, (SR.PropertyAttributes)propertyDef.Attributes, returnType, argTypes);
 
@@ -268,14 +267,17 @@ namespace DotWeb.Tools.Weaver
 			this.fields.Add(fieldDef, field);
 		}
 
-		private Type ResolveTypeReference(TypeReference typeRef) {
+		private Type ResolveTypeReference(TypeReference typeRef, bool dependent) {
 			if (typeRef is GenericParameter) {
 				return this.genericProc.GetGenericParameter(typeRef.Name);
 			}
 
 			var type = this.resolver.ResolveTypeReference(typeRef);
-			if (!this.referencedTypes.Contains(type))
-				this.referencedTypes.Add(type);
+			if (dependent) {
+				var typeProc = type as TypeProcessor;
+				if (typeProc != null)
+					this.dependentTypes.Add(typeProc);
+			}
 			return type.Type;
 		}
 
@@ -284,7 +286,7 @@ namespace DotWeb.Tools.Weaver
 			for (int i = 0; i < parameters.Count; i++) {
 				var arg = parameters[i];
 				var argType = arg.ParameterType;
-				ret[i] = ResolveTypeReference(argType);
+				ret[i] = ResolveTypeReference(argType, false);
 			}
 			return ret;
 		}

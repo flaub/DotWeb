@@ -250,10 +250,11 @@ namespace DotWeb.Hosting.Test
 		[Test]
 		public void TestCastInterface() {
 			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.CastInterfaceTest");
-			var jsScriptType = Type.GetType("DotWeb.Client.JsScript, Hosted-DotWeb.Client.dll");
-			var windowType = Type.GetType("DotWeb.Client.Dom.Window, Hosted-DotWeb.Client.dll");
-			var documentType = Type.GetType("DotWeb.Client.Dom.Document, Hosted-DotWeb.Client.dll");
-			var htmlElementType = Type.GetType("DotWeb.Client.Dom.Html.HtmlElement, Hosted-DotWeb.Client.dll");
+			var asmClient = Assembly.Load("Hosted-DotWeb.Client");
+			var jsScriptType = asmClient.GetType("DotWeb.Client.JsScript");
+			var windowType = asmClient.GetType("DotWeb.Client.Dom.Window");
+			var documentType = asmClient.GetType("DotWeb.Client.Dom.Document");
+			var htmlElementType = asmClient.GetType("DotWeb.Client.Dom.Html.HtmlElement");
 
 			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
 				int localId = 0;
@@ -261,23 +262,27 @@ namespace DotWeb.Hosting.Test
 				session.OnLoadMessage(loadType);
 
 				//var element = Window.document.getElementById("box");
+				
+				//var window = Window;
 				var window = session.DefineFunctionMessage(jsScriptType.GetMethod("get_Window"));
 				var windowId = ++remoteId;
 				session.InvokeFunctionMessage(window.Name, 0);
 				session.OnReturnMessage(false, JsValueType.JsObject, windowId);
 
+				// var doc = window.document;
 				var document = session.DefineFunctionMessage(windowType.GetMethod("get_document"));
 				var documentId = ++remoteId;
 				session.InvokeFunctionMessage(document.Name, windowId);
 				session.OnReturnMessage(false, JsValueType.JsObject, documentId);
 
+				// var element = doc.getElementById("box");
 				var getElement = session.DefineFunctionMessage(documentType.GetMethod("getElementById"));
 				var elementId = ++remoteId;
 				session.InvokeFunctionMessage(getElement.Name, documentId, new JsValue("box"));
 				session.OnReturnMessage(false, JsValueType.JsObject, elementId);
 
-				//var box = JsRuntime.Cast<HtmlDivElement>(element);
-				
+				//var box = (HtmlDivElement)element;
+
 				//box.onmouseover = box_OnMouseOver;
 				var setHandler = session.DefineFunctionMessage(htmlElementType.GetMethod("set_onmouseover"));
 				session.InvokeFunctionMessage(setHandler.Name, elementId, new JsValue(JsValueType.Delegate, ++localId));

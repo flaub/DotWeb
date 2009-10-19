@@ -165,11 +165,13 @@ namespace DotWeb.Tools.Weaver
 
 			public static readonly MethodInfo HostedMode_get_Host;
 			public static readonly MethodInfo IDotWebHost_Invoke;
+			public static readonly MethodInfo IDotWebHost_Cast;
 			public static readonly MethodInfo MethodBase_GetCurrentMethod;
 
 			static PredefinedTypes() {
 				HostedMode_get_Host = HostedMode.GetMethod("get_Host");
 				IDotWebHost_Invoke = IDotWebHost.GetMethod("Invoke");
+				IDotWebHost_Cast = IDotWebHost.GetMethod("Cast");
 				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
 			}
 		}
@@ -316,7 +318,21 @@ namespace DotWeb.Tools.Weaver
 
 		public void EmitType(ILGenerator generator, SRE.OpCode code, TypeReference typeRef) {
 			var type = ResolveTypeReference(typeRef);
-			generator.Emit(code, type);
+			if (code == SRE.OpCodes.Castclass) {
+				var cast = generator.DeclareLocal(PredefinedTypes.Object);
+				generator.Emit(SRE.OpCodes.Stloc, cast.LocalIndex);
+
+				generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.HostedMode_get_Host, null);
+
+				generator.Emit(SRE.OpCodes.Ldloc, cast.LocalIndex);
+				var castCall = PredefinedTypes.IDotWebHost_Cast.MakeGenericMethod(type);
+				generator.EmitCall(SRE.OpCodes.Callvirt, castCall, null);
+			}
+			else if (code == SRE.OpCodes.Isinst) {
+			}
+			else {
+				generator.Emit(code, type);
+			}
 		}
 
 		public void EmitField(ILGenerator generator, SRE.OpCode code, FieldReference fieldRef) {

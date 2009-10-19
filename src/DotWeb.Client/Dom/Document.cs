@@ -22,6 +22,7 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom
 {
 	[JsIntrinsic]
+	[JsNative]
 	public interface Document : Node
 	{
 		/// <summary>

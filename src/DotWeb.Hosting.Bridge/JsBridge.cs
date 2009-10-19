@@ -32,7 +32,6 @@ namespace DotWeb.Hosting.Bridge
 	using JsObjectToReferenceMap = Dictionary<object, int>;
 
 	using DynamicPropertyMap = Dictionary<string, object>;
-//	using DynamicPropertyObjects = Dictionary<JsDynamicBase, Dictionary<string, object>>;
 	using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
 	using DotWeb.System.DotWeb;
 
@@ -461,10 +460,9 @@ namespace DotWeb.Hosting.Bridge
 		//}
 
 		public T Cast<T>(object obj) {
-			JsObject remote = (JsObject)obj;
-			int handle = GetRemoteReference(remote);
+			int handle = GetRemoteReference(obj);
 			var brother = CreateInstance(typeof(T));
-			AddRemoteReference((JsObject)brother, handle);
+			AddRemoteReference(brother, handle);
 			return (T)brother;
 		}
 

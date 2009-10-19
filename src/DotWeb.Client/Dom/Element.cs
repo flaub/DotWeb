@@ -36,6 +36,7 @@ namespace DotWeb.Client.Dom
 	/// </remarks>
 	/// </summary>
 	[JsIntrinsic]
+	[JsNative]
 	public interface Element : Node
 	{
 		/// <summary>
