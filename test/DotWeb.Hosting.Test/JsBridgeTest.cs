@@ -23,6 +23,7 @@ using Rhino.Mocks;
 using System.Reflection;
 using System.IO;
 using System.Runtime.Remoting;
+using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Test
 {
@@ -300,6 +301,45 @@ namespace DotWeb.Hosting.Test
 				//box.onmouseover = box_OnMouseOver;
 				var setHandler = session.DefineFunctionMessage(htmlElementType.GetMethod("set_onmouseover"));
 				session.InvokeFunctionMessage(setHandler.Name, boxId, new JsValue(JsValueType.Delegate, ++localId));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				session.ReturnMessage();
+				session.OnQuitMessage();
+			});
+		}
+
+		[Test]
+		public void TestJsDyanmic() {
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.JsDynamicTest");
+			var dynamicType = typeof(JsDynamic);
+
+			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+				int localId = 0;
+				session.OnLoadMessage(loadType);
+
+				// var expando = new Expando();
+				// var serverSide = 1;
+				// expando["server"] = serverSide;
+				// NativeObject.TakeObject(expando["server"]);
+
+				var takeObject = session.DefineFunctionMessage(this.nativeObject.GetMethod("TakeObject"));
+				session.InvokeFunctionMessage(takeObject.Name, 0, new JsValue(1));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				// NativeObject.ExpandOnto(expando);
+				var expandOnto = session.DefineFunctionMessage(this.nativeObject.GetMethod("ExpandOnto"));
+				var expandoId = ++localId;
+				session.InvokeFunctionMessage(expandOnto.Name, 0, new JsValue(JsValueType.Object, expandoId));
+
+				// here the server injects a new property named "client" with a value of 2
+				session.OnInvokeMemberMessage(expandoId, new DispatchIdentifier("client"), DispatchType.PropertySet, new JsValue(2));
+				session.ReturnMessage();
+
+				session.OnReturnMessage(false, JsValueType.Void, null);
+				
+				// var clientSide = expando["client"];
+				// NativeObject.TakeObject(expando["client"]);
+				session.InvokeFunctionMessage(takeObject.Name, 0, new JsValue(2));
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				session.ReturnMessage();

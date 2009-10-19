@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -32,8 +33,8 @@ namespace DotWeb.Hosting.Bridge
 			this.bridge = bridge;
 			this.targetType = target.GetType();
 
-			if (target is JsDynamicBase) {
-				CollectDynamicMembers((JsDynamicBase)target);
+			if (target is JsDynamic) {
+				CollectDynamicMembers((JsDynamic)target);
 			}
 			else {
 				CollectMembers();

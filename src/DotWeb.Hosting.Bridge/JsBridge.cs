@@ -35,10 +35,6 @@ namespace DotWeb.Hosting.Bridge
 	using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
 	using DotWeb.System.DotWeb;
 
-	class JsDynamicBase
-	{
-	}
-
 	public class JsBridge : IDotWebHost
 	{
 		private readonly ISession session;
@@ -54,6 +50,8 @@ namespace DotWeb.Hosting.Bridge
 		private readonly DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
 
 		private int lastRefId = 1;
+
+		private bool isUnwrapping = false;
 
 		public JsBridge(ISession session, IObjectFactory factory) {
 			this.session = session;
@@ -328,8 +326,8 @@ namespace DotWeb.Hosting.Bridge
 			int id;
 			if (!GetLocalReference(arg, out id)) {
 				IJsWrapper wrapper;
-				if (arg is JsDynamicBase) {
-					wrapper = new JsDynamicWrapper(this, (JsDynamicBase)arg);
+				if (arg is JsDynamic) {
+					wrapper = new JsDynamicWrapper(this, (JsDynamic)arg);
 				}
 				else {
 					wrapper = new JsObjectWrapper(this, arg);
@@ -398,6 +396,13 @@ namespace DotWeb.Hosting.Bridge
 		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
 				MethodBase method = (MethodBase)objMethod;
+				if (method.DeclaringType == typeof(JsDynamic)) {
+					return InvokeOnDynamic((JsDynamic)scope, (MethodInfo)method, args);
+				}
+
+				if (this.isUnwrapping)
+					return null;
+
 				JsFunction function = PrepareRemoteFunction(method);
 
 				int hScope = 0;
@@ -437,6 +442,18 @@ namespace DotWeb.Hosting.Bridge
 				Debug.WriteLine(ex);
 				throw;
 			}
+		}
+
+		object InvokeOnDynamic(JsDynamic obj, MethodInfo method, object[] args) {
+			if (method.Name == "set_Item") {
+				SetDynamicProperty(obj, (string)args[0], args[1]);
+				return null;
+			}
+			else if (method.Name == "get_Item") {
+				return GetDynamicProperty(obj, (string)args[0]);
+			}
+
+			throw new InvalidOperationException();
 		}
 
 		//public object InvokeRemoteMethod(object scope, int stackDepth, params object[] args) {
@@ -505,8 +522,6 @@ namespace DotWeb.Hosting.Bridge
 		private string GetPropertyName(StackFrame frame) {
 			return frame.GetMethod().Name.Substring("get_".Length);
 		}
-
-		private bool isUnwrapping = false;
 	}
 
 }

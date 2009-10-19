@@ -27,6 +27,8 @@ namespace DotWeb.Hosting.Test.Script
 		public static extern Func<object> GetFunc0();
 		public static extern Func<object, object> GetFunc1();
 		public static extern Func<object, object, object> GetFunc2();
+
+		public static extern void ExpandOnto(object obj);
 	}
 
 	[JsNamespace]
@@ -117,6 +119,26 @@ namespace DotWeb.Hosting.Test.Script
 		}
 
 		private void box_OnMouseOver(MouseEvent evt) {
+		}
+	}
+
+	public class Expando : JsDynamic
+	{
+	}
+
+	public class JsDynamicTest 
+	{
+		public JsDynamicTest() {
+			var expando = new Expando();
+
+			var serverSide = 1;
+			expando["server"] = serverSide;
+			NativeObject.TakeObject(expando["server"]);
+
+			NativeObject.ExpandOnto(expando);
+
+			var clientSide = expando["client"];
+			NativeObject.TakeObject(expando["client"]);
 		}
 	}
 }
