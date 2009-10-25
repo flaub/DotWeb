@@ -16,17 +16,14 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeFieldMember : CodeTypeMember
 	{
-		public CodeFieldMember(FieldInfo info) {
-			this.Info = info;
+		public CodeFieldMember(FieldDefinition def) {
+			this.Definition = def;
 		}
 
 		#region Visitor Pattern
@@ -39,7 +36,7 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public FieldInfo Info { get; set; }
-		public string Name { get { return Info.Name; } }
+		public FieldDefinition Definition { get; set; }
+		public string Name { get { return Definition.Name; } }
 	}
 }

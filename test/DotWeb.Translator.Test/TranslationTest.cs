@@ -18,6 +18,7 @@
 using System;
 using DotWeb.Translator.Test.Properties;
 using NUnit.Framework;
+using Mono.Cecil;
 
 namespace DotWeb.Translator.Test
 {
@@ -26,9 +27,7 @@ namespace DotWeb.Translator.Test
 	{
 		public TranslationTest()
 			: base("DotWeb.Translator.Test.Script", Resources.TranslationTest) {
-			//var type = this.CompiledAssemblyDef.MainModule.Types["H8.SourceTests"];
-//			var types = this.CompiledAssembly.GetTypes();
-			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.SourceTests");
+			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.SourceTests"];
 		}
 
 		[Test]
@@ -137,6 +136,6 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "Indexer", Resources.SourceTests_Indexer, true);
 		}
 
-		private Type sourceTestsCompiledType;
+		private TypeDefinition sourceTestsCompiledType;
 	}
 }

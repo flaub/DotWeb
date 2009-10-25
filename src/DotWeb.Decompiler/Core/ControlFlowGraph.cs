@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection.Emit;
-using System.Reflection;
 using DotWeb.Utility;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -31,26 +31,26 @@ namespace DotWeb.Decompiler.Core
 		private readonly Dictionary<int, BasicBlock> blocks = new Dictionary<int, BasicBlock>();
 		private readonly CodeModelVirtualMachine context = new CodeModelVirtualMachine();
 
-		public MethodBase Method { get; private set; } 
+		public MethodDefinition Method { get; private set; } 
 		public BasicBlock Root { get; private set; }
 		public List<IntervalGraph> Graphs { get; private set; }
 		public BasicBlock[] DfsList { get; private set; }
 		public bool HasCases { get; private set; }
-		public HashSet<MethodBase> ExternalMethods { get; private set; }
-		public List<ILInstruction> Instructions { get; private set; }
+		public HashSet<MethodReference> ExternalMethods { get; private set; }
+		public List<Instruction> Instructions { get; private set; }
 
-		public ControlFlowGraph(MethodBase method) {
+		public ControlFlowGraph(MethodDefinition method) {
 			this.Method = method;
 
-			MethodBodyReader reader = new MethodBodyReader(method);
-			this.Instructions = reader.Instructions;
-			this.HasCases = reader.HasCases;
+			//MethodBodyReader reader = new MethodBodyReader(method);
+			this.Instructions = new List<Instruction>();
+			this.HasCases = false;
 
 			//foreach (ILInstruction item in reader.Instructions) {
 			//    Console.WriteLine(item);
 			//}
 			
-			CreateBlocks(reader.Instructions);
+			CreateBlocks();
 			ResolveBranches();
 			Merge(this.Root);
 
@@ -69,12 +69,16 @@ namespace DotWeb.Decompiler.Core
 			this.ExternalMethods = this.context.ExternalMethods;
 		}
 
-		private void CreateBlocks(List<ILInstruction> instructions) {
+		private void CreateBlocks() {
 			int id = 1;
-			this.Root = new BasicBlock(id++);
+			this.Root = new BasicBlock(Method, id++);
 			BasicBlock block = this.Root;
-			foreach (ILInstruction ip in instructions) {
-				block.Instructions.Add(ip);
+			foreach (Instruction cil in Method.Body.Instructions) {
+				this.Instructions.Add(cil);
+				if (cil.OpCode.OperandType == OperandType.InlineSwitch)
+					this.HasCases = true;
+
+				block.Instructions.Add(cil);
 				block = AddBlock(id++, block);
 			}
 		}
@@ -106,17 +110,18 @@ namespace DotWeb.Decompiler.Core
 		/// resolve branches into in/out edges
 		/// </summary>
 		private void ResolveBranches() {
-			var branchBlocks = blocks.Values.Where(x => x.LastInstruction.IsBranch);
+			var branchBlocks = blocks.Values.Where(x => x.LastInstruction.IsBranch());
 			foreach (BasicBlock bb in branchBlocks) {
-				if (bb.LastInstruction.Code.OperandType == OperandType.InlineSwitch) {
-					int[] cases = (int[])bb.LastInstruction.Operand;
-					foreach (int targetOffset in cases) {
-						ResolveBranchTarget(bb, targetOffset);
+				if (bb.LastInstruction.OpCode.OperandType == OperandType.InlineSwitch) {
+					var targets = (Instruction[])bb.LastInstruction.Operand;
+					foreach (var target in targets) {
+						ResolveBranchTarget(bb, target.Offset);
 					}
 				}
 				else {
-					int targetOffset = (int)bb.LastInstruction.Operand;
-					ResolveBranchTarget(bb, targetOffset);
+					//int targetOffset = (int)bb.LastInstruction.Operand;
+					var target = (Instruction)bb.LastInstruction.Operand;
+					ResolveBranchTarget(bb, target.Offset);
 				}
 			}
 		}
@@ -130,7 +135,7 @@ namespace DotWeb.Decompiler.Core
 
 		private BasicBlock AddBlock(int id, BasicBlock block) {
 			blocks.Add(block.BeginOffset, block);
-			BasicBlock ret = new BasicBlock(id);
+			BasicBlock ret = new BasicBlock(Method, id);
 			if (block.FlowControl != FlowControl.Return &&
 				block.FlowControl != FlowControl.Branch && 
 				block.FlowControl != FlowControl.Throw) {

@@ -18,13 +18,16 @@ namespace System
 			return base.GetHashCode();
 		}
 #else
-		public virtual bool Equals(object obj) {
-			return false;
-		}
+
+		[JsCode("return (this == obj);")]
+		public extern virtual bool Equals(object obj);
 
 		public virtual int GetHashCode() {
 			return 0;
 		}
+
+		[JsCode("return this.toString();")]
+		public extern virtual string ToString();
 #endif
 	}
 }

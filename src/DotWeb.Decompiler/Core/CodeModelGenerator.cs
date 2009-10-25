@@ -18,30 +18,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using DotWeb.Decompiler.CodeModel;
 using DotWeb.Utility;
 using System.Diagnostics;
+using Mono.Cecil.Cil;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
 	class CodeModelGenerator
 	{
 		private readonly CodeModelVirtualMachine vm;
+		private readonly MethodDefinition method;
 
 		public List<CodeStatement> Statements { get; private set; }
 
-		public CodeModelGenerator(CodeModelVirtualMachine vm, IEnumerable<ILInstruction> instructions) {
+		public CodeModelGenerator(MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions) {
+			this.method = method;
 			this.vm = vm;
 			Statements = new List<CodeStatement>();
-			foreach (ILInstruction il in instructions) {
+			foreach (var il in instructions) {
 				HandleInstruction(il);
 			}
 		}
 
-		private void HandleInstruction(ILInstruction il) {
-			switch (il.PrimitiveName) {
+		private void HandleInstruction(Instruction il) {
+			switch (il.PrimitiveName()) {
 				#region Load
 				case "ldc":
 				case "ldstr":
@@ -236,11 +239,11 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void AddStatment(CodeStatement stmt, ILInstruction il) {
+		private void AddStatment(CodeStatement stmt, Instruction il) {
 			this.Statements.Add(stmt);
 		}
 
-		private void Pop(ILInstruction il) {
+		private void Pop(Instruction il) {
 			CodeExpression exp = vm.Stack.Pop();
 			if (exp is CodeObjectCreateExpression ||
 				exp is CodeInvokeExpression) {
@@ -251,22 +254,22 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void Nop(ILInstruction il) {
+		private void Nop(Instruction il) {
 			CodeCommentStatement stmt = new CodeCommentStatement("nop");
 			this.AddStatment(stmt, il);
 		}
 
-		private void Return(ILInstruction il) {
+		private void Return(Instruction il) {
 			CodeReturnStatement ret = new CodeReturnStatement();
 			if (vm.Stack.Any())
 				ret.Expression = vm.Stack.Pop();
 			AddStatment(ret, il);
 		}
 
-		private CodeExpression GetTargetObject(MethodBase method, ILInstruction il) {
+		private CodeExpression GetTargetObject(MethodDefinition method, Instruction il) {
 			CodeExpression targetObject;
 			if (method.IsStatic) {
-				targetObject = new CodeTypeReference(method.ReflectedType);
+				targetObject = new CodeTypeReference(method.DeclaringType);
 			}
 			else {
 				targetObject = vm.Stack.Pop();
@@ -274,15 +277,14 @@ namespace DotWeb.Decompiler.Core
 			return targetObject;
 		}
 
-		private void CallMethod(ILInstruction il, MethodBase method) {
+		private void CallMethod(Instruction il, MethodDefinition method) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
-			CollectArgs(method.GetParameters(), expr.Parameters);
+			CollectArgs(method.Parameters, expr.Parameters);
 
 			CodeExpression targetObject = GetTargetObject(method, il);
 			expr.Method = new CodeMethodReference(targetObject, method);
 
-			MethodInfo mi = method as MethodInfo;
-			if (method.IsConstructor || (mi != null && mi.ReturnType == typeof(void))) {
+			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {
 				CodeExpressionStatement stmt = new CodeExpressionStatement(expr);
 				AddStatment(stmt, il);
 			}
@@ -291,10 +293,10 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void CallGetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
-			ParameterInfo[] args = method.GetParameters();
-			if (args.Length == 0) {
-				CodeExpression targetObject = GetTargetObject(method, il);
+		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
+			var targetObject = GetTargetObject(method, il);
+			var args = method.Parameters;
+			if (args.Count == 0) {
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
 				vm.Stack.Push(expr);
@@ -302,16 +304,16 @@ namespace DotWeb.Decompiler.Core
 			else {
 				CodeIndexerExpression expr = new CodeIndexerExpression();
 				CollectArgs(args, expr.Indices);
-				expr.TargetObject = GetTargetObject(method, il);
+				expr.TargetObject = targetObject;
 				vm.Stack.Push(expr);
 			}
 		}
 
-		private void CallSetter(ILInstruction il, MethodBase method, PropertyInfo pi) {
-			ParameterInfo[] args = method.GetParameters();
-			if (args.Length == 1) {
+		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
+			var targetObject = GetTargetObject(method, il);
+			var args = method.Parameters;
+			if (args.Count == 1) {
 				CodeExpression rhs = vm.Stack.Pop();
-				CodeExpression targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
 	
@@ -323,42 +325,42 @@ namespace DotWeb.Decompiler.Core
 				CollectArgs(args, lhs.Indices);
 				CodeExpression rhs = lhs.Indices[lhs.Indices.Count - 1];
 				lhs.Indices.Remove(rhs);
-				lhs.TargetObject = GetTargetObject(method, il);
+				lhs.TargetObject = targetObject;
 				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 				AddStatment(stmt, il);
 			}
 		}
 
-		private void Call(ILInstruction il) {
-			MethodBase method = il.Operand as MethodBase;
+		private void Call(Instruction il) {
+			var method = (MethodReference)il.Operand;
+			var def = method.Resolve();
 			this.vm.ExternalMethods.Add(method);
 
-			AssociatedProperty ap = method.GetAssociatedProperty();
+			var ap = def.GetAssociatedProperty();
 			if (ap != null) {
-				Debug.Assert(ap.Info != null);
+				Debug.Assert(ap.Definition != null);
 				if (ap.IsGetter) {
-					CallGetter(il, method, ap.Info);
+					CallGetter(il, def, ap.Definition);
 				}
 				else {
-					CallSetter(il, method, ap.Info);
+					CallSetter(il, def, ap.Definition);
 				}
 			}
 			else {
-				CallMethod(il, method);
+				CallMethod(il, def);
 			}
 		}
 
-		private void Convert(ILInstruction il) {
+		private void Convert(Instruction il) {
 			CodeExpression value = vm.Stack.Pop();
-			Type targetType = (Type)il.Operand;
+			var targetType = (TypeReference)il.Operand;
 			CodeCastExpression expr = new CodeCastExpression(targetType, value);
 			vm.Stack.Push(value);
 		}
 
-		private void LoadArgument(ILInstruction il) {
-			MethodBase method = il.Method;
-			int index = (int)il.Operand;
-			if (!method.IsStatic) {
+		private void LoadArgument(Instruction il) {
+			int index = (int)il.ResolveOperand();
+			if (!this.method.IsStatic) {
 				if (index == 0) {
 					CodeExpression thisExp = new CodeThisReference();
 					vm.Stack.Push(thisExp);
@@ -367,66 +369,66 @@ namespace DotWeb.Decompiler.Core
 				index--;
 			}
 
-			ParameterInfo[] args = method.GetParameters();
-			ParameterInfo arg = args[index];
+			var args = method.Parameters;
+			var arg = args[index];
 			CodeExpression expr = new CodeArgumentReference(arg);
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadMethod(ILInstruction il) {
-			MethodBase method = il.Operand as MethodBase;
+		private void LoadMethod(Instruction il) {
+			var method = (MethodReference)il.Operand;
 			CodeTypeReference type = new CodeTypeReference(method.DeclaringType);
 			CodeMethodReference expr = new CodeMethodReference(type, method);
 			this.vm.ExternalMethods.Add(method);
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadField(ILInstruction il) {
-			FieldInfo field = il.Operand as FieldInfo;
+		private void LoadField(Instruction il) {
+			var field = (FieldReference)il.Operand;
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeFieldReference expr = new CodeFieldReference(targetObject, field);
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadStaticField(ILInstruction il) {
-			FieldInfo field = il.Operand as FieldInfo;
+		private void LoadStaticField(Instruction il) {
+			var field = (FieldReference)il.Operand;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
 			CodeFieldReference expr = new CodeFieldReference(typeRef, field);
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadStaticFieldAddress(ILInstruction il) {
+		private void LoadStaticFieldAddress(Instruction il) {
 			LoadStaticField(il);
 		}
 
-		private void LoadLocal(ILInstruction il) {
-			int index = (int)il.Operand;
+		private void LoadLocal(Instruction il) {
+			int index = (int)il.ResolveOperand();
 			CodeVariableReference expr = new CodeVariableReference {
 				Index = index
 			};
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadLocalAddress(ILInstruction il) {
-			int index = (int)il.Operand;
+		private void LoadLocalAddress(Instruction il) {
+			int index = (int)il.ResolveOperand();
 			CodeVariableReference expr = new CodeVariableReference {
 				Index = index
 			};
 			vm.Stack.Push(expr);
 		}
 
-		private void Load(ILInstruction il) {
-			CodePrimitiveExpression expr = new CodePrimitiveExpression(il.Operand);
+		private void Load(Instruction il) {
+			CodePrimitiveExpression expr = new CodePrimitiveExpression(il.ResolveOperand());
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadLength(ILInstruction il) {
+		private void LoadLength(Instruction il) {
 			CodeExpression targetObject = vm.Stack.Pop() as CodeExpression;
 			CodeLengthReference expr = new CodeLengthReference(targetObject);
 			vm.Stack.Push(expr);
 		}
 
-		private void LoadElement(ILInstruction il) {
+		private void LoadElement(Instruction il) {
 			CodeExpression index = vm.Stack.Pop();
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeArrayIndexerExpression expr = new CodeArrayIndexerExpression(targetObject, index);
@@ -442,12 +444,13 @@ namespace DotWeb.Decompiler.Core
 			return array;
 		}
 
-		private void LoadToken(ILInstruction il) {
-			if (il.Operand is FieldInfo) {
-				FieldInfo fi = (FieldInfo)il.Operand;
-				if (fi.IsStatic) {
+		private void LoadToken(Instruction il) {
+			if (il.Operand is FieldReference) {
+				var fi = (FieldReference)il.Operand;
+				var def = fi.Resolve();
+				if (def.IsStatic) {
 					// FIXME: filter this for only int[] initialization
-					object value = fi.GetValue(null);
+					object value = def.Constant;
 					int[] array = StructAsInt32Array(value);
 					CodePrimitiveExpression expr = new CodePrimitiveExpression(array);
 					vm.Stack.Push(expr);
@@ -458,7 +461,7 @@ namespace DotWeb.Decompiler.Core
 			throw new NotImplementedException();
 		}
 
-		private void StoreElement(ILInstruction il) {
+		private void StoreElement(Instruction il) {
 			CodeExpression value = vm.Stack.Pop();
 			CodeExpression index = vm.Stack.Pop();
 			CodeExpression array = vm.Stack.Pop();
@@ -468,16 +471,15 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void StoreArgument(ILInstruction il) {
-			MethodBase method = il.Method;
-			int index = (int)il.Operand;
+		private void StoreArgument(Instruction il) {
+			int index = (int)il.ResolveOperand();
 
-			if (!method.IsStatic) {
+			if (!this.method.IsStatic) {
 				index--;
 			}
 
-			ParameterInfo[] args = method.GetParameters();
-			ParameterInfo arg = args[index];
+			var args = method.Parameters;
+			var arg = args[index];
 			CodeArgumentReference lhs = new CodeArgumentReference(arg);
 
 			CodeExpression rhs = vm.Stack.Pop();
@@ -485,8 +487,8 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void StoreLocal(ILInstruction il) {
-			int index = (int)il.Operand;
+		private void StoreLocal(Instruction il) {
+			int index = (int)il.ResolveOperand();
 			CodeVariableReference lhs = new CodeVariableReference {
 				Index = index
 			};
@@ -495,8 +497,8 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void StoreField(ILInstruction il) {
-			FieldInfo field = il.Operand as FieldInfo;
+		private void StoreField(Instruction il) {
+			var field = (FieldReference)il.Operand;
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression targetObject = vm.Stack.Pop();
 			CodeFieldReference lhs = new CodeFieldReference(targetObject, field);
@@ -504,8 +506,8 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void StoreStaticField(ILInstruction il) {
-			FieldInfo field = il.Operand as FieldInfo;
+		private void StoreStaticField(Instruction il) {
+			var field = (FieldReference)il.Operand;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
 			CodeFieldReference lhs = new CodeFieldReference(typeRef, field);
 			CodeExpression rhs = vm.Stack.Pop();
@@ -513,27 +515,27 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void BinaryExpression(ILInstruction il, CodeBinaryOperator op) {
+		private void BinaryExpression(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
 			vm.Stack.Push(expr);
 		}
 
-		private void UnaryExpression(ILInstruction il, CodeUnaryOperator op) {
+		private void UnaryExpression(Instruction il, CodeUnaryOperator op) {
 			CodeExpression operand = vm.Stack.Pop();
 			CodeUnaryExpression expr = new CodeUnaryExpression(operand, op);
 			vm.Stack.Push(expr);
 		}
 
-		private void Comparision(ILInstruction il, CodeBinaryOperator op) {
+		private void Comparision(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
 			vm.Stack.Push(expr);
 		}
 
-		private void ConditionalBranch(ILInstruction il, CodeBinaryOperator op) {
+		private void ConditionalBranch(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = vm.Stack.Pop();
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(lhs, op, rhs);
@@ -541,7 +543,7 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void ConditionalBranch(ILInstruction il, bool test) {
+		private void ConditionalBranch(Instruction il, bool test) {
 			CodePrimitiveExpression rhs = new CodePrimitiveExpression(test);
 			CodeExpression lhs = vm.Stack.Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(
@@ -550,14 +552,14 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void Branch(ILInstruction il) {
-			CodeGotoStatement stmt = new CodeGotoStatement(il.Operand.ToString());
+		private void Branch(Instruction il) {
+			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
 			AddStatment(stmt, il);
 		}
 
-		private void NewArray(ILInstruction il) {
+		private void NewArray(Instruction il) {
 			CodeExpression count = vm.Stack.Pop();
-			Type type = (Type)il.Operand;
+			var type = (TypeReference)il.Operand;
 			CodeArrayCreateExpression expr = new CodeArrayCreateExpression {
 				SizeExpression = count,
 				Type = type
@@ -565,52 +567,52 @@ namespace DotWeb.Decompiler.Core
 			vm.Stack.Push(expr);
 		}
 
-		private void CollectArgs(ParameterInfo[] infos, List<CodeExpression> into) {
+		private void CollectArgs(ParameterDefinitionCollection defs, List<CodeExpression> into) {
 			List<CodeExpression> args = new List<CodeExpression>();
-			for (int i = 0; i < infos.Length; i++) {
+			for (int i = 0; i < defs.Count; i++) {
 				args.Add(vm.Stack.Pop());
 			}
 			args.Reverse();
 			into.AddRange(args.ToArray());
 		}
 
-		private void NewObject(ILInstruction il) {
-			ConstructorInfo ctor = (ConstructorInfo)il.Operand;
+		private void NewObject(Instruction il) {
+			var ctor = (MethodReference)il.Operand;
 			this.vm.ExternalMethods.Add(ctor);
 
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Constructor = ctor
 			};
-//			expr.CreateType = new CodeTypeReference(ctor.ReflectedType);
-			CollectArgs(ctor.GetParameters(), expr.Parameters);
+			CollectArgs(ctor.Parameters, expr.Parameters);
 
 			vm.Stack.Push(expr);
 		}
 
-		private void Dup(ILInstruction il) {
+		private void Dup(Instruction il) {
 			CodeExpression exp = vm.Stack.Peek();
 			vm.Stack.Push(exp);
 		}
 
-		private void Leave(ILInstruction il) {
-			CodeGotoStatement stmt = new CodeGotoStatement(il.Operand.ToString());
+		private void Leave(Instruction il) {
+			Debug.Assert(false);
+			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
 			AddStatment(stmt, il);
 		}
 
-		private void CastClass(ILInstruction il) {
+		private void CastClass(Instruction il) {
 			CodeExpression obj = vm.Stack.Pop();
-			Type type = (Type)il.Operand;
+			var type = (TypeReference)il.Operand;
 			CodeExpression expr = new CodeCastExpression(type, obj);
 			vm.Stack.Push(expr);
 		}
 
-		private void Throw(ILInstruction il) {
+		private void Throw(Instruction il) {
 			CodeExpression obj = vm.Stack.Pop();
 			CodeThrowStatement stmt = new CodeThrowStatement(obj);
 			AddStatment(stmt, il);
 		}
 
-		private void Switch(ILInstruction il) {
+		private void Switch(Instruction il) {
 			CodeExpression expr = vm.Stack.Pop();
 			CodeSwitchStatement stmt = new CodeSwitchStatement {
 				Expression = expr
@@ -618,9 +620,9 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(stmt, il);
 		}
 
-		private void IsInstance(ILInstruction il) {
+		private void IsInstance(Instruction il) {
 			CodeExpression obj = vm.Stack.Pop();
-			Type type = (Type)il.Operand;
+			var type = (TypeReference)il.Operand;
 			CodeExpression expr = new CodeInstanceOfExpression(type, obj);
 			vm.Stack.Push(expr);
 		}

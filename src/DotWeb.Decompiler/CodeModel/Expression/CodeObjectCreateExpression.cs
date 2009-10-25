@@ -18,8 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -39,8 +38,8 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public ConstructorInfo Constructor { get; set; }
-		public Type Type { get { return this.Constructor.DeclaringType; } }
+		public MethodReference Constructor { get; set; }
+		public TypeReference Type { get { return this.Constructor.DeclaringType; } }
 		public List<CodeExpression> Parameters { get; set; }
 	}
 }

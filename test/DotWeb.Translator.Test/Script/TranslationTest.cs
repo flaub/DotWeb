@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using DotWeb.Client;
+using System.DotWeb;
 
 namespace H8
 {
@@ -485,47 +486,47 @@ namespace H8
 			Console.WriteLine("{0}, {1}", test2.Text, test2.Value);
 		}
 
-		public void Linq() {
-			//0000: ldstr "ABCDE99F-J74-12-89A" Next
-			//0005: stloc.0 Next
-			//0006: ldloc.0 Next
-			//0007: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
-			//0012: brtrue.s 0031 Cond_Branch
-			//0014: ldnull Next
-			//0016: ldftn System.Boolean H8.SourceTests::<Linq>b__1() Next
-			//0021: newobj instance void System.Func`2[System.Char,System.Boolean]::.ctor() Call
-			//0026: stsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
-			//0031: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
-			//0036: call System.Collections.Generic.IEnumerable`1[System.Char] System.Linq.Enumerable::Where() Call
-			//0041: stloc.1 Next
-			//0042: ldloc.1 Next
-			//0043: callvirt instance System.Collections.Generic.IEnumerator`1[System.Char] System.Collections.Generic.IEnumerable`1[System.Char]::GetEnumerator() Call
-			//0048: stloc.3 Next
-			//0049: br.s 0064 Branch
-			//0051: ldloc.3 Next
-			//0052: callvirt instance System.Char System.Collections.Generic.IEnumerator`1[System.Char]::get_Current() Call
-			//0057: stloc.2 Next
-			//0058: ldloc.2 Next
-			//0059: call System.Void System.Console::WriteLine() Call
-			//0064: ldloc.3 Next
-			//0065: callvirt instance System.Boolean System.Collections.IEnumerator::MoveNext() Call
-			//0070: brtrue.s 0051 Cond_Branch
-			//0072: leave.s 0084 Branch
-			//0074: ldloc.3 Next
-			//0075: brfalse.s 0083 Cond_Branch
-			//0077: ldloc.3 Next
-			//0078: callvirt instance System.Void System.IDisposable::Dispose() Call
-			//0083: endfinally Return
-			//0084: ret Return
-			string str = "ABCDE99F-J74-12-89A";
-			var query = from ch in str
-						where Char.IsDigit(ch)
-						select ch;
+		//public void Linq() {
+		//    //0000: ldstr "ABCDE99F-J74-12-89A" Next
+		//    //0005: stloc.0 Next
+		//    //0006: ldloc.0 Next
+		//    //0007: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0012: brtrue.s 0031 Cond_Branch
+		//    //0014: ldnull Next
+		//    //0016: ldftn System.Boolean H8.SourceTests::<Linq>b__1() Next
+		//    //0021: newobj instance void System.Func`2[System.Char,System.Boolean]::.ctor() Call
+		//    //0026: stsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0031: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0036: call System.Collections.Generic.IEnumerable`1[System.Char] System.Linq.Enumerable::Where() Call
+		//    //0041: stloc.1 Next
+		//    //0042: ldloc.1 Next
+		//    //0043: callvirt instance System.Collections.Generic.IEnumerator`1[System.Char] System.Collections.Generic.IEnumerable`1[System.Char]::GetEnumerator() Call
+		//    //0048: stloc.3 Next
+		//    //0049: br.s 0064 Branch
+		//    //0051: ldloc.3 Next
+		//    //0052: callvirt instance System.Char System.Collections.Generic.IEnumerator`1[System.Char]::get_Current() Call
+		//    //0057: stloc.2 Next
+		//    //0058: ldloc.2 Next
+		//    //0059: call System.Void System.Console::WriteLine() Call
+		//    //0064: ldloc.3 Next
+		//    //0065: callvirt instance System.Boolean System.Collections.IEnumerator::MoveNext() Call
+		//    //0070: brtrue.s 0051 Cond_Branch
+		//    //0072: leave.s 0084 Branch
+		//    //0074: ldloc.3 Next
+		//    //0075: brfalse.s 0083 Cond_Branch
+		//    //0077: ldloc.3 Next
+		//    //0078: callvirt instance System.Void System.IDisposable::Dispose() Call
+		//    //0083: endfinally Return
+		//    //0084: ret Return
+		//    string str = "ABCDE99F-J74-12-89A";
+		//    var query = from ch in str
+		//                where Char.IsDigit(ch)
+		//                select ch;
 
-			foreach (var item in query) {
-				Console.WriteLine(item);
-			}
-		}
+		//    foreach (var item in query) {
+		//        Console.WriteLine(item);
+		//    }
+		//}
 
 		public delegate void SimpleDelegate();
 		public event SimpleDelegate SimpleEvent;
@@ -591,11 +592,11 @@ namespace H8
 		}
 
 		public void AnonymousType() {
-			var value = new {
-				Key = "Hi",
-				Value = 1
-			};
-			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
+			//var value = new {
+			//	Key = "Hi",
+			//	Value = 1
+			//};
+//			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
 		}
 
 		public void CallDerived() {

@@ -23,7 +23,7 @@ namespace DotWeb.System.DotWeb
 namespace System.DotWeb
 #endif
 {
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
 	public class JsCodeAttribute : SysAttribute
 	{
 		public string Code { get; private set; }

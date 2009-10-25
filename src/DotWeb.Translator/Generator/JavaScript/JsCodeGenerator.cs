@@ -24,6 +24,9 @@ using DotWeb.Client;
 using DotWeb.Translator.Properties;
 using DotWeb.Decompiler.CodeModel;
 using DotWeb.Decompiler;
+using Mono.Cecil;
+using System.Diagnostics;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
@@ -38,7 +41,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		public void WriteEntryPoint(Type type) {
+		public void WriteEntryPoint(TypeDefinition type) {
 			this.writer.WriteLine("$wnd.onload = function() {");
 			this.writer.Indent++;
 			this.writer.WriteLine("new {0}().$ctor();", Print(type));
@@ -79,7 +82,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		private string Print(Type type) {
+		private string Print(TypeReference type) {
 			return this.printer.Print(type);
 		}
 
@@ -125,9 +128,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 			string rhs;
 			CodePrimitiveExpression cpe = stmt.Right as CodePrimitiveExpression;
 			if (cpe != null) {
-				CodeTypeEvaluator evaluator = new CodeTypeEvaluator(this.currentMethod.Info);
-				Type type = evaluator.Evaluate(stmt.Left);
-				object target = Convert.ChangeType(cpe.Value, type);
+				var evaluator = new CodeTypeEvaluator(this.currentMethod.Definition);
+				var type = evaluator.Evaluate(stmt.Left);
+				object target = Convert.ChangeType(cpe.Value, type.GetReflectionType());
 				rhs = this.printer.PrintLiteral(target);
 			}
 			else {
@@ -208,7 +211,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		#endregion
 
-		public void WriteTypeConstructor(Type type) {
+		public void WriteTypeConstructor(TypeDefinition type) {
 			if(type.IsAnonymous())
 				return;
 
@@ -259,7 +262,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodeMethodMember method) {
-			this.printer.CurrentMethod = method.Info;
+			this.printer.CurrentMethod = method.Definition;
 			this.currentMethod = method;
 			this.locals.Clear();
 
@@ -273,26 +276,26 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 			string[] args = method.Parameters.Select(x => Print(x)).ToArray();
 			string name = method.Name;
-			if (method.Info.IsConstructor) {
+			if (method.Definition.IsConstructor) {
 				WriteLine("{0}.prototype.{1} = function({2}) {{",
-					Print(method.Info.DeclaringType),
+					Print(method.Definition.DeclaringType),
 					JsPrinter.CtorMethodName,
 					string.Join(", ", args)
 				);
 			}
-			else if (method.Info.IsStatic) {
+			else if (method.Definition.IsStatic) {
 				if (name == ".cctor")
 					name = JsPrinter.CtorMethodName;
 
 				WriteLine("{0}.{1} = function({2}) {{",
-					Print(method.Info.DeclaringType),
+					Print(method.Definition.DeclaringType),
 					EncodeName(name),
 					string.Join(", ", args)
 				);
 			}
 			else {
 				WriteLine("{0}.prototype.{1} = function({2}) {{",
-					Print(method.Info.DeclaringType),
+					Print(method.Definition.DeclaringType),
 					EncodeName(name),
 					string.Join(", ", args)
 				);
@@ -301,7 +304,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.Indent++;
 			if (string.IsNullOrEmpty(method.NativeCode)) {
 				Write(method.Statements);
-				if (method.Info.IsConstructor) {
+				if (method.Definition.IsConstructor) {
 					WriteLine("return this;");
 				}
 			}
@@ -314,7 +317,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertyGetterMember method) {
-			if (method.PropertyInfo.IsIntrinsic()) {
+			if (method.Property.IsIntrinsic()) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo.DeclaringType.ToString(), method.PropertyInfo.ToString());
@@ -328,7 +331,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertySetterMember method) {
-			if (method.PropertyInfo.IsIntrinsic()) {
+			if (method.Property.IsIntrinsic()) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo);
@@ -344,7 +347,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("{0}: {1} // field: {2}",
 				EncodeName(field.Name), 
 				"{}", 
-				Print(field.Info.FieldType)
+				Print(field.Definition.FieldType)
 			);
 		}
 
@@ -352,7 +355,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("{0}: {1} // event: {2}",
 				EncodeName(evt.Name), 
 				"[]", 
-				Print(evt.Info.EventHandlerType));
+				Print(evt.Definition.EventType));
 		}
 
 		public void Visit(CodePropertyMember property) {

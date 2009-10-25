@@ -21,6 +21,8 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using DotWeb.Decompiler.Core;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -29,13 +31,13 @@ namespace DotWeb.Decompiler.CodeModel
 		public CodeMethodMember() {
 			this.Statements = new List<CodeStatement>();
 			this.Parameters = new List<CodeParameterDeclarationExpression>();
-			this.ExternalMethods = new HashSet<MethodBase>();
+			this.ExternalMethods = new HashSet<MethodReference>();
 		}
 
-		public CodeMethodMember(MethodBase method)
+		public CodeMethodMember(MethodDefinition method)
 			: this() {
-			Info = method;
-			foreach (ParameterInfo item in method.GetParameters()) {
+			Definition = method;
+			foreach (ParameterDefinition item in method.Parameters) {
 				CodeParameterDeclarationExpression arg = new CodeParameterDeclarationExpression(item);
 				Parameters.Add(arg);
 			}
@@ -51,16 +53,16 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public MethodBase Info { get; protected set; }
-		public string Name { get { return Info.Name; } }
+		public MethodDefinition Definition { get; protected set; }
+		public string Name { get { return Definition.Name; } }
 		public List<CodeStatement> Statements { get; set; }
 		public List<CodeParameterDeclarationExpression> Parameters { get; set; }
-		public HashSet<MethodBase> ExternalMethods { get; set; }
+		public HashSet<MethodReference> ExternalMethods { get; set; }
 		public string NativeCode { get; set; }
 
 		/// <summary>
 		/// Used for debugging purposes
 		/// </summary>
-		public List<ILInstruction> Instructions { get; set; }
+		public IEnumerable<Instruction> Instructions { get; set; }
 	}
 }

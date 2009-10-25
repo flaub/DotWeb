@@ -18,6 +18,7 @@
 using System;
 using DotWeb.Translator.Test.Properties;
 using NUnit.Framework;
+using Mono.Cecil;
 
 namespace DotWeb.Translator.Test
 {
@@ -26,7 +27,7 @@ namespace DotWeb.Translator.Test
 	{
 		public NativeTest()
 			: base("DotWeb.Translator.Test.Script", Resources.NativeTest) {
-			this.sourceTestsCompiledType = this.CompiledAssembly.GetType("H8.NativeTest");
+			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.NativeTest"];
 		}
 
 		[Test]
@@ -34,6 +35,6 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "TestTuple", Resources.NativeTest_TestTuple);
 		}
 
-		private Type sourceTestsCompiledType;
+		private TypeDefinition sourceTestsCompiledType;
 	}
 }

@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -245,7 +245,7 @@ namespace DotWeb.Decompiler.Core
 			 * case nodes                           */
 			for (int i = Cfg.DfsList.Length - 1; i >= 0; i--) {
 				BasicBlock caseHeader = (BasicBlock)Cfg.DfsList[i];
-				if (caseHeader.LastInstruction.Code != OpCodes.Switch)
+				if (caseHeader.LastInstruction.OpCode != OpCodes.Switch)
 					continue;
 
 				/* Find descendant node which has as immediate predecessor 
@@ -288,7 +288,7 @@ namespace DotWeb.Decompiler.Core
 			node.DfsTraversed = DfsTraversal.Case;
 			int current = node.DfsLastNumber;
 			if ((current != tail) &&
-				(node.LastInstruction.Code != OpCodes.Switch) &&
+				(node.LastInstruction.OpCode != OpCodes.Switch) &&
 				list.Contains(node.ImmediateDominator)) {
 				list.Add(current);
 				node.CaseHead = head;

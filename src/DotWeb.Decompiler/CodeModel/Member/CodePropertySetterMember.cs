@@ -16,10 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -29,7 +26,7 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 
 		public CodePropertySetterMember(CodeMethodMember method) {
-			this.Info = method.Info;
+			this.Definition = method.Definition;
 			this.Statements = method.Statements;
 			this.Parameters = method.Parameters;
 			this.ExternalMethods = method.ExternalMethods;
@@ -46,6 +43,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public PropertyInfo PropertyInfo { get; set; }
+		public PropertyDefinition Property { get; set; }
 	}
 }

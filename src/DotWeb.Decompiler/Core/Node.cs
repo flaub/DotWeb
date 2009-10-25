@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection.Emit;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.Core
 {

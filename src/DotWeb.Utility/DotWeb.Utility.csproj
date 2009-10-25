@@ -51,6 +51,7 @@
     <Compile Include="AssemblyQualifiedTypeName.cs" />
     <Compile Include="AssemblyReferenceFixup.cs" />
     <Compile Include="AttributeExtensions.cs" />
+    <Compile Include="Cecil\TypeExtensions.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="NetworkBitConverter.cs" />
     <Compile Include="NetworkReader.cs" />

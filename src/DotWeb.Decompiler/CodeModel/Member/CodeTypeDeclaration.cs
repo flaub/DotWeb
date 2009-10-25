@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -42,7 +43,7 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public Type Type { get; set; }
+		public TypeDefinition Type { get; set; }
 		public string Name { get { return this.Type.Name; } }
 		public string FullName { get { return this.Type.FullName; } }
 

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotWeb.Utility;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -46,7 +47,7 @@ namespace DotWeb.Decompiler.Core
 			ExternalEdgeCount = 0;
 		}
 
-		public override System.Reflection.Emit.FlowControl FlowControl {
+		public override FlowControl FlowControl {
 			get { throw new NotImplementedException(); }
 		}
 

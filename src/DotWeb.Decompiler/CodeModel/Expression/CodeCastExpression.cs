@@ -16,15 +16,13 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeCastExpression : CodeExpression
 	{
-		public CodeCastExpression(Type target, CodeExpression expression) {
+		public CodeCastExpression(TypeReference target, CodeExpression expression) {
 			this.TargetType = target;
 			this.Expression = expression;
 		}
@@ -39,7 +37,7 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public Type TargetType { get; set; }
+		public TypeReference TargetType { get; set; }
 		public CodeExpression Expression { get; set; }
 	}
 }

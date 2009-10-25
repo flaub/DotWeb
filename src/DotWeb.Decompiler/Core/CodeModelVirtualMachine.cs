@@ -16,8 +16,8 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System.Collections.Generic;
-using System.Reflection;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -25,10 +25,10 @@ namespace DotWeb.Decompiler.Core
 	{
 		public CodeModelVirtualMachine() {
 			Stack = new Stack<CodeExpression>();
-			ExternalMethods = new HashSet<MethodBase>();
+			ExternalMethods = new HashSet<MethodReference>();
 		}
 
-		public HashSet<MethodBase> ExternalMethods { get; private set; }
+		public HashSet<MethodReference> ExternalMethods { get; private set; }
 		public Stack<CodeExpression> Stack { get; private set; }
 	}
 }

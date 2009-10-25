@@ -19,6 +19,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using DotWeb.Translator.Generator.JavaScript;
+using Mono.Cecil;
+using System.Linq;
 
 namespace DotWeb.Translator
 {
@@ -35,9 +37,9 @@ namespace DotWeb.Translator
 			this.generator = new JsCodeGenerator(this.Writer, writeHeader);
 		}
 
-		public void TranslateType(Type type) {
+		public void TranslateType(TypeDefinition type) {
 			var context = new TranslationContext(this.generator);
-			MethodBase method = type.GetConstructor(Type.EmptyTypes);
+			var method = type.Constructors.GetConstructor(false, Type.EmptyTypes);
 			context.GenerateMethod(method, true);
 			this.generator.WriteEntryPoint(type);
 		}

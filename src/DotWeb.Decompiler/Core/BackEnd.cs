@@ -18,8 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil.Cil;
+using System.Diagnostics;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -187,11 +188,12 @@ namespace DotWeb.Decompiler.Core
 				case LoopType.Repeat:
 					WriteRepeatLoop(bb, latchNode, ifFollow, stmts);
 					break;
-				//case LoopType.Endless:
-				//    loop = new CodeWhileStatement {
-				//        TestExpression = new CodePrimitiveExpression(true)
-				//    };
-				//    break;
+				case LoopType.Endless:
+					Debug.Assert(false);
+					//loop = new CodeWhileStatement {
+					//    TestExpression = new CodePrimitiveExpression(true)
+					//};
+					break;
 				default:
 					throw new InvalidOperationException();
 			}
@@ -240,7 +242,7 @@ namespace DotWeb.Decompiler.Core
 			CodeSwitchStatement sw = last as CodeSwitchStatement;
 			stmts.Add(sw);
 
-			int[] cases = (int[])bb.LastInstruction.Operand;
+			var cases = (Instruction[])bb.LastInstruction.Operand;
 			Dictionary<int, CodeCase> ccDict = new Dictionary<int, CodeCase>();
 			foreach (BasicBlock succ in bb.OutEdges) {
 				CodeCase cc = new CodeCase();
@@ -251,7 +253,7 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			for (int j = 0; j < cases.Length; j++) {
-				int offset = cases[j];
+				int offset = cases[j].Offset;
 				CodeCase cc = ccDict[offset];
 				cc.Expressions.Add(new CodePrimitiveExpression(j));
 			}

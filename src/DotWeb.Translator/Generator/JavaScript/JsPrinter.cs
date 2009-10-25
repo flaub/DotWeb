@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
 using DotWeb.Client;
 using DotWeb.Utility;
 using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
@@ -31,7 +31,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 	{
 		public const string CtorMethodName = "$ctor";
 		private const string LocalVarPrefix = "loc";
-		public MethodBase CurrentMethod { get; set; }
+		public MethodDefinition CurrentMethod { get; set; }
 
 		public JsPrinter() {
 		}
@@ -108,7 +108,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		#region Helpers
 
-		public static string GetNamespace(Type type) {
+		public static string GetNamespace(TypeReference type) {
 			// FIXME:
 			//JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
 			//if (jsNamespace != null)
@@ -125,7 +125,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Join(", ", parts);
 		}
 
-		private string GetTypeName(Type type) {
+		private string GetTypeName(TypeReference type) {
 			if (type.DeclaringType == null) {
 				return type.Name;
 			}
@@ -133,7 +133,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Format("{0}_{1}", GetTypeName(type.DeclaringType), type.Name);
 		}
 
-		public string Print(Type type) {
+		public string Print(TypeReference type) {
 			string ns = GetNamespace(type);
 
 			string name;
@@ -142,8 +142,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 			else
 				name = ns + "." + GetTypeName(type);
 
-			if (type.IsGenericType) {
-				name = string.Format("{0}${1}", name.Split('`').First(), type.GetGenericArguments().Length);
+			var genericType = type as GenericInstanceType;
+			if (genericType != null) {
+				name = string.Format("{0}${1}", name.Split('`').First(), genericType.GenericArguments.Count);
 			}
 			return EncodeName(name);
 		}
@@ -233,7 +234,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeMethodReference exp) {
-			string ret = string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Info.Name));
+			string ret = string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Reference.Name));
 			//string alt;
 			//if (methodMap.TryGetValue(ret, out alt))
 			//    return alt;
@@ -257,11 +258,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeParameterDeclarationExpression exp) {
-			return string.Format("{0} /*{1}*/", EncodeName(exp.Name), Print(exp.Info.ParameterType));
+			return string.Format("{0} /*{1}*/", EncodeName(exp.Name), Print(exp.Definition.ParameterType));
 		}
 
 		public string VisitReturn(CodeInvokeExpression exp) {
-			if (exp.Method.Info.IsConstructor) {
+			var method = exp.Method.Reference.Resolve();
+			if (method.IsConstructor) {
 				if (!CurrentMethod.DeclaringType.HasBase()) {
 					return "";
 				}
@@ -313,9 +315,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {
-			if (exp.Type.IsSubclassOf(typeof(Delegate))) {
+			var delegateType = TypeOf.Convert(typeof(Delegate));
+			if (exp.Type.IsSubclassOf(delegateType)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
-				string methodName = methodRef.Info.Name;
+				string methodName = methodRef.Reference.Name;
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")
 					targetObject = Print(methodRef.TargetObject);

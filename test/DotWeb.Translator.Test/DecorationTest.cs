@@ -17,8 +17,8 @@
 
 using System;
 using DotWeb.Translator.Test.Properties;
-using DotWeb.Client;
 using NUnit.Framework;
+using Mono.Cecil;
 
 namespace DotWeb.Translator.Test
 {
@@ -30,7 +30,7 @@ namespace DotWeb.Translator.Test
 	{
 		public DecorationTest()
 			: base("DotWeb.Translator.Test.Script", Resources.DecorationTest) {
-			this.compiledType = this.CompiledAssembly.GetType("H8.DecorationTests");
+			this.compiledType = this.CompiledAssembly.MainModule.Types["H8.DecorationTests"];
 		}
 
 		[Test]
@@ -76,6 +76,6 @@ namespace DotWeb.Translator.Test
 			TestMethod(this.compiledType, "TestCastInterface", Resources.DecorationTest_CastInterface, true);
 		}
 
-		private Type compiledType;
+		private TypeDefinition compiledType;
 	}
 }

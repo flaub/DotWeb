@@ -16,33 +16,36 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler
 {
 	public class AssociatedProperty
 	{
-		public PropertyInfo Info { get; set; }
+		public PropertyDefinition Definition { get; set; }
 		public bool IsGetter { get; set; }
 	}
 
-	public static class MethodBaseExtensions
+	public static class MethodDefinitionExtensions
 	{
-		public static AssociatedProperty GetAssociatedProperty(this MethodBase method) {
+		public static AssociatedProperty GetAssociatedProperty(this MethodDefinition method) {
 			if (method.IsSpecialName) {
+				var type = method.DeclaringType;
+
 				if (method.Name.StartsWith("get_")) {
 					string propName = method.Name.Substring("get_".Length);
-					PropertyInfo pi = method.DeclaringType.GetProperty(propName);
+					var properties = type.Properties.GetProperties(propName);
 					return new AssociatedProperty {
-						Info = pi,
+						Definition = properties[0],
 						IsGetter = true
 					};
 				}
 
 				if (method.Name.StartsWith("set_")) {
 					string propName = method.Name.Substring("set_".Length);
-					PropertyInfo pi = method.DeclaringType.GetProperty(propName);
+					var properties = type.Properties.GetProperties(propName);
 					return new AssociatedProperty {
-						Info = pi,
+						Definition = properties[0],
 						IsGetter = false
 					};
 				}

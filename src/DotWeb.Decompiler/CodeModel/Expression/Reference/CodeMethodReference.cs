@@ -19,15 +19,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeMethodReference : CodeExpression
 	{
-		public CodeMethodReference(CodeExpression target, MethodBase method) {
+		public CodeMethodReference(CodeExpression target, MethodReference method) {
 			this.TargetObject = target;
-			this.Info = method;
+			this.Reference = method;
 		}
 
 		#region Visitor Pattern
@@ -41,6 +41,6 @@ namespace DotWeb.Decompiler.CodeModel
 		#endregion
 
 		public CodeExpression TargetObject { get; set; }
-		public MethodBase Info { get; set; }
+		public MethodReference Reference { get; set; }
 	}
 }

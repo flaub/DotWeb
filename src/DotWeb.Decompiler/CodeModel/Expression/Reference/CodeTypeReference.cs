@@ -19,12 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeTypeReference : CodeExpression
 	{
-		public CodeTypeReference(Type type) {
+		public CodeTypeReference(TypeReference type) {
 			this.Type = type;
 		}
 
@@ -38,6 +39,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public Type Type { get; set; }
+		public TypeReference Type { get; set; }
 	}
 }

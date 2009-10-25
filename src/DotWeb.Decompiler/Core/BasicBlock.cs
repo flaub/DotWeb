@@ -17,9 +17,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil.Cil;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -27,47 +28,50 @@ namespace DotWeb.Decompiler.Core
 	{
 		public override string FullName {
 			get {
-				ILInstruction il = Instructions.Last();
-				return string.Format("{0}: {1:0000} - {2}", this.RefName, BeginOffset, il);
+				var il = Instructions.Last();
+				return string.Format("{0}: {1:0000} - {2}", this.RefName, BeginOffset, il.DisplayString());
 			}
 		}
 
 		public List<CodeStatement> Statements { get; private set; }
 
-		public List<ILInstruction> Instructions { get; private set; }
+		public List<Instruction> Instructions { get; private set; }
 		public int BeginOffset { get { return this.FirstInstruction.Offset; } }
 		public int EndOffset { get { return this.LastInstruction.Offset; } }
 
-		public ILInstruction FirstInstruction { get { return this.Instructions.First(); } }
-		public ILInstruction LastInstruction { get { return this.Instructions.Last(); } }
+		public Instruction FirstInstruction { get { return this.Instructions.First(); } }
+		public Instruction LastInstruction { get { return this.Instructions.Last(); } }
 
 		public CodeStatement FirstStatement { get { return this.Statements.First(); } }
 		public CodeStatement LastStatement { get { return this.Statements.Last(); } }
 
-		public BasicBlock(int id)
+		private MethodDefinition method;
+
+		public BasicBlock(MethodDefinition method, int id)
 			: base(id) {
-			this.Instructions = new List<ILInstruction>();
+			this.method = method;
+			this.Instructions = new List<Instruction>();
 			this.Statements = new List<CodeStatement>();
 		}
 
 		public override FlowControl FlowControl {
 			get {
-				ILInstruction last = this.Instructions.Last();
+				var last = this.Instructions.Last();
 				Debug.Assert(last != null);
-				return last.Code.FlowControl;
+				return last.OpCode.FlowControl;
 			}
 		}
 
 		public bool IsTwoWay {
-			get { return LastInstruction.IsTwoWay; }
+			get { return LastInstruction.IsTwoWay(); }
 		}
 
 		public bool IsMultiWay {
-			get { return LastInstruction.IsMultiWay; }
+			get { return LastInstruction.IsMultiWay(); }
 		}
 
 		public void GenerateCodeModel(CodeModelVirtualMachine context) {
-			CodeModelGenerator cma = new CodeModelGenerator(context, this.Instructions);
+			CodeModelGenerator cma = new CodeModelGenerator(this.method, context, this.Instructions);
 			this.Statements = cma.Statements;
 			this.DfsTraversed = DfsTraversal.CodeDom;
 

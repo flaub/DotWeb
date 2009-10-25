@@ -22,43 +22,34 @@ using DotWeb.Translator.Generator.JavaScript;
 using DotWeb.Decompiler;
 using NUnit.Framework;
 using Mono.Cecil;
+using System.Linq;
 
 namespace DotWeb.Translator.Test
 {
 	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
 	{
-//		protected AssemblyDefinition CompiledAssemblyDef;
-
 		protected TranslationTestHelper(string asmName, string src) {
-			if (cachedAssembly == null) {
-				var compiler = new CSharpCompiler();
-				var asm = Assembly.Load(asmName);
-				var result = compiler.CompileSource(src, asm);
-				//this.CompiledAssemblyDef = AssemblyFactory.GetAssembly(result.PathToAssembly);
-				//this.CompiledAssembly = compiler.CompileSource(src, asm);
-				this.CompiledAssembly = result.CompiledAssembly;
-				cachedAssembly = this.CompiledAssembly;
-			}
-			else {
-				this.CompiledAssembly = cachedAssembly;
-			}
+			var compiler = new CSharpCompiler();
+			var asm = Assembly.Load(asmName);
+			var result = compiler.CompileSource(src, asm);
+			this.CompiledAssembly = AssemblyFactory.GetAssembly(result.PathToAssembly);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {
-			Type type = this.CompiledAssembly.GetType(typeName);
+			var type = this.CompiledAssembly.MainModule.Types[typeName];
 			TestMethod(type, methodName, expected);
 		}
 
-		protected void TestMethod(Type type, string methodName, string expected) {
+		protected void TestMethod(TypeDefinition type, string methodName, string expected) {
 			TestMethod(type, methodName, expected, false);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected, bool followDependencies) {
-			Type type = this.CompiledAssembly.GetType(typeName);
+			var type = this.CompiledAssembly.MainModule.Types[typeName];
 			TestMethod(type, methodName, expected, followDependencies);
 		}
 
-		protected void TestMethod(Type type, string methodName, string expected, bool followDependencies) {
+		protected void TestMethod(TypeDefinition type, string methodName, string expected, bool followDependencies) {
 			string result = GenerateMethod(type, methodName, followDependencies);
 			string lhs = expected.Trim();
 			string rhs = result.Trim();
@@ -72,8 +63,8 @@ namespace DotWeb.Translator.Test
 			Assert.AreEqual(lhs, rhs);
 		}
 
-		protected string GenerateMethod(Type type, string methodName, bool followDependencies) {
-			MethodInfo method = type.GetMethod(methodName);
+		protected string GenerateMethod(TypeDefinition type, string methodName, bool followDependencies) {
+			var method = type.Methods.GetMethod(methodName).First();
 			TextWriter writer = new StringWriter();
 			var generator = new JsCodeGenerator(writer, false);
 			var context = new TranslationContext(generator);
@@ -81,8 +72,6 @@ namespace DotWeb.Translator.Test
 			return writer.ToString();
 		}
 
-		protected Assembly CompiledAssembly;
-
-		private static Assembly cachedAssembly;
+		protected AssemblyDefinition CompiledAssembly;
 	}
 }

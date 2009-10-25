@@ -18,14 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeFieldReference : CodeExpression
 	{
-		public CodeFieldReference(CodeExpression target, FieldInfo field) {
+		public CodeFieldReference(CodeExpression target, FieldReference field) {
 			this.TargetObject = target;
 			this.Field = field;
 		}
@@ -41,6 +40,6 @@ namespace DotWeb.Decompiler.CodeModel
 		#endregion
 
 		public CodeExpression TargetObject { get; set; }
-		public FieldInfo Field { get; set; }
+		public FieldReference Field { get; set; }
 	}
 }

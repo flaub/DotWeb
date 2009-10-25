@@ -20,28 +20,40 @@ using System.Linq;
 using DotWeb.Client;
 using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
+using Mono.Cecil;
+using System.Diagnostics;
 
 namespace DotWeb.Translator
 {
+	public static class TypeOf
+	{
+		public static TypeDefinition Convert(Type type) {
+			return null;
+		}
+	}
+
 	static class CodeModelExtensions
 	{
-		public static bool HasBase(this Type type) {
-			if (type.BaseType == typeof(object) /* FIXME: ||
-				type.BaseType == typeof(JsNativeBase)*/) {
-				return false;
-			}
-			return true;
+		public static bool HasBase(this TypeDefinition type) {
+			//if (type.BaseType == typeof(object) /* FIXME: ||
+			//	type.BaseType == typeof(JsNativeBase)*/) {
+			//	return false;
+			//}
+			//return true;
+			return false;
 		}
 
 		public static bool IsFieldLike(this CodePropertyReference cpr) {
-			return
-				cpr.Property.IsIntrinsic() ||
-				cpr.Property.DeclaringType.IsAnonymous() /* FIXME: ||
-				cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase))*/
-			;
+			Debug.Assert(false);
+			return false;
+			//return
+			//    cpr.Property.IsIntrinsic() ||
+			//    cpr.Property.DeclaringType.IsAnonymous() /* FIXME: ||
+			//    cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase))*/
+			//;
 		}
 
-		private static bool IsAutoImplemented(CodeFieldReference field, PropertyInfo property) {
+		private static bool IsAutoImplemented(CodeFieldReference field, PropertyDefinition property) {
 			if (field != null && field.TargetObject is CodeThisReference) {
 				if (field.Field.Name == GetAutomaticBackingFieldName(property))
 					return true;
@@ -55,13 +67,13 @@ namespace DotWeb.Translator
 				var ret = first as CodeReturnStatement;
 				if (ret != null) {
 					var field = ret.Expression as CodeFieldReference;
-					if(IsAutoImplemented(field, cpm.PropertyInfo))
+					if(IsAutoImplemented(field, cpm.Property))
 						return true;
 				}
 				var assign = first as CodeAssignStatement;
 				if (assign != null) {
 					var field = assign.Right as CodeFieldReference;
-					if (IsAutoImplemented(field, cpm.PropertyInfo))
+					if (IsAutoImplemented(field, cpm.Property))
 						return true;
 				}
 			}
@@ -73,24 +85,38 @@ namespace DotWeb.Translator
 				var first = cpm.Statements.First() as CodeAssignStatement;
 				if (first != null) {
 					var field = first.Left as CodeFieldReference;
-					if (IsAutoImplemented(field, cpm.PropertyInfo))
+					if (IsAutoImplemented(field, cpm.Property))
 						return true;
 				}
 			}
 			return false;
 		}
 
-		public static bool HasJsCode(this MethodBase method) {
+		public static bool HasJsCode(this MethodDefinition method) {
 //			FIXME: return method.IsDefined(typeof(JsCodeAttribute), false);
 			return false;
 		}
 
-		public static bool IsAnonymous(this Type type) {
+		public static bool IsAnonymous(this TypeReference type) {
 			//FIXME: return type.IsDefined(typeof(JsAnonymousAttribute), false);
+//			TypeReference typeRef = new TypeReference(name, ns, scope, valueType);
 			return false;
 		}
 
-		public static bool IsIntrinsic(this PropertyInfo pi) {
+		public static bool IsSubclassOf(this TypeReference type, TypeReference other) {
+			Debug.Assert(false);
+			return false;
+		}
+
+		public static bool IsDefined(this TypeDefinition type, TypeReference attributeType) {
+			foreach (CustomAttribute item in type.CustomAttributes) {
+				if (item.Constructor.DeclaringType == attributeType)
+					return true;
+			}
+			return false;
+		}
+
+		public static bool IsIntrinsic(this PropertyReference pi) {
 			return false;
 			// FIXME:
 			//return
@@ -98,7 +124,7 @@ namespace DotWeb.Translator
 			//    pi.DeclaringType.IsDefined(typeof(JsIntrinsicAttribute), false);
 		}
 
-		private static string GetAutomaticBackingFieldName(PropertyInfo property) {
+		private static string GetAutomaticBackingFieldName(PropertyDefinition property) {
 			return string.Format("<{0}>k__BackingField", property.Name);
 		}
 	}

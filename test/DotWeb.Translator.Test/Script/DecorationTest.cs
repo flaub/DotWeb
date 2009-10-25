@@ -19,6 +19,7 @@ using System;
 using DotWeb.Client;
 using DotWeb.Client.Dom.Html;
 using DotWeb.Client.Dom.Events;
+using System.DotWeb;
 
 namespace H8
 {
@@ -132,7 +133,7 @@ namespace H8
 
 		public void TestCastInterface() {
 			var element = Window.document.getElementById("box");
-			var box = JsRuntime.Cast<HtmlDivElement>(element);
+			var box = (HtmlDivElement)element;
 			box.onmouseover = box_OnMouseOver;
 		}
 

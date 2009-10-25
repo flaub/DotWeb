@@ -16,7 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DotWeb.Client;
+using System.DotWeb;
 
 namespace H8
 {
@@ -29,21 +29,17 @@ namespace H8
 	}
 
 	[JsNamespace]
-	public class Tuple : JsNativeBase
+	public class Tuple : JsObject
 	{
-		public Tuple() { }
-		public Tuple(object config) { C_(config); }
+		public extern Tuple(object config);
 
-		public int id {
-			get { return _<int>(); }
-			set { _(value); }
-		}
+		public extern int id { get; set; }
 
-		public object Value {
+		public extern object Value {
 			[JsCode("return this.value;")]
-			get { return _<object>(); }
+			get;
 			[JsCode("this.value;")]
-			set { _(value); }
+			set;
 		}
 	}
 

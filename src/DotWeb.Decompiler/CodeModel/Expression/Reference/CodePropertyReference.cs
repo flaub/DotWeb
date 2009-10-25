@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -31,7 +31,7 @@ namespace DotWeb.Decompiler.CodeModel
 			Set
 		}
 
-		public CodePropertyReference(CodeMethodReference method, PropertyInfo property, RefType rt) {
+		public CodePropertyReference(CodeMethodReference method, PropertyReference property, RefType rt) {
 			this.Method = method;
 			this.Property = property;
 			this.ReferenceType = rt;
@@ -49,7 +49,7 @@ namespace DotWeb.Decompiler.CodeModel
 
 		public CodeExpression TargetObject { get { return Method.TargetObject; } }
 		public CodeMethodReference Method { get; set; }
-		public PropertyInfo Property { get; set; }
+		public PropertyReference Property { get; set; }
 		public RefType ReferenceType { get; set; }
 	}
 }

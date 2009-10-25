@@ -18,108 +18,117 @@
 using System;
 using System.Linq;
 using DotWeb.Decompiler.CodeModel;
-using System.Reflection;
+using Mono.Cecil;
+using System.Diagnostics;
 
 namespace DotWeb.Decompiler
 {
-	public class CodeTypeEvaluator : ICodeExpressionVisitor<Type>
+	public class CodeTypeEvaluator : ICodeExpressionVisitor<TypeReference>
 	{
-		private readonly MethodBase context;
+		private readonly MethodDefinition context;
 
-		public CodeTypeEvaluator(MethodBase method) {
+		public CodeTypeEvaluator(MethodDefinition method) {
 			this.context = method;
 		}
 
-		public Type Evaluate(CodeExpression exp) {
-			return exp.Accept<CodeTypeEvaluator, Type>(this);
+		public TypeReference Evaluate(CodeExpression exp) {
+			return exp.Accept<CodeTypeEvaluator, TypeReference>(this);
 		}
 
-		public Type VisitReturn(CodeArrayCreateExpression obj) {
+		public TypeReference VisitReturn(CodeArrayCreateExpression obj) {
 			return obj.Type;
 		}
 
-		public Type VisitReturn(CodeArrayIndexerExpression obj) {
-			Type arrayType = Evaluate(obj.TargetObject);
-			return arrayType.GetElementType();
+		public TypeReference VisitReturn(CodeArrayIndexerExpression obj) {
+			ArrayType arrayType = (ArrayType)Evaluate(obj.TargetObject);
+			return arrayType.ElementType;
 		}
 
-		public Type VisitReturn(CodeBinaryExpression obj) {
+		public TypeReference VisitReturn(CodeBinaryExpression obj) {
 			// FIXME: find 'highest' type of each side
 			return Evaluate(obj.Left);
 		}
 
-		public Type VisitReturn(CodeCastExpression obj) {
+		public TypeReference VisitReturn(CodeCastExpression obj) {
 			return obj.TargetType;
 		}
 
-		public Type VisitReturn(CodeInstanceOfExpression obj) {
+		public TypeReference VisitReturn(CodeInstanceOfExpression obj) {
 			return obj.TargetType;
 		}
 
-		public Type VisitReturn(CodeIndexerExpression obj) {
+		public TypeReference VisitReturn(CodeIndexerExpression obj) {
 			var target = Evaluate(obj.TargetObject);
-			var property = target.GetProperty("Item");
+			var def = target.Resolve();
+			var property = def.Properties.GetProperties("Item").First();
+			//var property = target.GetProperty("Item");
 			return property.PropertyType;
 		}
 
-		public Type VisitReturn(CodeInvokeExpression obj) {
-			return VisitMethod(obj.Method.Info);
+		public TypeReference VisitReturn(CodeInvokeExpression obj) {
+			return VisitMethod(obj.Method.Reference);
 		}
 
-		public Type VisitReturn(CodeObjectCreateExpression obj) {
+		public TypeReference VisitReturn(CodeObjectCreateExpression obj) {
 			return obj.Type;
 		}
 
-		public Type VisitReturn(CodeParameterDeclarationExpression obj) {
-			return obj.Info.ParameterType;
+		public TypeReference VisitReturn(CodeParameterDeclarationExpression obj) {
+			return obj.Definition.ParameterType;
 		}
 
-		public Type VisitReturn(CodePrimitiveExpression obj) {
-			return obj.Value.GetType();
+		public TypeReference VisitReturn(CodePrimitiveExpression obj) {
+			var primitiveType = obj.Value.GetType();
+//			return obj.Value.GetType();
+			Debug.Assert(false);
+			return null;
 		}
 
-		public Type VisitReturn(CodeTypeReference obj) {
+		public TypeReference VisitReturn(CodeTypeReference obj) {
 			return obj.Type;
 		}
 
-		public Type VisitReturn(CodeUnaryExpression obj) {
+		public TypeReference VisitReturn(CodeUnaryExpression obj) {
 			return Evaluate(obj.Expression);
 		}
 
-		public Type VisitReturn(CodeArgumentReference obj) {
+		public TypeReference VisitReturn(CodeArgumentReference obj) {
 			return obj.Argument.ParameterType;
 		}
 
-		public Type VisitReturn(CodeFieldReference obj) {
+		public TypeReference VisitReturn(CodeFieldReference obj) {
 			return obj.Field.FieldType;
 		}
 
-		public Type VisitReturn(CodeLengthReference obj) {
-			return typeof(int);
+		public TypeReference VisitReturn(CodeLengthReference obj) {
+			Debug.Assert(false);
+//			return typeof(int);
+			return null;
 		}
 
-		public Type VisitReturn(CodeMethodReference obj) {
-			return VisitMethod(obj.Info);
+		public TypeReference VisitReturn(CodeMethodReference obj) {
+			return VisitMethod(obj.Reference);
 		}
 
-		public Type VisitReturn(CodePropertyReference obj) {
+		public TypeReference VisitReturn(CodePropertyReference obj) {
 			return obj.Property.PropertyType;
 		}
 
-		public Type VisitReturn(CodeThisReference obj) {
+		public TypeReference VisitReturn(CodeThisReference obj) {
 			return this.context.DeclaringType;
 		}
 
-		public Type VisitReturn(CodeVariableReference obj) {
-			LocalVariableInfo local = this.context.GetMethodBody().LocalVariables.Single(x => x.LocalIndex == obj.Index);
-			return local.LocalType;
+		public TypeReference VisitReturn(CodeVariableReference obj) {
+//			LocalVariableInfo local = this.context.GetMethodBody().LocalVariables.Single(x => x.LocalIndex == obj.Index);
+			var local = this.context.Body.Variables[obj.Index];
+			return local.VariableType;
 		}
 
-		private Type VisitMethod(MethodBase method) {
-			if (method.IsConstructor)
+		private TypeReference VisitMethod(MethodReference method) {
+			var def = method.Resolve();
+			if (def.IsConstructor)
 				return method.DeclaringType;
-			MethodInfo mi = method as MethodInfo;
-			return mi.ReturnType;
+			return def.ReturnType.ReturnType;
 		}
 
 	}

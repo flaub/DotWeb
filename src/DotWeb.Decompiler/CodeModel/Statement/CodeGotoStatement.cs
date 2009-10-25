@@ -16,16 +16,14 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeGotoStatement : CodeStatement
 	{
-		public CodeGotoStatement(string label) {
-			this.Label = label;
+		public CodeGotoStatement(Instruction target) {
+			this.Target = target;
 		}
 
 		#region Visitor Pattern
@@ -38,6 +36,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public string Label { get; set; }
+		public Instruction Target { get; set; }
 	}
 }

@@ -19,12 +19,13 @@ using System;
 using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 using DotWeb.Decompiler.Core;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler
 {
 	public static class MethodDecompiler
 	{
-		public static CodeMethodMember Parse(MethodBase method) {
+		public static CodeMethodMember Parse(MethodDefinition method) {
 			Console.WriteLine(method);
 
 			var cfg = new ControlFlowGraph(method);
@@ -36,18 +37,19 @@ namespace DotWeb.Decompiler
 			var be = new BackEnd(cfg);
 			be.WriteCode();
 
-			AssociatedProperty ap = method.GetAssociatedProperty();
-			if (ap != null) {
-				if (ap.IsGetter) {
-					return new CodePropertyGetterMember(be.Method) {
-						PropertyInfo = ap.Info
-					};
-				}
+			// FIXME!
+			//AssociatedProperty ap = method.GetAssociatedProperty();
+			//if (ap != null) {
+			//    if (ap.IsGetter) {
+			//        return new CodePropertyGetterMember(be.Method) {
+			//            PropertyInfo = ap.Info
+			//        };
+			//    }
 
-				return new CodePropertySetterMember(be.Method) {
-					PropertyInfo = ap.Info
-				};
-			}
+			//    return new CodePropertySetterMember(be.Method) {
+			//        PropertyInfo = ap.Info
+			//    };
+			//}
 
 			return be.Method;
 		}

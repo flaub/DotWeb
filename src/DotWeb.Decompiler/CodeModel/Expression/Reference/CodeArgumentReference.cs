@@ -19,13 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeArgumentReference : CodeExpression
 	{
-		public CodeArgumentReference(ParameterInfo arg) {
+		public CodeArgumentReference(ParameterDefinition arg) {
 			this.Argument = arg;
 		}
 
@@ -39,6 +39,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public ParameterInfo Argument { get; set; }
+		public ParameterDefinition Argument { get; set; }
 	}
 }

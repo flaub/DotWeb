@@ -16,9 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
@@ -35,6 +33,6 @@ namespace DotWeb.Decompiler.CodeModel
 		#endregion
 
 		public CodeExpression SizeExpression { get; set; }
-		public Type Type { get; set; }
+		public TypeReference Type { get; set; }
 	}
 }

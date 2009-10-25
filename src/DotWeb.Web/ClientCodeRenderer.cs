@@ -30,6 +30,8 @@ using DotWeb.Web.Properties;
 using System.Runtime.Remoting.Messaging;
 using DotWeb.Runtime;
 using System.Reflection;
+using Mono.Cecil;
+using DotWeb.Utility;
 
 namespace DotWeb.Web
 {
@@ -76,35 +78,38 @@ namespace DotWeb.Web
 		}
 
 		private string Translate() {
-			Type srcType = Type.GetType(Source);
-			string typeName = srcType.FullName;
-			string filename = typeName
+			var aqtn = new AssemblyQualifiedTypeName(Source);
+			string filename = aqtn.TypeName
 			                  	.Replace('.', '_')
 			                  	.Replace('+', '_') + ".js";
-			var uri = new Uri(srcType.Assembly.CodeBase);
-			string srcPath = uri.AbsolutePath;
+
 			string virtualPath = string.Format("{0}/{1}", CacheDir, filename);
 			string tgtPath = context.MapPath(virtualPath);
 
 			using (var writer = new StreamWriter(tgtPath)) {
 				var translator = new TranslationEngine(writer, true);
-				translator.TranslateType(srcType);
+				var resolver = new DefaultAssemblyResolver();
+				var asm = resolver.Resolve(aqtn.AssemblyName.FullName);
+				var typeDef = asm.MainModule.Types[aqtn.TypeName];
+				translator.TranslateType(typeDef);
 			}
 
 			string src = context.ResolveUrl(virtualPath);
 
-			if (EnableCache) {
-				Cache cache = context.Cache;
-				var depends = new CacheDependency(srcPath);
-				cache.Add(
-					Source,
-					src,
-					depends,
-					Cache.NoAbsoluteExpiration,
-					Cache.NoSlidingExpiration,
-					CacheItemPriority.Normal,
-					null);
-			}
+			//if (EnableCache) {
+			//    Cache cache = context.Cache;
+			//    var uri = new Uri(srcType.Assembly.CodeBase);
+			//    string srcPath = uri.AbsolutePath;
+			//    var depends = new CacheDependency(srcPath);
+			//    cache.Add(
+			//        Source,
+			//        src,
+			//        depends,
+			//        Cache.NoAbsoluteExpiration,
+			//        Cache.NoSlidingExpiration,
+			//        CacheItemPriority.Normal,
+			//        null);
+			//}
 			return src;
 		}
 

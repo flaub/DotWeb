@@ -20,13 +20,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeParameterDeclarationExpression : CodeExpression
 	{
-		public CodeParameterDeclarationExpression(ParameterInfo pi) {
-			Info = pi;
+		public CodeParameterDeclarationExpression(ParameterDefinition def) {
+			Definition = def;
 		}
 
 		#region Visitor Pattern
@@ -39,7 +40,7 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public ParameterInfo Info { get; set; }
-		public string Name { get { return Info.Name; } }
+		public ParameterDefinition Definition { get; set; }
+		public string Name { get { return Definition.Name; } }
 	}
 }

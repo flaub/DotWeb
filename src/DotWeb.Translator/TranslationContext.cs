@@ -20,11 +20,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using DotWeb.Translator.Generator.JavaScript;
-using System.Reflection;
 using DotWeb.Client;
 using DotWeb.Utility;
 using DotWeb.Decompiler.CodeModel;
 using DotWeb.Decompiler;
+using Mono.Cecil;
 
 namespace DotWeb.Translator
 {
@@ -39,9 +39,9 @@ namespace DotWeb.Translator
 			this.generator = generator;
 		}
 
-		public void GenerateMethod(MethodBase method, bool followDependencies) {
+		public void GenerateMethod(MethodDefinition method, bool followDependencies) {
 			if (followDependencies) {
-				GenerateMethod(method, new List<Type>(), new List<MethodBase>(), new List<string>());
+				GenerateMethod(method, new List<TypeDefinition>(), new List<MethodDefinition>(), new List<string>());
 			}
 			else {
 				var parsedMethod = Parse(method);
@@ -49,49 +49,50 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private MethodBase FindCorrespondingMethodFrom(MethodBase method, Type type) {
-			var args = method.GetParameters();
-			var types = args.Select(x => x.ParameterType).ToArray();
+		//private MethodBase FindCorrespondingMethodFrom(MethodDefinition method, Type type) {
+		//    var args = method.GetParameters();
+		//    var types = args.Select(x => x.ParameterType).ToArray();
 
-			if (method is ConstructorInfo) {
-				return type.GetConstructor(types);
-			}
+		//    if (method is ConstructorInfo) {
+		//        return type.GetConstructor(types);
+		//    }
 
-			//MethodInfo info = (MethodInfo)method;
-			//if (info.IsGenericMethod) {
-			//    method = info.GetGenericMethodDefinition();
-			//    args = method.GetParameters();
-			//    types = args.Select(x => x.ParameterType).ToArray();
+		//    //MethodInfo info = (MethodInfo)method;
+		//    //if (info.IsGenericMethod) {
+		//    //    method = info.GetGenericMethodDefinition();
+		//    //    args = method.GetParameters();
+		//    //    types = args.Select(x => x.ParameterType).ToArray();
+		//    //}
+
+		//    return type.GetMethod(method.Name, types);
+		//}
+
+		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache, List<string> namespaceCache) {
+			//var type = method.DeclaringType;
+			//if (type.FullName.StartsWith("System.")) {
+			//    var newTypeName = string.Format("DotWeb.Client.{0}, DotWeb.Client", type.FullName);
+			//    type = Type.GetType(newTypeName);
+			//    if(type == null)
+			//        throw new NullReferenceException(string.Format("Could not find type: {0}", method.DeclaringType));
+
+			//    var found = FindCorrespondingMethodFrom(method, type);
+			//    if (found == null)
+			//        throw new NullReferenceException(string.Format("Could not find method: {0} on {1}", method, method.DeclaringType));
+
+			//    method = found;
 			//}
-
-			return type.GetMethod(method.Name, types);
-		}
-
-		private void GenerateMethod(MethodBase method, List<Type> typesCache, List<MethodBase> methodsCache, List<string> namespaceCache) {
-			var type = method.DeclaringType;
-			if (type.FullName.StartsWith("System.")) {
-				var newTypeName = string.Format("DotWeb.Client.{0}, DotWeb.Client", type.FullName);
-				type = Type.GetType(newTypeName);
-				if(type == null)
-					throw new NullReferenceException(string.Format("Could not find type: {0}", method.DeclaringType));
-
-				var found = FindCorrespondingMethodFrom(method, type);
-				if (found == null)
-					throw new NullReferenceException(string.Format("Could not find method: {0} on {1}", method, method.DeclaringType));
-
-				method = found;
-			}
 
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
-				if (IsEmittable(external)) {
-					if (!methodsCache.Contains(external)) {
-						GenerateMethod(external, typesCache, methodsCache, namespaceCache);
+				var def = external.Resolve();
+				if (IsEmittable(def)) {
+					if (!methodsCache.Contains(def)) {
+						GenerateMethod(def, typesCache, methodsCache, namespaceCache);
 					}
 				}
 			}
 
-			//var type = parsedMethod.Info.DeclaringType;
+			var type = parsedMethod.Definition.DeclaringType;
 			GenerateTypeDecl(type, typesCache, namespaceCache);
 
 			this.generator.Write(parsedMethod);
@@ -117,7 +118,7 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateNamespace(Type type, List<string> namespaceCache) {
+		private void GenerateNamespace(TypeDefinition type, List<string> namespaceCache) {
 			string ns = JsPrinter.GetNamespace(type);
 			if (!string.IsNullOrEmpty(ns)) {
 				//GenerateNamespace(type.Namespace, namespaceCache);
@@ -129,9 +130,9 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateTypeDecl(Type type, List<Type> typesCache, List<string> namespaceCache) {
+		private void GenerateTypeDecl(TypeDefinition type, List<TypeDefinition> typesCache, List<string> namespaceCache) {
 			if (!typesCache.Contains(type)) {
-				Type baseType = type.BaseType;
+				var baseType = type.BaseType.Resolve();
 				if (IsEmittable(baseType)) {
 					GenerateTypeDecl(baseType, typesCache, namespaceCache);
 				}
@@ -142,7 +143,7 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private CodeMethodMember Parse(MethodBase method) {
+		private CodeMethodMember Parse(MethodDefinition method) {
 			// FIXME:
 			//JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
 			//if (js != null) {
@@ -154,37 +155,37 @@ namespace DotWeb.Translator
 			return MethodDecompiler.Parse(method);
 		}
 
-		private void ValidateJsAnonymousType(Type type) {
-			// two things to check for:
-			// 1. Properties may only be auto-implemented
-			// 2. Methods are not allowed
+		//private void ValidateJsAnonymousType(Type type) {
+		//    // two things to check for:
+		//    // 1. Properties may only be auto-implemented
+		//    // 2. Methods are not allowed
 
-			foreach (var method in type.GetMethods(BindingFlagsForMembers)) {
-				var ap = method.GetAssociatedProperty();
-				if (ap == null) {
-					// FIXME: exceptions
-					//throw new InvalidAnonymousUsageException(type);
-				}
+		//    foreach (var method in type.GetMethods(BindingFlagsForMembers)) {
+		//        var ap = method.GetAssociatedProperty();
+		//        if (ap == null) {
+		//            // FIXME: exceptions
+		//            //throw new InvalidAnonymousUsageException(type);
+		//        }
 
-				var cmm = Parse(method);
-				if (ap.IsGetter) {
-					var getter = (CodePropertyGetterMember)cmm;
-					if (!getter.IsAutoImplemented()) {
-						// FIXME: exceptions
-						//throw new InvalidAnonymousUsageException(type);
-					}
-				}
-				else {
-					var setter = (CodePropertySetterMember)cmm;
-					if (!setter.IsAutoImplemented()) {
-						// FIXME: exceptions
-						//throw new InvalidAnonymousUsageException(type);
-					}
-				}
-			}
-		}
+		//        var cmm = Parse(method);
+		//        if (ap.IsGetter) {
+		//            var getter = (CodePropertyGetterMember)cmm;
+		//            if (!getter.IsAutoImplemented()) {
+		//                // FIXME: exceptions
+		//                //throw new InvalidAnonymousUsageException(type);
+		//            }
+		//        }
+		//        else {
+		//            var setter = (CodePropertySetterMember)cmm;
+		//            if (!setter.IsAutoImplemented()) {
+		//                // FIXME: exceptions
+		//                //throw new InvalidAnonymousUsageException(type);
+		//            }
+		//        }
+		//    }
+		//}
 
-		private bool IsEmittable(Type type) {
+		private bool IsEmittable(TypeDefinition type) {
 			// FIXME: need a better way to filter out mscorlib, et. al.
 //			if (type.Namespace != null && type.Namespace.StartsWith("System"))
 //				return false;
@@ -192,15 +193,15 @@ namespace DotWeb.Translator
 			if (type.IsInterface)
 				return false;
 
-			if (type == typeof(object))
-				return false;
+			//if (type == typeof(object))
+			//    return false;
 
 			// FIXME:
 			//if (type.IsSubclassOf(typeof(JsNativeBase)))
 			//    return false;
 
-			if (type.IsSubclassOf(typeof(Delegate)))
-				return false;
+			//if (type.IsSubclassOf(typeof(Delegate)))
+			//    return false;
 
 			if (type.IsAnonymous()) {
 				// FIXME:
@@ -213,17 +214,17 @@ namespace DotWeb.Translator
 			return true;
 		}
 
-		private bool IsEmittable(MethodBase method) {
+		private bool IsEmittable(MethodDefinition method) {
 			var type = method.DeclaringType;
 			return IsEmittable(type);
 		}
 
-		const BindingFlags BindingFlagsForMembers =
-			BindingFlags.DeclaredOnly |
-			BindingFlags.Public |
-			BindingFlags.NonPublic |
-			BindingFlags.Instance |
-			BindingFlags.Static;
+		//const BindingFlags BindingFlagsForMembers =
+		//    BindingFlags.DeclaredOnly |
+		//    BindingFlags.Public |
+		//    BindingFlags.NonPublic |
+		//    BindingFlags.Instance |
+		//    BindingFlags.Static;
 
 	}
 }
