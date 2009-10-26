@@ -294,9 +294,9 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			var targetObject = GetTargetObject(method, il);
 			var args = method.Parameters;
 			if (args.Count == 0) {
+				var targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
 				vm.Stack.Push(expr);
@@ -304,16 +304,16 @@ namespace DotWeb.Decompiler.Core
 			else {
 				CodeIndexerExpression expr = new CodeIndexerExpression();
 				CollectArgs(args, expr.Indices);
-				expr.TargetObject = targetObject;
+				expr.TargetObject = GetTargetObject(method, il);
 				vm.Stack.Push(expr);
 			}
 		}
 
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			var targetObject = GetTargetObject(method, il);
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				CodeExpression rhs = vm.Stack.Pop();
+				var targetObject = GetTargetObject(method, il);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
 	
@@ -325,7 +325,7 @@ namespace DotWeb.Decompiler.Core
 				CollectArgs(args, lhs.Indices);
 				CodeExpression rhs = lhs.Indices[lhs.Indices.Count - 1];
 				lhs.Indices.Remove(rhs);
-				lhs.TargetObject = targetObject;
+				lhs.TargetObject = GetTargetObject(method, il);
 				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
 				AddStatment(stmt, il);
 			}
@@ -435,11 +435,11 @@ namespace DotWeb.Decompiler.Core
 			vm.Stack.Push(expr);
 		}
 
-		private int[] StructAsInt32Array(object data) {
-			int size = Marshal.SizeOf(data);
-			int[] array = new int[size / sizeof(int)];
+		private int[] ConvertInitialValue(byte[] data) {
+			int elementSize = Marshal.SizeOf(typeof(int));
+			var array = new int[data.Length / elementSize];
 			for (int i = 0; i < array.Length; i++) {
-				array[i] = Marshal.ReadInt32(data, i * sizeof(int));
+				array[i] = BitConverter.ToInt32(data, i * elementSize);
 			}
 			return array;
 		}
@@ -450,8 +450,7 @@ namespace DotWeb.Decompiler.Core
 				var def = fi.Resolve();
 				if (def.IsStatic) {
 					// FIXME: filter this for only int[] initialization
-					object value = def.Constant;
-					int[] array = StructAsInt32Array(value);
+					int[] array = ConvertInitialValue(def.InitialValue);
 					CodePrimitiveExpression expr = new CodePrimitiveExpression(array);
 					vm.Stack.Push(expr);
 					return;

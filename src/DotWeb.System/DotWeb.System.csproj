@@ -36,11 +36,14 @@
     <Compile Include="Action.cs" />
     <Compile Include="Array.cs" />
     <Compile Include="Attribute.cs" />
+    <Compile Include="Collections\Generic\EqualityComparer.cs" />
     <Compile Include="Collections\IEnumerable.cs" />
     <Compile Include="Collections\IEnumerator.cs" />
+    <Compile Include="Collections\IEqualityComparer.cs" />
     <Compile Include="Console.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
+    <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
     <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsCodeAttribute.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Reflection\DefaultMemberAttribute.cs" />
     <Compile Include="RuntimeFieldHandle.cs" />
     <Compile Include="RuntimeTypeHandle.cs" />
+    <Compile Include="Runtime\CompilerServices\CompilerGeneratedAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\MethodImplAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />
     <Compile Include="Runtime\InteropServices\ComVisibleAttribute.cs" />
@@ -74,6 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="plan.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

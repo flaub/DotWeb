@@ -37,19 +37,18 @@ namespace DotWeb.Decompiler
 			var be = new BackEnd(cfg);
 			be.WriteCode();
 
-			// FIXME!
-			//AssociatedProperty ap = method.GetAssociatedProperty();
-			//if (ap != null) {
-			//    if (ap.IsGetter) {
-			//        return new CodePropertyGetterMember(be.Method) {
-			//            PropertyInfo = ap.Info
-			//        };
-			//    }
+			AssociatedProperty ap = method.GetAssociatedProperty();
+			if (ap != null) {
+				if (ap.IsGetter) {
+					return new CodePropertyGetterMember(be.Method) {
+						Property = ap.Definition
+					};
+				}
 
-			//    return new CodePropertySetterMember(be.Method) {
-			//        PropertyInfo = ap.Info
-			//    };
-			//}
+				return new CodePropertySetterMember(be.Method) {
+					Property = ap.Definition
+				};
+			}
 
 			return be.Method;
 		}

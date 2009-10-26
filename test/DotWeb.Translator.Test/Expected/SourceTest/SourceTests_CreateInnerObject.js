@@ -35,7 +35,7 @@ System.Console = function() {
 };
 
 System.Console.WriteLine = function(format /*System.String*/, arg0 /*System.Object*/, arg1 /*System.Object*/) {
-	// nop
+	console.log(format);
 };
 
 H8.SourceTests = function() {

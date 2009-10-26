@@ -13,7 +13,7 @@ System.Console = function() {
 };
 
 System.Console.WriteLine = function(value /*System.Object*/) {
-	// nop
+	console.log(value);
 };
 
 H8.SourceTests = function() {

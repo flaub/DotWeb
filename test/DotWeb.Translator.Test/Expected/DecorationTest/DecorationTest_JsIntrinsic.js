@@ -13,7 +13,7 @@ System.Console = function() {
 };
 
 System.Console.Write = function(value /*System.Int32*/) {
-	// nop
+	console.log(value);
 };
 
 $Namespace('DotWeb.Client');

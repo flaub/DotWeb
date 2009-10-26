@@ -12,7 +12,7 @@ namespace System
 	[UseSystem]
 	public class String
 	{
-		public extern int Length { get; private set; }
+		public int Length { get; private set; }
 
 		public extern static ThisType Format(string format, params object[] args);
 

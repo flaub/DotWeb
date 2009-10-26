@@ -20,6 +20,7 @@ using System.Linq;
 using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil;
 using System.Diagnostics;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler
 {
@@ -79,9 +80,8 @@ namespace DotWeb.Decompiler
 
 		public TypeReference VisitReturn(CodePrimitiveExpression obj) {
 			var primitiveType = obj.Value.GetType();
-//			return obj.Value.GetType();
-			Debug.Assert(false);
-			return null;
+			var ret = TypeHelper.GetTypeDefinition(primitiveType);
+			return ret;
 		}
 
 		public TypeReference VisitReturn(CodeTypeReference obj) {

@@ -70,6 +70,11 @@ namespace DotWeb.Decompiler.Core
 			if (cil.OpCode.OperandType == OperandType.InlineNone &&
 				cil.OpCode.OpCodeType == OpCodeType.Macro)
 				return cil.ResolveMacroValue();
+
+			var variable = cil.Operand as VariableDefinition;
+			if (variable != null) {
+				return variable.Index;
+			}
 			return cil.Operand;
 		}
 

@@ -129,8 +129,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 			CodePrimitiveExpression cpe = stmt.Right as CodePrimitiveExpression;
 			if (cpe != null) {
 				var evaluator = new CodeTypeEvaluator(this.currentMethod.Definition);
-				var type = evaluator.Evaluate(stmt.Left);
-				object target = Convert.ChangeType(cpe.Value, type.GetReflectionType());
+				var typeRef = evaluator.Evaluate(stmt.Left);
+				var reflectionType = TypeHelper.GetReflectionType(typeRef);
+				object target = Convert.ChangeType(cpe.Value, reflectionType);
 				rhs = this.printer.PrintLiteral(target);
 			}
 			else {
@@ -212,16 +213,16 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#endregion
 
 		public void WriteTypeConstructor(TypeDefinition type) {
-			if(type.IsAnonymous())
+			if(AttributeHelper.IsAnonymous(type))
 				return;
 
 			string typeName = Print(type);
 			
-			bool isNative = false;// FIXME: type.IsSubclassOf(typeof(JsNativeBase));
-			if (isNative) {
-				WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
-				this.writer.Indent++;
-			}
+			//bool isNative = false;// FIXME: type.IsSubclassOf(typeof(JsNativeBase));
+			//if (isNative) {
+			//    WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
+			//    this.writer.Indent++;
+			//}
 
 			WriteLine("{0} = function() {{", typeName);
 			bool hasBase = type.HasBase();
@@ -237,10 +238,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 				WriteLine("{0}.$extend({1});", typeName, Print(type.BaseType));
 			}
 
-			if (isNative) {
-				this.writer.Indent--;
-				WriteLine("}}");
-			}
+			//if (isNative) {
+			//    this.writer.Indent--;
+			//    WriteLine("}}");
+			//}
 
 			WriteLine();
 		}
@@ -317,7 +318,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertyGetterMember method) {
-			if (method.Property.IsIntrinsic()) {
+			if (AttributeHelper.IsIntrinsic(method.Property)) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo.DeclaringType.ToString(), method.PropertyInfo.ToString());
@@ -331,7 +332,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertySetterMember method) {
-			if (method.Property.IsIntrinsic()) {
+			if (AttributeHelper.IsIntrinsic(method.Property)) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo);

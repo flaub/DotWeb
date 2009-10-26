@@ -22,35 +22,25 @@ using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 using Mono.Cecil;
 using System.Diagnostics;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator
 {
-	public static class TypeOf
-	{
-		public static TypeDefinition Convert(Type type) {
-			return null;
-		}
-	}
-
 	static class CodeModelExtensions
 	{
 		public static bool HasBase(this TypeDefinition type) {
-			//if (type.BaseType == typeof(object) /* FIXME: ||
-			//	type.BaseType == typeof(JsNativeBase)*/) {
-			//	return false;
-			//}
-			//return true;
-			return false;
+			if (TypeHelper.IsEquivalent(type.BaseType, typeof(object)) ||
+				TypeHelper.IsEquivalent(type.BaseType, TypeHelper.Names.JsObject))
+				return false;
+			return true;
 		}
 
 		public static bool IsFieldLike(this CodePropertyReference cpr) {
-			Debug.Assert(false);
-			return false;
-			//return
-			//    cpr.Property.IsIntrinsic() ||
-			//    cpr.Property.DeclaringType.IsAnonymous() /* FIXME: ||
-			//    cpr.Property.DeclaringType.IsSubclassOf(typeof(JsNativeBase))*/
-			//;
+			return
+				AttributeHelper.IsIntrinsic(cpr.Property) ||
+				AttributeHelper.IsAnonymous(cpr.Property.DeclaringType) ||
+				TypeHelper.IsSubclassOf(cpr.Property.DeclaringType, TypeHelper.Names.JsObject)
+			;
 		}
 
 		private static bool IsAutoImplemented(CodeFieldReference field, PropertyDefinition property) {
@@ -90,38 +80,6 @@ namespace DotWeb.Translator
 				}
 			}
 			return false;
-		}
-
-		public static bool HasJsCode(this MethodDefinition method) {
-//			FIXME: return method.IsDefined(typeof(JsCodeAttribute), false);
-			return false;
-		}
-
-		public static bool IsAnonymous(this TypeReference type) {
-			//FIXME: return type.IsDefined(typeof(JsAnonymousAttribute), false);
-//			TypeReference typeRef = new TypeReference(name, ns, scope, valueType);
-			return false;
-		}
-
-		public static bool IsSubclassOf(this TypeReference type, TypeReference other) {
-			Debug.Assert(false);
-			return false;
-		}
-
-		public static bool IsDefined(this TypeDefinition type, TypeReference attributeType) {
-			foreach (CustomAttribute item in type.CustomAttributes) {
-				if (item.Constructor.DeclaringType == attributeType)
-					return true;
-			}
-			return false;
-		}
-
-		public static bool IsIntrinsic(this PropertyReference pi) {
-			return false;
-			// FIXME:
-			//return
-			//    pi.IsDefined(typeof(JsIntrinsicAttribute), false) ||
-			//    pi.DeclaringType.IsDefined(typeof(JsIntrinsicAttribute), false);
 		}
 
 		private static string GetAutomaticBackingFieldName(PropertyDefinition property) {

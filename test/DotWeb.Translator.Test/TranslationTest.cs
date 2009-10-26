@@ -107,6 +107,10 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void AnonymousType() {
+			var value = new {
+				Key = "Hi",
+				Value = 1
+			};
 			this.TestMethod(this.sourceTestsCompiledType, "AnonymousType", Resources.SourceTests_AnonymousType, true);
 		}
 

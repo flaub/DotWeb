@@ -1,7 +1,7 @@
 ﻿__f__AnonymousType0$2 = function() {
 };
 
-__f__AnonymousType0$2.prototype.$ctor = function(Key /*System.String*/, Value /*System.Int32*/) {
+__f__AnonymousType0$2.prototype.$ctor = function(Key /*_Key_j__TPar*/, Value /*_Value_j__TPar*/) {
 	this._Key_i__Field = Key;
 	this._Value_i__Field = Value;
 	return this;
@@ -29,7 +29,7 @@ System.Console = function() {
 };
 
 System.Console.WriteLine = function(format /*System.String*/, arg0 /*System.Object*/, arg1 /*System.Object*/) {
-	// nop
+	console.log(format);
 };
 
 $Namespace('H8');

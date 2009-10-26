@@ -592,11 +592,11 @@ namespace H8
 		}
 
 		public void AnonymousType() {
-			//var value = new {
-			//	Key = "Hi",
-			//	Value = 1
-			//};
-//			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
+			var value = new {
+				Key = "Hi",
+				Value = 1
+			};
+			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
 		}
 
 		public void CallDerived() {

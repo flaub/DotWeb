@@ -2,9 +2,11 @@
 
 #if HOSTED_MODE
 using DotWeb.System.DotWeb;
+using DotWeb.System.Runtime.InteropServices;
 namespace DotWeb.System
 #else
 using System.DotWeb;
+using System.Runtime.InteropServices;
 namespace System
 #endif
 {
@@ -57,5 +59,17 @@ namespace System
 		public AttributeTargets ValidOn { get; set; }
 		public bool AllowMultiple { get; set; }
 		public bool Inherited { get; set; }
+	}
+
+	[AttributeUsage(
+		AttributeTargets.Delegate |
+		AttributeTargets.Enum |
+		AttributeTargets.Struct |
+		AttributeTargets.Class,
+		Inherited = false)]
+	[ComVisible(true)]
+	public sealed class SerializableAttribute : SysAttribute
+	{
+		public SerializableAttribute() { }
 	}
 }

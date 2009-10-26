@@ -24,6 +24,7 @@ using DotWeb.Utility;
 using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
@@ -109,11 +110,19 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#region Helpers
 
 		public static string GetNamespace(TypeReference type) {
-			// FIXME:
-			//JsNamespaceAttribute jsNamespace = type.GetCustomAttribute<JsNamespaceAttribute>();
-			//if (jsNamespace != null)
-			//    return jsNamespace.Namespace;
-			return type.Namespace;
+			string jsNamespace = AttributeHelper.GetJsNamespace(type);
+			if (jsNamespace != null)
+				return jsNamespace;
+
+			// This is to fix a problem with Mono.Cecil, nested types don't return
+			// the namespace correctly.
+			string ret = null;
+			var nextType = type;
+			while (nextType != null) {
+				ret = nextType.Namespace;
+				nextType = nextType.DeclaringType;
+			}
+			return ret;
 		}
 
 		public string Print(CodeExpression expr) {
@@ -158,7 +167,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string EncodeName(string name) {
-			return name.Replace("<", "_").Replace(">", "_");
+			return name.Replace("<", "_").Replace(">", "_").Replace("`", "$");
 		}
 
 		public string PrintArray(Array array) {
@@ -307,7 +316,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeArrayCreateExpression exp) {
-			if (exp.Type.IsAnonymous()) {
+			if (AttributeHelper.IsAnonymous(exp.Type)) {
 				return "[]";
 			}
 			string size = Print(exp.SizeExpression);
@@ -315,8 +324,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {
-			var delegateType = TypeOf.Convert(typeof(Delegate));
-			if (exp.Type.IsSubclassOf(delegateType)) {
+			var delegateType = TypeHelper.GetTypeDefinition(typeof(Delegate));
+			if (TypeHelper.IsSubclassOf(exp.Type, delegateType)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
 				string methodName = methodRef.Reference.Name;
 				string targetObject = Print(exp.Parameters[0]);
@@ -324,13 +333,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 					targetObject = Print(methodRef.TargetObject);
 				return string.Format("$Delegate({0}, {0}.{1})", targetObject, EncodeName(methodName));
 			}
-			if (exp.Type.IsAnonymous()) {
+			if (AttributeHelper.IsAnonymous(exp.Type)) {
 				return "{}";
 			}
-			// FIXME:
-			//if (exp.Type.IsSubclassOf(typeof(JsNativeBase))) {
-			//    return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
-			//}
+			if (TypeHelper.IsSubclassOf(exp.Type, "System.DotWeb.JsObject")) {
+				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
+			}
 
 			return string.Format("new {0}().{1}({2})", Print(exp.Type), CtorMethodName, Print(exp.Parameters));
 		}

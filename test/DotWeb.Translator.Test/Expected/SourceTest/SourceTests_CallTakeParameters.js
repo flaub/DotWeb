@@ -3,8 +3,8 @@
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value /*System.Object*/) {
-	// nop
+System.Console.WriteLine = function(value /*System.String*/) {
+	console.log(value);
 };
 
 System.Math = function() {
@@ -25,12 +25,12 @@ H8.SourceTests = function() {
 
 H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
 	System.Console.WriteLine(str);
-	var loc0 = System.Math.Sin(rad[value] * 1.5707963267949);
+	var loc0 = System.Math.Sin(rad[value] * 1.570795);
 	return System.Math.Cos(loc0);
 };
 
 System.Console.WriteLine = function(value /*System.Object*/) {
-	// nop
+	console.log(value);
 };
 
 H8.SourceTests.prototype.CallTakeParameters = function() {

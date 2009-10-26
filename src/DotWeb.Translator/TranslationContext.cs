@@ -25,6 +25,7 @@ using DotWeb.Utility;
 using DotWeb.Decompiler.CodeModel;
 using DotWeb.Decompiler;
 using Mono.Cecil;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator
 {
@@ -49,39 +50,7 @@ namespace DotWeb.Translator
 			}
 		}
 
-		//private MethodBase FindCorrespondingMethodFrom(MethodDefinition method, Type type) {
-		//    var args = method.GetParameters();
-		//    var types = args.Select(x => x.ParameterType).ToArray();
-
-		//    if (method is ConstructorInfo) {
-		//        return type.GetConstructor(types);
-		//    }
-
-		//    //MethodInfo info = (MethodInfo)method;
-		//    //if (info.IsGenericMethod) {
-		//    //    method = info.GetGenericMethodDefinition();
-		//    //    args = method.GetParameters();
-		//    //    types = args.Select(x => x.ParameterType).ToArray();
-		//    //}
-
-		//    return type.GetMethod(method.Name, types);
-		//}
-
 		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache, List<string> namespaceCache) {
-			//var type = method.DeclaringType;
-			//if (type.FullName.StartsWith("System.")) {
-			//    var newTypeName = string.Format("DotWeb.Client.{0}, DotWeb.Client", type.FullName);
-			//    type = Type.GetType(newTypeName);
-			//    if(type == null)
-			//        throw new NullReferenceException(string.Format("Could not find type: {0}", method.DeclaringType));
-
-			//    var found = FindCorrespondingMethodFrom(method, type);
-			//    if (found == null)
-			//        throw new NullReferenceException(string.Format("Could not find method: {0} on {1}", method, method.DeclaringType));
-
-			//    method = found;
-			//}
-
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
 				var def = external.Resolve();
@@ -99,29 +68,9 @@ namespace DotWeb.Translator
 			methodsCache.Add(method);
 		}
 
-		private void GenerateNamespace(string name, List<string> namespaceCache) {
-			StringBuilder sb = new StringBuilder();
-			string[] parts = name.Split('.');
-			foreach (string part in parts) {
-				if (sb.Length > 0) {
-					sb.Append(".");
-				}
-				sb.Append(part);
-
-				string namespacePart = sb.ToString();
-
-				if (!namespaceCache.Contains(namespacePart)) {
-					CodeNamespace ns = new CodeNamespace { Name = namespacePart };
-					this.generator.WriteNamespaceDecl(ns);
-					namespaceCache.Add(namespacePart);
-				}
-			}
-		}
-
 		private void GenerateNamespace(TypeDefinition type, List<string> namespaceCache) {
 			string ns = JsPrinter.GetNamespace(type);
 			if (!string.IsNullOrEmpty(ns)) {
-				//GenerateNamespace(type.Namespace, namespaceCache);
 				if (!namespaceCache.Contains(ns)) {
 					CodeNamespace cns = new CodeNamespace { Name = ns };
 					this.generator.WriteNamespaceDecl(cns);
@@ -144,14 +93,13 @@ namespace DotWeb.Translator
 		}
 
 		private CodeMethodMember Parse(MethodDefinition method) {
-			// FIXME:
-			//JsCodeAttribute js = method.GetCustomAttribute<JsCodeAttribute>();
-			//if (js != null) {
-			//    var ret = new CodeMethodMember(method) {
-			//        NativeCode = js.Code
-			//    };
-			//    return ret;
-			//}
+			string jsCode = AttributeHelper.GetJsCode(method);
+			if (jsCode != null) {
+				var ret = new CodeMethodMember(method) {
+					NativeCode = jsCode
+				};
+				return ret;
+			}
 			return MethodDecompiler.Parse(method);
 		}
 
@@ -186,24 +134,19 @@ namespace DotWeb.Translator
 		//}
 
 		private bool IsEmittable(TypeDefinition type) {
-			// FIXME: need a better way to filter out mscorlib, et. al.
-//			if (type.Namespace != null && type.Namespace.StartsWith("System"))
-//				return false;
-
 			if (type.IsInterface)
 				return false;
 
-			//if (type == typeof(object))
-			//    return false;
+			if (TypeHelper.IsEquivalent(type, typeof(object)))
+				return false;
 
-			// FIXME:
-			//if (type.IsSubclassOf(typeof(JsNativeBase)))
-			//    return false;
+			if (TypeHelper.IsSubclassOf(type, TypeHelper.Names.JsObject))
+				return false;
 
-			//if (type.IsSubclassOf(typeof(Delegate)))
-			//    return false;
+			if (TypeHelper.IsSubclassOf(type, TypeHelper.Names.Delegate))
+				return false;
 
-			if (type.IsAnonymous()) {
+			if (AttributeHelper.IsAnonymous(type)) {
 				// FIXME:
 				//if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
 				//    ValidateJsAnonymousType(type);
