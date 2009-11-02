@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.grid {
@@ -15,27 +16,27 @@ namespace Ext.grid {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public GridView() { C_(); }
+		public extern GridView();
 		/// <summary></summary>
 		/// <param name="config"></param>
 		/// <returns></returns>
-		public GridView(object config) { C_(config); }
+		public extern GridView(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static GridView prototype { get { return S_<GridView>(); } set { S_(value); } }
+		public extern static GridView prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>True to add a second TR element per row that can be used to provide a row bodythat spans beneath the data row.  Use the {@link #getRowClass} method's rowParams config to customize the row body.</summary>
-		public bool enableRowBody { get { return _<bool>(); } set { _(value); } }
+		public extern bool enableRowBody { get; set; }
 
 		/// <summary>Default text to display in the grid body when no rows are available (defaults to '').</summary>
-		public string emptyText { get { return _<string>(); } set { _(value); } }
+		public extern string emptyText { get; set; }
 
 		/// <summary>
 		///     <p><b>This will only be present if the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop}<b> <tt>true</tt></b>.</p>
@@ -43,43 +44,43 @@ namespace Ext.grid {
 		///     <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations of the
 		///     template methods of DragZone to enable dragging of the selected rows of a GridPanel. See {@link Ext.grid.GridDragZone} for details.</p>
 		/// </summary>
-		public Ext.grid.GridDragZone dragZone { get { return _<Ext.grid.GridDragZone>(); } set { _(value); } }
+		public extern Ext.grid.GridDragZone dragZone { get; set; }
 
 		/// <summary>True to defer emptyText being applied until the store's first load</summary>
-		public bool deferEmptyText { get { return _<bool>(); } set { _(value); } }
+		public extern bool deferEmptyText { get; set; }
 
 		/// <summary>The amount of space to reserve for the scrollbar (defaults to 19 pixels)</summary>
-		public double scrollOffset { get { return _<double>(); } set { _(value); } }
+		public extern double scrollOffset { get; set; }
 
 		/// <summary>True to auto expand the columns to fit the grid <b>when the grid is created</b>.</summary>
-		public bool autoFill { get { return _<bool>(); } set { _(value); } }
+		public extern bool autoFill { get; set; }
 
 		/// <summary>True to auto expand/contract the size of the columns to fit the grid width and prevent horizontal scrolling.</summary>
-		public bool forceFit { get { return _<bool>(); } set { _(value); } }
+		public extern bool forceFit { get; set; }
 
 		/// <summary>The CSS classes applied to a header when it is sorted. (defaults to ["sort-asc", "sort-desc"])</summary>
-		public System.Array sortClasses { get { return _<System.Array>(); } set { _(value); } }
+		public extern System.Array sortClasses { get; set; }
 
 		/// <summary>The text displayed in the "Sort Ascending" menu item</summary>
-		public string sortAscText { get { return _<string>(); } set { _(value); } }
+		public extern string sortAscText { get; set; }
 
 		/// <summary>The text displayed in the "Sort Descending" menu item</summary>
-		public string sortDescText { get { return _<string>(); } set { _(value); } }
+		public extern string sortDescText { get; set; }
 
 		/// <summary>The text displayed in the "Columns" menu item</summary>
-		public string columnsText { get { return _<string>(); } set { _(value); } }
+		public extern string columnsText { get; set; }
 
 		/// <summary>The number of levels to search for cells in event delegation (defaults to 4)</summary>
-		public double cellSelectorDepth { get { return _<double>(); } set { _(value); } }
+		public extern double cellSelectorDepth { get; set; }
 
 		/// <summary>The number of levels to search for rows in event delegation (defaults to 10)</summary>
-		public double rowSelectorDepth { get { return _<double>(); } set { _(value); } }
+		public extern double rowSelectorDepth { get; set; }
 
 		/// <summary>The selector used to find cells internally</summary>
-		public string cellSelector { get { return _<string>(); } set { _(value); } }
+		public extern string cellSelector { get; set; }
 
 		/// <summary>The selector used to find rows internally</summary>
-		public string rowSelector { get { return _<string>(); } set { _(value); } }
+		public extern string rowSelector { get; set; }
 
 
 		/// <summary>
@@ -97,7 +98,7 @@ namespace Ext.grid {
 		///     </ul>
 		/// </summary>
 		/// <returns>String</returns>
-		public virtual void getRowClass() { _(); }
+		public extern virtual void getRowClass();
 
 		/// <summary>
 		///     Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
@@ -115,7 +116,7 @@ namespace Ext.grid {
 		/// </summary>
 		/// <param name="record">The {@link Ext.data.Record} corresponding to the current row</param>
 		/// <returns>String</returns>
-		public virtual void getRowClass(Ext.data.Record record) { _(record); }
+		public extern virtual void getRowClass(Ext.data.Record record);
 
 		/// <summary>
 		///     Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
@@ -134,7 +135,7 @@ namespace Ext.grid {
 		/// <param name="record">The {@link Ext.data.Record} corresponding to the current row</param>
 		/// <param name="index">The row index</param>
 		/// <returns>String</returns>
-		public virtual void getRowClass(Ext.data.Record record, double index) { _(record, index); }
+		public extern virtual void getRowClass(Ext.data.Record record, double index);
 
 		/// <summary>
 		///     Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
@@ -154,7 +155,7 @@ namespace Ext.grid {
 		/// <param name="index">The row index</param>
 		/// <param name="rowParams">A config object that is passed to the row template during rendering that allows</param>
 		/// <returns>String</returns>
-		public virtual void getRowClass(Ext.data.Record record, double index, object rowParams) { _(record, index, rowParams); }
+		public extern virtual void getRowClass(Ext.data.Record record, double index, object rowParams);
 
 		/// <summary>
 		///     Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
@@ -175,113 +176,113 @@ namespace Ext.grid {
 		/// <param name="rowParams">A config object that is passed to the row template during rendering that allows</param>
 		/// <param name="store">The {@link Ext.data.Store} this grid is bound to</param>
 		/// <returns>String</returns>
-		public virtual void getRowClass(Ext.data.Record record, double index, object rowParams, Ext.data.Store store) { _(record, index, rowParams, store); }
+		public extern virtual void getRowClass(Ext.data.Record record, double index, object rowParams, Ext.data.Store store);
 
 		/// <summary>Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.</summary>
 		/// <returns>HtmlElement</returns>
-		public virtual void getRow() { _(); }
+		public extern virtual void getRow();
 
 		/// <summary>Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.</summary>
 		/// <param name="index">The row index</param>
 		/// <returns>HtmlElement</returns>
-		public virtual void getRow(double index) { _(index); }
+		public extern virtual void getRow(double index);
 
 		/// <summary>Returns the grid's &lt;TD> HtmlElement at the specified coordinates.</summary>
 		/// <returns>HtmlElement</returns>
-		public virtual void getCell() { _(); }
+		public extern virtual void getCell();
 
 		/// <summary>Returns the grid's &lt;TD> HtmlElement at the specified coordinates.</summary>
 		/// <param name="row">The row index in which to find the cell.</param>
 		/// <returns>HtmlElement</returns>
-		public virtual void getCell(double row) { _(row); }
+		public extern virtual void getCell(double row);
 
 		/// <summary>Returns the grid's &lt;TD> HtmlElement at the specified coordinates.</summary>
 		/// <param name="row">The row index in which to find the cell.</param>
 		/// <param name="col">The column index of the cell.</param>
 		/// <returns>HtmlElement</returns>
-		public virtual void getCell(double row, double col) { _(row, col); }
+		public extern virtual void getCell(double row, double col);
 
 		/// <summary>Return the &lt;TD> HtmlElement which represents the Grid's header cell for the specified column index.</summary>
 		/// <returns>HtmlElement</returns>
-		public virtual void getHeaderCell() { _(); }
+		public extern virtual void getHeaderCell();
 
 		/// <summary>Return the &lt;TD> HtmlElement which represents the Grid's header cell for the specified column index.</summary>
 		/// <param name="index">The column index</param>
 		/// <returns>HtmlElement</returns>
-		public virtual void getHeaderCell(double index) { _(index); }
+		public extern virtual void getHeaderCell(double index);
 
 		/// <summary>Scrolls the grid to the top</summary>
 		/// <returns></returns>
-		public virtual void scrollToTop() { _(); }
+		public extern virtual void scrollToTop();
 
 		/// <summary>Focuses the specified row.</summary>
 		/// <returns></returns>
-		public virtual void focusRow() { _(); }
+		public extern virtual void focusRow();
 
 		/// <summary>Focuses the specified row.</summary>
 		/// <param name="row">The row index</param>
 		/// <returns></returns>
-		public virtual void focusRow(double row) { _(row); }
+		public extern virtual void focusRow(double row);
 
 		/// <summary>Focuses the specified cell.</summary>
 		/// <returns></returns>
-		public virtual void focusCell() { _(); }
+		public extern virtual void focusCell();
 
 		/// <summary>Focuses the specified cell.</summary>
 		/// <param name="row">The row index</param>
 		/// <returns></returns>
-		public virtual void focusCell(double row) { _(row); }
+		public extern virtual void focusCell(double row);
 
 		/// <summary>Focuses the specified cell.</summary>
 		/// <param name="row">The row index</param>
 		/// <param name="col">The column index</param>
 		/// <returns></returns>
-		public virtual void focusCell(double row, double col) { _(row, col); }
+		public extern virtual void focusCell(double row, double col);
 
 		/// <summary>Refreshs the grid UI</summary>
 		/// <returns></returns>
-		public virtual void refresh() { _(); }
+		public extern virtual void refresh();
 
 		/// <summary>Refreshs the grid UI</summary>
 		/// <param name="headersToo">(optional) True to also refresh the headers</param>
 		/// <returns></returns>
-		public virtual void refresh(bool headersToo) { _(headersToo); }
+		public extern virtual void refresh(bool headersToo);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class GridViewConfig : DotWeb.Client.JsDynamicBase {
+	public class GridViewConfig : System.DotWeb.JsDynamic {
 		/// <summary> True to add a second TR element per row that can be used to provide a row body that spans beneath the data row.  Use the {@link #getRowClass} method's rowParams config to customize the row body.</summary>
-		public bool enableRowBody { get { return _<bool>(); } set { _(value); } }
+		public bool enableRowBody { get { return (bool)this["enableRowBody"]; } set { this["enableRowBody"] = value; } }
 
 		/// <summary> Default text to display in the grid body when no rows are available (defaults to '').</summary>
-		public string emptyText { get { return _<string>(); } set { _(value); } }
+		public string emptyText { get { return (string)this["emptyText"]; } set { this["emptyText"] = value; } }
 
 		/// <summary> True to defer emptyText being applied until the store's first load</summary>
-		public bool deferEmptyText { get { return _<bool>(); } set { _(value); } }
+		public bool deferEmptyText { get { return (bool)this["deferEmptyText"]; } set { this["deferEmptyText"] = value; } }
 
 		/// <summary> True to auto expand the columns to fit the grid <b>when the grid is created</b>.</summary>
-		public bool autoFill { get { return _<bool>(); } set { _(value); } }
+		public bool autoFill { get { return (bool)this["autoFill"]; } set { this["autoFill"] = value; } }
 
 		/// <summary> True to auto expand/contract the size of the columns to fit the grid width and prevent horizontal scrolling.</summary>
-		public bool forceFit { get { return _<bool>(); } set { _(value); } }
+		public bool forceFit { get { return (bool)this["forceFit"]; } set { this["forceFit"] = value; } }
 
 		/// <summary> The number of levels to search for cells in event delegation (defaults to 4)</summary>
-		public double cellSelectorDepth { get { return _<double>(); } set { _(value); } }
+		public double cellSelectorDepth { get { return (double)this["cellSelectorDepth"]; } set { this["cellSelectorDepth"] = value; } }
 
 		/// <summary> The number of levels to search for rows in event delegation (defaults to 10)</summary>
-		public double rowSelectorDepth { get { return _<double>(); } set { _(value); } }
+		public double rowSelectorDepth { get { return (double)this["rowSelectorDepth"]; } set { this["rowSelectorDepth"] = value; } }
 
 		/// <summary> The selector used to find cells internally</summary>
-		public string cellSelector { get { return _<string>(); } set { _(value); } }
+		public string cellSelector { get { return (string)this["cellSelector"]; } set { this["cellSelector"] = value; } }
 
 		/// <summary> The selector used to find rows internally</summary>
-		public string rowSelector { get { return _<string>(); } set { _(value); } }
+		public string rowSelector { get { return (string)this["rowSelector"]; } set { this["rowSelector"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

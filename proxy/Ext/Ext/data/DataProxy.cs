@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -21,17 +22,17 @@ namespace Ext.data {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public DataProxy() { C_(); }
+		public extern DataProxy();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DataProxy prototype { get { return S_<DataProxy>(); } set { S_(value); } }
+		public extern static DataProxy prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 
@@ -39,9 +40,9 @@ namespace Ext.data {
 	}
 
 	[JsAnonymous]
-	public class DataProxyConfig : DotWeb.Client.JsDynamicBase {
+	public class DataProxyConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

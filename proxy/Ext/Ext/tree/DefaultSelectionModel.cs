@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -13,70 +14,70 @@ namespace Ext.tree {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public DefaultSelectionModel() { C_(); }
+		public extern DefaultSelectionModel();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DefaultSelectionModel prototype { get { return S_<DefaultSelectionModel>(); } set { S_(value); } }
+		public extern static DefaultSelectionModel prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 		/// <summary>Select a node.</summary>
 		/// <returns>TreeNode</returns>
-		public virtual void select() { _(); }
+		public extern virtual void select();
 
 		/// <summary>Select a node.</summary>
 		/// <param name="node">The node to select</param>
 		/// <returns>TreeNode</returns>
-		public virtual void select(TreeNode node) { _(node); }
+		public extern virtual void select(TreeNode node);
 
 		/// <summary>Deselect a node.</summary>
 		/// <returns></returns>
-		public virtual void unselect() { _(); }
+		public extern virtual void unselect();
 
 		/// <summary>Deselect a node.</summary>
 		/// <param name="node">The node to unselect</param>
 		/// <returns></returns>
-		public virtual void unselect(TreeNode node) { _(node); }
+		public extern virtual void unselect(TreeNode node);
 
 		/// <summary>Clear all selections</summary>
 		/// <returns></returns>
-		public virtual void clearSelections() { _(); }
+		public extern virtual void clearSelections();
 
 		/// <summary>Get the selected node</summary>
 		/// <returns>TreeNode</returns>
-		public virtual void getSelectedNode() { _(); }
+		public extern virtual void getSelectedNode();
 
 		/// <summary>Returns true if the node is selected</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isSelected() { _(); }
+		public extern virtual void isSelected();
 
 		/// <summary>Returns true if the node is selected</summary>
 		/// <param name="node">The node to check</param>
 		/// <returns>Boolean</returns>
-		public virtual void isSelected(TreeNode node) { _(node); }
+		public extern virtual void isSelected(TreeNode node);
 
 		/// <summary>Selects the node above the selected node in the tree, intelligently walking the nodes</summary>
 		/// <returns>TreeNode</returns>
-		public virtual void selectPrevious() { _(); }
+		public extern virtual void selectPrevious();
 
 		/// <summary>Selects the node above the selected node in the tree, intelligently walking the nodes</summary>
 		/// <returns>TreeNode</returns>
-		public virtual void selectNext() { _(); }
+		public extern virtual void selectNext();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class DefaultSelectionModelConfig : DotWeb.Client.JsDynamicBase {
+	public class DefaultSelectionModelConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

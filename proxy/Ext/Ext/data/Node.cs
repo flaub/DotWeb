@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -12,161 +13,161 @@ namespace Ext.data {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public Node() { C_(); }
+		public extern Node();
 		/// <summary></summary>
 		/// <param name="attributes">The attributes/config for the node</param>
 		/// <returns></returns>
-		public Node(object attributes) { C_(attributes); }
+		public extern Node(object attributes);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Ext.data.Node prototype { get { return S_<Ext.data.Node>(); } set { S_(value); } }
+		public extern static Ext.data.Node prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>The attributes supplied for the node. You can use this property to access any custom attributes you supplied.</summary>
-		public object attributes { get { return _<object>(); } set { _(value); } }
+		public extern object attributes { get; set; }
 
 		/// <summary>The node id. @type String</summary>
-		public object id { get { return _<object>(); } set { _(value); } }
+		public extern object id { get; set; }
 
 		/// <summary>All child nodes of this node. @type Array</summary>
-		public object childNodes { get { return _<object>(); } set { _(value); } }
+		public extern object childNodes { get; set; }
 
 		/// <summary>The parent node for this node. @type Node</summary>
-		public object parentNode { get { return _<object>(); } set { _(value); } }
+		public extern object parentNode { get; set; }
 
 		/// <summary>The first direct child node of this node, or null if this node has no child nodes. @type Node</summary>
-		public object firstChild { get { return _<object>(); } set { _(value); } }
+		public extern object firstChild { get; set; }
 
 		/// <summary>The last direct child node of this node, or null if this node has no child nodes. @type Node</summary>
-		public object lastChild { get { return _<object>(); } set { _(value); } }
+		public extern object lastChild { get; set; }
 
 		/// <summary>The node immediately preceding this node in the tree, or null if there is no sibling node. @type Node</summary>
-		public object previousSibling { get { return _<object>(); } set { _(value); } }
+		public extern object previousSibling { get; set; }
 
 		/// <summary>The node immediately following this node in the tree, or null if there is no sibling node. @type Node</summary>
-		public object nextSibling { get { return _<object>(); } set { _(value); } }
+		public extern object nextSibling { get; set; }
 
 
 		/// <summary>Returns true if this node is a leaf</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isLeaf() { _(); }
+		public extern virtual void isLeaf();
 
 		/// <summary>Returns true if this node is the last child of its parent</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isLast() { _(); }
+		public extern virtual void isLast();
 
 		/// <summary>Returns true if this node is the first child of its parent</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isFirst() { _(); }
+		public extern virtual void isFirst();
 
 		/// <summary>Returns true if this node has one or more child nodes, else false.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasChildNodes() { _(); }
+		public extern virtual void hasChildNodes();
 
 		/// <summary>
 		///     Returns true if this node has one or more child nodes, or if the <tt>expandable</tt>
 		///     node attribute is explicitly specified as true (see {@link #attributes}), otherwise returns false.
 		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void isExpandable() { _(); }
+		public extern virtual void isExpandable();
 
 		/// <summary>Insert node(s) as the last child node of this node.</summary>
 		/// <returns>Node</returns>
-		public virtual void appendChild() { _(); }
-
-		/// <summary>Insert node(s) as the last child node of this node.</summary>
-		/// <param name="node">The node or Array of nodes to append</param>
-		/// <returns>Node</returns>
-		public virtual void appendChild(Ext.data.Node node) { _(node); }
+		public extern virtual void appendChild();
 
 		/// <summary>Insert node(s) as the last child node of this node.</summary>
 		/// <param name="node">The node or Array of nodes to append</param>
 		/// <returns>Node</returns>
-		public virtual void appendChild(System.Array node) { _(node); }
+		public extern virtual void appendChild(Ext.data.Node node);
+
+		/// <summary>Insert node(s) as the last child node of this node.</summary>
+		/// <param name="node">The node or Array of nodes to append</param>
+		/// <returns>Node</returns>
+		public extern virtual void appendChild(System.Array node);
 
 		/// <summary>Removes a child node from this node.</summary>
 		/// <returns>Node</returns>
-		public virtual void removeChild() { _(); }
+		public extern virtual void removeChild();
 
 		/// <summary>Removes a child node from this node.</summary>
 		/// <param name="node">The node to remove</param>
 		/// <returns>Node</returns>
-		public virtual void removeChild(Ext.data.Node node) { _(node); }
+		public extern virtual void removeChild(Ext.data.Node node);
 
 		/// <summary>Inserts the first node before the second node in this nodes childNodes collection.</summary>
 		/// <returns>Node</returns>
-		public virtual void insertBefore() { _(); }
+		public extern virtual void insertBefore();
 
 		/// <summary>Inserts the first node before the second node in this nodes childNodes collection.</summary>
 		/// <param name="node">The node to insert</param>
 		/// <returns>Node</returns>
-		public virtual void insertBefore(Ext.data.Node node) { _(node); }
+		public extern virtual void insertBefore(Ext.data.Node node);
 
 		/// <summary>Inserts the first node before the second node in this nodes childNodes collection.</summary>
 		/// <param name="node">The node to insert</param>
 		/// <param name="refNode">The node to insert before (if null the node is appended)</param>
 		/// <returns>Node</returns>
-		public virtual void insertBefore(Ext.data.Node node, Ext.data.Node refNode) { _(node, refNode); }
+		public extern virtual void insertBefore(Ext.data.Node node, Ext.data.Node refNode);
 
 		/// <summary>Removes this node from it's parent</summary>
 		/// <returns>Node</returns>
-		public virtual void remove() { _(); }
+		public extern virtual void remove();
 
 		/// <summary>Returns the child node at the specified index.</summary>
 		/// <returns>Node</returns>
-		public virtual void item() { _(); }
+		public extern virtual void item();
 
 		/// <summary>Returns the child node at the specified index.</summary>
 		/// <param name="index"></param>
 		/// <returns>Node</returns>
-		public virtual void item(double index) { _(index); }
+		public extern virtual void item(double index);
 
 		/// <summary>Replaces one child node in this node with another.</summary>
 		/// <returns>Node</returns>
-		public virtual void replaceChild() { _(); }
+		public extern virtual void replaceChild();
 
 		/// <summary>Replaces one child node in this node with another.</summary>
 		/// <param name="newChild">The replacement node</param>
 		/// <returns>Node</returns>
-		public virtual void replaceChild(Ext.data.Node newChild) { _(newChild); }
+		public extern virtual void replaceChild(Ext.data.Node newChild);
 
 		/// <summary>Replaces one child node in this node with another.</summary>
 		/// <param name="newChild">The replacement node</param>
 		/// <param name="oldChild">The node to replace</param>
 		/// <returns>Node</returns>
-		public virtual void replaceChild(Ext.data.Node newChild, Ext.data.Node oldChild) { _(newChild, oldChild); }
+		public extern virtual void replaceChild(Ext.data.Node newChild, Ext.data.Node oldChild);
 
 		/// <summary>Returns the index of a child node</summary>
 		/// <returns>Number</returns>
-		public virtual void indexOf() { _(); }
+		public extern virtual void indexOf();
 
 		/// <summary>Returns the index of a child node</summary>
 		/// <param name="node"></param>
 		/// <returns>Number</returns>
-		public virtual void indexOf(Ext.data.Node node) { _(node); }
+		public extern virtual void indexOf(Ext.data.Node node);
 
 		/// <summary>Returns the tree this node is in.</summary>
 		/// <returns>Tree</returns>
-		public virtual void getOwnerTree() { _(); }
+		public extern virtual void getOwnerTree();
 
 		/// <summary>Returns depth of this node (the root node has a depth of 0)</summary>
 		/// <returns>Number</returns>
-		public virtual void getDepth() { _(); }
+		public extern virtual void getDepth();
 
 		/// <summary>Returns the path for this node. The path can be used to expand or select this node programmatically.</summary>
 		/// <returns>String</returns>
-		public virtual void getPath() { _(); }
+		public extern virtual void getPath();
 
 		/// <summary>Returns the path for this node. The path can be used to expand or select this node programmatically.</summary>
 		/// <param name="attr">(optional) The attr to use for the path (defaults to the node's id)</param>
 		/// <returns>String</returns>
-		public virtual void getPath(string attr) { _(attr); }
+		public extern virtual void getPath(string attr);
 
 		/// <summary>
 		///     Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -175,7 +176,7 @@ namespace Ext.data {
 		///     the bubble is stopped.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void bubble() { _(); }
+		public extern virtual void bubble();
 
 		/// <summary>
 		///     Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -185,7 +186,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to call</param>
 		/// <returns></returns>
-		public virtual void bubble(Delegate fn) { _(fn); }
+		public extern virtual void bubble(Delegate fn);
 
 		/// <summary>
 		///     Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -196,7 +197,7 @@ namespace Ext.data {
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
 		/// <returns></returns>
-		public virtual void bubble(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void bubble(Delegate fn, object scope);
 
 		/// <summary>
 		///     Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -208,7 +209,7 @@ namespace Ext.data {
 		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
 		/// <param name="args">(optional) The args to call the function with (default to passing the current node)</param>
 		/// <returns></returns>
-		public virtual void bubble(Delegate fn, object scope, System.Array args) { _(fn, scope, args); }
+		public extern virtual void bubble(Delegate fn, object scope, System.Array args);
 
 		/// <summary>
 		///     Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -217,17 +218,7 @@ namespace Ext.data {
 		///     the cascade is stopped on that branch.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void cascade() { _(); }
-
-		/// <summary>
-		///     Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
-		///     function call will be the scope provided or the current node. The arguments to the function
-		///     will be the args provided or the current node. If the function returns false at any point,
-		///     the cascade is stopped on that branch.
-		/// </summary>
-		/// <param name="fn">The function to call</param>
-		/// <returns></returns>
-		public virtual void cascade(Delegate fn) { _(fn); }
+		public extern virtual void cascade();
 
 		/// <summary>
 		///     Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -236,9 +227,8 @@ namespace Ext.data {
 		///     the cascade is stopped on that branch.
 		/// </summary>
 		/// <param name="fn">The function to call</param>
-		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
 		/// <returns></returns>
-		public virtual void cascade(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void cascade(Delegate fn);
 
 		/// <summary>
 		///     Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
@@ -248,73 +238,84 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
-		/// <param name="args">(optional) The args to call the function with (default to passing the current node)</param>
 		/// <returns></returns>
-		public virtual void cascade(Delegate fn, object scope, System.Array args) { _(fn, scope, args); }
+		public extern virtual void cascade(Delegate fn, object scope);
 
 		/// <summary>
-		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
+		///     Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
 		///     function call will be the scope provided or the current node. The arguments to the function
 		///     will be the args provided or the current node. If the function returns false at any point,
-		///     the iteration stops.
-		/// </summary>
-		/// <returns></returns>
-		public virtual void eachChild() { _(); }
-
-		/// <summary>
-		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
-		///     function call will be the scope provided or the current node. The arguments to the function
-		///     will be the args provided or the current node. If the function returns false at any point,
-		///     the iteration stops.
-		/// </summary>
-		/// <param name="fn">The function to call</param>
-		/// <returns></returns>
-		public virtual void eachChild(Delegate fn) { _(fn); }
-
-		/// <summary>
-		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
-		///     function call will be the scope provided or the current node. The arguments to the function
-		///     will be the args provided or the current node. If the function returns false at any point,
-		///     the iteration stops.
-		/// </summary>
-		/// <param name="fn">The function to call</param>
-		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
-		/// <returns></returns>
-		public virtual void eachChild(Delegate fn, object scope) { _(fn, scope); }
-
-		/// <summary>
-		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
-		///     function call will be the scope provided or the current node. The arguments to the function
-		///     will be the args provided or the current node. If the function returns false at any point,
-		///     the iteration stops.
+		///     the cascade is stopped on that branch.
 		/// </summary>
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
 		/// <param name="args">(optional) The args to call the function with (default to passing the current node)</param>
 		/// <returns></returns>
-		public virtual void eachChild(Delegate fn, object scope, System.Array args) { _(fn, scope, args); }
+		public extern virtual void cascade(Delegate fn, object scope, System.Array args);
+
+		/// <summary>
+		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
+		///     function call will be the scope provided or the current node. The arguments to the function
+		///     will be the args provided or the current node. If the function returns false at any point,
+		///     the iteration stops.
+		/// </summary>
+		/// <returns></returns>
+		public extern virtual void eachChild();
+
+		/// <summary>
+		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
+		///     function call will be the scope provided or the current node. The arguments to the function
+		///     will be the args provided or the current node. If the function returns false at any point,
+		///     the iteration stops.
+		/// </summary>
+		/// <param name="fn">The function to call</param>
+		/// <returns></returns>
+		public extern virtual void eachChild(Delegate fn);
+
+		/// <summary>
+		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
+		///     function call will be the scope provided or the current node. The arguments to the function
+		///     will be the args provided or the current node. If the function returns false at any point,
+		///     the iteration stops.
+		/// </summary>
+		/// <param name="fn">The function to call</param>
+		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
+		/// <returns></returns>
+		public extern virtual void eachChild(Delegate fn, object scope);
+
+		/// <summary>
+		///     Iterates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
+		///     function call will be the scope provided or the current node. The arguments to the function
+		///     will be the args provided or the current node. If the function returns false at any point,
+		///     the iteration stops.
+		/// </summary>
+		/// <param name="fn">The function to call</param>
+		/// <param name="scope">(optional) The scope of the function (defaults to current node)</param>
+		/// <param name="args">(optional) The args to call the function with (default to passing the current node)</param>
+		/// <returns></returns>
+		public extern virtual void eachChild(Delegate fn, object scope, System.Array args);
 
 		/// <summary>Finds the first child that has the attribute with the specified value.</summary>
 		/// <returns>Node</returns>
-		public virtual void findChild() { _(); }
+		public extern virtual void findChild();
 
 		/// <summary>Finds the first child that has the attribute with the specified value.</summary>
 		/// <param name="attribute">The attribute name</param>
 		/// <returns>Node</returns>
-		public virtual void findChild(string attribute) { _(attribute); }
+		public extern virtual void findChild(string attribute);
 
 		/// <summary>Finds the first child that has the attribute with the specified value.</summary>
 		/// <param name="attribute">The attribute name</param>
 		/// <param name="value">The value to search for</param>
 		/// <returns>Node</returns>
-		public virtual void findChild(string attribute, object value) { _(attribute, value); }
+		public extern virtual void findChild(string attribute, object value);
 
 		/// <summary>
 		///     Finds the first child by a custom function. The child matches if the function passed
 		///     returns true.
 		/// </summary>
 		/// <returns>Node</returns>
-		public virtual void findChildBy() { _(); }
+		public extern virtual void findChildBy();
 
 		/// <summary>
 		///     Finds the first child by a custom function. The child matches if the function passed
@@ -322,7 +323,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn"></param>
 		/// <returns>Node</returns>
-		public virtual void findChildBy(Delegate fn) { _(fn); }
+		public extern virtual void findChildBy(Delegate fn);
 
 		/// <summary>
 		///     Finds the first child by a custom function. The child matches if the function passed
@@ -331,55 +332,55 @@ namespace Ext.data {
 		/// <param name="fn"></param>
 		/// <param name="scope">(optional)</param>
 		/// <returns>Node</returns>
-		public virtual void findChildBy(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void findChildBy(Delegate fn, object scope);
 
 		/// <summary>Sorts this nodes children using the supplied sort function</summary>
 		/// <returns></returns>
-		public virtual void sort() { _(); }
+		public extern virtual void sort();
 
 		/// <summary>Sorts this nodes children using the supplied sort function</summary>
 		/// <param name="fn"></param>
 		/// <returns></returns>
-		public virtual void sort(Delegate fn) { _(fn); }
+		public extern virtual void sort(Delegate fn);
 
 		/// <summary>Sorts this nodes children using the supplied sort function</summary>
 		/// <param name="fn"></param>
 		/// <param name="scope">(optional)</param>
 		/// <returns></returns>
-		public virtual void sort(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void sort(Delegate fn, object scope);
 
 		/// <summary>Returns true if this node is an ancestor (at any point) of the passed node.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void contains() { _(); }
+		public extern virtual void contains();
 
 		/// <summary>Returns true if this node is an ancestor (at any point) of the passed node.</summary>
 		/// <param name="node"></param>
 		/// <returns>Boolean</returns>
-		public virtual void contains(Ext.data.Node node) { _(node); }
+		public extern virtual void contains(Ext.data.Node node);
 
 		/// <summary>Returns true if the passed node is an ancestor (at any point) of this node.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isAncestor() { _(); }
+		public extern virtual void isAncestor();
 
 		/// <summary>Returns true if the passed node is an ancestor (at any point) of this node.</summary>
 		/// <param name="node"></param>
 		/// <returns>Boolean</returns>
-		public virtual void isAncestor(Ext.data.Node node) { _(node); }
+		public extern virtual void isAncestor(Ext.data.Node node);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class NodeConfig : DotWeb.Client.JsDynamicBase {
+	public class NodeConfig : System.DotWeb.JsDynamic {
 		/// <summary> true if this node is a leaf and does not have children</summary>
-		public bool leaf { get { return _<bool>(); } set { _(value); } }
+		public bool leaf { get { return (bool)this["leaf"]; } set { this["leaf"] = value; } }
 
 		/// <summary> The id for this node. If one is not specified, one is generated.</summary>
-		public string id { get { return _<string>(); } set { _(value); } }
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

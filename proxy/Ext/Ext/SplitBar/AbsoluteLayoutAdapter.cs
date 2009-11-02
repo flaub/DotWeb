@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.SplitBar {
@@ -16,35 +17,35 @@ namespace Ext.SplitBar {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public AbsoluteLayoutAdapter() { C_(); }
+		public extern AbsoluteLayoutAdapter();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static AbsoluteLayoutAdapter prototype { get { return S_<AbsoluteLayoutAdapter>(); } set { S_(value); } }
+		public extern static AbsoluteLayoutAdapter prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.SplitBar.BasicLayoutAdapter superclass { get { return S_<Ext.SplitBar.BasicLayoutAdapter>(); } set { S_(value); } }
+		public extern static Ext.SplitBar.BasicLayoutAdapter superclass { get; set; }
 
 		/// <summary>Orientation constant - Create a vertical SplitBar</summary>
-		public static double VERTICAL { get { return S_<double>(); } set { S_(value); } }
+		public extern static double VERTICAL { get; set; }
 
 		/// <summary>Orientation constant - Create a horizontal SplitBar</summary>
-		public static double HORIZONTAL { get { return S_<double>(); } set { S_(value); } }
+		public extern static double HORIZONTAL { get; set; }
 
 		/// <summary>Placement constant - The resizing element is to the left of the splitter element</summary>
-		public static double LEFT { get { return S_<double>(); } set { S_(value); } }
+		public extern static double LEFT { get; set; }
 
 		/// <summary>Placement constant - The resizing element is to the right of the splitter element</summary>
-		public static double RIGHT { get { return S_<double>(); } set { S_(value); } }
+		public extern static double RIGHT { get; set; }
 
 		/// <summary>Placement constant - The resizing element is positioned above the splitter element</summary>
-		public static double TOP { get { return S_<double>(); } set { S_(value); } }
+		public extern static double TOP { get; set; }
 
 		/// <summary>Placement constant - The resizing element is positioned under splitter element</summary>
-		public static double BOTTOM { get { return S_<double>(); } set { S_(value); } }
+		public extern static double BOTTOM { get; set; }
 
 
 

@@ -19,10 +19,9 @@ namespace SourceConverter.Components
 				sb.AppendLine("\t\t/// <returns></returns>");
 			}
 			string[] names = Parameters.Select(x => x.Name).ToArray();
-			sb.AppendLine(String.Format("\t\tpublic {0}({1}) {{ C_({2}); }}",
+			sb.AppendLine(String.Format("\t\tpublic extern {0}({1});",
 				ExtType.ParseClassName(Class.FullyQualifiedName),
-				Parameters.ToExtSharp(),
-				string.Join(", ", names)
+				Parameters.ToExtSharp()
 			));
 			return sb.ToString();
 		}

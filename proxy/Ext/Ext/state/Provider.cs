@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.state {
@@ -11,76 +12,76 @@ namespace Ext.state {
 	///     Ext.state.Provider = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\state\Provider.js</jssource>
-	public class Provider : DotWeb.Client.JsNativeBase {
+	public class Provider : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Provider() { C_(); }
+		public extern Provider();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Provider prototype { get { return S_<Provider>(); } set { S_(value); } }
+		public extern static Provider prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <returns>Mixed</returns>
-		public virtual void get() { _(); }
+		public extern virtual void get();
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns>Mixed</returns>
-		public virtual void get(string name) { _(name); }
+		public extern virtual void get(string name);
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="defaultValue">A default value to return if the key's value is not found</param>
 		/// <returns>Mixed</returns>
-		public virtual void get(string name, object defaultValue) { _(name, defaultValue); }
+		public extern virtual void get(string name, object defaultValue);
 
 		/// <summary>Clears a value from the state</summary>
 		/// <returns></returns>
-		public virtual void clear() { _(); }
+		public extern virtual void clear();
 
 		/// <summary>Clears a value from the state</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public virtual void clear(string name) { _(name); }
+		public extern virtual void clear(string name);
 
 		/// <summary>Sets the value for a key</summary>
 		/// <returns></returns>
-		public virtual void set() { _(); }
+		public extern virtual void set();
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public virtual void set(string name) { _(name); }
+		public extern virtual void set(string name);
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="value">The value to set</param>
 		/// <returns></returns>
-		public virtual void set(string name, object value) { _(name, value); }
+		public extern virtual void set(string name, object value);
 
 		/// <summary>Decodes a string previously encoded with {@link #encodeValue}.</summary>
 		/// <returns>Mixed</returns>
-		public virtual void decodeValue() { _(); }
+		public extern virtual void decodeValue();
 
 		/// <summary>Decodes a string previously encoded with {@link #encodeValue}.</summary>
 		/// <param name="value">The value to decode</param>
 		/// <returns>Mixed</returns>
-		public virtual void decodeValue(string value) { _(value); }
+		public extern virtual void decodeValue(string value);
 
 		/// <summary>Encodes a value including type information.  Decode with {@link #decodeValue}.</summary>
 		/// <returns>String</returns>
-		public virtual void encodeValue() { _(); }
+		public extern virtual void encodeValue();
 
 		/// <summary>Encodes a value including type information.  Decode with {@link #decodeValue}.</summary>
 		/// <param name="value">The value to encode</param>
 		/// <returns>String</returns>
-		public virtual void encodeValue(object value) { _(value); }
+		public extern virtual void encodeValue(object value);
 
 
 

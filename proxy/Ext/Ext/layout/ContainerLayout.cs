@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.layout {
@@ -12,27 +13,27 @@ namespace Ext.layout {
 	///     Ext.layout.ContainerLayout = function(config){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\layout\ContainerLayout.js</jssource>
-	public class ContainerLayout : DotWeb.Client.JsNativeBase {
+	public class ContainerLayout : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public ContainerLayout() { C_(); }
+		public extern ContainerLayout();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Ext.layout.ContainerLayout prototype { get { return S_<Ext.layout.ContainerLayout>(); } set { S_(value); } }
+		public extern static Ext.layout.ContainerLayout prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>
 		///     An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for
 		///     adding customized styles to the container or any of its children using standard CSS rules.
 		/// </summary>
-		public string extraCls { get { return _<string>(); } set { _(value); } }
+		public extern string extraCls { get; set; }
 
 		/// <summary>True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
+		public extern bool renderHidden { get; set; }
 
 		/// <summary>
 		///     A reference to the {@link Ext.Component} that is active.  For example,
@@ -40,7 +41,7 @@ namespace Ext.layout {
 		///     display items one at a time (like {@link Ext.layout.Accordion}, {@link Ext.layout.CardLayout}
 		///     and {@link Ext.layout.FitLayout}).  Read-only.  Related to {@link Ext.Container#activeItem}.
 		/// </summary>
-		public Ext.Component activeItem { get { return _<Ext.Component>(); } set { _(value); } }
+		public extern Ext.Component activeItem { get; set; }
 
 
 
@@ -48,12 +49,12 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class ContainerLayoutConfig : DotWeb.Client.JsDynamicBase {
+	public class ContainerLayoutConfig : System.DotWeb.JsDynamic {
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public string extraCls { get { return _<string>(); } set { _(value); } }
+		public string extraCls { get { return (string)this["extraCls"]; } set { this["extraCls"] = value; } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
+		public bool renderHidden { get { return (bool)this["renderHidden"]; } set { this["renderHidden"] = value; } }
 
 	}
 }

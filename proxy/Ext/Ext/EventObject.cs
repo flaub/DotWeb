@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -23,365 +24,346 @@ namespace Ext {
 	///     Ext.EventObject = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\EventManager.js</jssource>
-	public class EventObject : DotWeb.Client.JsNativeBase {
+	public class EventObject : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public EventObject() { C_(); }
+		public extern EventObject();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static EventObject prototype { get { return S_<EventObject>(); } set { S_(value); } }
+		public extern static EventObject prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The normal browser event</summary>
-		public object browserEvent { get { return _<object>(); } set { _(value); } }
+		public extern object browserEvent { get; set; }
 
 		/// <summary>The button pressed in a mouse event</summary>
-		public object button { get { return _<object>(); } set { _(value); } }
+		public extern object button { get; set; }
 
 		/// <summary>True if the shift key was down during the event</summary>
-		public object shiftKey { get { return _<object>(); } set { _(value); } }
+		public extern object shiftKey { get; set; }
 
 		/// <summary>True if the control key was down during the event</summary>
-		public object ctrlKey { get { return _<object>(); } set { _(value); } }
+		public extern object ctrlKey { get; set; }
 
 		/// <summary>True if the alt key was down during the event</summary>
-		public object altKey { get { return _<object>(); } set { _(value); } }
+		public extern object altKey { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double BACKSPACE { get { return _<double>(); } set { _(value); } }
+		public extern double BACKSPACE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double TAB { get { return _<double>(); } set { _(value); } }
+		public extern double TAB { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_CENTER { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_CENTER { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double ENTER { get { return _<double>(); } set { _(value); } }
+		public extern double ENTER { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double RETURN { get { return _<double>(); } set { _(value); } }
+		public extern double RETURN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double SHIFT { get { return _<double>(); } set { _(value); } }
+		public extern double SHIFT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double CTRL { get { return _<double>(); } set { _(value); } }
+		public extern double CTRL { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double ALT { get { return _<double>(); } set { _(value); } }
+		public extern double ALT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double PAUSE { get { return _<double>(); } set { _(value); } }
+		public extern double PAUSE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double CAPS_LOCK { get { return _<double>(); } set { _(value); } }
+		public extern double CAPS_LOCK { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double ESC { get { return _<double>(); } set { _(value); } }
+		public extern double ESC { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double SPACE { get { return _<double>(); } set { _(value); } }
+		public extern double SPACE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double PAGE_UP { get { return _<double>(); } set { _(value); } }
+		public extern double PAGE_UP { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double PAGE_DOWN { get { return _<double>(); } set { _(value); } }
+		public extern double PAGE_DOWN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double END { get { return _<double>(); } set { _(value); } }
+		public extern double END { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double HOME { get { return _<double>(); } set { _(value); } }
+		public extern double HOME { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double LEFT { get { return _<double>(); } set { _(value); } }
+		public extern double LEFT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double UP { get { return _<double>(); } set { _(value); } }
+		public extern double UP { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double RIGHT { get { return _<double>(); } set { _(value); } }
+		public extern double RIGHT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double DOWN { get { return _<double>(); } set { _(value); } }
+		public extern double DOWN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double PRINT_SCREEN { get { return _<double>(); } set { _(value); } }
+		public extern double PRINT_SCREEN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double INSERT { get { return _<double>(); } set { _(value); } }
+		public extern double INSERT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double DELETE { get { return _<double>(); } set { _(value); } }
+		public extern double DELETE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double ZERO { get { return _<double>(); } set { _(value); } }
+		public extern double ZERO { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double ONE { get { return _<double>(); } set { _(value); } }
+		public extern double ONE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double TWO { get { return _<double>(); } set { _(value); } }
+		public extern double TWO { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double THREE { get { return _<double>(); } set { _(value); } }
+		public extern double THREE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double FOUR { get { return _<double>(); } set { _(value); } }
+		public extern double FOUR { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double FIVE { get { return _<double>(); } set { _(value); } }
+		public extern double FIVE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double SIX { get { return _<double>(); } set { _(value); } }
+		public extern double SIX { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double SEVEN { get { return _<double>(); } set { _(value); } }
+		public extern double SEVEN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double EIGHT { get { return _<double>(); } set { _(value); } }
+		public extern double EIGHT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NINE { get { return _<double>(); } set { _(value); } }
+		public extern double NINE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double A { get { return _<double>(); } set { _(value); } }
+		public extern double A { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double B { get { return _<double>(); } set { _(value); } }
+		public extern double B { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double C { get { return _<double>(); } set { _(value); } }
+		public extern double C { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double D { get { return _<double>(); } set { _(value); } }
+		public extern double D { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double E { get { return _<double>(); } set { _(value); } }
+		public extern double E { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F { get { return _<double>(); } set { _(value); } }
+		public extern double F { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double G { get { return _<double>(); } set { _(value); } }
+		public extern double G { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double H { get { return _<double>(); } set { _(value); } }
+		public extern double H { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double I { get { return _<double>(); } set { _(value); } }
+		public extern double I { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double J { get { return _<double>(); } set { _(value); } }
+		public extern double J { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double K { get { return _<double>(); } set { _(value); } }
+		public extern double K { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double L { get { return _<double>(); } set { _(value); } }
+		public extern double L { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double M { get { return _<double>(); } set { _(value); } }
+		public extern double M { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double N { get { return _<double>(); } set { _(value); } }
+		public extern double N { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double O { get { return _<double>(); } set { _(value); } }
+		public extern double O { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double P { get { return _<double>(); } set { _(value); } }
+		public extern double P { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double Q { get { return _<double>(); } set { _(value); } }
+		public extern double Q { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double R { get { return _<double>(); } set { _(value); } }
+		public extern double R { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double S { get { return _<double>(); } set { _(value); } }
+		public extern double S { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double T { get { return _<double>(); } set { _(value); } }
+		public extern double T { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double U { get { return _<double>(); } set { _(value); } }
+		public extern double U { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double V { get { return _<double>(); } set { _(value); } }
+		public extern double V { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double W { get { return _<double>(); } set { _(value); } }
+		public extern double W { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double X { get { return _<double>(); } set { _(value); } }
+		public extern double X { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double Y { get { return _<double>(); } set { _(value); } }
+		public extern double Y { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double Z { get { return _<double>(); } set { _(value); } }
+		public extern double Z { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double CONTEXT_MENU { get { return _<double>(); } set { _(value); } }
+		public extern double CONTEXT_MENU { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_ZERO { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_ZERO { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_ONE { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_ONE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_TWO { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_TWO { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_THREE { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_THREE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_FOUR { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_FOUR { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_FIVE { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_FIVE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_SIX { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_SIX { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_SEVEN { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_SEVEN { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_EIGHT { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_EIGHT { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_NINE { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_NINE { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_MULTIPLY { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_MULTIPLY { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_PLUS { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_PLUS { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_MINUS { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_MINUS { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_PERIOD { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_PERIOD { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double NUM_DIVISION { get { return _<double>(); } set { _(value); } }
+		public extern double NUM_DIVISION { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F1 { get { return _<double>(); } set { _(value); } }
+		public extern double F1 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F2 { get { return _<double>(); } set { _(value); } }
+		public extern double F2 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F3 { get { return _<double>(); } set { _(value); } }
+		public extern double F3 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F4 { get { return _<double>(); } set { _(value); } }
+		public extern double F4 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F5 { get { return _<double>(); } set { _(value); } }
+		public extern double F5 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F6 { get { return _<double>(); } set { _(value); } }
+		public extern double F6 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F7 { get { return _<double>(); } set { _(value); } }
+		public extern double F7 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F8 { get { return _<double>(); } set { _(value); } }
+		public extern double F8 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F9 { get { return _<double>(); } set { _(value); } }
+		public extern double F9 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F10 { get { return _<double>(); } set { _(value); } }
+		public extern double F10 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F11 { get { return _<double>(); } set { _(value); } }
+		public extern double F11 { get; set; }
 
 		/// <summary>Key constant</summary>
-		public double F12 { get { return _<double>(); } set { _(value); } }
+		public extern double F12 { get; set; }
 
 
 		/// <summary>Stop the event (preventDefault and stopPropagation)</summary>
 		/// <returns></returns>
-		public virtual void stopEvent() { _(); }
+		public extern virtual void stopEvent();
 
 		/// <summary>Prevents the browsers default handling of the event.</summary>
 		/// <returns></returns>
-		public virtual void preventDefault() { _(); }
+		public extern virtual void preventDefault();
 
 		/// <summary>Cancels bubbling of the event.</summary>
 		/// <returns></returns>
-		public virtual void stopPropagation() { _(); }
+		public extern virtual void stopPropagation();
 
 		/// <summary>Gets the character code for the event.</summary>
 		/// <returns>Number</returns>
-		public virtual void getCharCode() { _(); }
+		public extern virtual void getCharCode();
 
 		/// <summary>Returns a normalized keyCode for the event.</summary>
 		/// <returns>Number</returns>
-		public virtual void getKey() { _(); }
+		public extern virtual void getKey();
 
 		/// <summary>Gets the x coordinate of the event.</summary>
 		/// <returns>Number</returns>
-		public virtual void getPageX() { _(); }
+		public extern virtual void getPageX();
 
 		/// <summary>Gets the y coordinate of the event.</summary>
 		/// <returns>Number</returns>
-		public virtual void getPageY() { _(); }
+		public extern virtual void getPageY();
 
 		/// <summary>Gets the time of the event.</summary>
 		/// <returns>Number</returns>
-		public virtual void getTime() { _(); }
+		public extern virtual void getTime();
 
 		/// <summary>Gets the page coordinates of the event.</summary>
 		/// <returns>Array</returns>
-		public virtual void getXY() { _(); }
+		public extern virtual void getXY();
 
 		/// <summary>
 		///     Gets the target for the event.
 		///     search as a number or element (defaults to 10 || document.body)
 		/// </summary>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget() { _(); }
-
-		/// <summary>
-		///     Gets the target for the event.
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
-		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(string selector) { _(selector); }
+		public extern virtual void getTarget();
 
 		/// <summary>
 		///     Gets the target for the event.
 		///     search as a number or element (defaults to 10 || document.body)
 		/// </summary>
 		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(string selector, double maxDepth) { _(selector, maxDepth); }
-
-		/// <summary>
-		///     Gets the target for the event.
-		///     search as a number or element (defaults to 10 || document.body)
-		/// </summary>
-		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
-		/// <param name="maxDepth">(optional) The max depth to</param>
-		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
-		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(string selector, double maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+		public extern virtual void getTarget(string selector);
 
 		/// <summary>
 		///     Gets the target for the event.
@@ -390,7 +372,7 @@ namespace Ext {
 		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(string selector, object maxDepth) { _(selector, maxDepth); }
+		public extern virtual void getTarget(string selector, double maxDepth);
 
 		/// <summary>
 		///     Gets the target for the event.
@@ -400,19 +382,38 @@ namespace Ext {
 		/// <param name="maxDepth">(optional) The max depth to</param>
 		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
 		/// <returns>HTMLelement</returns>
-		public virtual void getTarget(string selector, object maxDepth, bool returnEl) { _(selector, maxDepth, returnEl); }
+		public extern virtual void getTarget(string selector, double maxDepth, bool returnEl);
+
+		/// <summary>
+		///     Gets the target for the event.
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <returns>HTMLelement</returns>
+		public extern virtual void getTarget(string selector, object maxDepth);
+
+		/// <summary>
+		///     Gets the target for the event.
+		///     search as a number or element (defaults to 10 || document.body)
+		/// </summary>
+		/// <param name="selector">(optional) A simple selector to filter the target or look for an ancestor of the target</param>
+		/// <param name="maxDepth">(optional) The max depth to</param>
+		/// <param name="returnEl">(optional) True to return a Ext.Element object instead of DOM node</param>
+		/// <returns>HTMLelement</returns>
+		public extern virtual void getTarget(string selector, object maxDepth, bool returnEl);
 
 		/// <summary>Gets the related target.</summary>
 		/// <returns>HTMLElement</returns>
-		public virtual void getRelatedTarget() { _(); }
+		public extern virtual void getRelatedTarget();
 
 		/// <summary>Normalizes mouse wheel delta across browsers</summary>
 		/// <returns>Number</returns>
-		public virtual void getWheelDelta() { _(); }
+		public extern virtual void getWheelDelta();
 
 		/// <summary>Returns true if the control, meta, shift or alt key was pressed during this event.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasModifier() { _(); }
+		public extern virtual void hasModifier();
 
 		/// <summary>
 		///     Returns true if the target of this event is a child of el.  If the target is el, it returns false.
@@ -432,7 +433,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void within() { _(); }
+		public extern virtual void within();
 
 		/// <summary>
 		///     Returns true if the target of this event is a child of el.  If the target is el, it returns false.
@@ -453,7 +454,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="el">The id, DOM element or Ext.Element to check</param>
 		/// <returns>Boolean</returns>
-		public virtual void within(object el) { _(el); }
+		public extern virtual void within(object el);
 
 		/// <summary>
 		///     Returns true if the target of this event is a child of el.  If the target is el, it returns false.
@@ -475,7 +476,7 @@ namespace Ext {
 		/// <param name="el">The id, DOM element or Ext.Element to check</param>
 		/// <param name="related">(optional) true to test if the related target is within el instead of the target</param>
 		/// <returns>Boolean</returns>
-		public virtual void within(object el, bool related) { _(el, related); }
+		public extern virtual void within(object el, bool related);
 
 
 

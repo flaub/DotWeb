@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -11,18 +12,18 @@ namespace Ext.tree {
 	///     Ext.tree.TreeFilter = function(tree, config){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeFilter.js</jssource>
-	public class TreeFilter : DotWeb.Client.JsNativeBase {
+	public class TreeFilter : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public TreeFilter() { C_(); }
+		public extern TreeFilter();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static TreeFilter prototype { get { return S_<TreeFilter>(); } set { S_(value); } }
+		public extern static TreeFilter prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>
@@ -30,34 +31,7 @@ namespace Ext.tree {
 		///     should start with or a RegExp to test against the attribute
 		/// </summary>
 		/// <returns></returns>
-		public virtual void filter() { _(); }
-
-		/// <summary>
-		///     Filter the data by a specific attribute.
-		///     should start with or a RegExp to test against the attribute
-		/// </summary>
-		/// <param name="value">Either string that the attribute value</param>
-		/// <returns></returns>
-		public virtual void filter(string value) { _(value); }
-
-		/// <summary>
-		///     Filter the data by a specific attribute.
-		///     should start with or a RegExp to test against the attribute
-		/// </summary>
-		/// <param name="value">Either string that the attribute value</param>
-		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
-		/// <returns></returns>
-		public virtual void filter(string value, string attr) { _(value, attr); }
-
-		/// <summary>
-		///     Filter the data by a specific attribute.
-		///     should start with or a RegExp to test against the attribute
-		/// </summary>
-		/// <param name="value">Either string that the attribute value</param>
-		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
-		/// <param name="startNode">(optional) The node to start the filter at.</param>
-		/// <returns></returns>
-		public virtual void filter(string value, string attr, TreeNode startNode) { _(value, attr, startNode); }
+		public extern virtual void filter();
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -65,7 +39,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="value">Either string that the attribute value</param>
 		/// <returns></returns>
-		public virtual void filter(object value) { _(value); }
+		public extern virtual void filter(string value);
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -74,7 +48,7 @@ namespace Ext.tree {
 		/// <param name="value">Either string that the attribute value</param>
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <returns></returns>
-		public virtual void filter(object value, string attr) { _(value, attr); }
+		public extern virtual void filter(string value, string attr);
 
 		/// <summary>
 		///     Filter the data by a specific attribute.
@@ -84,7 +58,34 @@ namespace Ext.tree {
 		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
 		/// <param name="startNode">(optional) The node to start the filter at.</param>
 		/// <returns></returns>
-		public virtual void filter(object value, string attr, TreeNode startNode) { _(value, attr, startNode); }
+		public extern virtual void filter(string value, string attr, TreeNode startNode);
+
+		/// <summary>
+		///     Filter the data by a specific attribute.
+		///     should start with or a RegExp to test against the attribute
+		/// </summary>
+		/// <param name="value">Either string that the attribute value</param>
+		/// <returns></returns>
+		public extern virtual void filter(object value);
+
+		/// <summary>
+		///     Filter the data by a specific attribute.
+		///     should start with or a RegExp to test against the attribute
+		/// </summary>
+		/// <param name="value">Either string that the attribute value</param>
+		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
+		/// <returns></returns>
+		public extern virtual void filter(object value, string attr);
+
+		/// <summary>
+		///     Filter the data by a specific attribute.
+		///     should start with or a RegExp to test against the attribute
+		/// </summary>
+		/// <param name="value">Either string that the attribute value</param>
+		/// <param name="attr">(optional) The attribute passed in your node's attributes collection. Defaults to "text".</param>
+		/// <param name="startNode">(optional) The node to start the filter at.</param>
+		/// <returns></returns>
+		public extern virtual void filter(object value, string attr, TreeNode startNode);
 
 		/// <summary>
 		///     Filter by a function. The passed function will be called with each
@@ -92,7 +93,7 @@ namespace Ext.tree {
 		///     otherwise it is filtered. If a node is filtered, its children are also filtered.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void filterBy() { _(); }
+		public extern virtual void filterBy();
 
 		/// <summary>
 		///     Filter by a function. The passed function will be called with each
@@ -101,7 +102,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="fn">The filter function</param>
 		/// <returns></returns>
-		public virtual void filterBy(Delegate fn) { _(fn); }
+		public extern virtual void filterBy(Delegate fn);
 
 		/// <summary>
 		///     Filter by a function. The passed function will be called with each
@@ -111,14 +112,14 @@ namespace Ext.tree {
 		/// <param name="fn">The filter function</param>
 		/// <param name="scope">(optional) The scope of the function (defaults to the current node)</param>
 		/// <returns></returns>
-		public virtual void filterBy(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void filterBy(Delegate fn, object scope);
 
 		/// <summary>
 		///     Clears the current filter. Note: with the "remove" option
 		///     set a filter cannot be cleared.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void clear() { _(); }
+		public extern virtual void clear();
 
 
 

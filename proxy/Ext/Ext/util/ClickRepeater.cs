@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.util {
@@ -27,26 +28,26 @@ namespace Ext.util {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public ClickRepeater() { C_(); }
+		public extern ClickRepeater();
 		/// <summary></summary>
 		/// <param name="el">The element to listen on</param>
 		/// <returns></returns>
-		public ClickRepeater(object el) { C_(el); }
+		public extern ClickRepeater(object el);
 		/// <summary></summary>
 		/// <param name="el">The element to listen on</param>
 		/// <param name="config"></param>
 		/// <returns></returns>
-		public ClickRepeater(object el, object config) { C_(el, config); }
+		public extern ClickRepeater(object el, object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static ClickRepeater prototype { get { return S_<ClickRepeater>(); } set { S_(value); } }
+		public extern static ClickRepeater prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 
@@ -54,30 +55,30 @@ namespace Ext.util {
 	}
 
 	[JsAnonymous]
-	public class ClickRepeaterConfig : DotWeb.Client.JsDynamicBase {
+	public class ClickRepeaterConfig : System.DotWeb.JsDynamic {
 		/// <summary> The element to act as a button.</summary>
-		public object el { get { return _<object>(); } set { _(value); } }
+		public object el { get { return (object)this["el"]; } set { this["el"] = value; } }
 
 		/// <summary> The initial delay before the repeating event begins firing.</summary>
-		public double delay { get { return _<double>(); } set { _(value); } }
+		public double delay { get { return (double)this["delay"]; } set { this["delay"] = value; } }
 
 		/// <summary> The interval between firings of the "click" event. Default 20 ms.</summary>
-		public double interval { get { return _<double>(); } set { _(value); } }
+		public double interval { get { return (double)this["interval"]; } set { this["interval"] = value; } }
 
 		/// <summary> A CSS class name to be applied to the element while pressed.</summary>
-		public string pressClass { get { return _<string>(); } set { _(value); } }
+		public string pressClass { get { return (string)this["pressClass"]; } set { this["pressClass"] = value; } }
 
 		/// <summary> True if autorepeating should start slowly and accelerate.</summary>
-		public bool accelerate { get { return _<bool>(); } set { _(value); } }
+		public bool accelerate { get { return (bool)this["accelerate"]; } set { this["accelerate"] = value; } }
 
 		/// <summary> True to prevent the default click event</summary>
-		public bool preventDefault { get { return _<bool>(); } set { _(value); } }
+		public bool preventDefault { get { return (bool)this["preventDefault"]; } set { this["preventDefault"] = value; } }
 
 		/// <summary> True to stop the default click event</summary>
-		public bool stopDefault { get { return _<bool>(); } set { _(value); } }
+		public bool stopDefault { get { return (bool)this["stopDefault"]; } set { this["stopDefault"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

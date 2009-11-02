@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.dd {
@@ -20,14 +21,14 @@ namespace Ext.dd {
 		///     resizeFrame, centerFrame, dragElId
 		/// </summary>
 		/// <returns></returns>
-		public DDProxy() { C_(); }
+		public extern DDProxy();
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
 		/// </summary>
 		/// <param name="id">the id of the linked html element</param>
 		/// <returns></returns>
-		public DDProxy(string id) { C_(id); }
+		public extern DDProxy(string id);
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -35,7 +36,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the linked html element</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DDProxy(string id, string sGroup) { C_(id, sGroup); }
+		public extern DDProxy(string id, string sGroup);
 		/// <summary>
 		///     Valid properties for DDProxy in addition to those in DragDrop:
 		///     resizeFrame, centerFrame, dragElId
@@ -44,27 +45,27 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DDProxy(string id, string sGroup, object config) { C_(id, sGroup, config); }
+		public extern DDProxy(string id, string sGroup, object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DDProxy prototype { get { return S_<DDProxy>(); } set { S_(value); } }
+		public extern static DDProxy prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.dd.DD superclass { get { return S_<Ext.dd.DD>(); } set { S_(value); } }
+		public extern static Ext.dd.DD superclass { get; set; }
 
 		/// <summary>The default drag frame div id</summary>
-		public static string Ext { get { return S_<string>(); } set { S_(value); } }
+		public extern static string Ext { get; set; }
 
 		/// <summary>
 		///     By default we resize the drag frame to be the same size as the element
 		///     we want to drag (this is to get the frame effect).  We can turn it off
 		///     if we want a different behavior.
 		/// </summary>
-		public bool resizeFrame { get { return _<bool>(); } set { _(value); } }
+		public extern bool resizeFrame { get; set; }
 
 		/// <summary>
 		///     By default the frame is positioned exactly where the drag element is, so
@@ -72,19 +73,19 @@ namespace Ext.dd {
 		///     you do not have constraints on the obj is to have the drag frame centered
 		///     around the cursor.  Set centerFrame to true for this effect.
 		/// </summary>
-		public bool centerFrame { get { return _<bool>(); } set { _(value); } }
+		public extern bool centerFrame { get; set; }
 
 
 		/// <summary>Creates the proxy element if it does not yet exist</summary>
 		/// <returns></returns>
-		public virtual void createFrame() { _(); }
+		public extern virtual void createFrame();
 
 		/// <summary>
 		///     Initialization for the drag frame element.  Must be called in the
 		///     constructor of all subclasses
 		/// </summary>
 		/// <returns></returns>
-		public virtual void initFrame() { _(); }
+		public extern virtual void initFrame();
 
 
 

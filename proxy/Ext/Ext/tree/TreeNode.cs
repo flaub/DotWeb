@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -31,39 +32,39 @@ namespace Ext.tree {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public TreeNode() { C_(); }
+		public extern TreeNode();
 		/// <summary></summary>
 		/// <param name="attributes">The attributes/config for the node or just a string with the text for the node</param>
 		/// <returns></returns>
-		public TreeNode(object attributes) { C_(attributes); }
+		public extern TreeNode(object attributes);
 		/// <summary></summary>
 		/// <param name="attributes">The attributes/config for the node or just a string with the text for the node</param>
 		/// <returns></returns>
-		public TreeNode(string attributes) { C_(attributes); }
+		public extern TreeNode(string attributes);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static TreeNode prototype { get { return S_<TreeNode>(); } set { S_(value); } }
+		public extern static TreeNode prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.Node superclass { get { return S_<Ext.data.Node>(); } set { S_(value); } }
+		public extern static Ext.data.Node superclass { get; set; }
 
 		/// <summary>Read-only. The text for this node. To change it use setText().</summary>
-		public string text { get { return _<string>(); } set { _(value); } }
+		public extern string text { get; set; }
 
 		/// <summary>True if this node is disabled.</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public extern bool disabled { get; set; }
 
 		/// <summary>Read-only. The UI for this node</summary>
-		public TreeNodeUI ui { get { return _<TreeNodeUI>(); } set { _(value); } }
+		public extern TreeNodeUI ui { get; set; }
 
 
 		/// <summary>Returns true if this node is expanded</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isExpanded() { _(); }
+		public extern virtual void isExpanded();
 
 		/// <summary>
 		///     Returns the UI object for this node.
@@ -71,28 +72,28 @@ namespace Ext.tree {
 		///     of {@link Ext.tree.TreeNodeUI}
 		/// </summary>
 		/// <returns>TreeNodeUI</returns>
-		public virtual void getUI() { _(); }
+		public extern virtual void getUI();
 
 		/// <summary>Sets the text for this node</summary>
 		/// <returns></returns>
-		public virtual void setText() { _(); }
+		public extern virtual void setText();
 
 		/// <summary>Sets the text for this node</summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public virtual void setText(string text) { _(text); }
+		public extern virtual void setText(string text);
 
 		/// <summary>Triggers selection of this node</summary>
 		/// <returns></returns>
-		public virtual void select() { _(); }
+		public extern virtual void select();
 
 		/// <summary>Triggers deselection of this node</summary>
 		/// <returns></returns>
-		public virtual void unselect() { _(); }
+		public extern virtual void unselect();
 
 		/// <summary>Returns true if this node is selected</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isSelected() { _(); }
+		public extern virtual void isSelected();
 
 		/// <summary>
 		///     Expand this node.
@@ -100,7 +101,7 @@ namespace Ext.tree {
 		///     Called with 1 parameter, this node.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void expand() { _(); }
+		public extern virtual void expand();
 
 		/// <summary>
 		///     Expand this node.
@@ -109,7 +110,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="deep">(optional) True to expand all children as well</param>
 		/// <returns></returns>
-		public virtual void expand(bool deep) { _(deep); }
+		public extern virtual void expand(bool deep);
 
 		/// <summary>
 		///     Expand this node.
@@ -119,7 +120,7 @@ namespace Ext.tree {
 		/// <param name="deep">(optional) True to expand all children as well</param>
 		/// <param name="anim">(optional) false to cancel the default animation</param>
 		/// <returns></returns>
-		public virtual void expand(bool deep, bool anim) { _(deep, anim); }
+		public extern virtual void expand(bool deep, bool anim);
 
 		/// <summary>
 		///     Expand this node.
@@ -130,131 +131,131 @@ namespace Ext.tree {
 		/// <param name="anim">(optional) false to cancel the default animation</param>
 		/// <param name="callback">(optional) A callback to be called when</param>
 		/// <returns></returns>
-		public virtual void expand(bool deep, bool anim, Delegate callback) { _(deep, anim, callback); }
+		public extern virtual void expand(bool deep, bool anim, Delegate callback);
 
 		/// <summary>Collapse this node.</summary>
 		/// <returns></returns>
-		public virtual void collapse() { _(); }
+		public extern virtual void collapse();
 
 		/// <summary>Collapse this node.</summary>
 		/// <param name="deep">(optional) True to collapse all children as well</param>
 		/// <returns></returns>
-		public virtual void collapse(bool deep) { _(deep); }
+		public extern virtual void collapse(bool deep);
 
 		/// <summary>Collapse this node.</summary>
 		/// <param name="deep">(optional) True to collapse all children as well</param>
 		/// <param name="anim">(optional) false to cancel the default animation</param>
 		/// <returns></returns>
-		public virtual void collapse(bool deep, bool anim) { _(deep, anim); }
+		public extern virtual void collapse(bool deep, bool anim);
 
 		/// <summary>Toggles expanded/collapsed state of the node</summary>
 		/// <returns></returns>
-		public virtual void toggle() { _(); }
+		public extern virtual void toggle();
 
 		/// <summary>
 		///     Ensures all parent nodes are expanded, and if necessary, scrolls
 		///     the node into view.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void ensureVisible() { _(); }
+		public extern virtual void ensureVisible();
 
 		/// <summary>Expand all child nodes</summary>
 		/// <returns></returns>
-		public virtual void expandChildNodes() { _(); }
+		public extern virtual void expandChildNodes();
 
 		/// <summary>Expand all child nodes</summary>
 		/// <param name="deep">(optional) true if the child nodes should also expand their child nodes</param>
 		/// <returns></returns>
-		public virtual void expandChildNodes(bool deep) { _(deep); }
+		public extern virtual void expandChildNodes(bool deep);
 
 		/// <summary>Collapse all child nodes</summary>
 		/// <returns></returns>
-		public virtual void collapseChildNodes() { _(); }
+		public extern virtual void collapseChildNodes();
 
 		/// <summary>Collapse all child nodes</summary>
 		/// <param name="deep">(optional) true if the child nodes should also collapse their child nodes</param>
 		/// <returns></returns>
-		public virtual void collapseChildNodes(bool deep) { _(deep); }
+		public extern virtual void collapseChildNodes(bool deep);
 
 		/// <summary>Disables this node</summary>
 		/// <returns></returns>
-		public virtual void disable() { _(); }
+		public extern virtual void disable();
 
 		/// <summary>Enables this node</summary>
 		/// <returns></returns>
-		public virtual void enable() { _(); }
+		public extern virtual void enable();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class TreeNodeConfig : DotWeb.Client.JsDynamicBase {
+	public class TreeNodeConfig : System.DotWeb.JsDynamic {
 		/// <summary> The text for this node</summary>
-		public string text { get { return _<string>(); } set { _(value); } }
+		public string text { get { return (string)this["text"]; } set { this["text"] = value; } }
 
 		/// <summary> true to start the node expanded</summary>
-		public bool expanded { get { return _<bool>(); } set { _(value); } }
+		public bool expanded { get { return (bool)this["expanded"]; } set { this["expanded"] = value; } }
 
 		/// <summary> False to make this node undraggable if {@link #draggable} = true (defaults to true)</summary>
-		public bool allowDrag { get { return _<bool>(); } set { _(value); } }
+		public bool allowDrag { get { return (bool)this["allowDrag"]; } set { this["allowDrag"] = value; } }
 
 		/// <summary> False if this node cannot have child nodes dropped on it (defaults to true)</summary>
-		public bool allowDrop { get { return _<bool>(); } set { _(value); } }
+		public bool allowDrop { get { return (bool)this["allowDrop"]; } set { this["allowDrop"] = value; } }
 
 		/// <summary> true to start the node disabled</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public bool disabled { get { return (bool)this["disabled"]; } set { this["disabled"] = value; } }
 
 		/// <summary> The path to an icon for the node. The preferred way to do this</summary>
-		public string icon { get { return _<string>(); } set { _(value); } }
+		public string icon { get { return (string)this["icon"]; } set { this["icon"] = value; } }
 
 		/// <summary> A css class to be added to the node</summary>
-		public string cls { get { return _<string>(); } set { _(value); } }
+		public string cls { get { return (string)this["cls"]; } set { this["cls"] = value; } }
 
 		/// <summary> A css class to be added to the nodes icon element for applying css background images</summary>
-		public string iconCls { get { return _<string>(); } set { _(value); } }
+		public string iconCls { get { return (string)this["iconCls"]; } set { this["iconCls"] = value; } }
 
 		/// <summary> URL of the link used for the node (defaults to #)</summary>
-		public string href { get { return _<string>(); } set { _(value); } }
+		public string href { get { return (string)this["href"]; } set { this["href"] = value; } }
 
 		/// <summary> target frame for the link</summary>
-		public string hrefTarget { get { return _<string>(); } set { _(value); } }
+		public string hrefTarget { get { return (string)this["hrefTarget"]; } set { this["hrefTarget"] = value; } }
 
 		/// <summary> An Ext QuickTip for the node</summary>
-		public string qtip { get { return _<string>(); } set { _(value); } }
+		public string qtip { get { return (string)this["qtip"]; } set { this["qtip"] = value; } }
 
 		/// <summary> If set to true, the node will always show a plus/minus icon, even when empty</summary>
-		public bool expandable { get { return _<bool>(); } set { _(value); } }
+		public bool expandable { get { return (bool)this["expandable"]; } set { this["expandable"] = value; } }
 
 		/// <summary> An Ext QuickTip config for the node (used instead of qtip)</summary>
-		public string qtipCfg { get { return _<string>(); } set { _(value); } }
+		public string qtipCfg { get { return (string)this["qtipCfg"]; } set { this["qtipCfg"] = value; } }
 
 		/// <summary> True for single click expand on this node</summary>
-		public bool singleClickExpand { get { return _<bool>(); } set { _(value); } }
+		public bool singleClickExpand { get { return (bool)this["singleClickExpand"]; } set { this["singleClickExpand"] = value; } }
 
 		/// <summary> A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)</summary>
-		public Delegate uiProvider { get { return _<Delegate>(); } set { _(value); } }
+		public Delegate uiProvider { get { return (Delegate)this["uiProvider"]; } set { this["uiProvider"] = value; } }
 
 		/// <summary> True to render a checked checkbox for this node, false to render an unchecked checkbox</summary>
-		public bool checked_ { get { return _<bool>(); } set { _(value); } }
+		public bool checked_ { get { return (bool)this["checked_"]; } set { this["checked_"] = value; } }
 
 		/// <summary> True to make this node draggable (defaults to false)</summary>
-		public bool draggable { get { return _<bool>(); } set { _(value); } }
+		public bool draggable { get { return (bool)this["draggable"]; } set { this["draggable"] = value; } }
 
 		/// <summary> False to not allow this node to act as a drop target (defaults to true)</summary>
-		public bool isTarget { get { return _<bool>(); } set { _(value); } }
+		public bool isTarget { get { return (bool)this["isTarget"]; } set { this["isTarget"] = value; } }
 
 		/// <summary> False to not allow this node to have child nodes (defaults to true)</summary>
-		public bool allowChildren { get { return _<bool>(); } set { _(value); } }
+		public bool allowChildren { get { return (bool)this["allowChildren"]; } set { this["allowChildren"] = value; } }
 
 		/// <summary> true if this node is a leaf and does not have children</summary>
-		public bool leaf { get { return _<bool>(); } set { _(value); } }
+		public bool leaf { get { return (bool)this["leaf"]; } set { this["leaf"] = value; } }
 
 		/// <summary> The id for this node. If one is not specified, one is generated.</summary>
-		public string id { get { return _<string>(); } set { _(value); } }
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

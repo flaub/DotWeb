@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -22,51 +23,51 @@ namespace Ext.data {
 		///     and read the data into Records.
 		/// </summary>
 		/// <returns></returns>
-		public Store() { C_(); }
+		public extern Store();
 		/// <summary>
 		///     Creates a new Store.
 		///     and read the data into Records.
 		/// </summary>
 		/// <param name="config">A config object containing the objects needed for the Store to access data,</param>
 		/// <returns></returns>
-		public Store(object config) { C_(config); }
+		public extern Store(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Ext.data.Store prototype { get { return S_<Ext.data.Store>(); } set { S_(value); } }
+		public extern static Ext.data.Store prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>
 		///     An object containing properties which are used as parameters on any HTTP request.
 		///     This property can be changed after creating the Store to send different parameters.
 		/// </summary>
-		public object baseParams { get { return _<object>(); } set { _(value); } }
+		public extern object baseParams { get; set; }
 
 		/// <summary>If passed, the id to use to register with the StoreMgr</summary>
-		public string storeId { get { return _<string>(); } set { _(value); } }
+		public extern string storeId { get; set; }
 
 		/// <summary>If passed, an HttpProxy is created for the passed URL</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public extern string url { get; set; }
 
 		/// <summary>If passed, this store's load method is automatically called after creation with the autoLoad object</summary>
-		public object autoLoad { get { return _<object>(); } set { _(value); } }
+		public extern object autoLoad { get; set; }
 
 		/// <summary>The Proxy object which provides access to a data object.</summary>
-		public Ext.data.DataProxy proxy { get { return _<Ext.data.DataProxy>(); } set { _(value); } }
+		public extern Ext.data.DataProxy proxy { get; set; }
 
 		/// <summary>Inline data to be loaded when the store is initialized.</summary>
-		public System.Array data { get { return _<System.Array>(); } set { _(value); } }
+		public extern System.Array data { get; set; }
 
 		/// <summary>The DataReader object which processes the data object and returnsan Array of Ext.data.Record objects which are cached keyed by their <em>id</em> property.</summary>
-		public Ext.data.DataReader reader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
+		public extern Ext.data.DataReader reader { get; set; }
 
 		/// <summary>A config object in the format: {field: "fieldName", direction: "ASC|DESC"}.  The directionproperty is case-sensitive.</summary>
-		public object sortInfo { get { return _<object>(); } set { _(value); } }
+		public extern object sortInfo { get; set; }
 
 		/// <summary>
 		///     True if sorting is to be handled by requesting theProxy to provide a refreshed version of the data object in sorted order, as
@@ -80,34 +81,34 @@ namespace Ext.data {
 		///     <li><b>dir</b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li>
 		///     </ul></div></p>
 		/// </summary>
-		public bool remoteSort { get { return _<bool>(); } set { _(value); } }
+		public extern bool remoteSort { get; set; }
 
 		/// <summary>True to clear all modified record information each time the store isloaded or when a record is removed. (defaults to false).</summary>
-		public bool pruneModifiedRecords { get { return _<bool>(); } set { _(value); } }
+		public extern bool pruneModifiedRecords { get; set; }
 
 		/// <summary>
 		///     Contains the last options object used as the parameter to the load method. See {@link #load}
 		///     for the details of what this may contain. This may be useful for accessing any params which
 		///     were used to load the current Record cache.
 		/// </summary>
-		public object lastOptions { get { return _<object>(); } set { _(value); } }
+		public extern object lastOptions { get; set; }
 
 
 		/// <summary>Add Records to the Store and fires the {@link #add} event.</summary>
 		/// <returns></returns>
-		public virtual void add() { _(); }
+		public extern virtual void add();
 
 		/// <summary>Add Records to the Store and fires the {@link #add} event.</summary>
 		/// <param name="records">An Array of Ext.data.Record objects to add to the cache.</param>
 		/// <returns></returns>
-		public virtual void add(Ext.data.Record[] records) { _(records); }
+		public extern virtual void add(Ext.data.Record[] records);
 
 		/// <summary>
 		///     (Local sort only) Inserts the passed Record into the Store at the index where it
 		///     should go based on the current sort information.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void addSorted() { _(); }
+		public extern virtual void addSorted();
 
 		/// <summary>
 		///     (Local sort only) Inserts the passed Record into the Store at the index where it
@@ -115,86 +116,86 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="record"></param>
 		/// <returns></returns>
-		public virtual void addSorted(Ext.data.Record record) { _(record); }
+		public extern virtual void addSorted(Ext.data.Record record);
 
 		/// <summary>Remove a Record from the Store and fires the {@link #remove} event.</summary>
 		/// <returns></returns>
-		public virtual void remove() { _(); }
+		public extern virtual void remove();
 
 		/// <summary>Remove a Record from the Store and fires the {@link #remove} event.</summary>
 		/// <param name="record">Th Ext.data.Record object to remove from the cache.</param>
 		/// <returns></returns>
-		public virtual void remove(Ext.data.Record record) { _(record); }
+		public extern virtual void remove(Ext.data.Record record);
 
 		/// <summary>Remove all Records from the Store and fires the {@link #clear} event.</summary>
 		/// <returns></returns>
-		public virtual void removeAll() { _(); }
+		public extern virtual void removeAll();
 
 		/// <summary>Inserts Records into the Store at the given index and fires the {@link #add} event.</summary>
 		/// <returns></returns>
-		public virtual void insert() { _(); }
+		public extern virtual void insert();
 
 		/// <summary>Inserts Records into the Store at the given index and fires the {@link #add} event.</summary>
 		/// <param name="index">The start index at which to insert the passed Records.</param>
 		/// <returns></returns>
-		public virtual void insert(double index) { _(index); }
+		public extern virtual void insert(double index);
 
 		/// <summary>Inserts Records into the Store at the given index and fires the {@link #add} event.</summary>
 		/// <param name="index">The start index at which to insert the passed Records.</param>
 		/// <param name="records">An Array of Ext.data.Record objects to add to the cache.</param>
 		/// <returns></returns>
-		public virtual void insert(double index, Ext.data.Record[] records) { _(index, records); }
+		public extern virtual void insert(double index, Ext.data.Record[] records);
 
 		/// <summary>Get the index within the cache of the passed Record.</summary>
 		/// <returns>Number</returns>
-		public virtual void indexOf() { _(); }
+		public extern virtual void indexOf();
 
 		/// <summary>Get the index within the cache of the passed Record.</summary>
 		/// <param name="record">The Ext.data.Record object to find.</param>
 		/// <returns>Number</returns>
-		public virtual void indexOf(Ext.data.Record record) { _(record); }
+		public extern virtual void indexOf(Ext.data.Record record);
 
 		/// <summary>Get the index within the cache of the Record with the passed id.</summary>
 		/// <returns>Number</returns>
-		public virtual void indexOfId() { _(); }
+		public extern virtual void indexOfId();
 
 		/// <summary>Get the index within the cache of the Record with the passed id.</summary>
 		/// <param name="id">The id of the Record to find.</param>
 		/// <returns>Number</returns>
-		public virtual void indexOfId(string id) { _(id); }
+		public extern virtual void indexOfId(string id);
 
 		/// <summary>Get the Record with the specified id.</summary>
 		/// <returns>Ext.data.Record</returns>
-		public virtual void getById() { _(); }
+		public extern virtual void getById();
 
 		/// <summary>Get the Record with the specified id.</summary>
 		/// <param name="id">The id of the Record to find.</param>
 		/// <returns>Ext.data.Record</returns>
-		public virtual void getById(string id) { _(id); }
+		public extern virtual void getById(string id);
 
 		/// <summary>Get the Record at the specified index.</summary>
 		/// <returns>Ext.data.Record</returns>
-		public virtual void getAt() { _(); }
+		public extern virtual void getAt();
 
 		/// <summary>Get the Record at the specified index.</summary>
 		/// <param name="index">The index of the Record to find.</param>
 		/// <returns>Ext.data.Record</returns>
-		public virtual void getAt(double index) { _(index); }
+		public extern virtual void getAt(double index);
 
 		/// <summary>Returns a range of Records between specified indices.</summary>
 		/// <returns>Ext.data.Record[]</returns>
-		public virtual void getRange() { _(); }
+		public extern virtual void getRange();
 
 		/// <summary>Returns a range of Records between specified indices.</summary>
 		/// <param name="startIndex">(optional) The starting index (defaults to 0)</param>
 		/// <returns>Ext.data.Record[]</returns>
-		public virtual void getRange(double startIndex) { _(startIndex); }
+		public extern virtual void getRange(double startIndex);
 
 		/// <summary>Returns a range of Records between specified indices.</summary>
 		/// <param name="startIndex">(optional) The starting index (defaults to 0)</param>
 		/// <param name="endIndex">(optional) The ending index (defaults to the last Record in the Store)</param>
 		/// <returns>Ext.data.Record[]</returns>
-		public virtual void getRange(double startIndex, double endIndex) { _(startIndex, endIndex); }
+		public extern virtual void getRange(double startIndex, double endIndex);
 
 		/// <summary>
 		///     Loads the Record cache from the configured Proxy using the configured Reader.
@@ -215,7 +216,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void load() { _(); }
+		public extern virtual void load();
 
 		/// <summary>
 		///     Loads the Record cache from the configured Proxy using the configured Reader.
@@ -237,7 +238,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="options">An object containing properties which control loading options:<ul></param>
 		/// <returns>Boolean</returns>
-		public virtual void load(object options) { _(options); }
+		public extern virtual void load(object options);
 
 		/// <summary>
 		///     Reloads the Record cache from the configured Proxy using the configured Reader and
@@ -246,7 +247,7 @@ namespace Ext.data {
 		///     the most recently used options are reused).
 		/// </summary>
 		/// <returns></returns>
-		public virtual void reload() { _(); }
+		public extern virtual void reload();
 
 		/// <summary>
 		///     Reloads the Record cache from the configured Proxy using the configured Reader and
@@ -256,7 +257,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="options">(optional) An object containing properties which may override the options</param>
 		/// <returns></returns>
-		public virtual void reload(object options) { _(options); }
+		public extern virtual void reload(object options);
 
 		/// <summary>
 		///     Loads data from a passed data block and fires the {@link #load} event. A Reader which understands the format of the data
@@ -264,7 +265,7 @@ namespace Ext.data {
 		///     is dependent on the type of Reader that is configured and should correspond to that Reader's readRecords parameter.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void loadData() { _(); }
+		public extern virtual void loadData();
 
 		/// <summary>
 		///     Loads data from a passed data block and fires the {@link #load} event. A Reader which understands the format of the data
@@ -273,7 +274,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="data">The data block from which to read the Records.  The format of the data expected</param>
 		/// <returns></returns>
-		public virtual void loadData(object data) { _(data); }
+		public extern virtual void loadData(object data);
 
 		/// <summary>
 		///     Loads data from a passed data block and fires the {@link #load} event. A Reader which understands the format of the data
@@ -283,7 +284,7 @@ namespace Ext.data {
 		/// <param name="data">The data block from which to read the Records.  The format of the data expected</param>
 		/// <param name="append">(Optional) True to append the new Records rather than replace the existing cache.</param>
 		/// <returns></returns>
-		public virtual void loadData(object data, bool append) { _(data, append); }
+		public extern virtual void loadData(object data, bool append);
 
 		/// <summary>
 		///     Gets the number of cached records.
@@ -292,7 +293,7 @@ namespace Ext.data {
 		///     the dataset size.</p>
 		/// </summary>
 		/// <returns>Number</returns>
-		public virtual void getCount() { _(); }
+		public extern virtual void getCount();
 
 		/// <summary>
 		///     Gets the total number of records in the dataset as returned by the server.
@@ -302,7 +303,7 @@ namespace Ext.data {
 		///     <p><b>This value is not updated when changing the contents of the Store locally.</b></p>
 		/// </summary>
 		/// <returns>Number</returns>
-		public virtual void getTotalCount() { _(); }
+		public extern virtual void getTotalCount();
 
 		/// <summary>
 		///     Returns an object describing the current sort state of this Store.
@@ -311,22 +312,22 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void getSortState() { _(); }
+		public extern virtual void getSortState();
 
 		/// <summary>Sets the default sort column and order to be used by the next load operation.</summary>
 		/// <returns></returns>
-		public virtual void setDefaultSort() { _(); }
+		public extern virtual void setDefaultSort();
 
 		/// <summary>Sets the default sort column and order to be used by the next load operation.</summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <returns></returns>
-		public virtual void setDefaultSort(string fieldName) { _(fieldName); }
+		public extern virtual void setDefaultSort(string fieldName);
 
 		/// <summary>Sets the default sort column and order to be used by the next load operation.</summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <param name="dir">(optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")</param>
 		/// <returns></returns>
-		public virtual void setDefaultSort(string fieldName, string dir) { _(fieldName, dir); }
+		public extern virtual void setDefaultSort(string fieldName, string dir);
 
 		/// <summary>
 		///     Sort the Records.
@@ -334,7 +335,7 @@ namespace Ext.data {
 		///     reloaded. If local sorting is used, the cache is sorted internally.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void sort() { _(); }
+		public extern virtual void sort();
 
 		/// <summary>
 		///     Sort the Records.
@@ -343,7 +344,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <returns></returns>
-		public virtual void sort(string fieldName) { _(fieldName); }
+		public extern virtual void sort(string fieldName);
 
 		/// <summary>
 		///     Sort the Records.
@@ -353,14 +354,14 @@ namespace Ext.data {
 		/// <param name="fieldName">The name of the field to sort by.</param>
 		/// <param name="dir">(optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")</param>
 		/// <returns></returns>
-		public virtual void sort(string fieldName, string dir) { _(fieldName, dir); }
+		public extern virtual void sort(string fieldName, string dir);
 
 		/// <summary>
 		///     Calls the specified function for each of the Records in the cache.
 		///     Returning <tt>false</tt> aborts and exits the iteration.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void each() { _(); }
+		public extern virtual void each();
 
 		/// <summary>
 		///     Calls the specified function for each of the Records in the cache.
@@ -368,7 +369,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to call. The Record is passed as the first parameter.</param>
 		/// <returns></returns>
-		public virtual void each(Delegate fn) { _(fn); }
+		public extern virtual void each(Delegate fn);
 
 		/// <summary>
 		///     Calls the specified function for each of the Records in the cache.
@@ -377,81 +378,51 @@ namespace Ext.data {
 		/// <param name="fn">The function to call. The Record is passed as the first parameter.</param>
 		/// <param name="scope">(optional) The scope in which to call the function (defaults to the Record).</param>
 		/// <returns></returns>
-		public virtual void each(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void each(Delegate fn, object scope);
 
 		/// <summary>
 		///     Gets all records modified since the last commit.  Modified records are persisted across load operations
 		///     (e.g., during paging).
 		/// </summary>
 		/// <returns>Ext.data.Record[]</returns>
-		public virtual void getModifiedRecords() { _(); }
+		public extern virtual void getModifiedRecords();
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <returns>Number</returns>
-		public virtual void sum() { _(); }
+		public extern virtual void sum();
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <returns>Number</returns>
-		public virtual void sum(string property) { _(property); }
+		public extern virtual void sum(string property);
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <param name="start">The record index to start at (defaults to 0)</param>
 		/// <returns>Number</returns>
-		public virtual void sum(string property, double start) { _(property, start); }
+		public extern virtual void sum(string property, double start);
 
 		/// <summary>Sums the value of <i>property</i> for each record between start and end and returns the result.</summary>
 		/// <param name="property">A field on your records</param>
 		/// <param name="start">The record index to start at (defaults to 0)</param>
 		/// <param name="end">The last record index to include (defaults to length - 1)</param>
 		/// <returns>Number</returns>
-		public virtual void sum(string property, double start, double end) { _(property, start, end); }
+		public extern virtual void sum(string property, double start, double end);
 
 		/// <summary>
 		///     Filter the records by a specified property.
 		///     should begin with, or a RegExp to test against the field.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void filter() { _(); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <returns></returns>
-		public virtual void filter(string field) { _(field); }
+		public extern virtual void filter();
 
 		/// <summary>
 		///     Filter the records by a specified property.
 		///     should begin with, or a RegExp to test against the field.
 		/// </summary>
 		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
 		/// <returns></returns>
-		public virtual void filter(string field, string value) { _(field, value); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <returns></returns>
-		public virtual void filter(string field, string value, bool anyMatch) { _(field, value, anyMatch); }
-
-		/// <summary>
-		///     Filter the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
-		/// <returns></returns>
-		public virtual void filter(string field, string value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public extern virtual void filter(string field);
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -460,7 +431,7 @@ namespace Ext.data {
 		/// <param name="field">A field on your records</param>
 		/// <param name="value">Either a string that the field</param>
 		/// <returns></returns>
-		public virtual void filter(string field, object value) { _(field, value); }
+		public extern virtual void filter(string field, string value);
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -470,7 +441,7 @@ namespace Ext.data {
 		/// <param name="value">Either a string that the field</param>
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <returns></returns>
-		public virtual void filter(string field, object value, bool anyMatch) { _(field, value, anyMatch); }
+		public extern virtual void filter(string field, string value, bool anyMatch);
 
 		/// <summary>
 		///     Filter the records by a specified property.
@@ -481,7 +452,37 @@ namespace Ext.data {
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
 		/// <returns></returns>
-		public virtual void filter(string field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public extern virtual void filter(string field, string value, bool anyMatch, bool caseSensitive);
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <returns></returns>
+		public extern virtual void filter(string field, object value);
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <returns></returns>
+		public extern virtual void filter(string field, object value, bool anyMatch);
+
+		/// <summary>
+		///     Filter the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
+		/// <returns></returns>
+		public extern virtual void filter(string field, object value, bool anyMatch, bool caseSensitive);
 
 		/// <summary>
 		///     Filter by a function. The specified function will be called for each
@@ -493,7 +494,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void filterBy() { _(); }
+		public extern virtual void filterBy();
 
 		/// <summary>
 		///     Filter by a function. The specified function will be called for each
@@ -506,7 +507,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <returns></returns>
-		public virtual void filterBy(Delegate fn) { _(fn); }
+		public extern virtual void filterBy(Delegate fn);
 
 		/// <summary>
 		///     Filter by a function. The specified function will be called for each
@@ -520,52 +521,22 @@ namespace Ext.data {
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <param name="scope">(optional) The scope of the function (defaults to this)</param>
 		/// <returns></returns>
-		public virtual void filterBy(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void filterBy(Delegate fn, object scope);
 
 		/// <summary>
 		///     Query the records by a specified property.
 		///     should begin with, or a RegExp to test against the field.
 		/// </summary>
 		/// <returns>MixedCollection</returns>
-		public virtual void query() { _(); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(string field) { _(field); }
+		public extern virtual void query();
 
 		/// <summary>
 		///     Query the records by a specified property.
 		///     should begin with, or a RegExp to test against the field.
 		/// </summary>
 		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, string value) { _(field, value); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, string value, bool anyMatch) { _(field, value, anyMatch); }
-
-		/// <summary>
-		///     Query the records by a specified property.
-		///     should begin with, or a RegExp to test against the field.
-		/// </summary>
-		/// <param name="field">A field on your records</param>
-		/// <param name="value">Either a string that the field</param>
-		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
-		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
-		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, string value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public extern virtual void query(string field);
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -574,7 +545,7 @@ namespace Ext.data {
 		/// <param name="field">A field on your records</param>
 		/// <param name="value">Either a string that the field</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, object value) { _(field, value); }
+		public extern virtual void query(string field, string value);
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -584,7 +555,7 @@ namespace Ext.data {
 		/// <param name="value">Either a string that the field</param>
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, object value, bool anyMatch) { _(field, value, anyMatch); }
+		public extern virtual void query(string field, string value, bool anyMatch);
 
 		/// <summary>
 		///     Query the records by a specified property.
@@ -595,7 +566,37 @@ namespace Ext.data {
 		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
 		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void query(string field, object value, bool anyMatch, bool caseSensitive) { _(field, value, anyMatch, caseSensitive); }
+		public extern virtual void query(string field, string value, bool anyMatch, bool caseSensitive);
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <returns>MixedCollection</returns>
+		public extern virtual void query(string field, object value);
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <returns>MixedCollection</returns>
+		public extern virtual void query(string field, object value, bool anyMatch);
+
+		/// <summary>
+		///     Query the records by a specified property.
+		///     should begin with, or a RegExp to test against the field.
+		/// </summary>
+		/// <param name="field">A field on your records</param>
+		/// <param name="value">Either a string that the field</param>
+		/// <param name="anyMatch">(optional) True to match any part not just the beginning</param>
+		/// <param name="caseSensitive">(optional) True for case sensitive comparison</param>
+		/// <returns>MixedCollection</returns>
+		public extern virtual void query(string field, object value, bool anyMatch, bool caseSensitive);
 
 		/// <summary>
 		///     Query the cached records in this Store using a filtering function. The specified function
@@ -607,7 +608,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns>MixedCollection</returns>
-		public virtual void find() { _(); }
+		public extern virtual void find();
 
 		/// <summary>
 		///     Query the cached records in this Store using a filtering function. The specified function
@@ -620,7 +621,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <returns>MixedCollection</returns>
-		public virtual void find(Delegate fn) { _(fn); }
+		public extern virtual void find(Delegate fn);
 
 		/// <summary>
 		///     Query the cached records in this Store using a filtering function. The specified function
@@ -634,7 +635,7 @@ namespace Ext.data {
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <param name="scope">(optional) The scope of the function (defaults to this)</param>
 		/// <returns>MixedCollection</returns>
-		public virtual void find(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void find(Delegate fn, object scope);
 
 		/// <summary>
 		///     Find the index of the first matching Record in this Store by a function.
@@ -645,7 +646,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns>Number</returns>
-		public virtual void findBy() { _(); }
+		public extern virtual void findBy();
 
 		/// <summary>
 		///     Find the index of the first matching Record in this Store by a function.
@@ -657,7 +658,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <returns>Number</returns>
-		public virtual void findBy(Delegate fn) { _(fn); }
+		public extern virtual void findBy(Delegate fn);
 
 		/// <summary>
 		///     Find the index of the first matching Record in this Store by a function.
@@ -670,7 +671,7 @@ namespace Ext.data {
 		/// <param name="fn">The function to be called. It will be passed the following parameters:<ul></param>
 		/// <param name="scope">(optional) The scope of the function (defaults to this)</param>
 		/// <returns>Number</returns>
-		public virtual void findBy(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void findBy(Delegate fn, object scope);
 
 		/// <summary>
 		///     Find the index of the first matching Record in this Store by a function.
@@ -684,83 +685,83 @@ namespace Ext.data {
 		/// <param name="scope">(optional) The scope of the function (defaults to this)</param>
 		/// <param name="startIndex">(optional) The index to start searching at</param>
 		/// <returns>Number</returns>
-		public virtual void findBy(Delegate fn, object scope, double startIndex) { _(fn, scope, startIndex); }
+		public extern virtual void findBy(Delegate fn, object scope, double startIndex);
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <returns>Array</returns>
-		public virtual void clearFilter() { _(); }
+		public extern virtual void clearFilter();
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(string dataIndex) { _(dataIndex); }
+		public extern virtual void clearFilter(string dataIndex);
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <param name="allowNull">(optional) Pass true to allow null, undefined or empty string values</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(string dataIndex, bool allowNull) { _(dataIndex, allowNull); }
+		public extern virtual void clearFilter(string dataIndex, bool allowNull);
 
 		/// <summary>Collects unique values for a particular dataIndex from this store.</summary>
 		/// <param name="dataIndex">The property to collect</param>
 		/// <param name="allowNull">(optional) Pass true to allow null, undefined or empty string values</param>
 		/// <param name="bypassFilter">(optional) Pass true to collect from all records, even ones which are filtered</param>
 		/// <returns>Array</returns>
-		public virtual void clearFilter(string dataIndex, bool allowNull, bool bypassFilter) { _(dataIndex, allowNull, bypassFilter); }
+		public extern virtual void clearFilter(string dataIndex, bool allowNull, bool bypassFilter);
 
 		/// <summary>Returns true if this store is currently filtered</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isFiltered() { _(); }
+		public extern virtual void isFiltered();
 
 		/// <summary>
 		///     Commit all Records with outstanding changes. To handle updates for changes, subscribe to the
 		///     Store's "update" event, and perform updating when the third parameter is Ext.data.Record.COMMIT.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void commitChanges() { _(); }
+		public extern virtual void commitChanges();
 
 		/// <summary>Cancel outstanding changes on all changed records.</summary>
 		/// <returns></returns>
-		public virtual void rejectChanges() { _(); }
+		public extern virtual void rejectChanges();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class StoreConfig : DotWeb.Client.JsDynamicBase {
+	public class StoreConfig : System.DotWeb.JsDynamic {
 		/// <summary> If passed, the id to use to register with the StoreMgr</summary>
-		public string storeId { get { return _<string>(); } set { _(value); } }
+		public string storeId { get { return (string)this["storeId"]; } set { this["storeId"] = value; } }
 
 		/// <summary> If passed, an HttpProxy is created for the passed URL</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary>{Boolean/Object} If passed, this store's load method is automatically called after creation with the autoLoad object</summary>
-		public object autoLoad { get { return _<object>(); } set { _(value); } }
+		public object autoLoad { get { return (object)this["autoLoad"]; } set { this["autoLoad"] = value; } }
 
 		/// <summary> The Proxy object which provides access to a data object.</summary>
-		public Ext.data.DataProxy proxy { get { return _<Ext.data.DataProxy>(); } set { _(value); } }
+		public Ext.data.DataProxy proxy { get { return (Ext.data.DataProxy)this["proxy"]; } set { this["proxy"] = value; } }
 
 		/// <summary> Inline data to be loaded when the store is initialized.</summary>
-		public System.Array data { get { return _<System.Array>(); } set { _(value); } }
+		public System.Array data { get { return (System.Array)this["data"]; } set { this["data"] = value; } }
 
 		/// <summary> The DataReader object which processes the data object and returns an Array of Ext.data.Record objects which are cached keyed by their <em>id</em> property.</summary>
-		public Ext.data.DataReader reader { get { return _<Ext.data.DataReader>(); } set { _(value); } }
+		public Ext.data.DataReader reader { get { return (Ext.data.DataReader)this["reader"]; } set { this["reader"] = value; } }
 
 		/// <summary> An object containing properties which are to be sent as parameters on any HTTP request</summary>
-		public object baseParams { get { return _<object>(); } set { _(value); } }
+		public object baseParams { get { return (object)this["baseParams"]; } set { this["baseParams"] = value; } }
 
 		/// <summary> A config object in the format: {field: "fieldName", direction: "ASC|DESC"}.  The direction property is case-sensitive.</summary>
-		public object sortInfo { get { return _<object>(); } set { _(value); } }
+		public object sortInfo { get { return (object)this["sortInfo"]; } set { this["sortInfo"] = value; } }
 
 		/// <summary> True if sorting is to be handled by requesting the Proxy to provide a refreshed version of the data object in sorted order, as opposed to sorting the Record cache in place (defaults to false). <p>If remote sorting is specified, then clicking on a column header causes the current page to be requested from the server with the addition of the following two parameters: <div class="mdetail-params"><ul> <li><b>sort</b> : String<p class="sub-desc">The name (as specified in the Record's Field definition) of the field to sort on.</p></li> <li><b>dir</b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li> </ul></div></p></summary>
-		public bool remoteSort { get { return _<bool>(); } set { _(value); } }
+		public bool remoteSort { get { return (bool)this["remoteSort"]; } set { this["remoteSort"] = value; } }
 
 		/// <summary> True to clear all modified record information each time the store is loaded or when a record is removed. (defaults to false).</summary>
-		public bool pruneModifiedRecords { get { return _<bool>(); } set { _(value); } }
+		public bool pruneModifiedRecords { get { return (bool)this["pruneModifiedRecords"]; } set { this["pruneModifiedRecords"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

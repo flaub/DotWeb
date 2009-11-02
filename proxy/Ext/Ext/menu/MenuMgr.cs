@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.menu {
@@ -9,38 +10,30 @@ namespace Ext.menu {
 	///     Ext.menu.MenuMgr = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\menu\MenuMgr.js</jssource>
-	public class MenuMgr : DotWeb.Client.JsNativeBase {
+	public class MenuMgr : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public MenuMgr() { C_(); }
+		public extern MenuMgr();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static MenuMgr prototype { get { return S_<MenuMgr>(); } set { S_(value); } }
+		public extern static MenuMgr prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>Hides all menus that are currently visible</summary>
 		/// <returns></returns>
-		public static void hideAll() { S_(); }
+		public extern static void hideAll();
 
 		/// <summary>
 		///     Returns a {@link Ext.menu.Menu} object
 		///     be used to generate and return a new Menu instance.
 		/// </summary>
 		/// <returns>Ext.menu.Menu</returns>
-		public static void get() { S_(); }
-
-		/// <summary>
-		///     Returns a {@link Ext.menu.Menu} object
-		///     be used to generate and return a new Menu instance.
-		/// </summary>
-		/// <param name="menu">The string menu id, an existing menu object reference, or a Menu config that will</param>
-		/// <returns>Ext.menu.Menu</returns>
-		public static void get(string menu) { S_(menu); }
+		public extern static void get();
 
 		/// <summary>
 		///     Returns a {@link Ext.menu.Menu} object
@@ -48,7 +41,15 @@ namespace Ext.menu {
 		/// </summary>
 		/// <param name="menu">The string menu id, an existing menu object reference, or a Menu config that will</param>
 		/// <returns>Ext.menu.Menu</returns>
-		public static void get(object menu) { S_(menu); }
+		public extern static void get(string menu);
+
+		/// <summary>
+		///     Returns a {@link Ext.menu.Menu} object
+		///     be used to generate and return a new Menu instance.
+		/// </summary>
+		/// <param name="menu">The string menu id, an existing menu object reference, or a Menu config that will</param>
+		/// <returns>Ext.menu.Menu</returns>
+		public extern static void get(object menu);
 
 
 

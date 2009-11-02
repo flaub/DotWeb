@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -13,18 +14,18 @@ namespace Ext.tree {
 	///     Ext.tree.RootTreeNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeNodeUI.js</jssource>
-	public class RootTreeNodeUI : DotWeb.Client.JsNativeBase {
+	public class RootTreeNodeUI : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public RootTreeNodeUI() { C_(); }
+		public extern RootTreeNodeUI();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static RootTreeNodeUI prototype { get { return S_<RootTreeNodeUI>(); } set { S_(value); } }
+		public extern static RootTreeNodeUI prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 

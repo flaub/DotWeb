@@ -96,11 +96,9 @@ namespace SourceConverter.Components
 				sb.Append(Parameters.GetDocComments());
 				sb.AppendLine(String.Format("\t\t/// <returns>{0}</returns>", Return.Type));
 			}
-			sb.Append("\t\tpublic ");
-			string prefix = "";
+			sb.Append("\t\tpublic extern ");
 			if (Scope == "static") {
 				sb.Append("static ");
-				prefix = "S";
 			}
 			else {
 				sb.Append("virtual ");
@@ -110,21 +108,11 @@ namespace SourceConverter.Components
 				Return.TypeName = "Delegate";
 			}
 
-			string format;
-			if (Return.TypeName == "void") {
-				format = "{0} {1}({2}) {{ {3}_({4}); }}";
-			}
-			else {
-				format = "{0} {1}({2}) {{ return {3}_<{0}>({4}); }}";
-			}
-
 			string[] names = Parameters.Select(x => x.Name).ToArray();
-			sb.Append(string.Format(format,
+			sb.Append(string.Format("{0} {1}({2});",
 				Return.TypeName,
 				Name,
-				Parameters.ToExtSharp(),
-				prefix,
-				string.Join(", ", names)
+				Parameters.ToExtSharp()
 			));
 			sb.AppendLine();
 			return sb.ToString();

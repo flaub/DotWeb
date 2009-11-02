@@ -26,7 +26,7 @@ namespace SourceConverter.Components
 			StringBuilder sb = new StringBuilder();
 			if (SourceConverter.ShowDoc)
 				sb.AppendLine(String.Format("\t\t/// <summary>{0}</summary>", Description.GetDocComment()));
-			sb.Append("\t\tpublic ");
+			sb.Append("\t\tpublic extern ");
 			string prefix = "";
 			if (Scope == "static") {
 				prefix = "S";
@@ -35,7 +35,7 @@ namespace SourceConverter.Components
 			string retType = ExtType.ParseType(Type);
 			sb.Append(retType + " " + Name);
 			string getter = string.Format("return {0}_<{1}>();", prefix, retType);
-			sb.AppendLine(" { get { " + getter + " } set { " + prefix + "_(value); } }");
+			sb.AppendLine(" { get; set; }");
 			return sb.ToString();
 		}
 

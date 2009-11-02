@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -43,39 +44,39 @@ namespace Ext {
 	///     <b>Note: A KeyMap starts enabled</b>
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\KeyMap.js</jssource>
-	public class KeyMap : DotWeb.Client.JsNativeBase {
+	public class KeyMap : System.DotWeb.JsObject {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public KeyMap() { C_(); }
+		public extern KeyMap();
 		/// <summary></summary>
 		/// <param name="el">The element to bind to</param>
 		/// <returns></returns>
-		public KeyMap(object el) { C_(el); }
+		public extern KeyMap(object el);
 		/// <summary></summary>
 		/// <param name="el">The element to bind to</param>
 		/// <param name="config">The config (see {@link #addBinding})</param>
 		/// <returns></returns>
-		public KeyMap(object el, object config) { C_(el, config); }
+		public extern KeyMap(object el, object config);
 		/// <summary></summary>
 		/// <param name="el">The element to bind to</param>
 		/// <param name="config">The config (see {@link #addBinding})</param>
 		/// <param name="eventName">(optional) The event to bind to (defaults to "keydown")</param>
 		/// <returns></returns>
-		public KeyMap(object el, object config, string eventName) { C_(el, config, eventName); }
+		public extern KeyMap(object el, object config, string eventName);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static KeyMap prototype { get { return S_<KeyMap>(); } set { S_(value); } }
+		public extern static KeyMap prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>
 		///     True to stop the event from bubbling and prevent the default browser action if the
 		///     key was handled by the KeyMap (defaults to false)
 		/// </summary>
-		public bool stopEvent { get { return _<bool>(); } set { _(value); } }
+		public extern bool stopEvent { get; set; }
 
 
 		/// <summary>
@@ -110,42 +111,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void addBinding() { _(); }
-
-		/// <summary>
-		///     Add a new binding to this KeyMap. The following config object properties are supported:
-		///     <pre>
-		///     Property    Type             Description
-		///     ----------  ---------------  ----------------------------------------------------------------------
-		///     key         String/Array     A single keycode or an array of keycodes to handle
-		///     shift       Boolean          True to handle key only when shift is pressed (defaults to false)
-		///     ctrl        Boolean          True to handle key only when ctrl is pressed (defaults to false)
-		///     alt         Boolean          True to handle key only when alt is pressed (defaults to false)
-		///     handler     Function         The function to call when KeyMap finds the expected key combination
-		///     fn          Function         Alias of handler (for backwards-compatibility)
-		///     scope       Object           The scope of the callback function
-		///     stopEvent   Boolean          True to stop the event
-		///     </pre>
-		///     Usage:
-		///     <pre><code>
-		///     // Create a KeyMap
-		///     var map = new Ext.KeyMap(document, {
-		///     key: Ext.EventObject.ENTER,
-		///     fn: handleKey,
-		///     scope: this
-		///     });
-		///     //Add a new binding to the existing KeyMap later
-		///     map.addBinding({
-		///     key: 'abc',
-		///     shift: true,
-		///     fn: handleKey,
-		///     scope: this
-		///     });
-		///     </code></pre>
-		/// </summary>
-		/// <param name="config">A single KeyMap config or an array of configs</param>
-		/// <returns></returns>
-		public virtual void addBinding(object config) { _(config); }
+		public extern virtual void addBinding();
 
 		/// <summary>
 		///     Add a new binding to this KeyMap. The following config object properties are supported:
@@ -180,7 +146,42 @@ namespace Ext {
 		/// </summary>
 		/// <param name="config">A single KeyMap config or an array of configs</param>
 		/// <returns></returns>
-		public virtual void addBinding(System.Array config) { _(config); }
+		public extern virtual void addBinding(object config);
+
+		/// <summary>
+		///     Add a new binding to this KeyMap. The following config object properties are supported:
+		///     <pre>
+		///     Property    Type             Description
+		///     ----------  ---------------  ----------------------------------------------------------------------
+		///     key         String/Array     A single keycode or an array of keycodes to handle
+		///     shift       Boolean          True to handle key only when shift is pressed (defaults to false)
+		///     ctrl        Boolean          True to handle key only when ctrl is pressed (defaults to false)
+		///     alt         Boolean          True to handle key only when alt is pressed (defaults to false)
+		///     handler     Function         The function to call when KeyMap finds the expected key combination
+		///     fn          Function         Alias of handler (for backwards-compatibility)
+		///     scope       Object           The scope of the callback function
+		///     stopEvent   Boolean          True to stop the event
+		///     </pre>
+		///     Usage:
+		///     <pre><code>
+		///     // Create a KeyMap
+		///     var map = new Ext.KeyMap(document, {
+		///     key: Ext.EventObject.ENTER,
+		///     fn: handleKey,
+		///     scope: this
+		///     });
+		///     //Add a new binding to the existing KeyMap later
+		///     map.addBinding({
+		///     key: 'abc',
+		///     shift: true,
+		///     fn: handleKey,
+		///     scope: this
+		///     });
+		///     </code></pre>
+		/// </summary>
+		/// <param name="config">A single KeyMap config or an array of configs</param>
+		/// <returns></returns>
+		public extern virtual void addBinding(System.Array config);
 
 		/// <summary>
 		///     Shorthand for adding a single key listener
@@ -188,67 +189,7 @@ namespace Ext {
 		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
 		/// </summary>
 		/// <returns></returns>
-		public virtual void on() { _(); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <returns></returns>
-		public virtual void on(double key) { _(key); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <param name="fn">The function to call</param>
-		/// <returns></returns>
-		public virtual void on(double key, Delegate fn) { _(key, fn); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <param name="fn">The function to call</param>
-		/// <param name="scope">(optional) The scope of the function</param>
-		/// <returns></returns>
-		public virtual void on(double key, Delegate fn, object scope) { _(key, fn, scope); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <returns></returns>
-		public virtual void on(System.Array key) { _(key); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <param name="fn">The function to call</param>
-		/// <returns></returns>
-		public virtual void on(System.Array key, Delegate fn) { _(key, fn); }
-
-		/// <summary>
-		///     Shorthand for adding a single key listener
-		///     following options:
-		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
-		/// </summary>
-		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
-		/// <param name="fn">The function to call</param>
-		/// <param name="scope">(optional) The scope of the function</param>
-		/// <returns></returns>
-		public virtual void on(System.Array key, Delegate fn, object scope) { _(key, fn, scope); }
+		public extern virtual void on();
 
 		/// <summary>
 		///     Shorthand for adding a single key listener
@@ -257,7 +198,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
 		/// <returns></returns>
-		public virtual void on(object key) { _(key); }
+		public extern virtual void on(double key);
 
 		/// <summary>
 		///     Shorthand for adding a single key listener
@@ -267,7 +208,7 @@ namespace Ext {
 		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
 		/// <param name="fn">The function to call</param>
 		/// <returns></returns>
-		public virtual void on(object key, Delegate fn) { _(key, fn); }
+		public extern virtual void on(double key, Delegate fn);
 
 		/// <summary>
 		///     Shorthand for adding a single key listener
@@ -278,19 +219,79 @@ namespace Ext {
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope of the function</param>
 		/// <returns></returns>
-		public virtual void on(object key, Delegate fn, object scope) { _(key, fn, scope); }
+		public extern virtual void on(double key, Delegate fn, object scope);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <returns></returns>
+		public extern virtual void on(System.Array key);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <param name="fn">The function to call</param>
+		/// <returns></returns>
+		public extern virtual void on(System.Array key, Delegate fn);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <param name="fn">The function to call</param>
+		/// <param name="scope">(optional) The scope of the function</param>
+		/// <returns></returns>
+		public extern virtual void on(System.Array key, Delegate fn, object scope);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <returns></returns>
+		public extern virtual void on(object key);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <param name="fn">The function to call</param>
+		/// <returns></returns>
+		public extern virtual void on(object key, Delegate fn);
+
+		/// <summary>
+		///     Shorthand for adding a single key listener
+		///     following options:
+		///     {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+		/// </summary>
+		/// <param name="key">Either the numeric key code, array of key codes or an object with the</param>
+		/// <param name="fn">The function to call</param>
+		/// <param name="scope">(optional) The scope of the function</param>
+		/// <returns></returns>
+		public extern virtual void on(object key, Delegate fn, object scope);
 
 		/// <summary>Returns true if this KeyMap is enabled</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isEnabled() { _(); }
+		public extern virtual void isEnabled();
 
 		/// <summary>Enables this KeyMap</summary>
 		/// <returns></returns>
-		public virtual void enable() { _(); }
+		public extern virtual void enable();
 
 		/// <summary>Disable this KeyMap</summary>
 		/// <returns></returns>
-		public virtual void disable() { _(); }
+		public extern virtual void disable();
 
 
 

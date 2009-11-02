@@ -9,7 +9,7 @@ namespace SourceConverter.Components
 		public string ToExtSharp(ExtClass ec) {
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("\t[JsAnonymous]");
-			sb.AppendFormat("\tpublic class {0}Config : DotWeb.Client.JsDynamicBase {{", ec.Name);
+			sb.AppendFormat("\tpublic class {0}Config : System.DotWeb.JsDynamic {{", ec.Name);
 			sb.AppendLine();
 			foreach (ExtConfig ev in this) {
 				sb.AppendLine(ev.ToExtSharp(ec.Name + "Config"));

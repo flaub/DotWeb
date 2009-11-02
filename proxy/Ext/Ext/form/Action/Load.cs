@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.form.Action {
@@ -31,17 +32,17 @@ namespace Ext.form.Action {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Load() { C_(); }
+		public extern Load();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Load prototype { get { return S_<Load>(); } set { S_(value); } }
+		public extern static Load prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.form.ActionClass superclass { get { return S_<Ext.form.ActionClass>(); } set { S_(value); } }
+		public extern static Ext.form.ActionClass superclass { get; set; }
 
 
 
@@ -49,36 +50,36 @@ namespace Ext.form.Action {
 	}
 
 	[JsAnonymous]
-	public class LoadConfig : DotWeb.Client.JsDynamicBase {
+	public class LoadConfig : System.DotWeb.JsDynamic {
 		/// <summary> The URL that the Action is to invoke.</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary> When set to <tt><b>true</b></tt>, causes the Form to be {@link Ext.form.BasicForm.reset reset} on Action success. If specified, this happens <b>before</b> the {@link #success} callback is called and before the Form's {@link Ext.form.BasicForm.actioncomplete actioncomplete} event fires.</summary>
-		public bool reset { get { return _<bool>(); } set { _(value); } }
+		public bool reset { get { return (bool)this["reset"]; } set { this["reset"] = value; } }
 
 		/// <summary> The HTTP method to use to access the requested URL. Defaults to the {@link Ext.form.BasicForm}'s method, or if that is not specified, the underlying DOM form's method.</summary>
-		public string method { get { return _<string>(); } set { _(value); } }
+		public string method { get { return (string)this["method"]; } set { this["method"] = value; } }
 
 		/// <summary> Extra parameter values to pass. These are added to the Form's {@link Ext.form.BasicForm#baseParams} and passed to the specified URL along with the Form's input fields.</summary>
-		public object params_ { get { return _<object>(); } set { _(value); } }
+		public object params_ { get { return (object)this["params_"]; } set { this["params_"] = value; } }
 
 		/// <summary> The number of milliseconds to wait for a server response before failing with the {@link #failureType} as {@link #CONNECT_FAILURE}.</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public double timeout { get { return (double)this["timeout"]; } set { this["timeout"] = value; } }
 
 		/// <summary> The function to call when a valid success return packet is recieved. The function is passed the following parameters:<ul class="mdetail-params"> <li><b>form</b> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li> <li><b>action</b> : Ext.form.Action<div class="sub-desc">The Action class. The {@link #result} property of this object may be examined to perform custom postprocessing.</div></li> </ul></summary>
-		public Delegate success { get { return _<Delegate>(); } set { _(value); } }
+		public Delegate success { get { return (Delegate)this["success"]; } set { this["success"] = value; } }
 
 		/// <summary> The function to call when a failure packet was recieved, or when an error ocurred in the Ajax communication. The function is passed the following parameters:<ul class="mdetail-params"> <li><b>form</b> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li> <li><b>action</b> : Ext.form.Action<div class="sub-desc">The Action class. If an Ajax error ocurred, the failure type will be in {@link #failureType}. The {@link #result} property of this object may be examined to perform custom postprocessing.</div></li> </ul></summary>
-		public Delegate failure { get { return _<Delegate>(); } set { _(value); } }
+		public Delegate failure { get { return (Delegate)this["failure"]; } set { this["failure"] = value; } }
 
 		/// <summary> The scope in which to call the callback functions (The <tt>this</tt> reference for the callback functions).</summary>
-		public object scope { get { return _<object>(); } set { _(value); } }
+		public object scope { get { return (object)this["scope"]; } set { this["scope"] = value; } }
 
 		/// <summary> The message to be displayed by a call to {@link Ext.MessageBox#wait} during the time the action is being processed.</summary>
-		public string waitMsg { get { return _<string>(); } set { _(value); } }
+		public string waitMsg { get { return (string)this["waitMsg"]; } set { this["waitMsg"] = value; } }
 
 		/// <summary> The title to be displayed by a call to {@link Ext.MessageBox#wait} during the time the action is being processed.</summary>
-		public string waitTitle { get { return _<string>(); } set { _(value); } }
+		public string waitTitle { get { return (string)this["waitTitle"]; } set { this["waitTitle"] = value; } }
 
 	}
 }

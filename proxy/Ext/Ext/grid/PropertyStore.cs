@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.grid {
@@ -14,26 +15,26 @@ namespace Ext.grid {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public PropertyStore() { C_(); }
+		public extern PropertyStore();
 		/// <summary></summary>
 		/// <param name="grid">The grid this store will be bound to</param>
 		/// <returns></returns>
-		public PropertyStore(object grid) { C_(grid); }
+		public extern PropertyStore(object grid);
 		/// <summary></summary>
 		/// <param name="grid">The grid this store will be bound to</param>
 		/// <param name="source">The source data config object</param>
 		/// <returns></returns>
-		public PropertyStore(object grid, object source) { C_(grid, source); }
+		public extern PropertyStore(object grid, object source);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static PropertyStore prototype { get { return S_<PropertyStore>(); } set { S_(value); } }
+		public extern static PropertyStore prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 
@@ -41,9 +42,9 @@ namespace Ext.grid {
 	}
 
 	[JsAnonymous]
-	public class PropertyStoreConfig : DotWeb.Client.JsDynamicBase {
+	public class PropertyStoreConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }

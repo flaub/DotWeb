@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -36,7 +37,7 @@ namespace Ext.data {
 		///     created using {@link Ext.data.Record#create}.
 		/// </summary>
 		/// <returns></returns>
-		public ArrayReader() { C_(); }
+		public extern ArrayReader();
 		/// <summary>
 		///     Create a new ArrayReader
 		///     as specified to {@link Ext.data.Record#create},
@@ -45,7 +46,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="meta">Metadata configuration options.</param>
 		/// <returns></returns>
-		public ArrayReader(object meta) { C_(meta); }
+		public extern ArrayReader(object meta);
 		/// <summary>
 		///     Create a new ArrayReader
 		///     as specified to {@link Ext.data.Record#create},
@@ -55,17 +56,17 @@ namespace Ext.data {
 		/// <param name="meta">Metadata configuration options.</param>
 		/// <param name="recordType">Either an Array of field definition objects</param>
 		/// <returns></returns>
-		public ArrayReader(object meta, object recordType) { C_(meta, recordType); }
+		public extern ArrayReader(object meta, object recordType);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static ArrayReader prototype { get { return S_<ArrayReader>(); } set { S_(value); } }
+		public extern static ArrayReader prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.JsonReader superclass { get { return S_<Ext.data.JsonReader>(); } set { S_(value); } }
+		public extern static Ext.data.JsonReader superclass { get; set; }
 
 
 		/// <summary>
@@ -73,7 +74,7 @@ namespace Ext.data {
 		///     a cache of Ext.data.Records.
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void readRecords() { _(); }
+		public extern virtual void readRecords();
 
 		/// <summary>
 		///     Create a data block containing Ext.data.Records from an Array.
@@ -81,25 +82,25 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="o">An Array of row objects which represents the dataset.</param>
 		/// <returns>Object</returns>
-		public virtual void readRecords(object o) { _(o); }
+		public extern virtual void readRecords(object o);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class ArrayReaderConfig : DotWeb.Client.JsDynamicBase {
+	public class ArrayReaderConfig : System.DotWeb.JsDynamic {
 		/// <summary> (optional) The subscript within row Array that provides an ID for the Record</summary>
-		public string id { get { return _<string>(); } set { _(value); } }
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
 
 		/// <summary> Name of the property from which to retrieve the total number of records</summary>
-		public string totalProperty { get { return _<string>(); } set { _(value); } }
+		public string totalProperty { get { return (string)this["totalProperty"]; } set { this["totalProperty"] = value; } }
 
 		/// <summary> Name of the property from which to retrieve the success attribute used by forms.</summary>
-		public string successProperty { get { return _<string>(); } set { _(value); } }
+		public string successProperty { get { return (string)this["successProperty"]; } set { this["successProperty"] = value; } }
 
 		/// <summary> name of the property which contains the Array of row objects.</summary>
-		public string root { get { return _<string>(); } set { _(value); } }
+		public string root { get { return (string)this["root"]; } set { this["root"] = value; } }
 
 	}
 }

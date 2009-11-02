@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -165,61 +166,61 @@ namespace Ext {
 
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <returns></returns>
-		public XTemplate() { C_(); }
+		public extern XTemplate();
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <param name="parts">The HTML fragment or an array of fragments to join(""), or multiple arguments</param>
 		/// <returns></returns>
-		public XTemplate(string parts) { C_(parts); }
+		public extern XTemplate(string parts);
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <param name="parts">The HTML fragment or an array of fragments to join(""), or multiple arguments</param>
 		/// <returns></returns>
-		public XTemplate(System.Array parts) { C_(parts); }
+		public extern XTemplate(System.Array parts);
 		/// <summary>to join("") that can also include a config object</summary>
 		/// <param name="parts">The HTML fragment or an array of fragments to join(""), or multiple arguments</param>
 		/// <returns></returns>
-		public XTemplate(object parts) { C_(parts); }
+		public extern XTemplate(object parts);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static XTemplate prototype { get { return S_<XTemplate>(); } set { S_(value); } }
+		public extern static XTemplate prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.Template superclass { get { return S_<Ext.Template>(); } set { S_(value); } }
+		public extern static Ext.Template superclass { get; set; }
 
 
 		/// <summary>Returns an HTML fragment of this template with the specified values applied.</summary>
 		/// <returns>String</returns>
-		public virtual void applyTemplate() { _(); }
+		public extern virtual void applyTemplate();
 
 		/// <summary>Returns an HTML fragment of this template with the specified values applied.</summary>
 		/// <param name="values">The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})</param>
 		/// <returns>String</returns>
-		public virtual void applyTemplate(object values) { _(values); }
+		public extern virtual void applyTemplate(object values);
 
 		/// <summary>Compile the template to a function for optimized performance.  Recommended if the template will be used frequently.</summary>
 		/// <returns>Function</returns>
-		public virtual void compile() { _(); }
+		public extern virtual void compile();
 
 		/// <summary>@hide</summary>
 		/// <returns></returns>
-		public virtual void set() { _(); }
+		public extern virtual void set();
 
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <returns>Ext.Template</returns>
-		public static void from() { S_(); }
-
-		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
-		/// <param name="el">A DOM element or its id</param>
-		/// <returns>Ext.Template</returns>
-		public static void from(string el) { S_(el); }
+		public extern static void from();
 
 		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
 		/// <param name="el">A DOM element or its id</param>
 		/// <returns>Ext.Template</returns>
-		public static void from(DOMElement el) { S_(el); }
+		public extern static void from(string el);
+
+		/// <summary>Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.</summary>
+		/// <param name="el">A DOM element or its id</param>
+		/// <returns>Ext.Template</returns>
+		public extern static void from(DOMElement el);
 
 
 

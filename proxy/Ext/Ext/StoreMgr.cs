@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -13,7 +14,7 @@ namespace Ext {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public StoreMgr() { C_(); }
+		public extern StoreMgr();
 		/// <summary>
 		///     collection (defaults to false)
 		///     and return the key value for that item.  This is used when available to look up the key on items that
@@ -22,7 +23,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="allowFunctions">True if the addAll function should add function references to the</param>
 		/// <returns></returns>
-		public StoreMgr(bool allowFunctions) { C_(allowFunctions); }
+		public extern StoreMgr(bool allowFunctions);
 		/// <summary>
 		///     collection (defaults to false)
 		///     and return the key value for that item.  This is used when available to look up the key on items that
@@ -32,17 +33,17 @@ namespace Ext {
 		/// <param name="allowFunctions">True if the addAll function should add function references to the</param>
 		/// <param name="keyFn">A function that can accept an item of the type(s) stored in this MixedCollection</param>
 		/// <returns></returns>
-		public StoreMgr(bool allowFunctions, Delegate keyFn) { C_(allowFunctions, keyFn); }
+		public extern StoreMgr(bool allowFunctions, Delegate keyFn);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static StoreMgr prototype { get { return S_<StoreMgr>(); } set { S_(value); } }
+		public extern static StoreMgr prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.MixedCollection superclass { get { return S_<Ext.util.MixedCollection>(); } set { S_(value); } }
+		public extern static Ext.util.MixedCollection superclass { get; set; }
 
 
 		/// <summary>
@@ -50,7 +51,7 @@ namespace Ext {
 		///     manually.  Any store initialized with a {@link Ext.data.Store#storeId} will be auto-registered.
 		/// </summary>
 		/// <returns></returns>
-		public static void register() { S_(); }
+		public extern static void register();
 
 		/// <summary>
 		///     Registers one or more Stores with the StoreMgr. You do not normally need to register stores
@@ -58,96 +59,96 @@ namespace Ext {
 		/// </summary>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void register(params Ext.data.Store[] args) { S_(args); }
+		public extern static void register(params Ext.data.Store[] args);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <returns></returns>
-		public static void unregister() { S_(); }
+		public extern static void unregister();
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(params string[] args) { S_(args); }
+		public extern static void unregister(params string[] args);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <returns></returns>
-		public static void unregister(object id1) { S_(id1); }
+		public extern static void unregister(object id1);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, params string[] args) { S_(id1, args); }
+		public extern static void unregister(object id1, params string[] args);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(string id1, object id2) { S_(id1, id2); }
-
-		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
-		/// <param name="id1">The id of the Store, or a Store instance</param>
-		/// <param name="id2">(optional)</param>
-		/// <param name="args">(optional)</param>
-		/// <returns></returns>
-		public static void unregister(string id1, object id2, params string[] args) { S_(id1, id2, args); }
-
-		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
-		/// <param name="id1">The id of the Store, or a Store instance</param>
-		/// <param name="id2">(optional)</param>
-		/// <returns></returns>
-		public static void unregister(object id1, object id2) { S_(id1, id2); }
+		public extern static void unregister(string id1, object id2);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, object id2, params string[] args) { S_(id1, id2, args); }
+		public extern static void unregister(string id1, object id2, params string[] args);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(string id1, string id2) { S_(id1, id2); }
-
-		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
-		/// <param name="id1">The id of the Store, or a Store instance</param>
-		/// <param name="id2">(optional)</param>
-		/// <param name="args">(optional)</param>
-		/// <returns></returns>
-		public static void unregister(string id1, string id2, params object[] args) { S_(id1, id2, args); }
+		public extern static void unregister(object id1, object id2);
 
 		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
 		/// <param name="id1">The id of the Store, or a Store instance</param>
 		/// <param name="id2">(optional)</param>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public static void unregister(object id1, string id2, params object[] args) { S_(id1, id2, args); }
+		public extern static void unregister(object id1, object id2, params string[] args);
+
+		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
+		/// <param name="id1">The id of the Store, or a Store instance</param>
+		/// <param name="id2">(optional)</param>
+		/// <returns></returns>
+		public extern static void unregister(string id1, string id2);
+
+		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
+		/// <param name="id1">The id of the Store, or a Store instance</param>
+		/// <param name="id2">(optional)</param>
+		/// <param name="args">(optional)</param>
+		/// <returns></returns>
+		public extern static void unregister(string id1, string id2, params object[] args);
+
+		/// <summary>Unregisters one or more Stores with the StoreMgr</summary>
+		/// <param name="id1">The id of the Store, or a Store instance</param>
+		/// <param name="id2">(optional)</param>
+		/// <param name="args">(optional)</param>
+		/// <returns></returns>
+		public extern static void unregister(object id1, string id2, params object[] args);
 
 		/// <summary>Gets a registered Store by id</summary>
 		/// <returns>Ext.data.Store</returns>
-		public static void lookup() { S_(); }
-
-		/// <summary>Gets a registered Store by id</summary>
-		/// <param name="id">The id of the Store, or a Store instance</param>
-		/// <returns>Ext.data.Store</returns>
-		public static void lookup(string id) { S_(id); }
+		public extern static void lookup();
 
 		/// <summary>Gets a registered Store by id</summary>
 		/// <param name="id">The id of the Store, or a Store instance</param>
 		/// <returns>Ext.data.Store</returns>
-		public static void lookup(object id) { S_(id); }
+		public extern static void lookup(string id);
+
+		/// <summary>Gets a registered Store by id</summary>
+		/// <param name="id">The id of the Store, or a Store instance</param>
+		/// <returns>Ext.data.Store</returns>
+		public extern static void lookup(object id);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class StoreMgrConfig : DotWeb.Client.JsDynamicBase {
+	public class StoreMgrConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }

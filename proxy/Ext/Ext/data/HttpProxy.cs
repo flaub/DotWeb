@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -20,27 +21,27 @@ namespace Ext.data {
 
 		/// <summary>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</summary>
 		/// <returns></returns>
-		public HttpProxy() { C_(); }
+		public extern HttpProxy();
 		/// <summary>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</summary>
 		/// <param name="conn">an {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax#request}.</param>
 		/// <returns></returns>
-		public HttpProxy(object conn) { C_(conn); }
+		public extern HttpProxy(object conn);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static HttpProxy prototype { get { return S_<HttpProxy>(); } set { S_(value); } }
+		public extern static HttpProxy prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.DataProxy superclass { get { return S_<Ext.data.DataProxy>(); } set { S_(value); } }
+		public extern static Ext.data.DataProxy superclass { get; set; }
 
 		/// <summary>
 		///     The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
 		///     Properties of this object may be changed dynamically to change the way data is requested.
 		/// </summary>
-		public object conn { get { return _<object>(); } set { _(value); } }
+		public extern object conn { get; set; }
 
 
 		/// <summary>
@@ -48,7 +49,7 @@ namespace Ext.data {
 		///     a finer-grained basis than the DataProxy events.
 		/// </summary>
 		/// <returns>Connection</returns>
-		public virtual void getConnection() { _(); }
+		public extern virtual void getConnection();
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -63,7 +64,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void load() { _(); }
+		public extern virtual void load();
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -79,7 +80,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="prms">An object containing properties which are to be used as HTTP parameters</param>
 		/// <returns></returns>
-		public virtual void load(object prms) { _(prms); }
+		public extern virtual void load(object prms);
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -96,7 +97,7 @@ namespace Ext.data {
 		/// <param name="prms">An object containing properties which are to be used as HTTP parameters</param>
 		/// <param name="reader">The Reader object which converts the data</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader) { _(prms, reader); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader);
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -114,7 +115,7 @@ namespace Ext.data {
 		/// <param name="reader">The Reader object which converts the data</param>
 		/// <param name="callback">The function into which to pass the block of Ext.data.Records.</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback) { _(prms, reader, callback); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback);
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -133,7 +134,7 @@ namespace Ext.data {
 		/// <param name="callback">The function into which to pass the block of Ext.data.Records.</param>
 		/// <param name="scope">The scope in which to call the callback</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope) { _(prms, reader, callback, scope); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope);
 
 		/// <summary>
 		///     Load data from the configured {@link Ext.data.Connection}, read the data object into
@@ -153,16 +154,16 @@ namespace Ext.data {
 		/// <param name="scope">The scope in which to call the callback</param>
 		/// <param name="arg">An optional argument which is passed to the callback as its second parameter.</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope, object arg) { _(prms, reader, callback, scope, arg); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope, object arg);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class HttpProxyConfig : DotWeb.Client.JsDynamicBase {
+	public class HttpProxyConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

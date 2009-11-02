@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -20,18 +21,18 @@ namespace Ext {
 	///     Ext.TaskMgr = new Ext.util.TaskRunner();
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\TaskMgr.js</jssource>
-	public class TaskMgr : DotWeb.Client.JsNativeBase {
+	public class TaskMgr : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public TaskMgr() { C_(); }
+		public extern TaskMgr();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static TaskMgr prototype { get { return S_<TaskMgr>(); } set { S_(value); } }
+		public extern static TaskMgr prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 

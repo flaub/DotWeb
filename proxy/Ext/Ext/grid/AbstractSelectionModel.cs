@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.grid {
@@ -12,39 +13,39 @@ namespace Ext.grid {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public AbstractSelectionModel() { C_(); }
+		public extern AbstractSelectionModel();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static AbstractSelectionModel prototype { get { return S_<AbstractSelectionModel>(); } set { S_(value); } }
+		public extern static AbstractSelectionModel prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 		/// <summary>Locks the selections.</summary>
 		/// <returns></returns>
-		public virtual void lock_() { _(); }
+		public extern virtual void lock_();
 
 		/// <summary>Unlocks the selections.</summary>
 		/// <returns></returns>
-		public virtual void unlock() { _(); }
+		public extern virtual void unlock();
 
 		/// <summary>Returns true if the selections are locked.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isLocked() { _(); }
+		public extern virtual void isLocked();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class AbstractSelectionModelConfig : DotWeb.Client.JsDynamicBase {
+	public class AbstractSelectionModelConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.state {
@@ -27,21 +28,21 @@ namespace Ext.state {
 
 		/// <summary>Create a new CookieProvider</summary>
 		/// <returns></returns>
-		public CookieProvider() { C_(); }
+		public extern CookieProvider();
 		/// <summary>Create a new CookieProvider</summary>
 		/// <param name="config">The configuration object</param>
 		/// <returns></returns>
-		public CookieProvider(object config) { C_(config); }
+		public extern CookieProvider(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static CookieProvider prototype { get { return S_<CookieProvider>(); } set { S_(value); } }
+		public extern static CookieProvider prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.state.Provider superclass { get { return S_<Ext.state.Provider>(); } set { S_(value); } }
+		public extern static Ext.state.Provider superclass { get; set; }
 
 
 
@@ -49,18 +50,18 @@ namespace Ext.state {
 	}
 
 	[JsAnonymous]
-	public class CookieProviderConfig : DotWeb.Client.JsDynamicBase {
+	public class CookieProviderConfig : System.DotWeb.JsDynamic {
 		/// <summary> The path for which the cookie is active (defaults to root '/' which makes it active for all pages in the site)</summary>
-		public string path { get { return _<string>(); } set { _(value); } }
+		public string path { get { return (string)this["path"]; } set { this["path"] = value; } }
 
 		/// <summary> The cookie expiration date (defaults to 7 days from now)</summary>
-		public System.DateTime expires { get { return _<System.DateTime>(); } set { _(value); } }
+		public System.DateTime expires { get { return (System.DateTime)this["expires"]; } set { this["expires"] = value; } }
 
 		/// <summary> The domain to save the cookie for.  Note that you cannot specify a different domain than</summary>
-		public string domain { get { return _<string>(); } set { _(value); } }
+		public string domain { get { return (string)this["domain"]; } set { this["domain"] = value; } }
 
 		/// <summary> True if the site is using SSL (defaults to false)</summary>
-		public bool secure { get { return _<bool>(); } set { _(value); } }
+		public bool secure { get { return (bool)this["secure"]; } set { this["secure"] = value; } }
 
 	}
 }

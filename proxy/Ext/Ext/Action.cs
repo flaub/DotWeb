@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -45,61 +46,61 @@ namespace Ext {
 	///     </code></pre>
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\Action.js</jssource>
-	public class Action : DotWeb.Client.JsNativeBase {
+	public class Action : System.DotWeb.JsObject {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public Action() { C_(); }
+		public extern Action();
 		/// <summary></summary>
 		/// <param name="config">The configuration options</param>
 		/// <returns></returns>
-		public Action(object config) { C_(config); }
+		public extern Action(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Ext.form.ActionClass prototype { get { return S_<Ext.form.ActionClass>(); } set { S_(value); } }
+		public extern static Ext.form.ActionClass prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The text to set for all components using this action (defaults to '').</summary>
-		public string text { get { return _<string>(); } set { _(value); } }
+		public extern string text { get; set; }
 
 		/// <summary>The icon CSS class for all components using this action (defaults to '').The class should supply a background image that will be used as the icon image.</summary>
-		public string iconCls { get { return _<string>(); } set { _(value); } }
+		public extern string iconCls { get; set; }
 
 		/// <summary>True to disable all components using this action, false to enable them (defaults to false).</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public extern bool disabled { get; set; }
 
 		/// <summary>True to hide all components using this action, false to show them (defaults to false).</summary>
-		public bool hidden { get { return _<bool>(); } set { _(value); } }
+		public extern bool hidden { get; set; }
 
 		/// <summary>The function that will be invoked by each component tied to this actionwhen the component's primary event is triggered (defaults to undefined).</summary>
-		public Delegate handler { get { return _<Delegate>(); } set { _(value); } }
+		public extern Delegate handler { get; set; }
 
 		/// <summary>The scope in which the {@link #handler} function will execute.</summary>
-		public object scope { get { return _<object>(); } set { _(value); } }
+		public extern object scope { get; set; }
 
 
 		/// <summary>Sets the text to be displayed by all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void setText() { _(); }
+		public extern virtual void setText();
 
 		/// <summary>Sets the text to be displayed by all components using this action.</summary>
 		/// <param name="text">The text to display</param>
 		/// <returns></returns>
-		public virtual void setText(string text) { _(text); }
+		public extern virtual void setText(string text);
 
 		/// <summary>Gets the text currently displayed by all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void getText() { _(); }
+		public extern virtual void getText();
 
 		/// <summary>
 		///     Sets the icon CSS class for all components using this action.  The class should supply
 		///     a background image that will be used as the icon image.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void setIconClass() { _(); }
+		public extern virtual void setIconClass();
 
 		/// <summary>
 		///     Sets the icon CSS class for all components using this action.  The class should supply
@@ -107,18 +108,18 @@ namespace Ext {
 		/// </summary>
 		/// <param name="cls">The CSS class supplying the icon image</param>
 		/// <returns></returns>
-		public virtual void setIconClass(string cls) { _(cls); }
+		public extern virtual void setIconClass(string cls);
 
 		/// <summary>Gets the icon CSS class currently used by all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void getIconClass() { _(); }
+		public extern virtual void getIconClass();
 
 		/// <summary>
 		///     Sets the disabled state of all components using this action.  Shortcut method
 		///     for {@link #enable} and {@link #disable}.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void setDisabled() { _(); }
+		public extern virtual void setDisabled();
 
 		/// <summary>
 		///     Sets the disabled state of all components using this action.  Shortcut method
@@ -126,29 +127,29 @@ namespace Ext {
 		/// </summary>
 		/// <param name="disabled">True to disable the component, false to enable it</param>
 		/// <returns></returns>
-		public virtual void setDisabled(bool disabled) { _(disabled); }
+		public extern virtual void setDisabled(bool disabled);
 
 		/// <summary>Enables all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void enable() { _(); }
+		public extern virtual void enable();
 
 		/// <summary>Disables all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void disable() { _(); }
+		public extern virtual void disable();
 
 		/// <summary>
 		///     Returns true if the components using this action are currently disabled, else returns false.  Read-only.
 		///     @property
 		/// </summary>
 		/// <returns></returns>
-		public virtual void isDisabled() { _(); }
+		public extern virtual void isDisabled();
 
 		/// <summary>
 		///     Sets the hidden state of all components using this action.  Shortcut method
 		///     for {@link #hide} and {@link #show}.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void setHidden() { _(); }
+		public extern virtual void setHidden();
 
 		/// <summary>
 		///     Sets the hidden state of all components using this action.  Shortcut method
@@ -156,29 +157,29 @@ namespace Ext {
 		/// </summary>
 		/// <param name="hidden">True to hide the component, false to show it</param>
 		/// <returns></returns>
-		public virtual void setHidden(bool hidden) { _(hidden); }
+		public extern virtual void setHidden(bool hidden);
 
 		/// <summary>Shows all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void show() { _(); }
+		public extern virtual void show();
 
 		/// <summary>Hides all components using this action.</summary>
 		/// <returns></returns>
-		public virtual void hide() { _(); }
+		public extern virtual void hide();
 
 		/// <summary>
 		///     Returns true if the components using this action are currently hidden, else returns false.  Read-only.
 		///     @property
 		/// </summary>
 		/// <returns></returns>
-		public virtual void isHidden() { _(); }
+		public extern virtual void isHidden();
 
 		/// <summary>
 		///     Sets the function that will be called by each component using this action when its primary event is triggered.
 		///     will be called with no arguments.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void setHandler() { _(); }
+		public extern virtual void setHandler();
 
 		/// <summary>
 		///     Sets the function that will be called by each component using this action when its primary event is triggered.
@@ -186,7 +187,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="fn">The function that will be invoked by the action's components.  The function</param>
 		/// <returns></returns>
-		public virtual void setHandler(Delegate fn) { _(fn); }
+		public extern virtual void setHandler(Delegate fn);
 
 		/// <summary>
 		///     Sets the function that will be called by each component using this action when its primary event is triggered.
@@ -195,14 +196,14 @@ namespace Ext {
 		/// <param name="fn">The function that will be invoked by the action's components.  The function</param>
 		/// <param name="scope">The scope in which the function will execute</param>
 		/// <returns></returns>
-		public virtual void setHandler(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void setHandler(Delegate fn, object scope);
 
 		/// <summary>
 		///     Executes the specified function once for each component currently tied to this action.  The function passed
 		///     in should accept a single argument that will be an object that supports the basic Action config/method interface.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void each() { _(); }
+		public extern virtual void each();
 
 		/// <summary>
 		///     Executes the specified function once for each component currently tied to this action.  The function passed
@@ -210,7 +211,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="fn">The function to execute for each component</param>
 		/// <returns></returns>
-		public virtual void each(Delegate fn) { _(fn); }
+		public extern virtual void each(Delegate fn);
 
 		/// <summary>
 		///     Executes the specified function once for each component currently tied to this action.  The function passed
@@ -219,14 +220,14 @@ namespace Ext {
 		/// <param name="fn">The function to execute for each component</param>
 		/// <param name="scope">The scope in which the function will execute</param>
 		/// <returns></returns>
-		public virtual void each(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void each(Delegate fn, object scope);
 
 		/// <summary>
 		///     Executes this action manually using the default handler specified in the original config object.  Any arguments
 		///     passed to this function will be passed on to the handler function.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void execute() { _(); }
+		public extern virtual void execute();
 
 		/// <summary>
 		///     Executes this action manually using the default handler specified in the original config object.  Any arguments
@@ -234,31 +235,31 @@ namespace Ext {
 		/// </summary>
 		/// <param name="args">(optional)</param>
 		/// <returns></returns>
-		public virtual void execute(params object[] args) { _(args); }
+		public extern virtual void execute(params object[] args);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class ActionConfig : DotWeb.Client.JsDynamicBase {
+	public class ActionConfig : System.DotWeb.JsDynamic {
 		/// <summary> The text to set for all components using this action (defaults to '').</summary>
-		public string text { get { return _<string>(); } set { _(value); } }
+		public string text { get { return (string)this["text"]; } set { this["text"] = value; } }
 
 		/// <summary> The icon CSS class for all components using this action (defaults to ''). The class should supply a background image that will be used as the icon image.</summary>
-		public string iconCls { get { return _<string>(); } set { _(value); } }
+		public string iconCls { get { return (string)this["iconCls"]; } set { this["iconCls"] = value; } }
 
 		/// <summary> True to disable all components using this action, false to enable them (defaults to false).</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public bool disabled { get { return (bool)this["disabled"]; } set { this["disabled"] = value; } }
 
 		/// <summary> True to hide all components using this action, false to show them (defaults to false).</summary>
-		public bool hidden { get { return _<bool>(); } set { _(value); } }
+		public bool hidden { get { return (bool)this["hidden"]; } set { this["hidden"] = value; } }
 
 		/// <summary> The function that will be invoked by each component tied to this action when the component's primary event is triggered (defaults to undefined).</summary>
-		public Delegate handler { get { return _<Delegate>(); } set { _(value); } }
+		public Delegate handler { get { return (Delegate)this["handler"]; } set { this["handler"] = value; } }
 
 		/// <summary> The scope in which the {@link #handler} function will execute.</summary>
-		public object scope { get { return _<object>(); } set { _(value); } }
+		public object scope { get { return (object)this["scope"]; } set { this["scope"] = value; } }
 
 	}
 }

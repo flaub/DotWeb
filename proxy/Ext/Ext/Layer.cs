@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -20,49 +21,49 @@ namespace Ext {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public Layer() { C_(); }
+		public extern Layer();
 		/// <summary></summary>
 		/// <param name="config">An object with config options.</param>
 		/// <returns></returns>
-		public Layer(object config) { C_(config); }
-		/// <summary></summary>
-		/// <param name="config">An object with config options.</param>
-		/// <param name="existingEl">(optional) Uses an existing DOM element. If the element is not found it creates it.</param>
-		/// <returns></returns>
-		public Layer(object config, string existingEl) { C_(config, existingEl); }
+		public extern Layer(object config);
 		/// <summary></summary>
 		/// <param name="config">An object with config options.</param>
 		/// <param name="existingEl">(optional) Uses an existing DOM element. If the element is not found it creates it.</param>
 		/// <returns></returns>
-		public Layer(object config, DOMElement existingEl) { C_(config, existingEl); }
+		public extern Layer(object config, string existingEl);
+		/// <summary></summary>
+		/// <param name="config">An object with config options.</param>
+		/// <param name="existingEl">(optional) Uses an existing DOM element. If the element is not found it creates it.</param>
+		/// <returns></returns>
+		public extern Layer(object config, DOMElement existingEl);
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
-		public Layer(string element) { C_(element); }
-		/// <summary></summary>
-		/// <param name="element"></param>
-		/// <param name="forceNew">(optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).</param>
-		/// <returns></returns>
-		public Layer(string element, bool forceNew) { C_(element, forceNew); }
-		/// <summary></summary>
-		/// <param name="element"></param>
-		/// <returns></returns>
-		public Layer(DOMElement element) { C_(element); }
+		public extern Layer(string element);
 		/// <summary></summary>
 		/// <param name="element"></param>
 		/// <param name="forceNew">(optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).</param>
 		/// <returns></returns>
-		public Layer(DOMElement element, bool forceNew) { C_(element, forceNew); }
+		public extern Layer(string element, bool forceNew);
+		/// <summary></summary>
+		/// <param name="element"></param>
+		/// <returns></returns>
+		public extern Layer(DOMElement element);
+		/// <summary></summary>
+		/// <param name="element"></param>
+		/// <param name="forceNew">(optional) By default the constructor checks to see if there is already an instance of this element in the cache and if there is it returns the same instance. This will skip that check (useful for extending this class).</param>
+		/// <returns></returns>
+		public extern Layer(DOMElement element, bool forceNew);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Layer prototype { get { return S_<Layer>(); } set { S_(value); } }
+		public extern static Layer prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.Element superclass { get { return S_<Ext.Element>(); } set { S_(value); } }
+		public extern static Ext.Element superclass { get; set; }
 
 
 		/// <summary>
@@ -71,7 +72,7 @@ namespace Ext {
 		///     element, if any, will be assigned z-index + 1, and the shim element, if any, will be assigned the unmodified z-index).
 		/// </summary>
 		/// <returns>Layer</returns>
-		public virtual void setZIndex() { _(); }
+		public extern virtual void setZIndex();
 
 		/// <summary>
 		///     Sets the z-index of this layer and adjusts any shadow and shim z-indexes. The layer z-index is automatically
@@ -80,34 +81,34 @@ namespace Ext {
 		/// </summary>
 		/// <param name="zindex">The new z-index to set</param>
 		/// <returns>Layer</returns>
-		public virtual void setZIndex(double zindex) { _(zindex); }
+		public extern virtual void setZIndex(double zindex);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class LayerConfig : DotWeb.Client.JsDynamicBase {
+	public class LayerConfig : System.DotWeb.JsDynamic {
 		/// <summary> False to disable the iframe shim in browsers which need one (defaults to true)</summary>
-		public bool shim { get { return _<bool>(); } set { _(value); } }
+		public bool shim { get { return (bool)this["shim"]; } set { this["shim"] = value; } }
 
 		/// <summary>{String/Boolean} True to create a shadow element with default class "x-layer-shadow", or</summary>
-		public object shadow { get { return _<object>(); } set { _(value); } }
+		public object shadow { get { return (object)this["shadow"]; } set { this["shadow"] = value; } }
 
 		/// <summary> DomHelper object config to create element with (defaults to {tag: "div", cls: "x-layer"}).</summary>
-		public object dh { get { return _<object>(); } set { _(value); } }
+		public object dh { get { return (object)this["dh"]; } set { this["dh"] = value; } }
 
 		/// <summary> False to disable constrain to viewport (defaults to true)</summary>
-		public bool constrain { get { return _<bool>(); } set { _(value); } }
+		public bool constrain { get { return (bool)this["constrain"]; } set { this["constrain"] = value; } }
 
 		/// <summary> CSS class to add to the element</summary>
-		public string cls { get { return _<string>(); } set { _(value); } }
+		public string cls { get { return (string)this["cls"]; } set { this["cls"] = value; } }
 
 		/// <summary> Starting z-index (defaults to 11000)</summary>
-		public double zindex { get { return _<double>(); } set { _(value); } }
+		public double zindex { get { return (double)this["zindex"]; } set { this["zindex"] = value; } }
 
 		/// <summary> Number of pixels to offset the shadow (defaults to 3)</summary>
-		public double shadowOffset { get { return _<double>(); } set { _(value); } }
+		public double shadowOffset { get { return (double)this["shadowOffset"]; } set { this["shadowOffset"] = value; } }
 
 	}
 }

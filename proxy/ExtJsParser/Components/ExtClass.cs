@@ -49,7 +49,7 @@ namespace SourceConverter.Components
 				sb.Append(": " + ExtType.ParseType(SuperClass));
 			}
 			else {
-				sb.Append(": DotWeb.Client.JsNativeBase");
+				sb.Append(": System.DotWeb.JsObject");
 			}
 			sb.AppendLine(" {");
 			sb.AppendLine();

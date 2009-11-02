@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -42,45 +43,45 @@ namespace Ext.tree {
 
 		/// <summary>Creates a new Treeloader.</summary>
 		/// <returns></returns>
-		public TreeLoader() { C_(); }
+		public extern TreeLoader();
 		/// <summary>Creates a new Treeloader.</summary>
 		/// <param name="config">A config object containing config properties.</param>
 		/// <returns></returns>
-		public TreeLoader(object config) { C_(config); }
+		public extern TreeLoader(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static TreeLoader prototype { get { return S_<TreeLoader>(); } set { S_(value); } }
+		public extern static TreeLoader prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>
 		///     The URL from which to request a Json string whichspecifies an array of node definition objects representing the child nodes
 		///     to be loaded.
 		/// </summary>
-		public string dataUrl { get { return _<string>(); } set { _(value); } }
+		public extern string dataUrl { get; set; }
 
 		/// <summary>The HTTP request method for loading data (defaults to the value of {@link Ext.Ajax#method}).</summary>
-		public string requestMethod { get { return _<string>(); } set { _(value); } }
+		public extern string requestMethod { get; set; }
 
 		/// <summary>Equivalent to {@link #dataUrl}.</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public extern string url { get; set; }
 
 		/// <summary>If set to true, the loader recursively loads "children" attributes when doing the first load on nodes.</summary>
-		public bool preloadChildren { get { return _<bool>(); } set { _(value); } }
+		public extern bool preloadChildren { get; set; }
 
 		/// <summary>(optional) An object containing properties whichspecify HTTP parameters to be passed to each request for child nodes.</summary>
-		public object baseParams { get { return _<object>(); } set { _(value); } }
+		public extern object baseParams { get; set; }
 
 		/// <summary>
 		///     (optional) An object containing attributes to be added to all nodescreated by this loader. If the attributes sent by the server have an attribute in this object,
 		///     they take priority.
 		/// </summary>
-		public object baseAttrs { get { return _<object>(); } set { _(value); } }
+		public extern object baseAttrs { get; set; }
 
 		/// <summary>
 		///     (optional) An object containing properties whichspecify custom {@link Ext.tree.TreeNodeUI} implementations. If the optional
@@ -88,10 +89,10 @@ namespace Ext.tree {
 		///     than a reference to a TreeNodeUI implementation, then that string value
 		///     is used as a property name in the uiProviders object.
 		/// </summary>
-		public object uiProviders { get { return _<object>(); } set { _(value); } }
+		public extern object uiProviders { get; set; }
 
 		/// <summary>(optional) Default to true. Remove previously existingchild nodes before loading.</summary>
-		public bool clearOnLoad { get { return _<bool>(); } set { _(value); } }
+		public extern bool clearOnLoad { get; set; }
 
 
 		/// <summary>
@@ -100,7 +101,7 @@ namespace Ext.tree {
 		///     a node (or append new children if the {@link #clearOnLoad} option is false.)
 		/// </summary>
 		/// <returns></returns>
-		public virtual void load() { _(); }
+		public extern virtual void load();
 
 		/// <summary>
 		///     Load an {@link Ext.tree.TreeNode} from the URL specified in the constructor.
@@ -109,7 +110,7 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		public virtual void load(Ext.tree.TreeNode node) { _(node); }
+		public extern virtual void load(Ext.tree.TreeNode node);
 
 		/// <summary>
 		///     Load an {@link Ext.tree.TreeNode} from the URL specified in the constructor.
@@ -119,44 +120,44 @@ namespace Ext.tree {
 		/// <param name="node"></param>
 		/// <param name="callback"></param>
 		/// <returns></returns>
-		public virtual void load(Ext.tree.TreeNode node, Delegate callback) { _(node, callback); }
+		public extern virtual void load(Ext.tree.TreeNode node, Delegate callback);
 
 		/// <summary>Override this function for custom TreeNode node implementation</summary>
 		/// <returns></returns>
-		public virtual void createNode() { _(); }
+		public extern virtual void createNode();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class TreeLoaderConfig : DotWeb.Client.JsDynamicBase {
+	public class TreeLoaderConfig : System.DotWeb.JsDynamic {
 		/// <summary> The URL from which to request a Json string which specifies an array of node definition objects representing the child nodes to be loaded.</summary>
-		public string dataUrl { get { return _<string>(); } set { _(value); } }
+		public string dataUrl { get { return (string)this["dataUrl"]; } set { this["dataUrl"] = value; } }
 
 		/// <summary> The HTTP request method for loading data (defaults to the value of {@link Ext.Ajax#method}).</summary>
-		public string requestMethod { get { return _<string>(); } set { _(value); } }
+		public string requestMethod { get { return (string)this["requestMethod"]; } set { this["requestMethod"] = value; } }
 
 		/// <summary> Equivalent to {@link #dataUrl}.</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary> If set to true, the loader recursively loads "children" attributes when doing the first load on nodes.</summary>
-		public bool preloadChildren { get { return _<bool>(); } set { _(value); } }
+		public bool preloadChildren { get { return (bool)this["preloadChildren"]; } set { this["preloadChildren"] = value; } }
 
 		/// <summary> (optional) An object containing properties which specify HTTP parameters to be passed to each request for child nodes.</summary>
-		public object baseParams { get { return _<object>(); } set { _(value); } }
+		public object baseParams { get { return (object)this["baseParams"]; } set { this["baseParams"] = value; } }
 
 		/// <summary> (optional) An object containing attributes to be added to all nodes created by this loader. If the attributes sent by the server have an attribute in this object, they take priority.</summary>
-		public object baseAttrs { get { return _<object>(); } set { _(value); } }
+		public object baseAttrs { get { return (object)this["baseAttrs"]; } set { this["baseAttrs"] = value; } }
 
 		/// <summary> (optional) An object containing properties which specify custom {@link Ext.tree.TreeNodeUI} implementations. If the optional <i>uiProvider</i> attribute of a returned child node is a string rather than a reference to a TreeNodeUI implementation, then that string value is used as a property name in the uiProviders object.</summary>
-		public object uiProviders { get { return _<object>(); } set { _(value); } }
+		public object uiProviders { get { return (object)this["uiProviders"]; } set { this["uiProviders"] = value; } }
 
 		/// <summary> (optional) Default to true. Remove previously existing child nodes before loading.</summary>
-		public bool clearOnLoad { get { return _<bool>(); } set { _(value); } }
+		public bool clearOnLoad { get { return (bool)this["clearOnLoad"]; } set { this["clearOnLoad"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

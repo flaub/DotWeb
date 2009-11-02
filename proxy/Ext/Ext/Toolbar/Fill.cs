@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.Toolbar {
@@ -20,21 +21,21 @@ namespace Ext.Toolbar {
 
 		/// <summary>Creates a new Spacer</summary>
 		/// <returns></returns>
-		public Fill() { C_(); }
+		public extern Fill();
 		/// <summary>Creates a new Item</summary>
 		/// <param name="el"></param>
 		/// <returns></returns>
-		public Fill(DOMElement el) { C_(el); }
+		public extern Fill(DOMElement el);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Fill prototype { get { return S_<Fill>(); } set { S_(value); } }
+		public extern static Fill prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.Toolbar.Spacer superclass { get { return S_<Ext.Toolbar.Spacer>(); } set { S_(value); } }
+		public extern static Ext.Toolbar.Spacer superclass { get; set; }
 
 
 

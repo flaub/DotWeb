@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -13,75 +14,75 @@ namespace Ext.tree {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public MultiSelectionModel() { C_(); }
+		public extern MultiSelectionModel();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static MultiSelectionModel prototype { get { return S_<MultiSelectionModel>(); } set { S_(value); } }
+		public extern static MultiSelectionModel prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 
 		/// <summary>Select a node.</summary>
 		/// <returns>TreeNode</returns>
-		public virtual void select() { _(); }
+		public extern virtual void select();
 
 		/// <summary>Select a node.</summary>
 		/// <param name="node">The node to select</param>
 		/// <returns>TreeNode</returns>
-		public virtual void select(TreeNode node) { _(node); }
+		public extern virtual void select(TreeNode node);
 
 		/// <summary>Select a node.</summary>
 		/// <param name="node">The node to select</param>
 		/// <param name="e">(optional) An event associated with the selection</param>
 		/// <returns>TreeNode</returns>
-		public virtual void select(TreeNode node, EventObject e) { _(node, e); }
+		public extern virtual void select(TreeNode node, EventObject e);
 
 		/// <summary>Select a node.</summary>
 		/// <param name="node">The node to select</param>
 		/// <param name="e">(optional) An event associated with the selection</param>
 		/// <param name="keepExisting">True to retain existing selections</param>
 		/// <returns>TreeNode</returns>
-		public virtual void select(TreeNode node, EventObject e, bool keepExisting) { _(node, e, keepExisting); }
+		public extern virtual void select(TreeNode node, EventObject e, bool keepExisting);
 
 		/// <summary>Deselect a node.</summary>
 		/// <returns></returns>
-		public virtual void unselect() { _(); }
+		public extern virtual void unselect();
 
 		/// <summary>Deselect a node.</summary>
 		/// <param name="node">The node to unselect</param>
 		/// <returns></returns>
-		public virtual void unselect(TreeNode node) { _(node); }
+		public extern virtual void unselect(TreeNode node);
 
 		/// <summary>Clear all selections</summary>
 		/// <returns></returns>
-		public virtual void clearSelections() { _(); }
+		public extern virtual void clearSelections();
 
 		/// <summary>Returns true if the node is selected</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isSelected() { _(); }
+		public extern virtual void isSelected();
 
 		/// <summary>Returns true if the node is selected</summary>
 		/// <param name="node">The node to check</param>
 		/// <returns>Boolean</returns>
-		public virtual void isSelected(TreeNode node) { _(node); }
+		public extern virtual void isSelected(TreeNode node);
 
 		/// <summary>Returns an array of the selected nodes</summary>
 		/// <returns>Array</returns>
-		public virtual void getSelectedNodes() { _(); }
+		public extern virtual void getSelectedNodes();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class MultiSelectionModelConfig : DotWeb.Client.JsDynamicBase {
+	public class MultiSelectionModelConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

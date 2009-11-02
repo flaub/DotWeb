@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -9,85 +10,85 @@ namespace Ext.data {
 	///     Ext.data.SortTypes = {
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\data\SortTypes.js</jssource>
-	public class SortTypes : DotWeb.Client.JsNativeBase {
+	public class SortTypes : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public SortTypes() { C_(); }
+		public extern SortTypes();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static SortTypes prototype { get { return S_<SortTypes>(); } set { S_(value); } }
+		public extern static SortTypes prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The regular expression used to strip tags</summary>
-		public static object stripTagsRE { get { return S_<object>(); } set { S_(value); } }
+		public extern static object stripTagsRE { get; set; }
 
 
 		/// <summary>Default sort that does nothing</summary>
 		/// <returns>Mixed</returns>
-		public static void none() { S_(); }
+		public extern static void none();
 
 		/// <summary>Default sort that does nothing</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>Mixed</returns>
-		public static void none(object s) { S_(s); }
+		public extern static void none(object s);
 
 		/// <summary>Strips all HTML tags to sort on text only</summary>
 		/// <returns>String</returns>
-		public static void asText() { S_(); }
+		public extern static void asText();
 
 		/// <summary>Strips all HTML tags to sort on text only</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>String</returns>
-		public static void asText(object s) { S_(s); }
+		public extern static void asText(object s);
 
 		/// <summary>Strips all HTML tags to sort on text only - Case insensitive</summary>
 		/// <returns>String</returns>
-		public static void asUCText() { S_(); }
+		public extern static void asUCText();
 
 		/// <summary>Strips all HTML tags to sort on text only - Case insensitive</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>String</returns>
-		public static void asUCText(object s) { S_(s); }
+		public extern static void asUCText(object s);
 
 		/// <summary>Case insensitive string</summary>
 		/// <returns>String</returns>
-		public static void asUCString() { S_(); }
+		public extern static void asUCString();
 
 		/// <summary>Case insensitive string</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>String</returns>
-		public static void asUCString(object s) { S_(s); }
+		public extern static void asUCString(object s);
 
 		/// <summary>Date sorting</summary>
 		/// <returns>Number</returns>
-		public static void asDate() { S_(); }
+		public extern static void asDate();
 
 		/// <summary>Date sorting</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>Number</returns>
-		public static void asDate(object s) { S_(s); }
+		public extern static void asDate(object s);
 
 		/// <summary>Float sorting</summary>
 		/// <returns>Float</returns>
-		public static void asFloat() { S_(); }
+		public extern static void asFloat();
 
 		/// <summary>Float sorting</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>Float</returns>
-		public static void asFloat(object s) { S_(s); }
+		public extern static void asFloat(object s);
 
 		/// <summary>Integer sorting</summary>
 		/// <returns>Number</returns>
-		public static void asInt() { S_(); }
+		public extern static void asInt();
 
 		/// <summary>Integer sorting</summary>
 		/// <param name="s">The value being converted</param>
 		/// <returns>Number</returns>
-		public static void asInt(object s) { S_(s); }
+		public extern static void asInt(object s);
 
 
 

@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -14,17 +15,17 @@ namespace Ext {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public WindowMgr() { C_(); }
+		public extern WindowMgr();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static WindowMgr prototype { get { return S_<WindowMgr>(); } set { S_(value); } }
+		public extern static WindowMgr prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.WindowGroup superclass { get { return S_<Ext.WindowGroup>(); } set { S_(value); } }
+		public extern static Ext.WindowGroup superclass { get; set; }
 
 
 

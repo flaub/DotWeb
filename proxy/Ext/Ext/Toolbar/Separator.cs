@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.Toolbar {
@@ -20,21 +21,21 @@ namespace Ext.Toolbar {
 
 		/// <summary>Creates a new Separator</summary>
 		/// <returns></returns>
-		public Separator() { C_(); }
+		public extern Separator();
 		/// <summary>Creates a new Item</summary>
 		/// <param name="el"></param>
 		/// <returns></returns>
-		public Separator(DOMElement el) { C_(el); }
+		public extern Separator(DOMElement el);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Separator prototype { get { return S_<Separator>(); } set { S_(value); } }
+		public extern static Separator prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.Toolbar.Item superclass { get { return S_<Ext.Toolbar.Item>(); } set { S_(value); } }
+		public extern static Ext.Toolbar.Item superclass { get; set; }
 
 
 

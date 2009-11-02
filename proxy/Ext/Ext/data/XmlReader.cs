@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -56,14 +57,14 @@ namespace Ext.data {
 		///     {@link Ext.data.Record#create}, or a Record constructor object created using {@link Ext.data.Record#create}.
 		/// </summary>
 		/// <returns></returns>
-		public XmlReader() { C_(); }
+		public extern XmlReader();
 		/// <summary>
 		///     Create a new XmlReader.
 		///     {@link Ext.data.Record#create}, or a Record constructor object created using {@link Ext.data.Record#create}.
 		/// </summary>
 		/// <param name="meta">Metadata configuration options</param>
 		/// <returns></returns>
-		public XmlReader(object meta) { C_(meta); }
+		public extern XmlReader(object meta);
 		/// <summary>
 		///     Create a new XmlReader.
 		///     {@link Ext.data.Record#create}, or a Record constructor object created using {@link Ext.data.Record#create}.
@@ -71,20 +72,20 @@ namespace Ext.data {
 		/// <param name="meta">Metadata configuration options</param>
 		/// <param name="recordType">Either an Array of field definition objects as passed to</param>
 		/// <returns></returns>
-		public XmlReader(object meta, object recordType) { C_(meta, recordType); }
+		public extern XmlReader(object meta, object recordType);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static XmlReader prototype { get { return S_<XmlReader>(); } set { S_(value); } }
+		public extern static XmlReader prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.DataReader superclass { get { return S_<Ext.data.DataReader>(); } set { S_(value); } }
+		public extern static Ext.data.DataReader superclass { get; set; }
 
 		/// <summary>After any data loads/reads, the raw XML Document is available for further custom processing.</summary>
-		public object xmlData { get { return _<object>(); } set { _(value); } }
+		public extern object xmlData { get; set; }
 
 
 		/// <summary>
@@ -93,7 +94,7 @@ namespace Ext.data {
 		///     a cache of Ext.data.Records.
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void read() { _(); }
+		public extern virtual void read();
 
 		/// <summary>
 		///     This method is only used by a DataProxy which has retrieved data from a remote server.
@@ -102,14 +103,14 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="response">The XHR object which contains the parsed XML document.  The response is expected</param>
 		/// <returns>Object</returns>
-		public virtual void read(object response) { _(response); }
+		public extern virtual void read(object response);
 
 		/// <summary>
 		///     Create a data block containing Ext.data.Records from an XML document.
 		///     a cache of Ext.data.Records.
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void readRecords() { _(); }
+		public extern virtual void readRecords();
 
 		/// <summary>
 		///     Create a data block containing Ext.data.Records from an XML document.
@@ -117,25 +118,25 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="doc">A parsed XML document.</param>
 		/// <returns>Object</returns>
-		public virtual void readRecords(object doc) { _(doc); }
+		public extern virtual void readRecords(object doc);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class XmlReaderConfig : DotWeb.Client.JsDynamicBase {
+	public class XmlReaderConfig : System.DotWeb.JsDynamic {
 		/// <summary> The DomQuery path from which to retrieve the total number of records</summary>
-		public string totalRecords { get { return _<string>(); } set { _(value); } }
+		public string totalRecords { get { return (string)this["totalRecords"]; } set { this["totalRecords"] = value; } }
 
 		/// <summary> The DomQuery path to the repeated element which contains record information.</summary>
-		public string record { get { return _<string>(); } set { _(value); } }
+		public string record { get { return (string)this["record"]; } set { this["record"] = value; } }
 
 		/// <summary> The DomQuery path to the success attribute used by forms.</summary>
-		public string success { get { return _<string>(); } set { _(value); } }
+		public string success { get { return (string)this["success"]; } set { this["success"] = value; } }
 
 		/// <summary> The DomQuery path relative from the record element to the element that contains</summary>
-		public string id { get { return _<string>(); } set { _(value); } }
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
 
 	}
 }

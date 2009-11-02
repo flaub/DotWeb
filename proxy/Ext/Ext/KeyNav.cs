@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -25,68 +26,68 @@ namespace Ext {
 	///     </code></pre>
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\KeyNav.js</jssource>
-	public class KeyNav : DotWeb.Client.JsNativeBase {
+	public class KeyNav : System.DotWeb.JsObject {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public KeyNav() { C_(); }
+		public extern KeyNav();
 		/// <summary></summary>
 		/// <param name="el">The element to bind to</param>
 		/// <returns></returns>
-		public KeyNav(object el) { C_(el); }
+		public extern KeyNav(object el);
 		/// <summary></summary>
 		/// <param name="el">The element to bind to</param>
 		/// <param name="config">The config</param>
 		/// <returns></returns>
-		public KeyNav(object el, object config) { C_(el, config); }
+		public extern KeyNav(object el, object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static KeyNav prototype { get { return S_<KeyNav>(); } set { S_(value); } }
+		public extern static KeyNav prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>True to disable this KeyNav instance (defaults to false)</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public extern bool disabled { get; set; }
 
 		/// <summary>
 		///     The method to call on the {@link Ext.EventObject} after this KeyNav intercepts a key.  Valid values are
 		///     {@link Ext.EventObject#stopEvent}, {@link Ext.EventObject#preventDefault} and
 		///     {@link Ext.EventObject#stopPropagation} (defaults to 'stopEvent')
 		/// </summary>
-		public string defaultEventAction { get { return _<string>(); } set { _(value); } }
+		public extern string defaultEventAction { get; set; }
 
 		/// <summary>
 		///     Handle the keydown event instead of keypress (defaults to false).  KeyNav automatically does this for IE since
 		///     IE does not propagate special keys on keypress, but setting this to true will force other browsers to also
 		///     handle keydown instead of keypress.
 		/// </summary>
-		public bool forceKeyDown { get { return _<bool>(); } set { _(value); } }
+		public extern bool forceKeyDown { get; set; }
 
 
 		/// <summary>Enable this KeyNav</summary>
 		/// <returns></returns>
-		public virtual void enable() { _(); }
+		public extern virtual void enable();
 
 		/// <summary>Disable this KeyNav</summary>
 		/// <returns></returns>
-		public virtual void disable() { _(); }
+		public extern virtual void disable();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class KeyNavConfig : DotWeb.Client.JsDynamicBase {
+	public class KeyNavConfig : System.DotWeb.JsDynamic {
 		/// <summary>  True to disable this KeyNav instance (defaults to false)</summary>
-		public bool disabled { get { return _<bool>(); } set { _(value); } }
+		public bool disabled { get { return (bool)this["disabled"]; } set { this["disabled"] = value; } }
 
 		/// <summary>  The method to call on the {@link Ext.EventObject} after this KeyNav intercepts a key.  Valid values are {@link Ext.EventObject#stopEvent}, {@link Ext.EventObject#preventDefault} and {@link Ext.EventObject#stopPropagation} (defaults to 'stopEvent')</summary>
-		public string defaultEventAction { get { return _<string>(); } set { _(value); } }
+		public string defaultEventAction { get { return (string)this["defaultEventAction"]; } set { this["defaultEventAction"] = value; } }
 
 		/// <summary>  Handle the keydown event instead of keypress (defaults to false).  KeyNav automatically does this for IE since IE does not propagate special keys on keypress, but setting this to true will force other browsers to also handle keydown instead of keypress.</summary>
-		public bool forceKeyDown { get { return _<bool>(); } set { _(value); } }
+		public bool forceKeyDown { get { return (bool)this["forceKeyDown"]; } set { this["forceKeyDown"] = value; } }
 
 	}
 }

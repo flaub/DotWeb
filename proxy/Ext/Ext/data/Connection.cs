@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -32,48 +33,48 @@ namespace Ext.data {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public Connection() { C_(); }
+		public extern Connection();
 		/// <summary></summary>
 		/// <param name="config">a configuration object.</param>
 		/// <returns></returns>
-		public Connection(object config) { C_(config); }
+		public extern Connection(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Connection prototype { get { return S_<Connection>(); } set { S_(value); } }
+		public extern static Connection prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>(Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public extern string url { get; set; }
 
 		/// <summary>(Optional) An object containing properties which are used asextra parameters to each request made by this object. (defaults to undefined)</summary>
-		public object extraParams { get { return _<object>(); } set { _(value); } }
+		public extern object extraParams { get; set; }
 
 		/// <summary>(Optional) An object containing request headers which are addedto each request made by this object. (defaults to undefined)</summary>
-		public object defaultHeaders { get { return _<object>(); } set { _(value); } }
+		public extern object defaultHeaders { get; set; }
 
 		/// <summary>
 		///     (Optional) The default HTTP method to be used for requests.(defaults to undefined; if not set, but {@link #request} params are present, POST will be used;
 		///     otherwise, GET will be used.)
 		/// </summary>
-		public string method { get { return _<string>(); } set { _(value); } }
+		public extern string method { get; set; }
 
 		/// <summary>(Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public extern double timeout { get; set; }
 
 		/// <summary>(Optional) Whether this request should abort any pending requests. (defaults to false)</summary>
-		public bool autoAbort { get { return _<bool>(); } set { _(value); } }
+		public extern bool autoAbort { get; set; }
 
 		/// <summary>(Optional) True to add a unique cache-buster param to GET requests. (defaults to true)</summary>
-		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
+		public extern bool disableCaching { get; set; }
 
 		/// <summary>(Optional) Change the parameter which is sent went disabling cachingthrough a cache buster. Defaults to '_dc'</summary>
-		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
+		public extern string disableCachingParam { get; set; }
 
 
 		/// <summary>
@@ -156,7 +157,7 @@ namespace Ext.data {
 		///     to cancel the request.
 		/// </summary>
 		/// <returns>Number</returns>
-		public virtual void request() { _(); }
+		public extern virtual void request();
 
 		/// <summary>
 		///     <p>Sends an HTTP request to a remote server.</p>
@@ -239,58 +240,58 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="options">An object which may contain the following properties:<ul></param>
 		/// <returns>Number</returns>
-		public virtual void request(object options) { _(options); }
+		public extern virtual void request(object options);
 
 		/// <summary>Determine whether this object has a request outstanding.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isLoading() { _(); }
+		public extern virtual void isLoading();
 
 		/// <summary>Determine whether this object has a request outstanding.</summary>
 		/// <param name="transactionId">(Optional) defaults to the last transaction</param>
 		/// <returns>Boolean</returns>
-		public virtual void isLoading(double transactionId) { _(transactionId); }
+		public extern virtual void isLoading(double transactionId);
 
 		/// <summary>Aborts any outstanding request.</summary>
 		/// <returns></returns>
-		public virtual void abort() { _(); }
+		public extern virtual void abort();
 
 		/// <summary>Aborts any outstanding request.</summary>
 		/// <param name="transactionId">(Optional) defaults to the last transaction</param>
 		/// <returns></returns>
-		public virtual void abort(double transactionId) { _(transactionId); }
+		public extern virtual void abort(double transactionId);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class ConnectionConfig : DotWeb.Client.JsDynamicBase {
+	public class ConnectionConfig : System.DotWeb.JsDynamic {
 		/// <summary> (Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary> (Optional) An object containing properties which are used as extra parameters to each request made by this object. (defaults to undefined)</summary>
-		public object extraParams { get { return _<object>(); } set { _(value); } }
+		public object extraParams { get { return (object)this["extraParams"]; } set { this["extraParams"] = value; } }
 
 		/// <summary> (Optional) An object containing request headers which are added to each request made by this object. (defaults to undefined)</summary>
-		public object defaultHeaders { get { return _<object>(); } set { _(value); } }
+		public object defaultHeaders { get { return (object)this["defaultHeaders"]; } set { this["defaultHeaders"] = value; } }
 
 		/// <summary> (Optional) The default HTTP method to be used for requests. (defaults to undefined; if not set, but {@link #request} params are present, POST will be used; otherwise, GET will be used.)</summary>
-		public string method { get { return _<string>(); } set { _(value); } }
+		public string method { get { return (string)this["method"]; } set { this["method"] = value; } }
 
 		/// <summary> (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public double timeout { get { return (double)this["timeout"]; } set { this["timeout"] = value; } }
 
 		/// <summary> (Optional) Whether this request should abort any pending requests. (defaults to false) @type Boolean</summary>
-		public bool autoAbort { get { return _<bool>(); } set { _(value); } }
+		public bool autoAbort { get { return (bool)this["autoAbort"]; } set { this["autoAbort"] = value; } }
 
 		/// <summary> (Optional) True to add a unique cache-buster param to GET requests. (defaults to true) @type Boolean</summary>
-		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
+		public bool disableCaching { get { return (bool)this["disableCaching"]; } set { this["disableCaching"] = value; } }
 
 		/// <summary> (Optional) Change the parameter which is sent went disabling caching through a cache buster. Defaults to '_dc' @type String</summary>
-		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
+		public string disableCachingParam { get { return (string)this["disableCachingParam"]; } set { this["disableCachingParam"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

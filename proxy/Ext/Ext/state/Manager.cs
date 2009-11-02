@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.state {
@@ -19,71 +20,71 @@ namespace Ext.state {
 	///     Ext.state.Manager = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\state\StateManager.js</jssource>
-	public class Manager : DotWeb.Client.JsNativeBase {
+	public class Manager : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Manager() { C_(); }
+		public extern Manager();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Manager prototype { get { return S_<Manager>(); } set { S_(value); } }
+		public extern static Manager prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>Configures the default state provider for your application</summary>
 		/// <returns></returns>
-		public static void setProvider() { S_(); }
+		public extern static void setProvider();
 
 		/// <summary>Configures the default state provider for your application</summary>
 		/// <param name="stateProvider">The state provider to set</param>
 		/// <returns></returns>
-		public static void setProvider(Provider stateProvider) { S_(stateProvider); }
+		public extern static void setProvider(Provider stateProvider);
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <returns>Mixed</returns>
-		public static void get() { S_(); }
+		public extern static void get();
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns>Mixed</returns>
-		public static void get(string name) { S_(name); }
+		public extern static void get(string name);
 
 		/// <summary>Returns the current value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="defaultValue">The default value to return if the key lookup does not match</param>
 		/// <returns>Mixed</returns>
-		public static void get(string name, object defaultValue) { S_(name, defaultValue); }
+		public extern static void get(string name, object defaultValue);
 
 		/// <summary>Sets the value for a key</summary>
 		/// <returns></returns>
-		public static void set() { S_(); }
+		public extern static void set();
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public static void set(string name) { S_(name); }
+		public extern static void set(string name);
 
 		/// <summary>Sets the value for a key</summary>
 		/// <param name="name">The key name</param>
 		/// <param name="value">The state data</param>
 		/// <returns></returns>
-		public static void set(string name, object value) { S_(name, value); }
+		public extern static void set(string name, object value);
 
 		/// <summary>Clears a value from the state</summary>
 		/// <returns></returns>
-		public static void clear() { S_(); }
+		public extern static void clear();
 
 		/// <summary>Clears a value from the state</summary>
 		/// <param name="name">The key name</param>
 		/// <returns></returns>
-		public static void clear(string name) { S_(name); }
+		public extern static void clear(string name);
 
 		/// <summary>Gets the currently configured state provider</summary>
 		/// <returns>Provider</returns>
-		public static void getProvider() { S_(); }
+		public extern static void getProvider();
 
 
 

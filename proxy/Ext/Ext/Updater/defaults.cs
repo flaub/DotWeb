@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.Updater {
@@ -9,36 +10,36 @@ namespace Ext.Updater {
 	///     Ext.Updater.defaults = {
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\UpdateManager.js</jssource>
-	public class defaults : DotWeb.Client.JsNativeBase {
+	public class defaults : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public defaults() { C_(); }
+		public extern defaults();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static defaults prototype { get { return S_<defaults>(); } set { S_(value); } }
+		public extern static defaults prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>Timeout for requests or form posts in seconds (defaults to 30 seconds).</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public extern double timeout { get; set; }
 
 		/// <summary>True to process scripts by default (defaults to false).</summary>
-		public bool loadScripts { get { return _<bool>(); } set { _(value); } }
+		public extern bool loadScripts { get; set; }
 
 		/// <summary>Blank page URL to use with SSL file uploads (defaults to {@link Ext#SSL_SECURE_URL} if set, or "javascript:false").</summary>
-		public string sslBlankUrl { get { return _<string>(); } set { _(value); } }
+		public extern string sslBlankUrl { get; set; }
 
 		/// <summary>True to append a unique parameter to GET requests to disable caching (defaults to false).</summary>
-		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
+		public extern bool disableCaching { get; set; }
 
 		/// <summary>Whether or not to show {@link #indicatorText} during loading (defaults to true).</summary>
-		public bool showLoadIndicator { get { return _<bool>(); } set { _(value); } }
+		public extern bool showLoadIndicator { get; set; }
 
 		/// <summary>Text for loading indicator (defaults to '&lt;div class="loading-indicator"&gt;Loading...&lt;/div&gt;').</summary>
-		public string indicatorText { get { return _<string>(); } set { _(value); } }
+		public extern string indicatorText { get; set; }
 
 
 

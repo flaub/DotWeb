@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -16,23 +17,23 @@ namespace Ext {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public History() { C_(); }
+		public extern History();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static History prototype { get { return S_<History>(); } set { S_(value); } }
+		public extern static History prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>The id of the hidden field required for storing the current history token.</summary>
-		public static string fieldId { get { return S_<string>(); } set { S_(value); } }
+		public extern static string fieldId { get; set; }
 
 		/// <summary>The id of the iframe required by IE to manage the history stack.</summary>
-		public static string iframeId { get { return S_<string>(); } set { S_(value); } }
+		public extern static string iframeId { get; set; }
 
 
 		/// <summary>
@@ -40,7 +41,7 @@ namespace Ext {
 		///     component is fully initialized.
 		/// </summary>
 		/// <returns></returns>
-		public static void init() { S_(); }
+		public extern static void init();
 
 		/// <summary>
 		///     Initialize the global History instance.
@@ -48,7 +49,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="onReady">(optional) A callback function that will be called once the history</param>
 		/// <returns></returns>
-		public static void init(bool onReady) { S_(onReady); }
+		public extern static void init(bool onReady);
 
 		/// <summary>
 		///     Initialize the global History instance.
@@ -57,7 +58,7 @@ namespace Ext {
 		/// <param name="onReady">(optional) A callback function that will be called once the history</param>
 		/// <param name="scope">(optional) The callback scope</param>
 		/// <returns></returns>
-		public static void init(bool onReady, object scope) { S_(onReady, scope); }
+		public extern static void init(bool onReady, object scope);
 
 		/// <summary>
 		///     Add a new token to the history stack. This can be any arbitrary value, although it would
@@ -73,7 +74,7 @@ namespace Ext {
 		///     at the same history stack location (defaults to true).
 		/// </summary>
 		/// <returns></returns>
-		public static void add() { S_(); }
+		public extern static void add();
 
 		/// <summary>
 		///     Add a new token to the history stack. This can be any arbitrary value, although it would
@@ -90,7 +91,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="token">The value that defines a particular application-specific history state</param>
 		/// <returns></returns>
-		public static void add(string token) { S_(token); }
+		public extern static void add(string token);
 
 		/// <summary>
 		///     Add a new token to the history stack. This can be any arbitrary value, although it would
@@ -108,28 +109,28 @@ namespace Ext {
 		/// <param name="token">The value that defines a particular application-specific history state</param>
 		/// <param name="preventDuplicates">When true, if the passed token matches the current token</param>
 		/// <returns></returns>
-		public static void add(string token, bool preventDuplicates) { S_(token, preventDuplicates); }
+		public extern static void add(string token, bool preventDuplicates);
 
 		/// <summary>Programmatically steps back one step in browser history (equivalent to the user pressing the Back button).</summary>
 		/// <returns></returns>
-		public static void back() { S_(); }
+		public extern static void back();
 
 		/// <summary>Programmatically steps forward one step in browser history (equivalent to the user pressing the Forward button).</summary>
 		/// <returns></returns>
-		public static void forward() { S_(); }
+		public extern static void forward();
 
 		/// <summary>Retrieves the currently-active history token.</summary>
 		/// <returns>String</returns>
-		public static void getToken() { S_(); }
+		public extern static void getToken();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class HistoryConfig : DotWeb.Client.JsDynamicBase {
+	public class HistoryConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }

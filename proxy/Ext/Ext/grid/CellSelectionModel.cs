@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.grid {
@@ -28,63 +29,63 @@ namespace Ext.grid {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public CellSelectionModel() { C_(); }
+		public extern CellSelectionModel();
 		/// <summary></summary>
 		/// <param name="config">The object containing the configuration of this model.</param>
 		/// <returns></returns>
-		public CellSelectionModel(object config) { C_(config); }
+		public extern CellSelectionModel(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static CellSelectionModel prototype { get { return S_<CellSelectionModel>(); } set { S_(value); } }
+		public extern static CellSelectionModel prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.grid.AbstractSelectionModel superclass { get { return S_<Ext.grid.AbstractSelectionModel>(); } set { S_(value); } }
+		public extern static Ext.grid.AbstractSelectionModel superclass { get; set; }
 
 
 		/// <summary>Returns the currently selected cell's row and column indexes as an array (e.g., [0, 0]).</summary>
 		/// <returns>Array</returns>
-		public virtual void getSelectedCell() { _(); }
+		public extern virtual void getSelectedCell();
 
 		/// <summary>Clears all selections.</summary>
 		/// <returns></returns>
-		public virtual void clearSelections() { _(); }
+		public extern virtual void clearSelections();
 
 		/// <summary>Clears all selections.</summary>
 		/// <param name="b">to prevent the gridview from being notified about the change.</param>
 		/// <returns></returns>
-		public virtual void clearSelections(bool b) { _(b); }
+		public extern virtual void clearSelections(bool b);
 
 		/// <summary>Returns true if there is a selection.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasSelection() { _(); }
+		public extern virtual void hasSelection();
 
 		/// <summary>Selects a cell.</summary>
 		/// <returns></returns>
-		public virtual void select() { _(); }
+		public extern virtual void select();
 
 		/// <summary>Selects a cell.</summary>
 		/// <param name="rowIndex"></param>
 		/// <returns></returns>
-		public virtual void select(double rowIndex) { _(rowIndex); }
+		public extern virtual void select(double rowIndex);
 
 		/// <summary>Selects a cell.</summary>
 		/// <param name="rowIndex"></param>
 		/// <param name="collIndex"></param>
 		/// <returns></returns>
-		public virtual void select(double rowIndex, double collIndex) { _(rowIndex, collIndex); }
+		public extern virtual void select(double rowIndex, double collIndex);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class CellSelectionModelConfig : DotWeb.Client.JsDynamicBase {
+	public class CellSelectionModelConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

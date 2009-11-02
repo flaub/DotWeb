@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -25,27 +26,27 @@ namespace Ext {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public CompositeElementLite() { C_(); }
+		public extern CompositeElementLite();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static CompositeElementLite prototype { get { return S_<CompositeElementLite>(); } set { S_(value); } }
+		public extern static CompositeElementLite prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.CompositeElement superclass { get { return S_<Ext.CompositeElement>(); } set { S_(value); } }
+		public extern static Ext.CompositeElement superclass { get; set; }
 
 
 		/// <summary>Returns a flyweight Element of the dom element object at the specified index</summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void item() { _(); }
+		public extern virtual void item();
 
 		/// <summary>Returns a flyweight Element of the dom element object at the specified index</summary>
 		/// <param name="index"></param>
 		/// <returns>Ext.Element</returns>
-		public virtual void item(double index) { _(index); }
+		public extern virtual void item(double index);
 
 		/// <summary>
 		///     Calls the passed function passing (el, this, index) for each element in this composite. <b>The element
@@ -53,7 +54,7 @@ namespace Ext {
 		///     a reference to the dom node, use el.dom.</b>
 		/// </summary>
 		/// <returns>CompositeElement</returns>
-		public virtual void each() { _(); }
+		public extern virtual void each();
 
 		/// <summary>
 		///     Calls the passed function passing (el, this, index) for each element in this composite. <b>The element
@@ -62,7 +63,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="fn">The function to call</param>
 		/// <returns>CompositeElement</returns>
-		public virtual void each(Delegate fn) { _(fn); }
+		public extern virtual void each(Delegate fn);
 
 		/// <summary>
 		///     Calls the passed function passing (el, this, index) for each element in this composite. <b>The element
@@ -72,7 +73,7 @@ namespace Ext {
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The <i>this</i> object (defaults to the element)</param>
 		/// <returns>CompositeElement</returns>
-		public virtual void each(Delegate fn, object scope) { _(fn, scope); }
+		public extern virtual void each(Delegate fn, object scope);
 
 
 

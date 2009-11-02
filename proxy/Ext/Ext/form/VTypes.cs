@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.form {
@@ -9,42 +10,42 @@ namespace Ext.form {
 	///     Ext.form.VTypes = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\form\VTypes.js</jssource>
-	public class VTypes : DotWeb.Client.JsNativeBase {
+	public class VTypes : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public VTypes() { C_(); }
+		public extern VTypes();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static VTypes prototype { get { return S_<VTypes>(); } set { S_(value); } }
+		public extern static VTypes prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The error text to display when the email validation function returns false</summary>
-		public static string emailText { get { return S_<string>(); } set { S_(value); } }
+		public extern static string emailText { get; set; }
 
 		/// <summary>
 		///     The keystroke filter mask to be applied on email input.  See the {@link #email} method for
 		///     information about more complex email validation.
 		/// </summary>
-		public static object emailMask { get { return S_<object>(); } set { S_(value); } }
+		public extern static object emailMask { get; set; }
 
 		/// <summary>The error text to display when the url validation function returns false</summary>
-		public static string urlText { get { return S_<string>(); } set { S_(value); } }
+		public extern static string urlText { get; set; }
 
 		/// <summary>The error text to display when the alpha validation function returns false</summary>
-		public static string alphaText { get { return S_<string>(); } set { S_(value); } }
+		public extern static string alphaText { get; set; }
 
 		/// <summary>The keystroke filter mask to be applied on alpha input</summary>
-		public static object alphaMask { get { return S_<object>(); } set { S_(value); } }
+		public extern static object alphaMask { get; set; }
 
 		/// <summary>The error text to display when the alphanumeric validation function returns false</summary>
-		public static string alphanumText { get { return S_<string>(); } set { S_(value); } }
+		public extern static string alphanumText { get; set; }
 
 		/// <summary>The keystroke filter mask to be applied on alphanumeric input</summary>
-		public static object alphanumMask { get { return S_<object>(); } set { S_(value); } }
+		public extern static object alphanumMask { get; set; }
 
 
 		/// <summary>
@@ -55,7 +56,7 @@ namespace Ext.form {
 		///     for additional information.
 		/// </summary>
 		/// <returns></returns>
-		public static void email() { S_(); }
+		public extern static void email();
 
 		/// <summary>
 		///     The function used to validate email addresses.  Note that this is a very basic validation -- complete
@@ -66,34 +67,34 @@ namespace Ext.form {
 		/// </summary>
 		/// <param name="value">The email address</param>
 		/// <returns></returns>
-		public static void email(string value) { S_(value); }
+		public extern static void email(string value);
 
 		/// <summary>The function used to validate URLs</summary>
 		/// <returns></returns>
-		public static void url() { S_(); }
+		public extern static void url();
 
 		/// <summary>The function used to validate URLs</summary>
 		/// <param name="value">The URL</param>
 		/// <returns></returns>
-		public static void url(string value) { S_(value); }
+		public extern static void url(string value);
 
 		/// <summary>The function used to validate alpha values</summary>
 		/// <returns></returns>
-		public static void alpha() { S_(); }
+		public extern static void alpha();
 
 		/// <summary>The function used to validate alpha values</summary>
 		/// <param name="value">The value</param>
 		/// <returns></returns>
-		public static void alpha(string value) { S_(value); }
+		public extern static void alpha(string value);
 
 		/// <summary>The function used to validate alphanumeric values</summary>
 		/// <returns></returns>
-		public static void alphanum() { S_(); }
+		public extern static void alphanum();
 
 		/// <summary>The function used to validate alphanumeric values</summary>
 		/// <param name="value">The value</param>
 		/// <returns></returns>
-		public static void alphanum(string value) { S_(value); }
+		public extern static void alphanum(string value);
 
 
 

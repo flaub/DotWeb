@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -36,96 +37,96 @@ namespace Ext {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Ajax() { C_(); }
+		public extern Ajax();
 		/// <summary></summary>
 		/// <param name="config">a configuration object.</param>
 		/// <returns></returns>
-		public Ajax(object config) { C_(config); }
+		public extern Ajax(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Ajax prototype { get { return S_<Ajax>(); } set { S_(value); } }
+		public extern static Ajax prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.Connection superclass { get { return S_<Ext.data.Connection>(); } set { S_(value); } }
+		public extern static Ext.data.Connection superclass { get; set; }
 
 		/// <summary>True to add a unique cache-buster param to GET requests. (defaults to true)</summary>
-		public static bool disableCaching { get { return S_<bool>(); } set { S_(value); } }
+		public extern static bool disableCaching { get; set; }
 
 		/// <summary>The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public static string url { get { return S_<string>(); } set { S_(value); } }
+		public extern static string url { get; set; }
 
 		/// <summary>
 		///     An object containing properties which are used as
 		///     extra parameters to each request made by this object. (defaults to undefined)
 		/// </summary>
-		public static object extraParams { get { return S_<object>(); } set { S_(value); } }
+		public extern static object extraParams { get; set; }
 
 		/// <summary>An object containing request headers which are added to each request made by this object. (defaults to undefined)</summary>
-		public static object defaultHeaders { get { return S_<object>(); } set { S_(value); } }
+		public extern static object defaultHeaders { get; set; }
 
 		/// <summary>
 		///     The default HTTP method to be used for requests. Note that this is case-sensitive and should be all caps (defaults
 		///     to undefined; if not set but parms are present will use "POST," otherwise "GET.")
 		/// </summary>
-		public static string method { get { return S_<string>(); } set { S_(value); } }
+		public extern static string method { get; set; }
 
 		/// <summary>The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public static double timeout { get { return S_<double>(); } set { S_(value); } }
+		public extern static double timeout { get; set; }
 
 		/// <summary>Whether a new request should abort any pending requests. (defaults to false)</summary>
-		public static bool autoAbort { get { return S_<bool>(); } set { S_(value); } }
+		public extern static bool autoAbort { get; set; }
 
 
 		/// <summary>Serialize the passed form into a url encoded string</summary>
 		/// <returns>String</returns>
-		public static void serializeForm() { S_(); }
-
-		/// <summary>Serialize the passed form into a url encoded string</summary>
-		/// <param name="form"></param>
-		/// <returns>String</returns>
-		public static void serializeForm(string form) { S_(form); }
+		public extern static void serializeForm();
 
 		/// <summary>Serialize the passed form into a url encoded string</summary>
 		/// <param name="form"></param>
 		/// <returns>String</returns>
-		public static void serializeForm(DOMElement form) { S_(form); }
+		public extern static void serializeForm(string form);
+
+		/// <summary>Serialize the passed form into a url encoded string</summary>
+		/// <param name="form"></param>
+		/// <returns>String</returns>
+		public extern static void serializeForm(DOMElement form);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class AjaxConfig : DotWeb.Client.JsDynamicBase {
+	public class AjaxConfig : System.DotWeb.JsDynamic {
 		/// <summary> (Optional) The default URL to be used for requests to the server. (defaults to undefined)</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary> (Optional) An object containing properties which are used as extra parameters to each request made by this object. (defaults to undefined)</summary>
-		public object extraParams { get { return _<object>(); } set { _(value); } }
+		public object extraParams { get { return (object)this["extraParams"]; } set { this["extraParams"] = value; } }
 
 		/// <summary> (Optional) An object containing request headers which are added to each request made by this object. (defaults to undefined)</summary>
-		public object defaultHeaders { get { return _<object>(); } set { _(value); } }
+		public object defaultHeaders { get { return (object)this["defaultHeaders"]; } set { this["defaultHeaders"] = value; } }
 
 		/// <summary> (Optional) The default HTTP method to be used for requests. (defaults to undefined; if not set, but {@link #request} params are present, POST will be used; otherwise, GET will be used.)</summary>
-		public string method { get { return _<string>(); } set { _(value); } }
+		public string method { get { return (string)this["method"]; } set { this["method"] = value; } }
 
 		/// <summary> (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public double timeout { get { return (double)this["timeout"]; } set { this["timeout"] = value; } }
 
 		/// <summary> (Optional) Whether this request should abort any pending requests. (defaults to false) @type Boolean</summary>
-		public bool autoAbort { get { return _<bool>(); } set { _(value); } }
+		public bool autoAbort { get { return (bool)this["autoAbort"]; } set { this["autoAbort"] = value; } }
 
 		/// <summary> (Optional) True to add a unique cache-buster param to GET requests. (defaults to true) @type Boolean</summary>
-		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
+		public bool disableCaching { get { return (bool)this["disableCaching"]; } set { this["disableCaching"] = value; } }
 
 		/// <summary> (Optional) Change the parameter which is sent went disabling caching through a cache buster. Defaults to '_dc' @type String</summary>
-		public string disableCachingParam { get { return _<string>(); } set { _(value); } }
+		public string disableCachingParam { get { return (string)this["disableCachingParam"]; } set { this["disableCachingParam"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }

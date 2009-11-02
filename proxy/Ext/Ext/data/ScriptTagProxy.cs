@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -42,37 +43,37 @@ namespace Ext.data {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public ScriptTagProxy() { C_(); }
+		public extern ScriptTagProxy();
 		/// <summary></summary>
 		/// <param name="config">A configuration object.</param>
 		/// <returns></returns>
-		public ScriptTagProxy(object config) { C_(config); }
+		public extern ScriptTagProxy(object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static ScriptTagProxy prototype { get { return S_<ScriptTagProxy>(); } set { S_(value); } }
+		public extern static ScriptTagProxy prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.DataProxy superclass { get { return S_<Ext.data.DataProxy>(); } set { S_(value); } }
+		public extern static Ext.data.DataProxy superclass { get; set; }
 
 		/// <summary>The URL from which to request the data object.</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public extern string url { get; set; }
 
 		/// <summary>(optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public extern double timeout { get; set; }
 
 		/// <summary>
 		///     (Optional) The name of the parameter to pass to the server which tellsthe server the name of the callback function set up by the load call to process the returned data object.
 		///     Defaults to "callback".<p>The server-side processing must read this parameter value, and generate
 		///     javascript output which calls this named function passing the data object as its only parameter.
 		/// </summary>
-		public string callbackParam { get { return _<string>(); } set { _(value); } }
+		public extern string callbackParam { get; set; }
 
 		/// <summary>(optional) Defaults to true. Disable caching by adding a unique parametername to the request.</summary>
-		public bool nocache { get { return _<bool>(); } set { _(value); } }
+		public extern bool nocache { get; set; }
 
 
 		/// <summary>
@@ -88,7 +89,7 @@ namespace Ext.data {
 		///     </ul>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void load() { _(); }
+		public extern virtual void load();
 
 		/// <summary>
 		///     Load data from the configured URL, read the data object into
@@ -104,7 +105,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="prms">An object containing properties which are to be used as HTTP parameters</param>
 		/// <returns></returns>
-		public virtual void load(object prms) { _(prms); }
+		public extern virtual void load(object prms);
 
 		/// <summary>
 		///     Load data from the configured URL, read the data object into
@@ -121,7 +122,7 @@ namespace Ext.data {
 		/// <param name="prms">An object containing properties which are to be used as HTTP parameters</param>
 		/// <param name="reader">The Reader object which converts the data</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader) { _(prms, reader); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader);
 
 		/// <summary>
 		///     Load data from the configured URL, read the data object into
@@ -139,7 +140,7 @@ namespace Ext.data {
 		/// <param name="reader">The Reader object which converts the data</param>
 		/// <param name="callback">The function into which to pass the block of Ext.data.Records.</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback) { _(prms, reader, callback); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback);
 
 		/// <summary>
 		///     Load data from the configured URL, read the data object into
@@ -158,7 +159,7 @@ namespace Ext.data {
 		/// <param name="callback">The function into which to pass the block of Ext.data.Records.</param>
 		/// <param name="scope">The scope in which to call the callback</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope) { _(prms, reader, callback, scope); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope);
 
 		/// <summary>
 		///     Load data from the configured URL, read the data object into
@@ -178,32 +179,32 @@ namespace Ext.data {
 		/// <param name="scope">The scope in which to call the callback</param>
 		/// <param name="arg">An optional argument which is passed to the callback as its second parameter.</param>
 		/// <returns></returns>
-		public virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope, object arg) { _(prms, reader, callback, scope, arg); }
+		public extern virtual void load(object prms, Ext.data.DataReader reader, Delegate callback, object scope, object arg);
 
 		/// <summary>Abort the current server request.</summary>
 		/// <returns></returns>
-		public virtual void abort() { _(); }
+		public extern virtual void abort();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class ScriptTagProxyConfig : DotWeb.Client.JsDynamicBase {
+	public class ScriptTagProxyConfig : System.DotWeb.JsDynamic {
 		/// <summary> The URL from which to request the data object.</summary>
-		public string url { get { return _<string>(); } set { _(value); } }
+		public string url { get { return (string)this["url"]; } set { this["url"] = value; } }
 
 		/// <summary> (optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public double timeout { get { return (double)this["timeout"]; } set { this["timeout"] = value; } }
 
 		/// <summary> (Optional) The name of the parameter to pass to the server which tells the server the name of the callback function set up by the load call to process the returned data object. Defaults to "callback".<p>The server-side processing must read this parameter value, and generate javascript output which calls this named function passing the data object as its only parameter.</summary>
-		public string callbackParam { get { return _<string>(); } set { _(value); } }
+		public string callbackParam { get { return (string)this["callbackParam"]; } set { this["callbackParam"] = value; } }
 
 		/// <summary> (optional) Defaults to true. Disable caching by adding a unique parameter name to the request.</summary>
-		public bool nocache { get { return _<bool>(); } set { _(value); } }
+		public bool nocache { get { return (bool)this["nocache"]; } set { this["nocache"] = value; } }
 
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.layout {
@@ -91,30 +92,30 @@ namespace Ext.layout {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public FormLayout() { C_(); }
+		public extern FormLayout();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static FormLayout prototype { get { return S_<FormLayout>(); } set { S_(value); } }
+		public extern static FormLayout prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.layout.AnchorLayout superclass { get { return S_<Ext.layout.AnchorLayout>(); } set { S_(value); } }
+		public extern static Ext.layout.AnchorLayout superclass { get; set; }
 
 		/// <summary>A CSS style specification string to add to each field label in this layout (defaults to '').</summary>
-		public string labelStyle { get { return _<string>(); } set { _(value); } }
+		public extern string labelStyle { get; set; }
 
 		/// <summary>A CSS style specification string to add to each field element in this layout (defaults to '').</summary>
-		public string elementStyle { get { return _<string>(); } set { _(value); } }
+		public extern string elementStyle { get; set; }
 
 		/// <summary>
 		///     The standard separator to display after the text of each form label (defaults to a colon ':').  To turn off
 		///     separators for all fields in this layout by default specify empty string '' (if the labelSeparator value is
 		///     explicitly set at the field level, those will still be displayed).
 		/// </summary>
-		public string labelSeparator { get { return _<string>(); } set { _(value); } }
+		public extern string labelSeparator { get; set; }
 
 
 
@@ -122,21 +123,21 @@ namespace Ext.layout {
 	}
 
 	[JsAnonymous]
-	public class FormLayoutConfig : DotWeb.Client.JsDynamicBase {
+	public class FormLayoutConfig : System.DotWeb.JsDynamic {
 		/// <summary>  A CSS style specification string to add to each field label in this layout (defaults to '').</summary>
-		public string labelStyle { get { return _<string>(); } set { _(value); } }
+		public string labelStyle { get { return (string)this["labelStyle"]; } set { this["labelStyle"] = value; } }
 
 		/// <summary>  A CSS style specification string to add to each field element in this layout (defaults to '').</summary>
-		public string elementStyle { get { return _<string>(); } set { _(value); } }
+		public string elementStyle { get { return (string)this["elementStyle"]; } set { this["elementStyle"] = value; } }
 
 		/// <summary>  The standard separator to display after the text of each form label (defaults to a colon ':').  To turn off separators for all fields in this layout by default specify empty string '' (if the labelSeparator value is explicitly set at the field level, those will still be displayed).</summary>
-		public string labelSeparator { get { return _<string>(); } set { _(value); } }
+		public string labelSeparator { get { return (string)this["labelSeparator"]; } set { this["labelSeparator"] = value; } }
 
 		/// <summary>  An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for adding customized styles to the container or any of its children using standard CSS rules.</summary>
-		public string extraCls { get { return _<string>(); } set { _(value); } }
+		public string extraCls { get { return (string)this["extraCls"]; } set { this["extraCls"] = value; } }
 
 		/// <summary>  True to hide each contained item on render (defaults to false).</summary>
-		public bool renderHidden { get { return _<bool>(); } set { _(value); } }
+		public bool renderHidden { get { return (bool)this["renderHidden"]; } set { this["renderHidden"] = value; } }
 
 	}
 }

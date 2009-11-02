@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -70,51 +71,51 @@ namespace Ext {
 	///     Ext.QuickTips = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tips\QuickTips.js</jssource>
-	public class QuickTips : DotWeb.Client.JsNativeBase {
+	public class QuickTips : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public QuickTips() { C_(); }
+		public extern QuickTips();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static QuickTips prototype { get { return S_<QuickTips>(); } set { S_(value); } }
+		public extern static QuickTips prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>Initialize the global QuickTips instance and prepare any quick tips.</summary>
 		/// <returns></returns>
-		public static void init() { S_(); }
+		public extern static void init();
 
 		/// <summary>Initialize the global QuickTips instance and prepare any quick tips.</summary>
 		/// <param name="autoRender">True to render the QuickTips container immediately to preload images. (Defaults to true)</param>
 		/// <returns></returns>
-		public static void init(bool autoRender) { S_(autoRender); }
+		public extern static void init(bool autoRender);
 
 		/// <summary>Enable quick tips globally.</summary>
 		/// <returns></returns>
-		public static void enable() { S_(); }
+		public extern static void enable();
 
 		/// <summary>Disable quick tips globally.</summary>
 		/// <returns></returns>
-		public static void disable() { S_(); }
+		public extern static void disable();
 
 		/// <summary>Returns true if quick tips are enabled, else false.</summary>
 		/// <returns>Boolean</returns>
-		public static void isEnabled() { S_(); }
+		public extern static void isEnabled();
 
 		/// <summary>Gets the global QuickTips instance.</summary>
 		/// <returns></returns>
-		public static void getQuickTip() { S_(); }
+		public extern static void getQuickTip();
 
 		/// <summary>
 		///     Configures a new quick tip instance and assigns it to a target element.  See
 		///     {@link Ext.QuickTip#register} for details.
 		/// </summary>
 		/// <returns></returns>
-		public static void register() { S_(); }
+		public extern static void register();
 
 		/// <summary>
 		///     Configures a new quick tip instance and assigns it to a target element.  See
@@ -122,35 +123,35 @@ namespace Ext {
 		/// </summary>
 		/// <param name="config">The config object</param>
 		/// <returns></returns>
-		public static void register(object config) { S_(config); }
+		public extern static void register(object config);
 
 		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
 		/// <returns></returns>
-		public static void unregister() { S_(); }
-
-		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
-		/// <param name="el">The element from which the quick tip is to be removed.</param>
-		/// <returns></returns>
-		public static void unregister(string el) { S_(el); }
+		public extern static void unregister();
 
 		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
 		/// <param name="el">The element from which the quick tip is to be removed.</param>
 		/// <returns></returns>
-		public static void unregister(DOMElement el) { S_(el); }
+		public extern static void unregister(string el);
 
 		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
 		/// <param name="el">The element from which the quick tip is to be removed.</param>
 		/// <returns></returns>
-		public static void unregister(Element el) { S_(el); }
+		public extern static void unregister(DOMElement el);
+
+		/// <summary>Removes any registered quick tip from the target element and destroys it.</summary>
+		/// <param name="el">The element from which the quick tip is to be removed.</param>
+		/// <returns></returns>
+		public extern static void unregister(Element el);
 
 		/// <summary>Alias of {@link #register}.</summary>
 		/// <returns></returns>
-		public static void tips() { S_(); }
+		public extern static void tips();
 
 		/// <summary>Alias of {@link #register}.</summary>
 		/// <param name="config">The config object</param>
 		/// <returns></returns>
-		public static void tips(object config) { S_(config); }
+		public extern static void tips(object config);
 
 
 

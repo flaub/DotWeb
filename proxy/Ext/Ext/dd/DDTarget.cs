@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.dd {
@@ -18,7 +19,7 @@ namespace Ext.dd {
 		///     none
 		/// </summary>
 		/// <returns></returns>
-		public DDTarget() { C_(); }
+		public extern DDTarget();
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -26,7 +27,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <returns></returns>
-		public DDTarget(string id) { C_(id); }
+		public extern DDTarget(string id);
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -35,7 +36,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DDTarget(string id, string sGroup) { C_(id, sGroup); }
+		public extern DDTarget(string id, string sGroup);
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -45,17 +46,17 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DDTarget(string id, string sGroup, object config) { C_(id, sGroup, config); }
+		public extern DDTarget(string id, string sGroup, object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DDTarget prototype { get { return S_<DDTarget>(); } set { S_(value); } }
+		public extern static DDTarget prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.dd.DragDrop superclass { get { return S_<Ext.dd.DragDrop>(); } set { S_(value); } }
+		public extern static Ext.dd.DragDrop superclass { get; set; }
 
 
 

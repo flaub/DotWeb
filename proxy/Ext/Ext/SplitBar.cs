@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -26,7 +27,7 @@ namespace Ext {
 		///     position of the SplitBar).
 		/// </summary>
 		/// <returns></returns>
-		public SplitBarClass() { C_(); }
+		public extern SplitBarClass();
 		/// <summary>
 		///     Create a new SplitBar
 		///     Ext.SplitBar.TOP or Ext.SplitBar.BOTTOM for vertical. (By default, this is determined automatically by the initial
@@ -34,7 +35,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="dragElement">The element to be dragged and act as the SplitBar.</param>
 		/// <returns></returns>
-		public SplitBarClass(object dragElement) { C_(dragElement); }
+		public extern SplitBarClass(object dragElement);
 		/// <summary>
 		///     Create a new SplitBar
 		///     Ext.SplitBar.TOP or Ext.SplitBar.BOTTOM for vertical. (By default, this is determined automatically by the initial
@@ -43,7 +44,7 @@ namespace Ext {
 		/// <param name="dragElement">The element to be dragged and act as the SplitBar.</param>
 		/// <param name="resizingElement">The element to be resized based on where the SplitBar element is dragged</param>
 		/// <returns></returns>
-		public SplitBarClass(object dragElement, object resizingElement) { C_(dragElement, resizingElement); }
+		public extern SplitBarClass(object dragElement, object resizingElement);
 		/// <summary>
 		///     Create a new SplitBar
 		///     Ext.SplitBar.TOP or Ext.SplitBar.BOTTOM for vertical. (By default, this is determined automatically by the initial
@@ -53,7 +54,7 @@ namespace Ext {
 		/// <param name="resizingElement">The element to be resized based on where the SplitBar element is dragged</param>
 		/// <param name="orientation">(optional) Either Ext.SplitBar.HORIZONTAL or Ext.SplitBar.VERTICAL. (Defaults to HORIZONTAL)</param>
 		/// <returns></returns>
-		public SplitBarClass(object dragElement, object resizingElement, double orientation) { C_(dragElement, resizingElement, orientation); }
+		public extern SplitBarClass(object dragElement, object resizingElement, double orientation);
 		/// <summary>
 		///     Create a new SplitBar
 		///     Ext.SplitBar.TOP or Ext.SplitBar.BOTTOM for vertical. (By default, this is determined automatically by the initial
@@ -64,96 +65,96 @@ namespace Ext {
 		/// <param name="orientation">(optional) Either Ext.SplitBar.HORIZONTAL or Ext.SplitBar.VERTICAL. (Defaults to HORIZONTAL)</param>
 		/// <param name="placement">(optional) Either Ext.SplitBar.LEFT or Ext.SplitBar.RIGHT for horizontal or</param>
 		/// <returns></returns>
-		public SplitBarClass(object dragElement, object resizingElement, double orientation, double placement) { C_(dragElement, resizingElement, orientation, placement); }
+		public extern SplitBarClass(object dragElement, object resizingElement, double orientation, double placement);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static SplitBarClass prototype { get { return S_<SplitBarClass>(); } set { S_(value); } }
+		public extern static SplitBarClass prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>The minimum size of the resizing element. (Defaults to 0)</summary>
-		public double minSize { get { return _<double>(); } set { _(value); } }
+		public extern double minSize { get; set; }
 
 		/// <summary>The maximum size of the resizing element. (Defaults to 2000)</summary>
-		public double maxSize { get { return _<double>(); } set { _(value); } }
+		public extern double maxSize { get; set; }
 
 		/// <summary>Whether to animate the transition to the new size</summary>
-		public bool animate { get { return _<bool>(); } set { _(value); } }
+		public extern bool animate { get; set; }
 
 		/// <summary>Whether to create a transparent shim that overlays the page when dragging, enables dragging across iframes.</summary>
-		public bool useShim { get { return _<bool>(); } set { _(value); } }
+		public extern bool useShim { get; set; }
 
 
 		/// <summary>Get the adapter this SplitBar uses</summary>
 		/// <returns>The</returns>
-		public virtual void getAdapter() { _(); }
+		public extern virtual void getAdapter();
 
 		/// <summary>Set the adapter this SplitBar uses</summary>
 		/// <returns></returns>
-		public virtual void setAdapter() { _(); }
+		public extern virtual void setAdapter();
 
 		/// <summary>Set the adapter this SplitBar uses</summary>
 		/// <param name="adapter">A SplitBar adapter object</param>
 		/// <returns></returns>
-		public virtual void setAdapter(object adapter) { _(adapter); }
+		public extern virtual void setAdapter(object adapter);
 
 		/// <summary>Gets the minimum size for the resizing element</summary>
 		/// <returns>Number</returns>
-		public virtual void getMinimumSize() { _(); }
+		public extern virtual void getMinimumSize();
 
 		/// <summary>Sets the minimum size for the resizing element</summary>
 		/// <returns></returns>
-		public virtual void setMinimumSize() { _(); }
+		public extern virtual void setMinimumSize();
 
 		/// <summary>Sets the minimum size for the resizing element</summary>
 		/// <param name="minSize">The minimum size</param>
 		/// <returns></returns>
-		public virtual void setMinimumSize(double minSize) { _(minSize); }
+		public extern virtual void setMinimumSize(double minSize);
 
 		/// <summary>Gets the maximum size for the resizing element</summary>
 		/// <returns>Number</returns>
-		public virtual void getMaximumSize() { _(); }
+		public extern virtual void getMaximumSize();
 
 		/// <summary>Sets the maximum size for the resizing element</summary>
 		/// <returns></returns>
-		public virtual void setMaximumSize() { _(); }
+		public extern virtual void setMaximumSize();
 
 		/// <summary>Sets the maximum size for the resizing element</summary>
 		/// <param name="maxSize">The maximum size</param>
 		/// <returns></returns>
-		public virtual void setMaximumSize(double maxSize) { _(maxSize); }
+		public extern virtual void setMaximumSize(double maxSize);
 
 		/// <summary>Sets the initialize size for the resizing element</summary>
 		/// <returns></returns>
-		public virtual void setCurrentSize() { _(); }
+		public extern virtual void setCurrentSize();
 
 		/// <summary>Sets the initialize size for the resizing element</summary>
 		/// <param name="size">The initial size</param>
 		/// <returns></returns>
-		public virtual void setCurrentSize(double size) { _(size); }
+		public extern virtual void setCurrentSize(double size);
 
 		/// <summary>Destroy this splitbar.</summary>
 		/// <returns></returns>
-		public virtual void destroy() { _(); }
+		public extern virtual void destroy();
 
 		/// <summary>Destroy this splitbar.</summary>
 		/// <param name="removeEl">True to remove the element</param>
 		/// <returns></returns>
-		public virtual void destroy(bool removeEl) { _(removeEl); }
+		public extern virtual void destroy(bool removeEl);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class SplitBarConfig : DotWeb.Client.JsDynamicBase {
+	public class SplitBarConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

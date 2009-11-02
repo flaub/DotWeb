@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -43,14 +44,14 @@ namespace Ext {
 		///     has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
 		/// </summary>
 		/// <returns></returns>
-		public UpdaterClass() { C_(); }
+		public extern UpdaterClass();
 		/// <summary>
 		///     Create new Updater directly.
 		///     has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
 		/// </summary>
 		/// <param name="el">The element to update</param>
 		/// <returns></returns>
-		public UpdaterClass(object el) { C_(el); }
+		public extern UpdaterClass(object el);
 		/// <summary>
 		///     Create new Updater directly.
 		///     has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
@@ -58,56 +59,56 @@ namespace Ext {
 		/// <param name="el">The element to update</param>
 		/// <param name="forceNew">(optional) By default the constructor checks to see if the passed element already</param>
 		/// <returns></returns>
-		public UpdaterClass(object el, bool forceNew) { C_(el, forceNew); }
+		public extern UpdaterClass(object el, bool forceNew);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static UpdaterClass prototype { get { return S_<UpdaterClass>(); } set { S_(value); } }
+		public extern static UpdaterClass prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.util.Observable superclass { get { return S_<Ext.util.Observable>(); } set { S_(value); } }
+		public extern static Ext.util.Observable superclass { get; set; }
 
 		/// <summary>The Element object</summary>
-		public Ext.Element el { get { return _<Ext.Element>(); } set { _(value); } }
+		public extern Ext.Element el { get; set; }
 
 		/// <summary>Cached url to use for refreshes. Overwritten every time update() is called unless "discardUrl" param is set to true.</summary>
-		public string defaultUrl { get { return _<string>(); } set { _(value); } }
+		public extern string defaultUrl { get; set; }
 
 		/// <summary>Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).</summary>
-		public string sslBlankUrl { get { return _<string>(); } set { _(value); } }
+		public extern string sslBlankUrl { get; set; }
 
 		/// <summary>Whether to append unique parameter on get request to disable caching (defaults to {@link Ext.Updater.defaults#disableCaching}).</summary>
-		public bool disableCaching { get { return _<bool>(); } set { _(value); } }
+		public extern bool disableCaching { get; set; }
 
 		/// <summary>Text for loading indicator (defaults to {@link Ext.Updater.defaults#indicatorText}).</summary>
-		public string indicatorText { get { return _<string>(); } set { _(value); } }
+		public extern string indicatorText { get; set; }
 
 		/// <summary>Whether to show indicatorText when loading (defaults to {@link Ext.Updater.defaults#showLoadIndicator}).</summary>
-		public string showLoadIndicator { get { return _<string>(); } set { _(value); } }
+		public extern string showLoadIndicator { get; set; }
 
 		/// <summary>Timeout for requests or form posts in seconds (defaults to {@link Ext.Updater.defaults#timeout}).</summary>
-		public double timeout { get { return _<double>(); } set { _(value); } }
+		public extern double timeout { get; set; }
 
 		/// <summary>True to process scripts in the output (defaults to {@link Ext.Updater.defaults#loadScripts}).</summary>
-		public bool loadScripts { get { return _<bool>(); } set { _(value); } }
+		public extern bool loadScripts { get; set; }
 
 		/// <summary>Transaction object of the current executing transaction, or null if there is no active transaction.</summary>
-		public object transaction { get { return _<object>(); } set { _(value); } }
+		public extern object transaction { get; set; }
 
 		/// <summary>Delegate for refresh() prebound to "this", use myUpdater.refreshDelegate.createCallback(arg1, arg2) to bind arguments</summary>
-		public Delegate refreshDelegate { get { return _<Delegate>(); } set { _(value); } }
+		public extern Delegate refreshDelegate { get; set; }
 
 		/// <summary>Delegate for update() prebound to "this", use myUpdater.updateDelegate.createCallback(arg1, arg2) to bind arguments</summary>
-		public Delegate updateDelegate { get { return _<Delegate>(); } set { _(value); } }
+		public extern Delegate updateDelegate { get; set; }
 
 		/// <summary>Delegate for formUpdate() prebound to "this", use myUpdater.formUpdateDelegate.createCallback(arg1, arg2) to bind arguments</summary>
-		public Delegate formUpdateDelegate { get { return _<Delegate>(); } set { _(value); } }
+		public extern Delegate formUpdateDelegate { get; set; }
 
 		/// <summary>The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).</summary>
-		public object renderer { get { return _<object>(); } set { _(value); } }
+		public extern object renderer { get; set; }
 
 
 		/// <summary>
@@ -116,11 +117,11 @@ namespace Ext {
 		///     Defaults to {@link Ext.Updater.BasicRenderer}
 		/// </summary>
 		/// <returns></returns>
-		public virtual void getDefaultRenderer() { _(); }
+		public extern virtual void getDefaultRenderer();
 
 		/// <summary>Get the Element this Updater is bound to</summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void getEl() { _(); }
+		public extern virtual void getEl();
 
 		/// <summary>
 		///     Performs an <b>asynchronous</b> request, updating this element with the response.
@@ -179,7 +180,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void update() { _(); }
+		public extern virtual void update();
 
 		/// <summary>
 		///     Performs an <b>asynchronous</b> request, updating this element with the response.
@@ -239,7 +240,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">A config object containing any of the following options:<ul></param>
 		/// <returns></returns>
-		public virtual void update(object options) { _(options); }
+		public extern virtual void update(object options);
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -251,65 +252,7 @@ namespace Ext {
 		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void formUpdate() { _(); }
-
-		/// <summary>
-		///     Performs an async form post, updating this element with the response. If the form has the attribute
-		///     enctype="multipart/form-data", it assumes it's a file upload.
-		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
-		///     parameters are passed:<ul>
-		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
-		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
-		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
-		/// </summary>
-		/// <param name="form">The form Id or form element</param>
-		/// <returns></returns>
-		public virtual void formUpdate(string form) { _(form); }
-
-		/// <summary>
-		///     Performs an async form post, updating this element with the response. If the form has the attribute
-		///     enctype="multipart/form-data", it assumes it's a file upload.
-		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
-		///     parameters are passed:<ul>
-		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
-		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
-		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
-		/// </summary>
-		/// <param name="form">The form Id or form element</param>
-		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
-		/// <returns></returns>
-		public virtual void formUpdate(string form, string url) { _(form, url); }
-
-		/// <summary>
-		///     Performs an async form post, updating this element with the response. If the form has the attribute
-		///     enctype="multipart/form-data", it assumes it's a file upload.
-		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
-		///     parameters are passed:<ul>
-		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
-		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
-		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
-		/// </summary>
-		/// <param name="form">The form Id or form element</param>
-		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
-		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
-		/// <returns></returns>
-		public virtual void formUpdate(string form, string url, bool reset) { _(form, url, reset); }
-
-		/// <summary>
-		///     Performs an async form post, updating this element with the response. If the form has the attribute
-		///     enctype="multipart/form-data", it assumes it's a file upload.
-		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
-		///     parameters are passed:<ul>
-		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
-		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
-		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
-		/// </summary>
-		/// <param name="form">The form Id or form element</param>
-		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
-		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
-		/// <param name="callback">(optional) Callback when transaction is complete. The following</param>
-		/// <returns></returns>
-		public virtual void formUpdate(string form, string url, bool reset, Delegate callback) { _(form, url, reset, callback); }
+		public extern virtual void formUpdate();
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -322,7 +265,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="form">The form Id or form element</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form) { _(form); }
+		public extern virtual void formUpdate(string form);
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -336,7 +279,7 @@ namespace Ext {
 		/// <param name="form">The form Id or form element</param>
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, string url) { _(form, url); }
+		public extern virtual void formUpdate(string form, string url);
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -351,7 +294,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, string url, bool reset) { _(form, url, reset); }
+		public extern virtual void formUpdate(string form, string url, bool reset);
 
 		/// <summary>
 		///     Performs an async form post, updating this element with the response. If the form has the attribute
@@ -367,16 +310,74 @@ namespace Ext {
 		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
 		/// <param name="callback">(optional) Callback when transaction is complete. The following</param>
 		/// <returns></returns>
-		public virtual void formUpdate(DOMElement form, string url, bool reset, Delegate callback) { _(form, url, reset, callback); }
+		public extern virtual void formUpdate(string form, string url, bool reset, Delegate callback);
+
+		/// <summary>
+		///     Performs an async form post, updating this element with the response. If the form has the attribute
+		///     enctype="multipart/form-data", it assumes it's a file upload.
+		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
+		///     parameters are passed:<ul>
+		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
+		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
+		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
+		/// </summary>
+		/// <param name="form">The form Id or form element</param>
+		/// <returns></returns>
+		public extern virtual void formUpdate(DOMElement form);
+
+		/// <summary>
+		///     Performs an async form post, updating this element with the response. If the form has the attribute
+		///     enctype="multipart/form-data", it assumes it's a file upload.
+		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
+		///     parameters are passed:<ul>
+		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
+		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
+		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
+		/// </summary>
+		/// <param name="form">The form Id or form element</param>
+		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
+		/// <returns></returns>
+		public extern virtual void formUpdate(DOMElement form, string url);
+
+		/// <summary>
+		///     Performs an async form post, updating this element with the response. If the form has the attribute
+		///     enctype="multipart/form-data", it assumes it's a file upload.
+		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
+		///     parameters are passed:<ul>
+		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
+		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
+		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
+		/// </summary>
+		/// <param name="form">The form Id or form element</param>
+		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
+		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
+		/// <returns></returns>
+		public extern virtual void formUpdate(DOMElement form, string url, bool reset);
+
+		/// <summary>
+		///     Performs an async form post, updating this element with the response. If the form has the attribute
+		///     enctype="multipart/form-data", it assumes it's a file upload.
+		///     Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
+		///     parameters are passed:<ul>
+		///     <li><b>el</b> : Ext.Element<p class="sub-desc">The Element being updated.</p></li>
+		///     <li><b>success</b> : Boolean<p class="sub-desc">True for success, false for failure.</p></li>
+		///     <li><b>response</b> : XMLHttpRequest<p class="sub-desc">The XMLHttpRequest which processed the update.</p></li></ul>
+		/// </summary>
+		/// <param name="form">The form Id or form element</param>
+		/// <param name="url">(optional) The url to pass the form to. If omitted the action attribute on the form will be used.</param>
+		/// <param name="reset">(optional) Whether to try to reset the form after the update</param>
+		/// <param name="callback">(optional) Callback when transaction is complete. The following</param>
+		/// <returns></returns>
+		public extern virtual void formUpdate(DOMElement form, string url, bool reset, Delegate callback);
 
 		/// <summary>Refresh the element with the last used url or defaultUrl. If there is no url, it returns immediately</summary>
 		/// <returns></returns>
-		public virtual void refresh() { _(); }
+		public extern virtual void refresh();
 
 		/// <summary>Refresh the element with the last used url or defaultUrl. If there is no url, it returns immediately</summary>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void refresh(Delegate callback) { _(callback); }
+		public extern virtual void refresh(Delegate callback);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -386,18 +387,7 @@ namespace Ext {
 		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
 		/// </summary>
 		/// <returns></returns>
-		public virtual void startAutoRefresh() { _(); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval) { _(interval); }
+		public extern virtual void startAutoRefresh();
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -407,51 +397,8 @@ namespace Ext {
 		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
 		/// </summary>
 		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url) { _(interval, url); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, string prms) { _(interval, url, prms); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback) { _(interval, url, prms, callback); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public extern virtual void startAutoRefresh(double interval);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -463,7 +410,7 @@ namespace Ext {
 		/// <param name="interval">How often to update (in seconds).</param>
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url) { _(interval, url); }
+		public extern virtual void startAutoRefresh(double interval, string url);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -476,7 +423,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, string prms) { _(interval, url, prms); }
+		public extern virtual void startAutoRefresh(double interval, string url, string prms);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -490,7 +437,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback) { _(interval, url, prms, callback); }
+		public extern virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -505,7 +452,7 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public extern virtual void startAutoRefresh(double interval, string url, string prms, Delegate callback, bool refreshNow);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -517,49 +464,7 @@ namespace Ext {
 		/// <param name="interval">How often to update (in seconds).</param>
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url) { _(interval, url); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, string prms) { _(interval, url, prms); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback) { _(interval, url, prms, callback); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public extern virtual void startAutoRefresh(double interval, object url);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -572,7 +477,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, object prms) { _(interval, url, prms); }
+		public extern virtual void startAutoRefresh(double interval, object url, string prms);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -586,7 +491,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback) { _(interval, url, prms, callback); }
+		public extern virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -601,7 +506,19 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public extern virtual void startAutoRefresh(double interval, object url, string prms, Delegate callback, bool refreshNow);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, Delegate url);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -614,49 +531,7 @@ namespace Ext {
 		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, object prms) { _(interval, url, prms); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, object prms, Delegate callback) { _(interval, url, prms, callback); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
-		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, object url, object prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
-
-		/// <summary>
-		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
-		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
-		///     sepcified as part of a config object passed as this paramter if needed.
-		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
-		/// </summary>
-		/// <param name="interval">How often to update (in seconds).</param>
-		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
-		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
-		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, object prms) { _(interval, url, prms); }
+		public extern virtual void startAutoRefresh(double interval, Delegate url, string prms);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -670,7 +545,7 @@ namespace Ext {
 		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, object prms, Delegate callback) { _(interval, url, prms, callback); }
+		public extern virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback);
 
 		/// <summary>
 		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
@@ -685,66 +560,192 @@ namespace Ext {
 		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
 		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
 		/// <returns></returns>
-		public virtual void startAutoRefresh(double interval, Delegate url, object prms, Delegate callback, bool refreshNow) { _(interval, url, prms, callback, refreshNow); }
+		public extern virtual void startAutoRefresh(double interval, Delegate url, string prms, Delegate callback, bool refreshNow);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, string url, object prms);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, string url, object prms, Delegate callback, bool refreshNow);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, object url, object prms);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, object url, object prms, Delegate callback);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, object url, object prms, Delegate callback, bool refreshNow);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, Delegate url, object prms);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, Delegate url, object prms, Delegate callback);
+
+		/// <summary>
+		///     Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
+		///     supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
+		///     the url used in a load call can be reused by this method, other load config options will not be reused and must be
+		///     sepcified as part of a config object passed as this paramter if needed.
+		///     "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
+		/// </summary>
+		/// <param name="interval">How often to update (in seconds).</param>
+		/// <param name="url">(optional) The url for this request, a config object in the same format</param>
+		/// <param name="prms">(optional) The parameters to pass as either a url encoded string</param>
+		/// <param name="callback">(optional) Callback when transaction is complete - called with signature (oElement, bSuccess)</param>
+		/// <param name="refreshNow">(optional) Whether to execute the refresh now, or wait the interval</param>
+		/// <returns></returns>
+		public extern virtual void startAutoRefresh(double interval, Delegate url, object prms, Delegate callback, bool refreshNow);
 
 		/// <summary>Stop auto refresh on this element.</summary>
 		/// <returns></returns>
-		public virtual void stopAutoRefresh() { _(); }
+		public extern virtual void stopAutoRefresh();
 
 		/// <summary>Returns true if the Updater is currently set to auto refresh its content (see {@link #startAutoRefresh}), otherwise false.</summary>
 		/// <returns></returns>
-		public virtual void isAutoRefreshing() { _(); }
+		public extern virtual void isAutoRefreshing();
 
 		/// <summary>
 		///     Display the element's "loading" state. By default, the element is updated with {@link #indicatorText}. This
 		///     method may be overridden to perform a custom action while this Updater is actively updating its contents.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void showLoading() { _(); }
+		public extern virtual void showLoading();
 
 		/// <summary>Sets the content renderer for this Updater. See {@link Ext.Updater.BasicRenderer#render} for more details.</summary>
 		/// <returns></returns>
-		public virtual void setRenderer() { _(); }
+		public extern virtual void setRenderer();
 
 		/// <summary>Sets the content renderer for this Updater. See {@link Ext.Updater.BasicRenderer#render} for more details.</summary>
 		/// <param name="renderer">The object implementing the render() method</param>
 		/// <returns></returns>
-		public virtual void setRenderer(object renderer) { _(renderer); }
+		public extern virtual void setRenderer(object renderer);
 
 		/// <summary>Returns the content renderer for this Updater. See {@link Ext.Updater.BasicRenderer#render} for more details.</summary>
 		/// <returns>Object</returns>
-		public virtual void getRenderer() { _(); }
+		public extern virtual void getRenderer();
 
 		/// <summary>Sets the default URL used for updates.</summary>
 		/// <returns></returns>
-		public virtual void setDefaultUrl() { _(); }
-
-		/// <summary>Sets the default URL used for updates.</summary>
-		/// <param name="defaultUrl">The url or a function to call to get the url</param>
-		/// <returns></returns>
-		public virtual void setDefaultUrl(string defaultUrl) { _(defaultUrl); }
+		public extern virtual void setDefaultUrl();
 
 		/// <summary>Sets the default URL used for updates.</summary>
 		/// <param name="defaultUrl">The url or a function to call to get the url</param>
 		/// <returns></returns>
-		public virtual void setDefaultUrl(Delegate defaultUrl) { _(defaultUrl); }
+		public extern virtual void setDefaultUrl(string defaultUrl);
+
+		/// <summary>Sets the default URL used for updates.</summary>
+		/// <param name="defaultUrl">The url or a function to call to get the url</param>
+		/// <returns></returns>
+		public extern virtual void setDefaultUrl(Delegate defaultUrl);
 
 		/// <summary>Aborts the currently executing transaction, if any.</summary>
 		/// <returns></returns>
-		public virtual void abort() { _(); }
+		public extern virtual void abort();
 
 		/// <summary>Returns true if an update is in progress, otherwise false.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void isUpdating() { _(); }
+		public extern virtual void isUpdating();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class UpdaterConfig : DotWeb.Client.JsDynamicBase {
+	public class UpdaterConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 

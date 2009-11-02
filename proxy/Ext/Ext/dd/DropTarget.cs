@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.dd {
@@ -12,16 +13,16 @@ namespace Ext.dd {
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public DropTarget() { C_(); }
+		public extern DropTarget();
 		/// <summary></summary>
 		/// <param name="el">The container element</param>
 		/// <returns></returns>
-		public DropTarget(object el) { C_(el); }
+		public extern DropTarget(object el);
 		/// <summary></summary>
 		/// <param name="el">The container element</param>
 		/// <param name="config"></param>
 		/// <returns></returns>
-		public DropTarget(object el, object config) { C_(el, config); }
+		public extern DropTarget(object el, object config);
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -29,7 +30,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <returns></returns>
-		public DropTarget(string id) { C_(id); }
+		public extern DropTarget(string id);
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -38,7 +39,7 @@ namespace Ext.dd {
 		/// <param name="id">the id of the element that is a drop target</param>
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <returns></returns>
-		public DropTarget(string id, string sGroup) { C_(id, sGroup); }
+		public extern DropTarget(string id, string sGroup);
 		/// <summary>
 		///     Valid properties for DDTarget in addition to those in
 		///     DragDrop:
@@ -48,32 +49,32 @@ namespace Ext.dd {
 		/// <param name="sGroup">the group of related DragDrop objects</param>
 		/// <param name="config">an object containing configurable attributes</param>
 		/// <returns></returns>
-		public DropTarget(string id, string sGroup, object config) { C_(id, sGroup, config); }
+		public extern DropTarget(string id, string sGroup, object config);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DropTarget prototype { get { return S_<DropTarget>(); } set { S_(value); } }
+		public extern static DropTarget prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.dd.DDTarget superclass { get { return S_<Ext.dd.DDTarget>(); } set { S_(value); } }
+		public extern static Ext.dd.DDTarget superclass { get; set; }
 
 		/// <summary>
 		///     A named drag drop group to which this object belongs.  If a group is specified, then this object will only
 		///     interact with other drag drop objects in the same group (defaults to undefined).
 		/// </summary>
-		public string ddGroup { get { return _<string>(); } set { _(value); } }
+		public extern string ddGroup { get; set; }
 
 		/// <summary>The CSS class applied to the drop target element while the drag source is over it (defaults to "").</summary>
-		public string overClass { get { return _<string>(); } set { _(value); } }
+		public extern string overClass { get; set; }
 
 		/// <summary>The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public string dropAllowed { get { return _<string>(); } set { _(value); } }
+		public extern string dropAllowed { get; set; }
 
 		/// <summary>The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
+		public extern string dropNotAllowed { get; set; }
 
 
 		/// <summary>
@@ -83,7 +84,7 @@ namespace Ext.dd {
 		///     underlying {@link Ext.dd.StatusProxy} can be updated
 		/// </summary>
 		/// <returns>String</returns>
-		public virtual void notifyEnter() { _(); }
+		public extern virtual void notifyEnter();
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source is now over the
@@ -93,7 +94,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <returns>String</returns>
-		public virtual void notifyEnter(Ext.dd.DragSource source) { _(source); }
+		public extern virtual void notifyEnter(Ext.dd.DragSource source);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source is now over the
@@ -104,7 +105,7 @@ namespace Ext.dd {
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <param name="e">The event</param>
 		/// <returns>String</returns>
-		public virtual void notifyEnter(Ext.dd.DragSource source, Event e) { _(source, e); }
+		public extern virtual void notifyEnter(Ext.dd.DragSource source, Event e);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source is now over the
@@ -116,7 +117,7 @@ namespace Ext.dd {
 		/// <param name="e">The event</param>
 		/// <param name="data">An object containing arbitrary data supplied by the drag source</param>
 		/// <returns>String</returns>
-		public virtual void notifyEnter(Ext.dd.DragSource source, Event e, object data) { _(source, e, data); }
+		public extern virtual void notifyEnter(Ext.dd.DragSource source, Event e, object data);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls continuously while it is being dragged over the target.
@@ -125,7 +126,7 @@ namespace Ext.dd {
 		///     underlying {@link Ext.dd.StatusProxy} can be updated
 		/// </summary>
 		/// <returns>String</returns>
-		public virtual void notifyOver() { _(); }
+		public extern virtual void notifyOver();
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls continuously while it is being dragged over the target.
@@ -135,7 +136,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <returns>String</returns>
-		public virtual void notifyOver(Ext.dd.DragSource source) { _(source); }
+		public extern virtual void notifyOver(Ext.dd.DragSource source);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls continuously while it is being dragged over the target.
@@ -146,7 +147,7 @@ namespace Ext.dd {
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <param name="e">The event</param>
 		/// <returns>String</returns>
-		public virtual void notifyOver(Ext.dd.DragSource source, Event e) { _(source, e); }
+		public extern virtual void notifyOver(Ext.dd.DragSource source, Event e);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls continuously while it is being dragged over the target.
@@ -158,7 +159,7 @@ namespace Ext.dd {
 		/// <param name="e">The event</param>
 		/// <param name="data">An object containing arbitrary data supplied by the drag source</param>
 		/// <returns>String</returns>
-		public virtual void notifyOver(Ext.dd.DragSource source, Event e, object data) { _(source, e, data); }
+		public extern virtual void notifyOver(Ext.dd.DragSource source, Event e, object data);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
@@ -166,16 +167,7 @@ namespace Ext.dd {
 		///     overClass (if any) from the drop element.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void notifyOut() { _(); }
-
-		/// <summary>
-		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
-		///     out of the target without dropping.  This default implementation simply removes the CSS class specified by
-		///     overClass (if any) from the drop element.
-		/// </summary>
-		/// <param name="source">The drag source that was dragged over this drop target</param>
-		/// <returns></returns>
-		public virtual void notifyOut(Ext.dd.DragSource source) { _(source); }
+		public extern virtual void notifyOut();
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
@@ -183,9 +175,8 @@ namespace Ext.dd {
 		///     overClass (if any) from the drop element.
 		/// </summary>
 		/// <param name="source">The drag source that was dragged over this drop target</param>
-		/// <param name="e">The event</param>
 		/// <returns></returns>
-		public virtual void notifyOut(Ext.dd.DragSource source, Event e) { _(source, e); }
+		public extern virtual void notifyOut(Ext.dd.DragSource source);
 
 		/// <summary>
 		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
@@ -194,69 +185,79 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <param name="e">The event</param>
-		/// <param name="data">An object containing arbitrary data supplied by the drag source</param>
 		/// <returns></returns>
-		public virtual void notifyOut(Ext.dd.DragSource source, Event e, object data) { _(source, e, data); }
+		public extern virtual void notifyOut(Ext.dd.DragSource source, Event e);
 
 		/// <summary>
-		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
-		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
-		///     implementation that does something to process the drop event and returns true so that the drag source's
-		///     repair action does not run.
-		/// </summary>
-		/// <returns>Boolean</returns>
-		public virtual void notifyDrop() { _(); }
-
-		/// <summary>
-		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
-		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
-		///     implementation that does something to process the drop event and returns true so that the drag source's
-		///     repair action does not run.
-		/// </summary>
-		/// <param name="source">The drag source that was dragged over this drop target</param>
-		/// <returns>Boolean</returns>
-		public virtual void notifyDrop(Ext.dd.DragSource source) { _(source); }
-
-		/// <summary>
-		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
-		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
-		///     implementation that does something to process the drop event and returns true so that the drag source's
-		///     repair action does not run.
-		/// </summary>
-		/// <param name="source">The drag source that was dragged over this drop target</param>
-		/// <param name="e">The event</param>
-		/// <returns>Boolean</returns>
-		public virtual void notifyDrop(Ext.dd.DragSource source, Event e) { _(source, e); }
-
-		/// <summary>
-		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
-		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
-		///     implementation that does something to process the drop event and returns true so that the drag source's
-		///     repair action does not run.
+		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
+		///     out of the target without dropping.  This default implementation simply removes the CSS class specified by
+		///     overClass (if any) from the drop element.
 		/// </summary>
 		/// <param name="source">The drag source that was dragged over this drop target</param>
 		/// <param name="e">The event</param>
 		/// <param name="data">An object containing arbitrary data supplied by the drag source</param>
+		/// <returns></returns>
+		public extern virtual void notifyOut(Ext.dd.DragSource source, Event e, object data);
+
+		/// <summary>
+		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
+		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
+		///     implementation that does something to process the drop event and returns true so that the drag source's
+		///     repair action does not run.
+		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void notifyDrop(Ext.dd.DragSource source, Event e, object data) { _(source, e, data); }
+		public extern virtual void notifyDrop();
+
+		/// <summary>
+		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
+		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
+		///     implementation that does something to process the drop event and returns true so that the drag source's
+		///     repair action does not run.
+		/// </summary>
+		/// <param name="source">The drag source that was dragged over this drop target</param>
+		/// <returns>Boolean</returns>
+		public extern virtual void notifyDrop(Ext.dd.DragSource source);
+
+		/// <summary>
+		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
+		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
+		///     implementation that does something to process the drop event and returns true so that the drag source's
+		///     repair action does not run.
+		/// </summary>
+		/// <param name="source">The drag source that was dragged over this drop target</param>
+		/// <param name="e">The event</param>
+		/// <returns>Boolean</returns>
+		public extern virtual void notifyDrop(Ext.dd.DragSource source, Event e);
+
+		/// <summary>
+		///     The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the dragged item has
+		///     been dropped on it.  This method has no default implementation and returns false, so you must provide an
+		///     implementation that does something to process the drop event and returns true so that the drag source's
+		///     repair action does not run.
+		/// </summary>
+		/// <param name="source">The drag source that was dragged over this drop target</param>
+		/// <param name="e">The event</param>
+		/// <param name="data">An object containing arbitrary data supplied by the drag source</param>
+		/// <returns>Boolean</returns>
+		public extern virtual void notifyDrop(Ext.dd.DragSource source, Event e, object data);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class DropTargetConfig : DotWeb.Client.JsDynamicBase {
+	public class DropTargetConfig : System.DotWeb.JsDynamic {
 		/// <summary>  A named drag drop group to which this object belongs.  If a group is specified, then this object will only interact with other drag drop objects in the same group (defaults to undefined).</summary>
-		public string ddGroup { get { return _<string>(); } set { _(value); } }
+		public string ddGroup { get { return (string)this["ddGroup"]; } set { this["ddGroup"] = value; } }
 
 		/// <summary>  The CSS class applied to the drop target element while the drag source is over it (defaults to "").</summary>
-		public string overClass { get { return _<string>(); } set { _(value); } }
+		public string overClass { get { return (string)this["overClass"]; } set { this["overClass"] = value; } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").</summary>
-		public string dropAllowed { get { return _<string>(); } set { _(value); } }
+		public string dropAllowed { get { return (string)this["dropAllowed"]; } set { this["dropAllowed"] = value; } }
 
 		/// <summary>  The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").</summary>
-		public string dropNotAllowed { get { return _<string>(); } set { _(value); } }
+		public string dropNotAllowed { get { return (string)this["dropNotAllowed"]; } set { this["dropNotAllowed"] = value; } }
 
 	}
 }

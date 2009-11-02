@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext {
@@ -50,18 +51,18 @@ namespace Ext {
 	///     Ext.Fx = {
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\core\Fx.js</jssource>
-	public class Fx : DotWeb.Client.JsNativeBase {
+	public class Fx : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Fx() { C_(); }
+		public extern Fx();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Fx prototype { get { return S_<Fx>(); } set { S_(value); } }
+		public extern static Fx prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>
@@ -82,7 +83,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideIn() { _(); }
+		public extern virtual void slideIn();
 
 		/// <summary>
 		///     Slides the element into view.  An anchor point can be optionally passed to set the point of
@@ -103,7 +104,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideIn(string anchor) { _(anchor); }
+		public extern virtual void slideIn(string anchor);
 
 		/// <summary>
 		///     Slides the element into view.  An anchor point can be optionally passed to set the point of
@@ -125,7 +126,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideIn(string anchor, object options) { _(anchor, options); }
+		public extern virtual void slideIn(string anchor, object options);
 
 		/// <summary>
 		///     Slides the element out of view.  An anchor point can be optionally passed to set the end point
@@ -149,7 +150,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideOut() { _(); }
+		public extern virtual void slideOut();
 
 		/// <summary>
 		///     Slides the element out of view.  An anchor point can be optionally passed to set the end point
@@ -174,7 +175,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideOut(string anchor) { _(anchor); }
+		public extern virtual void slideOut(string anchor);
 
 		/// <summary>
 		///     Slides the element out of view.  An anchor point can be optionally passed to set the end point
@@ -200,7 +201,7 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to top: 't')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void slideOut(string anchor, object options) { _(anchor, options); }
+		public extern virtual void slideOut(string anchor, object options);
 
 		/// <summary>
 		///     Fades the element out while slowly expanding it in all directions.  When the effect is completed, the
@@ -220,7 +221,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void puff() { _(); }
+		public extern virtual void puff();
 
 		/// <summary>
 		///     Fades the element out while slowly expanding it in all directions.  When the effect is completed, the
@@ -241,7 +242,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void puff(object options) { _(options); }
+		public extern virtual void puff(object options);
 
 		/// <summary>
 		///     Blinks the element as if it was clicked and then collapses on its center (similar to switching off a television).
@@ -261,7 +262,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void switchOff() { _(); }
+		public extern virtual void switchOff();
 
 		/// <summary>
 		///     Blinks the element as if it was clicked and then collapses on its center (similar to switching off a television).
@@ -282,7 +283,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void switchOff(object options) { _(options); }
+		public extern virtual void switchOff(object options);
 
 		/// <summary>
 		///     Highlights the Element by setting a color (applies to the background-color by default, but can be
@@ -304,7 +305,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void highlight() { _(); }
+		public extern virtual void highlight();
 
 		/// <summary>
 		///     Highlights the Element by setting a color (applies to the background-color by default, but can be
@@ -327,7 +328,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="color">(optional) The highlight color. Should be a 6 char hex color without the leading # (defaults to yellow: 'ffff9c')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void highlight(string color) { _(color); }
+		public extern virtual void highlight(string color);
 
 		/// <summary>
 		///     Highlights the Element by setting a color (applies to the background-color by default, but can be
@@ -351,7 +352,7 @@ namespace Ext {
 		/// <param name="color">(optional) The highlight color. Should be a 6 char hex color without the leading # (defaults to yellow: 'ffff9c')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void highlight(string color, object options) { _(color, options); }
+		public extern virtual void highlight(string color, object options);
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -369,7 +370,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame() { _(); }
+		public extern virtual void frame();
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -388,7 +389,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="color">(optional) The color of the border.  Should be a 6 char hex color without the leading # (defaults to light blue: 'C3DAF9').</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(string color) { _(color); }
+		public extern virtual void frame(string color);
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -408,7 +409,7 @@ namespace Ext {
 		/// <param name="color">(optional) The color of the border.  Should be a 6 char hex color without the leading # (defaults to light blue: 'C3DAF9').</param>
 		/// <param name="count">(optional) The number of ripples to display (defaults to 1)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(string color, double count) { _(color, count); }
+		public extern virtual void frame(string color, double count);
 
 		/// <summary>
 		///     Shows a ripple of exploding, attenuating borders to draw attention to an Element.
@@ -429,7 +430,7 @@ namespace Ext {
 		/// <param name="count">(optional) The number of ripples to display (defaults to 1)</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void frame(string color, double count, object options) { _(color, count, options); }
+		public extern virtual void frame(string color, double count, object options);
 
 		/// <summary>
 		///     Creates a pause before any subsequent queued effects begin.  If there are
@@ -440,7 +441,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void pause() { _(); }
+		public extern virtual void pause();
 
 		/// <summary>
 		///     Creates a pause before any subsequent queued effects begin.  If there are
@@ -452,7 +453,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="seconds">The length of time to pause (in seconds)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void pause(double seconds) { _(seconds); }
+		public extern virtual void pause(double seconds);
 
 		/// <summary>
 		///     Fade an element in (from transparent to opaque).  The ending opacity can be specified
@@ -472,7 +473,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void fadeIn() { _(); }
+		public extern virtual void fadeIn();
 
 		/// <summary>
 		///     Fade an element in (from transparent to opaque).  The ending opacity can be specified
@@ -493,7 +494,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void fadeIn(object options) { _(options); }
+		public extern virtual void fadeIn(object options);
 
 		/// <summary>
 		///     Fade an element out (from opaque to transparent).  The ending opacity can be specified
@@ -516,7 +517,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void fadeOut() { _(); }
+		public extern virtual void fadeOut();
 
 		/// <summary>
 		///     Fade an element out (from opaque to transparent).  The ending opacity can be specified
@@ -540,7 +541,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void fadeOut(object options) { _(options); }
+		public extern virtual void fadeOut(object options);
 
 		/// <summary>
 		///     Animates the transition of an element's dimensions from a starting height/width
@@ -561,7 +562,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void scale() { _(); }
+		public extern virtual void scale();
 
 		/// <summary>
 		///     Animates the transition of an element's dimensions from a starting height/width
@@ -583,7 +584,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="width">The new width (pass undefined to keep the original width)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void scale(double width) { _(width); }
+		public extern virtual void scale(double width);
 
 		/// <summary>
 		///     Animates the transition of an element's dimensions from a starting height/width
@@ -606,7 +607,7 @@ namespace Ext {
 		/// <param name="width">The new width (pass undefined to keep the original width)</param>
 		/// <param name="height">The new height (pass undefined to keep the original height)</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void scale(double width, double height) { _(width, height); }
+		public extern virtual void scale(double width, double height);
 
 		/// <summary>
 		///     Animates the transition of an element's dimensions from a starting height/width
@@ -630,7 +631,7 @@ namespace Ext {
 		/// <param name="height">The new height (pass undefined to keep the original height)</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void scale(double width, double height, object options) { _(width, height, options); }
+		public extern virtual void scale(double width, double height, object options);
 
 		/// <summary>
 		///     Animates the transition of any combination of an element's dimensions, xy position and/or opacity.
@@ -654,7 +655,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void shift() { _(); }
+		public extern virtual void shift();
 
 		/// <summary>
 		///     Animates the transition of any combination of an element's dimensions, xy position and/or opacity.
@@ -679,7 +680,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="options">Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void shift(object options) { _(options); }
+		public extern virtual void shift(object options);
 
 		/// <summary>
 		///     Slides the element while fading it out of view.  An anchor point can be optionally passed to set the
@@ -700,7 +701,7 @@ namespace Ext {
 		///     </code></pre>
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void ghost() { _(); }
+		public extern virtual void ghost();
 
 		/// <summary>
 		///     Slides the element while fading it out of view.  An anchor point can be optionally passed to set the
@@ -722,7 +723,7 @@ namespace Ext {
 		/// </summary>
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to bottom: 'b')</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void ghost(string anchor) { _(anchor); }
+		public extern virtual void ghost(string anchor);
 
 		/// <summary>
 		///     Slides the element while fading it out of view.  An anchor point can be optionally passed to set the
@@ -745,32 +746,32 @@ namespace Ext {
 		/// <param name="anchor">(optional) One of the valid Fx anchor positions (defaults to bottom: 'b')</param>
 		/// <param name="options">(optional) Object literal with any of the Fx config options</param>
 		/// <returns>Ext.Element</returns>
-		public virtual void ghost(string anchor, object options) { _(anchor, options); }
+		public extern virtual void ghost(string anchor, object options);
 
 		/// <summary>
 		///     Ensures that all effects queued after syncFx is called on the element are
 		///     run concurrently.  This is the opposite of {@link #sequenceFx}.
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void syncFx() { _(); }
+		public extern virtual void syncFx();
 
 		/// <summary>
 		///     Ensures that all effects queued after sequenceFx is called on the element are
 		///     run in sequence.  This is the opposite of {@link #syncFx}.
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void sequenceFx() { _(); }
+		public extern virtual void sequenceFx();
 
 		/// <summary>Returns true if the element has any effects actively running or queued, else returns false.</summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasActiveFx() { _(); }
+		public extern virtual void hasActiveFx();
 
 		/// <summary>
 		///     Stops any running effects and clears the element's internal effects queue if it contains
 		///     any additional effects that haven't started yet.
 		/// </summary>
 		/// <returns>Ext.Element</returns>
-		public virtual void stopFx() { _(); }
+		public extern virtual void stopFx();
 
 		/// <summary>
 		///     Returns true if the element is currently blocking so that no other effect can be queued
@@ -779,16 +780,16 @@ namespace Ext {
 		///     same effect being restarted (e.g., firing only one effect even if the user clicks several times).
 		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasFxBlock() { _(); }
+		public extern virtual void hasFxBlock();
 
 
 
 	}
 
 	[JsAnonymous]
-	public class FxConfig : DotWeb.Client.JsDynamicBase {
+	public class FxConfig : System.DotWeb.JsDynamic {
 		/// <summary> @class Ext.Fx <p>A class to provide basic animation and visual effects support.  <b>Note:</b> This class is automatically applied to the {@link Ext.Element} interface when included, so all effects calls should be performed via Element. Conversely, since the effects are not actually defined in Element, Ext.Fx <b>must</b> be included in order for the Element effects to work.</p><br/> <p>It is important to note that although the Fx methods and many non-Fx Element methods support "method chaining" in that they return the Element object itself as the method return value, it is not always possible to mix the two in a single method chain.  The Fx methods use an internal effects queue so that each effect can be properly timed and sequenced. Non-Fx methods, on the other hand, have no such internal queueing and will always execute immediately.  For this reason, while it may be possible to mix certain Fx and non-Fx method calls in a single chain, it may not always provide the expected results and should be done with care.</p><br/> <p>Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element that will serve as either the start or end point of the animation.  Following are all of the supported anchor positions:</p> <pre> Value  Description -----  ----------------------------- tl     The top left corner t      The center of the top edge tr     The top right corner l      The center of the left edge r      The center of the right edge bl     The bottom left corner b      The center of the bottom edge br     The bottom right corner </pre> <b>Although some Fx methods accept specific custom config parameters, the ones shown in the Config Options section below are common options that can be passed to any Fx method.</b>A function called when the effect is finished.  Note that effects are queued internally by the Fx class, so do not need to use the callback parameter to specify another effect -- effects can simply be chained together and called in sequence (e.g., el.slideIn().highlight();).  The callback is intended for any additional code that should run once a particular effect has completed. The Element being operated upon is passed as the first parameter.The scope of the effect functionA valid Easing value for the effectA css class to apply after the effectThe length of time (in seconds) that the effect should lastWhether the Element should be removed from the DOM and destroyed after the effect finishesWhether to use the <i>display</i> CSS property instead of <i>visibility</i> when hiding Elements (only applies to effects that end with the element being visually hidden, ignored otherwise)A style specification string, e.g. "width:100px", or an object in the form {width:"100px"}, or a function which returns such a specification that will be applied to the Element after the effect finishesWhether the effect should block other effects from queueing while it runsWhether to allow subsequently-queued effects to run at the same time as the current effect, or to ensure that they run in sequenceWhether subsequent effects should be stopped and removed after the current effect finishes</summary>
-		public bool stopFx { get { return _<bool>(); } set { _(value); } }
+		public bool stopFx { get { return (bool)this["stopFx"]; } set { this["stopFx"] = value; } }
 
 	}
 }

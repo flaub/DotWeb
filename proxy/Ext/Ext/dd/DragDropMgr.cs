@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.dd {
@@ -12,25 +13,25 @@ namespace Ext.dd {
 	///     Ext.dd.DragDropMgr = function() {
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\dd\DDCore.js</jssource>
-	public class DragDropMgr : DotWeb.Client.JsNativeBase {
+	public class DragDropMgr : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public DragDropMgr() { C_(); }
+		public extern DragDropMgr();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static DragDropMgr prototype { get { return S_<DragDropMgr>(); } set { S_(value); } }
+		public extern static DragDropMgr prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>
 		///     Flag to determine if we should prevent the default behavior of the
 		///     events we define. By default this is true, but this can be set to
 		///     false if you need the default behavior (not recommended)
 		/// </summary>
-		public static bool preventDefault { get { return S_<bool>(); } set { S_(value); } }
+		public extern static bool preventDefault { get; set; }
 
 		/// <summary>
 		///     Flag to determine if we should stop the propagation of the events
@@ -38,60 +39,60 @@ namespace Ext.dd {
 		///     false if the html element contains other features that require the
 		///     mouse click.
 		/// </summary>
-		public static bool stopPropagation { get { return S_<bool>(); } set { S_(value); } }
+		public extern static bool stopPropagation { get; set; }
 
 		/// <summary>
 		///     In point mode, drag and drop interaction is defined by the
 		///     location of the cursor during the drag/drop
 		/// </summary>
-		public static int POINT { get { return S_<int>(); } set { S_(value); } }
+		public extern static int POINT { get; set; }
 
 		/// <summary>
 		///     In intersect mode, drag and drop interaction is defined by the
 		///     overlap of two or more drag and drop objects.
 		/// </summary>
-		public static int INTERSECT { get { return S_<int>(); } set { S_(value); } }
+		public extern static int INTERSECT { get; set; }
 
 		/// <summary>The current drag and drop mode.  Default: POINT</summary>
-		public static int mode { get { return S_<int>(); } set { S_(value); } }
+		public extern static int mode { get; set; }
 
 		/// <summary>
 		///     Set useCache to false if you want to force object the lookup of each
 		///     drag and drop linked element constantly during a drag.
 		/// </summary>
-		public static bool useCache { get { return S_<bool>(); } set { S_(value); } }
+		public extern static bool useCache { get; set; }
 
 		/// <summary>
 		///     The number of pixels that the mouse needs to move after the
 		///     mousedown before the drag is initiated.  Default=3;
 		/// </summary>
-		public static int clickPixelThresh { get { return S_<int>(); } set { S_(value); } }
+		public extern static int clickPixelThresh { get; set; }
 
 		/// <summary>
 		///     The number of milliseconds after the mousedown event to initiate the
 		///     drag if we don't get a mouseup event. Default=1000
 		/// </summary>
-		public static int clickTimeThresh { get { return S_<int>(); } set { S_(value); } }
+		public extern static int clickTimeThresh { get; set; }
 
 
 		/// <summary>Lock all drag and drop functionality</summary>
 		/// <returns></returns>
-		public static void lock_() { S_(); }
+		public extern static void lock_();
 
 		/// <summary>Unlock all drag and drop functionality</summary>
 		/// <returns></returns>
-		public static void unlock() { S_(); }
+		public extern static void unlock();
 
 		/// <summary>Is drag and drop locked?</summary>
 		/// <returns>boolean</returns>
-		public static void isLocked() { S_(); }
+		public extern static void isLocked();
 
 		/// <summary>
 		///     Each DragDrop instance must be registered with the DragDropMgr.
 		///     This is executed in DragDrop.init()
 		/// </summary>
 		/// <returns></returns>
-		public static void regDragDrop() { S_(); }
+		public extern static void regDragDrop();
 
 		/// <summary>
 		///     Each DragDrop instance must be registered with the DragDropMgr.
@@ -99,7 +100,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="oDD">the DragDrop object to register</param>
 		/// <returns></returns>
-		public static void regDragDrop(DragDrop oDD) { S_(oDD); }
+		public extern static void regDragDrop(DragDrop oDD);
 
 		/// <summary>
 		///     Each DragDrop instance must be registered with the DragDropMgr.
@@ -108,7 +109,7 @@ namespace Ext.dd {
 		/// <param name="oDD">the DragDrop object to register</param>
 		/// <param name="sGroup">the name of the group this element belongs to</param>
 		/// <returns></returns>
-		public static void regDragDrop(DragDrop oDD, string sGroup) { S_(oDD, sGroup); }
+		public extern static void regDragDrop(DragDrop oDD, string sGroup);
 
 		/// <summary>
 		///     Each DragDrop handle element must be registered.  This is done
@@ -116,7 +117,7 @@ namespace Ext.dd {
 		///     handle
 		/// </summary>
 		/// <returns></returns>
-		public static void regHandle() { S_(); }
+		public extern static void regHandle();
 
 		/// <summary>
 		///     Each DragDrop handle element must be registered.  This is done
@@ -125,7 +126,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="sDDId">the DragDrop id this element is a handle for</param>
 		/// <returns></returns>
-		public static void regHandle(string sDDId) { S_(sDDId); }
+		public extern static void regHandle(string sDDId);
 
 		/// <summary>
 		///     Each DragDrop handle element must be registered.  This is done
@@ -135,7 +136,7 @@ namespace Ext.dd {
 		/// <param name="sDDId">the DragDrop id this element is a handle for</param>
 		/// <param name="sHandleId">the id of the element that is the drag</param>
 		/// <returns></returns>
-		public static void regHandle(string sDDId, string sHandleId) { S_(sDDId, sHandleId); }
+		public extern static void regHandle(string sDDId, string sHandleId);
 
 		/// <summary>
 		///     Utility function to determine if a given element has been
@@ -143,7 +144,7 @@ namespace Ext.dd {
 		///     false otherwise
 		/// </summary>
 		/// <returns>boolean</returns>
-		public static void isDragDrop() { S_(); }
+		public extern static void isDragDrop();
 
 		/// <summary>
 		///     Utility function to determine if a given element has been
@@ -152,14 +153,14 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the element id to check</param>
 		/// <returns>boolean</returns>
-		public static void isDragDrop(string id) { S_(id); }
+		public extern static void isDragDrop(string id);
 
 		/// <summary>
 		///     Returns the drag and drop instances that are in all groups the
 		///     passed in instance belongs to.
 		/// </summary>
 		/// <returns>DragDrop[]</returns>
-		public static void getRelated() { S_(); }
+		public extern static void getRelated();
 
 		/// <summary>
 		///     Returns the drag and drop instances that are in all groups the
@@ -167,7 +168,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="p_oDD">the obj to get related data for</param>
 		/// <returns>DragDrop[]</returns>
-		public static void getRelated(DragDrop p_oDD) { S_(p_oDD); }
+		public extern static void getRelated(DragDrop p_oDD);
 
 		/// <summary>
 		///     Returns the drag and drop instances that are in all groups the
@@ -176,7 +177,7 @@ namespace Ext.dd {
 		/// <param name="p_oDD">the obj to get related data for</param>
 		/// <param name="bTargetsOnly">if true, only return targetable objs</param>
 		/// <returns>DragDrop[]</returns>
-		public static void getRelated(DragDrop p_oDD, bool bTargetsOnly) { S_(p_oDD, bTargetsOnly); }
+		public extern static void getRelated(DragDrop p_oDD, bool bTargetsOnly);
 
 		/// <summary>
 		///     Returns true if the specified dd target is a legal target for
@@ -184,7 +185,7 @@ namespace Ext.dd {
 		///     dd obj
 		/// </summary>
 		/// <returns>boolean</returns>
-		public static void isLegalTarget() { S_(); }
+		public extern static void isLegalTarget();
 
 		/// <summary>
 		///     Returns true if the specified dd target is a legal target for
@@ -193,7 +194,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="the">drag obj</param>
 		/// <returns>boolean</returns>
-		public static void isLegalTarget(DragDrop the) { S_(the); }
+		public extern static void isLegalTarget(DragDrop the);
 
 		/// <summary>
 		///     Returns true if the specified dd target is a legal target for
@@ -203,7 +204,7 @@ namespace Ext.dd {
 		/// <param name="the">drag obj</param>
 		/// <param name="the2">target</param>
 		/// <returns>boolean</returns>
-		public static void isLegalTarget(DragDrop the, DragDrop the2) { S_(the, the2); }
+		public extern static void isLegalTarget(DragDrop the, DragDrop the2);
 
 		/// <summary>
 		///     My goal is to be able to transparently determine if an object is
@@ -213,7 +214,7 @@ namespace Ext.dd {
 		///     evaluates a well-known variable in DragDrop.
 		/// </summary>
 		/// <returns>boolean</returns>
-		public static void isTypeOfDD() { S_(); }
+		public extern static void isTypeOfDD();
 
 		/// <summary>
 		///     My goal is to be able to transparently determine if an object is
@@ -224,7 +225,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="the">object to evaluate</param>
 		/// <returns>boolean</returns>
-		public static void isTypeOfDD(object the) { S_(the); }
+		public extern static void isTypeOfDD(object the);
 
 		/// <summary>
 		///     Utility function to determine if a given element has been
@@ -232,7 +233,7 @@ namespace Ext.dd {
 		///     otherwise
 		/// </summary>
 		/// <returns>boolean</returns>
-		public static void isHandle() { S_(); }
+		public extern static void isHandle();
 
 		/// <summary>
 		///     Utility function to determine if a given element has been
@@ -241,23 +242,23 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the element id to check</param>
 		/// <returns>boolean</returns>
-		public static void isHandle(string id) { S_(id); }
+		public extern static void isHandle(string id);
 
 		/// <summary>Returns the DragDrop instance for a given id</summary>
 		/// <returns>DragDrop</returns>
-		public static void getDDById() { S_(); }
+		public extern static void getDDById();
 
 		/// <summary>Returns the DragDrop instance for a given id</summary>
 		/// <param name="id">the id of the DragDrop object</param>
 		/// <returns>DragDrop</returns>
-		public static void getDDById(string id) { S_(id); }
+		public extern static void getDDById(string id);
 
 		/// <summary>
 		///     Fired when either the drag pixel threshol or the mousedown hold
 		///     time threshold has been met.
 		/// </summary>
 		/// <returns></returns>
-		public static void startDrag() { S_(); }
+		public extern static void startDrag();
 
 		/// <summary>
 		///     Fired when either the drag pixel threshol or the mousedown hold
@@ -265,7 +266,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="x">{int} the X position of the original mousedown</param>
 		/// <returns></returns>
-		public static void startDrag(object x) { S_(x); }
+		public extern static void startDrag(object x);
 
 		/// <summary>
 		///     Fired when either the drag pixel threshol or the mousedown hold
@@ -274,14 +275,14 @@ namespace Ext.dd {
 		/// <param name="x">{int} the X position of the original mousedown</param>
 		/// <param name="y">{int} the Y position of the original mousedown</param>
 		/// <returns></returns>
-		public static void startDrag(object x, object y) { S_(x, y); }
+		public extern static void startDrag(object x, object y);
 
 		/// <summary>
 		///     Utility to stop event propagation and event default, if these
 		///     features are turned on.
 		/// </summary>
 		/// <returns></returns>
-		public static void stopEvent() { S_(); }
+		public extern static void stopEvent();
 
 		/// <summary>
 		///     Utility to stop event propagation and event default, if these
@@ -289,7 +290,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="e">the event as returned by this.getEvent()</param>
 		/// <returns></returns>
-		public static void stopEvent(Event e) { S_(e); }
+		public extern static void stopEvent(Event e);
 
 		/// <summary>
 		///     Helper function for getting the best match from the list of drag
@@ -300,7 +301,7 @@ namespace Ext.dd {
 		///     targeted
 		/// </summary>
 		/// <returns>DragDrop</returns>
-		public static void getBestMatch() { S_(); }
+		public extern static void getBestMatch();
 
 		/// <summary>
 		///     Helper function for getting the best match from the list of drag
@@ -312,7 +313,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="dds">The array of drag and drop objects</param>
 		/// <returns>DragDrop</returns>
-		public static void getBestMatch(DragDrop[] dds) { S_(dds); }
+		public extern static void getBestMatch(DragDrop[] dds);
 
 		/// <summary>
 		///     Refreshes the cache of the top-left and bottom-right points of the
@@ -330,7 +331,7 @@ namespace Ext.dd {
 		///     method could accept both.
 		/// </summary>
 		/// <returns></returns>
-		public static void refreshCache() { S_(); }
+		public extern static void refreshCache();
 
 		/// <summary>
 		///     Refreshes the cache of the top-left and bottom-right points of the
@@ -349,7 +350,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="groups">an associative array of groups to refresh</param>
 		/// <returns></returns>
-		public static void refreshCache(object groups) { S_(groups); }
+		public extern static void refreshCache(object groups);
 
 		/// <summary>
 		///     This checks to make sure an element exists and is in the DOM.  The
@@ -358,7 +359,7 @@ namespace Ext.dd {
 		///     error' when trying to access the offsetParent of such an element
 		/// </summary>
 		/// <returns>boolean</returns>
-		public static void verifyEl() { S_(); }
+		public extern static void verifyEl();
 
 		/// <summary>
 		///     This checks to make sure an element exists and is in the DOM.  The
@@ -368,7 +369,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="el">the element to check</param>
 		/// <returns>boolean</returns>
-		public static void verifyEl(DOMElement el) { S_(el); }
+		public extern static void verifyEl(DOMElement el);
 
 		/// <summary>
 		///     Returns a Region object containing the drag and drop element's position
@@ -378,7 +379,7 @@ namespace Ext.dd {
 		///     the instance is configured for.
 		/// </summary>
 		/// <returns>Ext.lib.Region</returns>
-		public static void getLocation() { S_(); }
+		public extern static void getLocation();
 
 		/// <summary>
 		///     Returns a Region object containing the drag and drop element's position
@@ -389,14 +390,14 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="oDD">the drag and drop object to get the</param>
 		/// <returns>Ext.lib.Region</returns>
-		public static void getLocation(DragDrop oDD) { S_(oDD); }
+		public extern static void getLocation(DragDrop oDD);
 
 		/// <summary>
 		///     Returns the actual DOM element
 		///     @deprecated use Ext.lib.Ext.getDom instead
 		/// </summary>
 		/// <returns>Object</returns>
-		public static void getElement() { S_(); }
+		public extern static void getElement();
 
 		/// <summary>
 		///     Returns the actual DOM element
@@ -404,7 +405,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the elment to get</param>
 		/// <returns>Object</returns>
-		public static void getElement(string id) { S_(id); }
+		public extern static void getElement(string id);
 
 		/// <summary>
 		///     Returns the style property for the DOM element (i.e.,
@@ -412,7 +413,7 @@ namespace Ext.dd {
 		///     @deprecated use Ext.lib.Dom instead
 		/// </summary>
 		/// <returns>Object</returns>
-		public static void getCss() { S_(); }
+		public extern static void getCss();
 
 		/// <summary>
 		///     Returns the style property for the DOM element (i.e.,
@@ -421,7 +422,7 @@ namespace Ext.dd {
 		/// </summary>
 		/// <param name="id">the id of the elment to get</param>
 		/// <returns>Object</returns>
-		public static void getCss(string id) { S_(id); }
+		public extern static void getCss(string id);
 
 
 

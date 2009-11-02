@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.tree {
@@ -18,18 +19,18 @@ namespace Ext.tree {
 	///     Ext.tree.TreeNodeUI = function(node){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\widgets\tree\TreeNodeUI.js</jssource>
-	public class TreeNodeUI : DotWeb.Client.JsNativeBase {
+	public class TreeNodeUI : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public TreeNodeUI() { C_(); }
+		public extern TreeNodeUI();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static TreeNodeUI prototype { get { return S_<TreeNodeUI>(); } set { S_(value); } }
+		public extern static TreeNodeUI prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 
 		/// <summary>
@@ -37,15 +38,7 @@ namespace Ext.tree {
 		///     Duplicate classes are automatically filtered out.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void addClass() { _(); }
-
-		/// <summary>
-		///     Adds one or more CSS classes to the node's UI element.
-		///     Duplicate classes are automatically filtered out.
-		/// </summary>
-		/// <param name="className">The CSS class to add, or an array of classes</param>
-		/// <returns></returns>
-		public virtual void addClass(string className) { _(className); }
+		public extern virtual void addClass();
 
 		/// <summary>
 		///     Adds one or more CSS classes to the node's UI element.
@@ -53,36 +46,44 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="className">The CSS class to add, or an array of classes</param>
 		/// <returns></returns>
-		public virtual void addClass(System.Array className) { _(className); }
+		public extern virtual void addClass(string className);
+
+		/// <summary>
+		///     Adds one or more CSS classes to the node's UI element.
+		///     Duplicate classes are automatically filtered out.
+		/// </summary>
+		/// <param name="className">The CSS class to add, or an array of classes</param>
+		/// <returns></returns>
+		public extern virtual void addClass(System.Array className);
 
 		/// <summary>Removes one or more CSS classes from the node's UI element.</summary>
 		/// <returns></returns>
-		public virtual void removeClass() { _(); }
+		public extern virtual void removeClass();
 
 		/// <summary>Removes one or more CSS classes from the node's UI element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>
 		/// <returns></returns>
-		public virtual void removeClass(string className) { _(className); }
+		public extern virtual void removeClass(string className);
 
 		/// <summary>Removes one or more CSS classes from the node's UI element.</summary>
 		/// <param name="className">The CSS class to remove, or an array of classes</param>
 		/// <returns></returns>
-		public virtual void removeClass(System.Array className) { _(className); }
+		public extern virtual void removeClass(System.Array className);
 
 		/// <summary>Hides this node.</summary>
 		/// <returns></returns>
-		public virtual void hide() { _(); }
+		public extern virtual void hide();
 
 		/// <summary>Shows this node.</summary>
 		/// <returns></returns>
-		public virtual void show() { _(); }
+		public extern virtual void show();
 
 		/// <summary>
 		///     Sets the checked status of the tree node to the passed value, or, if no value was passed,
 		///     toggles the checked status. If the node was rendered with no checkbox, this has no effect.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void toggleCheck() { _(); }
+		public extern virtual void toggleCheck();
 
 		/// <summary>
 		///     Sets the checked status of the tree node to the passed value, or, if no value was passed,
@@ -90,26 +91,26 @@ namespace Ext.tree {
 		/// </summary>
 		/// <param name="value">The new checked status.</param>
 		/// <returns></returns>
-		public virtual void toggleCheck(bool value) { _(value); }
+		public extern virtual void toggleCheck(bool value);
 
 		/// <summary>Returns the &lt;a> element that provides focus for the node's UI.</summary>
 		/// <returns>HtmlElement</returns>
-		public virtual void getAnchor() { _(); }
+		public extern virtual void getAnchor();
 
 		/// <summary>Returns the text node.</summary>
 		/// <returns>HtmlNode</returns>
-		public virtual void getTextEl() { _(); }
+		public extern virtual void getTextEl();
 
 		/// <summary>Returns the icon &lt;img> element.</summary>
 		/// <returns>HtmlElement</returns>
-		public virtual void getIconEl() { _(); }
+		public extern virtual void getIconEl();
 
 		/// <summary>
 		///     Returns the checked status of the node. If the node was rendered with no
 		///     checkbox, it returns false.
 		/// </summary>
 		/// <returns>Boolean</returns>
-		public virtual void isChecked() { _(); }
+		public extern virtual void isChecked();
 
 
 

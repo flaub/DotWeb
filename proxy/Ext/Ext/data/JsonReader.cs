@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.data {
@@ -79,14 +80,14 @@ namespace Ext.data {
 		///     {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record} constructor created using {@link Ext.data.Record#create}.
 		/// </summary>
 		/// <returns></returns>
-		public JsonReader() { C_(); }
+		public extern JsonReader();
 		/// <summary>
 		///     Create a new JsonReader
 		///     {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record} constructor created using {@link Ext.data.Record#create}.
 		/// </summary>
 		/// <param name="meta">Metadata configuration options.</param>
 		/// <returns></returns>
-		public JsonReader(object meta) { C_(meta); }
+		public extern JsonReader(object meta);
 		/// <summary>
 		///     Create a new JsonReader
 		///     {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record} constructor created using {@link Ext.data.Record#create}.
@@ -94,29 +95,29 @@ namespace Ext.data {
 		/// <param name="meta">Metadata configuration options.</param>
 		/// <param name="recordType">Either an Array of field definition objects as passed to</param>
 		/// <returns></returns>
-		public JsonReader(object meta, object recordType) { C_(meta, recordType); }
+		public extern JsonReader(object meta, object recordType);
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static JsonReader prototype { get { return S_<JsonReader>(); } set { S_(value); } }
+		public extern static JsonReader prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>The reference to the class that this class inherits from</summary>
-		public static Ext.data.DataReader superclass { get { return S_<Ext.data.DataReader>(); } set { S_(value); } }
+		public extern static Ext.data.DataReader superclass { get; set; }
 
 		/// <summary>
 		///     This JsonReader's metadata as passed to the constructor, or as passed in
 		///     the last data packet's <b><tt>metaData</tt></b> property.
 		/// </summary>
-		public object meta { get { return _<object>(); } set { _(value); } }
+		public extern object meta { get; set; }
 
 		/// <summary>
 		///     After any data loads, the raw JSON data is available for further custom processing.  If no data is
 		///     loaded or there is a load exception this property will be undefined.
 		/// </summary>
-		public object jsonData { get { return _<object>(); } set { _(value); } }
+		public extern object jsonData { get; set; }
 
 
 		/// <summary>
@@ -124,7 +125,7 @@ namespace Ext.data {
 		///     a cache of Ext.data.Records.
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void read() { _(); }
+		public extern virtual void read();
 
 		/// <summary>
 		///     This method is only used by a DataProxy which has retrieved data from a remote server.
@@ -132,7 +133,7 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="response">The XHR object which contains the JSON data in its responseText.</param>
 		/// <returns>Object</returns>
-		public virtual void read(object response) { _(response); }
+		public extern virtual void read(object response);
 
 		/// <summary>
 		///     Create a data block containing Ext.data.Records from a JSON object.
@@ -141,7 +142,7 @@ namespace Ext.data {
 		///     a cache of Ext.data.Records.
 		/// </summary>
 		/// <returns>Object</returns>
-		public virtual void readRecords() { _(); }
+		public extern virtual void readRecords();
 
 		/// <summary>
 		///     Create a data block containing Ext.data.Records from a JSON object.
@@ -151,25 +152,25 @@ namespace Ext.data {
 		/// </summary>
 		/// <param name="o">An object which contains an Array of row objects in the property specified</param>
 		/// <returns>Object</returns>
-		public virtual void readRecords(object o) { _(o); }
+		public extern virtual void readRecords(object o);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class JsonReaderConfig : DotWeb.Client.JsDynamicBase {
+	public class JsonReaderConfig : System.DotWeb.JsDynamic {
 		/// <summary> Name of the property from which to retrieve the total number of records</summary>
-		public string totalProperty { get { return _<string>(); } set { _(value); } }
+		public string totalProperty { get { return (string)this["totalProperty"]; } set { this["totalProperty"] = value; } }
 
 		/// <summary> Name of the property from which to retrieve the success attribute used by forms.</summary>
-		public string successProperty { get { return _<string>(); } set { _(value); } }
+		public string successProperty { get { return (string)this["successProperty"]; } set { this["successProperty"] = value; } }
 
 		/// <summary> name of the property which contains the Array of row objects.</summary>
-		public string root { get { return _<string>(); } set { _(value); } }
+		public string root { get { return (string)this["root"]; } set { this["root"] = value; } }
 
 		/// <summary> Name of the property within a row object that contains a record identifier value.</summary>
-		public string id { get { return _<string>(); } set { _(value); } }
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
 
 	}
 }

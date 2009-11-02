@@ -1,4 +1,5 @@
 using System;
+using System.DotWeb;
 using DotWeb.Client;
 
 namespace Ext.util {
@@ -21,40 +22,40 @@ namespace Ext.util {
 	///     Ext.util.Observable = function(){
 	/// </summary>
 	/// <jssource>F:\src\git\DotWeb\proxy\ExtJsParser\ext-2.2\source\util\Observable.js</jssource>
-	public class Observable : DotWeb.Client.JsNativeBase {
+	public class Observable : System.DotWeb.JsObject {
 
 		/// <summary>Auto-generated default constructor</summary>
 		/// <returns></returns>
-		public Observable() { C_(); }
+		public extern Observable();
 
 		/// <summary></summary>
 		/// <summary>The reference to the prototype the every object of this type is constructed with</summary>
-		public static Observable prototype { get { return S_<Observable>(); } set { S_(value); } }
+		public extern static Observable prototype { get; set; }
 
 		/// <summary>The reference to the constructor function</summary>
-		public static Delegate constructor { get { return S_<Delegate>(); } set { S_(value); } }
+		public extern static Delegate constructor { get; set; }
 
 		/// <summary>
 		///     A config object containing one or more event handlers to be added to thisobject during initialization.  This should be a valid listeners config object as specified in the
 		///     {@link #addListener} example for attaching multiple handlers at once.
 		/// </summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public extern object listeners { get; set; }
 
 
 		/// <summary>Fires the specified event with the passed parameters (minus the event name).</summary>
 		/// <returns>Boolean</returns>
-		public virtual void fireEvent() { _(); }
+		public extern virtual void fireEvent();
 
 		/// <summary>Fires the specified event with the passed parameters (minus the event name).</summary>
 		/// <param name="eventName"></param>
 		/// <returns>Boolean</returns>
-		public virtual void fireEvent(string eventName) { _(eventName); }
+		public extern virtual void fireEvent(string eventName);
 
 		/// <summary>Fires the specified event with the passed parameters (minus the event name).</summary>
 		/// <param name="eventName"></param>
 		/// <param name="args">Variable number of parameters are passed to handlers</param>
 		/// <returns>Boolean</returns>
-		public virtual void fireEvent(string eventName, params object[] args) { _(eventName, args); }
+		public extern virtual void fireEvent(string eventName, params object[] args);
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -110,7 +111,7 @@ namespace Ext.util {
 		///     });</code></pre>
 		/// </summary>
 		/// <returns></returns>
-		public virtual void addListener() { _(); }
+		public extern virtual void addListener();
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -167,7 +168,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void addListener(string eventName) { _(eventName); }
+		public extern virtual void addListener(string eventName);
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -225,7 +226,7 @@ namespace Ext.util {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The method the event invokes</param>
 		/// <returns></returns>
-		public virtual void addListener(string eventName, Delegate handler) { _(eventName, handler); }
+		public extern virtual void addListener(string eventName, Delegate handler);
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -284,7 +285,7 @@ namespace Ext.util {
 		/// <param name="handler">The method the event invokes</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public virtual void addListener(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public extern virtual void addListener(string eventName, Delegate handler, object scope);
 
 		/// <summary>
 		///     Appends an event handler to this component
@@ -344,81 +345,81 @@ namespace Ext.util {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional) An object containing handler configuration</param>
 		/// <returns></returns>
-		public virtual void addListener(string eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
+		public extern virtual void addListener(string eventName, Delegate handler, object scope, object options);
 
 		/// <summary>Removes a listener</summary>
 		/// <returns></returns>
-		public virtual void removeListener() { _(); }
+		public extern virtual void removeListener();
 
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void removeListener(string eventName) { _(eventName); }
+		public extern virtual void removeListener(string eventName);
 
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <returns></returns>
-		public virtual void removeListener(string eventName, Delegate handler) { _(eventName, handler); }
+		public extern virtual void removeListener(string eventName, Delegate handler);
 
 		/// <summary>Removes a listener</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <param name="scope">(optional) The scope (this object) for the handler</param>
 		/// <returns></returns>
-		public virtual void removeListener(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public extern virtual void removeListener(string eventName, Delegate handler, object scope);
 
 		/// <summary>Removes all listeners for this object</summary>
 		/// <returns></returns>
-		public virtual void purgeListeners() { _(); }
+		public extern virtual void purgeListeners();
 
 		/// <summary>Relays selected events from the specified Observable as if the events were fired by <tt><b>this</b></tt>.</summary>
 		/// <returns></returns>
-		public virtual void relayEvents() { _(); }
+		public extern virtual void relayEvents();
 
 		/// <summary>Relays selected events from the specified Observable as if the events were fired by <tt><b>this</b></tt>.</summary>
 		/// <param name="o">The Observable whose events this object is to relay.</param>
 		/// <returns></returns>
-		public virtual void relayEvents(object o) { _(o); }
+		public extern virtual void relayEvents(object o);
 
 		/// <summary>Relays selected events from the specified Observable as if the events were fired by <tt><b>this</b></tt>.</summary>
 		/// <param name="o">The Observable whose events this object is to relay.</param>
 		/// <param name="events">Array of event names to relay.</param>
 		/// <returns></returns>
-		public virtual void relayEvents(object o, System.Array events) { _(o, events); }
+		public extern virtual void relayEvents(object o, System.Array events);
 
 		/// <summary>Used to define events on this Observable</summary>
 		/// <returns></returns>
-		public virtual void addEvents() { _(); }
+		public extern virtual void addEvents();
 
 		/// <summary>Used to define events on this Observable</summary>
 		/// <param name="obj">The object with the events defined</param>
 		/// <returns></returns>
-		public virtual void addEvents(object obj) { _(obj); }
+		public extern virtual void addEvents(object obj);
 
 		/// <summary>Checks to see if this object has any listeners for a specified event</summary>
 		/// <returns>Boolean</returns>
-		public virtual void hasListener() { _(); }
+		public extern virtual void hasListener();
 
 		/// <summary>Checks to see if this object has any listeners for a specified event</summary>
 		/// <param name="eventName">The name of the event to check for</param>
 		/// <returns>Boolean</returns>
-		public virtual void hasListener(string eventName) { _(eventName); }
+		public extern virtual void hasListener(string eventName);
 
 		/// <summary>Suspend the firing of all events. (see {@link #resumeEvents})</summary>
 		/// <returns></returns>
-		public virtual void suspendEvents() { _(); }
+		public extern virtual void suspendEvents();
 
 		/// <summary>Resume firing events. (see {@link #suspendEvents})</summary>
 		/// <returns></returns>
-		public virtual void resumeEvents() { _(); }
+		public extern virtual void resumeEvents();
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
 		///     function. The handler function's "this" context.
 		/// </summary>
 		/// <returns></returns>
-		public virtual void on() { _(); }
+		public extern virtual void on();
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -426,7 +427,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void on(string eventName) { _(eventName); }
+		public extern virtual void on(string eventName);
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -435,7 +436,7 @@ namespace Ext.util {
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The method the event invokes</param>
 		/// <returns></returns>
-		public virtual void on(string eventName, Delegate handler) { _(eventName, handler); }
+		public extern virtual void on(string eventName, Delegate handler);
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -445,7 +446,7 @@ namespace Ext.util {
 		/// <param name="handler">The method the event invokes</param>
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <returns></returns>
-		public virtual void on(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public extern virtual void on(string eventName, Delegate handler, object scope);
 
 		/// <summary>
 		///     Appends an event handler to this element (shorthand for addListener)
@@ -456,29 +457,29 @@ namespace Ext.util {
 		/// <param name="scope">(optional) The scope in which to execute the handler</param>
 		/// <param name="options">(optional)</param>
 		/// <returns></returns>
-		public virtual void on(string eventName, Delegate handler, object scope, object options) { _(eventName, handler, scope, options); }
+		public extern virtual void on(string eventName, Delegate handler, object scope, object options);
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <returns></returns>
-		public virtual void un() { _(); }
+		public extern virtual void un();
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <returns></returns>
-		public virtual void un(string eventName) { _(eventName); }
+		public extern virtual void un(string eventName);
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <returns></returns>
-		public virtual void un(string eventName, Delegate handler) { _(eventName, handler); }
+		public extern virtual void un(string eventName, Delegate handler);
 
 		/// <summary>Removes a listener (shorthand for removeListener)</summary>
 		/// <param name="eventName">The type of event to listen for</param>
 		/// <param name="handler">The handler to remove</param>
 		/// <param name="scope">(optional) The scope (this object) for the handler</param>
 		/// <returns></returns>
-		public virtual void un(string eventName, Delegate handler, object scope) { _(eventName, handler, scope); }
+		public extern virtual void un(string eventName, Delegate handler, object scope);
 
 		/// <summary>
 		///     Starts capture on the specified Observable. All events will be passed
@@ -487,7 +488,7 @@ namespace Ext.util {
 		///     the event will not fire.
 		/// </summary>
 		/// <returns></returns>
-		public static void capture() { S_(); }
+		public extern static void capture();
 
 		/// <summary>
 		///     Starts capture on the specified Observable. All events will be passed
@@ -497,7 +498,7 @@ namespace Ext.util {
 		/// </summary>
 		/// <param name="o">The Observable to capture</param>
 		/// <returns></returns>
-		public static void capture(Observable o) { S_(o); }
+		public extern static void capture(Observable o);
 
 		/// <summary>
 		///     Starts capture on the specified Observable. All events will be passed
@@ -508,7 +509,7 @@ namespace Ext.util {
 		/// <param name="o">The Observable to capture</param>
 		/// <param name="fn">The function to call</param>
 		/// <returns></returns>
-		public static void capture(Observable o, Delegate fn) { S_(o, fn); }
+		public extern static void capture(Observable o, Delegate fn);
 
 		/// <summary>
 		///     Starts capture on the specified Observable. All events will be passed
@@ -520,25 +521,25 @@ namespace Ext.util {
 		/// <param name="fn">The function to call</param>
 		/// <param name="scope">(optional) The scope (this object) for the fn</param>
 		/// <returns></returns>
-		public static void capture(Observable o, Delegate fn, object scope) { S_(o, fn, scope); }
+		public extern static void capture(Observable o, Delegate fn, object scope);
 
 		/// <summary>Removes <b>all</b> added captures from the Observable.</summary>
 		/// <returns></returns>
-		public static void releaseCapture() { S_(); }
+		public extern static void releaseCapture();
 
 		/// <summary>Removes <b>all</b> added captures from the Observable.</summary>
 		/// <param name="o">The Observable to release</param>
 		/// <returns></returns>
-		public static void releaseCapture(Observable o) { S_(o); }
+		public extern static void releaseCapture(Observable o);
 
 
 
 	}
 
 	[JsAnonymous]
-	public class ObservableConfig : DotWeb.Client.JsDynamicBase {
+	public class ObservableConfig : System.DotWeb.JsDynamic {
 		/// <summary> A config object containing one or more event handlers to be added to this object during initialization.  This should be a valid listeners config object as specified in the {@link #addListener} example for attaching multiple handlers at once.</summary>
-		public object listeners { get { return _<object>(); } set { _(value); } }
+		public object listeners { get { return (object)this["listeners"]; } set { this["listeners"] = value; } }
 
 	}
 }
