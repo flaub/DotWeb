@@ -81,6 +81,10 @@
       <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
       <Name>DotWeb.Tools.Weaver</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Weaver.Test.Script\DotWeb.Weaver.Test.Script.csproj">
+      <Project>{A3E6A831-894F-45BB-967D-68695685A4EE}</Project>
+      <Name>DotWeb.Weaver.Test.Script</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
