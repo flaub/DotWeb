@@ -100,6 +100,15 @@ namespace DotWeb.Translator
 				};
 				return ret;
 			}
+
+			if (!method.HasBody || method.Body.Instructions.Count == 0) {
+				string msg = string.Format(
+					"{0}\nA method marked extern must either have [JsCode] or be declared in a type derived from JsObject.",
+					method
+				);
+				throw new MissingMethodException(msg);
+			}
+
 			return MethodDecompiler.Parse(method);
 		}
 

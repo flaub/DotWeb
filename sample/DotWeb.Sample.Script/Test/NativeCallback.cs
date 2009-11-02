@@ -21,7 +21,7 @@ using System.DotWeb;
 namespace DotWeb.Sample.Script.Test
 {
 	[JsNamespace]
-	internal class NativeCaller
+	internal class NativeCaller : JsObject
 	{
 		public extern NativeCaller(object cfg);
 
@@ -29,7 +29,7 @@ namespace DotWeb.Sample.Script.Test
 	}
 
 	[JsNamespace]
-	internal class NativeObject
+	internal class NativeObject : JsObject
 	{
 		public extern NativeObject();
 

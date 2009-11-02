@@ -23,7 +23,7 @@ using System.DotWeb;
 namespace DotWeb.Sample.Script.Test
 {
 	[JsNamespace]
-	class ExpandoNative
+	class ExpandoNative : JsObject
 	{
 		public extern ExpandoNative(object cfg);
 		public extern void CallHostedMethod();
