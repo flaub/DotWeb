@@ -13,10 +13,19 @@ namespace DotWeb.Tools.Weaver
 {
 	public class HostingWeaver : IResolver
 	{
+		class ConstantNames
+		{
+			public const string DotWebSystem = "DotWeb.System";
+			public const string DotWebSystemDll = "DotWeb.System.dll";
+			public const string Mscorlib = "mscorlib";
+			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
+		}
+
 		private string inputDir;
 		private string outputDir;
 		private DefaultAssemblyResolver asmResolver = new DefaultAssemblyResolver();
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
+		private static ExternalAssembly asmMscorlib;
 
 		public HostingWeaver(string inputDir, string outputDir, string[] searchDirs) {
 			this.inputDir = inputDir;
@@ -33,38 +42,32 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void PrepareMscorlib() {
-			var sysType = typeof(object);
-			var asm = sysType.Assembly;
-			var asmName = AssemblyNameReference.Parse(asm.FullName);
+			if (asmMscorlib == null) {
+				var sysType = typeof(object);
+				var asm = sysType.Assembly;
+				var asmName = AssemblyNameReference.Parse(asm.FullName);
 
-			var asmDef = this.asmResolver.Resolve(asmName);
-			var extAsm = new ExternalAssembly(this, asm);
-			this.modules.Add("mscorlib", extAsm);
+				var asmDef = this.asmResolver.Resolve(asmName);
+				asmMscorlib = new ExternalAssembly(this, asm);
+			}
+			this.modules.Add(ConstantNames.Mscorlib, asmMscorlib);
 		}
 
 		private void PrepareDotWebSystem() {
 			var proc = new DotWebSystemAssembly(this);
-			this.modules.Add("DotWeb.System", proc);
-			this.modules.Add("DotWeb.System.dll", proc);
+			this.modules.Add(ConstantNames.DotWebSystem, proc);
+			this.modules.Add(ConstantNames.DotWebSystemDll, proc);
 		}
 
 		public Assembly ProcessAssembly(string asmPath) {
 			var asmDef = AssemblyFactory.GetAssembly(asmPath);
 
 			foreach (CustomAttribute item in asmDef.CustomAttributes) {
-				if (item.Constructor.DeclaringType.Name == "AssemblyWeavedAttribute") {
+				if (item.Constructor.DeclaringType.Name == ConstantNames.AssemblyWeavedAttribute) {
 					Console.WriteLine("This assembly has already been weaved and is ready for hosted mode");
 					return Assembly.LoadFrom(asmPath);
 				}
 			}
-
-			//string name = Path.GetFileNameWithoutExtension(fileName);
-			//var asmName = new AssemblyName(name);
-			//var ext = Path.GetExtension(asmPath);
-			//string fileName = asmName.Name + ext;
-
-//			this.asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave, this.outputDir);
-//			var moduleBuilder = this.asmBuilder.DefineDynamicModule(asmDef.Name.Name, fileName, true);
 
 			return ProcessAssembly(asmDef);
 		}
@@ -74,7 +77,7 @@ namespace DotWeb.Tools.Weaver
 				if (this.modules.ContainsKey(asmRef.Name))
 					continue;
 
-				if (asmRef.Name == "DotWeb.System") {
+				if (asmRef.Name == ConstantNames.DotWebSystem) {
 					PrepareDotWebSystem();
 					continue;
 				}
@@ -97,7 +100,7 @@ namespace DotWeb.Tools.Weaver
 			var scope = typeRef.Scope;
 			string key;
 			if (scope == null)
-				key = "mscorlib";
+				key = ConstantNames.Mscorlib;
 			else
 				key = scope.Name;
 			var moduleProc = this.modules[key];

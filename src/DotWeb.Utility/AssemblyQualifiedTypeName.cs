@@ -18,5 +18,9 @@ namespace DotWeb.Utility
 
 		public AssemblyName AssemblyName { get; private set; }
 		public string TypeName { get; private set; }
+
+		public override string ToString() {
+			return string.Format("{0}, {1}", TypeName, AssemblyName);
+		}
 	}
 }

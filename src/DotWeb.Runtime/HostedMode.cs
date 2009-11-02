@@ -11,6 +11,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Reflection;
 using System.IO;
 using DotWeb.Utility;
+using DotWeb.Tools.Weaver;
 
 namespace DotWeb.Runtime
 {
@@ -69,17 +70,18 @@ namespace DotWeb.Runtime
 
 		public IPEndPoint EndPoint { get { return (IPEndPoint)this.listener.LocalEndpoint; } }
 
-		//public string PrepareType(string fullTypeName) {
-		//    string[] parts = fullTypeName.Split(',');
-		//    string typeName = parts[0].Trim();
-		//    string asmName = parts[1].Trim();
+		public string PrepareType(AssemblyQualifiedTypeName aqtn) {
+			var weaver = new HostingWeaver(this.binPath, this.binPath, new string[] { this.binPath });
+			string path = Path.Combine(this.binPath, aqtn.AssemblyName.Name);
+			if (!path.EndsWith(".dll")) {
+				path += ".dll";
+			}
 
-		//    var fixup = new AssemblyReferenceFixup(this.binPath);
-		//    var altName = fixup.FixupReferences(asmName, false);
-
-		//    var ret = string.Format("{0}, {1}", typeName, altName.Name);
-		//    return ret;
-		//}
+			var asm = weaver.ProcessAssembly(path);
+			var asmName = asm.GetName();
+			aqtn.AssemblyName.Name = asmName.Name;
+			return aqtn.ToString();
+		}
 		
 		public void Start() {
 			this.listener.Start();

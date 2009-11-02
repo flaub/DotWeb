@@ -116,13 +116,16 @@ namespace DotWeb.Tools.Weaver
 
 		private IType ProcessType(TypeReference typeRef) {
 			var typeDef = typeRef.Resolve();
+			if (typeRef is ArrayType) {
+			}
+
 			if (typeDef.IsEnum) {
-				var enumProc = new EnumProcessor(this.resolver, this, typeRef, this.moduleBuilder);
+				var enumProc = new EnumProcessor(this.resolver, this, typeDef, this.moduleBuilder);
 				RegisterType(typeRef, enumProc);
 				return enumProc;
 			}
 			else {
-				var typeProc = new TypeProcessor(this.resolver, this, typeRef, this.moduleBuilder);
+				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder);
 				RegisterType(typeRef, typeProc);
 				return typeProc;
 			}

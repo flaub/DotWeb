@@ -22,16 +22,15 @@ namespace DotWeb.Tools.Weaver
 		private TypeBuilder typeBuilder;
 		private Dictionary<MetadataToken, MethodBase> methods = new Dictionary<MetadataToken, MethodBase>();
 		private Dictionary<FieldDefinition, FieldBuilder> fields = new Dictionary<FieldDefinition, FieldBuilder>();
-//		private List<IType> referencedTypes = new List<IType>();
 		private IResolver resolver;
 		private GenericTypeProcessor genericProc;
 		private bool isClosing = false;
 		private List<TypeProcessor> dependentTypes = new List<TypeProcessor>();
 
-		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeReference typeRef, ModuleBuilder moduleBuilder) {
+		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder) {
 			this.resolver = resolver;
 			this.parent = parent;
-			this.typeDef = typeRef.Resolve();
+			this.typeDef = typeDef;
 			this.ModuleBuilder = moduleBuilder;
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 

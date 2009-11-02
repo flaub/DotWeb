@@ -16,10 +16,10 @@ namespace DotWeb.Tools.Weaver
 		private TypeDefinition typeDef;
 		private EnumBuilder enumBuilder;
 
-		public EnumProcessor(IResolver resolver, AssemblyProcessor parent, TypeReference typeRef, ModuleBuilder moduleBuilder) {
+		public EnumProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder) {
 			this.resolver = resolver;
 			this.parent = parent;
-			this.typeDef = typeRef.Resolve();
+			this.typeDef = typeDef;
 			var attributes = (SR.TypeAttributes)this.typeDef.Attributes & System.Reflection.TypeAttributes.VisibilityMask;
 
 			var valueField = typeDef.Fields[0];
