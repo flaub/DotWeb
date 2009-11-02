@@ -1,27 +1,26 @@
 ﻿H8.SourceTests.prototype.Cifuentes = function() {
-	var loc0 = 5;
-	var loc1 = loc0 * 5;
-	if (loc0 < loc1) {
-		loc0 = loc0 * loc1;
-		if ((loc0 * 2) <= loc1) {
-			loc1 = loc1 << 3;
+	var x = 5;
+	var y = x * 5;
+	if (x < y) {
+		x = x * y;
+		if ((x * 2) <= y) {
+			y = y << 3;
 		}
 		else {
-			loc0 = loc0 << 3;
+			x = x << 3;
 		}
 	}
-	var loc2 = 0;
-	while(loc2 < 10) {
-		var loc3 = loc2;
+	var a = 0;
+	while(a < 10) {
+		var b = a;
 		do {
-			loc3 = loc3 + 1;
-			System.Console.WriteLine("{0}, {1}", loc2, loc3);
-		} while(loc3 < 5);
-		loc2 = loc2 + 1;
+			b = b + 1;
+			System.Console.WriteLine("{0}, {1}", a, b);
+		} while(b < 5);
+		a = a + 1;
 	}
-	if ((loc0 < loc1) || ((loc1 * 2) > loc0)) {
-		loc0 = (loc0 + loc1) - 10;
-		loc1 = loc1 / 2;
+	if ((x < y) || ((y * 2) > x)) {
+		x = (x + y) - 10;
+		y = y / 2;
 	}
 };
-

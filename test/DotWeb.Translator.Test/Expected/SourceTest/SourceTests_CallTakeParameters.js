@@ -25,8 +25,8 @@ H8.SourceTests = function() {
 
 H8.SourceTests.prototype.TakeParameters = function(str /*System.String*/, value /*System.Int32*/, rad /*System.Double[]*/) {
 	System.Console.WriteLine(str);
-	var loc0 = System.Math.Sin(rad[value] * 1.570795);
-	return System.Math.Cos(loc0);
+	var x = System.Math.Sin(rad[value] * 1.570795);
+	return System.Math.Cos(x);
 };
 
 System.Console.WriteLine = function(value /*System.Object*/) {
@@ -34,9 +34,9 @@ System.Console.WriteLine = function(value /*System.Object*/) {
 };
 
 H8.SourceTests.prototype.CallTakeParameters = function() {
-	var loc1 = new System.Double[2];
-	loc1[0] = 1;
-	loc1[1] = 2;
-	var loc0 = this.TakeParameters("Hi", 1, loc1);
-	System.Console.WriteLine(loc0);
+	var CS$0$0000 = new System.Double[2];
+	CS$0$0000[0] = 1;
+	CS$0$0000[1] = 2;
+	var result = this.TakeParameters("Hi", 1, CS$0$0000);
+	System.Console.WriteLine(result);
 };

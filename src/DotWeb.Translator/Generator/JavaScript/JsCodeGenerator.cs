@@ -148,8 +148,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 			CodeVariableReference cvr = stmt.Left as CodeVariableReference;
 			if (cvr != null) {
-				if (!locals.ContainsKey(cvr.Index)) {
-					locals.Add(cvr.Index, cvr);
+				if (!locals.ContainsKey(cvr.Variable.Index)) {
+					locals.Add(cvr.Variable.Index, cvr);
 					this.writer.Write("var ");
 				}
 			}

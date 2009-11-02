@@ -18,7 +18,7 @@ H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Dom.
 };
 
 H8.DecorationTests.prototype.TestCastInterface = function() {
-	var loc0 = this.get_Window().document.getElementById("box");
-	var loc1 = /*(DotWeb.Client.Dom.Html.HtmlDivElement)*/loc0;
-	loc1.onmouseover = $Delegate(this, this.box_OnMouseOver);
+	var element = this.get_Window().document.getElementById("box");
+	var box = /*(DotWeb.Client.Dom.Html.HtmlDivElement)*/element;
+	box.onmouseover = $Delegate(this, this.box_OnMouseOver);
 };

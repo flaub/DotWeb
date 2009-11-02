@@ -19,11 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeVariableReference : CodeExpression
 	{
+		public CodeVariableReference(VariableReference variable) {
+			this.Variable = variable;
+		}
+
 		#region Visitor Pattern
 		public override void Accept<V>(V visitor) {
 			((ICodeVisitor<CodeVariableReference>)visitor).Visit(this);
@@ -34,7 +39,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public int Index { get; set; }
-		public string Name { get; set; }
+		public VariableReference Variable { get; set; }
 	}
 }

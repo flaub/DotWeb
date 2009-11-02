@@ -87,11 +87,10 @@ namespace DotWeb.Web
 			string tgtPath = context.MapPath(virtualPath);
 
 			using (var writer = new StreamWriter(tgtPath)) {
-				var translator = new TranslationEngine(writer, true);
-				var resolver = new DefaultAssemblyResolver();
-				var asm = resolver.Resolve(aqtn.AssemblyName.FullName);
-				var typeDef = asm.MainModule.Types[aqtn.TypeName];
-				translator.TranslateType(typeDef);
+				var path = context.MapPath("/bin");
+				var translator = new TranslationEngine(writer, true, path);
+
+				translator.TranslateType(aqtn);
 			}
 
 			string src = context.ResolveUrl(virtualPath);

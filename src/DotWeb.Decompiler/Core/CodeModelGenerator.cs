@@ -32,206 +32,390 @@ namespace DotWeb.Decompiler.Core
 		private readonly CodeModelVirtualMachine vm;
 		private readonly MethodDefinition method;
 
-		public List<CodeStatement> Statements { get; private set; }
+		private List<CodeStatement> statements;
 
-		public CodeModelGenerator(MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions) {
+		public CodeModelGenerator(MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
 			this.method = method;
 			this.vm = vm;
-			Statements = new List<CodeStatement>();
+			this.statements = statements;
 			foreach (var il in instructions) {
 				HandleInstruction(il);
 			}
 		}
 
 		private void HandleInstruction(Instruction il) {
-			switch (il.PrimitiveName()) {
+			switch (il.OpCode.Code) {
 				#region Load
-				case "ldc":
-				case "ldstr":
-				case "ldnull":
-					Load(il);
+				case Code.Ldnull:
+					Load(null);
 					break;
-				case "ldloc":
-					LoadLocal(il);
+				case Code.Ldstr:
+					Load(il.Operand);
 					break;
-				case "ldloca":
-					LoadLocalAddress(il);
+				case Code.Ldc_I4:
+				case Code.Ldc_I4_S:
+					Load(Convert.ToInt32(il.Operand));
 					break;
-				case "ldtoken":
+				case Code.Ldc_I4_0:
+					Load(0);
+					break;
+				case Code.Ldc_I4_1:
+					Load(1);
+					break;
+				case Code.Ldc_I4_2:
+					Load(2);
+					break;
+				case Code.Ldc_I4_3:
+					Load(3);
+					break;
+				case Code.Ldc_I4_4:
+					Load(4);
+					break;
+				case Code.Ldc_I4_5:
+					Load(5);
+					break;
+				case Code.Ldc_I4_6:
+					Load(6);
+					break;
+				case Code.Ldc_I4_7:
+					Load(7);
+					break;
+				case Code.Ldc_I4_8:
+					Load(8);
+					break;
+				case Code.Ldc_I4_M1:
+					Load(-1);
+					break;
+				case Code.Ldc_I8:
+					Load(Convert.ToInt64(il.Operand));
+					break;
+				case Code.Ldc_R4:
+					Load(Convert.ToSingle(il.Operand));
+					break;
+				case Code.Ldc_R8:
+					Load(Convert.ToDouble(il.Operand));
+					break;
+				case Code.Ldloc_0:
+					LoadLocal(0);
+					break;
+				case Code.Ldloc_1:
+					LoadLocal(1);
+					break;
+				case Code.Ldloc_2:
+					LoadLocal(2);
+					break;
+				case Code.Ldloc_3:
+					LoadLocal(3);
+					break;
+				case Code.Ldloc:
+				case Code.Ldloc_S:
+				case Code.Ldloca:
+				case Code.Ldloca_S:
+					LoadLocal((VariableReference)il.Operand);
+					break;
+				case Code.Ldtoken:
 					LoadToken(il);
 					break;
-				case "ldelem":
+				case Code.Ldelem_Any:
+				case Code.Ldelem_I:
+				case Code.Ldelem_I1:
+				case Code.Ldelem_I2:
+				case Code.Ldelem_I4:
+				case Code.Ldelem_I8:
+				case Code.Ldelem_R4:
+				case Code.Ldelem_R8:
+				case Code.Ldelem_Ref:
+				case Code.Ldelem_U1:
+				case Code.Ldelem_U2:
+				case Code.Ldelem_U4:
 					LoadElement(il);
 					break;
-				case "ldlen":
+				case Code.Ldlen:
 					LoadLength(il);
 					break;
-				case "ldarg":
+				case Code.Ldarg_0:
+					LoadArgument(0);
+					break;
+				case Code.Ldarg_1:
+					LoadArgument(1);
+					break;
+				case Code.Ldarg_2:
+					LoadArgument(2);
+					break;
+				case Code.Ldarg_3:
+					LoadArgument(3);
+					break;
+				case Code.Ldarg:
+				case Code.Ldarg_S:
 					LoadArgument(il);
 					break;
-				case "ldfld":
+				case Code.Ldfld:
 					LoadField(il);
 					break;
-				case "ldsfld":
+				case Code.Ldsfld:
 					LoadStaticField(il);
 					break;
-				case "ldsflda":
+				case Code.Ldsflda:
 					LoadStaticFieldAddress(il);
 					break;
-				case "ldftn":
+				case Code.Ldftn:
 					LoadMethod(il);
 					break;
 				#endregion
 				#region Store
-				case "stloc":
-					StoreLocal(il);
+				case Code.Stloc_0:
+					StoreLocal(0);
 					break;
-				case "stelem":
+				case Code.Stloc_1:
+					StoreLocal(1);
+					break;
+				case Code.Stloc_2:
+					StoreLocal(2);
+					break;
+				case Code.Stloc_3:
+					StoreLocal(3);
+					break;
+				case Code.Stloc:
+				case Code.Stloc_S:
+					StoreLocal((VariableReference)il.Operand);
+					break;
+				case Code.Stelem_Any:
+				case Code.Stelem_I:
+				case Code.Stelem_I1:
+				case Code.Stelem_I2:
+				case Code.Stelem_I4:
+				case Code.Stelem_I8:
+				case Code.Stelem_R4:
+				case Code.Stelem_R8:
+				case Code.Stelem_Ref:
 					StoreElement(il);
 					break;
-				case "starg":
+				case Code.Starg:
+				case Code.Starg_S:
 					StoreArgument(il);
 					break;
-				case "stfld":
+				case Code.Stfld:
 					StoreField(il);
 					break;
-				case "stsfld":
+				case Code.Stsfld:
 					StoreStaticField(il);
 					break;
 				#endregion
 				#region New
-				case "newarr":
+				case Code.Newarr:
 					NewArray(il);
 					break;
-				case "newobj":
+				case Code.Newobj:
 					NewObject(il);
 					break;
 				#endregion
 				#region Binary Expressions
-				case "mul":
+				case Code.Mul:
+				case Code.Mul_Ovf:
+				case Code.Mul_Ovf_Un:
 					BinaryExpression(il, CodeBinaryOperator.Multiply);
 					break;
-				case "add":
+				case Code.Add:
+				case Code.Add_Ovf:
+				case Code.Add_Ovf_Un:
 					BinaryExpression(il, CodeBinaryOperator.Add);
 					break;
-				case "sub":
+				case Code.Sub:
+				case Code.Sub_Ovf:
+				case Code.Sub_Ovf_Un:
 					BinaryExpression(il, CodeBinaryOperator.Subtract);
 					break;
-				case "rem":
+				case Code.Rem:
+				case Code.Rem_Un:
 					BinaryExpression(il, CodeBinaryOperator.Modulus);
 					break;
-				case "div":
+				case Code.Div:
+				case Code.Div_Un:
 					BinaryExpression(il, CodeBinaryOperator.Divide);
 					break;
-				case "and":
+				case Code.And:
 					BinaryExpression(il, CodeBinaryOperator.BitwiseAnd);
 					break;
-				case "or":
+				case Code.Or:
 					BinaryExpression(il, CodeBinaryOperator.BitwiseOr);
 					break;
-				case "xor":
+				case Code.Xor:
 					BinaryExpression(il, CodeBinaryOperator.ExclusiveOr);
 					break;
-				case "shl":
+				case Code.Shl:
 					BinaryExpression(il, CodeBinaryOperator.LeftShift);
 					break;
-				case "shr":
+				case Code.Shr:
+				case Code.Shr_Un:
 					BinaryExpression(il, CodeBinaryOperator.RightShift);
 					break;
 				#endregion
 				#region Unary Expressions
-				case "not":
+				case Code.Not:
 					UnaryExpression(il, CodeUnaryOperator.Not);
 					break;
-				case "neg":
+				case Code.Neg:
 					UnaryExpression(il, CodeUnaryOperator.Negate);
 					break;
 				#endregion
 				#region Branch
-				case "beq":
+				case Code.Beq:
+				case Code.Beq_S:
 					ConditionalBranch(il, CodeBinaryOperator.IdentityEquality);
 					break;
-				case "bge":
+				case Code.Bge:
+				case Code.Bge_S:
+				case Code.Bge_Un:
+				case Code.Bge_Un_S:
 					ConditionalBranch(il, CodeBinaryOperator.GreaterThanOrEqual);
 					break;
-				case "bgt":
+				case Code.Bgt:
+				case Code.Bgt_S:
+				case Code.Bgt_Un:
+				case Code.Bgt_Un_S:
 					ConditionalBranch(il, CodeBinaryOperator.GreaterThan);
 					break;
-				case "blt":
+				case Code.Blt:
+				case Code.Blt_S:
+				case Code.Blt_Un:
+				case Code.Blt_Un_S:
 					ConditionalBranch(il, CodeBinaryOperator.LessThan);
 					break;
-				case "ble":
+				case Code.Ble:
+				case Code.Ble_S:
+				case Code.Ble_Un:
+				case Code.Ble_Un_S:
 					ConditionalBranch(il, CodeBinaryOperator.LessThanOrEqual);
 					break;
-				case "bne":
+				case Code.Bne_Un:
+				case Code.Bne_Un_S:
 					ConditionalBranch(il, CodeBinaryOperator.IdentityInequality);
 					break;
-				case "brtrue":
+				case Code.Brtrue:
+				case Code.Brtrue_S:
 					ConditionalBranch(il, true);
 					break;
-				case "brfalse":
+				case Code.Brfalse:
+				case Code.Brfalse_S:
 					ConditionalBranch(il, false);
 					break;
-				case "br":
+				case Code.Br:
+				case Code.Br_S:
 					Branch(il);
 					break;
-				case "switch":
+				case Code.Switch:
 					Switch(il);
 					break;
 				#endregion
 				#region Comparision
-				case "clt":
+				case Code.Clt:
+				case Code.Clt_Un:
 					Comparision(il, CodeBinaryOperator.LessThan);
 					break;
-				case "cgt":
+				case Code.Cgt:
+				case Code.Cgt_Un:
 					Comparision(il, CodeBinaryOperator.GreaterThan);
 					break;
-				case "ceq":
+				case Code.Ceq:
 					Comparision(il, CodeBinaryOperator.IdentityEquality);
 					break;
 				#endregion
 				#region Call
-				case "call":
-				case "callvirt":
+				case Code.Call:
+				case Code.Callvirt:
 					Call(il);
 					break;
-				case "calli":
-					throw new NotImplementedException();
-				case "ret":
+				case Code.Ret:
 					Return(il);
 					break;
 				#endregion
 				#region Misc
-				case "pop":
+				case Code.Pop:
 					Pop(il);
 					break;
-				case "dup":
+				case Code.Dup:
 					Dup(il);
 					break;
-				case "conv":
-					Convert(il);
+				case Code.Conv_I:
+				case Code.Conv_Ovf_I:
+				case Code.Conv_Ovf_I_Un:
+					OnConvert(typeof(IntPtr));
 					break;
-				case "leave":
+				case Code.Conv_I1:
+				case Code.Conv_Ovf_I1:
+				case Code.Conv_Ovf_I1_Un:
+					OnConvert(typeof(sbyte));
+					break;
+				case Code.Conv_I2:
+				case Code.Conv_Ovf_I2:
+				case Code.Conv_Ovf_I2_Un:
+					OnConvert(typeof(short));
+					break;
+				case Code.Conv_I4:
+				case Code.Conv_Ovf_I4:
+				case Code.Conv_Ovf_I4_Un:
+					OnConvert(typeof(int));
+					break;
+				case Code.Conv_I8:
+				case Code.Conv_Ovf_I8:
+				case Code.Conv_Ovf_I8_Un:
+					OnConvert(typeof(long));
+					break;
+				case Code.Conv_R_Un:
+				case Code.Conv_R4:
+					OnConvert(typeof(float));
+					break;
+				case Code.Conv_R8:
+					OnConvert(typeof(double));
+					break;
+				case Code.Conv_U:
+				case Code.Conv_Ovf_U:
+				case Code.Conv_Ovf_U_Un:
+					OnConvert(typeof(UIntPtr));
+					break;
+				case Code.Conv_U1:
+				case Code.Conv_Ovf_U1:
+				case Code.Conv_Ovf_U1_Un:
+					OnConvert(typeof(byte));
+					break;
+				case Code.Conv_U2:
+				case Code.Conv_Ovf_U2:
+				case Code.Conv_Ovf_U2_Un:
+					OnConvert(typeof(ushort));
+					break;
+				case Code.Conv_U4:
+				case Code.Conv_Ovf_U4:
+				case Code.Conv_Ovf_U4_Un:
+					OnConvert(typeof(uint));
+					break;
+				case Code.Conv_U8:
+				case Code.Conv_Ovf_U8:
+				case Code.Conv_Ovf_U8_Un:
+					OnConvert(typeof(ulong));
+					break;
+				case Code.Leave:
+				case Code.Leave_S:
 					Leave(il);
 					break;
-				case "nop":
+				case Code.Nop:
 					Nop(il);
 					break;
-				case "castclass":
+				case Code.Castclass:
 					CastClass(il);
 					break;
-				case "throw":
+				case Code.Throw:
 					Throw(il);
 					break;
-				case "isinst":
+				case Code.Isinst:
 					IsInstance(il);
 					break;
-				case "break":
-					throw new NotImplementedException();
+				case Code.Unbox:
+				case Code.Unbox_Any:
+					Unbox(il);
+					break;
 				#endregion
 				#region Unsupported/Unneeded
-				case "box":
-				case "unbox":
+				case Code.Box:
 					break;
 				#endregion
 				default:
@@ -239,15 +423,19 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void AddStatment(CodeStatement stmt, Instruction il) {
-			this.Statements.Add(stmt);
+		private void AddStatment(CodeStatement stmt) {
+			this.statements.Add(stmt);
+		}
+
+		private void Unbox(Instruction il) {
+			PushCastExpression((TypeReference)il.Operand);
 		}
 
 		private void Pop(Instruction il) {
-			CodeExpression exp = vm.Stack.Pop();
+			CodeExpression exp = Pop();
 			if (exp is CodeObjectCreateExpression ||
 				exp is CodeInvokeExpression) {
-				AddStatment(new CodeExpressionStatement(exp), il);
+				AddStatment(new CodeExpressionStatement(exp));
 			}
 			else {
 				throw new NotSupportedException(exp.ToString());
@@ -255,79 +443,76 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Nop(Instruction il) {
-			CodeCommentStatement stmt = new CodeCommentStatement("nop");
-			this.AddStatment(stmt, il);
+			var stmt = new CodeCommentStatement("nop");
+			this.AddStatment(stmt);
 		}
 
 		private void Return(Instruction il) {
-			CodeReturnStatement ret = new CodeReturnStatement();
+			var ret = new CodeReturnStatement();
 			if (vm.Stack.Any())
-				ret.Expression = vm.Stack.Pop();
-			AddStatment(ret, il);
+				ret.Expression = Pop();
+			AddStatment(ret);
 		}
 
-		private CodeExpression GetTargetObject(MethodDefinition method, Instruction il) {
-			CodeExpression targetObject;
-			if (method.IsStatic) {
-				targetObject = new CodeTypeReference(method.DeclaringType);
+		private CodeExpression GetTargetObject(MethodDefinition method) {
+			if (method.HasThis) {
+				return Pop();
 			}
 			else {
-				targetObject = vm.Stack.Pop();
+				return new CodeTypeReference(method.DeclaringType);
 			}
-			return targetObject;
 		}
 
 		private void CallMethod(Instruction il, MethodDefinition method) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
-			CollectArgs(method.Parameters, expr.Parameters);
+			expr.Parameters = PopRange(method.Parameters.Count);
 
-			CodeExpression targetObject = GetTargetObject(method, il);
+			CodeExpression targetObject = GetTargetObject(method);
 			expr.Method = new CodeMethodReference(targetObject, method);
 
 			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {
 				CodeExpressionStatement stmt = new CodeExpressionStatement(expr);
-				AddStatment(stmt, il);
+				AddStatment(stmt);
 			}
 			else {
-				vm.Stack.Push(expr);
+				Push(expr);
 			}
 		}
 
 		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
 			var args = method.Parameters;
 			if (args.Count == 0) {
-				var targetObject = GetTargetObject(method, il);
+				var targetObject = GetTargetObject(method);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
-				vm.Stack.Push(expr);
+				Push(expr);
 			}
 			else {
 				CodeIndexerExpression expr = new CodeIndexerExpression();
-				CollectArgs(args, expr.Indices);
-				expr.TargetObject = GetTargetObject(method, il);
-				vm.Stack.Push(expr);
+				expr.Indices = PopRange(args.Count);
+				expr.TargetObject = GetTargetObject(method);
+				Push(expr);
 			}
 		}
 
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
 			var args = method.Parameters;
 			if (args.Count == 1) {
-				CodeExpression rhs = vm.Stack.Pop();
-				var targetObject = GetTargetObject(method, il);
+				CodeExpression rhs = Pop();
+				var targetObject = GetTargetObject(method);
 				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
 				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
-	
-				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-				AddStatment(stmt, il);
+
+				AddAssignment(lhs, rhs);
 			}
 			else {
 				CodeIndexerExpression lhs = new CodeIndexerExpression();
-				CollectArgs(args, lhs.Indices);
+				lhs.Indices = PopRange(args.Count);
 				CodeExpression rhs = lhs.Indices[lhs.Indices.Count - 1];
 				lhs.Indices.Remove(rhs);
-				lhs.TargetObject = GetTargetObject(method, il);
-				CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-				AddStatment(stmt, il);
+				lhs.TargetObject = GetTargetObject(method);
+
+				AddAssignment(lhs, rhs);
 			}
 		}
 
@@ -351,28 +536,20 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void Convert(Instruction il) {
-			CodeExpression value = vm.Stack.Pop();
-			var targetType = (TypeReference)il.Operand;
-			CodeCastExpression expr = new CodeCastExpression(targetType, value);
-			vm.Stack.Push(value);
+		private TypeReference Import(Type type) {
+			return this.method.DeclaringType.Module.Import(type);
+		}
+
+		private void OnConvert(Type type) {
+			PushCastExpression(Import(type));
 		}
 
 		private void LoadArgument(Instruction il) {
-			int index = (int)il.ResolveOperand();
-			if (!this.method.IsStatic) {
-				if (index == 0) {
-					CodeExpression thisExp = new CodeThisReference();
-					vm.Stack.Push(thisExp);
-					return;
-				}
-				index--;
-			}
+			PushArgumentReference((ParameterReference)il.Operand);
+		}
 
-			var args = method.Parameters;
-			var arg = args[index];
-			CodeExpression expr = new CodeArgumentReference(arg);
-			vm.Stack.Push(expr);
+		private void LoadArgument(int index) {
+			PushArgumentReference(index);
 		}
 
 		private void LoadMethod(Instruction il) {
@@ -380,59 +557,50 @@ namespace DotWeb.Decompiler.Core
 			CodeTypeReference type = new CodeTypeReference(method.DeclaringType);
 			CodeMethodReference expr = new CodeMethodReference(type, method);
 			this.vm.ExternalMethods.Add(method);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void LoadField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			CodeExpression targetObject = vm.Stack.Pop();
+			CodeExpression targetObject = Pop();
 			CodeFieldReference expr = new CodeFieldReference(targetObject, field);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void LoadStaticField(Instruction il) {
 			var field = (FieldReference)il.Operand;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
 			CodeFieldReference expr = new CodeFieldReference(typeRef, field);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void LoadStaticFieldAddress(Instruction il) {
 			LoadStaticField(il);
 		}
 
-		private void LoadLocal(Instruction il) {
-			int index = (int)il.ResolveOperand();
-			CodeVariableReference expr = new CodeVariableReference {
-				Index = index
-			};
-			vm.Stack.Push(expr);
+		private void LoadLocal(VariableReference variable) {
+			Push(new CodeVariableReference(variable));
 		}
 
-		private void LoadLocalAddress(Instruction il) {
-			int index = (int)il.ResolveOperand();
-			CodeVariableReference expr = new CodeVariableReference {
-				Index = index
-			};
-			vm.Stack.Push(expr);
+		private void LoadLocal(int index) {
+			var arg = this.method.Body.Variables[index];
+			LoadLocal(arg);
 		}
 
-		private void Load(Instruction il) {
-			CodePrimitiveExpression expr = new CodePrimitiveExpression(il.ResolveOperand());
-			vm.Stack.Push(expr);
+		private void Load(object value) {
+			PushLiteral(value);
 		}
 
 		private void LoadLength(Instruction il) {
-			CodeExpression targetObject = vm.Stack.Pop() as CodeExpression;
-			CodeLengthReference expr = new CodeLengthReference(targetObject);
-			vm.Stack.Push(expr);
+			var targetObject = Pop();
+			Push(new CodeLengthReference(targetObject));
 		}
 
 		private void LoadElement(Instruction il) {
-			CodeExpression index = vm.Stack.Pop();
-			CodeExpression targetObject = vm.Stack.Pop();
-			CodeArrayIndexerExpression expr = new CodeArrayIndexerExpression(targetObject, index);
-			vm.Stack.Push(expr);
+			var index = Pop();
+			var target = Pop();
+			var expr = new CodeArrayIndexerExpression(target, index);
+			Push(expr);
 		}
 
 		private int[] ConvertInitialValue(byte[] data) {
@@ -452,7 +620,7 @@ namespace DotWeb.Decompiler.Core
 					// FIXME: filter this for only int[] initialization
 					int[] array = ConvertInitialValue(def.InitialValue);
 					CodePrimitiveExpression expr = new CodePrimitiveExpression(array);
-					vm.Stack.Push(expr);
+					Push(expr);
 					return;
 				}
 			}
@@ -461,118 +629,96 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StoreElement(Instruction il) {
-			CodeExpression value = vm.Stack.Pop();
-			CodeExpression index = vm.Stack.Pop();
-			CodeExpression array = vm.Stack.Pop();
+			var value = Pop();
+			var index = Pop();
+			var array = Pop();
 
 			CodeArrayIndexerExpression lhs = new CodeArrayIndexerExpression(array, index);
-			CodeAssignStatement stmt = new CodeAssignStatement(lhs, value);
-			AddStatment(stmt, il);
+			AddAssignment(lhs, value);
 		}
 
 		private void StoreArgument(Instruction il) {
-			int index = (int)il.ResolveOperand();
-
-			if (!this.method.IsStatic) {
-				index--;
-			}
-
-			var args = method.Parameters;
-			var arg = args[index];
-			CodeArgumentReference lhs = new CodeArgumentReference(arg);
-
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-			AddStatment(stmt, il);
+			PushArgumentReference((ParameterReference)il.Operand);
+			AddAssignment(Pop(), Pop());
 		}
 
-		private void StoreLocal(Instruction il) {
-			int index = (int)il.ResolveOperand();
-			CodeVariableReference lhs = new CodeVariableReference {
-				Index = index
-			};
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-			AddStatment(stmt, il);
+		private void StoreLocal(int index) {
+			var arg = this.method.Body.Variables[index];
+			StoreLocal(arg);
+		}
+
+		private void StoreLocal(VariableReference variable) {
+			CodeVariableReference lhs = new CodeVariableReference(variable);
+			CodeExpression rhs = Pop();
+			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeExpression targetObject = vm.Stack.Pop();
+			CodeExpression rhs = Pop();
+			CodeExpression targetObject = Pop();
 			CodeFieldReference lhs = new CodeFieldReference(targetObject, field);
-			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-			AddStatment(stmt, il);
+			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreStaticField(Instruction il) {
 			var field = (FieldReference)il.Operand;
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
 			CodeFieldReference lhs = new CodeFieldReference(typeRef, field);
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeAssignStatement stmt = new CodeAssignStatement(lhs, rhs);
-			AddStatment(stmt, il);
+			CodeExpression rhs = Pop();
+			AddAssignment(lhs, rhs);
 		}
 
 		private void BinaryExpression(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeExpression lhs = vm.Stack.Pop();
+			CodeExpression rhs = Pop();
+			CodeExpression lhs = Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void UnaryExpression(Instruction il, CodeUnaryOperator op) {
-			CodeExpression operand = vm.Stack.Pop();
+			CodeExpression operand = Pop();
 			CodeUnaryExpression expr = new CodeUnaryExpression(operand, op);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void Comparision(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeExpression lhs = vm.Stack.Pop();
+			CodeExpression rhs = Pop();
+			CodeExpression lhs = Pop();
 			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void ConditionalBranch(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = vm.Stack.Pop();
-			CodeExpression lhs = vm.Stack.Pop();
+			CodeExpression rhs = Pop();
+			CodeExpression lhs = Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(lhs, op, rhs);
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void ConditionalBranch(Instruction il, bool test) {
 			CodePrimitiveExpression rhs = new CodePrimitiveExpression(test);
-			CodeExpression lhs = vm.Stack.Pop();
+			CodeExpression lhs = Pop();
 			CodeBinaryExpression condition = new CodeBinaryExpression(
 				lhs, CodeBinaryOperator.IdentityEquality, rhs);
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void Branch(Instruction il) {
 			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void NewArray(Instruction il) {
-			CodeExpression count = vm.Stack.Pop();
+			CodeExpression count = Pop();
 			var type = (TypeReference)il.Operand;
 			CodeArrayCreateExpression expr = new CodeArrayCreateExpression {
 				SizeExpression = count,
 				Type = type
 			};
-			vm.Stack.Push(expr);
-		}
-
-		private void CollectArgs(ParameterDefinitionCollection defs, List<CodeExpression> into) {
-			List<CodeExpression> args = new List<CodeExpression>();
-			for (int i = 0; i < defs.Count; i++) {
-				args.Add(vm.Stack.Pop());
-			}
-			args.Reverse();
-			into.AddRange(args.ToArray());
+			Push(expr);
 		}
 
 		private void NewObject(Instruction il) {
@@ -582,48 +728,96 @@ namespace DotWeb.Decompiler.Core
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Constructor = ctor
 			};
-			CollectArgs(ctor.Parameters, expr.Parameters);
+			expr.Parameters = PopRange(ctor.Parameters.Count);
 
-			vm.Stack.Push(expr);
+			Push(expr);
 		}
 
 		private void Dup(Instruction il) {
-			CodeExpression exp = vm.Stack.Peek();
-			vm.Stack.Push(exp);
+			var exp = Peek();
+			Push(exp);
 		}
 
 		private void Leave(Instruction il) {
 			Debug.Assert(false);
 			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void CastClass(Instruction il) {
-			CodeExpression obj = vm.Stack.Pop();
-			var type = (TypeReference)il.Operand;
-			CodeExpression expr = new CodeCastExpression(type, obj);
-			vm.Stack.Push(expr);
+			PushCastExpression((TypeReference)il.Operand);
 		}
 
 		private void Throw(Instruction il) {
-			CodeExpression obj = vm.Stack.Pop();
+			CodeExpression obj = Pop();
 			CodeThrowStatement stmt = new CodeThrowStatement(obj);
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void Switch(Instruction il) {
-			CodeExpression expr = vm.Stack.Pop();
+			CodeExpression expr = Pop();
 			CodeSwitchStatement stmt = new CodeSwitchStatement {
 				Expression = expr
 			};
-			AddStatment(stmt, il);
+			AddStatment(stmt);
 		}
 
 		private void IsInstance(Instruction il) {
-			CodeExpression obj = vm.Stack.Pop();
+			CodeExpression obj = Pop();
 			var type = (TypeReference)il.Operand;
 			CodeExpression expr = new CodeInstanceOfExpression(type, obj);
+			Push(expr);
+		}
+
+		#region Helpers
+
+		private void AddAssignment(CodeExpression lhs, CodeExpression rhs) {
+			AddStatment(new CodeAssignStatement(lhs, rhs));
+		}
+
+		private void PushArgumentReference(ParameterReference arg) {
+			Push(new CodeArgumentReference(arg));
+		}
+
+		private void PushArgumentReference(int index) {
+			if (this.method.HasThis) {
+				if (index == 0) {
+					Push(new CodeThisReference());
+					return;
+				}
+				index--;
+			}
+			Push(new CodeArgumentReference(this.method.Parameters[index]));
+		}
+
+		private void PushCastExpression(TypeReference type) {
+			Push(new CodeCastExpression(type, Pop()));
+		}
+
+		private void PushLiteral(object value) {
+			Push(new CodePrimitiveExpression(value));
+		}
+
+		private void Push(CodeExpression expr) {
 			vm.Stack.Push(expr);
 		}
+
+		private CodeExpression Pop() {
+			return vm.Stack.Pop();
+		}
+
+		private CodeExpression Peek() {
+			return vm.Stack.Peek();
+		}
+
+		private List<CodeExpression> PopRange(int count) {
+			var args = new List<CodeExpression>();
+			for (int i = 0; i < count; i++) {
+				args.Insert(0, Pop());
+			}
+			return args;
+		}
+
+		#endregion
 	}
 }

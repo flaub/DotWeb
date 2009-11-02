@@ -1,10 +1,10 @@
 ﻿H8.NativeTest.prototype.TestTuple = function() {
-	var loc3 = {};
-	loc3.id = 666;
-	loc3.value = "value";
-	var loc0 = loc3;
-	var loc1 = new Tuple(loc0);
-	var loc2 = loc1.id;
-	System.Console.WriteLine(loc2);
-	loc1.id = 9;
+	var __g__initLocal0 = {};
+	__g__initLocal0.id = 666;
+	__g__initLocal0.value = "value";
+	var config = __g__initLocal0;
+	var tuple = new Tuple(config);
+	var id = tuple.id;
+	System.Console.WriteLine(id);
+	tuple.id = 9;
 };

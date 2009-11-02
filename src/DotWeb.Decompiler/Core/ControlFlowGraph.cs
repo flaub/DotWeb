@@ -42,7 +42,6 @@ namespace DotWeb.Decompiler.Core
 		public ControlFlowGraph(MethodDefinition method) {
 			this.Method = method;
 
-			//MethodBodyReader reader = new MethodBodyReader(method);
 			this.Instructions = new List<Instruction>();
 			this.HasCases = false;
 
@@ -119,7 +118,6 @@ namespace DotWeb.Decompiler.Core
 					}
 				}
 				else {
-					//int targetOffset = (int)bb.LastInstruction.Operand;
 					var target = (Instruction)bb.LastInstruction.Operand;
 					ResolveBranchTarget(bb, target.Offset);
 				}

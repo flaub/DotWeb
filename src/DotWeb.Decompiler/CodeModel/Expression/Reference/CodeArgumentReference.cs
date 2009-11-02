@@ -25,7 +25,7 @@ namespace DotWeb.Decompiler.CodeModel
 {
 	public class CodeArgumentReference : CodeExpression
 	{
-		public CodeArgumentReference(ParameterDefinition arg) {
+		public CodeArgumentReference(ParameterReference arg) {
 			this.Argument = arg;
 		}
 
@@ -39,6 +39,6 @@ namespace DotWeb.Decompiler.CodeModel
 		}
 		#endregion
 
-		public ParameterDefinition Argument { get; set; }
+		public ParameterReference Argument { get; set; }
 	}
 }

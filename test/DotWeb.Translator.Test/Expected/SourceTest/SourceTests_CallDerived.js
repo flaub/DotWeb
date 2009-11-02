@@ -34,7 +34,7 @@ H8.SourceTests = function() {
 };
 
 H8.SourceTests.prototype.CallDerived = function() {
-	var loc0 = new H8.Derived().$ctor();
-	loc0.DerviedMethod();
-	loc0.BaseMethod();
+	var derived = new H8.Derived().$ctor();
+	derived.DerviedMethod();
+	derived.BaseMethod();
 };

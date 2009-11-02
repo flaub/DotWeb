@@ -48,36 +48,6 @@ namespace DotWeb.Decompiler.Core
 			return cil.Offset.ToString("0000");
 		}
 
-		public static int ResolveMacroValue(this Instruction cil) {
-			Debug.Assert(cil.OpCode.OpCodeType == OpCodeType.Macro);
-			var parts = cil.OpCode.Name.Split('.');
-			switch (parts[0]) {
-				case "ldc":
-					if (parts[2] == "m1")
-						return -1;
-					else
-						return Convert.ToInt32(parts[2]);
-				case "stloc":
-				case "ldloc":
-				case "ldarg":
-					return Convert.ToInt32(parts[1]);
-				default:
-					throw new InvalidOperationException(string.Format("Unknown macro: {0}", cil.OpCode));
-			}
-		}
-
-		public static object ResolveOperand(this Instruction cil) {
-			if (cil.OpCode.OperandType == OperandType.InlineNone &&
-				cil.OpCode.OpCodeType == OpCodeType.Macro)
-				return cil.ResolveMacroValue();
-
-			var variable = cil.Operand as VariableDefinition;
-			if (variable != null) {
-				return variable.Index;
-			}
-			return cil.Operand;
-		}
-
 		public static string DisplayString(this Instruction cil) {
 			StringBuilder sb = new StringBuilder();
 			sb.AppendFormat("{0}: {1}", cil.OffsetString(), cil.OpCode);

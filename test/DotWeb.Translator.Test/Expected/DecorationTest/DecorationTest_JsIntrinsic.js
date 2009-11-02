@@ -27,8 +27,8 @@ H8.DecorationTests = function() {
 H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsIntrinsic = function() {
-	var loc1 = new H8.IntrinsicClass().$ctor();
-	loc1.Value = 1;
-	var loc0 = loc1;
-	System.Console.Write(loc0.Value);
+	var __g__initLocal3 = new H8.IntrinsicClass().$ctor();
+	__g__initLocal3.Value = 1;
+	var item = __g__initLocal3;
+	System.Console.Write(item.Value);
 };

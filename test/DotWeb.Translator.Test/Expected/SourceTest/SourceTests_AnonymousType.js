@@ -17,8 +17,8 @@ System.String = function() {
 };
 
 System.String.prototype.get_Length = function() {
-	var loc0 = this._Length_k__BackingField;
-	return loc0;
+	var V_0 = this._Length_k__BackingField;
+	return V_0;
 };
 
 __f__AnonymousType0$2.prototype.get_Value = function() {
@@ -38,6 +38,6 @@ H8.SourceTests = function() {
 };
 
 H8.SourceTests.prototype.AnonymousType = function() {
-	var loc0 = new __f__AnonymousType0$2().$ctor("Hi", 1);
-	System.Console.WriteLine("{0}: {1}", loc0.get_Key().get_Length(), loc0.get_Value());
+	var value = new __f__AnonymousType0$2().$ctor("Hi", 1);
+	System.Console.WriteLine("{0}: {1}", value.get_Key().get_Length(), value.get_Value());
 };

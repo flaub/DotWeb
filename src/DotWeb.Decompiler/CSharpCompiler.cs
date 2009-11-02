@@ -57,27 +57,19 @@ namespace DotWeb.Decompiler
 			return DoCompile(filename, GetReferences(startingReference), true).CompiledAssembly;
 		}
 
-		//public Type CompileFile(string filename, Assembly startingReference, string typeName) {
-		//    return CompileFile(filename, startingReference).GetType(typeName);
-		//}
-
 		public CompilerResults CompileSource(string source, Assembly startingReference) {
 			return DoCompile(source, GetReferences(startingReference), false);
 		}
 
-		//public Type CompileSource(string source, Assembly startingReference, string typeName) {
-		//    return CompileSource(source, startingReference).GetType(typeName);
-		//}
-
 		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile) {
 			CompilerParameters options = new CompilerParameters {
 //				GenerateInMemory = true,
-				CompilerOptions = "/nostdlib"
+				CompilerOptions = "/nostdlib /debug:pdbonly"
 			};
 
-			foreach (Assembly assRef in references) {
-				Console.WriteLine("Referencing: {0}", assRef.Location);
-				options.ReferencedAssemblies.Add(assRef.Location);
+			foreach (var asmRef in references) {
+				Console.WriteLine("Referencing: {0}", asmRef.Location);
+				options.ReferencedAssemblies.Add(asmRef.Location);
 			}
 
 			CompilerResults results;
@@ -103,14 +95,14 @@ namespace DotWeb.Decompiler
 			return references;
 		}
 
-		private void DescendReferences(Assembly ass, List<Assembly> ret) {
-			if (ret.Contains(ass))
+		private void DescendReferences(Assembly asm, List<Assembly> ret) {
+			if (ret.Contains(asm))
 				return;
 
-			ret.Add(ass);
-			foreach (AssemblyName assName in ass.GetReferencedAssemblies()) {
-				Assembly assRef = Assembly.Load(assName);
-				DescendReferences(assRef, ret);
+			ret.Add(asm);
+			foreach (AssemblyName assName in asm.GetReferencedAssemblies()) {
+				var asmRef = Assembly.Load(assName);
+				DescendReferences(asmRef, ret);
 			}
 		}
 	}

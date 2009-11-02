@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace DotWeb.Utility
 {
+	[Serializable]
 	public class AssemblyQualifiedTypeName
 	{
 		public AssemblyQualifiedTypeName(string asmQualifiedTypeName) {

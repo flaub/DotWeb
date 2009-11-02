@@ -1,7 +1,7 @@
 ﻿H8.SourceTests.prototype.Switch = function(val /*System.Int32*/) {
 	System.Console.WriteLine("Hello");
-	var loc0 = val;
-	switch(loc0 - 1) {
+	var CS$0$0000 = val;
+	switch(CS$0$0000 - 1) {
 		default:
 			System.Console.WriteLine("default");
 			break;
@@ -21,4 +21,3 @@
 	}
 	System.Console.WriteLine("Bye");
 };
-

@@ -52,11 +52,11 @@ H8.DecorationTests = function() {
 H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsNamespace = function() {
-	var loc2 = new DefaultNamespaceTest().$ctor();
-	loc2.set_Value(1);
-	var loc0 = loc2;
-	var loc3 = new Foo.FooNamespaceTest().$ctor();
-	loc3.set_Value(loc0.get_Value());
-	var loc1 = loc3;
-	System.Console.WriteLine(loc1.get_Value());
+	var __g__initLocal5 = new DefaultNamespaceTest().$ctor();
+	__g__initLocal5.set_Value(1);
+	var item1 = __g__initLocal5;
+	var __g__initLocal6 = new Foo.FooNamespaceTest().$ctor();
+	__g__initLocal6.set_Value(item1.get_Value());
+	var item2 = __g__initLocal6;
+	System.Console.WriteLine(item2.get_Value());
 };

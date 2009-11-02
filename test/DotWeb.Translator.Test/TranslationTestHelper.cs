@@ -33,6 +33,10 @@ namespace DotWeb.Translator.Test
 			var asm = Assembly.Load(asmName);
 			var result = compiler.CompileSource(src, asm);
 			this.CompiledAssembly = AssemblyFactory.GetAssembly(result.PathToAssembly);
+			var pdb = Path.Combine(Path.GetDirectoryName(result.PathToAssembly), Path.GetFileNameWithoutExtension(result.PathToAssembly) + ".pdb");
+			this.CompiledAssembly.MainModule.LoadSymbols();
+			File.Delete(result.PathToAssembly);
+			File.Delete(pdb);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {

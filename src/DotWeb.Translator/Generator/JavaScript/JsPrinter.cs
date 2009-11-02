@@ -110,6 +110,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#region Helpers
 
 		public static string GetNamespace(TypeReference type) {
+			if (type == null)
+				throw new ArgumentNullException("type");
+
 			string jsNamespace = AttributeHelper.GetJsNamespace(type);
 			if (jsNamespace != null)
 				return jsNamespace;
@@ -143,6 +146,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string Print(TypeReference type) {
+			if (type == null)
+				throw new ArgumentNullException("type");
+
 			string ns = GetNamespace(type);
 
 			string name;
@@ -213,7 +219,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeVariableReference exp) {
-			return string.Format("{0}{1}", LocalVarPrefix, exp.Index);
+			return EncodeName(exp.Variable.Name);
+//			return string.Format("{0}{1}", LocalVarPrefix, exp.Variable.Name);
 		}
 
 		public string VisitReturn(CodeLengthReference expr) {

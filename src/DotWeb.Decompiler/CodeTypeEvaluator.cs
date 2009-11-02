@@ -119,9 +119,7 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeVariableReference obj) {
-//			LocalVariableInfo local = this.context.GetMethodBody().LocalVariables.Single(x => x.LocalIndex == obj.Index);
-			var local = this.context.Body.Variables[obj.Index];
-			return local.VariableType;
+			return obj.Variable.VariableType;
 		}
 
 		private TypeReference VisitMethod(MethodReference method) {

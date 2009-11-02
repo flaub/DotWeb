@@ -21,6 +21,8 @@ using System.Reflection;
 using DotWeb.Translator.Generator.JavaScript;
 using Mono.Cecil;
 using System.Linq;
+using DotWeb.Utility;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator
 {
@@ -29,12 +31,14 @@ namespace DotWeb.Translator
 	// Generate target language
 	public class TranslationEngine
 	{
-		public TextWriter Writer { get; set; }
-		private readonly JsCodeGenerator generator;
+		private JsCodeGenerator generator;
+		private DefaultAssemblyResolver resolver;
 
-		public TranslationEngine(TextWriter writer, bool writeHeader) {
-			this.Writer = writer;
-			this.generator = new JsCodeGenerator(this.Writer, writeHeader);
+		public TranslationEngine(TextWriter writer, bool writeHeader, string path) {
+			this.generator = new JsCodeGenerator(writer, writeHeader);
+			this.resolver = new DefaultAssemblyResolver();
+			resolver.AddSearchDirectory(path);
+			Directory.SetCurrentDirectory(path);
 		}
 
 		public void TranslateType(TypeDefinition type) {
@@ -42,6 +46,13 @@ namespace DotWeb.Translator
 			var method = type.Constructors.GetConstructor(false, Type.EmptyTypes);
 			context.GenerateMethod(method, true);
 			this.generator.WriteEntryPoint(type);
+		}
+
+		public void TranslateType(AssemblyQualifiedTypeName aqtn) {
+			var asm = resolver.Resolve(aqtn.AssemblyName.FullName);
+			asm.Resolver = resolver;
+			var typeDef = asm.MainModule.Types[aqtn.TypeName];
+			TranslateType(typeDef);
 		}
 	}
 }

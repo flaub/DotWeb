@@ -20,8 +20,8 @@ H8.SourceTests = function() {
 };
 
 H8.SourceTests.prototype.Indexer = function() {
-	var loc0 = new H8.IndexerTest().$ctor();
-	loc0["Test"] = 1;
-	var loc1 = loc0["Test"];
-	System.Console.WriteLine(loc1);
+	var indexer = new H8.IndexerTest().$ctor();
+	indexer["Test"] = 1;
+	var value = indexer["Test"];
+	System.Console.WriteLine(value);
 };
