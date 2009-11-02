@@ -32,13 +32,13 @@ namespace DotWeb.Translator
 		}
 
 		public static bool IsAnonymous(TypeReference type) {
-			return TypeHelper.IsDefined(type, JsAnonymous);
+			return TypeHelper.IsDefined(type.Resolve(), JsAnonymous);
 		}
 
 		public static bool IsIntrinsic(PropertyReference pi) {
 			return
 				TypeHelper.IsDefined(pi.Resolve(), JsInstrinsic) ||
-				TypeHelper.IsDefined(pi.DeclaringType, JsInstrinsic);
+				TypeHelper.IsDefined(pi.DeclaringType.Resolve(), JsInstrinsic);
 		}
 
 		private const string JsNamespace = "System.DotWeb.JsNamespaceAttribute";

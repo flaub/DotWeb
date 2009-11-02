@@ -38,4 +38,6 @@ H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	var array = CS$0$0000;
 	var first = array[0];
 	System.Console.WriteLine(first);
+	var dynamic = {};
+	dynamic.id = "1";
 };

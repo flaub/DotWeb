@@ -30,6 +30,12 @@ namespace H8
 		public int y;
 	}
 
+	[JsAnonymous]
+	class DynamicAnonymousClass : JsDynamic
+	{
+		public string id { get { return (string)this["id"]; } set { this["id"] = value; } }
+	}
+
 	// Anonymous classes can only have auto-properties
 	[JsAnonymous]
 	class InvalidAnonymousClass1
@@ -96,6 +102,9 @@ namespace H8
 
 			var first = array[0];
 			Console.WriteLine(first);
+
+			var dynamic = new DynamicAnonymousClass();
+			dynamic.id = "1";
 		}
 
 		public void InvalidAnonymousClass1() {
