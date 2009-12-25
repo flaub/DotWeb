@@ -126,36 +126,42 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
+		[Ignore]
 		public void EnumTest() {
 			// weave an enum then get to the enum via reflection
 			Assert.Fail();
 		}
 
 		[Test]
+		[Ignore]
 		public void GenericTypeTest() {
 			// weave a generic type then grab it via reflection
 			Assert.Fail();
 		}
 
 		[Test]
+		[Ignore]
 		public void GenericMethodTest() {
 			// weave a generic method then grab it via reflection
 			Assert.Fail();
 		}
 
 		[Test]
+		[Ignore]
 		public void ArrayTest() {
 			// weave an array then grab via reflection
 			Assert.Fail();
 		}
 
 		[Test]
+		[Ignore]
 		public void ExceptionTest() {
 			// fail for now
 			Assert.Fail();
 		}
 
 		[Test]
+		[Ignore]
 		public void DependencyTest() {
 			// have one assembly depend on another and ensure that weaver
 			// properly walks thru each one
@@ -166,7 +172,7 @@ namespace DotWeb.Hosting.Test
 		public void NestedTest() {
 			var test = this.hosted.GetType("DotWeb.Weaver.Test.Script.NestedTest");
 			var baseNested = test.GetNestedType("Base");
-			var derivedNested = test.GetNestedType("Dervied");
+			var derivedNested = test.GetNestedType("Derived");
 			Assert.IsNotNull(test, "NestedType is null");
 			Assert.IsNotNull(baseNested, "NestedType+Base is null");
 			Assert.IsNotNull(derivedNested, "NestedType+Derived is null");

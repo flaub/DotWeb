@@ -26,6 +26,21 @@ namespace DotWeb.Tools.Weaver
 		private GenericTypeProcessor genericProc;
 		private bool isClosing = false;
 		private List<TypeProcessor> dependentTypes = new List<TypeProcessor>();
+		private List<IType> nestedTypes = new List<IType>();
+
+		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder, TypeBuilder outerBuilder) {
+			this.resolver = resolver;
+			this.parent = parent;
+			this.typeDef = typeDef;
+			this.ModuleBuilder = moduleBuilder;
+			this.genericProc = new GenericTypeProcessor(this.resolver);
+
+			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
+			string fullName = this.typeDef.FullName;//.Replace("/", "+");
+			this.typeBuilder = outerBuilder.DefineNestedType(this.typeDef.Name, typeAttrs);
+
+			this.Init();
+		}
 
 		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder) {
 			this.resolver = resolver;
@@ -35,10 +50,13 @@ namespace DotWeb.Tools.Weaver
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
-
-			string fullName = this.typeDef.FullName.Replace("/", "+");
+			string fullName = this.typeDef.FullName;//.Replace("/", "+");
 			this.typeBuilder = moduleBuilder.DefineType(fullName, typeAttrs);
 
+			this.Init();
+		}
+
+		private void Init() {
 			if (this.typeDef.HasGenericParameters) {
 				this.genericProc.ProcessType(typeDef, typeBuilder);
 			}
@@ -69,6 +87,10 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			this.typeBuilder.CreateType();
+
+			foreach (var type in nestedTypes) {
+				type.Close();
+			}
 		}
 
 		public GenericTypeParameterBuilder GetGenericParameter(string name) {
@@ -109,7 +131,8 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessNestedType(TypeDefinition typeDef) {
-//			var nestedType = this.resolver.ResolveTypeReference(typeDef);
+			var nestedType = this.resolver.ResolveTypeReference(typeDef);
+			this.nestedTypes.Add(nestedType);
 		}
 
 		private void ProcessEvent(EventDefinition eventDef) {

@@ -124,6 +124,13 @@ namespace DotWeb.Tools.Weaver
 				RegisterType(typeRef, enumProc);
 				return enumProc;
 			}
+			else if (typeDef.IsNested) {
+				var outerProc = ResolveTypeReference(typeDef.DeclaringType);
+				var outerBuilder = (TypeBuilder)outerProc.Type;
+				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder, outerBuilder);
+				RegisterType(typeRef, typeProc);
+				return typeProc;
+			}
 			else {
 				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder);
 				RegisterType(typeRef, typeProc);
