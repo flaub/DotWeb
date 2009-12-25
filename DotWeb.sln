@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{196832FA-5DBB-45ED-8FA9-42E8C702E413}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG = CHANGELOG
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		COPYING = COPYING
 		doc\DotWeb.shfbproj = doc\DotWeb.shfbproj
 		README.markdown = README.markdown
