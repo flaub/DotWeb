@@ -36,7 +36,6 @@ namespace DotWeb.Tools.Weaver
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
-			string fullName = this.typeDef.FullName;//.Replace("/", "+");
 			this.typeBuilder = outerBuilder.DefineNestedType(this.typeDef.Name, typeAttrs);
 
 			this.Init();
@@ -50,8 +49,7 @@ namespace DotWeb.Tools.Weaver
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
-			string fullName = this.typeDef.FullName;//.Replace("/", "+");
-			this.typeBuilder = moduleBuilder.DefineType(fullName, typeAttrs);
+			this.typeBuilder = moduleBuilder.DefineType(this.typeDef.FullName, typeAttrs);
 
 			this.Init();
 		}

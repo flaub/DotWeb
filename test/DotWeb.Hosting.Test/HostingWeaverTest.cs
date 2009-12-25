@@ -77,7 +77,7 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TypeTest() {
-			// weave a type then get to the enum via reflection
+			// weave a type then get to the it via reflection
 			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.TypeTest");
 			var type = test.GetType();
 			Assert.IsNotNull(type);
@@ -88,7 +88,7 @@ namespace DotWeb.Hosting.Test
 			var property = type.GetProperty("Property");
 			Assert.IsNotNull(property);
 
-			var method = type.GetField("Method");
+			var method = type.GetMethod("Method");
 			Assert.IsNotNull(method);
 
 			var evt = type.GetEvent("Event");
