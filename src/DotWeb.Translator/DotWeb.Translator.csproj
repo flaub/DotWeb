@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AttributeHelper.cs" />
     <Compile Include="CodeModelExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

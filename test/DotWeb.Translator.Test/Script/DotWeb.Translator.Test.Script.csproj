@@ -34,6 +34,9 @@
     <NoWarn>824,626</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

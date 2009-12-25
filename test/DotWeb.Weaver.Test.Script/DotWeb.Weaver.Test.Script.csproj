@@ -33,6 +33,9 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CastTest.cs" />
     <Compile Include="NestedTest.cs" />
     <Compile Include="TypeTest.cs" />

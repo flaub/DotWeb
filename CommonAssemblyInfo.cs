@@ -25,6 +25,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Frank Laub 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

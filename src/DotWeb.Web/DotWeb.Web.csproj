@@ -48,6 +48,9 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ClientCode.cs" />
     <Compile Include="ClientCodeRenderer.cs" />
     <Compile Include="HttpContextImpl.cs" />
