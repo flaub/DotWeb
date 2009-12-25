@@ -47,7 +47,7 @@ namespace DotWeb.Tools.Weaver
 			this.resolver = resolver;
 			this.asmDef = asmDef;
 			this.moduleDef = asmDef.MainModule;
-			this.moduleDef.LoadSymbols();
+			//this.moduleDef.LoadSymbols();
 
 			var name = asmDef.Name.Name;
 			if (!name.StartsWith(HostedPrefix))
