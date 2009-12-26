@@ -1,0 +1,9 @@
+---
+layout: default
+title: Test
+---
+
+Test page dude
+
+Title: {{ page.title }}
+Server: {{ site.server }}

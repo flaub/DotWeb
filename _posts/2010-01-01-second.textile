@@ -1,0 +1,19 @@
+---
+layout: default
+title: Second
+category: Test/Sub
+---
+
+My 2nd page
+
+Title: {{ page.title }}
+ID: {{ page.id }}
+Date: {{ page.date }}
+
+Categories:
+
+<ul>
+	{% for category in page.categories %}
+		<li>{{ category }}</li>
+	{% endfor %}
+</ul>
