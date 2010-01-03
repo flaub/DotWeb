@@ -212,7 +212,7 @@ namespace DotWeb.Tools.Weaver
 			args.SetLocalSymInfo("__args");
 
 			// __method = MethodBase.GetCurrentMethod();
-			generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.MethodBase_GetCurrentMethod, Type.EmptyTypes);
+			generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.MethodBase_GetCurrentMethod, null);
 			generator.Emit(SRE.OpCodes.Stloc, method.LocalIndex);
 			
 			LocalBuilder ret = null;
