@@ -50,17 +50,5 @@ namespace DotWeb.Sample.MVC.Controllers
 			Response.Cookies.Set(mode);
 			return Redirect(Request.UrlReferrer.ToString());
 		}
-
-		public ActionResult WebMode() {
-			var mode = new HttpCookie("DotWeb-Mode", "Web");
-			Response.Cookies.Set(mode);
-			return RedirectToAction("Mode");
-		}
-
-		public ActionResult HostedMode() {
-			var mode = new HttpCookie("DotWeb-Mode", "Hosted");
-			Response.Cookies.Set(mode);
-			return RedirectToAction("Mode");
-		}
 	}
 }

@@ -18,6 +18,7 @@
 using System.Web.Mvc;
 using System.Web;
 using System.Web.Routing;
+using System.Configuration;
 
 namespace DotWeb.Sample.MVC.Controllers
 {
@@ -26,10 +27,20 @@ namespace DotWeb.Sample.MVC.Controllers
 		protected override void Initialize(RequestContext requestContext) {
 			base.Initialize(requestContext);
 
-			var mode = Request.Cookies.Get("DotWeb-Mode");
-			if (mode == null) {
-				mode = new HttpCookie("DotWeb-Mode", "Web");
-				Response.Cookies.Add(mode);
+			HttpCookie mode;
+			string modeType = ConfigurationManager.AppSettings["DotWeb-Mode"];
+			ViewData["ModeType"] = modeType;
+
+			if (modeType == "Auto") {
+				mode = Request.Cookies.Get("DotWeb-Mode");
+				if (mode == null) {
+					mode = new HttpCookie("DotWeb-Mode", "Web");
+					Response.Cookies.Add(mode);
+				}
+			}
+			else {
+				mode = new HttpCookie("DotWeb-Mode", modeType);
+				Response.Cookies.Set(mode);
 			}
 
 			ViewData["Mode"] = mode.Value;
