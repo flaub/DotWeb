@@ -443,10 +443,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DotWeb.Client\DotWeb.Client.csproj">
-      <Project>{0A46B99F-8A61-4544-8B1D-E5117DABBD90}</Project>
-      <Name>DotWeb.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Sample.Script\DotWeb.Sample.Script.csproj">
       <Project>{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}</Project>
       <Name>DotWeb.Sample.Script</Name>

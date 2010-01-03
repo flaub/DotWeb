@@ -40,6 +40,8 @@ namespace DotWebWeaver
 			string inputDir = Path.GetDirectoryName(inputPath);
 			string outputDir = Path.GetDirectoryName(outputPath);
 
+			Console.WriteLine("Weaving {0} -> {1}", inputPath, outputPath);
+
 			var weaver = new HostingWeaver(inputDir, outputDir, searchDirs);
 			weaver.ProcessAssembly(inputPath);
 		}

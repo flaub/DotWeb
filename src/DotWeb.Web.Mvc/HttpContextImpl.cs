@@ -32,7 +32,11 @@ namespace System.Web.Mvc
 		}
 
 		public string ResolveUrl(string url) {
-			return url.Replace("~/", context.Request.ApplicationPath);
+			var root = context.Request.ApplicationPath;
+			if (root.EndsWith("/")) {
+				root = root.Substring(0, root.Length - 1);
+			}
+			return url.Replace("~", root);
 		}
 
 		public System.Web.Caching.Cache Cache {

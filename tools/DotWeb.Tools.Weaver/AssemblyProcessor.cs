@@ -135,6 +135,11 @@ namespace DotWeb.Tools.Weaver
 		private IType ProcessType(TypeReference typeRef) {
 			var typeDef = typeRef.Resolve();
 			if (typeRef is ArrayType) {
+				var arrayType = (ArrayType)typeRef;
+				var elementProc = this.resolver.ResolveTypeReference(arrayType.ElementType);
+				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
+				var externalWrapper = new ExternalType(this.resolver, realType);
+				return externalWrapper;
 			}
 
 			if (typeDef.IsEnum) {
@@ -143,7 +148,7 @@ namespace DotWeb.Tools.Weaver
 				return enumProc;
 			}
 			else if (typeDef.IsNested) {
-				var outerProc = ResolveTypeReference(typeDef.DeclaringType);
+				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType);
 				var outerBuilder = (TypeBuilder)outerProc.Type;
 				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder, outerBuilder);
 				RegisterType(typeRef, typeProc);

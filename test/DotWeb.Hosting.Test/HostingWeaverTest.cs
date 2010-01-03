@@ -165,10 +165,24 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		[Ignore]
 		public void ArrayTest() {
 			// weave an array then grab via reflection
-			Assert.Fail();
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.ArrayTest");
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+
+			var field = type.GetField("fieldArray");
+			Assert.IsNotNull(field);
+			Assert.AreEqual(typeof(int[]), field.FieldType);
+
+			var property = type.GetProperty("PropertyArray");
+			Assert.IsNotNull(property);
+			Assert.AreEqual(typeof(string[]), property.PropertyType);
+
+			var typeArray = type.GetField("typeArray");
+			Assert.IsNotNull(typeArray);
+			var elementType = typeArray.FieldType.GetElementType();
+			Assert.AreEqual(type, elementType);
 		}
 
 		[Test]

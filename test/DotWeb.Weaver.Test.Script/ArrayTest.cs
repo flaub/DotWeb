@@ -15,29 +15,22 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
-using System.Web.Mvc;
-using System.Web;
-using System.Web.Routing;
+using DotWeb.Client;
 
-namespace DotWeb.Sample.MVC.Controllers
+namespace DotWeb.Weaver.Test.Script
 {
-	public abstract class BaseController : Controller
+	class ArrayTest
 	{
-		protected override void Initialize(RequestContext requestContext) {
-			base.Initialize(requestContext);
+		public int[] fieldArray;
+		public string[] PropertyArray { get; set; }
 
-			var mode = Request.Cookies.Get("DotWeb-Mode");
-			if (mode == null) {
-				mode = new HttpCookie("DotWeb-Mode", "Web");
-				Response.Cookies.Add(mode);
-			}
+		public ArrayTest[] typeArray;
 
-			ViewData["Mode"] = mode.Value;
-			var root = Request.ApplicationPath;
-			if (root.EndsWith("/")) {
-				root = root.Substring(0, root.Length - 1);
-			}
-			ViewData["Root"] = root;
+		public ArrayTest() {
+			this.fieldArray = new int[4];
+			this.fieldArray[0] = 1;
+			this.typeArray = new ArrayTest[1];
+			this.typeArray[0] = this;
 		}
 	}
 }
