@@ -66,7 +66,6 @@ namespace DotWeb.Client.Dom.Html
 		/// <summary>
 		/// Opens a document stream in preparation for document.write() to write to it. 
 		/// </summary>
-		/// <param name="mimeType"></param>
 		void open();
 
 		/// <summary>
@@ -102,7 +101,7 @@ namespace DotWeb.Client.Dom.Html
 		/// 
 		/// <script type="text/javascript">
 		///		var georges=document.getElementsByName("george")
-		///		for (i=0; i< georges.length; i++)
+		///		for (i=0; i &lt; georges.length; i++)
 		///		// do something with each DIV tag with name="george". Firefox only.
 		///	</script>
 		/// </code>

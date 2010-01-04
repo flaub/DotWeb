@@ -108,7 +108,6 @@ namespace DotWeb.Decompiler.Core
 		/// </summary>
 		/// <param name="headers"></param>
 		/// <param name="node"></param>
-		/// <param name="interval"></param>
 		public void AppendNode(List<Node> headers, Node node) {
 			/* Append node if it is not already in the interval list */
 			Nodes.AddUnique(node);
