@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
+    <NoWarn>824,626</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,7 @@
     </Compile>
     <Compile Include="ArrayTest.cs" />
     <Compile Include="CastTest.cs" />
+    <Compile Include="NativeCallbackTest.cs" />
     <Compile Include="NestedTest.cs" />
     <Compile Include="TypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

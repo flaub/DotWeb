@@ -27,6 +27,11 @@ namespace DotWeb.Tools.Weaver
 		IType ResolveTypeReference(TypeReference typeRef);
 	}
 
+	public interface IAssembly : ITypeResolver
+	{
+		Assembly Assembly { get; }
+	}
+
 	public interface IResolver : ITypeResolver
 	{
 		MethodBase ResolveMethodReference(MethodReference methodRef);

@@ -45,7 +45,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
@@ -53,6 +55,7 @@
     </Compile>
     <Compile Include="ClientCode.cs" />
     <Compile Include="ClientCodeRenderer.cs" />
+    <Compile Include="HostingModule.cs" />
     <Compile Include="HttpContextImpl.cs" />
     <Compile Include="IHttpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

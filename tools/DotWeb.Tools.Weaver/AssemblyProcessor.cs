@@ -30,7 +30,7 @@ using DotWeb.Hosting;
 
 namespace DotWeb.Tools.Weaver
 {
-	public class AssemblyProcessor : ITypeResolver
+	public class AssemblyProcessor : IAssembly
 	{
 		private IResolver resolver;
 		private AssemblyDefinition asmDef;
@@ -41,7 +41,9 @@ namespace DotWeb.Tools.Weaver
 
 		private Dictionary<string, IType> typesByDef = new Dictionary<string, IType>();
 
-		private const string HostedPrefix = "Hosted-";
+		public const string HostedPrefix = "Hosted-";
+
+		public Assembly Assembly { get { return this.asmBuilder; } }
 
 		public AssemblyProcessor(IResolver resolver, AssemblyDefinition asmDef, string outputDir) {
 			this.resolver = resolver;

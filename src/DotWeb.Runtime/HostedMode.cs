@@ -73,23 +73,21 @@ namespace DotWeb.Runtime
 
 	public class HostedMode
 	{
-		string binPath;
 		TcpListener listener;
 
 		static HostedMode() {
 			DotWeb.Hosting.HostedMode.Host = new CallContextStorage();
 		}
 
-		public HostedMode(string binPath) {
-			this.binPath = binPath;
+		public HostedMode() {
 			this.listener = new TcpListener(IPAddress.Loopback, 0);
 		}
 
 		public IPEndPoint EndPoint { get { return (IPEndPoint)this.listener.LocalEndpoint; } }
 
-		public string PrepareType(AssemblyQualifiedTypeName aqtn) {
-			var weaver = new HostingWeaver(this.binPath, this.binPath, new string[] { this.binPath });
-			string path = Path.Combine(this.binPath, aqtn.AssemblyName.Name);
+		public string PrepareType(string binPath, AssemblyQualifiedTypeName aqtn) {
+			var weaver = new HostingWeaver(binPath, binPath, new string[] { binPath });
+			string path = Path.Combine(binPath, aqtn.AssemblyName.Name);
 			if (!path.EndsWith(".dll")) {
 				path += ".dll";
 			}
@@ -102,15 +100,28 @@ namespace DotWeb.Runtime
 		
 		public void Start() {
 			this.listener.Start();
+			this.RunLoop();
+		}
+
+		public void Stop() {
+			this.listener.Stop();
+		}
+
+		public void StartAsync() {
+			this.listener.Start();
 			this.listener.BeginAcceptTcpClient(OnAccept, listener);
 		}
 
 		private void OnAccept(IAsyncResult ar) {
 			var listener = (TcpListener)ar.AsyncState;
-			TcpClient tcp = listener.EndAcceptTcpClient(ar);
-			NetworkStream stream = tcp.GetStream();
+			var client = listener.EndAcceptTcpClient(ar);
+			listener.BeginAcceptTcpClient(OnAccept, listener);
+			RunOnce(client);
+		}
+
+		private void RunOnce(TcpClient client) {
+			var stream = client.GetStream();
 			try {
-				listener.BeginAcceptTcpClient(OnAccept, listener);
 				var session = new RemoteSession(stream);
 				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
@@ -122,7 +133,19 @@ namespace DotWeb.Runtime
 				stream.Close();
 			}
 
-			tcp.Close();
+			client.Close();
+		}
+
+		private void RunLoop() {
+			try {
+				while (true) {
+					var client = this.listener.AcceptTcpClient();
+					RunOnce(client);
+				}
+			}
+			catch (Exception ex) {
+				Console.WriteLine("RunLoop exception:", ex.Message);
+			}
 		}
 	}
 }

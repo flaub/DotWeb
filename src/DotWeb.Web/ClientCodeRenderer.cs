@@ -125,17 +125,18 @@ namespace DotWeb.Web
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
+//			var module = (HostingModule)context.GetModule("DotWebHostingModule");
 			var hostedMode = context.GetApplicationState(DotWebHostedMode) as HostedMode;
 			if (hostedMode == null) {
-				var binPath = context.MapPath("/bin");
-				hostedMode = new HostedMode(binPath);
+				hostedMode = new HostedMode();
+				hostedMode.StartAsync();
 				context.SetApplicationState(DotWebHostedMode, hostedMode);
-				hostedMode.Start();
 			}
 
 			var ip = hostedMode.EndPoint;
 			var aqtn = new AssemblyQualifiedTypeName(Source);
-			var src = hostedMode.PrepareType(aqtn);
+			var binPath = context.MapPath("/bin");
+			var src = hostedMode.PrepareType(binPath, aqtn);
 
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");

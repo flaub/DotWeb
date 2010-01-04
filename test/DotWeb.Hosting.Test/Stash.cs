@@ -2,9 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Test
 {
+	class Stash
+	{
+		public Stash() {
+			HostedMode.Host.Invoke(this, MethodBase.GetCurrentMethod(), new object[0]);
+		}
+
+		[JsCode("console.log(obj);")]
+		public static void Write(object obj) {
+			MethodBase currentMethod = MethodBase.GetCurrentMethod();
+			object[] args = new object[] { obj };
+			HostedMode.Host.Invoke(null, currentMethod, args);
+		}
+
+	}
 	//class HostingBootstrapper
 	//{
 	//    private AppDomain hostedDomain;

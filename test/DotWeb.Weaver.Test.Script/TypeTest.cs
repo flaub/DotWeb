@@ -17,6 +17,7 @@
 // 
 using System;
 using DotWeb.Client;
+using System.DotWeb;
 
 namespace DotWeb.Weaver.Test.Script
 {
@@ -34,5 +35,15 @@ namespace DotWeb.Weaver.Test.Script
 			if (Event != null)
 				Event();
 		}
+	}
+
+	class NativeType : JsObject
+	{
+		public extern NativeType();
+	}
+
+	class DerivedNativeType : NativeType
+	{
+		public extern DerivedNativeType();
 	}
 }

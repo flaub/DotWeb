@@ -209,5 +209,22 @@ namespace DotWeb.Hosting.Test
 			Assert.IsNotNull(baseNested, "NestedType+Base is null");
 			Assert.IsNotNull(derivedNested, "NestedType+Derived is null");
 		}
+
+		[Test]
+		public void NativeCallbackTest() {
+			bool invokeCalled = false;
+			HostedMode.Host = new HostHarness {
+				Invoker = delegate(object scope, object method, object[] args) {
+					invokeCalled = true;
+					return null;
+				}
+			};
+
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.NativeCallback");
+			Assert.IsNotNull(test);
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+			Assert.IsTrue(invokeCalled);
+		}
 	}
 }

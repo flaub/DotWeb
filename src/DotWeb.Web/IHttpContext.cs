@@ -28,5 +28,7 @@ namespace DotWeb.Web
 
 		object GetApplicationState(string key);
 		void SetApplicationState(string key, object value);
+
+		IHttpModule GetModule(string key);
 	}
 }

@@ -50,5 +50,9 @@ namespace System.Web.Mvc
 		public void SetApplicationState(string key, object value) {
 			context.Application.Set(key, value);
 		}
+
+		public IHttpModule GetModule(string key) {
+			return this.context.ApplicationInstance.Modules.Get(key);
+		}
 	}
 }

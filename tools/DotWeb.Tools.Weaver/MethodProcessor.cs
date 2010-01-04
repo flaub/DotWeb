@@ -185,12 +185,14 @@ namespace DotWeb.Tools.Weaver
 			public static readonly MethodInfo IDotWebHost_Invoke;
 			public static readonly MethodInfo IDotWebHost_Cast;
 			public static readonly MethodInfo MethodBase_GetCurrentMethod;
+			public static readonly ConstructorInfo Object_ctor;
 
 			static PredefinedTypes() {
 				HostedMode_get_Host = HostedMode.GetMethod("get_Host");
 				IDotWebHost_Invoke = IDotWebHost.GetMethod("Invoke");
 				IDotWebHost_Cast = IDotWebHost.GetMethod("Cast");
 				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
+				Object_ctor = Object.GetConstructor(Type.EmptyTypes);
 			}
 		}
 
@@ -210,6 +212,15 @@ namespace DotWeb.Tools.Weaver
 
 			var args = generator.DeclareLocal(PredefinedTypes.Arguments);
 			args.SetLocalSymInfo("__args");
+
+			// constructors need to call their base class so that 'this' is initialized!
+			// however, we don't want to call the real ctor, because it might not be setup at this time
+			// also, the hosting bridge doesn't need to be called twice when calling the ctor on a dervied type.
+			// thus, we'll just call the System.Object..ctor() instead, to appease .NET's reflection
+			if (this.methodDef.IsConstructor) {
+				generator.Emit(SRE.OpCodes.Ldarg_0);
+				generator.Emit(SRE.OpCodes.Call, PredefinedTypes.Object_ctor);
+			}
 
 			// __method = MethodBase.GetCurrentMethod();
 			generator.EmitCall(SRE.OpCodes.Call, PredefinedTypes.MethodBase_GetCurrentMethod, null);
@@ -255,12 +266,12 @@ namespace DotWeb.Tools.Weaver
 				// return __ret;
 				generator.Emit(SRE.OpCodes.Stloc, ret.LocalIndex);
 				generator.Emit(SRE.OpCodes.Ldloc, ret.LocalIndex);
-
-				generator.Emit(SRE.OpCodes.Ret);
 			}
 			else {
 				generator.Emit(SRE.OpCodes.Pop);
 			}
+
+			generator.Emit(SRE.OpCodes.Ret);
 		}
 
 		public void Emit(ILGenerator generator, Instruction cil) {
