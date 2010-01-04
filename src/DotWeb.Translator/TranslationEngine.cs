@@ -67,7 +67,6 @@ namespace DotWeb.Translator
 		public string[] TranslateType(AssemblyQualifiedTypeName aqtn) {
 			var asm = resolver.Resolve(aqtn.AssemblyName.FullName);
 			asm.Resolver = resolver;
-			asm.MainModule.LoadSymbols();
 			var typeDef = asm.MainModule.Types[aqtn.TypeName];
 			return TranslateType(typeDef);
 		}
