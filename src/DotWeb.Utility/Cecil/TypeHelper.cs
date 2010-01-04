@@ -39,7 +39,7 @@ namespace DotWeb.Utility.Cecil
 		static TypeHelper() {
 			var resolver = new DefaultAssemblyResolver();
 			asmSystem = resolver.Resolve(Names.DotWebSystem);
-			asmSystem.MainModule.LoadSymbols();
+			//asmSystem.MainModule.LoadSymbols();
 		}
 
 		public static TypeDefinition GetTypeDefinition(Type type) {
