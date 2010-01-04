@@ -42,6 +42,61 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Dom\CharacterData.cs" />
+    <Compile Include="Dom\Events\MutationEvent.cs" />
+    <Compile Include="Dom\Events\EventListener.cs" />
+    <Compile Include="Dom\Events\EventTarget.cs" />
+    <Compile Include="Dom\Helper\DocumentHelper.cs" />
+    <Compile Include="Dom\Helper\ElementFactory.cs" />
+    <Compile Include="Dom\Html\HtmlTableColElement.cs" />
+    <Compile Include="Dom\Html\HtmlIsIndexElement.cs" />
+    <Compile Include="Dom\Html\HtmlOptionsCollection.cs" />
+    <Compile Include="Dom\Html\HtmlIFrameElement.cs" />
+    <Compile Include="Dom\Html\HtmlFrameElement.cs" />
+    <Compile Include="Dom\Html\HtmlFrameSetElement.cs" />
+    <Compile Include="Dom\Html\HtmlTableCellElement.cs" />
+    <Compile Include="Dom\Html\HtmlTableRowElement.cs" />
+    <Compile Include="Dom\Html\HtmlTableSectionElement.cs" />
+    <Compile Include="Dom\Html\HtmlTableCaptionElement.cs" />
+    <Compile Include="Dom\Html\HtmlTableElement.cs" />
+    <Compile Include="Dom\Html\HtmlScriptElement.cs" />
+    <Compile Include="Dom\Html\HtmlAreaElement.cs" />
+    <Compile Include="Dom\Html\HtmlMapElement.cs" />
+    <Compile Include="Dom\Html\HtmlAppletElement.cs" />
+    <Compile Include="Dom\Html\HtmlParamElement.cs" />
+    <Compile Include="Dom\Html\HtmlObjectElement.cs" />
+    <Compile Include="Dom\Html\HtmlImageElement.cs" />
+    <Compile Include="Dom\Html\HtmlModElement.cs" />
+    <Compile Include="Dom\Html\HtmlHrElement.cs" />
+    <Compile Include="Dom\Html\HtmlFontElement.cs" />
+    <Compile Include="Dom\Html\HtmlBaseFontElement.cs" />
+    <Compile Include="Dom\Html\HtmlQuoteElement.cs" />
+    <Compile Include="Dom\Html\HtmlHeadingElement.cs" />
+    <Compile Include="Dom\Html\HtmlLiElement.cs" />
+    <Compile Include="Dom\Html\HtmlMenuElement.cs" />
+    <Compile Include="Dom\Html\HtmlDirectoryElement.cs" />
+    <Compile Include="Dom\Html\HtmlDListElement.cs" />
+    <Compile Include="Dom\Html\HtmlOListElement.cs" />
+    <Compile Include="Dom\Html\HtmlUListElement.cs" />
+    <Compile Include="Dom\Html\HtmlLegendElement.cs" />
+    <Compile Include="Dom\Html\HtmlFieldSetElement.cs" />
+    <Compile Include="Dom\Html\HtmlLabelElement.cs" />
+    <Compile Include="Dom\Html\HtmlButtonElement.cs" />
+    <Compile Include="Dom\Html\HtmlTextAreaElement.cs" />
+    <Compile Include="Dom\Html\HtmlInputElement.cs" />
+    <Compile Include="Dom\Html\HtmlOptGroupElement.cs" />
+    <Compile Include="Dom\Html\HtmlOptionElement.cs" />
+    <Compile Include="Dom\Html\HtmlSelectElement.cs" />
+    <Compile Include="Dom\Html\HtmlFormElement.cs" />
+    <Compile Include="Dom\Html\HtmlStyleElement.cs" />
+    <Compile Include="Dom\Html\HtmlBaseElement.cs" />
+    <Compile Include="Dom\Html\HtmlMetaElement.cs" />
+    <Compile Include="Dom\Html\HtmlTitleElement.cs" />
+    <Compile Include="Dom\Html\HtmlLinkElement.cs" />
+    <Compile Include="Dom\Html\HtmlHtmlElement.cs" />
+    <Compile Include="Dom\Html\HtmlHeadElement.cs" />
+    <Compile Include="Dom\Html\HtmlParagraphElement.cs" />
+    <Compile Include="Dom\Html\HtmlPreElement.cs" />
+    <Compile Include="Dom\Html\HtmlBrElement.cs" />
     <Compile Include="Dom\Text.cs" />
     <Compile Include="Dom\Css\CssProperties.cs" />
     <Compile Include="Dom\Html\HtmlAnchorElement.cs" />
@@ -78,6 +133,11 @@
       <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
       <Name>DotWeb.System</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dom\Styesheets\" />

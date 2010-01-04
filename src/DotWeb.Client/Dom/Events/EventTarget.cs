@@ -1,4 +1,4 @@
-﻿// Copyright 2009, Frank Laub
+﻿// Copyright 2010, Frank Laub
 //
 // This file is part of DotWeb.
 //
@@ -17,36 +17,10 @@
 
 namespace DotWeb.Client.Dom.Events
 {
-	public interface MouseEvent : UiEvent
+	public interface EventTarget
 	{
-		int screenX { get; }
-		int screenY { get; }
-		int clientX { get; }
-		int clientY { get; }
-		bool ctrlKey { get; }
-		bool shiftKey { get; }
-		bool altKey { get; }
-		bool metaKey { get; }
-		ushort button { get; }
-		EventTarget relatedTarget { get; }
-
-		void initMouseEvent(
-			string type,
-			bool canBubble,
-			bool cancelable,
-			object /*views::AbstractView*/ view,
-			int detail,
-			int screenX,
-			int screenY,
-			int clientX,
-			int clientY,
-			bool ctrlKey,
-			bool altKey,
-			bool shiftKey,
-			bool metaKey,
-			ushort button,
-			EventTarget relatedTarget);
+		void addEventListener(string type, EventListener listener, bool useCapture);
+		void removeEventListener(string type, EventListener listener, bool useCapture);
+		bool dispatchEvent(Event evt);
 	}
-
-	public delegate void MouseEventHandler(MouseEvent evt);
 }

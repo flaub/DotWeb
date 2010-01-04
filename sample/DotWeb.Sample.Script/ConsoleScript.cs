@@ -20,6 +20,7 @@ using DotWeb.Client.Dom;
 using DotWeb.Client;
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;
+using DotWeb.Client.Dom.Helper;
 
 
 namespace DotWeb.Sample.Script
@@ -54,8 +55,7 @@ namespace DotWeb.Sample.Script
 		private Element inner;
 
 		public ConsoleScript() {
-			var element = Document.createElement("div");
-			this.div = (HtmlDivElement)element;
+			this.div = ElementFactory.CreateDiv();
 			this.div.id = ConsoleDivId;
 
 			this.div.style.top = "0";
@@ -65,15 +65,15 @@ namespace DotWeb.Sample.Script
 			this.div.style.border = "1px solid #999";
 			this.div.style.fontFamily = "courier, monospace";
 			this.div.style.background = "#eee";
-			this.div.style.fontSize = "10px";
+			this.div.style.fontSize = "12px";
 			this.div.style.padding = "10px";
 
 			AddLink(this.OnHide, "close");
 			AddLink(this.OnClear, "clear");
 			AddLink(this.OnLog, "test");
 
-			this.inner = Document.createElement("div");
-			this.div.appendChild(inner);
+			this.inner = ElementFactory.CreateDiv();
+			this.div.appendChild(this.inner);
 
 			var content = Document.getElementById("content");
 			content.appendChild(this.div);
@@ -83,12 +83,10 @@ namespace DotWeb.Sample.Script
 		}
 
 		private void AddLink(MouseEventHandler handler, string text) {
-			var element = Document.createElement("a");
-			var anchor = (HtmlAnchorElement)element;
+			var anchor = ElementFactory.CreateAnchor();
 			anchor.href = "#";
 			anchor.onclick = handler;
-			var textNode = Document.createTextNode(text);
-			anchor.appendChild(textNode);
+			anchor.appendChild(Text(text));
 
 			anchor.style.cssFloat = "right";
 			anchor.style.paddingLeft = "1em";
@@ -110,7 +108,7 @@ namespace DotWeb.Sample.Script
 		private void OnClear(MouseEvent evt) {
 			Log("OnClear");
 			var newInner = this.inner;
-			this.inner = Document.createElement("div");
+			this.inner = ElementFactory.CreateDiv();
 			this.div.replaceChild(this.inner, newInner);
 		}
 
@@ -119,7 +117,7 @@ namespace DotWeb.Sample.Script
 		}
 
 		public void Log(string value) {
-			var br = Document.createElement("br");
+			var br = ElementFactory.CreateBreak();
 			this.inner.appendChild(br);
 			this.inner.appendChild(Text(value));
 		}

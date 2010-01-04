@@ -17,36 +17,31 @@
 
 namespace DotWeb.Client.Dom.Events
 {
-	public interface MouseEvent : UiEvent
+	public enum AttrChangeType
 	{
-		int screenX { get; }
-		int screenY { get; }
-		int clientX { get; }
-		int clientY { get; }
-		bool ctrlKey { get; }
-		bool shiftKey { get; }
-		bool altKey { get; }
-		bool metaKey { get; }
-		ushort button { get; }
-		EventTarget relatedTarget { get; }
+		MODIFICATION = 1,
+		ADDITION = 2,
+		REMOVAL = 3,
+	}
 
-		void initMouseEvent(
+	public interface MutationEvent : Event
+	{
+		Node relatedNode { get; }
+		string prevValue { get; }
+		string newValue { get; }
+		string attrName { get; }
+		AttrChangeType attrChange { get; }
+
+		void initMutationEvent(
 			string type,
 			bool canBubble,
 			bool cancelable,
-			object /*views::AbstractView*/ view,
-			int detail,
-			int screenX,
-			int screenY,
-			int clientX,
-			int clientY,
-			bool ctrlKey,
-			bool altKey,
-			bool shiftKey,
-			bool metaKey,
-			ushort button,
-			EventTarget relatedTarget);
+			Node relatedNode,
+			string prevValue,
+			string newValue,
+			string attrName,
+			AttrChangeType attrChange);
 	}
 
-	public delegate void MouseEventHandler(MouseEvent evt);
+	public delegate void MutationEventHandler(MutationEvent evt);
 }
