@@ -23,6 +23,7 @@ using DotWeb.Decompiler;
 using NUnit.Framework;
 using Mono.Cecil;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace DotWeb.Translator.Test
 {
@@ -72,7 +73,8 @@ namespace DotWeb.Translator.Test
 			TextWriter writer = new StringWriter();
 			var generator = new JsCodeGenerator(writer, false);
 			var context = new TranslationContext(generator);
-			context.GenerateMethod(method, followDependencies);
+			var asmDependencies = new List<AssemblyDefinition>();
+			context.GenerateMethod(method, followDependencies, asmDependencies);
 			return writer.ToString();
 		}
 
