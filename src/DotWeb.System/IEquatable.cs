@@ -22,7 +22,8 @@ namespace DotWeb.System
 namespace System
 #endif
 {
-	public abstract class ValueType
+	public interface IEquatable<T>
 	{
+		bool Equals(T other);
 	}
 }

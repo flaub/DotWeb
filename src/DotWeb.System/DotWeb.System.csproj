@@ -46,6 +46,8 @@
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
     <Compile Include="Console.cs" />
+    <Compile Include="IEquatable.cs" />
+    <Compile Include="IComparable.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
     <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />

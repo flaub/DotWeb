@@ -28,11 +28,11 @@ using System.Web.UI;
 using DotWeb.Translator;
 using DotWeb.Web.Properties;
 using System.Runtime.Remoting.Messaging;
-using DotWeb.Runtime;
 using System.Reflection;
 using Mono.Cecil;
 using DotWeb.Utility;
 using System.Collections.Generic;
+using DotWeb.Hosting.Bridge;
 
 namespace DotWeb.Web
 {
@@ -124,17 +124,17 @@ namespace DotWeb.Web
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
 //			var module = (HostingModule)context.GetModule("DotWebHostingModule");
-			var hostedMode = context.GetApplicationState(DotWebHostedMode) as HostedMode;
-			if (hostedMode == null) {
-				hostedMode = new HostedMode();
-				hostedMode.StartAsync();
-				context.SetApplicationState(DotWebHostedMode, hostedMode);
+			var hostingServer = context.GetApplicationState(DotWebHostedMode) as HostingServer;
+			if (hostingServer == null) {
+				hostingServer = new HostingServer();
+				hostingServer.StartAsync();
+				context.SetApplicationState(DotWebHostedMode, hostingServer);
 			}
 
-			var ip = hostedMode.EndPoint;
+			var ip = hostingServer.EndPoint;
 			var aqtn = new AssemblyQualifiedTypeName(Source);
 			var binPath = context.MapPath("/bin");
-			var src = hostedMode.PrepareType(binPath, aqtn);
+			var src = hostingServer.PrepareType(binPath, aqtn);
 
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");

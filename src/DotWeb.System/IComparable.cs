@@ -22,7 +22,13 @@ namespace DotWeb.System
 namespace System
 #endif
 {
-	public abstract class ValueType
+	public interface IComparable
 	{
+		int CompareTo(Object obj);
+	}
+
+	public interface IComparable<T>
+	{
+		int CompareTo(T other);
 	}
 }

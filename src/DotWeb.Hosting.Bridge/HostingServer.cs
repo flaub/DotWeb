@@ -14,72 +14,26 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
-// 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Net.Sockets;
 using System.Net;
-using DotWeb.Hosting;
-using DotWeb.Hosting.Bridge;
-using System.Diagnostics;
-using System.Runtime.Remoting.Messaging;
-using System.Reflection;
 using System.IO;
 using DotWeb.Utility;
 using DotWeb.Tools.Weaver;
+using System;
+using System.Diagnostics;
 
-namespace DotWeb.Runtime
+namespace DotWeb.Hosting.Bridge
 {
-	class CallContextStorage : IDotWebHost
-	{
-		private const string DataSlotName = "DotWebHost";
-
-		public IDotWebHost Host {
-			get {
-				var host = CallContext.GetData(DataSlotName) as IDotWebHost;
-				if (host == null) {
-					Debugger.Log(0, "DotWeb", "Lost my mind");
-					Debugger.Break();
-				}
-				return host;
-			}
-
-			set {
-				CallContext.SetData(DataSlotName, value);
-			}
-		}
-
-		#region IDotWebHost Members
-
-		public object Invoke(object scope, object method, object[] args) {
-			return this.Host.Invoke(scope, method, args);
-		}
-
-		public T Cast<T>(object obj) {
-			return this.Host.Cast<T>(obj);
-		}
-
-		#endregion
-	}
-
-	public static class HostedTypeHelper
-	{
-		public static Type GetType(string name) {
-			return null;
-		}
-	}
-
-	public class HostedMode
+	public class HostingServer
 	{
 		TcpListener listener;
 
-		static HostedMode() {
-			DotWeb.Hosting.HostedMode.Host = new CallContextStorage();
+		static HostingServer() {
+			HostedMode.Host = new CallContextStorage();
 		}
 
-		public HostedMode() {
+		public HostingServer() {
 			this.listener = new TcpListener(IPAddress.Loopback, 0);
 		}
 
@@ -97,7 +51,7 @@ namespace DotWeb.Runtime
 			aqtn.AssemblyName.Name = asmName.Name;
 			return aqtn.ToString();
 		}
-		
+
 		public void Start() {
 			this.listener.Start();
 			this.RunLoop();
@@ -125,7 +79,7 @@ namespace DotWeb.Runtime
 				var session = new RemoteSession(stream);
 				var factory = new DefaultFactory();
 				var bridge = new JsBridge(session, factory);
-				DotWeb.Hosting.HostedMode.Host = bridge;
+				HostedMode.Host = bridge;
 				bridge.DispatchForever();
 			}
 			catch (Exception ex) {

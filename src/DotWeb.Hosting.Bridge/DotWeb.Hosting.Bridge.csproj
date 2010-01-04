@@ -46,12 +46,16 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CallContextStorage.cs" />
     <Compile Include="DefaultFactory.cs" />
+    <Compile Include="HostingServer.cs" />
     <Compile Include="JsDynamicWrapper.cs" />
     <Compile Include="IJsWrapper.cs" />
     <Compile Include="IObjectFactory.cs" />
@@ -65,6 +69,10 @@
     <Compile Include="TypeInspector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj">
+      <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
+      <Name>DotWeb.Tools.Weaver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>

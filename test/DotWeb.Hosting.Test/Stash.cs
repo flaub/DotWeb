@@ -20,6 +20,13 @@ namespace DotWeb.Hosting.Test
 			HostedMode.Host.Invoke(null, currentMethod, args);
 		}
 
+		public void Test() {
+			var str = true.ToString();
+			//var x = true;
+			//var ret = x.CompareTo(true);
+			//Console.WriteLine(ret);
+		}
+
 	}
 	//class HostingBootstrapper
 	//{

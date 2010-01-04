@@ -27,16 +27,7 @@ namespace System
 	[UseSystem]
 	public class Object
 	{
-#if HOSTED_MODE
-		public override bool Equals(object obj) {
-			return base.Equals(obj);
-		}
-
-		public override int GetHashCode() {
-			return base.GetHashCode();
-		}
-#else
-
+#if !HOSTED_MODE
 		[JsCode("return (this == obj);")]
 		public extern virtual bool Equals(object obj);
 

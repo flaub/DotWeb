@@ -68,6 +68,7 @@
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Func.cs" />
+    <Compile Include="IComparable.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="Linq\Enumerable.cs" />
     <Compile Include="Math.cs" />
