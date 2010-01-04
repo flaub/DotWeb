@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VSPerformanceSession Version="1.00">
+  <Options>
+    <Solution>F:\src\git\DotWeb\DotWeb.sln</Solution>
+    <CollectionMethod>Instrumentation</CollectionMethod>
+    <AllocationMethod>None</AllocationMethod>
+    <LaunchRuntimeControl>true</LaunchRuntimeControl>
+    <AddReport>true</AddReport>
+    <UniqueReport>Timestamp</UniqueReport>
+    <SamplingMethod>Cycles</SamplingMethod>
+    <CycleCount>10000000</CycleCount>
+    <PageFaultCount>10</PageFaultCount>
+    <SysCallCount>10</SysCallCount>
+    <SamplingCounter Name="" ReloadValue="00000000000f4240" DisplayName="" />
+    <RelocateBinaries>false</RelocateBinaries>
+    <HardwareCounters EnableHWCounters="false" />
+    <EtwSettings />
+    <PdhSettings>
+      <PdhCountersEnabled>false</PdhCountersEnabled>
+      <PdhCountersRate>500</PdhCountersRate>
+      <PdhCounters>
+        <PdhCounter>\Memory\Pages/sec</PdhCounter>
+        <PdhCounter>\PhysicalDisk(_Total)\Avg. Disk Queue Length</PdhCounter>
+        <PdhCounter>\Processor(_Total)\% Processor Time</PdhCounter>
+      </PdhCounters>
+    </PdhSettings>
+  </Options>
+  <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+  <PreinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PreinstrumentEvent>
+  <PostinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PostinstrumentEvent>
+  <Binaries>
+    <ProjBinary>
+      <Path>F:\src\git\DotWeb\tools\DotWebWeaver\obj\Release\DotWebWeaver.exe</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <LaunchProject>true</LaunchProject>
+      <LaunchMethod>Executable</LaunchMethod>
+      <ExecutablePath>F:\src\git\DotWeb\tools\DotWebWeaver\bin\Release\DotWebWeaver.exe</ExecutablePath>
+      <StartupDirectory>F:\src\git\DotWeb\tools\DotWebWeaver\bin\Release\</StartupDirectory>
+      <Arguments />
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB}|tools\DotWebWeaver\DotWebWeaver.csproj</ProjRef>
+      <ProjPath>F:\src\git\DotWeb\tools\DotWebWeaver\DotWebWeaver.csproj</ProjPath>
+      <ProjName>DotWebWeaver</ProjName>
+    </ProjBinary>
+    <ProjBinary>
+      <Path>F:\src\git\DotWeb\tools\DotWeb.Tools.Weaver\obj\Release\DotWeb.Tools.Weaver.dll</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <LaunchProject>true</LaunchProject>
+      <LaunchMethod>Executable</LaunchMethod>
+      <StartupDirectory>F:\src\git\DotWeb\tools\DotWeb.Tools.Weaver\bin\Release\</StartupDirectory>
+      <Arguments />
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}|tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj</ProjRef>
+      <ProjPath>F:\src\git\DotWeb\tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj</ProjPath>
+      <ProjName>DotWeb.Tools.Weaver</ProjName>
+    </ProjBinary>
+  </Binaries>
+  <Reports>
+    <Report>
+      <Path>F:\src\git\DotWeb\DotWebWeaver100103.vsp</Path>
+    </Report>
+    <Report>
+      <Path>F:\src\git\DotWeb\DotWebWeaver100103(1).vsp</Path>
+    </Report>
+    <Report>
+      <Path>F:\src\git\DotWeb\DotWebWeaver100103(2).vsp</Path>
+    </Report>
+    <Report>
+      <Path>F:\src\git\DotWeb\DotWebWeaver100103(3).vsp</Path>
+    </Report>
+  </Reports>
+  <Launches>
+    <ProjBinary>
+      <Path>:PB:{63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB}|tools\DotWebWeaver\DotWebWeaver.csproj</Path>
+    </ProjBinary>
+  </Launches>
+  <RuntimeMarks>
+    <MarkName>Mark One</MarkName>
+    <MarkName>Mark Two</MarkName>
+    <MarkName>Mark Three</MarkName>
+    <MarkName>Mark Four</MarkName>
+    <MarkName>Mark Five</MarkName>
+    <MarkName>Mark Six</MarkName>
+    <MarkName>Mark Seven</MarkName>
+    <MarkName>Mark Eight</MarkName>
+    <MarkName>Mark Nine</MarkName>
+    <MarkName>Mark Ten</MarkName>
+  </RuntimeMarks>
+</VSPerformanceSession>
