@@ -1,5 +1,13 @@
 DotWeb - CHANGELOG
 
+Version 0.2 [Jan 04, 2010]
+==========================
+* Introducing DotWeb.System in order to emulate mscorlib in the browser.
+* In order to support client-side code that references DotWeb.System inside
+  of development-mode, a code weaver is added to fixup references from
+  DotWeb.System back to the real mscorlib. This allows System.Activator and
+  System.Reflection to work correctly.
+
 Version 0.1 [Sep 02, 2009]
 ==========================
 
