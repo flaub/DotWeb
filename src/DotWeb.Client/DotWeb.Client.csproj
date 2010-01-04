@@ -135,11 +135,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Dom\Styesheets\" />
     <Folder Include="Dom\Traversal\" />
     <Folder Include="Dom\Views\" />
