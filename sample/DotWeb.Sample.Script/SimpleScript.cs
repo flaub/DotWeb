@@ -44,8 +44,6 @@ namespace DotWeb.Sample.Script
 			Tuple t2 = Tuple.Factory();
 			Console.WriteLine(t2.id);
 
-			var str = true.ToString();
-
 			Window.onblur = this.OnEvent;
 		}
 
