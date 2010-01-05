@@ -279,6 +279,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeInvokeExpression exp) {
 			var method = exp.Method.Reference.Resolve();
+
+			// deal with [JsInline]
+			string jsInline = AttributeHelper.GetJsInline(method);
+			if (jsInline != null) {
+				var args = exp.Parameters.Select(x => Print(x)).ToArray();
+				return string.Format(jsInline, args);
+			}
+
 			if (method.IsConstructor) {
 				if (!CurrentMethod.DeclaringType.HasBase()) {
 					return "";

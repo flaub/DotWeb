@@ -27,23 +27,30 @@ namespace DotWeb.Translator
 	public static class AttributeHelper
 	{
 		public static string GetJsCode(MethodDefinition method) {
-			foreach (CustomAttribute item in method.CustomAttributes) {
-				if (item.Constructor.DeclaringType.FullName == JsCode) {
-					var args = item.ConstructorParameters;
-					return (string)args[0];
-				}
+			var customAttr = FindByName(method, JsCode);
+			if (customAttr != null) {
+				var args = customAttr.ConstructorParameters;
+				return (string)args[0];
+			}
+			return null;
+		}
+
+		public static string GetJsInline(MethodDefinition method) {
+			var customAttr = FindByName(method, JsInline);
+			if (customAttr != null) {
+				var args = customAttr.ConstructorParameters;
+				return (string)args[0];
 			}
 			return null;
 		}
 
 		public static string GetJsNamespace(TypeReference typeRef) {
-			foreach (CustomAttribute item in typeRef.CustomAttributes) {
-				if (item.Constructor.DeclaringType.FullName == JsNamespace) {
-					var args = item.ConstructorParameters;
-					if (args.Count == 1)
-						return (string)args[0];
-					return "";
-				}
+			var customAttr = FindByName(typeRef, JsNamespace);
+			if (customAttr != null) {
+				var args = customAttr.ConstructorParameters;
+				if (args.Count == 1)
+					return (string)args[0];
+				return "";
 			}
 			return null;
 		}
@@ -58,8 +65,19 @@ namespace DotWeb.Translator
 				TypeHelper.IsDefined(pi.DeclaringType.Resolve(), JsInstrinsic);
 		}
 
+		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {
+			if (provider.HasCustomAttributes) {
+				foreach (CustomAttribute item in provider.CustomAttributes) {
+					if (item.Constructor.DeclaringType.FullName == typeName)
+						return item;
+				}
+			}
+			return null;
+		}
+
 		private const string JsNamespace = "System.DotWeb.JsNamespaceAttribute";
 		private const string JsCode = "System.DotWeb.JsCodeAttribute";
+		private const string JsInline = "System.DotWeb.JsInlineAttribute";
 		private const string JsInstrinsic = "System.DotWeb.JsIntrinsicAttribute";
 		private const string JsAnonymous = "System.DotWeb.JsAnonymousAttribute";
 	}

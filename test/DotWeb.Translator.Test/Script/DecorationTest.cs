@@ -86,7 +86,7 @@ namespace H8
 		public void TestJsCode(string arg) {
 		}
 
-		[JsInline("jQuery(selector)")]
+		[JsInline("jQuery({0})")]
 		public static extern object JQuery(string selector);
 
 		[JsCode("alert(jquery);")]
