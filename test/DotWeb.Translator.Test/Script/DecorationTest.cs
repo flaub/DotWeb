@@ -86,13 +86,13 @@ namespace H8
 		public void TestJsCode(string arg) {
 		}
 
-		[JsInline("jQuery({0})")]
+		[JsMacro("jQuery({0})")]
 		public static extern object JQuery(string selector);
 
 		[JsCode("alert(jquery);")]
 		public static extern void TakeJQuery(object jquery);
 
-		public void TestJsInline() {
+		public void TestJsMacro() {
 			JQuery("*");
 			TakeJQuery(JQuery("#id"));
 			Console.WriteLine(Global.Document.getElementById("id"));

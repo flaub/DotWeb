@@ -24,11 +24,11 @@ namespace System.DotWeb
 #endif
 {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-	public class JsInlineAttribute : SysAttribute
+	public class JsMacroAttribute : SysAttribute
 	{
 		public string Code { get; private set; }
 
-		public JsInlineAttribute(string code) {
+		public JsMacroAttribute(string code) {
 			this.Code = code;
 		}
 	}

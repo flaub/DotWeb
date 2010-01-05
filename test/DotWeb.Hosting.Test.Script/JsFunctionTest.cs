@@ -32,11 +32,11 @@ namespace DotWeb.Hosting.Test.Script
 		[JsCode(JsCode)]
 		public void TestJsCode() { }
 
-		[JsInline("alert({0})")]
-		public void TestJsInline(string arg) { }
+		[JsMacro("alert({0})")]
+		public void TestJsMacro(string arg) { }
 
 		public extern Window Window {
-			[JsInline("$wnd")]
+			[JsMacro("$wnd")]
 			get;
 		}
 

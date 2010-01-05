@@ -81,27 +81,20 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;DotWeb.Client&apos;);
-        ///
-        ///DotWeb.Client.JsScript = function() {
-        ///};
-        ///
-        ///DotWeb.Client.JsScript.prototype.get_Window = function() {
-        ///	return $wnd;
-        ///};
-        ///
-        ///$Namespace(&apos;H8&apos;);
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.DecorationTests = function() {
-        ///	this.$super.constructor();
         ///};
-        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
         ///
         ///H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Dom.Events.MouseEvent*/) {
         ///};
         ///
         ///H8.DecorationTests.prototype.TestCastInterface = function() {
-        ///	var element = this.get_Window().docu [rest of string was truncated]&quot;;.
+        ///	var element = $doc.getElementById(&quot;box&quot;);
+        ///	var box = /*(DotWeb.Client.Dom.Html.HtmlDivElement)*/element;
+        ///	box.onmouseover = $Delegate(this, this.box_OnMouseOver);
+        ///};
+        ///.
         /// </summary>
         internal static string DecorationTest_CastInterface {
             get {
@@ -119,22 +112,22 @@ namespace DotWeb.Translator.Test.Properties {
         ///	console.log(value);
         ///};
         ///
-        ///$Namespace(&apos;DotWeb.Client&apos;);
-        ///
-        ///DotWeb.Client.JsScript = function() {
-        ///};
-        ///
         ///$Namespace(&apos;H8&apos;);
         ///
         ///H8.DecorationTests = function() {
-        ///	this.$super.constructor();
         ///};
-        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
         ///
         ///H8.DecorationTests.prototype.TestJsAnonymous = function() {
         ///	var __g__initLocal0 = {};
         ///	__g__initLocal0.X = 1;
-        ///	__g__initLocal0.y = 2; [rest of string was truncated]&quot;;.
+        ///	__g__initLocal0.y = 2;
+        ///	var item = __g__initLocal0;
+        ///	item.X = item.y;
+        ///	item.y = item.X;
+        ///	var CS$0$0000 = [];
+        ///	var __g__initLocal1 = {};
+        ///	__g__initLocal1.X = 0;
+        ///	__g__initLoca [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsAnonymous {
             get {
@@ -151,18 +144,6 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string DecorationTest_JsCode {
             get {
                 return ResourceManager.GetString("DecorationTest_JsCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsInline = function() {
-        ///	jQuery(&quot;*&quot;)
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsInline {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsInline", resourceCulture);
             }
         }
         
@@ -185,21 +166,32 @@ namespace DotWeb.Translator.Test.Properties {
         ///	console.log(value);
         ///};
         ///
-        ///$Namespace(&apos;DotWeb.Client&apos;);
-        ///
-        ///DotWeb.Client.JsScript = function() {
-        ///};
-        ///
         ///H8.DecorationTests = function() {
-        ///	this.$super.constructor();
         ///};
-        ///H8.DecorationTests.$extend(DotWeb.Client.JsScript);
         ///
-        ///H8.DecorationTests.prototype.Te [rest of string was truncated]&quot;;.
+        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
+        ///	var __g__initLocal3 = new H8.IntrinsicClass().$ctor();
+        ///	__g__initLocal3.Value = 1;
+        ///	var item = __g__initLocal3;
+        ///	System.Conso [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsIntrinsic {
             get {
                 return ResourceManager.GetString("DecorationTest_JsIntrinsic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsInline = function() {
+        ///	jQuery(&quot;*&quot;);
+        ///	H8.DecorationTests.TakeJQuery(jQuery(&quot;#id&quot;));
+        ///	System.Console.WriteLine($doc.getElementById(&quot;id&quot;));
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsMacro {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsMacro", resourceCulture);
             }
         }
         

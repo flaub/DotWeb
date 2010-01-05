@@ -77,8 +77,8 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
-		public void TestJsInline() {
-			TestMethod(this.compiledType, "TestJsInline", Resources.DecorationTest_JsInline);
+		public void TestJsMacro() {
+			TestMethod(this.compiledType, "TestJsMacro", Resources.DecorationTest_JsMacro);
 		}
 
 		private TypeDefinition compiledType;

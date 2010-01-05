@@ -30,9 +30,9 @@ namespace DotWeb.Hosting.Bridge
 		public string Body { get; set; }
 
 		public JsFunction(MethodBase method) {
-			var jsInline = method.GetCustomAttribute<JsInlineAttribute>();
-			if (jsInline != null) {
-				this.Body = GenerateInlineBody(method, jsInline.Code);
+			var jsMacro = method.GetCustomAttribute<JsMacroAttribute>();
+			if (jsMacro != null) {
+				this.Body = GenerateInlineBody(method, jsMacro.Code);
 			}
 			else {
 				var js = method.GetCustomAttribute<JsCodeAttribute>();

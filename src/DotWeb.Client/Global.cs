@@ -24,12 +24,12 @@ namespace DotWeb.Client
 	public static class Global
 	{
 		public static extern Window Window {
-			[JsInline("$wnd")]
+			[JsMacro("$wnd")]
 			get;
 		}
 
 		public static extern HtmlDocument Document {
-			[JsInline("$doc")]
+			[JsMacro("$doc")]
 			get;
 		}
 	}

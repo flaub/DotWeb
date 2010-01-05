@@ -228,12 +228,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodePropertyReference exp) {
-			// deal with [JsInline]
+			// deal with [JsMacro]
 			var method = exp.Method.Reference.Resolve();
-			string jsInline = AttributeHelper.GetJsInline(method);
-			if (jsInline != null) {
+			string jsMacro = AttributeHelper.GetJsMacro(method);
+			if (jsMacro != null) {
 				Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
-				return jsInline;
+				return jsMacro;
 			}
 
 			if (exp.IsFieldLike()) {
@@ -288,11 +288,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public string VisitReturn(CodeInvokeExpression exp) {
 			var method = exp.Method.Reference.Resolve();
 
-			// deal with [JsInline]
-			string jsInline = AttributeHelper.GetJsInline(method);
-			if (jsInline != null) {
+			// deal with [JsMacro]
+			string jsMacro = AttributeHelper.GetJsMacro(method);
+			if (jsMacro != null) {
 				var args = exp.Parameters.Select(x => Print(x)).ToArray();
-				return string.Format(jsInline, args);
+				return string.Format(jsMacro, args);
 			}
 
 			if (method.IsConstructor) {

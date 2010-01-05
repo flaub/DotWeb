@@ -51,19 +51,19 @@
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Script\DecorationTest.cs" />
+    <None Include="Script\NativeTest.cs" />
+    <None Include="Script\TranslationTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Script\DecorationTest.cs" />
-    <None Include="Script\NativeTest.cs" />
-    <None Include="Script\TranslationTest.cs" />
     <Compile Include="TranslationTest.cs" />
     <Compile Include="TranslationTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Expected\DecorationTest\DecorationTest_JsInline.js" />
+    <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_CastInterface.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />

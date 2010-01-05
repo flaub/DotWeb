@@ -35,8 +35,8 @@ namespace DotWeb.Translator
 			return null;
 		}
 
-		public static string GetJsInline(MethodDefinition method) {
-			var customAttr = FindByName(method, JsInline);
+		public static string GetJsMacro(MethodDefinition method) {
+			var customAttr = FindByName(method, JsMacro);
 			if (customAttr != null) {
 				var args = customAttr.ConstructorParameters;
 				return (string)args[0];
@@ -77,7 +77,7 @@ namespace DotWeb.Translator
 
 		private const string JsNamespace = "System.DotWeb.JsNamespaceAttribute";
 		private const string JsCode = "System.DotWeb.JsCodeAttribute";
-		private const string JsInline = "System.DotWeb.JsInlineAttribute";
+		private const string JsMacro = "System.DotWeb.JsMacroAttribute";
 		private const string JsInstrinsic = "System.DotWeb.JsIntrinsicAttribute";
 		private const string JsAnonymous = "System.DotWeb.JsAnonymousAttribute";
 	}

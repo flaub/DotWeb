@@ -120,7 +120,7 @@ namespace DotWeb.Translator
 
 			if (!method.HasBody || method.Body.Instructions.Count == 0) {
 				string msg = string.Format(
-					"{0}\nA method marked extern must either have [JsCode], [JsInline], or be declared in a type derived from JsObject.",
+					"{0}\nA method marked extern must either have [JsCode], [JsMacro], or be declared in a type derived from JsObject.",
 					method
 				);
 				throw new MissingMethodException(msg);
@@ -184,7 +184,7 @@ namespace DotWeb.Translator
 		}
 
 		private bool IsEmittable(MethodDefinition method) {
-			if (AttributeHelper.GetJsInline(method) != null)
+			if (AttributeHelper.GetJsMacro(method) != null)
 				return false;
 
 			var type = method.DeclaringType;

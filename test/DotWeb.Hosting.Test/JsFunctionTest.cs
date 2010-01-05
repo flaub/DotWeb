@@ -85,10 +85,10 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		public void TestJsInline() {
+		public void TestJsMacro() {
 			RunTest(
-				"TestJsInline",
-				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsInline",
+				"TestJsMacro",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsMacro",
 				"arg",
 				"alert(arg);");
 			RunTest(
