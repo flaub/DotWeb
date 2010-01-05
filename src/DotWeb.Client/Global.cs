@@ -21,15 +21,15 @@ using System.DotWeb;
 
 namespace DotWeb.Client
 {
-	public class JsScript
+	public static class Global
 	{
-		public extern Window Window {
-			[JsCode("return $wnd;")]
+		public static extern Window Window {
+			[JsInline("$wnd")]
 			get;
 		}
 
-		public extern HtmlDocument Document {
-			[JsCode("return $doc;")]
+		public static extern HtmlDocument Document {
+			[JsInline("$doc")]
 			get;
 		}
 	}

@@ -80,7 +80,7 @@ namespace H8
 		public int Value { get; set; }
 	}
 
-	public class DecorationTests : JsScript
+	public class DecorationTests
 	{
 		[JsCode("alert(arg);")]
 		public void TestJsCode(string arg) {
@@ -95,6 +95,7 @@ namespace H8
 		public void TestJsInline() {
 			JQuery("*");
 			TakeJQuery(JQuery("#id"));
+			Console.WriteLine(Global.Document.getElementById("id"));
 		}
 
 		public void TestJsAnonymous() {
@@ -152,7 +153,7 @@ namespace H8
 		}
 
 		public void TestCastInterface() {
-			var element = Window.document.getElementById("box");
+			var element = Global.Document.getElementById("box");
 			var box = (HtmlDivElement)element;
 			box.onmouseover = box_OnMouseOver;
 		}

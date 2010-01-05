@@ -7,17 +7,10 @@ System.Console.WriteLine = function(value /*System.Object*/) {
 	console.log(value);
 };
 
-$Namespace('DotWeb.Client');
-
-DotWeb.Client.JsScript = function() {
-};
-
 $Namespace('H8');
 
 H8.DecorationTests = function() {
-	this.$super.constructor();
 };
-H8.DecorationTests.$extend(DotWeb.Client.JsScript);
 
 H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	var __g__initLocal0 = {};

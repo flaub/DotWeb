@@ -21,7 +21,7 @@ using System.DotWeb;
 
 namespace DotWeb.Weaver.Test.Script
 {
-	class TypeTest : JsScript
+	class TypeTest
 	{
 		public int field;
 		public int Property { get; set; }

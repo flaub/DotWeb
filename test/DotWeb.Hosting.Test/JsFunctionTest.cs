@@ -91,6 +91,11 @@ namespace DotWeb.Hosting.Test
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsInline",
 				"arg",
 				"alert(arg);");
+			RunTest(
+				"get_Window",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$get_Window",
+				"",
+				"return $wnd;");
 		}
 
 		[Test]

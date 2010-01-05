@@ -228,6 +228,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodePropertyReference exp) {
+			// deal with [JsInline]
+			var method = exp.Method.Reference.Resolve();
+			string jsInline = AttributeHelper.GetJsInline(method);
+			if (jsInline != null) {
+				Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+				return jsInline;
+			}
+
 			if (exp.IsFieldLike()) {
 				return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
 			}

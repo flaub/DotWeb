@@ -17,6 +17,7 @@
 // 
 using DotWeb.Client;
 using System.DotWeb;
+using DotWeb.Client.Dom;
 
 namespace DotWeb.Hosting.Test.Script
 {
@@ -33,6 +34,11 @@ namespace DotWeb.Hosting.Test.Script
 
 		[JsInline("alert({0})")]
 		public void TestJsInline(string arg) { }
+
+		public extern Window Window {
+			[JsInline("$wnd")]
+			get;
+		}
 
 		public void TestNoArgs() { }
 		public void TestOneArg(int x) { }

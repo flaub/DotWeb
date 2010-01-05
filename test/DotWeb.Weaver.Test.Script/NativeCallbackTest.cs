@@ -19,7 +19,7 @@ namespace DotWeb.Weaver.Test.Script
 		public extern void NativeCall();
 	}
 
-	public class NativeCallback : JsScript
+	public class NativeCallback
 	{
 		public NativeCallback() {
 			Console.Write("Hi");

@@ -1,4 +1,4 @@
-﻿// Copyright 2009, Frank Laub
+﻿	// Copyright 2009, Frank Laub
 // 
 // This file is part of DotWeb.
 // 
@@ -252,7 +252,7 @@ namespace DotWeb.Hosting.Test
 		public void TestCastInterface() {
 			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.CastInterfaceTest");
 			var asmClient = Assembly.Load("Hosted-DotWeb.Client");
-			var jsScriptType = asmClient.GetType("DotWeb.Client.JsScript");
+			var globalType = asmClient.GetType("DotWeb.Client.Global");
 			var windowType = asmClient.GetType("DotWeb.Client.Dom.Window");
 			var documentType = asmClient.GetType("DotWeb.Client.Dom.Document");
 			var htmlElementType = asmClient.GetType("DotWeb.Client.Dom.Html.HtmlElement");
@@ -265,8 +265,8 @@ namespace DotWeb.Hosting.Test
 
 				//var element = Window.document.getElementById("box");
 				
-				//var window = Window;
-				var window = session.DefineFunctionMessage(jsScriptType.GetMethod("get_Window"));
+				//var window = Global.Window;
+				var window = session.DefineFunctionMessage(globalType.GetMethod("get_Window"));
 				session.InvokeFunctionMessage(window.Name, 0);
 				var windowId = ++remoteId;
 				session.OnReturnMessage(false, JsValueType.JsObject, windowId);

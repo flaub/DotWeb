@@ -121,10 +121,10 @@ namespace DotWeb.Hosting.Test.Script
 		}
 	}
 
-	public class CastInterfaceTest : JsScript
+	public class CastInterfaceTest
 	{
 		public CastInterfaceTest() {
-			var window = Window;
+			var window = Global.Window;
 			var doc = window.document;
 			var element = doc.getElementById("box");
 			var box = (HtmlDivElement)element;
