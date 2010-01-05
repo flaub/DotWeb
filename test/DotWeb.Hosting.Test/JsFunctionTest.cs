@@ -85,6 +85,15 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
+		public void TestJsInline() {
+			RunTest(
+				"TestJsInline",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsInline",
+				"arg",
+				"alert(arg);");
+		}
+
+		[Test]
 		public void TestJsNamespace() {
 			RunTest(
 				"TestNoArgs",

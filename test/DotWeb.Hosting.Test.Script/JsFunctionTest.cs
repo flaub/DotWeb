@@ -31,6 +31,9 @@ namespace DotWeb.Hosting.Test.Script
 		[JsCode(JsCode)]
 		public void TestJsCode() { }
 
+		[JsInline("alert({0})")]
+		public void TestJsInline(string arg) { }
+
 		public void TestNoArgs() { }
 		public void TestOneArg(int x) { }
 		public void TestTwoArgs(int x, int y) { }

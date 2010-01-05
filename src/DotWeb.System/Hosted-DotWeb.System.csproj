@@ -55,6 +55,7 @@
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
     <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
+    <Compile Include="DotWeb\JsInlineAttribute.cs" />
     <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
