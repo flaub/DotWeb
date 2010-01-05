@@ -86,6 +86,17 @@ namespace H8
 		public void TestJsCode(string arg) {
 		}
 
+		[JsInline("jQuery(selector)")]
+		public static extern object JQuery(string selector);
+
+		[JsCode("alert(jquery);")]
+		public static extern void TakeJQuery(object jquery);
+
+		public void TestJsInline() {
+			JQuery("*");
+			TakeJQuery(JQuery("#id"));
+		}
+
 		public void TestJsAnonymous() {
 			var item = new AnonymousClass {
 				X = 1,

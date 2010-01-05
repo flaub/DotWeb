@@ -211,4 +211,7 @@
   <data name="SourceTests_Indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_indexer.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="DecorationTest_JsInline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsinline.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

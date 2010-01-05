@@ -63,6 +63,7 @@
     <Compile Include="TranslationTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\DecorationTest\DecorationTest_JsInline.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_CastInterface.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />

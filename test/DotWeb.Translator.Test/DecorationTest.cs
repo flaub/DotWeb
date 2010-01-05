@@ -76,6 +76,11 @@ namespace DotWeb.Translator.Test
 			TestMethod(this.compiledType, "TestCastInterface", Resources.DecorationTest_CastInterface, true);
 		}
 
+		[Test]
+		public void TestJsInline() {
+			TestMethod(this.compiledType, "TestJsInline", Resources.DecorationTest_JsInline);
+		}
+
 		private TypeDefinition compiledType;
 	}
 }
