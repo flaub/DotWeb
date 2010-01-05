@@ -30,8 +30,14 @@ namespace DotWeb.Hosting.Bridge
 		public string Body { get; set; }
 
 		public JsFunction(MethodBase method) {
-			var js = method.GetCustomAttribute<JsCodeAttribute>();
-			this.Body = js == null ? GenerateFunctionBody(method) : js.Code;
+			var jsInline = method.GetCustomAttribute<JsInlineAttribute>();
+			if (jsInline != null) {
+				this.Body = GenerateInlineBody(method, jsInline.Code);
+			}
+			else {
+				var js = method.GetCustomAttribute<JsCodeAttribute>();
+				this.Body = js == null ? GenerateFunctionBody(method) : js.Code;
+			}
 
 			Type type = method.DeclaringType;
 			string typeName = type.FullName.Replace(".", "_").Replace("+", "$");
@@ -136,5 +142,10 @@ namespace DotWeb.Hosting.Bridge
 			return CallMethod(method);
 		}
 
+		private string GenerateInlineBody(MethodBase method, string format) {
+			var parameters = method.GetParameters();
+			var args = parameters.Select(x => x.Name).ToArray();
+			return string.Format(format, args) + ";";
+		}
 	}
 }
