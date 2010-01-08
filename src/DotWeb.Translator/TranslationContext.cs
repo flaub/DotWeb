@@ -40,9 +40,22 @@ namespace DotWeb.Translator
 			this.generator = generator;
 		}
 
-		public void GenerateMethod(MethodDefinition method, bool followDependencies) {
+		public void GenerateMethod(
+			MethodDefinition method, 
+			bool followDependencies, 
+			List<AssemblyDefinition> asmDependencies) {
 			if (followDependencies) {
-				GenerateMethod(method, new List<TypeDefinition>(), new List<MethodDefinition>(), new List<string>());
+				var typesCache = new List<TypeDefinition>();
+				GenerateMethod(
+					method,
+					typesCache, 
+					new List<MethodDefinition>(), 
+					new List<string>());
+
+				foreach (var type in typesCache) {
+					var asm = type.Module.Assembly;
+					asmDependencies.AddUnique(asm);
+				}
 			}
 			else {
 				var parsedMethod = Parse(method);
@@ -50,7 +63,11 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache, List<string> namespaceCache) {
+		private void GenerateMethod(
+			MethodDefinition method, 
+			List<TypeDefinition> typesCache, 
+			List<MethodDefinition> methodsCache, 
+			List<string> namespaceCache) {
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
 				var def = external.Resolve();

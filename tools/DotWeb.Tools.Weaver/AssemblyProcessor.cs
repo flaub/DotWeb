@@ -30,7 +30,7 @@ using DotWeb.Hosting;
 
 namespace DotWeb.Tools.Weaver
 {
-	public class AssemblyProcessor : ITypeResolver
+	public class AssemblyProcessor : IAssembly
 	{
 		private IResolver resolver;
 		private AssemblyDefinition asmDef;
@@ -41,13 +41,15 @@ namespace DotWeb.Tools.Weaver
 
 		private Dictionary<string, IType> typesByDef = new Dictionary<string, IType>();
 
-		private const string HostedPrefix = "Hosted-";
+		public const string HostedPrefix = "Hosted-";
+
+		public Assembly Assembly { get { return this.asmBuilder; } }
 
 		public AssemblyProcessor(IResolver resolver, AssemblyDefinition asmDef, string outputDir) {
 			this.resolver = resolver;
 			this.asmDef = asmDef;
 			this.moduleDef = asmDef.MainModule;
-			//this.moduleDef.LoadSymbols();
+			this.moduleDef.LoadSymbols();
 
 			var name = asmDef.Name.Name;
 			if (!name.StartsWith(HostedPrefix))
@@ -90,34 +92,6 @@ namespace DotWeb.Tools.Weaver
 			return this.asmBuilder;
 		}
 
-		//public string ProcessEntry(AssemblyQualifiedTypeName asmQualifiedTypeName) {
-		//    this.asmDef = this.asmResolver.Resolve(asmQualifiedTypeName.AssemblyName.FullName);
-		//    this.moduleDef = this.asmDef.MainModule;
-		//    this.moduleDef.LoadSymbols();
-		//    //asmDef.MainModule.FullLoad();
-
-		//    var startType = asmDef.MainModule.Types[asmQualifiedTypeName.TypeName];
-
-		//    var asmName = new AssemblyName("Hosted-" + asmQualifiedTypeName.AssemblyName.FullName);
-		//    string fileName = asmName.Name + ".dll";
-
-		//    this.asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Save, this.OutputDir);
-		//    this.moduleBuilder = asmBuilder.DefineDynamicModule(fileName, fileName, true);
-
-		//    var typeProc = (TypeProcessor)ProcessType(startType);
-		//    var ctor = startType.Constructors.GetConstructor(false, Type.EmptyTypes);
-		//    typeProc.ProcessConstructor(ctor);
-
-		//    foreach (var item in this.typesByDef) {
-		//        item.Value.Close();
-		//    }
-
-		//    this.asmBuilder.Save(fileName);
-
-		//    string outPath = Path.Combine(this.OutputDir, fileName);
-		//    return outPath;
-		//}
-
 		private string GetTypeKey(TypeReference typeRef) {
 			return typeRef.FullName;
 		}
@@ -135,6 +109,11 @@ namespace DotWeb.Tools.Weaver
 		private IType ProcessType(TypeReference typeRef) {
 			var typeDef = typeRef.Resolve();
 			if (typeRef is ArrayType) {
+				var arrayType = (ArrayType)typeRef;
+				var elementProc = this.resolver.ResolveTypeReference(arrayType.ElementType);
+				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
+				var externalWrapper = new ExternalType(this.resolver, realType);
+				return externalWrapper;
 			}
 
 			if (typeDef.IsEnum) {
@@ -143,7 +122,7 @@ namespace DotWeb.Tools.Weaver
 				return enumProc;
 			}
 			else if (typeDef.IsNested) {
-				var outerProc = ResolveTypeReference(typeDef.DeclaringType);
+				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType);
 				var outerBuilder = (TypeBuilder)outerProc.Type;
 				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder, outerBuilder);
 				RegisterType(typeRef, typeProc);

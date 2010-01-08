@@ -25,11 +25,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\build\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DotWeb.Web.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
@@ -63,9 +64,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Runtime\DotWeb.Runtime.csproj">
-      <Project>{214AEF3A-77F6-4207-A0EB-CB543189E1C3}</Project>
-      <Name>DotWeb.Runtime</Name>
+    <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
+      <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>
+      <Name>DotWeb.Hosting.Bridge</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Translator\DotWeb.Translator.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>

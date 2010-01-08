@@ -22,7 +22,7 @@ namespace DotWeb.System
 namespace System
 #endif
 {
-	public class ValueType
+	public abstract class ValueType
 	{
 	}
 }

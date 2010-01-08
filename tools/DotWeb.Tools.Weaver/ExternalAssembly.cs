@@ -23,11 +23,13 @@ using Mono.Cecil;
 
 namespace DotWeb.Tools.Weaver
 {
-	class ExternalAssembly : ITypeResolver
+	class ExternalAssembly : IAssembly
 	{
 		private IResolver resolver;
 		private Assembly asm;
 		private Dictionary<TypeReference, ExternalType> cache = new Dictionary<TypeReference, ExternalType>();
+
+		public Assembly Assembly { get { return this.asm; } }
 
 		public ExternalAssembly(IResolver resolver, Assembly asm) {
 			this.resolver = resolver;

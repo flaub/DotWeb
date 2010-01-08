@@ -27,8 +27,25 @@ namespace DotWeb.Client.Dom.Events
 		bool shiftKey { get; }
 		bool altKey { get; }
 		bool metaKey { get; }
-		int button { get; }
-		//EventTarget relatedTarget;
+		ushort button { get; }
+		EventTarget relatedTarget { get; }
+
+		void initMouseEvent(
+			string type,
+			bool canBubble,
+			bool cancelable,
+			object /*views::AbstractView*/ view,
+			int detail,
+			int screenX,
+			int screenY,
+			int clientX,
+			int clientY,
+			bool ctrlKey,
+			bool altKey,
+			bool shiftKey,
+			bool metaKey,
+			ushort button,
+			EventTarget relatedTarget);
 	}
 
 	public delegate void MouseEventHandler(MouseEvent evt);

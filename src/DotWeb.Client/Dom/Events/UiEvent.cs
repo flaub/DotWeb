@@ -19,8 +19,8 @@ namespace DotWeb.Client.Dom.Events
 {
 	public interface UiEvent : Event
 	{
-		//AbstractView  view;
+		object /*AbstractView*/ view { get; }
 		int detail { get; }
-//		void initUIEvent(string type, bool canBubble, bool cancelable, AbstractView view, int detail);
+		void initUIEvent(string type, bool canBubble, bool cancelable, object /*AbstractView*/ view, int detail);
 	}
 }

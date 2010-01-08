@@ -46,5 +46,9 @@ namespace DotWeb.Web
 		public void SetApplicationState(string key, object value) {
 			context.Application.Set(key, value);
 		}
+
+		public IHttpModule GetModule(string key) {
+			return this.context.ApplicationInstance.Modules.Get(key);
+		}
 	}
 }

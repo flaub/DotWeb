@@ -23,6 +23,7 @@ using Mono.Cecil;
 using System.Linq;
 using DotWeb.Utility;
 using DotWeb.Utility.Cecil;
+using System.Collections.Generic;
 
 namespace DotWeb.Translator
 {
@@ -41,19 +42,33 @@ namespace DotWeb.Translator
 			Directory.SetCurrentDirectory(path);
 		}
 
-		public void TranslateType(TypeDefinition type) {
+		public string[] TranslateType(TypeDefinition type) {
 			var context = new TranslationContext(this.generator);
 			var method = type.Constructors.GetConstructor(false, Type.EmptyTypes);
-			context.GenerateMethod(method, true);
+			var asmDependencies = new List<AssemblyDefinition>();
+			context.GenerateMethod(method, true, asmDependencies);
 			this.generator.WriteEntryPoint(type);
+
+			string[] ret = new string[asmDependencies.Count];
+			for (int i = 0; i < ret.Length; i++) {
+				var asm = asmDependencies[i];
+				var path = asm.MainModule.Image.FileInformation.FullName;
+				ret[i] = path;
+			}
+			return ret;
 		}
 
-		public void TranslateType(AssemblyQualifiedTypeName aqtn) {
+		/// <summary>
+		/// Translates the specified type into javascript.
+		/// Returns an array of assembly paths that this type depends on.
+		/// </summary>
+		/// <param name="aqtn"></param>
+		/// <returns></returns>
+		public string[] TranslateType(AssemblyQualifiedTypeName aqtn) {
 			var asm = resolver.Resolve(aqtn.AssemblyName.FullName);
 			asm.Resolver = resolver;
-			//asm.MainModule.LoadSymbols();
 			var typeDef = asm.MainModule.Types[aqtn.TypeName];
-			TranslateType(typeDef);
+			return TranslateType(typeDef);
 		}
 	}
 }

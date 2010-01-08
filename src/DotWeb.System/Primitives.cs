@@ -25,8 +25,59 @@ namespace System
 #endif
 {
 	[UseSystem]
-	public struct Boolean
+	public struct Boolean 
+#if !HOSTED_MODE
+//		: IComparable, IComparable<bool>, IEquatable<bool>
+#endif
 	{
+#if !HOSTED_MODE
+		//public int CompareTo(object obj) {
+		//    if (obj != null) {
+		//        if (!(obj is bool)) {
+		//            throw new ArgumentException(Environment.GetResourceString("Arg_MustBeBoolean"));
+		//        }
+		//        if (this == ((bool)obj)) {
+		//            return 0;
+		//        }
+		//        if (!this) {
+		//            return -1;
+		//        }
+		//    }
+		//    return 1;
+		//}
+
+		//public int CompareTo(bool value) {
+		//    if (this == value) {
+		//        return 0;
+		//    }
+		//    if (!this) {
+		//        return -1;
+		//    }
+		//    return 1;
+		//}
+
+		//public bool Equals(bool obj) {
+		//    return (this == obj);
+		//}
+
+		//public override bool Equals(object obj) {
+		//    return ((obj is bool) && (this == ((bool)obj)));
+		//}
+
+		//public override int GetHashCode() {
+		//    if (!this) {
+		//        return 0;
+		//    }
+		//    return 1;
+		//}
+
+		//public override string ToString() {
+		//    if (!this) {
+		//        return "False";
+		//    }
+		//    return "True";
+		//}
+#endif
 	}
 
 	[UseSystem]

@@ -87,10 +87,12 @@ namespace DotWeb.Tools.Weaver
 				}
 			}
 
-			return ProcessAssembly(asmDef);
+			return ProcessAssembly(asmDef).Assembly;
 		}
 
-		private Assembly ProcessAssembly(AssemblyDefinition asmDef) {
+		// depth-first recursion so that we make sure to re-weave dependant assemblies when necessary
+		private IAssembly ProcessAssembly(AssemblyDefinition asmDef) {
+			var dependencyChanged = false;
 			foreach (AssemblyNameReference asmRef in asmDef.MainModule.AssemblyReferences) {
 				if (this.modules.ContainsKey(asmRef.Name))
 					continue;
@@ -101,17 +103,47 @@ namespace DotWeb.Tools.Weaver
 				}
 
 				var child = this.asmResolver.Resolve(asmRef);
-				ProcessAssembly(child);
+				var childAsm = ProcessAssembly(child);
+				if (childAsm is AssemblyProcessor) {
+					// otherwise it'd be an ExternalAssembly and thus didn't need processing
+					dependencyChanged = true;
+				}
 			}
 
-			var asmProc = new AssemblyProcessor(this, asmDef, this.outputDir);
 			string name = asmDef.MainModule.Name;
 			string altName = Path.GetFileNameWithoutExtension(name);
-			this.modules.Add(name, asmProc);
-			if (name != altName)
-				this.modules.Add(altName, asmProc);
 
-			return asmProc.ProcessModule();
+			string hostedName = name;
+			if (!hostedName.StartsWith(AssemblyProcessor.HostedPrefix))
+				hostedName = AssemblyProcessor.HostedPrefix + hostedName;
+
+			string path = Path.Combine(this.outputDir, MakeAssemblyNameIntoFilename(hostedName));
+			string srcPath = Path.Combine(this.inputDir, MakeAssemblyNameIntoFilename(name));
+
+			if (File.Exists(path) && File.GetLastWriteTime(srcPath) < File.GetLastWriteTime(path) && !dependencyChanged) {
+				var asm = Assembly.LoadFile(path);
+				var proc = new ExternalAssembly(this, asm);
+				this.AddModule(name, altName, proc);
+				return proc;
+			}
+			else {
+				var proc = new AssemblyProcessor(this, asmDef, this.outputDir);
+				this.AddModule(name, altName, proc);
+				proc.ProcessModule();
+				return proc;
+			}
+		}
+
+		private void AddModule(string name, string altName, ITypeResolver proc) {
+			this.modules.Add(name, proc);
+			if (name != altName)
+				this.modules.Add(altName, proc);
+		}
+
+		private string MakeAssemblyNameIntoFilename(string name) {
+			if (!name.EndsWith(".dll"))
+				return name + ".dll";
+			return name;
 		}
 
 		private IType ResolveType(TypeReference typeRef) {

@@ -165,10 +165,24 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		[Ignore]
 		public void ArrayTest() {
 			// weave an array then grab via reflection
-			Assert.Fail();
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.ArrayTest");
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+
+			var field = type.GetField("fieldArray");
+			Assert.IsNotNull(field);
+			Assert.AreEqual(typeof(int[]), field.FieldType);
+
+			var property = type.GetProperty("PropertyArray");
+			Assert.IsNotNull(property);
+			Assert.AreEqual(typeof(string[]), property.PropertyType);
+
+			var typeArray = type.GetField("typeArray");
+			Assert.IsNotNull(typeArray);
+			var elementType = typeArray.FieldType.GetElementType();
+			Assert.AreEqual(type, elementType);
 		}
 
 		[Test]
@@ -194,6 +208,23 @@ namespace DotWeb.Hosting.Test
 			Assert.IsNotNull(test, "NestedType is null");
 			Assert.IsNotNull(baseNested, "NestedType+Base is null");
 			Assert.IsNotNull(derivedNested, "NestedType+Derived is null");
+		}
+
+		[Test]
+		public void NativeCallbackTest() {
+			bool invokeCalled = false;
+			HostedMode.Host = new HostHarness {
+				Invoker = delegate(object scope, object method, object[] args) {
+					invokeCalled = true;
+					return null;
+				}
+			};
+
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.NativeCallback");
+			Assert.IsNotNull(test);
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+			Assert.IsTrue(invokeCalled);
 		}
 	}
 }

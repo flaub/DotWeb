@@ -2,7 +2,7 @@
 %html{ xmlns="http://www.w3.org/1999/xhtml" }
 	%head
 		%title= ViewData["Title"]
-		%link{ href="../../Content/Site.css" rel="stylesheet" type="text/css" }
+		%link{ href='#{ViewData["Root"]}/Content/Site.css' rel="stylesheet" type="text/css" }
 	%body
 		.page
 			#header
@@ -10,7 +10,8 @@
 					%h1 DotWeb Toolkit
 				#menucontainer
 					%ul#menu
-						%li= Html.ActionLink(string.Format("Mode: {0}", ViewData["Mode"]), "Mode", "Home")
+						- if(ViewData["ModeType"].Equals("Auto"))
+							%li= Html.ActionLink(string.Format("Mode: {0}", ViewData["Mode"]), "Mode", "Home")
 						%li= Html.ActionLink("Simple Sample", "Simple", "Home")
 						%li= Html.ActionLink("Console", "Console", "Home")
 						%li= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")
@@ -21,4 +22,4 @@
 				#footer
 					DotWeb Sample MVC Application 
 					%br
-					Copyright &copy; 2009 Frank Laub
+					Copyright &copy; 2009-2010 Frank Laub

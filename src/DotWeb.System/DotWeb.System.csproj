@@ -31,6 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>626</NoWarn>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
@@ -44,6 +46,8 @@
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
     <Compile Include="Console.cs" />
+    <Compile Include="IEquatable.cs" />
+    <Compile Include="IComparable.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
     <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
@@ -81,11 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="plan.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

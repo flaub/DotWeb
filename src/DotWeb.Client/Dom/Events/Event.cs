@@ -18,6 +18,13 @@
 using System.DotWeb;
 namespace DotWeb.Client.Dom.Events
 {
+	public enum PhaseType
+	{
+		CAPTURING_PHASE = 1,
+		AT_TARGET = 2,
+		BUBBLING_PHASE = 3,
+	}
+
 	/// <summary>
 	/// The Event interface is used to provide contextual information about an event 
 	/// to the handler processing the event. An object which implements the Event interface 
@@ -30,17 +37,16 @@ namespace DotWeb.Client.Dom.Events
 	[JsIntrinsic]
 	public interface Event
 	{
+		string type { get; }
+		EventTarget target { get; }
+		EventTarget currentTarget { get; }
+		PhaseType eventPhase { get; }
 		bool bubbles { get; }
 		bool cancelable { get; }
-		Window currentTarget { get; }
-		Window target { get; }
-		int eventPhase { get; }
-		int timeStamp { get; }
-		string type { get; }
+		ulong timeStamp { get; }
 
 		void stopPropagation();
 		void preventDefault();
-
 		void initEvent(string eventType, bool canBubble, bool cancelable);
 	}
 

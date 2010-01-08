@@ -63,7 +63,16 @@ namespace DotWeb.Tools.Weaver
 				type = type.MakeGenericType(genericTypes);
 			}
 
-			if (type.IsDefined(this.useSystemAttribute, false)) {
+			var elementalType = type;
+			var arrayType = typeRef as ArrayType;
+			if (arrayType != null) {
+				// we don't need to resolve this type because we can assume that only other system types
+				// are referenced in DotWeb.System.
+				string modifiedElementName = "DotWeb." + arrayType.ElementType.FullName;
+				elementalType = this.asm.GetType(modifiedElementName);
+			}
+
+			if (elementalType.IsDefined(this.useSystemAttribute, false)) {
 				ret = new ExternalType(this.resolver, Type.GetType(fullName));
 			}
 			else {

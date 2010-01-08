@@ -102,6 +102,8 @@ namespace DotWeb.Tools.Weaver
 				type.Close();
 			}
 
+			// This is super super slow thanks to:
+			// http://support.microsoft.com/kb/970924
 			this.typeBuilder.CreateType();
 
 			foreach (var type in nestedTypes) {

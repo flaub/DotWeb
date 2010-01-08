@@ -17,8 +17,11 @@
 			</div>
 			<div id="menucontainer">
 				<ul id="menu">
-					<li><%= Html.ActionLink(string.Format("Mode: {0}", ViewData["Mode"]), "Mode", "Home")%></li>
+					<% if (ViewData["ModeType"].Equals("Auto")) { %>
+						<li><%= Html.ActionLink(string.Format("Mode: {0}", ViewData["Mode"]), "Mode", "Home")%></li>
+					<% } %>
 					<li><%= Html.ActionLink("Simple Sample", "Simple", "Home")%></li>
+					<li><%= Html.ActionLink("Console", "Console", "Home")%></li>
 					<li><%= Html.ActionLink("ExtJs Sample", "ExtJs", "Home")%></li>
 					<li><%= Html.ActionLink("Tests", "Tests", "Home") %></li>
 				</ul>
@@ -27,7 +30,8 @@
 		<div id="main">
 			<asp:ContentPlaceHolder ID="MainContent" runat="server" />
 			<div id="footer">
-				.Web Sample MVC Application &copy; Copyright 2009
+				DotWeb Sample MVC Application<br /> 
+				Copyright &copy; 2009-2010 Frank Laub
 			</div>
 		</div>
 	</div>

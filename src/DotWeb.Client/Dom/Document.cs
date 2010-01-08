@@ -159,29 +159,5 @@ namespace DotWeb.Client.Dom
 		NodeList getElementsByTagNameNS();
 
 		void importNode();
-
-		/// <summary>
-		/// Accepts a CSS selector(s) and returns the first matching element 
-		/// (based on the document tree) within the document, or null. 
-		/// </summary>
-		/// <remarks>
-		/// Note: Currently supported in FF3.1+, IE8+ (only in IE8 standards mode), and Safari 3.1+
-		/// </remarks>
-		/// <param name="selector"></param>
-		/// <returns></returns>
-//		IEnumerable<Element> querySelector(string selector) { return _<IEnumerable<Element>>(selector); }
-
-		/// <summary>
-		/// Accepts a CSS selector(s) and returns all matching elements 
-		/// (based on the document tree) within the document as a staticNodeList, or null. 
-		/// A staticNodeList is a static collection of elements that are not affected by 
-		/// any subsequent changes occuring on the document tree.
-		/// </summary>
-		/// <remarks>
-		/// Note: Currently supported in FF3.1+, IE8+ (only in IE8 standards mode), and Safari 3.1+
-		/// </remarks>
-		/// <param name="selector"></param>
-		/// <returns></returns>
-//		IEnumerable<Element> querySelectorAll(string selector) { return _<IEnumerable<Element>>(selector); }
 	}
 }
