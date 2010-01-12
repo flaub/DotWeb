@@ -5,15 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sandbox", "DotWeb.Sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Client", "..\..\src\DotWeb.Client\DotWeb.Client.csproj", "{0A46B99F-8A61-4544-8B1D-E5117DABBD90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Runtime", "..\..\src\DotWeb.Runtime\DotWeb.Runtime.csproj", "{214AEF3A-77F6-4207-A0EB-CB543189E1C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting", "..\..\src\DotWeb.Hosting\DotWeb.Hosting.csproj", "{9004E34C-2D35-40EE-BE98-C1AED18081CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Bridge", "..\..\src\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj", "{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Utility", "..\..\src\DotWeb.Utility\DotWeb.Utility.csproj", "{F303A189-1B53-4FF6-B6AC-8972444A6B7B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Sample.Script", "..\..\sample\DotWeb.Sample.Script\DotWeb.Sample.Script.csproj", "{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Decompiler", "..\..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj", "{69561EF0-26F3-4190-89EA-AAE937A5D88F}"
 EndProject
@@ -39,10 +35,6 @@ Global
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A46B99F-8A61-4544-8B1D-E5117DABBD90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{214AEF3A-77F6-4207-A0EB-CB543189E1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{214AEF3A-77F6-4207-A0EB-CB543189E1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{214AEF3A-77F6-4207-A0EB-CB543189E1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{214AEF3A-77F6-4207-A0EB-CB543189E1C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9004E34C-2D35-40EE-BE98-C1AED18081CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9004E34C-2D35-40EE-BE98-C1AED18081CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9004E34C-2D35-40EE-BE98-C1AED18081CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,10 +47,6 @@ Global
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F303A189-1B53-4FF6-B6AC-8972444A6B7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D730EA2-0129-47B6-AA92-9D2C14EF38CD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69561EF0-26F3-4190-89EA-AAE937A5D88F}.Release|Any CPU.ActiveCfg = Release|Any CPU

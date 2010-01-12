@@ -19,6 +19,7 @@ using SysOpCode = System.Reflection.Emit.OpCode;
 using SysOpCodes = System.Reflection.Emit.OpCodes;
 using DotWeb.Utility;
 using Castle.Core.Interceptor;
+using DotWeb.Hosting;
 
 namespace DotWeb.Sandbox
 {
@@ -28,9 +29,39 @@ namespace DotWeb.Sandbox
 			ReadCecilWriteDotNet();
 		}
 
+		class HostHarness : IDotWebHost
+		{
+			public delegate object InvokeHandler(object scope, object method, object[] args);
+			public delegate object CastHandler(object obj);
+
+			public InvokeHandler Invoker { get; set; }
+			public CastHandler Caster { get; set; }
+
+			public object Invoke(object scope, object method, object[] args) {
+				if (Invoker != null)
+					return Invoker(scope, method, args);
+				throw new NotImplementedException();
+			}
+
+			public T Cast<T>(object obj) {
+				if (Caster != null) {
+					var ret = Caster(obj);
+					return (T)ret;
+				}
+				throw new NotImplementedException();
+			}
+		}
+
 		static void ReadCecilWriteDotNet() {
-			//var impl = new ExternImpl();
-			//ExternalCall.Impl = impl;
+			HostedMode.Host = new HostHarness {
+				Invoker = delegate(object scope, object method, object[] args) {
+					return null;
+				}
+			};
+
+			//string asmPath = "DotWeb.Weaver.Test.Script.dll";
+			//weaver.ProcessAssembly(asmPath);
+
 			//var dir = @"F:\src\git\DotWeb\build\bin\Debug";
 			//var hoister = new Hoister(dir, dir);
 			//var str = "DotWeb.Sample.Script.Test.Sandbox, DotWeb.Sample.Script";
@@ -47,14 +78,6 @@ namespace DotWeb.Sandbox
 			//    throw ex.InnerException;
 			//}
 		}
-
-		//class ExternImpl : IExternalImpl
-		//{
-		//    public object InvokeExternal(object scope, MethodBase method, object[] args) {
-		//        return null;
-		//    }
-		//}
-
 
 #if false
 		static void HostedModeAppDomain() {

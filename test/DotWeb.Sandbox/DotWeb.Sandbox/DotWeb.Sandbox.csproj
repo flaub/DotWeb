@@ -62,6 +62,10 @@
       <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
       <Name>DotWeb.Decompiler</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\DotWeb.Hosting\DotWeb.Hosting.csproj">
+      <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
+      <Name>DotWeb.Hosting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\DotWeb.System\Hosted-DotWeb.System.csproj">
       <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
       <Name>Hosted-DotWeb.System</Name>
