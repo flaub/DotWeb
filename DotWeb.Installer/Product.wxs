@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+	 xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Product Id="960ccbce-9cce-4683-9fae-82e5040f6174"
+			 Name="DotWeb"
+			 Language="1033"
+			 Version="0.2.0.0"
+			 Manufacturer="Blue Tree Labs"
+			 UpgradeCode="15a3c6ce-4614-4fd5-b0f6-c1c637a4a562">
+
+		<Package Id="*" 
+				 InstallerVersion="300" 
+				 Compressed="yes" 
+				 Manufacturer="Blue Tree Labs" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+		<PropertyRef Id="NETFRAMEWORK35"/>
+
+		<Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
+			<![CDATA[Installed OR NETFRAMEWORK35]]>
+		</Condition>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Merge Id="VCRedist" SourceFile="$(var.SolutionDir)Depends\Microsoft_VC90_CRT_x86.msm" DiskId="1" Language="0"/>
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLDIR" Name="DotWeb"/>
+			</Directory>
+		</Directory>
+
+		<ComponentGroup Id="DotWeb_Core">
+			<Component Id="DotWeb.Translator" Guid="3952b852-534b-4b84-a49b-8d51f7f4db7d" Directory="INSTALLDIR">
+				<File Id="DotWeb.Translator" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Translator.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.Hosting.Bridge" Guid="{5374A32C-F023-4eb0-9C2F-8E20877DEEFA}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Hosting.Bridge" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Hosting.Bridge.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.Hosting" Guid="{67D1D818-A4B9-4c3f-A9E1-A8024521170E}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Hosting" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Hosting.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.System" Guid="{7D8F21EE-804C-4ff0-9B4E-1B37FAF86D0C}" Directory="INSTALLDIR">
+				<File Id="DotWeb.System" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.System.TargetPath)"/>
+				<File Id="DotWeb.System.pdb"
+					  Source="$(var.DotWeb.System.TargetDir)$(var.DotWeb.System.TargetName).pdb"/>
+				<File Id="DotWeb.System.xml"
+					  Source="$(var.DotWeb.System.TargetDir)$(var.DotWeb.System.TargetName).xml"/>
+			</Component>
+			<Component Id="Hosted_DotWeb.System" Guid="{8A443663-F0AB-4f02-B9D8-AC629A7E35BA}" Directory="INSTALLDIR">
+				<File Id="Hosted_DotWeb.System" KeyPath="yes" Checksum="yes"
+					  Source="$(var.Hosted-DotWeb.System.TargetPath)"/>
+				<File Id="Hosted_DotWeb.System.pdb" Checksum="yes"
+					  Source="$(var.Hosted-DotWeb.System.TargetDir)$(var.Hosted-DotWeb.System.TargetName).pdb"/>
+			</Component>
+			<Component Id="DotWeb.Client" Guid="{2492C9B1-C683-4127-8AE2-077A87411161}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Client" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Client.TargetPath)"/>
+				<File Id="DotWeb.Client.pdb"
+					  Source="$(var.DotWeb.Client.TargetDir)$(var.DotWeb.Client.TargetName).pdb"/>
+				<File Id="DotWeb.Client.xml"
+					  Source="$(var.DotWeb.Client.TargetDir)$(var.DotWeb.Client.TargetName).xml"/>
+			</Component>
+			<Component Id="DotWeb.Decompiler" Guid="{F8337617-ADC6-4b72-A86E-08462EDDA5A8}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Decompiler" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Decompiler.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.Utility" Guid="{5F7932A4-C799-45b7-B1A9-A0713F087F8C}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Utility" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Utility.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.Web" Guid="{F826BD64-0452-453d-B122-A6E05CEAC8D4}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Web" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Web.TargetPath)"/>
+				<File Id="DotWeb.Web.xml"
+					  Source="$(var.DotWeb.Web.TargetDir)$(var.DotWeb.Web.TargetName).xml"/>
+			</Component>
+			<Component Id="DotWeb.Web.Mvc" Guid="{487A390A-01E5-4527-9A6F-303FFFD20136}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Web.Mvc" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Web.Mvc.TargetPath)"/>
+				<File Id="DotWeb.Web.Mvc.xml"
+					  Source="$(var.DotWeb.Web.Mvc.TargetDir)$(var.DotWeb.Web.Mvc.TargetName).xml"/>
+			</Component>
+			<Component Id="DotWeb.Tools.Weaver" Guid="{8B39016F-5A87-4665-BD33-C6D42E5A6E55}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Tools.Weaver" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Tools.Weaver.TargetPath)"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="External_Dependencies">
+			<Component Id="Mono.Cecil" Guid="{CC64B68D-CD85-4d55-9BEA-A9B3E9DB3193}" Directory="INSTALLDIR">
+				<File Id="Mono.Cecil" KeyPath="yes" Checksum="yes"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\Mono.Cecil.dll"/>
+			</Component>
+			<Component Id="Mono.Cecil.Pdb" Guid="{C261928E-3563-4d35-A7DC-CA812AC0AF5C}" Directory="INSTALLDIR">
+				<File Id="Mono.Cecil.Pdb" KeyPath="yes" Checksum="yes"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\Mono.Cecil.Pdb.dll"/>
+			</Component>
+			<Component Id="Castle.Core" Guid="{0953A302-4ECF-407e-9B01-F70AB77A87E0}" Directory="INSTALLDIR">
+				<File Id="Castle.Core" KeyPath="yes" Checksum="yes"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\Castle.Core.dll"/>
+			</Component>
+			<Component Id="Castle.DynamicProxy2" Guid="{D21C64E4-D411-4370-9A52-A97FDB1B2B68}" Directory="INSTALLDIR">
+				<File Id="Castle.DynamicProxy2" KeyPath="yes" Checksum="yes"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\Castle.DynamicProxy2.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<!--https://developer.mozilla.org/En/Plugins/The_First_Install_Problem-->
+		<ComponentGroup Id="Plugin.npapi">
+			<Component Id="NPDotWeb.dll" Guid="*" Directory="INSTALLDIR">
+				<File Id="NPDotWeb.dll" KeyPath="yes" Source="$(var.SolutionDir)plugins\npapi\bin\$(var.Configuration)\NPDotWeb.dll"/>
+				<RegistryKey Root="HKLM" Key="Software\MozillaPlugins\@bluetreelabs.com/DotWeb,version=0.0.1" Action="create">
+					<RegistryValue Name="Path" Value="[#NPDotWeb.dll]" Type="string"/>
+					<RegistryValue Name="ProductName" Value="DotWeb Development-Mode Plugin" Type="string"/>
+					<RegistryValue Name="Description" Value="Support for DotWeb's Development-Mode" Type="string"/>
+					<RegistryValue Name="Vendor" Value="Blue Tree Labs" Type="string"/>
+					<RegistryValue Name="Version" Value="0.0.1" Type="string"/>
+					<RegistryKey Key="MimeTypes\application/x-dotweb" Action="createAndRemoveOnUninstall"/>
+				</RegistryKey>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="Plugin.IE">
+			<Component Id="DotWeb.Agent.Ie" Guid="{4A07F0F1-42ED-4207-A03B-CB8CB1FEA7AD}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Agent.Ie" KeyPath="yes" Source="$(var.DotWeb.Agent.Ie.TargetPath)"/>
+
+				<!--COM Registration-->
+				<Class Id="{378F722A-A64C-4E90-9F9B-F57832FF9713}"
+					   Context="InprocServer32"
+					   Description="DotWeb.Agent.Ie.JsAgent"
+					   ThreadingModel="both"
+					   ForeignServer="mscoree.dll">
+					<ProgId Id="DotWeb.Agent.Ie.JsAgent" Description="DotWeb.Agent.Ie.JsAgent" />
+				</Class>
+
+				<!--COM Registry, result of regasm, dervied from heat-->
+				<RegistryKey Root="HKCR" Key="CLSID\{378F722A-A64C-4E90-9F9B-F57832FF9713}">
+					<RegistryValue Key="Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string"/>
+					<RegistryKey Key="InprocServer32\1.0.0.0">
+						<RegistryValue Name="Class" Value="DotWeb.Agent.Ie.JsAgent" Type="string" />
+						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string"/>
+						<RegistryValue Name="RuntimeVersion" Value="v2.0.50727" Type="string" />
+						<RegistryValue Name="CodeBase" Value="file:///[#DotWeb.Agent.Ie]" Type="string" />
+					</RegistryKey>
+					<RegistryKey Key="InprocServer32">
+						<RegistryValue Name="Class" Value="DotWeb.Agent.Ie.JsAgent" Type="string" />
+						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" />
+						<RegistryValue Name="RuntimeVersion" Value="v2.0.50727" Type="string" />
+						<RegistryValue Name="CodeBase" Value="file:///[#DotWeb.Agent.Ie]" Type="string" />
+					</RegistryKey>
+				</RegistryKey>
+
+				<!--MIME type registration-->
+				<RegistryKey Root="HKCR" Key="MIME\Database\Content Type" Action="create">
+					<RegistryKey Key="application/x-dotweb" Action="createAndRemoveOnUninstall">
+						<RegistryValue Name="CLSID" Value="{378F722A-A64C-4e90-9F9B-F57832FF9713}" Type="string"/>
+					</RegistryKey>
+				</RegistryKey>
+
+			</Component>
+			
+			<Component Id="DotWeb.Agent.Ie.Interop" Guid="{40E482D4-192E-456f-B443-565AF3D5D747}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Agent.Ie.Interop" KeyPath="yes"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\DotWeb.Agent.Ie.Interop.dll"/>
+			</Component>
+			<Component Id="Microsoft.mshtml" Guid="{CC346620-6BDA-4a1e-BF7E-28BADCF383D8}" Directory="INSTALLDIR">
+				<File Id="Microsoft.mshtml" KeyPath="yes" Assembly=".net"
+					  Source="$(var.SolutionDir)build\bin\$(var.Configuration)\Microsoft.mshtml.dll"/>
+			</Component>
+		</ComponentGroup>
+
+		<Feature Id="Complete" Title="DotWeb" Description="The complete package." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+			<Feature Id="Core" Title="SDK" Level="1">
+				<ComponentGroupRef Id="External_Dependencies"/>
+				<ComponentGroupRef Id="DotWeb_Core"/>
+			</Feature>
+
+			<Feature Id="IE.Plugin" Title="IE Plugin" Description="Support for using IE with DotWeb's Development-Mode" Level="1">
+				<ComponentGroupRef Id="Plugin.IE"/>
+				<MergeRef Id="VCRedist"/>
+			</Feature>
+
+			<Feature Id="FF.Plugin" Title="Firefox Plugin" Description="Support for using Firefox with DotWeb's Development-Mode" Level="2">
+				<Condition Level="1">FIREFOX_DETECTED</Condition>
+				<ComponentGroupRef Id="Plugin.npapi"/>
+				<MergeRef Id="VCRedist"/>
+			</Feature>
+		</Feature>
+		
+		<UIRef Id="WixUI_FeatureTree" />
+
+		<WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)DotWeb.Installer\License.rtf"/>
+
+		<Property Id="FIREFOX_DETECTED">
+			<DirectorySearch Id="FirefoxDir" Path="[ProgramFilesFolder]\Mozilla Firefox">
+				<FileSearch Id="Firefox.exe" Name="Firefox.exe"/>
+			</DirectorySearch>
+		</Property>
+
+	</Product>
+</Wix>

@@ -3,7 +3,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
 	<Description about="urn:mozilla:install-manifest">
-		<em:id>hostess@dotweb.bluetreelabs.com</em:id>
+		<em:id>npapi@dotweb-toolkit.com</em:id>
 		<em:name>DotWeb Agent Plugin</em:name>
 		<em:version>0.0.1</em:version>
 		<em:type>2</em:type>
@@ -17,26 +17,11 @@
 		</em:targetApplication>
 
 		<!-- Front End MetaData -->
-		<em:description>A plugin to support hosted-mode development of DotWeb applications</em:description>
+		<em:description>Support for DotWeb's Development-Mode</em:description>
 		<em:creator>Frank Laub</em:creator>
-		<em:homepageURL>http://code.google.com/p/nwtk/</em:homepageURL>
+		<em:homepageURL>http://www.dotweb-toolkit.com/</em:homepageURL>
 		<em:iconURL>chrome://dotweb-agent/skin/icon.png</em:iconURL>
 
 		<em:targetPlatform>WINNT_x86-msvc</em:targetPlatform>
-
-		<!-- TODO
-    # prefs dialog
-
-    # replace default about dialog
-    <em:aboutURL>chrome://gwt-oophm/content/about.xul</em:aboutURL>
-
-    # updates, see http://developer.mozilla.org/en/docs/Extension_Versioning%2C_Update_and_Compatibility#Update_RDF_Format
-    <em:updateURL>https://xxx.google.com/.../update.rdf</em:updateURL>
-
-    # platforms - any others?
-    <em:targetPlatform>Darwin_ppc-gcc3</em:targetPlatform>
-    <em:targetPlatform>SunOS_sparc-sunc</em:targetPlatform>
-    -->
-
 	</Description>
 </RDF>

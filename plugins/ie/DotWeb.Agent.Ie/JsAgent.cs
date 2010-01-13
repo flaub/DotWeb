@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using mshtml;
 using System.Runtime.InteropServices.Expando;
 using DotWeb.Hosting;
 using System.Net.Sockets;
@@ -30,6 +29,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using mshtml;
 
 namespace DotWeb.Agent.Ie
 {

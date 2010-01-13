@@ -1,0 +1,121 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{73c14dd4-6080-4ccb-9728-e2ba4373c5ef}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>DotWeb</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.0\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.0\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>..\build\bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SuppressValidation>False</SuppressValidation>
+    <SuppressIces>ICE03;ICE82</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\build\bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <SuppressIces>ICE03;ICE82</SuppressIces>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\plugins\ie\DotWeb.Agent.Ie.Interop\DotWeb.Agent.Ie.Interop.vcproj">
+      <Name>DotWeb.Agent.Ie.Interop</Name>
+      <Project>{79e45658-6d89-4164-b1b1-0315316f7e4d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\plugins\ie\DotWeb.Agent.Ie\DotWeb.Agent.Ie.csproj">
+      <Name>DotWeb.Agent.Ie</Name>
+      <Project>{d1243c40-69a0-4017-9eca-194de539df83}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\plugins\npapi\NPDotWeb.vcproj">
+      <Name>NPDotWeb</Name>
+      <Project>{6d58fe29-7f53-4710-b720-a9d15a20a0da}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Client\DotWeb.Client.csproj">
+      <Name>DotWeb.Client</Name>
+      <Project>{0a46b99f-8a61-4544-8b1d-e5117dabbd90}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj">
+      <Name>DotWeb.Decompiler</Name>
+      <Project>{69561ef0-26f3-4190-89ea-aae937a5d88f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
+      <Name>DotWeb.Hosting.Bridge</Name>
+      <Project>{cdb3dd8e-7178-42a5-ba0e-f0fabc627b46}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Hosting\DotWeb.Hosting.csproj">
+      <Name>DotWeb.Hosting</Name>
+      <Project>{9004e34c-2d35-40ee-be98-c1aed18081cf}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.System\DotWeb.System.csproj">
+      <Name>DotWeb.System</Name>
+      <Project>{45ad857d-00ea-44cf-a3d4-8355ddfe1623}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.System\Hosted-DotWeb.System.csproj">
+      <Name>Hosted-DotWeb.System</Name>
+      <Project>{f02f94a5-422e-4585-bb7b-160a8c6b488f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Translator\DotWeb.Translator.csproj">
+      <Name>DotWeb.Translator</Name>
+      <Project>{3c90d87c-3525-4d90-b32d-cd9b56b20d99}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Utility\DotWeb.Utility.csproj">
+      <Name>DotWeb.Utility</Name>
+      <Project>{f303a189-1b53-4ff6-b6ac-8972444a6b7b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj">
+      <Name>DotWeb.Web.Mvc</Name>
+      <Project>{0ea77083-0f93-43ea-ab3d-52fe0fee4599}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Web\DotWeb.Web.csproj">
+      <Name>DotWeb.Web</Name>
+      <Project>{81320140-ba96-4316-af77-34cd16952db0}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj">
+      <Name>DotWeb.Tools.Weaver</Name>
+      <Project>{de8a6c27-b315-41e3-82bf-7a3741c7653d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.rtf" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>
