@@ -84,6 +84,11 @@ namespace DotWeb.Web
 				.Replace('.', '_')
 				.Replace('+', '_') + ".js";
 
+			string cachePath = context.MapPath(CacheDir);
+			if (!Directory.Exists(cachePath)) {
+				Directory.CreateDirectory(cachePath);
+			}
+
 			string virtualPath = string.Format("{0}/{1}", CacheDir, filename);
 			string tgtPath = context.MapPath(virtualPath);
 
