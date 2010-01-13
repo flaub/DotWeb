@@ -2,9 +2,9 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
 	 xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 	<Product Id="960ccbce-9cce-4683-9fae-82e5040f6174"
-			 Name="DotWeb"
+			 Name="DotWeb 0.3"
 			 Language="1033"
-			 Version="0.2.0.0"
+			 Version="0.3.0.0"
 			 Manufacturer="Blue Tree Labs"
 			 UpgradeCode="15a3c6ce-4614-4fd5-b0f6-c1c637a4a562">
 
