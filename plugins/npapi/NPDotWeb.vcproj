@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Creating XPI..."
-				CommandLine="package.cmd $(OutDir)"
+				CommandLine="package.cmd $(OutDir)&#x0D;&#x0A;"
 				AdditionalDependencies="package.cmd;xpi\chrome.manifest;xpi\install.rdf;xpi\skin\icon.png"
 				Outputs="$(OutDir)\DotWeb.xpi"
 			/>
@@ -48,7 +48,7 @@
 				PreprocessorDefinitions="_WINDOWS;WIN32;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -106,7 +106,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Creating XPI..."
-				CommandLine="package.cmd $(OutDir)"
+				CommandLine="package.cmd $(OutDir)&#x0D;&#x0A;"
 				Outputs="$(OutDir)\DotWeb.xpi"
 			/>
 			<Tool
@@ -124,7 +124,7 @@
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="npapi"
 				PreprocessorDefinitions="_WINDOWS;WIN32"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
@@ -346,7 +346,24 @@
 			>
 			<File
 				RelativePath=".\xpi\chrome.manifest"
+				FileType="25"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\xpi\install.rdf"

@@ -178,12 +178,18 @@
 				<ComponentGroupRef Id="DotWeb_Core"/>
 			</Feature>
 
-			<Feature Id="IE.Plugin" Title="IE Plugin" Description="Support for using IE with DotWeb's Development-Mode" Level="1">
+			<Feature Id="Plugin.IE" 
+					 Title="IE Plugin" 
+					 Description="ActiveX-based plugin for use with IE to enable DotWeb's Development-Mode" 
+					 Level="1">
 				<ComponentGroupRef Id="Plugin.IE"/>
 				<MergeRef Id="VCRedist"/>
 			</Feature>
 
-			<Feature Id="FF.Plugin" Title="Firefox Plugin" Description="Support for using Firefox with DotWeb's Development-Mode" Level="2">
+			<Feature Id="Plugin.NPAPI" 
+					 Title="Generic Browser Plugin (Firefox or Chrome)" 
+					 Description="NPAPI-based plugin for use with Firefox or Chrome to enable DotWeb's Development-Mode" 
+					 Level="2">
 				<Condition Level="1">FIREFOX_DETECTED</Condition>
 				<ComponentGroupRef Id="Plugin.npapi"/>
 				<MergeRef Id="VCRedist"/>

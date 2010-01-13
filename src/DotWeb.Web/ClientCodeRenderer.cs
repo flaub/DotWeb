@@ -139,6 +139,8 @@ namespace DotWeb.Web
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, DotWebMimeType);
+			writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "0");
+			writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "0");
 			writer.RenderBeginTag(HtmlTextWriterTag.Embed);
 			writer.RenderEndTag();
 
