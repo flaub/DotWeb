@@ -41,6 +41,7 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="JsScript.cs" />
     <Compile Include="Dom\CharacterData.cs" />
     <Compile Include="Dom\Events\MutationEvent.cs" />
     <Compile Include="Dom\Events\EventListener.cs" />
