@@ -443,8 +443,8 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Nop(Instruction il) {
-			var stmt = new CodeCommentStatement("nop");
-			this.AddStatment(stmt);
+//			var stmt = new CodeCommentStatement("nop");
+//			this.AddStatment(stmt);
 		}
 
 		private void Return(Instruction il) {

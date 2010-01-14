@@ -4,9 +4,6 @@ System.Exception = function() {
 };
 
 System.Exception.prototype.$ctor = function() {
-	// nop
-	// nop
-	// nop
 	return this;
 };
 
@@ -17,9 +14,6 @@ System.SystemException.$extend(System.Exception);
 
 System.SystemException.prototype.$ctor = function() {
 	this.$super.$ctor.call(this);
-	// nop
-	// nop
-	// nop
 	return this;
 };
 
@@ -30,9 +24,6 @@ System.NotImplementedException.$extend(System.SystemException);
 
 System.NotImplementedException.prototype.$ctor = function() {
 	this.$super.$ctor.call(this);
-	// nop
-	// nop
-	// nop
 	return this;
 };
 
