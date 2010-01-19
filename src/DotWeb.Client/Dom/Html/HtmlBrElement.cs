@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlBrElement : HtmlElement
+	public class HtmlBrElement : HtmlElement
 	{
-		string clear { get; set; }
+		public extern string clear { get; set; }
 	}
 }

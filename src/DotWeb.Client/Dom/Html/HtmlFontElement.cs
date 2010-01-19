@@ -19,10 +19,10 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlFontElement : HtmlElement
+	public class HtmlFontElement : HtmlElement
 	{
-		string color { get; set; }
-		string face { get; set; }
-		string size { get; set; }
+		public extern string color { get; set; }
+		public extern string face { get; set; }
+		public extern string size { get; set; }
 	}
 }

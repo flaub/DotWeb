@@ -19,16 +19,16 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlLinkElement : HtmlElement
+	public class HtmlLinkElement : HtmlElement
 	{
-		 bool disabled { get; set; }
-		 string charset { get; set; }
-		 string href { get; set; }
-		 string hreflang { get; set; }
-		 string media { get; set; }
-		 string rel { get; set; }
-		 string rev { get; set; }
-		 string target { get; set; }
-		 string type { get; set; }
+		public extern bool disabled { get; set; }
+		public extern string charset { get; set; }
+		public extern string href { get; set; }
+		public extern string hreflang { get; set; }
+		public extern string media { get; set; }
+		public extern string rel { get; set; }
+		public extern string rev { get; set; }
+		public extern string target { get; set; }
+		public extern string type { get; set; }
 	}
 }

@@ -19,17 +19,18 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableRowElement : HtmlElement
+	public class HtmlTableRowElement : HtmlElement
 	{
-		int rowIndex { get; }
-		int sectionRowIndex { get; }
-		HtmlCollection cells { get; }
-		string align { get; set; }
-		string bgColor { get; set; }
-		string ch { get; set; }
-		string chOff { get; set; }
-		string vAlign { get; set; }
-		HtmlElement insertCell(int index);
-		void deleteCell(int index);
+		public extern int rowIndex { get; }
+		public extern int sectionRowIndex { get; }
+		public extern HtmlCollection cells { get; }
+		public extern string align { get; set; }
+		public extern string bgColor { get; set; }
+		public extern string ch { get; set; }
+		public extern string chOff { get; set; }
+		public extern string vAlign { get; set; }
+
+		public extern HtmlElement insertCell(int index);
+		public extern void deleteCell(int index);
 	}
 }

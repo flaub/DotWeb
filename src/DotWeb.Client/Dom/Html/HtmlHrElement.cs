@@ -19,11 +19,11 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlHrElement : HtmlElement
+	public class HtmlHrElement : HtmlElement
 	{
-		string align { get; set; }
-		bool noShade { get; set; }
-		string size { get; set; }
-		string width { get; set; }
+		public extern string align { get; set; }
+		public extern bool noShade { get; set; }
+		public extern string size { get; set; }
+		public extern string width { get; set; }
 	}
 }

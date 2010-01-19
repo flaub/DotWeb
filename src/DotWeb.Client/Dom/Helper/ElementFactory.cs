@@ -5,19 +5,19 @@ namespace DotWeb.Client.Dom.Helper
 {
 	public static class ElementFactory
 	{
-		[JsCode("return $doc.createTextNode(text);")]
+		[JsMacro("$doc.createTextNode({0})")]
 		public static extern Text CreateText(string text);
 
-		[JsCode("return $doc.createElement('a');")]
-		public static extern HtmlAnchorElement CreateAnchor();
+		[JsMacro("$doc.createElement('a')")]
+		public static extern AnchorElement CreateAnchor();
 
-		[JsCode("return $doc.createElement('div');")]
+		[JsMacro("$doc.createElement('div')")]
 		public static extern HtmlDivElement CreateDiv();
 
-		[JsCode("return $doc.createElement('br');")]
+		[JsMacro("$doc.createElement('br')")]
 		public static extern HtmlBrElement CreateBreak();
 
-		[JsCode("return $doc.createElement('p');")]
+		[JsMacro("$doc.createElement('p')")]
 		public static extern HtmlParagraphElement CreateParagraph();
 	}
 }

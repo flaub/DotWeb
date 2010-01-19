@@ -19,38 +19,33 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlInputElement : HtmlElement
+	public class HtmlInputElement : HtmlElement
 	{
-		string defaultValue { get; set; }
-		bool defaultChecked { get; set; }
-		HtmlFormElement form { get; }
-		string accept { get; set; }
-		string accessKey { get; set; }
-		string align { get; set; }
-		string alt { get; set; }
+		public extern string defaultValue { get; set; }
+		public extern bool defaultChecked { get; set; }
+		public extern HtmlFormElement form { get; }
+		public extern string accept { get; set; }
+		public extern string accessKey { get; set; }
+		public extern string align { get; set; }
+		public extern string alt { get; set; }
 
-		bool _checked {
-			[JsCode("return this.checked")]
-			get;
-			[JsCode("this.checked = value;")]
-			set;
-		}
+		public extern bool @checked { get; set; }
+		public extern bool disabled { get; set; }
+		public extern int maxLength { get; set; }
+		public extern string name { get; set; }
+		public extern bool readOnly { get; set; }
+		// Modified in DOM Level 2:
+		public extern uint size { get; set; }
+		public extern string src { get; set; }
+		public extern int tabIndex { get; set; }
+		// Modified in DOM Level 2:
+		public extern string type { get; set; }
+		public extern string useMap { get; set; }
+		public extern string value { get; set; }
 
-		bool disabled { get; set; }
-		int maxLength { get; set; }
-		string name { get; set; }
-		bool readOnly { get; set; }
-		// Modified in DOM Level 2:
-		uint size { get; set; }
-		string src { get; set; }
-		int tabIndex { get; set; }
-		// Modified in DOM Level 2:
-		string type { get; set; }
-		string useMap { get; set; }
-		string value { get; set; }
-		void blur();
-		void focus();
-		void select();
-		void click();
+		public extern void blur();
+		public extern void focus();
+		public extern void select();
+		public extern void click();
 	}
 }

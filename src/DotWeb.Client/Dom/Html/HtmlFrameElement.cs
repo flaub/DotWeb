@@ -19,16 +19,16 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlFrameElement : HtmlElement
+	public class HtmlFrameElement : HtmlElement
 	{
-		string frameBorder { get; set; }
-		string longDesc { get; set; }
-		string marginHeight { get; set; }
-		string marginWidth { get; set; }
-		string name { get; set; }
-		bool noResize { get; set; }
-		string scrolling { get; set; }
-		string src { get; set; }
-		Document contentDocument { get; }
+		public extern string frameBorder { get; set; }
+		public extern string longDesc { get; set; }
+		public extern string marginHeight { get; set; }
+		public extern string marginWidth { get; set; }
+		public extern string name { get; set; }
+		public extern bool noResize { get; set; }
+		public extern string scrolling { get; set; }
+		public extern string src { get; set; }
+		public extern Document contentDocument { get; }
 	}
 }

@@ -19,19 +19,19 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlImageElement : HtmlElement
+	public class HtmlImageElement : HtmlElement
 	{
-		string name { get; set; }
-		string align { get; set; }
-		string alt { get; set; }
-		string border { get; set; }
-		int height { get; set; }
-		int hspace { get; set; }
-		bool isMap { get; set; }
-		string longDesc { get; set; }
-		string src { get; set; }
-		string useMap { get; set; }
-		int vspace { get; set; }
-		int width { get; set; }
+		public extern string name { get; set; }
+		public extern string align { get; set; }
+		public extern string alt { get; set; }
+		public extern string border { get; set; }
+		public extern int height { get; set; }
+		public extern int hspace { get; set; }
+		public extern bool isMap { get; set; }
+		public extern string longDesc { get; set; }
+		public extern string src { get; set; }
+		public extern string useMap { get; set; }
+		public extern int vspace { get; set; }
+		public extern int width { get; set; }
 	}
 }

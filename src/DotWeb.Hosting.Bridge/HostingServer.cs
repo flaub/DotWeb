@@ -25,13 +25,44 @@ using System.Diagnostics;
 
 namespace DotWeb.Hosting.Bridge
 {
-	public class HostingServer
+	public interface IHostingServer
 	{
-		TcpListener listener;
+		string PrepareType(string binPath, AssemblyQualifiedTypeName aqtn);
 
-		static HostingServer() {
+		IPEndPoint EndPoint { get; }
+
+		void Start();
+		void StartAsync();
+		void Stop();
+	}
+
+	public static class HostingServerFactory
+	{
+		public static IHostingServer CreateHostingServer() {
+			//var curDomain = AppDomain.CurrentDomain;
+			//var setup = curDomain.SetupInformation;
+
+			//setup.AppDomainInitializer = OnAppDomainInit;
+			//setup.AppDomainInitializerArguments = null;
+
+			//var appDomain = AppDomain.CreateDomain("DotWeb Hosting Environment", null, setup);
+
+			//var type = typeof(HostingServer);
+			//var server = (HostingServer)appDomain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
+			//return server;
+			HostedMode.Host = new CallContextStorage();
+
+			return new HostingServer();
+		}
+
+		private static void OnAppDomainInit(string[] args) {
 			HostedMode.Host = new CallContextStorage();
 		}
+	}
+
+	class HostingServer : MarshalByRefObject, IHostingServer
+	{
+		TcpListener listener;
 
 		public HostingServer() {
 			this.listener = new TcpListener(IPAddress.Loopback, 0);

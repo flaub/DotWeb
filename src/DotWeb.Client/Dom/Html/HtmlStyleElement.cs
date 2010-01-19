@@ -19,10 +19,10 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlStyleElement : HtmlElement
+	public class HtmlStyleElement : HtmlElement
 	{
-		bool disabled { get; set; }
-		string media { get; set; }
-		string type { get; set; }
+		public extern bool disabled { get; set; }
+		public extern string media { get; set; }
+		public extern string type { get; set; }
 	}
 }

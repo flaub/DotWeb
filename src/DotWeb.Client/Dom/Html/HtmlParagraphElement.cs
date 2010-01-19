@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlPreElement : HtmlElement
+	public class HtmlPreElement : HtmlElement
 	{
-		int width { get; set; }
+		public extern int width { get; set; }
 	}
 }

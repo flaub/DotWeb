@@ -17,15 +17,15 @@
 
 namespace DotWeb.Client.Dom
 {
-	public interface CharacterData : Node
+	public class CharacterData : Node
 	{
-		string data { get; set; }
-		uint length { get; }
+		public extern string data { get; set; }
+		public extern uint length { get; }
 
-		string substringData(uint offset, uint count);
-		void appendData(string arg);
-		void insertData(uint offset, string arg);
-		void deleteData(uint offset, uint count);
-		void replaceData(uint offset, uint count, string arg);
+		public extern string substringData(uint offset, uint count);
+		public extern void appendData(string arg);
+		public extern void insertData(uint offset, string arg);
+		public extern void deleteData(uint offset, uint count);
+		public extern void replaceData(uint offset, uint count, string arg);
 	}
 }

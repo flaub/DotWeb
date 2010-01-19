@@ -19,22 +19,22 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableCellElement : HtmlElement
+	public class HtmlTableCellElement : HtmlElement
 	{
-		int cellIndex { get; }
-		string abbr { get; set; }
-		string align { get; set; }
-		string axis { get; set; }
-		string bgColor { get; set; }
-		string ch { get; set; }
-		string chOff { get; set; }
-		int colSpan { get; set; }
-		string headers { get; set; }
-		string height { get; set; }
-		bool noWrap { get; set; }
-		int rowSpan { get; set; }
-		string scope { get; set; }
-		string vAlign { get; set; }
-		string width { get; set; }
+		public extern int cellIndex { get; }
+		public extern string abbr { get; set; }
+		public extern string align { get; set; }
+		public extern string axis { get; set; }
+		public extern string bgColor { get; set; }
+		public extern string ch { get; set; }
+		public extern string chOff { get; set; }
+		public extern int colSpan { get; set; }
+		public extern string headers { get; set; }
+		public extern string height { get; set; }
+		public extern bool noWrap { get; set; }
+		public extern int rowSpan { get; set; }
+		public extern string scope { get; set; }
+		public extern string vAlign { get; set; }
+		public extern string width { get; set; }
 	}
 }

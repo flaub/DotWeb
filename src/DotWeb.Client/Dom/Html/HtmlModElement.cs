@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlModElement : HtmlElement
+	public class HtmlModElement : HtmlElement
 	{
-		string cite { get; set; }
-		string dateTime { get; set; }
+		public extern string cite { get; set; }
+		public extern string dateTime { get; set; }
 	}
 }

@@ -27,7 +27,7 @@ namespace DotWeb.Client
 			[JsMacro("$wnd")]
 			get;
 		}
-
+		
 		public static extern HtmlDocument Document {
 			[JsMacro("$doc")]
 			get;

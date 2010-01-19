@@ -144,10 +144,23 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		[Ignore]
 		public void EnumTest() {
 			// weave an enum then get to the enum via reflection
-			Assert.Fail();
+			var test1 = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.EnumTest");
+			var type1 = test1.GetType();
+			Assert.IsNotNull(type1);
+
+			var test2 = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.FlagsTest");
+			var type2 = test2.GetType();
+			Assert.IsNotNull(type2);
+
+			var enumValue1 = Enum.ToObject(type1, 3);
+			Assert.IsNotNull(enumValue1);
+			Assert.AreEqual("Third", enumValue1.ToString());
+
+			var enumValue2 = Enum.ToObject(type2, 3);
+			Assert.IsNotNull(enumValue2);
+			Assert.AreEqual("First, Second", enumValue2.ToString());
 		}
 
 		[Test]

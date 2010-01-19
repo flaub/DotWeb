@@ -143,15 +143,15 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private string GenerateInlineBody(MethodBase method, string format) {
-			if (method.IsSpecialName) {
-				if (method.Name.StartsWith("get_")) {
-					return "return " + format + ";";
-				}
-			}
+			//if (method.IsSpecialName) {
+			//    if (method.Name.StartsWith("get_")) {
+			//        return "return " + format + ";";
+			//    }
+			//}
 
 			var parameters = method.GetParameters();
 			var args = parameters.Select(x => x.Name).ToArray();
-			return string.Format(format, args) + ";";
+			return "return " + string.Format(format, args) + ";";
 		}
 	}
 }

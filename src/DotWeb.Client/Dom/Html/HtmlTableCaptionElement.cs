@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableCaptionElement : HtmlElement
+	public class HtmlTableCaptionElement : HtmlElement
 	{
-		string align { get; set; }
+		public extern string align { get; set; }
 	}
 }

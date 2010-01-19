@@ -19,10 +19,10 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlOListElement : HtmlElement
+	public class HtmlOListElement : HtmlElement
 	{
-		bool compact { get; set; }
-		int start { get; set; }
-		string type { get; set; }
+		public extern bool compact { get; set; }
+		public extern int start { get; set; }
+		public extern string type { get; set; }
 	}
 }

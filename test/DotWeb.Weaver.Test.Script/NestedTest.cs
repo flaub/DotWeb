@@ -28,5 +28,11 @@ namespace DotWeb.Weaver.Test.Script
 		public class Derived : Base
 		{
 		}
+
+		public enum Enum
+		{
+			First = 1,
+			Second = 2
+		}
 	}
 }

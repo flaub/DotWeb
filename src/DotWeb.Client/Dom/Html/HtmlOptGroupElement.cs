@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlOptGroupElement : HtmlElement
+	public class HtmlOptGroupElement : HtmlElement
 	{
-		bool disabled { get; set; }
-		string label { get; set; }
+		public extern bool disabled { get; set; }
+		public extern string label { get; set; }
 	}
 }

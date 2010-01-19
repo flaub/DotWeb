@@ -17,8 +17,8 @@
 
 namespace DotWeb.Client.Dom
 {
-	public interface Text : CharacterData
+	public class Text : CharacterData
 	{
-		Text splitText(uint offset);
+		public extern Text splitText(uint offset);
 	}
 }

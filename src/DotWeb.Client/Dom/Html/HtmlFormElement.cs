@@ -19,18 +19,18 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlFormElement : HtmlElement
+	public class HtmlFormElement : HtmlElement
 	{
-		HtmlCollection elements { get; }
-		int length { get; }
-		string name { get; set; }
-		string acceptCharset { get; set; }
-		string action { get; set; }
-		string enctype { get; set; }
-		string method { get; set; }
-		string target { get; set; }
-		
-		void submit();
-		void reset();
+		public extern HtmlCollection elements { get; }
+		public extern int length { get; }
+		public extern string name { get; set; }
+		public extern string acceptCharset { get; set; }
+		public extern string action { get; set; }
+		public extern string enctype { get; set; }
+		public extern string method { get; set; }
+		public extern string target { get; set; }
+
+		public extern void submit();
+		public extern void reset();
 	}
 }

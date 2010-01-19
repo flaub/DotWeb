@@ -55,6 +55,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.System", "src\DotWeb.System\DotWeb.System.csproj", "{45AD857D-00EA-44CF-A3D4-8355DDFE1623}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosted-DotWeb.System", "src\DotWeb.System\Hosted-DotWeb.System.csproj", "{F02F94A5-422E-4585-BB7B-160A8C6B488F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB} = {63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Test.Script", "test\DotWeb.Hosting.Test.Script\DotWeb.Hosting.Test.Script.csproj", "{4AE3435E-B364-4362-9911-ACAEDC6E1A99}"
 EndProject

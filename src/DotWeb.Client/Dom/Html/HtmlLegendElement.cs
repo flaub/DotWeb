@@ -19,10 +19,10 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlLegendElement : HtmlElement
+	public class HtmlLegendElement : HtmlElement
 	{
-		HtmlFormElement form { get; }
-		string accessKey { get; set; }
-		string align { get; set; }
+		public extern HtmlFormElement form { get; }
+		public extern string accessKey { get; set; }
+		public extern string align { get; set; }
 	}
 }

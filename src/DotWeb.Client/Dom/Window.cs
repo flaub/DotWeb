@@ -24,15 +24,18 @@ namespace DotWeb.Client.Dom
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]
-	[JsIntrinsic]
-	[JsNative]
-	public interface Window
+	public class Window : JsObject
 	{
+		public static extern Window Instance {
+			[JsMacro("$wnd")]
+			get;
+		}
+
 		#region Properties
 
-		HtmlDocument document { get; }
+		public extern HtmlDocument document { get; }
 
-		object this[string name] { get; set; }
+		public extern object this[string name] { get; set; }
 
 		#endregion
 
@@ -41,17 +44,17 @@ namespace DotWeb.Client.Dom
 		/// <summary>
 		/// Fires when the window loses focus.
 		/// </summary>
-		GenericEventHandler onblur { get; set; }
+		public extern GenericEventHandler onblur { get; set; }
 
 		/// <summary>
 		/// Fires when the focus is set on the current window.
 		/// </summary>
-		GenericEventHandler onfocus { get; set; }
+		public extern GenericEventHandler onfocus { get; set; }
 
 		/// <summary>
 		/// Fires when the window is resized.
 		/// </summary>
-		GenericEventHandler onresize { get; set; }
+		public extern GenericEventHandler onresize { get; set; }
 
 		/// <summary>
 		/// Fires when the window is scrolled. 
@@ -66,7 +69,7 @@ namespace DotWeb.Client.Dom
 		///	}
 		/// </code>
 		/// </example>
-		GenericEventHandler onscroll { get; set; }
+		public extern GenericEventHandler onscroll { get; set; }
 
 		/// <summary>
 		/// Fires when the page is about to be unloaded, 
@@ -85,7 +88,7 @@ namespace DotWeb.Client.Dom
 		/// window.location="http://www.google.com" //prompt is invoked
 		/// </code>
 		/// </example>
-		GenericEventHandler onbeforeunload { get; set; }
+		public extern GenericEventHandler onbeforeunload { get; set; }
 
 		/// <summary>
 		/// Fires when a JavaScript error occurs. 
@@ -102,7 +105,7 @@ namespace DotWeb.Client.Dom
 		///	}
 		///	</code>
 		/// </example>
-		ErrorEventHandler onerror { get; set; }
+		public extern ErrorEventHandler onerror { get; set; }
 		#endregion
 
 		#region Methods
@@ -110,98 +113,98 @@ namespace DotWeb.Client.Dom
 		/// <summary>
 		/// Displays an alert box with a message and an OK button
 		/// </summary>
-		void alert(object message);
+		public extern void alert(object message);
 
 		/// <summary>
 		/// Removes focus from the current window
 		/// </summary>
-		void blur();
+		public extern void blur();
 
 		/// <summary>
 		/// Cancels a timeout set with setInterval()
 		/// </summary>
-		void clearInterval(int id);
+		public extern void clearInterval(int id);
 
 		/// <summary>
 		/// Cancels a timeout set with setTimeout()
 		/// </summary>
-		void clearTimeout(int id);
+		public extern void clearTimeout(int id);
 
 		/// <summary>
 		/// Closes the current window
 		/// </summary>
-		void close();
+		public extern void close();
 
 		/// <summary>
 		/// Displays a dialog box with a message and an OK and a Cancel button
 		/// </summary>
-		bool confirm(string message);
+		public extern bool confirm(string message);
 
 		/// <summary>
 		/// Creates a pop-up window
 		/// </summary>
-		Window createPopup();
+		public extern Window createPopup();
 
 		/// <summary>
 		/// Sets focus to the current window
 		/// </summary>
-		void focus();
+		public extern void focus();
 
 		/// <summary>
 		/// Moves a window relative to its current position
 		/// </summary>
-		void moveBy(int x, int y);
+		public extern void moveBy(int x, int y);
 
 		/// <summary>
 		/// Moves a window to the specified position
 		/// </summary>
-		void moveTo(int x, int y);
+		public extern void moveTo(int x, int y);
 
 		/// <summary>
 		/// Opens a new browser window
 		/// </summary>
-		Window open(string url, string name, string features, bool replace);
+		public extern Window open(string url, string name, string features, bool replace);
 
 		/// <summary>
 		/// Prints the contents of the current window
 		/// </summary>
-		void print();
+		public extern void print();
 
 		/// <summary>
 		/// Displays a dialog box that prompts the user for input
 		/// </summary>
-		string prompt(string message);
-		string prompt(string message, object value);
+		public extern string prompt(string message);
+		public extern string prompt(string message, object value);
 
 		/// <summary>
 		/// Resizes a window by the specified pixels
 		/// </summary>
-		void resizeBy(int x, int y);
+		public extern void resizeBy(int x, int y);
 
 		/// <summary>
 		/// Resizes a window to the specified width and height
 		/// </summary>
-		void resizeTo(int x, int y);
+		public extern void resizeTo(int x, int y);
 
 		/// <summary>
 		/// Scrolls the content by the specified number of pixels
 		/// </summary>
-		void scrollBy(int x, int y);
+		public extern void scrollBy(int x, int y);
 
 		/// <summary>
 		/// Scrolls the content to the specified coordinates
 		/// </summary>
-		void scrollTo(int x, int y);
+		public extern void scrollTo(int x, int y);
 
 		/// <summary>
 		/// Evaluates an expression at specified intervals
 		/// </summary>
-		int setInterval(string expression, int msec);
+		public extern int setInterval(string expression, int msec);
 
 		/// <summary>
 		/// Evaluates an expression after a specified number of milliseconds
 		/// </summary>
-		int setTimeout(string expression, int msec);
+		public extern int setTimeout(string expression, int msec);
 
 		#endregion
 	}

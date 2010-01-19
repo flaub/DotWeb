@@ -116,23 +116,15 @@ namespace DotWeb.Tools.Weaver
 				return externalWrapper;
 			}
 
-			if (typeDef.IsEnum) {
-				var enumProc = new EnumProcessor(this.resolver, this, typeDef, this.moduleBuilder);
-				RegisterType(typeRef, enumProc);
-				return enumProc;
-			}
-			else if (typeDef.IsNested) {
+			TypeBuilder outerBuilder = null;
+			if (typeDef.IsNested) {
 				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType);
-				var outerBuilder = (TypeBuilder)outerProc.Type;
-				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder, outerBuilder);
-				RegisterType(typeRef, typeProc);
-				return typeProc;
+				outerBuilder = (TypeBuilder)outerProc.Type;
 			}
-			else {
-				var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder);
-				RegisterType(typeRef, typeProc);
-				return typeProc;
-			}
+
+			var typeProc = new TypeProcessor(this.resolver, this, typeDef, this.moduleBuilder, outerBuilder);
+			RegisterType(typeRef, typeProc);
+			return typeProc;
 		}
 
 		private void RegisterType(TypeReference typeRef, IType type) {

@@ -19,23 +19,23 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlSelectElement : HtmlElement
+	public class HtmlSelectElement : HtmlElement
 	{
-		string type { get; }
-		int selectedIndex { get; set; }
-		string value { get; set; }
-		uint length { get; set; }
-		HtmlFormElement form { get; }
-		HtmlCollection options { get; }
-		bool disabled { get; set; }
-		bool multiple { get; set; }
-		string name { get; set; }
-		int size { get; set; }
-		int tabIndex { get; set; }
+		public extern string type { get; }
+		public extern int selectedIndex { get; set; }
+		public extern string value { get; set; }
+		public extern uint length { get; set; }
+		public extern HtmlFormElement form { get; }
+		public extern HtmlCollection options { get; }
+		public extern bool disabled { get; set; }
+		public extern bool multiple { get; set; }
+		public extern string name { get; set; }
+		public extern int size { get; set; }
+		public extern int tabIndex { get; set; }
 
-		void add(HtmlElement element, HtmlElement before);
-		void remove(int index);
-		void blur();
-		void focus();
+		public extern void add(HtmlElement element, HtmlElement before);
+		public extern void remove(int index);
+		public extern void blur();
+		public extern void focus();
 	}
 }

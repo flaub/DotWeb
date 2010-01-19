@@ -18,23 +18,31 @@
 using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
-	[JsIntrinsic]
-	public class HtmlTextAreaElement : HtmlElement
+	public class AnchorElement : HtmlElement
 	{
-		public extern string defaultValue { get; set; }
-		public extern HtmlFormElement form { get; }
-		public extern string accessKey { get; set; }
-		public extern int cols { get; set; }
-		public extern bool disabled { get; set; }
-		public extern string name { get; set; }
-		public extern bool readOnly { get; set; }
-		public extern int rows { get; set; }
-		public extern int tabIndex { get; set; }
-		public extern string type { get; }
-		public extern string value { get; set; }
+		public const string TAG = "a";
 
+		public extern string accessKey { get; set; }
+		public extern string charset { get; set; }
+		public extern string coords { get; set; }
+		public extern string href { get; set; }
+		public extern string hreflang { get; set; }
+		public extern string name { get; set; }
+		public extern string rel { get; set; }
+		public extern string rev { get; set; }
+		public extern string shape { get; set; }
+		public extern int tabIndex { get; set; }
+		public extern string target { get; set; }
+		public extern string type { get; set; }
+	
+		/// <summary>
+		/// Removes keyboard focus from this element.
+		/// </summary>
 		public extern void blur();
+
+		/// <summary>
+		/// Gives keyboard focus to this element.
+		/// </summary>
 		public extern void focus();
-		public extern void select();
 	}
 }

@@ -19,13 +19,13 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableColElement : HtmlElement
+	public class HtmlTableColElement : HtmlElement
 	{
-		string align { get; set; }
-		string ch { get; set; }
-		string chOff { get; set; }
-		int span { get; set; }
-		string vAlign { get; set; }
-		string width { get; set; }
+		public extern string align { get; set; }
+		public extern string ch { get; set; }
+		public extern string chOff { get; set; }
+		public extern int span { get; set; }
+		public extern string vAlign { get; set; }
+		public extern string width { get; set; }
 	}
 }

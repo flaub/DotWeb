@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlDirectoryElement : HtmlElement
+	public class HtmlDirectoryElement : HtmlElement
 	{
-		bool compact { get; set; }
+		public extern bool compact { get; set; }
 	}
 }

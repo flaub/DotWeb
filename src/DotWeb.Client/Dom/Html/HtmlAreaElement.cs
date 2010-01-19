@@ -19,15 +19,15 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlAreaElement : HtmlElement
+	public class HtmlAreaElement : HtmlElement
 	{
-		string accessKey { get; set; }
-		string alt { get; set; }
-		string coords { get; set; }
-		string href { get; set; }
-		bool noHref { get; set; }
-		string shape { get; set; }
-		int tabIndex { get; set; }
-		string target { get; set; }
+		public extern string accessKey { get; set; }
+		public extern string alt { get; set; }
+		public extern string coords { get; set; }
+		public extern string href { get; set; }
+		public extern bool noHref { get; set; }
+		public extern string shape { get; set; }
+		public extern int tabIndex { get; set; }
+		public extern string target { get; set; }
 	}
 }

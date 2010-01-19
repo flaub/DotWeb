@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlDivElement : HtmlElement
+	public class HtmlDivElement : HtmlElement
 	{
-		string align { get; set; }
+		public extern string align { get; set; }
 	}
 }

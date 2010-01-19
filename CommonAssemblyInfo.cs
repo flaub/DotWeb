@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Blue Tree Labs")]
-[assembly: AssemblyCopyright("Copyright © Frank Laub 2009")]
+[assembly: AssemblyCopyright("Copyright © Frank Laub 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]

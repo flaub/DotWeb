@@ -19,26 +19,21 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlAppletElement : HtmlElement
+	public class HtmlAppletElement : HtmlElement
 	{
-		string align { get; set; }
-		string alt { get; set; }
-		string archive { get; set; }
-		string code { get; set; }
-		string codeBase { get; set; }
-		string height { get; set; }
+		public extern string align { get; set; }
+		public extern string alt { get; set; }
+		public extern string archive { get; set; }
+		public extern string code { get; set; }
+		public extern string codeBase { get; set; }
+		public extern string height { get; set; }
 		// Modified in DOM Level 2:
-		int hspace { get; set; }
-		string name { get; set; }
+		public extern int hspace { get; set; }
+		public extern string name { get; set; }
 		// Modified in DOM Level 2:
-		string _object {
-			[JsCode("return this.object;")]
-			get;
-			[JsCode("this.object = value;")]
-			set;
-		}
+		public extern string @object { get; set; }
 		// Modified in DOM Level 2:
-		int vspace { get; set; }
-		string width { get; set; }
+		public extern int vspace { get; set; }
+		public extern string width { get; set; }
 	}
 }

@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlMapElement : HtmlElement
+	public class HtmlMapElement : HtmlElement
 	{
-		HtmlCollection areas { get; }
-		string name { get; set; }
+		public extern HtmlCollection areas { get; }
+		public extern string name { get; set; }
 	}
 }

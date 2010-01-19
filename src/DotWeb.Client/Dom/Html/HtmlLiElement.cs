@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlLiElement : HtmlElement
+	public class HtmlLiElement : HtmlElement
 	{
-		string type { get; set; }
-		string value { get; set; }
+		public extern string type { get; set; }
+		public extern string value { get; set; }
 	}
 }

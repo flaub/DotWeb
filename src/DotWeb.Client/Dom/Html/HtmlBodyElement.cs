@@ -19,36 +19,36 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlBodyElement : HtmlElement
+	public class HtmlBodyElement : HtmlElement
 	{
 		/// <summary>
 		/// Specifies the color of activated links in the document (Alink attribute).
 		/// </summary>
-		string aLink { get; set; }
+		public extern string aLink { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
-		string background { get; set; }
+		public extern string background { get; set; }
 
 		/// <summary>
 		/// Specifies the background color of the document.
 		/// </summary>
-		string bgColor { get; set; }
+		public extern string bgColor { get; set; }
 
 		/// <summary>
 		/// Specifies the color of unvisited links in the document (link attribute).
 		/// </summary>
-		string link { get; set; }
+		public extern string link { get; set; }
 
 		/// <summary>
 		/// Specifies the default text color of the document (text attribute).
 		/// </summary>
-		string text { get; set; }
+		public extern string text { get; set; }
 
 		/// <summary>
 		/// Specifies the color of visited links in the document (vlink attribute).
 		/// </summary>
-		string vLink { get; set; }
+		public extern string vLink { get; set; }
 	}
 }

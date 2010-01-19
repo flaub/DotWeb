@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlBaseElement : HtmlElement
+	public class HtmlBaseElement : HtmlElement
 	{
-		string href { get; set; }
-		string target { get; set; }
+		public extern string href { get; set; }
+		public extern string target { get; set; }
 	}
 }

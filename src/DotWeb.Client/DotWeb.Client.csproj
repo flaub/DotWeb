@@ -35,12 +35,15 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DotWeb.Client.XML</DocumentationFile>
     <NoStdLib>true</NoStdLib>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,626</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Browser.cs" />
+    <Compile Include="IEntryPoint.cs" />
+    <Compile Include="IEventListener.cs" />
     <Compile Include="JsScript.cs" />
     <Compile Include="Dom\CharacterData.cs" />
     <Compile Include="Dom\Events\MutationEvent.cs" />
@@ -100,7 +103,7 @@
     <Compile Include="Dom\Html\HtmlBrElement.cs" />
     <Compile Include="Dom\Text.cs" />
     <Compile Include="Dom\Css\CssProperties.cs" />
-    <Compile Include="Dom\Html\HtmlAnchorElement.cs" />
+    <Compile Include="Dom\Html\AnchorElement.cs" />
     <Compile Include="Dom\Css\CssRule.cs" />
     <Compile Include="Dom\Css\CssStyleDeclaration.cs" />
     <Compile Include="Dom\Events\UiEvent.cs" />
@@ -128,12 +131,22 @@
     <Compile Include="Dom\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="Ui\Composite.cs" />
+    <Compile Include="Ui\Panel.cs" />
+    <Compile Include="Ui\SimplePanel.cs" />
+    <Compile Include="Ui\UiObject.cs" />
+    <Compile Include="Ui\Widget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.System\DotWeb.System.csproj">
       <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
       <Name>DotWeb.System</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dom\Styesheets\" />

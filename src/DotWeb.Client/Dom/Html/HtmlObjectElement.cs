@@ -19,26 +19,26 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlObjectElement : HtmlElement
+	public class HtmlObjectElement : HtmlElement
 	{
-		HtmlFontElement form { get; }
-		string code { get; set; }
-		string align { get; set; }
-		string archive { get; set; }
-		string border { get; set; }
-		string codeBase { get; set; }
-		string codeType { get; set; }
-		string data { get; set; }
-		bool declare { get; set; }
-		string height { get; set; }
-		int hspace { get; set; }
-		string name { get; set; }
-		string standby { get; set; }
-		int tabIndex { get; set; }
-		string type { get; set; }
-		string useMap { get; set; }
-		int vspace { get; set; }
-		string width { get; set; }
-		Document contentDocument { get; }
+		public extern HtmlFontElement form { get; }
+		public extern string code { get; set; }
+		public extern string align { get; set; }
+		public extern string archive { get; set; }
+		public extern string border { get; set; }
+		public extern string codeBase { get; set; }
+		public extern string codeType { get; set; }
+		public extern string data { get; set; }
+		public extern bool declare { get; set; }
+		public extern string height { get; set; }
+		public extern int hspace { get; set; }
+		public extern string name { get; set; }
+		public extern string standby { get; set; }
+		public extern int tabIndex { get; set; }
+		public extern string type { get; set; }
+		public extern string useMap { get; set; }
+		public extern int vspace { get; set; }
+		public extern string width { get; set; }
+		public extern Document contentDocument { get; }
 	}
 }

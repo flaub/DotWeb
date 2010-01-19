@@ -19,10 +19,10 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlLabelElement : HtmlElement
+	public class HtmlLabelElement : HtmlElement
 	{
-		HtmlFormElement form { get; }
-		string accessKey { get; set; }
-		string htmlFor { get; set; }
+		public extern HtmlFormElement form { get; }
+		public extern string accessKey { get; set; }
+		public extern string htmlFor { get; set; }
 	}
 }

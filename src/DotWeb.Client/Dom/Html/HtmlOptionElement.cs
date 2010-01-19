@@ -19,15 +19,15 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlOptionElement : HtmlElement
+	public class HtmlOptionElement : HtmlElement
 	{
-		HtmlFormElement form { get; }
-		bool defaultSelected { get; set; }
-		string text { get; }
-		int index { get; }
-		bool disabled { get; set; }
-		string label { get; set; }
-		bool selected { get; set; }
-		string value { get; set; }
+		public extern HtmlFormElement form { get; }
+		public extern bool defaultSelected { get; set; }
+		public extern string text { get; }
+		public extern int index { get; }
+		public extern bool disabled { get; set; }
+		public extern string label { get; set; }
+		public extern bool selected { get; set; }
+		public extern string value { get; set; }
 	}
 }

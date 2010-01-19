@@ -19,18 +19,18 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlIFrameElement : HtmlElement
+	public class HtmlIFrameElement : HtmlElement
 	{
-		string align { get; set; }
-		string frameBorder { get; set; }
-		string height { get; set; }
-		string longDesc { get; set; }
-		string marginHeight { get; set; }
-		string marginWidth { get; set; }
-		string name { get; set; }
-		string scrolling { get; set; }
-		string src { get; set; }
-		string width { get; set; }
-		Document contentDocument { get; }
+		public extern string align { get; set; }
+		public extern string frameBorder { get; set; }
+		public extern string height { get; set; }
+		public extern string longDesc { get; set; }
+		public extern string marginHeight { get; set; }
+		public extern string marginWidth { get; set; }
+		public extern string name { get; set; }
+		public extern string scrolling { get; set; }
+		public extern string src { get; set; }
+		public extern string width { get; set; }
+		public extern Document contentDocument { get; }
 	}
 }

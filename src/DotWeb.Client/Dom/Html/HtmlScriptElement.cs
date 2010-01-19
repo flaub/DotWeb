@@ -19,19 +19,14 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlScriptElement : HtmlElement
+	public class HtmlScriptElement : HtmlElement
 	{
-		string text { get; set; }
-		string htmlFor { get; set; }
-		string _event {
-			[JsCode("return this.event;")]
-			get;
-			[JsCode("this.event = value;")]
-			set;
-		}
-		string charset { get; set; }
-		bool defer { get; set; }
-		string src { get; set; }
-		string type { get; set; }
+		public extern string text { get; set; }
+		public extern string htmlFor { get; set; }
+		public extern string @event { get; set; }
+		public extern string charset { get; set; }
+		public extern bool defer { get; set; }
+		public extern string src { get; set; }
+		public extern string type { get; set; }
 	}
 }

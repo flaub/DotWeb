@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlHeadElement : HtmlElement
+	public class HtmlHeadElement : HtmlElement
 	{
-		string profile { get; set; }
+		public extern string profile { get; set; }
 	}
 }

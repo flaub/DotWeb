@@ -65,58 +65,58 @@ namespace DotWeb.Client.Dom
 	/// </para>
 	/// </summary>
 	[JsIntrinsic]
-	public interface Node
+	public abstract class Node : JsObject
 	{
 		#region Properties
 
-		string nodeName { get; }
-		string nodeValue { get; set; }
-		NodeType nodeType { get; }
-		Node parentNode { get; }
-		NodeList childNodes { get; }
-		Node firstChild { get; }
-		Node lastChild { get; }
-		Node previousSibling { get; }
-		Node nextSibling { get; }
-		NamedNodeMap attributes { get; }
+		public extern string nodeName { get; }
+		public extern string nodeValue { get; set; }
+		public extern NodeType nodeType { get; }
+		public extern Node parentNode { get; }
+		public extern NodeList childNodes { get; }
+		public extern Node firstChild { get; }
+		public extern Node lastChild { get; }
+		public extern Node previousSibling { get; }
+		public extern Node nextSibling { get; }
+		public extern NamedNodeMap attributes { get; }
 
 		/// <summary>
 		/// Returns a reference to the document object that contains the current element/node.
 		/// </summary>
-		Document ownerDocument { get; }
+		public extern Document ownerDocument { get; }
 
 		#region DOM Level 2
-		string namespaceURI { get; }
-		string prefix { get; set; }
-		string localName { get; }
+		public extern string namespaceURI { get; }
+		public extern string prefix { get; set; }
+		public extern string localName { get; }
 		#endregion
 
 		#region Gecko
-		string textContent { get; set; }
+		public extern string textContent { get; set; }
 		#endregion
 
 		#endregion
 
 		#region Methods
 
-		Node insertBefore(Node newChild, Node refChild);
-		Node replaceChild(Node newChild, Node oldChild);
-		Node removeChild(Node child);
-		Node appendChild(Node child);
-		bool hasChildNodes();
-		Node cloneNode(bool deep);
-		void normalize();
-		bool isSupported(string feature, string version);
+		public extern Node insertBefore(Node newChild, Node refChild);
+		public extern Node replaceChild(Node newChild, Node oldChild);
+		public extern Node removeChild(Node child);
+		public extern Node appendChild(Node child);
+		public extern bool hasChildNodes();
+		public extern Node cloneNode(bool deep);
+		public extern void normalize();
+		public extern bool isSupported(string feature, string version);
 
 		#region DOM Level 2
-		bool hasAttributes();
+		public extern bool hasAttributes();
 		#endregion
 
 		#region Gecko
-		void compareDocumentPosition();
-		bool isDefaultNamespace();
-		bool isEqualNode();
-		bool isSameNode();
+		public extern void compareDocumentPosition();
+		public extern bool isDefaultNamespace();
+		public extern bool isEqualNode();
+		public extern bool isSameNode();
 		#endregion
 
 		#endregion

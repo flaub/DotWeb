@@ -54,26 +54,26 @@ namespace DotWeb.Client.Dom
 	/// </para>
 	/// </summary>
 	[JsIntrinsic]
-	public interface Attr : Node
+	public class Attr : Node
 	{
 		/// <summary>
 		/// Returns the name of this attribute.
 		/// </summary>
-		string name { get; }
+		public extern string name { get; }
 		
 		/// <summary>
 		/// If this attribute was explicitly given a value in the original document, this is true; otherwise, it is false.
 		/// </summary>
-		bool specified { get; }
+		public extern bool specified { get; }
 
 		/// <summary>
 		/// The value of the attribute as a string.
 		/// </summary>
-		string value { get; set; }
+		public extern string value { get; set; }
 
 		/// <summary>
 		/// The Element node this attribute is attached to or null if this attribute is not in use
 		/// </summary>
-		Element ownerElement { get; }
+		public extern Element ownerElement { get; }
 	}
 }

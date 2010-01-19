@@ -68,7 +68,7 @@ namespace System
 
 	[UseSystem]
 	[AttributeUsage(AttributeTargets.Class, Inherited = true)]
-	public class AttributeUsageAttribute : SysAttribute
+	public sealed class AttributeUsageAttribute : SysAttribute
 	{
 		public AttributeUsageAttribute(AttributeTargets validOn) {
 			this.ValidOn = validOn;

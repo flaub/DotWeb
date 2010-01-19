@@ -22,15 +22,14 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom
 {
 	[JsIntrinsic]
-	[JsNative]
-	public interface Document : Node
+	public class Document : Node
 	{
 		/// <summary>
 		/// References the root element of the document, 
 		/// in the case of HTML documents, the html element. 
 		/// This read only property is useful for accessing all elements on the page, such as the HEAD.
 		/// </summary>
-		HtmlDocument documentElement { get; }
+		public extern HtmlDocument documentElement { get; }
 
 		/// <summary>
 		/// Creates a new attribute, ready to be inserted somewhere in the document. 
@@ -45,9 +44,9 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		Attr createAttribute(string name);
+		public extern Attr createAttribute(string name);
 
-		Node createCDATASection();
+		public extern Node createCDATASection();
 		
 		/// <summary>
 		/// Creates an instance of the comment node. 
@@ -61,7 +60,7 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="comment"></param>
 		/// <returns></returns>
-		Node createComment(string comment);
+		public extern Node createComment(string comment);
 		
 		/// <summary>
 		/// Creates an empty document fragment. 
@@ -88,7 +87,7 @@ namespace DotWeb.Client.Dom
 		/// </code>
 		/// </example>
 		/// <returns></returns>
-		Document createDocumentFragment();
+		public extern Document createDocumentFragment();
 		
 		/// <summary>
 		/// Creates an instance of the element object, 
@@ -104,21 +103,21 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="tag"></param>
 		/// <returns></returns>
-		Element createElement(string tag);
+		public extern Element createElement(string tag);
 
-		Node createElementNS();
+		public extern Node createElementNS();
 
-		Node createEntityReference();
+		public extern Node createEntityReference();
 
-		Node createEvent();
+		public extern Node createEvent();
 
-		Node createNodeIterator();
+		public extern Node createNodeIterator();
 
-		Node createNSResolver();
+		public extern Node createNSResolver();
 
-		Node createProcessingInstruction();
+		public extern Node createProcessingInstruction();
 
-		Node createRange();
+		public extern Node createRange();
 
 		/// <summary>
 		/// Creates a new text node, which can then be added to an element in the document tree.
@@ -131,7 +130,7 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		Text createTextNode(string text);
+		public extern Text createTextNode(string text);
 
 		/// <summary>
 		/// Accesses any element on the page via its ID attribute. 
@@ -139,7 +138,7 @@ namespace DotWeb.Client.Dom
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Element getElementById(string id);
+		public extern Element getElementById(string id);
 
 		/// <summary>
 		/// Returns an array of elements whose tag name matches the parameter. 
@@ -154,10 +153,10 @@ namespace DotWeb.Client.Dom
 		/// </example>
 		/// <param name="tag"></param>
 		/// <returns></returns>
-		NodeList getElementsByTagName(string tag);
+		public extern NodeList getElementsByTagName(string tag);
 
-		NodeList getElementsByTagNameNS();
+		public extern NodeList getElementsByTagNameNS();
 
-		void importNode();
+		public extern void importNode();
 	}
 }

@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlMenuElement : HtmlElement
+	public class HtmlMenuElement : HtmlElement
 	{
-		bool compact { get; set; }
+		public extern bool compact { get; set; }
 	}
 }

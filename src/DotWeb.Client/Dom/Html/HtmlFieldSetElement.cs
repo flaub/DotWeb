@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlFieldSetElement : HtmlElement
+	public class HtmlFieldSetElement : HtmlElement
 	{
-		HtmlFormElement form { get; }
+		public extern HtmlFormElement form { get; }
 	}
 }

@@ -33,6 +33,9 @@ namespace DotWeb.Hosting.Bridge
 			if (type.IsInterface) {
 				return CreateInstanceForInterface(bridge, type);
 			}
+			else if (type.IsAbstract) {
+				return CreateInstanceForAbstract(bridge, type);
+			}
 			else {
 				return Activator.CreateInstance(type);
 			}
@@ -44,6 +47,10 @@ namespace DotWeb.Hosting.Bridge
 			var interceptor = new Interceptor(bridge);
 			var proxy = this.proxyGenerator.CreateClassProxy(typeof(JsObject), new Type[] { type }, interceptor);
 			return proxy;
+		}
+
+		private object CreateInstanceForAbstract(JsBridge bridge, Type type) {
+			return this.proxyGenerator.CreateClassProxy(type);
 		}
 
 		private class Interceptor : IInterceptor

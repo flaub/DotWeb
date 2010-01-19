@@ -19,30 +19,31 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableElement : HtmlElement
+	public class HtmlTableElement : HtmlElement
 	{
-		HtmlTableCaptionElement caption { get; set; }
-		HtmlTableSectionElement tHead { get; set; }
-		HtmlTableSectionElement tFoot { get; set; }
+		public extern HtmlTableCaptionElement caption { get; set; }
+		public extern HtmlTableSectionElement tHead { get; set; }
+		public extern HtmlTableSectionElement tFoot { get; set; }
 
-		HtmlCollection rows { get; }
-		HtmlCollection tBodies { get; }
-		string align { get; set; }
-		string bgColor { get; set; }
-		string border { get; set; }
-		string cellPadding { get; set; }
-		string cellSpacing { get; set; }
-		string frame { get; set; }
-		string rules { get; set; }
-		string summary { get; set; }
-		string width { get; set; }
-		HtmlElement createTHead();
-		void deleteTHead();
-		HtmlElement createTFoot();
-		void deleteTFoot();
-		HtmlElement createCaption();
-		void deleteCaption();
-		HtmlElement insertRow(int index);
-		void deleteRow(int index);
+		public extern HtmlCollection rows { get; }
+		public extern HtmlCollection tBodies { get; }
+		public extern string align { get; set; }
+		public extern string bgColor { get; set; }
+		public extern string border { get; set; }
+		public extern string cellPadding { get; set; }
+		public extern string cellSpacing { get; set; }
+		public extern string frame { get; set; }
+		public extern string rules { get; set; }
+		public extern string summary { get; set; }
+		public extern string width { get; set; }
+
+		public extern HtmlElement createTHead();
+		public extern void deleteTHead();
+		public extern HtmlElement createTFoot();
+		public extern void deleteTFoot();
+		public extern HtmlElement createCaption();
+		public extern void deleteCaption();
+		public extern HtmlElement insertRow(int index);
+		public extern void deleteRow(int index);
 	}
 }

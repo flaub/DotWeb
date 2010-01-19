@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlUListElement : HtmlElement
+	public class HtmlUListElement : HtmlElement
 	{
-		bool compact { get; set; }
-		string type { get; set; }
+		public extern bool compact { get; set; }
+		public extern string type { get; set; }
 	}
 }

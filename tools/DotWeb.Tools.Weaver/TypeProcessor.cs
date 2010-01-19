@@ -54,25 +54,13 @@ namespace DotWeb.Tools.Weaver
 			this.genericProc = new GenericTypeProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
-			this.typeBuilder = outerBuilder.DefineNestedType(this.typeDef.Name, typeAttrs);
+			if (outerBuilder == null) {
+				this.typeBuilder = moduleBuilder.DefineType(this.typeDef.FullName, typeAttrs);
+			}
+			else {
+				this.typeBuilder = outerBuilder.DefineNestedType(this.typeDef.Name, typeAttrs);
+			}
 
-			this.Init();
-		}
-
-		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder) {
-			this.resolver = resolver;
-			this.parent = parent;
-			this.typeDef = typeDef;
-			this.ModuleBuilder = moduleBuilder;
-			this.genericProc = new GenericTypeProcessor(this.resolver);
-
-			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
-			this.typeBuilder = moduleBuilder.DefineType(this.typeDef.FullName, typeAttrs);
-
-			this.Init();
-		}
-
-		private void Init() {
 			if (this.typeDef.HasGenericParameters) {
 				this.genericProc.ProcessType(typeDef, typeBuilder);
 			}
@@ -154,7 +142,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessEvent(EventDefinition eventDef) {
-			var eventType = ResolveTypeReference(eventDef.EventType, false);
+			var eventType = ResolveTypeReference(eventDef.EventType, true);
 			var eventBuilder = this.typeBuilder.DefineEvent(eventDef.Name, (SR.EventAttributes)eventDef.Attributes, eventType);
 
 			if (eventDef.HasCustomAttributes) {
@@ -173,17 +161,18 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private FieldBuilder ProcessField(FieldDefinition fieldDef) {
-			var fieldType = ResolveTypeReference(fieldDef.FieldType, false);
+			var fieldType = ResolveTypeReference(fieldDef.FieldType, true);
 			var fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
 
 			if (fieldDef.HasConstant) {
-				if (fieldBuilder.FieldType.IsEnum) {
-					object value = Enum.ToObject(fieldBuilder.FieldType, fieldDef.Constant);
-					fieldBuilder.SetConstant(value);
-				}
-				else {
+				// FIXME: Not sure what this was doing here! I have not found a suitable test to make things break without it.
+				//if (fieldType.IsEnum) {
+				//    object value = Enum.ToObject(fieldType, fieldDef.Constant);
+				//    fieldBuilder.SetConstant(value);
+				//}
+				//else {
 					fieldBuilder.SetConstant(fieldDef.Constant);
-				}
+				//}
 			}
 
 			if (fieldDef.HasCustomAttributes) {
@@ -196,7 +185,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessProperty(PropertyDefinition propertyDef) {
-			var returnType = ResolveTypeReference(propertyDef.PropertyType, false);
+			var returnType = ResolveTypeReference(propertyDef.PropertyType, true);
 			var argTypes = ResolveParameterTypes(propertyDef.Parameters);
 			var propertyBuilder = this.typeBuilder.DefineProperty(propertyDef.Name, (SR.PropertyAttributes)propertyDef.Attributes, returnType, argTypes);
 
@@ -326,7 +315,7 @@ namespace DotWeb.Tools.Weaver
 			for (int i = 0; i < parameters.Count; i++) {
 				var arg = parameters[i];
 				var argType = arg.ParameterType;
-				ret[i] = ResolveTypeReference(argType, false);
+				ret[i] = ResolveTypeReference(argType, true);
 			}
 			return ret;
 		}

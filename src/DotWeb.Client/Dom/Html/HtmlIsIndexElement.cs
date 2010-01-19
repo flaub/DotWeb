@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlIsIndexElement : HtmlElement
+	public class HtmlIsIndexElement : HtmlElement
 	{
-		HtmlFontElement form { get; }
-		string prompt { get; set; }
+		public extern HtmlFontElement form { get; }
+		public extern string prompt { get; set; }
 	}
 }

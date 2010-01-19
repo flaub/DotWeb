@@ -19,8 +19,8 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlQuoteElement : HtmlElement
+	public class HtmlQuoteElement : HtmlElement
 	{
-		string cite { get; set; }
+		public extern string cite { get; set; }
 	}
 }

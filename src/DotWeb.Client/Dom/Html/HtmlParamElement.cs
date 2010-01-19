@@ -19,11 +19,11 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlParamElement : HtmlElement
+	public class HtmlParamElement : HtmlElement
 	{
-		string name { get; set; }
-		string type { get; set; }
-		string value { get; set; }
-		string valueType { get; set; }
+		public extern string name { get; set; }
+		public extern string type { get; set; }
+		public extern string value { get; set; }
+		public extern string valueType { get; set; }
 	}
 }

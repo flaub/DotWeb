@@ -19,9 +19,9 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlFrameSetElement : HtmlElement
+	public class HtmlFrameSetElement : HtmlElement
 	{
-		string cols { get; set; }
-		string rows { get; set; }
+		public extern string cols { get; set; }
+		public extern string rows { get; set; }
 	}
 }

@@ -21,6 +21,21 @@ using System.DotWeb;
 
 namespace DotWeb.Weaver.Test.Script
 {
+	enum EnumTest
+	{
+		First = 1,
+		Second = 2,
+		Third = 3
+	}
+
+	[Flags]
+	enum FlagsTest
+	{
+		First = 0x01,
+		Second = 0x02,
+		Third = 0x04
+	}
+
 	class TypeTest
 	{
 		public int field;
@@ -35,6 +50,9 @@ namespace DotWeb.Weaver.Test.Script
 			if (Event != null)
 				Event();
 		}
+
+		public const EnumTest EnumValue = EnumTest.First;
+		public const FlagsTest FlagsValue = FlagsTest.First;
 	}
 
 	class NativeType : JsObject

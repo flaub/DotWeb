@@ -36,28 +36,27 @@ namespace DotWeb.Client.Dom
 	/// </remarks>
 	/// </summary>
 	[JsIntrinsic]
-	[JsNative]
-	public interface Element : Node
+	public abstract class Element : Node
 	{
 		/// <summary>
 		/// The name of the element.
 		/// </summary>
 		/// <returns></returns>
-		string tagName { get; }
+		public extern string tagName { get; }
 
 		/// <summary>
 		/// Retrieves an attribute value by name.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		string getAttribute(string name);
+		public extern string getAttribute(string name);
 
 		/// <summary>
 		/// Retrieves an attribute node by name.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		Attr getAttributeNode(string name);
+		public extern Attr getAttributeNode(string name);
 
 		/// <summary>
 		/// Retrieves an Attr node by local name and namespace URI.
@@ -65,7 +64,7 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		Attr getAttributeNodeNS(string namespaceURI, string localName);
+		public extern Attr getAttributeNodeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Retrieves an attribute value by local name and namespace URI.
@@ -73,14 +72,14 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		string getAttributeNS(string namespaceURI, string localName);
+		public extern string getAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Returns a NodeList of all descendant Elements with a given tag name, in the order in which they are encountered in a preorder traversal of this Element tree.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		NodeList getElementsByTagName(string name);
+		public extern NodeList getElementsByTagName(string name);
 
 		/// <summary>
 		/// Returns a NodeList of all the descendant Elements with a given local name and namespace URI in the order in which they are encountered in a preorder traversal of this Element tree.
@@ -88,14 +87,14 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		NodeList getElementsByTagNameNS(string namespaceURI, string localName);
+		public extern NodeList getElementsByTagNameNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Returns true when an attribute with a given name is specified on this element or has a default value, false otherwise.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		bool hasAttribute(string name);
+		public extern bool hasAttribute(string name);
 
 		/// <summary>
 		/// Returns true when an attribute with a given local name and namespace URI is specified on this element or has a default value, false otherwise.
@@ -103,48 +102,48 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
 		/// <returns></returns>
-		bool hasAttributeNS(string namespaceURI, string localName);
+		public extern bool hasAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Removes an attribute by name.
 		/// </summary>
 		/// <param name="name"></param>
-		void removeAttribute(string name);
+		public extern void removeAttribute(string name);
 
 		/// <summary>
 		/// Removes the specified attribute node.
 		/// </summary>
 		/// <param name="oldAttr"></param>
 		/// <returns></returns>
-		Attr removeAttributeNode(Attr oldAttr);
+		public extern Attr removeAttributeNode(Attr oldAttr);
 
 		/// <summary>
 		/// Removes an attribute by local name and namespace URI.
 		/// </summary>
 		/// <param name="namespaceURI"></param>
 		/// <param name="localName"></param>
-		void removeAttributeNS(string namespaceURI, string localName);
+		public extern void removeAttributeNS(string namespaceURI, string localName);
 
 		/// <summary>
 		/// Adds a new attribute.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="value"></param>
-		void setAttribute(string name, string value);
+		public extern void setAttribute(string name, string value);
 
 		/// <summary>
 		/// Adds a new attribute node.
 		/// </summary>
 		/// <param name="newAttr"></param>
 		/// <returns></returns>
-		Attr setAttributeNode(Attr newAttr);
+		public extern Attr setAttributeNode(Attr newAttr);
 
 		/// <summary>
 		/// Adds a new attribute.
 		/// </summary>
 		/// <param name="newAttr"></param>
 		/// <returns></returns>
-		Attr setAttributeNodeNS(Attr newAttr);
+		public extern Attr setAttributeNodeNS(Attr newAttr);
 
 		/// <summary>
 		/// Adds a new attribute.
@@ -152,6 +151,6 @@ namespace DotWeb.Client.Dom
 		/// <param name="namespaceURI"></param>
 		/// <param name="qualifiedName"></param>
 		/// <param name="value"></param>
-		void setAttributeNS(string namespaceURI, string qualifiedName, string value);
+		public extern void setAttributeNS(string namespaceURI, string qualifiedName, string value);
 	}
 }

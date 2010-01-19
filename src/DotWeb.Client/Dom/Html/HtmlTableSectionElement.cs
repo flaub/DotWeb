@@ -19,14 +19,15 @@ using System.DotWeb;
 namespace DotWeb.Client.Dom.Html
 {
 	[JsIntrinsic]
-	public interface HtmlTableSectionElement : HtmlElement
+	public class HtmlTableSectionElement : HtmlElement
 	{
-		string align { get; set; }
-		string ch { get; set; }
-		string chOff { get; set; }
-		string vAlign { get; set; }
-		HtmlCollection rows { get; }
-		HtmlElement insertRow(int index);
-		void deleteRow(int index);
+		public extern string align { get; set; }
+		public extern string ch { get; set; }
+		public extern string chOff { get; set; }
+		public extern string vAlign { get; set; }
+		public extern HtmlCollection rows { get; }
+		public extern HtmlElement insertRow(int index);
+		
+		public extern void deleteRow(int index);
 	}
 }
