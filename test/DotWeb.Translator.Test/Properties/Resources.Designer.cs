@@ -848,24 +848,68 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
         ///
-        ///H8.DecorationTests = function() {
+        ///System.Collections.Generic.List$1 = function() {
         ///};
         ///
-        ///H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Dom.Events.MouseEvent*/) {
+        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
+        ///	this.items = new Array();
+        ///	return this;
         ///};
         ///
-        ///H8.DecorationTests.prototype.TestCastInterface = function() {
-        ///	var element = $doc.getElementById(&quot;box&quot;);
-        ///	var box = /*(DotWeb.Client.Dom.Html.HtmlDivElement)*/element;
-        ///	box.onmouseover = $Delegate(this, this.box_OnMouseOver);
+        ///System.Collections.Generic.List$1.prototype.toString = function() {
+        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///	return V_0;
         ///};
-        ///.
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(value /*System.String*/) {
+        ///	console.log(value);
+        ///};
+        ///
+        ///$Nam [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestToString {
+        internal static string SystemTest_TestToStringDirect {
             get {
-                return ResourceManager.GetString("SystemTest_TestToString", resourceCulture);
+                return ResourceManager.GetString("SystemTest_TestToStringDirect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
+        ///
+        ///System.Collections.Generic.List$1 = function() {
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
+        ///	this.items = new Array();
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.toString = function() {
+        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///	return V_0;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(value /*System.String*/) {
+        ///	console.log(value);
+        ///};
+        ///
+        ///$Nam [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SystemTest_TestToStringIndirect {
+            get {
+                return ResourceManager.GetString("SystemTest_TestToStringIndirect", resourceCulture);
             }
         }
         

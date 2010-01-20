@@ -96,7 +96,8 @@
     <Content Include="Expected\SourceTest\SourceTests_WhileBreakLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_WhileCondBreakLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_WhileLoop.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestToString.js" />
+    <Content Include="Expected\SystemTest\SystemTest_TestToStringDirect.js" />
+    <Content Include="Expected\SystemTest\SystemTest_TestToStringIndirect.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj">

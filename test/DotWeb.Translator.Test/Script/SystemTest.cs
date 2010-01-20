@@ -25,9 +25,13 @@ namespace H8
 {
 	public class SystemTests
 	{
-		public void TestToString() {
+		public void TestToStringDirect() {
 			var list = new List<int>();
 			Console.WriteLine(list.ToString());
+		}
+
+		public void TestToStringIndirect() {
+			var list = new List<int>();
 			WriteObject(list);
 		}
 

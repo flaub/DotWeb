@@ -223,7 +223,10 @@
   <data name="SystemTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\script\systemtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SystemTest_TestToString" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testtostring.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SystemTest_TestToStringDirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testtostringdirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SystemTest_TestToStringIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testtostringindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

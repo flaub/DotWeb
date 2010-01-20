@@ -34,8 +34,13 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
-		public void TestToString() {
-			TestMethod(this.compiledType, "TestToString", Resources.SystemTest_TestToString, true);
+		public void TestToStringDirect() {
+			TestMethod(this.compiledType, "TestToStringDirect", Resources.SystemTest_TestToStringDirect, true);
+		}
+
+		[Test]
+		public void TestToStringIndirect() {
+			TestMethod(this.compiledType, "TestToStringIndirect", Resources.SystemTest_TestToStringIndirect, true);
 		}
 
 		private TypeDefinition compiledType;
