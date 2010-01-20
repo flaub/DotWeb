@@ -1,0 +1,50 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title>
+		<asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+	</title>
+	<!--blueprint CSS-->
+	<link rel="stylesheet" href="../../Content/blueprint/screen.css" type="text/css" media="screen, projection"/>
+	<link rel="stylesheet" href="../../Content/blueprint/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="../../Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+	
+	<link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="header">
+		<h1>
+			DotWeb.Functional.Test</h1>
+	</div>
+	
+	<div id="container" class='container'>
+		<div id="sidebar" class='span-6'>
+			<h4>Development Mode</h4>
+			<ul>
+				<% foreach (var test in (string[])ViewData["TestDirectory"]) { %>
+					<li><a href="/Test/Harness/Hosted/<%= test %>"><%= test %></a></li>
+				<% } %>
+			</ul>
+			
+			<h4>Production Mode</h4>
+			<ul>
+				<% foreach (var test in (string[])ViewData["TestDirectory"]) { %>
+					<li><a href="/Test/Harness/Web/<%= test %>"><%= test %></a></li>
+				<% } %>
+			</ul>
+		</div>
+		
+		<div id="content" class='span-18 last'>
+			<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+		</div>
+	</div>
+	
+	<div id="footer">
+		<a href="/">DotWeb</a>, &copy; 2009-2010 <a href="http://frank.bluetreelabs.com">Frank
+			Laub</a>. Released under the <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>
+		license.
+	</div>
+</body>
+</html>
