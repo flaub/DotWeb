@@ -27,10 +27,11 @@ namespace DotWeb.Client
 		}
 
 		private static string CreateMessage(string typeName, string propertyName) {
-			return string.Format(
-				"[JsIntrinsic] not valid on type: '{0}', property: '{1}'", 
-				typeName, 
-				propertyName);
+			//return string.Format(
+			//    "[JsIntrinsic] not valid on type: '{0}', property: '{1}'", 
+			//    typeName, 
+			//    propertyName);
+			return "[JsIntrinsic] not valid on type: '" + typeName + "', property: '" + propertyName + "'";
 		}
 	}
 }

@@ -24,5 +24,7 @@ namespace DotWeb.Client.Dom
 		int length { get; }
 
 		Node item(int index);
+
+		Node this[int index] { get; }
 	}
 }

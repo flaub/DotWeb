@@ -7,11 +7,13 @@
 		<asp:ContentPlaceHolder ID="TitleContent" runat="server" />
 	</title>
 	<!--blueprint CSS-->
-	<link rel="stylesheet" href="../../Content/blueprint/screen.css" type="text/css" media="screen, projection"/>
-	<link rel="stylesheet" href="../../Content/blueprint/print.css" type="text/css" media="print">
-	<!--[if lt IE 8]><link rel="stylesheet" href="../../Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+	<link rel="stylesheet" href="/Content/blueprint/screen.css" type="text/css" media="screen, projection"/>
+	<link rel="stylesheet" href="/Content/blueprint/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="/Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
 	
-	<link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+	<link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+
+	<asp:ContentPlaceHolder ID="Header" runat="server" />
 </head>
 <body>
 	<div id="header">

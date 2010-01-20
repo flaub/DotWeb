@@ -35,7 +35,7 @@ namespace System
 			return 0;
 		}
 
-		[JsCode("return this.toString();")]
+		[JsCamelCase]
 		public extern virtual string ToString();
 #endif
 	}

@@ -33,7 +33,7 @@ namespace System.DotWeb
 
 	[JsNamespace]
 	[JsCamelCase]
-	public class JsArray
+	public class JsArray : JsObject
 	{
 		[JsMacro("{0}")]
 		public extern JsArray(Array array);

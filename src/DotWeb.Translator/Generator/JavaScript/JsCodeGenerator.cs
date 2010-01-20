@@ -90,10 +90,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return this.printer.Print(expr);
 		}
 
-		private string EncodeName(string name) {
-			return this.printer.EncodeName(name);
-		}
-
 		#region Statements
 		public void Visit(CodeSwitchStatement stmt) {
 			WriteLine("switch({0}) {{", Print(stmt.Expression));
@@ -290,14 +286,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 				WriteLine("{0}.{1} = function({2}) {{",
 					Print(method.Definition.DeclaringType),
-					EncodeName(name),
+					JsPrinter.GetMemberName(method.Definition),
 					string.Join(", ", args)
 				);
 			}
 			else {
 				WriteLine("{0}.prototype.{1} = function({2}) {{",
 					Print(method.Definition.DeclaringType),
-					EncodeName(name),
+					JsPrinter.GetMemberName(method.Definition),
 					string.Join(", ", args)
 				);
 			}
@@ -346,7 +342,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void Visit(CodeFieldMember field) {
 			WriteLine("{0}: {1} // field: {2}",
-				EncodeName(field.Name), 
+				JsPrinter.GetMemberName(field.Definition),
 				"{}", 
 				Print(field.Definition.FieldType)
 			);
@@ -354,13 +350,13 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public void Visit(CodeEventMember evt) {
 			WriteLine("{0}: {1} // event: {2}",
-				EncodeName(evt.Name), 
+				JsPrinter.EncodeName(evt.Name), 
 				"[]", 
 				Print(evt.Definition.EventType));
 		}
 
 		public void Visit(CodePropertyMember property) {
-			//string name = EncodeName(property.Name);
+			//string name = JsPrinter.EncodeName(property.Name);
 			//if (property.Info.GetAccessors().Any(x => x.IsStatic)) {
 			//    WriteLine("{0}.prototype.{1} = function() {{",
 			//        Print(property.Info.DeclaringType),
@@ -381,7 +377,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			//WriteLine();
 
 			//WriteLine("{0}: '' // property: {1}",
-			//    EncodeName(property.Name),
+			//    JsPrinter.EncodeName(property.Name),
 			//    Print(property.Info.PropertyType));
 		}
 

@@ -36,5 +36,8 @@ namespace DotWeb.Client.Dom.Helper
 
 		[JsMacro("$doc.createElement('p')")]
 		public static extern HtmlParagraphElement CreateParagraph();
+
+		[JsMacro("$doc.createElement('li')")]
+		public static extern HtmlLiElement CreateListItem();
 	}
 }

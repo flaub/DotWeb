@@ -29,28 +29,43 @@ namespace System
 	[UseSystem]
 	public class String
 	{
+		[JsCamelCase]
 		public int Length { get; private set; }
 
-		public extern static ThisType Format(string format, params object[] args);
+		//public extern static ThisType Format(string format, params object[] args);
 
-		[JsCode("return str0 + str1 + str2;")]
-		public static extern ThisType Concat(string str0, string str1, string str2);
+		[JsMacro("{1}")]
+		public static extern string Concat(string str1);
 
-		public static bool operator !=(ThisType a, ThisType b) {
-			return false;
-		}
+		[JsMacro("{1} + {2}")]
+		public static extern string Concat(string str1, string str2);
 
-		public static bool operator ==(ThisType a, ThisType b) {
-			return false;
-		}
+		[JsMacro("{1} + {2}")]
+		public static extern string Concat(object obj1, object obj2);
 
-		public override bool Equals(object obj) {
-			return false;
-		}
+		[JsMacro("{1} + {2} + {3}")]
+		public static extern string Concat(string str1, string str2, string str3);
 
-		public override int GetHashCode() {
-			return 0;
-		}
+		[JsMacro("{1} + {2} + {3} + {4}")]
+		public static extern string Concat(string str1, string str2, string str3, string str4);
+
+		[JsCode("return values;")]
+		public static extern string Concat(string[] values);
+
+		[JsCode("return values;")]
+		public static extern string Concat(object[] values);
+
+		[JsMacro("({1} != {2})")]
+		public static extern bool operator !=(String lhs, String rhs);
+
+		[JsMacro("({1} == {2})")]
+		public static extern bool operator ==(String lhs, String rhs);
+
+		[JsMacro("({0} == {1})")]
+		public extern override bool Equals(object obj);
+
+		[JsCode("return 0;")]
+		public extern override int GetHashCode();
 
 //#if HOSTED_MODE
 //        public String(string str) {

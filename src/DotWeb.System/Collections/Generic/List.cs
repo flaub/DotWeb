@@ -231,6 +231,11 @@ namespace System.Collections.Generic
 		[JsCode("return this.items;")]
 		public extern T[] ToArray();
 
+		[JsCamelCase]
+		public override string ToString() {
+			return "[ " + this.items.ToString() + " ]";
+		}
+
 		class Enumerator : IEnumerator<T>, IDisposable, IEnumerator
 		{
 			private List<T> list;

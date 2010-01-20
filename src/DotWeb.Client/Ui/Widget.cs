@@ -47,9 +47,9 @@ namespace DotWeb.Client.Ui
 			}
 		}
 
-		public event MouseEventHandler MouseUp;
-		public event MouseEventHandler MouseDown;
-		public event MouseEventHandler MouseMove;
+		//public event MouseEventHandler MouseUp;
+		//public event MouseEventHandler MouseDown;
+		//public event MouseEventHandler MouseMove;
 
 		public virtual void OnBrowserEvent(Event evt) {
 			switch (evt.type) {

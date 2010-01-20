@@ -7,7 +7,7 @@ namespace DotWeb.Functional.Test.Client
 	public class Sanity : JsScript
 	{
 		public Sanity() {
-			Window.alert("Hello World!");
+			Log.Write("Hello World!");
 		}
 	}
 }

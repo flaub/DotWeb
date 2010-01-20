@@ -58,5 +58,9 @@ namespace DotWeb.Client.Dom.Html
 		public extern MouseEventHandler onmouseover { get; set; }
 		public extern MouseEventHandler onmouseout { get; set; }
 		public extern GenericEventHandler onblur { get; set; }
+
+		public extern string innerHTML { get; set; }
+		public extern int scrollTop { get; set; }
+		public extern int scrollHeight { get; set; }
 	}
 }

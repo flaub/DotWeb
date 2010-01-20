@@ -138,7 +138,7 @@ namespace DotWeb.Client.Dom
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public extern Element getElementById(string id);
+		public extern HtmlElement getElementById(string id);
 
 		/// <summary>
 		/// Returns an array of elements whose tag name matches the parameter. 

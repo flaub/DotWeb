@@ -48,6 +48,7 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +96,7 @@
     <Content Include="Expected\SourceTest\SourceTests_WhileBreakLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_WhileCondBreakLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_WhileLoop.js" />
+    <Content Include="Expected\SystemTest\SystemTest_TestToString.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj">

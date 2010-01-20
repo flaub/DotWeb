@@ -41,6 +41,7 @@
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemTest.cs" />
     <Compile Include="TranslationTest.cs" />
   </ItemGroup>
   <ItemGroup>

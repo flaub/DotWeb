@@ -19,10 +19,20 @@ using System;
 using System.Linq;
 using DotWeb.Client;
 using System.DotWeb;
+using System.Collections.Generic;
 
 namespace H8
 {
 	public class SystemTests
 	{
+		public void TestToString() {
+			var list = new List<int>();
+			Console.WriteLine(list.ToString());
+			WriteObject(list);
+		}
+
+		void WriteObject(object obj) {
+			Console.WriteLine(obj.ToString());
+		}
 	}
 }

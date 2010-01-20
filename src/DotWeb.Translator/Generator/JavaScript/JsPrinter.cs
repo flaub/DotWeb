@@ -172,7 +172,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return str;
 		}
 
-		public string EncodeName(string name) {
+		public static string EncodeName(string name) {
 			return name.Replace("<", "_").Replace(">", "_").Replace("`", "$");
 		}
 
@@ -246,7 +246,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Format(macro, args.ToArray());
 		}
 
-		private string GetMemberName(MemberReference member) {
+		public static string GetMemberName(MemberReference member) {
 			var name = member.Name;
 			if (AttributeHelper.IsCamelCase(member)) {
 				char[] chars = name.ToCharArray();

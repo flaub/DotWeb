@@ -145,7 +145,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///	array.splice(0, 0);
         ///	array.splice(0, 0, 1);
         ///	array.splice(0, 0, 1, &quot;two&quot;);
-        ///	new Array(1, 2);
+        ///	var x = new Array(1, 2);
+        ///	System.Console.WriteLine(x[0]);
+        ///	x[1] = 1;
         ///};
         ///.
         /// </summary>
@@ -156,8 +158,10 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg /*System.String*/) {
-        ///	alert(arg);
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCamelCase = function() {
+        ///	var x = new H8.CamelCaseTest().$ctor();
+        ///	x.foo();
+        ///	this.camelCase();
         ///};
         ///.
         /// </summary>
@@ -820,6 +824,48 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string SourceTests_WhileLoop {
             get {
                 return ResourceManager.GetString("SourceTests_WhileLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
+        /////
+        ///// This file is part of DotWeb.
+        /////
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        /////
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SystemTest {
+            get {
+                return ResourceManager.GetString("SystemTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.DecorationTests = function() {
+        ///};
+        ///
+        ///H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Dom.Events.MouseEvent*/) {
+        ///};
+        ///
+        ///H8.DecorationTests.prototype.TestCastInterface = function() {
+        ///	var element = $doc.getElementById(&quot;box&quot;);
+        ///	var box = /*(DotWeb.Client.Dom.Html.HtmlDivElement)*/element;
+        ///	box.onmouseover = $Delegate(this, this.box_OnMouseOver);
+        ///};
+        ///.
+        /// </summary>
+        internal static string SystemTest_TestToString {
+            get {
+                return ResourceManager.GetString("SystemTest_TestToString", resourceCulture);
             }
         }
         

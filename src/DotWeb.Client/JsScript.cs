@@ -23,12 +23,12 @@ namespace DotWeb.Client
 {
 	public class JsScript
 	{
-		public extern Window Window {
+		public static extern Window Window {
 			[JsMacro("$wnd")]
 			get;
 		}
 
-		public extern HtmlDocument Document {
+		public static extern HtmlDocument Document {
 			[JsMacro("$doc")]
 			get;
 		}

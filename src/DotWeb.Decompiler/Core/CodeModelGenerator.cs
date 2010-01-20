@@ -322,8 +322,10 @@ namespace DotWeb.Decompiler.Core
 				#endregion
 				#region Call
 				case Code.Call:
+					Call(il, false);
+					break;
 				case Code.Callvirt:
-					Call(il);
+					Call(il, true);
 					break;
 				case Code.Ret:
 					Return(il);
@@ -463,11 +465,35 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void CallMethod(Instruction il, MethodDefinition method) {
+		private MethodDefinition FindMethodOverride(TypeDefinition typeDef, MethodDefinition query) {
+			foreach (MethodDefinition method in typeDef.Methods) {
+				if (method.Name == query.Name) {
+					return method;
+				}
+			}
+			return null;
+		}
+
+		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
 			expr.Parameters = PopRange(method.Parameters.Count);
 
 			CodeExpression targetObject = GetTargetObject(method);
+			
+			var evaluator = new CodeTypeEvaluator(this.method);
+			var typeRef = evaluator.Evaluate(targetObject);
+			var typeDef = typeRef.Resolve();
+
+			var externalMethod = method;
+			if (isVirtual && typeDef != method.DeclaringType) {
+				var methodOverride = FindMethodOverride(typeDef, method);
+				if (methodOverride != null) {
+					externalMethod = methodOverride;
+				}
+			}
+
+			this.vm.ExternalMethods.Add(externalMethod);
+
 			expr.Method = new CodeMethodReference(targetObject, method);
 
 			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {
@@ -480,6 +506,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
+			this.vm.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 0) {
 				var targetObject = GetTargetObject(method);
@@ -496,6 +523,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
+			this.vm.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				CodeExpression rhs = Pop();
@@ -516,10 +544,9 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void Call(Instruction il) {
+		private void Call(Instruction il, bool isVirtual) {
 			var method = (MethodReference)il.Operand;
 			var def = method.Resolve();
-			this.vm.ExternalMethods.Add(method);
 
 			var ap = def.GetMonoAssociatedProperty();
 			if (ap != null) {
@@ -532,7 +559,7 @@ namespace DotWeb.Decompiler.Core
 				}
 			}
 			else {
-				CallMethod(il, def);
+				CallMethod(il, def, isVirtual);
 			}
 		}
 
