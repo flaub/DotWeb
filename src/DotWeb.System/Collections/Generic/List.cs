@@ -30,39 +30,65 @@ namespace System.Collections.Generic
 //	[DebuggerTypeProxy(typeof(Mscorlib_CollectionDebugView<>))]
 	public class List<T> : IList<T>, ICollection<T>, IEnumerable<T>, IList, ICollection, IEnumerable
 	{
-		[JsCode("this._items = [];")]
-		public extern List();
+		private JsArray items;
+
+		public List() {
+			this.items = new JsArray();
+		}
+
+		public List(int capacity) {
+			this.items = new JsArray(capacity);
+		}
 
 		#region IList<T> Members
 
-		[JsCode("return this._items.indexOf(item);")]
-		public extern int IndexOf(T item);
+		public int IndexOf(T item) {
+			return this.items.IndexOf(item);
+		}
 
 		public void Insert(int index, T item) {
-			throw new System.NotImplementedException();
+			if (index == this.items.Length) {
+				this.items.Push(item);
+			}
+			else {
+				var newItems = new JsArray(this.items.Length + 1);
+				for (int i = 0; i < index; i++) {
+					newItems[i] = this.items[i];
+				}
+				newItems.Push(item);
+				for (int i = index; i < this.items.Length; i++) {
+					newItems[i + 1] = this.items[i];
+				}
+				this.items = newItems;
+			}
 		}
 
 		public void RemoveAt(int index) {
-			if (index >= this.Count) {
-				//ThrowHelper.ThrowArgumentOutOfRangeException();
+			if (index == 0) {
+				this.items.Shift();
 			}
-			//this._size--;
-			int len = this.Count - 1;
-			if (index < len) {
-//				Array.Copy(this._items, index + 1, this._items, index, this._size - index);
-				//var left = Slice(0, index);
-				//var right = Slice(index, len);
+			else if (index == this.items.Length - 1) {
+				this.items.Pop();
 			}
-			//this._items[this._size] = default(T);
-			//this._version++;
+			else {
+				this.items = this.items.Filter((object item, int i, JsArray array) => {
+					return i != index;
+				});
+			}
 		}
 
 		public T this[int index] {
 			get {
-				throw new NotImplementedException();
+				//if (index >= this._size) {
+				//    ThrowHelper.ThrowArgumentOutOfRangeException();
+				//}
+				return (T)this.items[index]; 
 			}
 			set {
-				throw new NotImplementedException();
+				//if (index >= this._size) {
+				//    ThrowHelper.ThrowArgumentOutOfRangeException();
+				//}
+				this.items[index] = value; 
 			}
 		}
 
@@ -70,17 +96,13 @@ namespace System.Collections.Generic
 
 		#region ICollection<T> Members
 
-		[JsCode("this._items.push(item);")]
-		public extern void Add(T item);
-//		{
-//			if (this._size == this._items.Length) {
-//				this.EnsureCapacity(this._size + 1);
-//			}
-//			this.items[this.size++] = item;
-//		}
+		public void Add(T item) { 
+			this.items.Push(item);
+		}
 
-		[JsCode("this._items = [];")]
-		public extern void Clear();
+		public void Clear() {
+			this.items = new JsArray();
+		}
 
 		public bool Contains(T item) {
 			return this.IndexOf(item) != -1;
@@ -88,24 +110,27 @@ namespace System.Collections.Generic
 
 		public void CopyTo(T[] array, int arrayIndex) {
 			throw new NotImplementedException();
+//			global::System.Array.Copy(this.items.ToArray(), 0, array, arrayIndex, this.items.Length);
 		}
 
 		public bool Remove(T item) {
-			int index = this.IndexOf(item);
-			if (index >= 0) {
-				this.RemoveAt(index);
+			bool foundFirst = false;
+			this.items = this.items.Filter((object element, int i, JsArray array) => {
+				if (!foundFirst && JsObject.StrictEquals(item, element)) {
+					foundFirst = true;
+					return false;
+				}
 				return true;
-			}
-			return false;
+			});
+			return foundFirst;
 		}
 
-		public extern int Count {
-			[JsCode("return this._items.length;")]
-			get;
+		public int Count {
+			get { return this.items.Length; }
 		}
 
 		public bool IsReadOnly {
-			get { throw new NotImplementedException(); }
+			get { return false; }
 		}
 
 		#endregion
@@ -113,43 +138,58 @@ namespace System.Collections.Generic
 		#region IEnumerable<T> Members
 
 		public IEnumerator<T> GetEnumerator() {
-			throw new NotImplementedException();
+			return new Enumerator(this);
 		}
 
 		#endregion
 
 		#region IList Members
 
-		public int Add(object value) {
-			throw new NotImplementedException();
+		public int Add(object item) {
+//			List<T>.VerifyValueType(item);
+			this.Add((T)item);
+			return (this.Count - 1);
 		}
 
-		public bool Contains(object value) {
-			throw new NotImplementedException();
+		public bool Contains(object item) {
+//			return (List<T>.IsCompatibleObject(item) && this.Contains((T)item));
+			return this.Contains((T)item);
 		}
 
-		public int IndexOf(object value) {
-			throw new NotImplementedException();
+		public int IndexOf(object item) {
+//			if (List<T>.IsCompatibleObject(item)) {
+				return this.IndexOf((T)item);
+//			}
+//			return -1;
 		}
 
-		public void Insert(int index, object value) {
-			throw new NotImplementedException();
+		public void Insert(int index, object item) {
+//			List<T>.VerifyValueType(item);
+			this.Insert(index, (T)item);
 		}
 
-		public void Remove(object value) {
-			throw new NotImplementedException();
+		public void Remove(object item) {
+//			if (List<T>.IsCompatibleObject(item)) {
+				this.Remove((T)item);
+//			}
 		}
 
 		public bool IsFixedSize {
-			get { throw new NotImplementedException(); }
+			get { return false; }
 		}
 
 		object IList.this[int index] {
 			get {
-				throw new NotImplementedException();
+				//if (index >= this._size) {
+				//    ThrowHelper.ThrowArgumentOutOfRangeException();
+				//}
+				return this.items[index]; 
 			}
 			set {
-				throw new NotImplementedException();
+				//if (index >= this._size) {
+				//    ThrowHelper.ThrowArgumentOutOfRangeException();
+				//}
+				this.items[index] = value; 
 			}
 		}
 
@@ -157,16 +197,25 @@ namespace System.Collections.Generic
 
 		#region ICollection Members
 
-		public void CopyTo(Array array, int index) {
+		public void CopyTo(global::System.Array array, int index) {
 			throw new NotImplementedException();
+			//if ((array != null) && (array.Rank != 1)) {
+			//    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported);
+			//}
+			//try {
+			//global::System.Array.Copy(this.items.ToArray(), 0, array, index, this.items.Length);
+			//}
+			//catch (ArrayTypeMismatchException) {
+			//	ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidArrayType);
+			//}
 		}
 
 		public bool IsSynchronized {
-			get { throw new NotImplementedException(); }
+			get { return false; }
 		}
 
 		public object SyncRoot {
-			get { throw new NotImplementedException(); }
+			get { return null; }
 		}
 
 		#endregion
@@ -179,11 +228,68 @@ namespace System.Collections.Generic
 
 		#endregion
 
-		//[JsCode("return this._items.slice(start, end);")]
-		//private extern T[] Slice(int start, int end);
+		[JsCode("return this.items;")]
+		public extern T[] ToArray();
 
-		//[JsCode("return Array.concat(item1, item2);")]
-		//private static extern T[] Concat(T[] item1, T[] item2);
+		class Enumerator : IEnumerator<T>, IDisposable, IEnumerator
+		{
+			private List<T> list;
+			private int index;
+			private T current;
 
+			internal Enumerator(List<T> list) {
+				this.list = list;
+				this.index = 0;
+				this.current = default(T);
+			}
+
+			#region IEnumerator<T> Members
+
+			public T Current {
+				get { return this.current; }
+			}
+
+			#endregion
+
+			#region IEnumerator Members
+
+			public bool MoveNext() {
+				if (this.index < this.list.Count) {
+					this.current = this.list[this.index];
+					this.index++;
+					return true;
+				}
+				return this.MoveNextRare();
+			}
+
+			object IEnumerator.Current {
+				get {
+					//if ((this.index == 0) || (this.index == (this.list._size + 1))) {
+					//    ThrowHelper.ThrowInvalidOperationException(ExceptionResource.InvalidOperation_EnumOpCantHappen);
+					//}
+					return this.Current;
+				}
+			}
+
+			public void Reset() {
+				this.index = 0;
+				this.current = default(T);
+			}
+
+			#endregion
+
+			#region IDisposable Members
+
+			public void Dispose() {
+			}
+
+			#endregion
+
+			private bool MoveNextRare() {
+				this.index = this.list.Count + 1;
+				this.current = default(T);
+				return false;
+			}
+		}
 	}
 }

@@ -35,6 +35,9 @@ namespace System.DotWeb
 	[JsCamelCase]
 	public class JsArray
 	{
+		[JsMacro("{0}")]
+		public extern JsArray(Array array);
+
 		/// <summary>
 		/// <para>
 		/// This description applies if and only if the Array constructor is given no arguments or at least two arguments.
@@ -104,6 +107,20 @@ namespace System.DotWeb
 		public extern int Length {
 			get;
 		}
+
+		public extern object this[int index] {
+			get;
+			set;
+		}
+
+		//[JsMacro("{0}")]
+		//public static extern implicit operator Array(JsArray from);
+
+		//[JsMacro("{0}")]
+		//public static extern implicit operator JsArray(Array from);
+
+		[JsMacro("{0}")]
+		public extern object[] ToArray();
 
 		/// <summary>
 		/// The isArray function takes one argument arg, 

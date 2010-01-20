@@ -59,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Script\SystemTest.cs" />
     <Compile Include="TranslationTest.cs" />
     <Compile Include="TranslationTestHelper.cs" />
   </ItemGroup>

@@ -7,5 +7,7 @@
 	array.splice(0, 0);
 	array.splice(0, 0, 1);
 	array.splice(0, 0, 1, "two");
-	new Array(1, 2);
+	var x = new Array(1, 2);
+	System.Console.WriteLine(x[0]);
+	x[1] = 1;
 };

@@ -17,6 +17,8 @@
 // 
 using DotWeb.Client;
 using System.Collections.Generic;
+using System.DotWeb;
+using System;
 
 namespace DotWeb.Weaver.Test.Script
 {
@@ -32,6 +34,11 @@ namespace DotWeb.Weaver.Test.Script
 		public List<ArrayTest>[] arrayOfLists = null;
 
 		public List<ArrayTest[]> listOfArrays = null;
+
+		public extern object this[int index] {
+			get;
+			set;
+		}
 
 		public ArrayTest() {
 			this.fieldArray = new int[4];

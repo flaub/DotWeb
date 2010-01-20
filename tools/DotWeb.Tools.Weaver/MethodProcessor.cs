@@ -329,9 +329,17 @@ namespace DotWeb.Tools.Weaver
 				case OperandTypeNames.ParameterDefinition:
 					EmitParameter(generator, code, (ParameterDefinition)cil.Operand);
 					break;
+				case OperandTypeNames.GenericParameter:
+					EmitParameter(generator, code, (GenericParameter)cil.Operand);
+					break;
 				default:
 					throw new NotSupportedException(string.Format("OperandType: {0}", typeName));
 			}
+		}
+
+		private void EmitParameter(ILGenerator generator, SRE.OpCode code, GenericParameter genericParamater) {
+			var type = ResolveTypeReference(genericParamater);
+			generator.Emit(code, type);
 		}
 
 		private void EmitParameter(ILGenerator generator, SRE.OpCode code, ParameterDefinition parameterDef) {

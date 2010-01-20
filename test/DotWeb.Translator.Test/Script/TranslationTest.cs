@@ -69,11 +69,8 @@ namespace H8
 	{
 		[JsIntrinsic]
 		public object this[string name] {
-			get {
-				return null;
-			}
-			set {
-			}
+			get { return null; }
+			set { }
 		}
 	}
 

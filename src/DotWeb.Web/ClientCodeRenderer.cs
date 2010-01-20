@@ -43,6 +43,8 @@ namespace DotWeb.Web
 		private readonly IHttpContext context;
 		private readonly bool isDebug;
 
+		private string mode;
+
 		#region Properties
 
 		public string Source { get; set; }
@@ -51,7 +53,10 @@ namespace DotWeb.Web
 
 		public string CacheDir { get; set; }
 
-		public string Mode { get; set; }
+		public string Mode { 
+			get { return this.mode; }
+			set { this.mode = string.IsNullOrEmpty(value) ? "Web" : value; }
+		}
 
 		public bool EnableCache { get; set; }
 
@@ -61,7 +66,7 @@ namespace DotWeb.Web
 			this.context = context;
 
 			CacheDir = WebConfigurationManager.AppSettings["JavaScriptCache"] ?? "~/js/Cache";
-			Mode = WebConfigurationManager.AppSettings["DotWeb-Mode"] ?? "Web";
+			Mode = WebConfigurationManager.AppSettings["DotWeb-Mode"];
 
 			EnableCache = true;
 			string value = WebConfigurationManager.AppSettings["DotWeb-EnableCache"];

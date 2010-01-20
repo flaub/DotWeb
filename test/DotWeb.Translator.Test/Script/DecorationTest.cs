@@ -133,6 +133,8 @@ namespace H8
 			var result2 = array.Splice(0, 0, 1);
 			var result3 = array.Splice(0, 0, 1, "two");
 			var x = new JsArray(1, 2);
+			Console.WriteLine(x[0]);
+			x[1] = 1;
 		}
 
 		public void TestJsAnonymous() {

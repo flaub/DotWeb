@@ -48,6 +48,7 @@ namespace DotWeb.Tools.Weaver
 		public const string TypeDefinition = "TypeDefinition";
 		public const string VariableDefinition = "VariableDefinition";
 		public const string ParameterDefinition = "ParameterDefinition";
+		public const string GenericParameter = "GenericParameter";
 		public const string Instruction = "Instruction";
 	}
 

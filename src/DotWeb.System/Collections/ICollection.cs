@@ -26,7 +26,7 @@ namespace System.Collections
 	public interface ICollection : IEnumerable
 	{
 		// Methods
-		void CopyTo(Array array, int index);
+		void CopyTo(global::System.Array array, int index);
 
 		// Properties
 		int Count { get; }
