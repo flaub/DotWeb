@@ -202,11 +202,17 @@
 				<File Id="MvcWebApplication.zip" Name="MvcWebApplication.zip" KeyPath="yes" 
 					  Source="$(var.SolutionDir)DotWeb.Installer\tmp\MvcWebApplication.zip"/>
 			</Component>
-
 		</ComponentGroup>
 
+		<Component Id="DotWeb.AssemblyFolders" Guid="{3777D01D-0D02-44b0-8DA2-8D2C9EF14B3D}" Directory="INSTALLDIR">
+			<RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\DotWeb" Action="createAndRemoveOnUninstall">
+				<RegistryValue Value="[INSTALLDIR]" Type="string"/>
+			</RegistryKey>
+		</Component>
+		
 		<Feature Id="Complete" Title="DotWeb" Description="The complete package" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
 			<Feature Id="Core" Title="SDK" Level="1">
+				<ComponentRef Id="DotWeb.AssemblyFolders"/>
 				<ComponentGroupRef Id="External_Dependencies"/>
 				<ComponentGroupRef Id="DotWeb_Core"/>
 			</Feature>
