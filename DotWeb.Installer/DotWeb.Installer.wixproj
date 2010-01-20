@@ -27,6 +27,9 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixVSExtension">
+      <HintPath>$(WixExtDir)\WixVSExtension.dll</HintPath>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
     </WixExtension>
@@ -108,6 +111,65 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License.rtf" />
+    <Content Include="VSTemplate\7za.exe" />
+    <Content Include="VSTemplate\ClassLibrary\AssemblyInfo.cs" />
+    <Content Include="VSTemplate\ClassLibrary\Class1.cs" />
+    <Content Include="VSTemplate\ClassLibrary\ClassLibrary.csproj" />
+    <Content Include="VSTemplate\ClassLibrary\ClassLibrary.vstemplate" />
+    <Content Include="VSTemplate\DotWeb.VSTDIR" />
+    <Content Include="VSTemplate\MvcWebApplication\ClassLibrary\AssemblyInfo.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\ClassLibrary\Class1.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\ClassLibrary\ClassLibrary.csproj" />
+    <Content Include="VSTemplate\MvcWebApplication\ClassLibrary\ClassLibrary.vstemplate" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication.vstemplate" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Content\Site.css" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Controllers\AccountController.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Controllers\HomeController.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Default.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Default.aspx.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Global.asax" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Global.asax.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Js\Cache\README.txt" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\MvcWebApplication.csproj" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\MvcWebApplication.vstemplate" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Properties\AssemblyInfo.cs" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\jquery-1.3.2-vsdoc.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\jquery-1.3.2.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\jquery-1.3.2.min-vsdoc.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\jquery-1.3.2.min.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\MicrosoftAjax.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Account\ChangePassword.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Account\LogOn.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Account\Register.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Home\About.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Home\Index.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Shared\Error.aspx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Shared\Site.Master" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Web.config" />
+    <Content Include="VSTemplate\MvcWebApplication\MvcWebApplication\Web.config" />
+    <Content Include="VSTemplate\package.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VSTemplate" />
+    <Folder Include="VSTemplate\ClassLibrary\" />
+    <Folder Include="VSTemplate\MvcWebApplication\" />
+    <Folder Include="VSTemplate\MvcWebApplication\ClassLibrary\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Content\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Controllers\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Js\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Js\Cache\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Properties\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Scripts\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Account\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Home\" />
+    <Folder Include="VSTemplate\MvcWebApplication\MvcWebApplication\Views\Shared\" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
@@ -118,4 +180,7 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
+  <PropertyGroup>
+    <PreBuildEvent>cmd /c $(ProjectDir)VSTemplate\package.cmd $(ProjectDir) $(TargetDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

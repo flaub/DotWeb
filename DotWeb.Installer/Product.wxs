@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
 	 xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+	<?define ProductVersion = "0.3.0.0" ?>
+	<?define Devenv_Setup_VS_Description = "Updating Visual Studio 2008 project templates registration" ?>
+
 	<Product Id="960ccbce-9cce-4683-9fae-82e5040f6174"
 			 Name="DotWeb 0.3"
 			 Language="1033"
-			 Version="0.3.0.0"
+			 Version="$(var.ProductVersion)"
 			 Manufacturer="Blue Tree Labs"
 			 UpgradeCode="15a3c6ce-4614-4fd5-b0f6-c1c637a4a562">
 
@@ -16,7 +19,12 @@
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
 		<PropertyRef Id="NETFRAMEWORK35"/>
+		<PropertyRef Id="VS90_ROOT_FOLDER"/>
+		<PropertyRef Id="VS90_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED"/>
+		<PropertyRef Id="VS90_IDE_VWD_PROJECTSYSTEM_INSTALLED"/>
 
+		<CustomActionRef Id="VS90InstallVSTemplates"/>
+		
 		<Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
 			<![CDATA[Installed OR NETFRAMEWORK35]]>
 		</Condition>
@@ -25,6 +33,17 @@
 			<Merge Id="VCRedist" SourceFile="$(var.SolutionDir)Depends\Microsoft_VC90_CRT_x86.msm" DiskId="1" Language="0"/>
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLDIR" Name="DotWeb"/>
+				<Directory Id="VS90_ROOT_FOLDER" Name="Microsoft Visual Studio 9.0">
+					<Directory Id="Common7" Name="Common7">
+						<Directory Id="IDE" Name="IDE">
+							<Directory Id="ProjectTemplates" Name="ProjectTemplates">
+								<Directory Id="ProjectTemplates.CSharp" Name="CSharp">
+									<Directory Id="ProjectTemplates.CSharp.DotWeb" Name="DotWeb"/>
+								</Directory>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
 			</Directory>
 		</Directory>
 
@@ -172,7 +191,21 @@
 			</Component>
 		</ComponentGroup>
 
-		<Feature Id="Complete" Title="DotWeb" Description="The complete package." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+		<ComponentGroup Id="VSTemplates">
+			<Component Id="VSTemplate.ClassLibrary" Guid="{DA599B03-0AE4-47c0-AA11-E3F9D288F906}" Directory="ProjectTemplates.CSharp.DotWeb">
+				<Condition>(VS90_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED AND VS90_IDE_VWD_PROJECTSYSTEM_INSTALLED)</Condition>
+				<File Id="ClassLibrary.zip" Name="ClassLibrary.zip" KeyPath="yes" 
+					  Source="$(var.SolutionDir)DotWeb.Installer\tmp\ClassLibrary.zip"/>
+			</Component>
+			<Component Id="VSTemplate.MvcWebApplication" Guid="{53702F34-4884-4b2f-BAF6-7CFA1D36A265}" Directory="ProjectTemplates.CSharp.DotWeb">
+				<Condition>(VS90_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED AND VS90_IDE_VWD_PROJECTSYSTEM_INSTALLED)</Condition>
+				<File Id="MvcWebApplication.zip" Name="MvcWebApplication.zip" KeyPath="yes" 
+					  Source="$(var.SolutionDir)DotWeb.Installer\tmp\MvcWebApplication.zip"/>
+			</Component>
+
+		</ComponentGroup>
+
+		<Feature Id="Complete" Title="DotWeb" Description="The complete package" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
 			<Feature Id="Core" Title="SDK" Level="1">
 				<ComponentGroupRef Id="External_Dependencies"/>
 				<ComponentGroupRef Id="DotWeb_Core"/>
@@ -194,6 +227,13 @@
 				<ComponentGroupRef Id="Plugin.npapi"/>
 				<MergeRef Id="VCRedist"/>
 			</Feature>
+
+			<Feature Id="VSTemplates"
+					 Title="VS 2008 Project Templates" 
+					 Level="2">
+				<Condition Level="1">(VS90_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED AND VS90_IDE_VWD_PROJECTSYSTEM_INSTALLED)</Condition>
+				<ComponentGroupRef Id="VSTemplates"/>
+			</Feature>
 		</Feature>
 		
 		<UIRef Id="WixUI_FeatureTree" />
@@ -206,5 +246,10 @@
 			</DirectorySearch>
 		</Property>
 
+		<UI>
+			<ProgressText Action="VS90InstallVSTemplates" Template="[1]">$(var.Devenv_Setup_VS_Description)</ProgressText>
+		</UI>
+
 	</Product>
+	
 </Wix>
