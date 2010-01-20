@@ -44,11 +44,20 @@
     <Compile Include="Array.cs" />
     <Compile Include="Attribute.cs" />
     <Compile Include="Collections\Generic\EqualityComparer.cs" />
+    <Compile Include="Collections\Generic\ICollection.cs" />
+    <Compile Include="Collections\Generic\IEnumerable.cs" />
+    <Compile Include="Collections\Generic\IEnumerator.cs" />
+    <Compile Include="Collections\Generic\IList.cs" />
+    <Compile Include="Collections\Generic\List.cs" />
+    <Compile Include="Collections\ICollection.cs" />
     <Compile Include="Collections\IEnumerable.cs" />
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
+    <Compile Include="Collections\IList.cs" />
     <Compile Include="Console.cs" />
-    <Compile Include="DotWeb\JsInlineAttribute.cs" />
+    <Compile Include="DotWeb\JsArray.cs" />
+    <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
+    <Compile Include="DotWeb\JsMacroAttribute.cs" />
     <Compile Include="IEquatable.cs" />
     <Compile Include="IComparable.cs" />
     <Compile Include="DateTime.cs" />
@@ -88,6 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="plan.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

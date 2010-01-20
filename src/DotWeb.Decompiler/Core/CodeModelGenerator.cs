@@ -521,7 +521,7 @@ namespace DotWeb.Decompiler.Core
 			var def = method.Resolve();
 			this.vm.ExternalMethods.Add(method);
 
-			var ap = def.GetAssociatedProperty();
+			var ap = def.GetMonoAssociatedProperty();
 			if (ap != null) {
 				Debug.Assert(ap.Definition != null);
 				if (ap.IsGetter) {

@@ -20,6 +20,7 @@ using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 using DotWeb.Decompiler.Core;
 using Mono.Cecil;
+using DotWeb.Utility;
 
 namespace DotWeb.Decompiler
 {
@@ -37,7 +38,7 @@ namespace DotWeb.Decompiler
 			var be = new BackEnd(cfg);
 			be.WriteCode();
 
-			AssociatedProperty ap = method.GetAssociatedProperty();
+			var ap = method.GetMonoAssociatedProperty();
 			if (ap != null) {
 				if (ap.IsGetter) {
 					return new CodePropertyGetterMember(be.Method) {

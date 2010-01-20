@@ -38,50 +38,78 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		public IType ResolveTypeReference(TypeReference typeRef) {
-			var key = typeRef;
 			ExternalType ret;
-			if (this.cache.TryGetValue(key, out ret)) {
+			if (this.cache.TryGetValue(typeRef, out ret)) {
 				return ret;
 			}
 
-			GenericInstanceType genericType = null;
+			// need to deal with the following kinds references:
+			// * Foo              Simple
+			// * Foo[]            ArrayType of Simple
+			// * List<Foo>        GenericInstanceType of Simple
+			// * List<Foo>[]      ArrayType of GenericInstanceType of Simple
+			// * List<Foo[]>      GenericInstanceType of ArrayType of Simple
+
 			if (typeRef is GenericInstanceType) {
-				genericType = (GenericInstanceType)typeRef;
-				var original = typeRef.GetOriginalType();
-				typeRef = original;
+				ret = ResolveGenericType(typeRef, (GenericInstanceType)typeRef);
 			}
-
-			string fullName = typeRef.FullName.Replace("/", "+");
-			var modifiedName = "DotWeb." + fullName;
-			var type = this.asm.GetType(modifiedName);
-			if (type == null)
-				throw new NullReferenceException(string.Format("Could not find Type: {0}, for {1}", modifiedName, typeRef.ToString()));
-
-			if (genericType != null) {
-				var genericArgs = genericType.GenericArguments.Cast<TypeReference>();
-				var genericTypes = genericArgs.Select(x => this.resolver.ResolveTypeReference(x).Type).ToArray();
-				type = type.MakeGenericType(genericTypes);
-			}
-
-			var elementalType = type;
-			var arrayType = typeRef as ArrayType;
-			if (arrayType != null) {
-				// we don't need to resolve this type because we can assume that only other system types
-				// are referenced in DotWeb.System.
-				string modifiedElementName = "DotWeb." + arrayType.ElementType.FullName;
-				elementalType = this.asm.GetType(modifiedElementName);
-			}
-
-			if (elementalType.IsDefined(this.useSystemAttribute, false)) {
-				ret = new ExternalType(this.resolver, Type.GetType(fullName));
+			else if (typeRef is ArrayType) {
+				ret = ResolveArrayType(typeRef, (ArrayType)typeRef);
 			}
 			else {
-				ret = new ExternalType(this.resolver, type);
+				ret = ResolveSimpleType(typeRef);
 			}
 
-			this.cache.Add(key, ret);
+			this.cache.Add(typeRef, ret);
 
 			return ret;
+		}
+
+		private string ConvertName(TypeReference typeRef) {
+			return string.Format("DotWeb.{0}", typeRef.FullName.Replace("/", "+"));
+		}
+
+		private Type MakeArrayType(Type type, int rank) {
+			if (rank == 1)
+				return type.MakeArrayType();
+			return type.MakeArrayType(rank);
+		}
+
+		private ExternalType ResolveArrayType(TypeReference typeRef, ArrayType arrayTypeSpec) {
+			var elementType = this.resolver.ResolveTypeReference(arrayTypeSpec.ElementType);
+			return new ExternalType(this.resolver, MakeArrayType(elementType.Type, arrayTypeSpec.Rank));
+		}
+
+		private ExternalType ResolveGenericType(TypeReference typeRef, GenericInstanceType genericTypeSpec) {
+			var originalTypeRef = genericTypeSpec.GetOriginalType();
+			var modifiedName = ConvertName(originalTypeRef);
+			var genericType = this.asm.GetType(modifiedName);
+
+			// The [UseSystem] attribute lives on the genericType, not the concreteType (which is generated)
+			if (genericType.IsDefined(this.useSystemAttribute, false)) {
+				string sysFullName = typeRef.FullName.Replace("/", "+");
+				return new ExternalType(this.resolver, Type.GetType(sysFullName));
+			}
+			else {
+				var genericArgumentRefs = genericTypeSpec.GenericArguments.Cast<TypeReference>();
+				var typeArguments = genericArgumentRefs.Select(x => this.resolver.ResolveTypeReference(x).Type).ToArray();
+				var concreteType = genericType.MakeGenericType(typeArguments);
+
+				return new ExternalType(this.resolver, concreteType);
+			}
+		}
+
+		private ExternalType ResolveSimpleType(TypeReference typeRef) {
+			var modifiedName = ConvertName(typeRef);
+			var type = this.asm.GetType(modifiedName);
+
+			if (type.IsDefined(this.useSystemAttribute, false)) {
+				string sysFullName = typeRef.FullName.Replace("/", "+");
+				return new ExternalType(this.resolver, Type.GetType(sysFullName));
+			}
+			else {
+				return new ExternalType(this.resolver, type);
+			}
 		}
 	}
 }

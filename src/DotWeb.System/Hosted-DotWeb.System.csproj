@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,14 +48,23 @@
     <Compile Include="Array.cs" />
     <Compile Include="Attribute.cs" />
     <Compile Include="Collections\Generic\EqualityComparer.cs" />
+    <Compile Include="Collections\Generic\ICollection.cs" />
+    <Compile Include="Collections\Generic\IEnumerable.cs" />
+    <Compile Include="Collections\Generic\IEnumerator.cs" />
+    <Compile Include="Collections\Generic\IList.cs" />
+    <Compile Include="Collections\Generic\List.cs" />
+    <Compile Include="Collections\ICollection.cs" />
     <Compile Include="Collections\IEnumerable.cs" />
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
+    <Compile Include="Collections\IList.cs" />
     <Compile Include="Console.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="Delegate.cs" />
     <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
-    <Compile Include="DotWeb\JsInlineAttribute.cs" />
+    <Compile Include="DotWeb\JsArray.cs" />
+    <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
+    <Compile Include="DotWeb\JsMacroAttribute.cs" />
     <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
@@ -69,6 +78,7 @@
     <Compile Include="Func.cs" />
     <Compile Include="IComparable.cs" />
     <Compile Include="IDisposable.cs" />
+    <Compile Include="IEquatable.cs" />
     <Compile Include="Linq\Enumerable.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Object.cs" />

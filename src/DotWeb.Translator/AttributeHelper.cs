@@ -55,14 +55,45 @@ namespace DotWeb.Translator
 			return null;
 		}
 
+		public static bool IsCamelCase(MemberReference memberRef) {
+			if (memberRef is FieldReference) {
+				return IsCamelCase((FieldReference)memberRef);
+			}
+			if (memberRef is MethodReference) {
+				return IsCamelCase((MethodReference)memberRef);
+			}
+			if (memberRef is PropertyReference) {
+				return IsCamelCase((PropertyReference)memberRef);
+			}
+			return false;
+		}
+
+		public static bool IsCamelCase(FieldReference fieldRef) {
+			return
+				TypeHelper.IsDefined(fieldRef.Resolve(), JsCamelCase) ||
+				TypeHelper.IsDefined(fieldRef.DeclaringType.Resolve(), JsCamelCase);
+		}
+
+		public static bool IsCamelCase(MethodReference methodRef) {
+			return
+				TypeHelper.IsDefined(methodRef.Resolve(), JsCamelCase) ||
+				TypeHelper.IsDefined(methodRef.DeclaringType.Resolve(), JsCamelCase);
+		}
+
+		public static bool IsCamelCase(PropertyReference propertyRef) {
+			return
+				TypeHelper.IsDefined(propertyRef.Resolve(), JsCamelCase) ||
+				TypeHelper.IsDefined(propertyRef.DeclaringType.Resolve(), JsCamelCase);
+		}
+
 		public static bool IsAnonymous(TypeReference type) {
 			return TypeHelper.IsDefined(type.Resolve(), JsAnonymous);
 		}
 
-		public static bool IsIntrinsic(PropertyReference pi) {
+		public static bool IsIntrinsic(PropertyReference propertyRef) {
 			return
-				TypeHelper.IsDefined(pi.Resolve(), JsInstrinsic) ||
-				TypeHelper.IsDefined(pi.DeclaringType.Resolve(), JsInstrinsic);
+				TypeHelper.IsDefined(propertyRef.Resolve(), JsInstrinsic) ||
+				TypeHelper.IsDefined(propertyRef.DeclaringType.Resolve(), JsInstrinsic);
 		}
 
 		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {
@@ -79,6 +110,7 @@ namespace DotWeb.Translator
 		private const string JsCode = "System.DotWeb.JsCodeAttribute";
 		private const string JsMacro = "System.DotWeb.JsMacroAttribute";
 		private const string JsInstrinsic = "System.DotWeb.JsIntrinsicAttribute";
+		private const string JsCamelCase = "System.DotWeb.JsCamelCaseAttribute";
 		private const string JsAnonymous = "System.DotWeb.JsAnonymousAttribute";
 	}
 }

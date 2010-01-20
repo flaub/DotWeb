@@ -18,24 +18,30 @@
 using System.Reflection;
 using Mono.Cecil;
 
-namespace DotWeb.Decompiler
+namespace DotWeb.Utility
 {
-	public class AssociatedProperty
+	public class MonoAssociatedProperty
 	{
 		public PropertyDefinition Definition { get; set; }
 		public bool IsGetter { get; set; }
 	}
 
-	public static class MethodDefinitionExtensions
+	public class ReflectedAssociatedProperty
 	{
-		public static AssociatedProperty GetAssociatedProperty(this MethodDefinition method) {
+		public PropertyInfo Info { get; set; }
+		public bool IsGetter { get; set; }
+	}
+
+	public static class AssociatedPropertyExtensions
+	{
+		public static MonoAssociatedProperty GetMonoAssociatedProperty(this MethodDefinition method) {
 			if (method.IsSpecialName) {
 				var type = method.DeclaringType;
 
 				if (method.Name.StartsWith("get_")) {
 					string propName = method.Name.Substring("get_".Length);
 					var properties = type.Properties.GetProperties(propName);
-					return new AssociatedProperty {
+					return new MonoAssociatedProperty {
 						Definition = properties[0],
 						IsGetter = true
 					};
@@ -44,8 +50,35 @@ namespace DotWeb.Decompiler
 				if (method.Name.StartsWith("set_")) {
 					string propName = method.Name.Substring("set_".Length);
 					var properties = type.Properties.GetProperties(propName);
-					return new AssociatedProperty {
+					return new MonoAssociatedProperty {
 						Definition = properties[0],
+						IsGetter = false
+					};
+				}
+			}
+
+			return null;
+		}
+
+		public static ReflectedAssociatedProperty GetReflectedAssociatedProperty(this MethodBase method) {
+			if (!(method is MethodInfo))
+				return null;
+
+			if (method.IsSpecialName) {
+				var type = method.DeclaringType;
+
+				if (method.Name.StartsWith("get_")) {
+					string propName = method.Name.Substring("get_".Length);
+					return new ReflectedAssociatedProperty {
+						Info = type.GetProperty(propName),
+						IsGetter = true
+					};
+				}
+
+				if (method.Name.StartsWith("set_")) {
+					string propName = method.Name.Substring("set_".Length);
+					return new ReflectedAssociatedProperty {
+						Info = type.GetProperty(propName),
 						IsGetter = false
 					};
 				}

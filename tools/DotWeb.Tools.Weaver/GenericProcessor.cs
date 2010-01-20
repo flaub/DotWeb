@@ -35,10 +35,22 @@ namespace DotWeb.Tools.Weaver
 			this.resolver = resolver;
 		}
 
-		public GenericTypeParameterBuilder GetGenericParameter(string name) {
+		private GenericTypeParameterBuilder GetParameterByName(string name) {
 			GenericTypeParameterBuilder ret = null;
 			this.byName.TryGetValue(name, out ret);
 			return ret;
+		}
+
+		public Type GetGenericParameter(TypeReference typeRef) {
+			// need to deal with T[]
+			if (typeRef is ArrayType) {
+				var arrayType = (ArrayType)typeRef;
+				var builder = GetParameterByName(arrayType.ElementType.Name);
+				if (builder == null)
+					return null;
+				return builder.MakeArrayType(arrayType.Rank);
+			}
+			return GetParameterByName(typeRef.Name);
 		}
 
 		protected void ProcessParameter(GenericParameter genericParameter, GenericTypeParameterBuilder genericBuilder) {
@@ -82,9 +94,9 @@ namespace DotWeb.Tools.Weaver
 
 	}
 
-	class GenericTypeProcessor : GenericProcessorBase
+	class GenericProcessor : GenericProcessorBase
 	{
-		public GenericTypeProcessor(IResolver resolver)
+		public GenericProcessor(IResolver resolver)
 			: base(resolver) {
 		}
 
@@ -92,13 +104,6 @@ namespace DotWeb.Tools.Weaver
 			var names = typeDef.GenericParameters.Cast<GenericParameter>().Select(x => x.Name);
 			var builders = typeBuilder.DefineGenericParameters(names.ToArray());
 			ProcessGenericParameters(typeDef.GenericParameters, builders);
-		}
-	}
-
-	class GenericMethodProcessor : GenericProcessorBase
-	{
-		public GenericMethodProcessor(IResolver resolver)
-			: base(resolver) {
 		}
 
 		public void ProcessMethod(MethodDefinition methodDef, MethodBuilder methodBuilder) {

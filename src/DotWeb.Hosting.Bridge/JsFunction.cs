@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using DotWeb.Utility;
 using DotWeb.System.DotWeb;
+using System.Collections.Generic;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -87,28 +88,26 @@ namespace DotWeb.Hosting.Bridge
 			return args;
 		}
 
-		private string CallGetter(MethodBase method) {
+		private string CallGetter(PropertyInfo property, MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
 			string target = GetTarget(method);
 			if (args.Length == 1) {
 				return string.Format("return {0}[{1}];", target, args.First().Name);
 			}
 			else if (args.Length == 0) {
-				string propName = method.Name.Substring("get_".Length);
-				return string.Format("return {0}.{1};", target, propName);
+				return string.Format("return {0}.{1};", target, GetMemberName(property));
 			}
 			throw new NotSupportedException();
 		}
 
-		private string CallSetter(MethodBase method) {
+		private string CallSetter(PropertyInfo property, MethodBase method) {
 			ParameterInfo[] args = method.GetParameters();
 			string target = GetTarget(method);
 			if (args.Length == 2) {
 				return string.Format("{0}[{1}] = value;", target, args.First().Name);
 			}
 			else if (args.Length == 1) {
-				string propName = method.Name.Substring("set_".Length);
-				return string.Format("{0}.{1} = value;", target, propName);
+				return string.Format("{0}.{1} = value;", target, GetMemberName(property));
 			}
 			throw new NotSupportedException();
 		}
@@ -119,20 +118,32 @@ namespace DotWeb.Hosting.Bridge
 			return string.Format("return new {0}({1});", target, args);
 		}
 
+		private string GetMemberName(MemberInfo member) {
+			string name = member.Name;
+			if (member.IsDefined(typeof(JsCamelCaseAttribute), false) ||
+				member.DeclaringType.IsDefined(typeof(JsCamelCaseAttribute), false)) {
+				char[] chars = name.ToCharArray();
+				chars[0] = Char.ToLower(chars[0]);
+				name = new string(chars);
+			}
+			return name;
+		}
+
 		private string CallMethod(MethodBase method) {
-			string name = method.Name;
+			string name = GetMemberName(method);
 			string target = GetTarget(method);
 			string args = GetArgsString(method);
 			return string.Format("return {0}.{1}({2});", target, name, args);
 		}
 
 		private string GenerateFunctionBody(MethodBase method) {
-			if (method.IsSpecialName) {
-				if (method.Name.StartsWith("get_")) {
-					return CallGetter(method);
+			var property = method.GetReflectedAssociatedProperty();
+			if (property != null) {
+				if (property.IsGetter) {
+					return CallGetter(property.Info, method);
 				}
-				if (method.Name.StartsWith("set_")) {
-					return CallSetter(method);
+				else {
+					return CallSetter(property.Info, method);
 				}
 			}
 
@@ -143,15 +154,10 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		private string GenerateInlineBody(MethodBase method, string format) {
-			//if (method.IsSpecialName) {
-			//    if (method.Name.StartsWith("get_")) {
-			//        return "return " + format + ";";
-			//    }
-			//}
-
-			var parameters = method.GetParameters();
-			var args = parameters.Select(x => x.Name).ToArray();
-			return "return " + string.Format(format, args) + ";";
+			var args = new List<string>();
+			args.Add("this");
+			args.AddRange(method.GetParameters().Select(x => x.Name));
+			return "return " + string.Format(format, args.ToArray()) + ";";
 		}
 	}
 }

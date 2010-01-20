@@ -210,6 +210,52 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
+		private int GetFixedArgs(MethodDefinition method) {
+			for (int i = 0; i < method.Parameters.Count; i++) {
+				var def = method.Parameters[i];
+				foreach (CustomAttribute attr in def.CustomAttributes) {
+					if (attr.Constructor.DeclaringType.FullName == "System.ParamArrayAttribute") {
+						return i;
+					}
+				}
+			}
+			return method.Parameters.Count;
+		}
+
+		private string PrintMacro(string macro, MethodDefinition method, string target, List<CodeExpression> parameters) {
+			var args = new List<string>();
+			args.Add(target);
+			if (parameters != null) {
+				parameters.ForEach(x => args.Add(Print(x)));
+				//int fixedArgs = GetFixedArgs(method);
+				//var replacement = new StringBuilder();
+				//for (int i = fixedArgs; i < parameters.Count; i++) {
+				//    if (i > fixedArgs)
+				//        replacement.Append(", ");
+
+				//    replacement.Append('{');
+				//    replacement.Append(i + 1);
+				//    replacement.Append('}');
+				//}
+				//macro = macro.Replace("{*}", replacement.ToString());
+			}
+			else {
+				//macro = macro.Replace("{*}", "");
+			}
+
+			return string.Format(macro, args.ToArray());
+		}
+
+		private string GetMemberName(MemberReference member) {
+			var name = member.Name;
+			if (AttributeHelper.IsCamelCase(member)) {
+				char[] chars = name.ToCharArray();
+				chars[0] = Char.ToLower(chars[0]);
+				name = new string(chars);
+			}
+			return EncodeName(name);
+		}
+
 		#endregion
 
 		#region Expressions
@@ -233,11 +279,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 			string jsMacro = AttributeHelper.GetJsMacro(method);
 			if (jsMacro != null) {
 				Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
-				return jsMacro;
+				return PrintMacro(jsMacro, method, Print(exp.TargetObject), null);
 			}
 
 			if (exp.IsFieldLike()) {
-				return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
+				return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Property));
 			}
 			// Optimize for anonymous types.
 			//CodeTypeEvaluator evaluator = new CodeTypeEvaluator(this.CurrentMethod);
@@ -254,15 +300,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeFieldReference exp) {
-			return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Field.Name));
+			return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Field));
 		}
 
 		public string VisitReturn(CodeMethodReference exp) {
-			string ret = string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Reference.Name));
-			//string alt;
-			//if (methodMap.TryGetValue(ret, out alt))
-			//    return alt;
-			return ret;
+			return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Reference));
 		}
 
 		public string VisitReturn(CodeArgumentReference exp) {
@@ -287,24 +329,21 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeInvokeExpression exp) {
 			var method = exp.Method.Reference.Resolve();
-
-			// deal with [JsMacro]
 			string jsMacro = AttributeHelper.GetJsMacro(method);
 			if (jsMacro != null) {
-				var args = exp.Parameters.Select(x => Print(x)).ToArray();
-				return string.Format(jsMacro, args);
+				return PrintMacro(jsMacro, method, Print(exp.Method.TargetObject), exp.Parameters);
 			}
 
 			if (method.IsConstructor) {
 				if (!CurrentMethod.DeclaringType.HasBase()) {
 					return "";
 				}
-				string type = Print(CurrentMethod.DeclaringType);
 				List<CodeExpression> args = new List<CodeExpression>();
 				args.Add(new CodeThisReference());
 				args.AddRange(exp.Parameters);
 				return string.Format("this.$super.{0}.call({1})", CtorMethodName, Print(args));
 			}
+
 			return string.Format("{0}({1})", Print(exp.Method), Print(exp.Parameters));
 		}
 
@@ -347,14 +386,19 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {
+			var method = exp.Constructor.Resolve();
+			string jsMacro = AttributeHelper.GetJsMacro(method);
+			if (jsMacro != null) {
+				return PrintMacro(jsMacro, method, Print(exp.Type), exp.Parameters);
+			}
+
 			var delegateType = TypeHelper.GetTypeDefinition(typeof(Delegate));
 			if (TypeHelper.IsSubclassOf(exp.Type, delegateType)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
-				string methodName = methodRef.Reference.Name;
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")
 					targetObject = Print(methodRef.TargetObject);
-				return string.Format("$Delegate({0}, {0}.{1})", targetObject, EncodeName(methodName));
+				return string.Format("$Delegate({0}, {0}.{1})", targetObject, GetMemberName(methodRef.Reference));
 			}
 			if (AttributeHelper.IsAnonymous(exp.Type)) {
 				return "{}";

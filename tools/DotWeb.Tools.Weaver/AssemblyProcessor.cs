@@ -93,7 +93,20 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private string GetTypeKey(TypeReference typeRef) {
-			return typeRef.FullName;
+			// TypeDefinition reports:
+			// DotWeb.System.Collections.Generic.IEnumerable`1
+			// TypeReference reports:
+			// DotWeb.System.Collections.Generic.IEnumerable`1<T>
+			// Proposal:
+			// Resolve() all TypeReferences to TypeDefinitions to get a consistent key
+
+			// NOTE: the above approach breaks resolution of array types
+			// because Resolve() removes the fact that the typeRef is an array.
+			if (typeRef is ArrayType) {
+				return typeRef.FullName;
+			}
+
+			return typeRef.Resolve().FullName;
 		}
 
 		public IType ResolveTypeReference(TypeReference typeRef) {

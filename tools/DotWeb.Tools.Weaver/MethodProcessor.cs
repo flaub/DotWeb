@@ -40,13 +40,13 @@ namespace DotWeb.Tools.Weaver
 		private MethodBase method;
 		private Dictionary<Instruction, Label> labels = new Dictionary<Instruction, Label>();
 		private Dictionary<VariableDefinition, LocalBuilder> locals = new Dictionary<VariableDefinition, LocalBuilder>();
-		private GenericMethodProcessor genericProc;
+		private GenericProcessor genericProc;
 
 		public MethodProcessor(IResolver resolver, TypeProcessor parent, MethodDefinition methodDef) {
 			this.resolver = resolver;
 			this.parent = parent;
 			this.methodDef = methodDef;
-			this.genericProc = new GenericMethodProcessor(this.resolver);
+			this.genericProc = new GenericProcessor(this.resolver);
 		}
 
 		public void ProcessMethod(MethodBuilder methodBuilder) {
@@ -76,6 +76,7 @@ namespace DotWeb.Tools.Weaver
 			methodBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
 
 			if (this.methodDef.HasBody) {
+				Debug.Assert((methodBuilder.Attributes & SR.MethodAttributes.Abstract) == 0);
 				var generator = methodBuilder.GetILGenerator();
 				ProcessMethodBody(generator);
 			}
@@ -370,11 +371,14 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private Type ResolveTypeReference(TypeReference typeRef) {
-			if (typeRef is GenericParameter) {
-				var arg = this.genericProc.GetGenericParameter(typeRef.Name);
+			var arrayType = typeRef as ArrayType;
+			if (typeRef is GenericParameter || 
+				(arrayType != null && arrayType.ElementType is GenericParameter)) {
+				// deals with T[] also
+				var arg = this.genericProc.GetGenericParameter(typeRef);
 				if (arg != null)
 					return arg;
-				return this.parent.GetGenericParameter(typeRef.Name);
+				return this.parent.GetGenericParameter(typeRef);
 			}
 
 			return this.resolver.ResolveTypeReference(typeRef).Type;

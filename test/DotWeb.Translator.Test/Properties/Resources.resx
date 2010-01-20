@@ -214,4 +214,10 @@
   <data name="TranslationTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\script\translationtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="DecorationTest_JsArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jsarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DecorationTest_JsCamelCase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\decorationtest\decorationtest_jscamelcase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

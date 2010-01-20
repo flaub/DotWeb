@@ -80,22 +80,59 @@ namespace H8
 		public int Value { get; set; }
 	}
 
+	[JsCamelCase]
+	class CamelCaseTest
+	{
+		public void Foo() { }
+	}
+
 	public class DecorationTests
 	{
 		[JsCode("alert(arg);")]
 		public void TestJsCode(string arg) {
 		}
 
-		[JsMacro("jQuery({0})")]
-		public static extern object JQuery(string selector);
+		[JsMacro("{0}.jQuery({1})")]
+		public extern object JQuery(string selector);
+
+		[JsMacro("{0}.jQuery({1})")]
+		public static extern object StaticJQuery(string selector);
 
 		[JsCode("alert(jquery);")]
 		public static extern void TakeJQuery(object jquery);
 
+		public extern HtmlDocument Document {
+			[JsMacro("$doc")]
+			get;
+		}
+
+		[JsCamelCase]
+		public void CamelCase() { }
+
+		public void TestJsCamelCase() {
+			var x = new CamelCaseTest();
+			x.Foo();
+			CamelCase();
+		}
+
 		public void TestJsMacro() {
 			JQuery("*");
+			StaticJQuery("*");
 			TakeJQuery(JQuery("#id"));
-			Console.WriteLine(Global.Document.getElementById("id"));
+			Console.WriteLine(Document.getElementById("id"));
+		}
+
+		public void TestJsArray() {
+			var array = new JsArray();
+			if (JsArray.IsArray(array)) {
+				var part = array.Slice(0, 1);
+				Console.WriteLine(part.Join(","));
+			}
+
+			var result1 = array.Splice(0, 0);
+			var result2 = array.Splice(0, 0, 1);
+			var result3 = array.Splice(0, 0, 1, "two");
+			var x = new JsArray(1, 2);
 		}
 
 		public void TestJsAnonymous() {

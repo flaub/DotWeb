@@ -63,6 +63,8 @@
     <Compile Include="TranslationTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
+    <Content Include="Expected\DecorationTest\DecorationTest_JsArray.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_CastInterface.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />

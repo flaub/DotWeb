@@ -196,6 +196,20 @@ namespace DotWeb.Hosting.Test
 			Assert.IsNotNull(typeArray);
 			var elementType = typeArray.FieldType.GetElementType();
 			Assert.AreEqual(type, elementType);
+
+			var list = type.GetField("list");
+			Assert.IsNotNull(list);
+			var genericTypes = list.FieldType.GetGenericArguments();
+			Assert.AreEqual(type, genericTypes[0]);
+
+			var arrayOfLists = type.GetField("arrayOfLists");
+			Assert.IsNotNull(arrayOfLists);
+			Assert.AreEqual(list.FieldType, arrayOfLists.FieldType.GetElementType());
+
+			var listOfArrays = type.GetField("listOfArrays");
+			Assert.IsNotNull(listOfArrays);
+			genericTypes = listOfArrays.FieldType.GetGenericArguments();
+			Assert.AreEqual(typeArray.FieldType, genericTypes[0]);
 		}
 
 		[Test]

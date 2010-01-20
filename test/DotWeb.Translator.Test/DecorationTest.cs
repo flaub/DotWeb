@@ -39,6 +39,11 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
+		public void TestJsArray() {
+			TestMethod(this.compiledType, "TestJsArray", Resources.DecorationTest_JsArray);
+		}
+
+		[Test]
 		public void TestJsAnonymous() {
 			TestMethod(this.compiledType, "TestJsAnonymous", Resources.DecorationTest_JsAnonymous, true);
 		}
@@ -79,6 +84,11 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestJsMacro() {
 			TestMethod(this.compiledType, "TestJsMacro", Resources.DecorationTest_JsMacro);
+		}
+
+		[Test]
+		public void TestJsCamelCase() {
+			TestMethod(this.compiledType, "TestJsCamelCase", Resources.DecorationTest_JsCamelCase);
 		}
 
 		private TypeDefinition compiledType;

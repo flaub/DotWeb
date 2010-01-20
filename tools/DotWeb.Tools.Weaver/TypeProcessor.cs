@@ -41,7 +41,7 @@ namespace DotWeb.Tools.Weaver
 		private Dictionary<MetadataToken, MethodBase> methods = new Dictionary<MetadataToken, MethodBase>();
 		private Dictionary<FieldDefinition, FieldBuilder> fields = new Dictionary<FieldDefinition, FieldBuilder>();
 		private IResolver resolver;
-		private GenericTypeProcessor genericProc;
+		private GenericProcessor genericProc;
 		private bool isClosing = false;
 		private List<TypeProcessor> dependentTypes = new List<TypeProcessor>();
 		private List<IType> nestedTypes = new List<IType>();
@@ -51,7 +51,7 @@ namespace DotWeb.Tools.Weaver
 			this.parent = parent;
 			this.typeDef = typeDef;
 			this.ModuleBuilder = moduleBuilder;
-			this.genericProc = new GenericTypeProcessor(this.resolver);
+			this.genericProc = new GenericProcessor(this.resolver);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
 			if (outerBuilder == null) {
@@ -99,8 +99,8 @@ namespace DotWeb.Tools.Weaver
 			}
 		}
 
-		public GenericTypeParameterBuilder GetGenericParameter(string name) {
-			return this.genericProc.GetGenericParameter(name);
+		public Type GetGenericParameter(TypeReference typeRef) {
+			return this.genericProc.GetGenericParameter(typeRef);
 		}
 
 		public void Process() {
@@ -238,6 +238,14 @@ namespace DotWeb.Tools.Weaver
 
 			var methodProc = new MethodProcessor(this.resolver, this, realMethodDef);
 			methodProc.ProcessMethod(methodBuilder);
+
+			if (realMethodDef.HasOverrides) {
+				foreach (MethodReference methodRef in realMethodDef.Overrides) {
+					var methodDecl = this.resolver.ResolveMethodReference(methodRef);
+					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
+				}
+			}
+
 			return methodBuilder;
 		}
 
@@ -298,7 +306,7 @@ namespace DotWeb.Tools.Weaver
 
 		private Type ResolveTypeReference(TypeReference typeRef, bool dependent) {
 			if (typeRef is GenericParameter) {
-				return this.genericProc.GetGenericParameter(typeRef.Name);
+				return this.genericProc.GetGenericParameter(typeRef);
 			}
 
 			var type = this.resolver.ResolveTypeReference(typeRef);

@@ -5,7 +5,7 @@ namespace DotWeb.Client.Dom.Helper
 {
 	public static class ElementFactory
 	{
-		[JsMacro("$doc.createTextNode({0})")]
+		[JsMacro("$doc.createTextNode({1})")]
 		public static extern Text CreateText(string text);
 
 		[JsMacro("$doc.createElement('a')")]

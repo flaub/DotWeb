@@ -16,6 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using DotWeb.Client;
+using System.Collections.Generic;
 
 namespace DotWeb.Weaver.Test.Script
 {
@@ -25,6 +26,12 @@ namespace DotWeb.Weaver.Test.Script
 		public string[] PropertyArray { get; set; }
 
 		public ArrayTest[] typeArray;
+
+		public List<ArrayTest> list = null;
+
+		public List<ArrayTest>[] arrayOfLists = null;
+
+		public List<ArrayTest[]> listOfArrays = null;
 
 		public ArrayTest() {
 			this.fieldArray = new int[4];

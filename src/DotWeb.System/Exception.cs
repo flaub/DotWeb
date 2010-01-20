@@ -16,12 +16,17 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
+using SysException = System.Exception;
+
 #if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System
 #else
+using System.DotWeb;
 namespace System
 #endif
 {
+	[UseSystem]
 	public class Exception
 	{
 		public Exception() {
@@ -52,24 +57,27 @@ namespace System
 		//		public override string ToString();
 	}
 
-	public class SystemException : Exception
+	[UseSystem]
+	public class SystemException : SysException
 	{
 		public SystemException() { }
 		public SystemException(string message) : base(message) { }
-		public SystemException(string message, Exception innerException) : base(message, innerException) { }
+		public SystemException(string message, SysException innerException) : base(message, innerException) { }
 	}
 
+	[UseSystem]
 	public class NotImplementedException : SystemException
 	{
 		public NotImplementedException() { }
 		public NotImplementedException(string message) : base(message) { }
-		public NotImplementedException(string message, Exception inner) : base(message, inner) { }
+		public NotImplementedException(string message, SysException inner) : base(message, inner) { }
 	}
 
+	[UseSystem]
 	public class NotSupportedException : SystemException
 	{
 		public NotSupportedException() { }
 		public NotSupportedException(string message) : base(message) { }
-		public NotSupportedException(string message, Exception inner) : base(message, inner) { }
+		public NotSupportedException(string message, SysException inner) : base(message, inner) { }
 	}
 }

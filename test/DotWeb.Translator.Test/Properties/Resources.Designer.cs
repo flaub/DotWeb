@@ -136,6 +136,38 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsArray = function() {
+        ///	var array = new Array();
+        ///	if (Array.isArray(array)) {
+        ///		var part = array.slice(0, 1);
+        ///		System.Console.WriteLine(part.join(&quot;,&quot;));
+        ///	}
+        ///	array.splice(0, 0);
+        ///	array.splice(0, 0, 1);
+        ///	array.splice(0, 0, 1, &quot;two&quot;);
+        ///	new Array(1, 2);
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsArray {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsArray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg /*System.String*/) {
+        ///	alert(arg);
+        ///};
+        ///.
+        /// </summary>
+        internal static string DecorationTest_JsCamelCase {
+            get {
+                return ResourceManager.GetString("DecorationTest_JsCamelCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg /*System.String*/) {
         ///	alert(arg);
         ///};
@@ -182,9 +214,10 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsInline = function() {
-        ///	jQuery(&quot;*&quot;);
-        ///	H8.DecorationTests.TakeJQuery(jQuery(&quot;#id&quot;));
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsMacro = function() {
+        ///	this.jQuery(&quot;*&quot;);
+        ///	H8.DecorationTests.jQuery(&quot;*&quot;);
+        ///	H8.DecorationTests.TakeJQuery(this.jQuery(&quot;#id&quot;));
         ///	System.Console.WriteLine($doc.getElementById(&quot;id&quot;));
         ///};
         ///.
@@ -306,9 +339,6 @@ namespace DotWeb.Translator.Test.Properties {
         ///};
         ///
         ///System.Exception.prototype.$ctor = function() {
-        ///	// nop
-        ///	// nop
-        ///	// nop
         ///	return this;
         ///};
         ///
@@ -319,16 +349,14 @@ namespace DotWeb.Translator.Test.Properties {
         ///
         ///System.SystemException.prototype.$ctor = function() {
         ///	this.$super.$ctor.call(this);
-        ///	// nop
-        ///	// nop
-        ///	// nop
         ///	return this;
         ///};
         ///
         ///System.NotImplementedException = function() {
         ///	this.$super.constructor();
         ///};
-        ///System.NotI [rest of string was truncated]&quot;;.
+        ///System.NotImplementedException.$extend(System.SystemException);
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_Callback {
             get {

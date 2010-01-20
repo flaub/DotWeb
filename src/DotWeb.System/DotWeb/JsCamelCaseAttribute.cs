@@ -23,13 +23,16 @@ namespace DotWeb.System.DotWeb
 namespace System.DotWeb
 #endif
 {
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-	public class JsMacroAttribute : SysAttribute
+	[AttributeUsage(
+		AttributeTargets.Class | 
+		AttributeTargets.Interface | 
+		AttributeTargets.Struct | 
+		AttributeTargets.Field | 
+		AttributeTargets.Method | 
+		AttributeTargets.Property, 
+		AllowMultiple = false, Inherited = false)]
+	public class JsCamelCaseAttribute : SysAttribute
 	{
-		public string Code { get; private set; }
-
-		public JsMacroAttribute(string code) {
-			this.Code = code;
-		}
+		public JsCamelCaseAttribute() { }
 	}
 }

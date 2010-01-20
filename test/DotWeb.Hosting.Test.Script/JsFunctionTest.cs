@@ -32,13 +32,19 @@ namespace DotWeb.Hosting.Test.Script
 		[JsCode(JsCode)]
 		public void TestJsCode() { }
 
-		[JsMacro("alert({0})")]
+		[JsMacro("{0}.alert({1})")]
 		public void TestJsMacro(string arg) { }
 
 		public extern Window Window {
 			[JsMacro("$wnd")]
 			get;
 		}
+
+		[JsCamelCase]
+		public void TestJsCamelCaseMethod() { }
+
+		[JsCamelCase]
+		public bool TestJsCamelCaseProperty { get; set; }
 
 		public void TestNoArgs() { }
 		public void TestOneArg(int x) { }

@@ -90,7 +90,7 @@ namespace DotWeb.Hosting.Test
 				"TestJsMacro",
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsMacro",
 				"arg",
-				"alert(arg);");
+				"return this.alert(arg);");
 			RunTest(
 				"get_Window",
 				"__DotWeb_Hosting_Test_Script_CrashTestDummy$get_Window",
@@ -189,5 +189,25 @@ namespace DotWeb.Hosting.Test
 				"this[name] = value;");
 		}
 
+		[Test]
+		public void TestJsCamelCase() {
+			RunTest(
+				"TestJsCamelCaseMethod",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$TestJsCamelCaseMethod",
+				"",
+				"return this.testJsCamelCaseMethod();");
+
+			RunTest(
+				"get_TestJsCamelCaseProperty",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$get_TestJsCamelCaseProperty",
+				"",
+				"return this.testJsCamelCaseProperty;");
+
+			RunTest(
+				"set_TestJsCamelCaseProperty",
+				"__DotWeb_Hosting_Test_Script_CrashTestDummy$set_TestJsCamelCaseProperty",
+				"value",
+				"this.testJsCamelCaseProperty = value;");
+		}
 	}
 }
