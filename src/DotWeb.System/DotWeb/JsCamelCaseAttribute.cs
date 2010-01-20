@@ -1,4 +1,4 @@
-﻿// Copyright 2009, Frank Laub
+﻿// Copyright 2010, Frank Laub
 //
 // This file is part of DotWeb.
 //
