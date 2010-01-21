@@ -71,9 +71,13 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		public void GenerateCodeModel(CodeModelVirtualMachine context) {
-			CodeModelGenerator cma = new CodeModelGenerator(this.method, context, this.Instructions, this.Statements);
+			// Iterate thru the instructions in this basic block 
+			// The production of statements goes into this.Statements
+			new CodeModelGenerator(this.method, context, this.Instructions, this.Statements);
 			this.DfsTraversed = DfsTraversal.CodeDom;
 
+			// Depth-first traversal into other basic blocks
+			// Accumulate statements into this.Statements
 			foreach (BasicBlock next in this.OutEdges) {
 				if (next.DfsTraversed != DfsTraversal.CodeDom) {
 					next.GenerateCodeModel(context);

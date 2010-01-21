@@ -1,4 +1,4 @@
-﻿// Copyright 2009, Frank Laub
+﻿// Copyright 2009-2010, Frank Laub
 //
 // This file is part of DotWeb.
 //
@@ -23,7 +23,7 @@ using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
 
-namespace DotWeb.Decompiler
+namespace DotWeb.Translator.Test
 {
 	public class CompilerException : Exception
 	{

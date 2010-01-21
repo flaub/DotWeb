@@ -43,11 +43,14 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CSharpCompiler.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
@@ -63,6 +66,7 @@
     <None Include="Script\SystemTest.cs" />
     <Compile Include="TranslationTest.cs" />
     <Compile Include="TranslationTestHelper.cs" />
+    <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
@@ -107,6 +111,10 @@
     <ProjectReference Include="..\..\src\DotWeb.Translator\DotWeb.Translator.csproj">
       <Project>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</Project>
       <Name>DotWeb.Translator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWeb.Utility\DotWeb.Utility.csproj">
+      <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>
+      <Name>DotWeb.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="Script\DotWeb.Translator.Test.Script.csproj">
       <Project>{64CEF2DB-5B54-4F4F-BEEE-F32C5DC428DB}</Project>

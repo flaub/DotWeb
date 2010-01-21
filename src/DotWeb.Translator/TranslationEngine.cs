@@ -27,7 +27,6 @@ using System.Collections.Generic;
 
 namespace DotWeb.Translator
 {
-	// Compile to release
 	// Decompile into CodeModel
 	// Generate target language
 	public class TranslationEngine

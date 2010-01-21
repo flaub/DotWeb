@@ -66,9 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ecma-335.pdf" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Generator\JavaScript\Target.js" />
     <Content Include="Generator\JavaScript\Test.html" />
     <Content Include="Generator\JavaScript\Runtime.js" />

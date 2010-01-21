@@ -474,6 +474,12 @@ namespace DotWeb.Decompiler.Core
 			return null;
 		}
 
+		private List<MethodDefinition> FindMethodOverrides(MethodDefinition baseMethod) {
+			var ret = new List<MethodDefinition>();
+			//baseMethod.IsVirtual
+			return ret;
+		}
+
 		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
 			expr.Parameters = PopRange(method.Parameters.Count);

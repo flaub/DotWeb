@@ -26,6 +26,7 @@ using System.Reflection.Emit;
 using System.IO;
 using System.Diagnostics;
 using DotWeb.Hosting;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Tools.Weaver
 {
@@ -39,18 +40,9 @@ namespace DotWeb.Tools.Weaver
 			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
 		}
 
-		class AssemblyResolver : DefaultAssemblyResolver
-		{
-			public override AssemblyDefinition Resolve(AssemblyNameReference name) {
-				var asmDef = base.Resolve(name);
-				asmDef.Resolver = this;
-				return asmDef;
-			}
-		}
-
 		private string inputDir;
 		private string outputDir;
-		private AssemblyResolver asmResolver = new AssemblyResolver();
+		private GlobalAssemblyResolver asmResolver = new GlobalAssemblyResolver();
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
 		private static ExternalAssembly asmMscorlib;
 		
