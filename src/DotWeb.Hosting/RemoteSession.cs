@@ -24,10 +24,9 @@ namespace DotWeb.Hosting
 {
 	public class RemoteSession : ISession
 	{
-		public RemoteSession(Stream stream) {
-			this.stream = stream;
-			this.reader = new NetworkReader(stream);
-			this.writer = new NetworkWriter(stream);
+		public RemoteSession(Stream input, Stream output) {
+			this.reader = new NetworkReader(input);
+			this.writer = new NetworkWriter(output);
 		}
 
 		public void SendMessage(IMessage msg) {
@@ -65,7 +64,6 @@ namespace DotWeb.Hosting
 					ret = new InvokeMemberMessage();
 					break;
 				case MessageType.Quit:
-					this.stream.Close();
 					return new QuitMessage();
 				default:
 					Debug.WriteLine(string.Format("Unknown message type: {0}", type));
@@ -79,6 +77,5 @@ namespace DotWeb.Hosting
 
 		private readonly NetworkReader reader;
 		private readonly NetworkWriter writer;
-		private readonly Stream stream;
 	}
 }

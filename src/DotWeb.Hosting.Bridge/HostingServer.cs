@@ -77,9 +77,10 @@ namespace DotWeb.Hosting.Bridge
 		private void OnAccept(IAsyncResult ar) {
 			var listener = (TcpListener)ar.AsyncState;
 			var client = listener.EndAcceptTcpClient(ar);
-			listener.BeginAcceptTcpClient(OnAccept, listener);
 
 			RunInAppDomain(client);
+
+			this.listener.Stop();
 		}
 
 		private void RunInAppDomain(TcpClient client) {
@@ -114,7 +115,7 @@ namespace DotWeb.Hosting.Bridge
 			public void Run(NetworkStream stream) {
 				HostedMode.Host = new CallContextStorage();
 				try {
-					var session = new RemoteSession(stream);
+					var session = new RemoteSession(stream, stream);
 					var factory = new DefaultFactory();
 					var bridge = new JsBridge(session, factory);
 					HostedMode.Host = bridge;

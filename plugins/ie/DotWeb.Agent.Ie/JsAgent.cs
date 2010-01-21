@@ -309,7 +309,7 @@ namespace DotWeb.Agent.Ie
 			this.refToObj = new Dictionary<int, object>();
 
 			this.tcp = new TcpClient(host, port);
-			this.session = new RemoteSession(this.tcp.GetStream());
+			this.session = new RemoteSession(this.tcp.GetStream(), this.tcp.GetStream());
 
 			LoadMessage loadMsg = new LoadMessage {
 				TypeName = typeName

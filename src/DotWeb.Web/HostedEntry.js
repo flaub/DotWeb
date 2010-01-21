@@ -1,4 +1,5 @@
 window.onload = function() {{
 	var plugin = $doc.getElementById('__$plugin');
-	plugin.onLoad(__$helper, 'localhost', {0}, '{1}');
+	console.log('connecting to {0}:{1}');
+	plugin.onLoad(__$helper, '{0}', {1}, '{2}');
 }};

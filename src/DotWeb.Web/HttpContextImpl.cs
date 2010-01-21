@@ -16,6 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Web;
+using System;
 
 namespace DotWeb.Web
 {
@@ -49,6 +50,10 @@ namespace DotWeb.Web
 
 		public IHttpModule GetModule(string key) {
 			return this.context.ApplicationInstance.Modules.Get(key);
+		}
+
+		public Uri RequestUrl {
+			get { return this.context.Request.Url; }
 		}
 	}
 }

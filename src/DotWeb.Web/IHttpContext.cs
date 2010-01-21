@@ -17,11 +17,13 @@
 
 using System.Web;
 using System.Web.Caching;
+using System;
 
 namespace DotWeb.Web
 {
 	public interface IHttpContext
 	{
+		Uri RequestUrl { get; }
 		string MapPath(string virtualPath);
 		string ResolveUrl(string url);
 		Cache Cache { get; }

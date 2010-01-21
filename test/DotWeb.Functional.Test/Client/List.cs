@@ -13,11 +13,12 @@ namespace DotWeb.Functional.Test.Client
 			var list = new List<string>();
 			list.Add("one");
 			list.Add("two");
+			list.Add("three");
 
 			Log.Write(list);
 
 			Log.Write(list.IndexOf("one"));
-			Log.Write(list.IndexOf("two"));
+			Log.Write(list.IndexOf("three"));
 			Log.Write(list.IndexOf("none"));
 		}
 	}

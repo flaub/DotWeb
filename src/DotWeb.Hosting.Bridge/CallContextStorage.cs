@@ -20,7 +20,7 @@ using System.Diagnostics;
 
 namespace DotWeb.Hosting.Bridge
 {
-	class CallContextStorage : IDotWebHost
+	public class CallContextStorage : IDotWebHost
 	{
 		private const string DataSlotName = "DotWebHost";
 

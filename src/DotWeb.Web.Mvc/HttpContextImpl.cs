@@ -54,5 +54,9 @@ namespace System.Web.Mvc
 		public IHttpModule GetModule(string key) {
 			return this.context.ApplicationInstance.Modules.Get(key);
 		}
+
+		public Uri RequestUrl {
+			get { return this.context.Request.Url; }
+		}
 	}
 }

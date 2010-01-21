@@ -133,12 +133,8 @@ namespace DotWeb.Web
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
-			var hostingServer = context.GetApplicationState(DotWebHostedMode) as IHostingServer;
-			if (hostingServer == null) {
-				hostingServer = HostingServerFactory.CreateHostingServer();
-				hostingServer.Start();
-				context.SetApplicationState(DotWebHostedMode, hostingServer);
-			}
+			var hostingServer = HostingServerFactory.CreateHostingServer();
+			hostingServer.Start();
 
 			var ip = hostingServer.EndPoint;
 			var aqtn = new AssemblyQualifiedTypeName(Source);
@@ -157,7 +153,8 @@ namespace DotWeb.Web
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
 
 			writer.WriteLine(Resources.JsHelper);
-			string js = string.Format(Resources.HostedEntry, ip.Port, src);
+			var url = context.RequestUrl;
+			string js = string.Format(Resources.HostedEntry, url.Host, ip.Port, src);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();
