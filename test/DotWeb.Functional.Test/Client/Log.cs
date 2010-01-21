@@ -61,7 +61,7 @@ namespace DotWeb.Functional.Test.Client
 		}
 
 		public static void Write(object obj) {
-			Instance.AddMessage((string)obj);
+			Instance.AddMessage(obj.ToString());
 		}
 	}
 }

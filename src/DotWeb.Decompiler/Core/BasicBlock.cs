@@ -21,6 +21,7 @@ using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil.Cil;
 using Mono.Cecil;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -70,17 +71,17 @@ namespace DotWeb.Decompiler.Core
 			get { return LastInstruction.IsMultiWay(); }
 		}
 
-		public void GenerateCodeModel(CodeModelVirtualMachine context) {
+		public void GenerateCodeModel(TypeHierarchy typeHierarchy, CodeModelVirtualMachine context) {
 			// Iterate thru the instructions in this basic block 
 			// The production of statements goes into this.Statements
-			new CodeModelGenerator(this.method, context, this.Instructions, this.Statements);
+			new CodeModelGenerator(typeHierarchy, this.method, context, this.Instructions, this.Statements);
 			this.DfsTraversed = DfsTraversal.CodeDom;
 
 			// Depth-first traversal into other basic blocks
 			// Accumulate statements into this.Statements
 			foreach (BasicBlock next in this.OutEdges) {
 				if (next.DfsTraversed != DfsTraversal.CodeDom) {
-					next.GenerateCodeModel(context);
+					next.GenerateCodeModel(typeHierarchy, context);
 				}
 			}
 		}

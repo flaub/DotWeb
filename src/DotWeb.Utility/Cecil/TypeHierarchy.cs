@@ -6,52 +6,38 @@ using Mono.Cecil;
 
 using TypeSet = System.Collections.Generic.HashSet<Mono.Cecil.TypeDefinition>;
 using MethodSet = System.Collections.Generic.HashSet<Mono.Cecil.MethodDefinition>;
-//using TypeInfoSet = System.Collections.Generic.HashSet<DotWeb.Utility.Cecil.TypeHierarchy.TypeInfo>;
 
 namespace DotWeb.Utility.Cecil
 {
 	public class TypeHierarchy
 	{
-		//public class TypeInfo
-		//{
-		//    public TypeDefinition Definition { get; set; }
-		//    public TypeSet DerivedTypes { get; private set; }
-		//    public Dictionary<MethodDefinition, MethodSet> VirtualMethods { get; private set; }
-
-		//    public override bool Equals(object obj) {
-		//        return this.Definition.Equals(obj);
-		//    }
-
-		//    public override int GetHashCode() {
-		//        return this.Definition.GetHashCode();
-		//    }
-		//}
-
-		private GlobalAssemblyResolver asmResolver = new GlobalAssemblyResolver();
+		private IAssemblyResolver asmResolver;
 		private Dictionary<TypeDefinition, TypeSet> baseToDerviedMap = new Dictionary<TypeDefinition, TypeSet>();
-		private Dictionary<MethodDefinition, MethodSet> virtualMethodOverrides = new Dictionary<MethodDefinition, HashSet<MethodDefinition>>();
+		private Dictionary<MethodDefinition, MethodSet> virtualMethodOverrides = new Dictionary<MethodDefinition, MethodSet>();
+		private List<AssemblyDefinition> assemblies = new List<AssemblyDefinition>();
 
-		public TypeHierarchy(string searchPath) {
-			if (searchPath != null) {
-				this.asmResolver.AddSearchDirectory(searchPath);
-			}
-		}
-
-		private string GetStableKey(TypeReference typeRef) {
-			if (typeRef is ArrayType) {
-				return typeRef.FullName;
-			}
-
-			return typeRef.Resolve().FullName;
+		public TypeHierarchy(IAssemblyResolver resolver) {
+			this.asmResolver = resolver;
 		}
 
 		public AssemblyDefinition LoadAssembly(string asmName) {
 			var asmDef = this.asmResolver.Resolve(asmName);
+			if (this.assemblies.Contains(asmDef))
+				return asmDef;
+
 			foreach (TypeDefinition typeDef in asmDef.MainModule.Types) {
 				if (typeDef.BaseType != null) {
 					ProcessType(typeDef);
 				}
 			}
+
+			foreach (AssemblyNameReference asmRef in asmDef.MainModule.AssemblyReferences) {
+				var child = this.asmResolver.Resolve(asmRef);
+				LoadAssembly(child.Name.FullName);
+			}
+
+			this.assemblies.AddUnique(asmDef);
+
 			return asmDef;
 		}
 

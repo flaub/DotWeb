@@ -223,10 +223,19 @@
   <data name="SystemTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\script\systemtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SystemTest_TestToStringDirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testtostringdirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SystemTest_TestBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testbase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SystemTest_TestToStringIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testtostringindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SystemTest_TestDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SystemTest_TestDerivedThruBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testderivedthrubase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SystemTest_TestDerivedThruBaseIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SystemTest_TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\systemtest_testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

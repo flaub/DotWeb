@@ -118,6 +118,10 @@ namespace DotWeb.Decompiler
 			return this.context.DeclaringType;
 		}
 
+		public TypeReference VisitReturn(CodeBaseReference obj) {
+			return this.context.DeclaringType.BaseType;
+		}
+
 		public TypeReference VisitReturn(CodeVariableReference obj) {
 			return obj.Variable.VariableType;
 		}

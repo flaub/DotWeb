@@ -24,6 +24,7 @@ using DotWeb.Utility;
 using System.Diagnostics;
 using Mono.Cecil.Cil;
 using Mono.Cecil;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -31,10 +32,12 @@ namespace DotWeb.Decompiler.Core
 	{
 		private readonly CodeModelVirtualMachine vm;
 		private readonly MethodDefinition method;
+		private readonly TypeHierarchy typeHierarchy;
 
 		private List<CodeStatement> statements;
 
-		public CodeModelGenerator(MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
+		public CodeModelGenerator(TypeHierarchy typeHierarchy, MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
+			this.typeHierarchy = typeHierarchy;
 			this.method = method;
 			this.vm = vm;
 			this.statements = statements;
@@ -465,41 +468,23 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private MethodDefinition FindMethodOverride(TypeDefinition typeDef, MethodDefinition query) {
-			foreach (MethodDefinition method in typeDef.Methods) {
-				if (method.Name == query.Name) {
-					return method;
-				}
-			}
-			return null;
-		}
-
-		private List<MethodDefinition> FindMethodOverrides(MethodDefinition baseMethod) {
-			var ret = new List<MethodDefinition>();
-			//baseMethod.IsVirtual
-			return ret;
-		}
-
 		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
 			CodeInvokeExpression expr = new CodeInvokeExpression();
 			expr.Parameters = PopRange(method.Parameters.Count);
 
 			CodeExpression targetObject = GetTargetObject(method);
-			
-			var evaluator = new CodeTypeEvaluator(this.method);
-			var typeRef = evaluator.Evaluate(targetObject);
-			var typeDef = typeRef.Resolve();
 
-			var externalMethod = method;
-			if (isVirtual && typeDef != method.DeclaringType) {
-				var methodOverride = FindMethodOverride(typeDef, method);
-				if (methodOverride != null) {
-					externalMethod = methodOverride;
+			if (method.IsVirtual) {
+				if (!isVirtual && targetObject is CodeThisReference) {
+					targetObject = new CodeBaseReference();
+				}
+				var overrides = this.typeHierarchy.GetOverridesForVirtualMethod(method);
+				foreach (var overridenMethod in overrides) {
+					this.vm.ExternalMethods.Add(overridenMethod);
 				}
 			}
-
-			this.vm.ExternalMethods.Add(externalMethod);
-
+			this.vm.ExternalMethods.Add(method);
+			
 			expr.Method = new CodeMethodReference(targetObject, method);
 
 			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {

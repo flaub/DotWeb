@@ -42,6 +42,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeMethodReference>
 		, ICodeVisitor<CodePropertyReference>
 		, ICodeVisitor<CodeThisReference>
+		, ICodeVisitor<CodeBaseReference>
 		, ICodeVisitor<CodeVariableReference>
 	{
 	}
@@ -66,6 +67,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeMethodReference, Return>
 		, ICodeVisitor<CodePropertyReference, Return>
 		, ICodeVisitor<CodeThisReference, Return>
+		, ICodeVisitor<CodeBaseReference, Return>
 		, ICodeVisitor<CodeVariableReference, Return>
 	{
 	}

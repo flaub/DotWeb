@@ -34,13 +34,28 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
-		public void TestToStringDirect() {
-			TestMethod(this.compiledType, "TestToStringDirect", Resources.SystemTest_TestToStringDirect, true);
+		public void TestBase() {
+			TestMethod(this.compiledType, "TestBase", Resources.SystemTest_TestBase, true);
 		}
 
 		[Test]
-		public void TestToStringIndirect() {
-			TestMethod(this.compiledType, "TestToStringIndirect", Resources.SystemTest_TestToStringIndirect, true);
+		public void TestDerived() {
+			TestMethod(this.compiledType, "TestDerived", Resources.SystemTest_TestDerived, true);
+		}
+
+		[Test]
+		public void TestDerivedThruBase() {
+			TestMethod(this.compiledType, "TestDerivedThruBase", Resources.SystemTest_TestDerivedThruBase, true);
+		}
+
+		[Test]
+		public void TestDerivedThruBaseIndirect() {
+			TestMethod(this.compiledType, "TestDerivedThruBaseIndirect", Resources.SystemTest_TestDerivedThruBaseIndirect, true);
+		}
+
+		[Test]
+		public void TestList() {
+			TestMethod(this.compiledType, "TestList", Resources.SystemTest_TestList, true);
 		}
 
 		private TypeDefinition compiledType;

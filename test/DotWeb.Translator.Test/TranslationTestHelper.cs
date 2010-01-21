@@ -24,20 +24,35 @@ using NUnit.Framework;
 using Mono.Cecil;
 using System.Linq;
 using System.Collections.Generic;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Translator.Test
 {
-	public abstract class TranslationTestHelper<TDerived> where TDerived : TranslationTestHelper<TDerived>
+	public abstract class TranslationTestHelper<TDerived> : MarshalByRefObject 
+		where TDerived : TranslationTestHelper<TDerived>
 	{
+		protected TypeHierarchy typeHierarchy;
+		protected GlobalAssemblyResolver resolver;
+
 		protected TranslationTestHelper(string asmName, string src) {
 			var compiler = new CSharpCompiler();
 			var asm = Assembly.Load(asmName);
 			var result = compiler.CompileSource(src, asm);
-			this.CompiledAssembly = AssemblyFactory.GetAssembly(result.PathToAssembly);
-			var pdb = Path.Combine(Path.GetDirectoryName(result.PathToAssembly), Path.GetFileNameWithoutExtension(result.PathToAssembly) + ".pdb");
+
+			this.resolver = new GlobalAssemblyResolver();
+
+			var dir = Path.GetDirectoryName(result.PathToAssembly);
+			var compiledAsmName = Path.GetFileNameWithoutExtension(result.PathToAssembly);
+	
+			this.resolver.AddSearchDirectory(dir);
+
+			this.typeHierarchy = new TypeHierarchy(this.resolver);
+			this.CompiledAssembly = this.typeHierarchy.LoadAssembly(compiledAsmName);
+
+			var pathToPdb = Path.Combine(dir, compiledAsmName + ".pdb");
 			this.CompiledAssembly.MainModule.LoadSymbols();
 			File.Delete(result.PathToAssembly);
-			File.Delete(pdb);
+			File.Delete(pathToPdb);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {
@@ -72,7 +87,7 @@ namespace DotWeb.Translator.Test
 			var method = type.Methods.GetMethod(methodName).First();
 			TextWriter writer = new StringWriter();
 			var generator = new JsCodeGenerator(writer, false);
-			var context = new TranslationContext(generator);
+			var context = new TranslationContext(this.typeHierarchy, generator);
 			var asmDependencies = new List<AssemblyDefinition>();
 			context.GenerateMethod(method, followDependencies, asmDependencies);
 			return writer.ToString();

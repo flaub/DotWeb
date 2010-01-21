@@ -22,6 +22,7 @@ using System.Text;
 using DotWeb.Utility;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -39,7 +40,7 @@ namespace DotWeb.Decompiler.Core
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 		public List<Instruction> Instructions { get; private set; }
 
-		public ControlFlowGraph(MethodDefinition method) {
+		public ControlFlowGraph(TypeHierarchy typeHierarchy, MethodDefinition method) {
 			this.Method = method;
 
 			this.Instructions = new List<Instruction>();
@@ -64,7 +65,7 @@ namespace DotWeb.Decompiler.Core
 
 			DfsNumbering();
 			DeriveSequences();
-			this.Root.GenerateCodeModel(this.context);
+			this.Root.GenerateCodeModel(typeHierarchy, this.context);
 			this.ExternalMethods = this.context.ExternalMethods;
 		}
 

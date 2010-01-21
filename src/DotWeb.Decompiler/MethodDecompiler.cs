@@ -21,15 +21,16 @@ using System.Reflection;
 using DotWeb.Decompiler.Core;
 using Mono.Cecil;
 using DotWeb.Utility;
+using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler
 {
 	public static class MethodDecompiler
 	{
-		public static CodeMethodMember Parse(MethodDefinition method) {
+		public static CodeMethodMember Parse(TypeHierarchy typeHierarchy, MethodDefinition method) {
 			Console.WriteLine(method);
 
-			var cfg = new ControlFlowGraph(method);
+			var cfg = new ControlFlowGraph(typeHierarchy, method);
 			Console.WriteLine(cfg);
 
 			var cfa = new ControlFlowAnalyzer(cfg);

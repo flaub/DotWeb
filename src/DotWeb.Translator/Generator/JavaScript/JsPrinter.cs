@@ -315,6 +315,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return "this";
 		}
 
+		public string VisitReturn(CodeBaseReference exp) {
+			return "this.$super";
+		}
+
 		public string VisitReturn(CodeCastExpression exp) {
 			return string.Format("/*({0})*/{1}", Print(exp.TargetType), Print(exp.Expression));
 		}

@@ -34,9 +34,11 @@ namespace DotWeb.Translator
 
 	public class TranslationContext
 	{
-		JsCodeGenerator generator;
+		private JsCodeGenerator generator;
+		private TypeHierarchy typeHierarchy;
 
-		public TranslationContext(JsCodeGenerator generator) {
+		public TranslationContext(TypeHierarchy typeHierarchy, JsCodeGenerator generator) {
+			this.typeHierarchy = typeHierarchy;
 			this.generator = generator;
 		}
 
@@ -68,6 +70,10 @@ namespace DotWeb.Translator
 			List<TypeDefinition> typesCache, 
 			List<MethodDefinition> methodsCache, 
 			List<string> namespaceCache) {
+
+			// to deal with recursive methods, add to the cache before processing
+			methodsCache.Add(method);
+
 			var parsedMethod = Parse(method);
 			foreach (var external in parsedMethod.ExternalMethods) {
 				var def = external.Resolve();
@@ -82,7 +88,6 @@ namespace DotWeb.Translator
 			GenerateTypeDecl(type, typesCache, namespaceCache);
 
 			this.generator.Write(parsedMethod);
-			methodsCache.Add(method);
 		}
 
 		private void GenerateNamespace(TypeDefinition type, List<string> namespaceCache) {
@@ -126,7 +131,7 @@ namespace DotWeb.Translator
 				throw new MissingMethodException(msg);
 			}
 
-			return MethodDecompiler.Parse(method);
+			return MethodDecompiler.Parse(this.typeHierarchy, method);
 		}
 
 		//private void ValidateJsAnonymousType(Type type) {

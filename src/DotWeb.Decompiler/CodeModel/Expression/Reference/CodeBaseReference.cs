@@ -16,56 +16,22 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Linq;
-using DotWeb.Client;
-using System.DotWeb;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace H8
+namespace DotWeb.Decompiler.CodeModel
 {
-	public class SystemTests
+	public class CodeBaseReference : CodeExpression
 	{
-		class Base
-		{
-			public virtual void Foo() {
-			}
+		#region Visitor Pattern
+		public override void Accept<V>(V visitor) {
+			((ICodeVisitor<CodeBaseReference>)visitor).Visit(this);
 		}
 
-		class Derived : Base
-		{
-			public override void Foo() {
-				base.Foo();
-				this.Foo();
-			}
+		public override R Accept<V, R>(V visitor) {
+			return ((ICodeVisitor<CodeBaseReference, R>)visitor).VisitReturn(this);
 		}
-
-		public void TestBase() {
-			Base x = new Base();
-			x.Foo();
-		}
-
-		public void TestDerived() {
-			Derived x = new Derived();
-			x.Foo();
-		}
-
-		public void TestDerivedThruBase() {
-			Base x = new Derived();
-			x.Foo();
-		}
-
-		public void TestDerivedThruBaseIndirect() {
-			Derived x = new Derived();
-			UseBase(x);
-		}
-
-		private void UseBase(Base x) {
-			x.Foo();
-		}
-
-		public void TestList() {
-			var list = new List<string>();
-			list.Add("one");
-		}
+		#endregion
 	}
 }

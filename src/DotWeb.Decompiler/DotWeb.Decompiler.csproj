@@ -75,6 +75,7 @@
     <Compile Include="CodeModel\Expression\Reference\CodeThisReference.cs" />
     <Compile Include="CodeModel\Expression\Reference\CodeTypeReference.cs" />
     <Compile Include="CodeModel\Expression\Reference\CodeVariableReference.cs" />
+    <Compile Include="CodeModel\Expression\Reference\CodeBaseReference.cs" />
     <Compile Include="CodeModel\Member\CodeEventMember.cs" />
     <Compile Include="CodeModel\Member\CodeFieldMember.cs" />
     <Compile Include="CodeModel\Member\CodeMethodMember.cs" />

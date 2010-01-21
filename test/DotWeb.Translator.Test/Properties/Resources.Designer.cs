@@ -848,35 +848,136 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
-        ///System.Collections.Generic.List$1 = function() {
+        ///H8.SystemTests_Base = function() {
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
-        ///	this.items = new Array();
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///	return V_0;
+        ///H8.SystemTests_Base.prototype.Foo = function() {
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
+        ///H8.SystemTests_Derived = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
         ///
-        ///System.Console = function() {
+        ///H8.SystemTests_Derived.prototype.Foo = function() {
+        ///	this.$super.Foo();
+        ///	this.Foo();
         ///};
         ///
-        ///System.Console.WriteLine = function(value /*System.String*/) {
-        ///	console.log(value);
+        ///H8.SystemTests = function() {
         ///};
         ///
-        ///$Nam [rest of string was truncated]&quot;;.
+        ///H8.SystemTests.prototype.TestBase = function() {
+        ///	var x = ne [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestToStringDirect {
+        internal static string SystemTest_TestBase {
             get {
-                return ResourceManager.GetString("SystemTest_TestToStringDirect", resourceCulture);
+                return ResourceManager.GetString("SystemTest_TestBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SystemTests_Base = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Derived = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
+        ///
+        ///H8.SystemTests_Derived.prototype.$ctor = function() {
+        ///	this.$super.$ctor.call(this);
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Derived.prototype.Foo = function() {
+        ///	this.$super.Foo();
+        ///	this.Foo( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SystemTest_TestDerived {
+            get {
+                return ResourceManager.GetString("SystemTest_TestDerived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SystemTests_Base = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Derived = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
+        ///
+        ///H8.SystemTests_Derived.prototype.$ctor = function() {
+        ///	this.$super.$ctor.call(this);
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Derived.prototype.Foo = function() {
+        ///	this.$super.Foo();
+        ///	this.Foo( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SystemTest_TestDerivedThruBase {
+            get {
+                return ResourceManager.GetString("SystemTest_TestDerivedThruBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SystemTests_Base = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Derived = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
+        ///
+        ///H8.SystemTests_Derived.prototype.$ctor = function() {
+        ///	this.$super.$ctor.call(this);
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Derived.prototype.Foo = function() {
+        ///	this.$super.Foo();
+        ///	this.Foo( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SystemTest_TestDerivedThruBaseIndirect {
+            get {
+                return ResourceManager.GetString("SystemTest_TestDerivedThruBaseIndirect", resourceCulture);
             }
         }
         
@@ -891,25 +992,23 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///	return V_0;
+        ///System.Collections.Generic.List$1.prototype.Add = function(item /*T*/) {
+        ///	this.items.push(item);
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
+        ///$Namespace(&apos;H8&apos;);
         ///
-        ///System.Console = function() {
+        ///H8.SystemTests = function() {
         ///};
         ///
-        ///System.Console.WriteLine = function(value /*System.String*/) {
-        ///	console.log(value);
-        ///};
-        ///
-        ///$Nam [rest of string was truncated]&quot;;.
+        ///H8.SystemTests.prototype.TestList = function() {
+        ///	var list = new System.Collections.Generic.List$1().$ctor();
+        ///	list.Add(&quot;one&quot;);
+        ///}; [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestToStringIndirect {
+        internal static string SystemTest_TestList {
             get {
-                return ResourceManager.GetString("SystemTest_TestToStringIndirect", resourceCulture);
+                return ResourceManager.GetString("SystemTest_TestList", resourceCulture);
             }
         }
         
