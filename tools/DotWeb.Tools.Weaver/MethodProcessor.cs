@@ -267,6 +267,11 @@ namespace DotWeb.Tools.Weaver
 				// return __ret;
 				generator.Emit(SRE.OpCodes.Stloc, ret.LocalIndex);
 				generator.Emit(SRE.OpCodes.Ldloc, ret.LocalIndex);
+
+				if (this.methodDef.ReturnType.ReturnType.IsValueType) {
+					var methodInfo = (MethodInfo)this.method;
+					generator.Emit(SRE.OpCodes.Unbox_Any, methodInfo.ReturnType);
+				}
 			}
 			else {
 				generator.Emit(SRE.OpCodes.Pop);

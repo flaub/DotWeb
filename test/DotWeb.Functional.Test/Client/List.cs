@@ -15,6 +15,10 @@ namespace DotWeb.Functional.Test.Client
 			list.Add("two");
 
 			Log.Write(list);
+
+			Log.Write(list.IndexOf("one"));
+			Log.Write(list.IndexOf("two"));
+			Log.Write(list.IndexOf("none"));
 		}
 	}
 }

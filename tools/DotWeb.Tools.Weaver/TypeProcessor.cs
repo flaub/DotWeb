@@ -310,7 +310,8 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			var type = this.resolver.ResolveTypeReference(typeRef);
-			if (dependent || type.Type.IsEnum) {
+//			var typeDef = typeRef.Resolve();
+			if (dependent || (!(type is ExternalType) && type.Type.IsEnum)) {
 				var typeProc = type as TypeProcessor;
 				if (typeProc != null && typeProc != this)
 					this.dependentTypes.Add(typeProc);
