@@ -158,4 +158,25 @@ namespace DotWeb.Hosting.Test.Script
 			NativeObject.TakeObject(expando["client"]);
 		}
 	}
+
+	[JsAnonymous]
+	class HostedConfig : JsDynamic
+	{
+		public extern Action<string> HostedMethod { get; set; }
+	}
+
+	public class JsDynamicTest2
+	{
+		public JsDynamicTest2() {
+			var cfg = new HostedConfig {
+				HostedMethod = this.HostedMethod
+			};
+
+			var native = new NativeCaller(cfg);
+			native.Start();
+		}
+
+		public void HostedMethod(string msg) {
+		}
+	}
 }

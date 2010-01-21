@@ -31,32 +31,18 @@ namespace DotWeb.Hosting.Bridge
 
 		IPEndPoint EndPoint { get; }
 
-		//void Start();
-		void StartAsync();
+		void Start();
 		void Stop();
 	}
 
 	public static class HostingServerFactory
 	{
 		public static IHostingServer CreateHostingServer() {
-			//var curDomain = AppDomain.CurrentDomain;
-			//var setup = curDomain.SetupInformation;
-
-			//setup.AppDomainInitializer = OnAppDomainInit;
-			//setup.AppDomainInitializerArguments = null;
-
-			//var appDomain = AppDomain.CreateDomain("DotWeb Hosting Environment", null, setup);
-
-			//var type = typeof(HostingServer);
-			//var server = (HostingServer)appDomain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
-			//return server;
-			HostedMode.Host = new CallContextStorage();
-
 			return new HostingServer();
 		}
 	}
 
-	class HostingServer : MarshalByRefObject, IHostingServer
+	class HostingServer : IHostingServer
 	{
 		TcpListener listener;
 
@@ -67,7 +53,7 @@ namespace DotWeb.Hosting.Bridge
 		public IPEndPoint EndPoint { get { return (IPEndPoint)this.listener.LocalEndpoint; } }
 
 		public string PrepareType(string binPath, AssemblyQualifiedTypeName aqtn) {
-			var weaver = new HostingWeaver(binPath, binPath, new string[] { binPath });
+			var weaver = new HostingWeaver(binPath, binPath, new string[] { binPath }, false);
 			string path = Path.Combine(binPath, aqtn.AssemblyName.Name);
 			if (!path.EndsWith(".dll")) {
 				path += ".dll";
@@ -79,16 +65,11 @@ namespace DotWeb.Hosting.Bridge
 			return aqtn.ToString();
 		}
 
-		//public void Start() {
-		//    this.listener.Start();
-		//    this.RunLoop();
-		//}
-
 		public void Stop() {
 			this.listener.Stop();
 		}
 
-		public void StartAsync() {
+		public void Start() {
 			this.listener.Start();
 			this.listener.BeginAcceptTcpClient(OnAccept, listener);
 		}
@@ -105,16 +86,17 @@ namespace DotWeb.Hosting.Bridge
 			var curDomain = AppDomain.CurrentDomain;
 			var setup = curDomain.SetupInformation;
 
-			//setup.AppDomainInitializerArguments = null;
-			//setup.AppDomainInitializer = (string[] args) => {
-			//};
-
 			var appDomain = AppDomain.CreateDomain("DotWeb Hosting Environment", null, setup);
 			var type = typeof(IsolatedContext);
 			var context = (IsolatedContext)appDomain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
 
 			try {
 				context.Run(client.GetStream());
+			}
+			catch (Exception ex) {
+				// eat this so that the listener doesn't go down...
+				// this should be a rare event, but we should probably log it somehow...
+				Debug.WriteLine(ex);
 			}
 			finally {
 				client.Close();
@@ -123,11 +105,14 @@ namespace DotWeb.Hosting.Bridge
 			AppDomain.Unload(appDomain);
 		}
 
+		/// <summary>
+		/// This allows static variables to be reset on each new request.
+		/// It also serves as a good way to isolate each request from each other.
+		/// </summary>
 		class IsolatedContext : MarshalByRefObject
 		{
 			public void Run(NetworkStream stream) {
 				HostedMode.Host = new CallContextStorage();
-//				var stream = client.GetStream();
 				try {
 					var session = new RemoteSession(stream);
 					var factory = new DefaultFactory();
@@ -137,25 +122,11 @@ namespace DotWeb.Hosting.Bridge
 				}
 				catch (Exception ex) {
 					Debug.WriteLine(ex);
+				}
+				finally {
 					stream.Close();
 				}
 			}
 		}
-
-		//private void RunOnce(TcpClient client) {
-		//    new IsolatedDomain().Run(client);
-		//}
-
-		//private void RunLoop() {
-		//    try {
-		//        while (true) {
-		//            var client = this.listener.AcceptTcpClient();
-		//            RunOnce(client);
-		//        }
-		//    }
-		//    catch (Exception ex) {
-		//        Console.WriteLine("RunLoop exception:", ex.Message);
-		//    }
-		//}
 	}
 }

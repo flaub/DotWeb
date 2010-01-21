@@ -74,7 +74,7 @@ namespace DotWeb.Hosting.Test
 		public void TestSanity() {
 			var loadType = asm.GetType("DotWeb.Hosting.Test.Script.SanityTest");
 
-			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), (SessionHelper session) => {
 				session.OnLoadMessage(loadType);
 				session.ReturnMessage();
 				session.OnQuitMessage();
@@ -90,7 +90,7 @@ namespace DotWeb.Hosting.Test
 
 			int remoteId = 0;
 			CachingObjectFactory factory = new CachingObjectFactory();
-			TestHelper(factory, delegate(SessionHelper session) {
+			TestHelper(factory, (SessionHelper session) => {
 				session.OnLoadMessage(loadType);
 
 				var ctor = session.DefineFunctionMessage(this.nativeObject.GetMethod("get_Constructor"));
@@ -122,7 +122,7 @@ namespace DotWeb.Hosting.Test
 			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.EventHandlerTest");
 			var alertArg = (string)loadType.GetField("AlertArg").GetValue(null);
 			CachingObjectFactory factory = new CachingObjectFactory();
-			TestHelper(factory, delegate(SessionHelper session) {
+			TestHelper(factory, (SessionHelper session) => {
 				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
@@ -184,7 +184,7 @@ namespace DotWeb.Hosting.Test
 			var nativeCaller = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeCaller");
 			var configType = this.asm.GetType("DotWeb.Hosting.Test.Script.Config");
 			var cfg = Activator.CreateInstance(configType);
-			TestHelper(factory, delegate(SessionHelper session) {
+			TestHelper(factory, (SessionHelper session) => {
 				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
@@ -229,7 +229,7 @@ namespace DotWeb.Hosting.Test
 		public void TestObjectWrapper() {
 			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.ObjectWrapperTest");
 			string argValue = (string)loadType.GetField("AlertArg").GetValue(null);
-			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), (SessionHelper session) => {
 				session.OnLoadMessage(loadType);
 
 				// new Nativeobject();
@@ -258,7 +258,7 @@ namespace DotWeb.Hosting.Test
 			var htmlElementType = asmClient.GetType("DotWeb.Client.Dom.Html.HtmlElement");
 			var nodeType = asmClient.GetType("DotWeb.Client.Dom.Node");
 
-			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), (SessionHelper session) => {
 				int localId = 0;
 				int remoteId = 0;
 				session.OnLoadMessage(loadType);
@@ -313,7 +313,7 @@ namespace DotWeb.Hosting.Test
 			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.JsDynamicTest");
 			var dynamicType = typeof(JsDynamic);
 
-			TestHelper(new DefaultFactory(), delegate(SessionHelper session) {
+			TestHelper(new DefaultFactory(), (SessionHelper session) => {
 				int localId = 0;
 				session.OnLoadMessage(loadType);
 
@@ -340,6 +340,60 @@ namespace DotWeb.Hosting.Test
 				// var clientSide = expando["client"];
 				// NativeObject.TakeObject(expando["client"]);
 				session.InvokeFunctionMessage(takeObject.Name, 0, new JsValue(2));
+				session.OnReturnMessage(false, JsValueType.Void, null);
+
+				session.ReturnMessage();
+				session.OnQuitMessage();
+			});
+		}
+
+		[Test]
+		public void TestJsDyanmic2() {
+			var loadType = this.asm.GetType("DotWeb.Hosting.Test.Script.JsDynamicTest2");
+			var dynamicType = typeof(JsDynamic);
+			var nativeCaller = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeCaller");
+
+			// imagine that NativeCaller looks like:
+
+			// function NativeCaller(config) {
+			//	this.config = config;
+			// };
+			// NativeCaller.prototype.CallHostedMethod = function() { 
+			//	this.config.HostedMethod('CallHostedMethod'); 
+			// };
+
+			TestHelper(new DefaultFactory(), (SessionHelper session) => {
+				int localId = 0;
+				int remoteId = 0;
+				session.OnLoadMessage(loadType);
+
+				// var cfg = new HostedConfig {
+				//	HostedMethod = this.HostedMethod
+				// };
+
+				// var native = new NativeCaller(cfg);
+				var ctor = session.DefineFunctionMessage(nativeCaller.GetConstructor(new Type[] { typeof(object) }));
+				var cfgId = ++localId;
+				session.InvokeFunctionMessage(ctor.Name, 0, new JsValue(JsValueType.Object, cfgId));
+
+				var nativeCallerId = ++remoteId;
+				session.OnReturnMessage(false, JsValueType.JsObject, nativeCallerId);
+
+				// native.Start();
+				var method = session.DefineFunctionMessage(nativeCaller.GetMethod("Start"));
+				session.InvokeFunctionMessage(method.Name, nativeCallerId);
+
+				session.OnInvokeMemberMessage(cfgId, new DispatchIdentifier("HostedMethod"), DispatchType.PropertyGet);
+
+				// give back the HostedMethod delegate
+				var delegateId = ++localId;
+				session.ReturnMessage(new JsValue(JsValueType.Delegate, delegateId));
+
+				// now the server calls onto HostedMethod
+				session.OnInvokeDelegateMessage(delegateId, new JsValue("CallHostedMethod"));
+				session.ReturnMessage();
+
+				// native.Start() returns
 				session.OnReturnMessage(false, JsValueType.Void, null);
 
 				session.ReturnMessage();

@@ -24,10 +24,7 @@ namespace System.DotWeb
 	public class JsDynamic
 	{
 		public extern object this[string name] {
-			[JsCode("return this[name];")]
 			get;
-
-			[JsCode("this[name] = value;")]
 			set;
 		}
 	}

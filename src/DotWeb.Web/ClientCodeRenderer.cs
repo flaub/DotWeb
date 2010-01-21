@@ -133,11 +133,10 @@ namespace DotWeb.Web
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
-//			var module = (HostingModule)context.GetModule("DotWebHostingModule");
 			var hostingServer = context.GetApplicationState(DotWebHostedMode) as IHostingServer;
 			if (hostingServer == null) {
 				hostingServer = HostingServerFactory.CreateHostingServer();
-				hostingServer.StartAsync();
+				hostingServer.Start();
 				context.SetApplicationState(DotWebHostedMode, hostingServer);
 			}
 
@@ -172,8 +171,6 @@ namespace DotWeb.Web
 			if (src == null) {
 				src = Translate();
 			}
-
-			//string js = string.Format(Resources.WebEntry, typeName);
 
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
 			writer.AddAttribute(HtmlTextWriterAttribute.Src, src);

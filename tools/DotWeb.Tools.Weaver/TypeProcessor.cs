@@ -43,7 +43,7 @@ namespace DotWeb.Tools.Weaver
 		private IResolver resolver;
 		private GenericProcessor genericProc;
 		private bool isClosing = false;
-		private List<TypeProcessor> dependentTypes = new List<TypeProcessor>();
+		private HashSet<TypeProcessor> dependentTypes = new HashSet<TypeProcessor>();
 		private List<IType> nestedTypes = new List<IType>();
 
 		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder, TypeBuilder outerBuilder) {
@@ -142,7 +142,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessEvent(EventDefinition eventDef) {
-			var eventType = ResolveTypeReference(eventDef.EventType, true);
+			var eventType = ResolveTypeReference(eventDef.EventType, false);
 			var eventBuilder = this.typeBuilder.DefineEvent(eventDef.Name, (SR.EventAttributes)eventDef.Attributes, eventType);
 
 			if (eventDef.HasCustomAttributes) {
@@ -161,7 +161,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private FieldBuilder ProcessField(FieldDefinition fieldDef) {
-			var fieldType = ResolveTypeReference(fieldDef.FieldType, true);
+			var fieldType = ResolveTypeReference(fieldDef.FieldType, false);
 			var fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
 
 			if (fieldDef.HasConstant) {
@@ -185,7 +185,7 @@ namespace DotWeb.Tools.Weaver
 		}
 
 		private void ProcessProperty(PropertyDefinition propertyDef) {
-			var returnType = ResolveTypeReference(propertyDef.PropertyType, true);
+			var returnType = ResolveTypeReference(propertyDef.PropertyType, false);
 			var argTypes = ResolveParameterTypes(propertyDef.Parameters);
 			var propertyBuilder = this.typeBuilder.DefineProperty(propertyDef.Name, (SR.PropertyAttributes)propertyDef.Attributes, returnType, argTypes);
 
@@ -310,9 +310,9 @@ namespace DotWeb.Tools.Weaver
 			}
 
 			var type = this.resolver.ResolveTypeReference(typeRef);
-			if (dependent) {
+			if (dependent || type.Type.IsEnum) {
 				var typeProc = type as TypeProcessor;
-				if (typeProc != null)
+				if (typeProc != null && typeProc != this)
 					this.dependentTypes.Add(typeProc);
 			}
 			return type.Type;
@@ -323,7 +323,7 @@ namespace DotWeb.Tools.Weaver
 			for (int i = 0; i < parameters.Count; i++) {
 				var arg = parameters[i];
 				var argType = arg.ParameterType;
-				ret[i] = ResolveTypeReference(argType, true);
+				ret[i] = ResolveTypeReference(argType, false);
 			}
 			return ret;
 		}

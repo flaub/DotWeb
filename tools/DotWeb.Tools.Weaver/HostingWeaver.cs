@@ -40,15 +40,17 @@ namespace DotWeb.Tools.Weaver
 			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
 		}
 
+		private bool forceBuild;
 		private string inputDir;
 		private string outputDir;
 		private GlobalAssemblyResolver asmResolver = new GlobalAssemblyResolver();
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
 		private static ExternalAssembly asmMscorlib;
 		
-		public HostingWeaver(string inputDir, string outputDir, string[] searchDirs) {
+		public HostingWeaver(string inputDir, string outputDir, string[] searchDirs, bool forceBuild) {
 			this.inputDir = inputDir;
 			this.outputDir = outputDir;
+			this.forceBuild = forceBuild;
 
 			this.asmResolver.AddSearchDirectory(this.inputDir);
 			if (searchDirs != null) {
@@ -129,7 +131,10 @@ namespace DotWeb.Tools.Weaver
 			string path = Path.Combine(this.outputDir, MakeAssemblyNameIntoFilename(hostedName));
 			string srcPath = Path.Combine(this.inputDir, MakeAssemblyNameIntoFilename(name));
 
-			if (File.Exists(path) && File.GetLastWriteTime(srcPath) < File.GetLastWriteTime(path) && !dependencyChanged) {
+			if (!this.forceBuild && 
+				File.Exists(path) && 
+				File.GetLastWriteTime(srcPath) < File.GetLastWriteTime(path) && 
+				!dependencyChanged) {
 				var asm = Assembly.LoadFrom(path);
 				var proc = new ExternalAssembly(this, asm);
 				this.AddModule(name, altName, proc);

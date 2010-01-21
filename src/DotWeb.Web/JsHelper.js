@@ -29,7 +29,7 @@ JsHelper.prototype.createArgs = function() { return arguments; }
 
 JsHelper.prototype.defineFunction = function(name, args, body) {
 	var str = 'function (' + args + ') { ' + body + ' }';
-	debug.log(name + ' = ' + str);
+	//debug.log(name + ' = ' + str);
 	var def = eval('(' + str + ')');
 	this.functions[name] = def;
 }
@@ -38,12 +38,12 @@ JsHelper.prototype.invokeFunction = function(name, scope) {
 	try {
 		var def = this.functions[name];
 		var args = Array.prototype.slice.call(arguments, 2);
-		debug.log(name + '(' + scope + ', ' + args + ')');
+		//debug.log(name + '(' + scope + ', ' + args + ')');
 		var ret = def.apply(scope, args);
 		return [false, ret];
 	} 
 	catch(e) {
-		debug.log('exception: ' + e);
+		//debug.log('exception: ' + e);
 		return [true, e];
 	}
 }
@@ -56,7 +56,7 @@ JsHelper.prototype.invokeDelegate = function(f_) {
 		return [false, ret];
 	} 
 	catch(e) {
-		debug.log('exception: ' + e);
+		//debug.log('exception: ' + e);
 		return [true, e];
 	}
 }

@@ -31,8 +31,8 @@ namespace DotWeb.Hosting.Bridge
 
 	using JsObjectToReferenceMap = Dictionary<object, int>;
 
-	using DynamicPropertyMap = Dictionary<string, object>;
-	using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
+	//using DynamicPropertyMap = Dictionary<string, object>;
+	//using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
 	using DotWeb.System.DotWeb;
 
 	public class JsBridge : IDotWebHost
@@ -46,8 +46,9 @@ namespace DotWeb.Hosting.Bridge
 		private readonly ReferenceToObjectMap refToObj = new ReferenceToObjectMap();
 
 		private readonly JsObjectToReferenceMap jsObjectToRef = new JsObjectToReferenceMap();
+		private readonly Dictionary<JsDynamic, JsDynamicWrapper> dynamicWrappers = new Dictionary<JsDynamic, JsDynamicWrapper>();
 
-		private readonly DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
+		//private readonly DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
 
 		private int lastRefId = 1;
 
@@ -322,12 +323,21 @@ namespace DotWeb.Hosting.Bridge
 			return GetObjectWrapper(arg);
 		}
 
+		private JsDynamicWrapper GetDynamicWrapper(JsDynamic target) {
+			JsDynamicWrapper ret;
+			if (!this.dynamicWrappers.TryGetValue(target, out ret)) {
+				ret = new JsDynamicWrapper(this, target);
+				this.dynamicWrappers.Add(target, ret);
+			}
+			return ret;
+		}
+
 		private JsValue GetObjectWrapper(object arg) {
 			int id;
 			if (!GetLocalReference(arg, out id)) {
 				IJsWrapper wrapper;
 				if (arg is JsDynamic) {
-					wrapper = new JsDynamicWrapper(this, (JsDynamic)arg);
+					wrapper = GetDynamicWrapper((JsDynamic)arg);
 				}
 				else {
 					wrapper = new JsObjectWrapper(this, arg);
@@ -396,7 +406,7 @@ namespace DotWeb.Hosting.Bridge
 		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
 				MethodBase method = (MethodBase)objMethod;
-				if (method.DeclaringType == typeof(JsDynamic)) {
+				if (typeof(JsDynamic).IsAssignableFrom(method.DeclaringType)) {
 					return InvokeOnDynamic((JsDynamic)scope, (MethodInfo)method, args);
 				}
 
@@ -445,12 +455,26 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		object InvokeOnDynamic(JsDynamic obj, MethodInfo method, object[] args) {
-			if (method.Name == "set_Item") {
-				SetDynamicProperty(obj, (string)args[0], args[1]);
+			var wrapper = GetDynamicWrapper(obj);			
+
+			if (method.Name.StartsWith("set_")) {
+				var name = method.Name.Substring("set_".Length);
+				if (name == "Item") {
+					wrapper.SetPropertyValue((string)args[0], args[1]);
+				}
+				else {
+					wrapper.SetPropertyValue(name, args[0]);
+				}
 				return null;
 			}
-			else if (method.Name == "get_Item") {
-				return GetDynamicProperty(obj, (string)args[0]);
+			else if (method.Name.StartsWith("get_")) {
+				var name = method.Name.Substring("get_".Length);
+				if (name == "Item") {
+					return wrapper.GetPropertyValue((string)args[0]);
+				}
+				else {
+					return wrapper.GetPropertyValue(name);
+				}
 			}
 
 			throw new InvalidOperationException();
@@ -483,45 +507,45 @@ namespace DotWeb.Hosting.Bridge
 			return (T)brother;
 		}
 
-		public object GetImplicitDynamicProperty(object obj, int stackDepth) {
-			StackFrame frame = new StackFrame(stackDepth + 1);
-			string name = GetPropertyName(frame);
-			return GetDynamicProperty(obj, name);
-		}
+		//public object GetImplicitDynamicProperty(object obj, int stackDepth) {
+		//    StackFrame frame = new StackFrame(stackDepth + 1);
+		//    string name = GetPropertyName(frame);
+		//    return GetDynamicProperty(obj, name);
+		//}
 
-		public void SetImplicitDynamicProperty(object obj, int stackDepth, object value) {
-			StackFrame frame = new StackFrame(stackDepth + 1);
-			string name = GetPropertyName(frame);
-			SetDynamicProperty(obj, name, value);
-		}
+		//public void SetImplicitDynamicProperty(object obj, int stackDepth, object value) {
+		//    StackFrame frame = new StackFrame(stackDepth + 1);
+		//    string name = GetPropertyName(frame);
+		//    SetDynamicProperty(obj, name, value);
+		//}
 
-		public bool TryGetDynamicProperty(object obj, string name, out object value) {
-			var map = GetDynamicPropertyMap(obj);
-			return map.TryGetValue(name, out value);
-		}
+		//public bool TryGetDynamicProperty(object obj, string name, out object value) {
+		//    var map = GetDynamicPropertyMap(obj);
+		//    return map.TryGetValue(name, out value);
+		//}
 
-		public object GetDynamicProperty(object obj, string name) {
-			var map = GetDynamicPropertyMap(obj);
-			return map[name];
-		}
+		//public object GetDynamicProperty(object obj, string name) {
+		//    var map = GetDynamicPropertyMap(obj);
+		//    return map[name];
+		//}
 
-		public void SetDynamicProperty(object obj, string propertyName, object value) {
-			var map = GetDynamicPropertyMap(obj);
-			map[propertyName] = value;
-		}
+		//public void SetDynamicProperty(object obj, string propertyName, object value) {
+		//    var map = GetDynamicPropertyMap(obj);
+		//    map[propertyName] = value;
+		//}
 
-		public DynamicPropertyMap GetDynamicPropertyMap(object obj) {
-			DynamicPropertyMap map;
-			if (!this.dynamicObjects.TryGetValue(obj, out map)) {
-				map = new DynamicPropertyMap();
-				this.dynamicObjects.Add(obj, map);
-			}
-			return map;
-		}
+		//public DynamicPropertyMap GetDynamicPropertyMap(object obj) {
+		//    DynamicPropertyMap map;
+		//    if (!this.dynamicObjects.TryGetValue(obj, out map)) {
+		//        map = new DynamicPropertyMap();
+		//        this.dynamicObjects.Add(obj, map);
+		//    }
+		//    return map;
+		//}
 
-		private string GetPropertyName(StackFrame frame) {
-			return frame.GetMethod().Name.Substring("get_".Length);
-		}
+		//private string GetPropertyName(StackFrame frame) {
+		//    return frame.GetMethod().Name.Substring("get_".Length);
+		//}
 	}
 
 }

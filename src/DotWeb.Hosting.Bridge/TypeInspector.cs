@@ -33,12 +33,12 @@ namespace DotWeb.Hosting.Bridge
 			this.bridge = bridge;
 			this.targetType = target.GetType();
 
-			if (target is JsDynamic) {
-				CollectDynamicMembers((JsDynamic)target);
-			}
-			else {
+			//if (target is JsDynamic) {
+			//    CollectDynamicMembers((JsDynamic)target);
+			//}
+			//else {
 				CollectMembers();
-			}
+			//}
 		}
 
 		public MemberInfo GetMember(int id) { return members[id]; }
@@ -97,15 +97,15 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		private void CollectDynamicMembers(object target) {
-			var properties = this.bridge.GetDynamicPropertyMap(target);
-			foreach (var item in properties) {
-				var property = targetType.GetProperty(item.Key);
-				string name = GetName(property.Name);
-				idsByName.Add(name, members.Count);
-				members.Add(property);
-			}
-		}
+		//private void CollectDynamicMembers(object target) {
+		//    var properties = this.bridge.GetDynamicPropertyMap(target);
+		//    foreach (var item in properties) {
+		//        var property = targetType.GetProperty(item.Key);
+		//        string name = GetName(property.Name);
+		//        idsByName.Add(name, members.Count);
+		//        members.Add(property);
+		//    }
+		//}
 
 		private string GetName(string name) {
 			if (name.EndsWith("_")) {
