@@ -35,10 +35,10 @@ namespace DotWeb.Translator
 	public class TranslationContext
 	{
 		private JsCodeGenerator generator;
-		private TypeHierarchy typeHierarchy;
+		private TypeSystem typeSystem;
 
-		public TranslationContext(TypeHierarchy typeHierarchy, JsCodeGenerator generator) {
-			this.typeHierarchy = typeHierarchy;
+		public TranslationContext(TypeSystem typeSystem, JsCodeGenerator generator) {
+			this.typeSystem = typeSystem;
 			this.generator = generator;
 		}
 
@@ -131,7 +131,7 @@ namespace DotWeb.Translator
 				throw new MissingMethodException(msg);
 			}
 
-			return MethodDecompiler.Parse(this.typeHierarchy, method);
+			return MethodDecompiler.Parse(this.typeSystem, method);
 		}
 
 		//private void ValidateJsAnonymousType(Type type) {
@@ -168,16 +168,16 @@ namespace DotWeb.Translator
 			if (type.IsInterface)
 				return false;
 
-			if (TypeHelper.IsEquivalent(type, typeof(object)))
+			if (this.typeSystem.IsEquivalent(type, typeof(object)))
 				return false;
 
-			if (TypeHelper.IsSubclassOf(type, TypeHelper.Names.JsObject))
+			if (this.typeSystem.IsSubclassOf(type, this.typeSystem.TypeDefinitionCache.JsObject))
 				return false;
 
-			if (TypeHelper.IsSubclassOf(type, TypeHelper.Names.Delegate))
+			if (this.typeSystem.IsSubclassOf(type, this.typeSystem.TypeDefinitionCache.Delegate))
 				return false;
 
-			if (AttributeHelper.IsAnonymous(type)) {
+			if (AttributeHelper.IsAnonymous(type, this.typeSystem)) {
 				// FIXME:
 				//if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
 				//    ValidateJsAnonymousType(type);

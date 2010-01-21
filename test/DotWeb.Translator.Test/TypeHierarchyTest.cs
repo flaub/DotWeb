@@ -12,7 +12,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestLoadAssembly() {
-			var hierarchy = new TypeHierarchy(this.resolver);
+			var hierarchy = new TypeSystem(this.resolver);
 			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];
@@ -23,7 +23,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestIsSubclassOf() {
-			var hierarchy = new TypeHierarchy(this.resolver);
+			var hierarchy = new TypeSystem(this.resolver);
 			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];
@@ -33,7 +33,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestChildAssembly() {
-			var hierarchy = new TypeHierarchy(this.resolver);
+			var hierarchy = new TypeSystem(this.resolver);
 			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
 			var asmDef = hierarchy.LoadAssembly("DotWeb.Translator.Test.Script");
 
@@ -44,7 +44,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestMethodOverrides() {
-			var hierarchy = new TypeHierarchy(this.resolver);
+			var hierarchy = new TypeSystem(this.resolver);
 			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];

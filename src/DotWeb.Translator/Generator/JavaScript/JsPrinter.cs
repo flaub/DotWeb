@@ -32,9 +32,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 	{
 		public const string CtorMethodName = "$ctor";
 		private const string LocalVarPrefix = "loc";
+		private TypeSystem typeSystem;
+
 		public MethodDefinition CurrentMethod { get; set; }
 
-		public JsPrinter() {
+		public JsPrinter(TypeSystem typeSystem) {
+			this.typeSystem = typeSystem;
 		}
 
 		#region Operators
@@ -246,9 +249,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Format(macro, args.ToArray());
 		}
 
-		public static string GetMemberName(MemberReference member) {
+		public string GetMemberName(MemberReference member) {
 			var name = member.Name;
-			if (AttributeHelper.IsCamelCase(member)) {
+			if (AttributeHelper.IsCamelCase(member, this.typeSystem)) {
 				char[] chars = name.ToCharArray();
 				chars[0] = Char.ToLower(chars[0]);
 				name = new string(chars);
@@ -282,7 +285,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.TargetObject), null);
 			}
 
-			if (exp.IsFieldLike()) {
+			if (exp.IsFieldLike(this.typeSystem)) {
 				return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Property));
 			}
 			// Optimize for anonymous types.
@@ -339,7 +342,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			if (method.IsConstructor) {
-				if (!CurrentMethod.DeclaringType.HasBase()) {
+				if (!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
 					return "";
 				}
 				List<CodeExpression> args = new List<CodeExpression>();
@@ -382,7 +385,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeArrayCreateExpression exp) {
-			if (AttributeHelper.IsAnonymous(exp.Type)) {
+			if (AttributeHelper.IsAnonymous(exp.Type, this.typeSystem)) {
 				return "[]";
 			}
 			string size = Print(exp.SizeExpression);
@@ -396,18 +399,18 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.Type), exp.Parameters);
 			}
 
-			var delegateType = TypeHelper.GetTypeDefinition(typeof(Delegate));
-			if (TypeHelper.IsSubclassOf(exp.Type, delegateType)) {
+			var delegateType = this.typeSystem.GetTypeDefinition(typeof(Delegate));
+			if (this.typeSystem.IsSubclassOf(exp.Type, delegateType)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")
 					targetObject = Print(methodRef.TargetObject);
 				return string.Format("$Delegate({0}, {0}.{1})", targetObject, GetMemberName(methodRef.Reference));
 			}
-			if (AttributeHelper.IsAnonymous(exp.Type)) {
+			if (AttributeHelper.IsAnonymous(exp.Type, this.typeSystem)) {
 				return "{}";
 			}
-			if (TypeHelper.IsSubclassOf(exp.Type, "System.DotWeb.JsObject")) {
+			if (this.typeSystem.IsSubclassOf(exp.Type, this.typeSystem.TypeDefinitionCache.JsObject)) {
 				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
 			}
 

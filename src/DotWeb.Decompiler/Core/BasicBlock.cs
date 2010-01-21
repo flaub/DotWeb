@@ -71,7 +71,7 @@ namespace DotWeb.Decompiler.Core
 			get { return LastInstruction.IsMultiWay(); }
 		}
 
-		public void GenerateCodeModel(TypeHierarchy typeHierarchy, CodeModelVirtualMachine context) {
+		public void GenerateCodeModel(TypeSystem typeHierarchy, CodeModelVirtualMachine context) {
 			// Iterate thru the instructions in this basic block 
 			// The production of statements goes into this.Statements
 			new CodeModelGenerator(typeHierarchy, this.method, context, this.Instructions, this.Statements);

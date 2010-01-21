@@ -28,18 +28,18 @@ namespace DotWeb.Translator
 {
 	static class CodeModelExtensions
 	{
-		public static bool HasBase(this TypeDefinition type) {
-			if (TypeHelper.IsEquivalent(type.BaseType, typeof(object)) ||
-				TypeHelper.IsEquivalent(type.BaseType, TypeHelper.Names.JsObject))
+		public static bool HasBase(this TypeDefinition type, TypeSystem typeSystem) {
+			if (typeSystem.IsEquivalent(type.BaseType, typeof(object)) ||
+				typeSystem.IsEquivalent(type.BaseType, typeSystem.TypeDefinitionCache.JsObject))
 				return false;
 			return true;
 		}
 
-		public static bool IsFieldLike(this CodePropertyReference cpr) {
+		public static bool IsFieldLike(this CodePropertyReference cpr, TypeSystem typeSystem) {
 			return
-				AttributeHelper.IsIntrinsic(cpr.Property) ||
-				AttributeHelper.IsAnonymous(cpr.Property.DeclaringType) ||
-				TypeHelper.IsSubclassOf(cpr.Property.DeclaringType, TypeHelper.Names.JsObject)
+				AttributeHelper.IsIntrinsic(cpr.Property, typeSystem) ||
+				AttributeHelper.IsAnonymous(cpr.Property.DeclaringType, typeSystem) ||
+				typeSystem.IsSubclassOf(cpr.Property.DeclaringType, typeSystem.TypeDefinitionCache.JsObject)
 			;
 		}
 

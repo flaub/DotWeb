@@ -78,8 +78,16 @@ namespace DotWeb.Tools.Weaver
 			this.modules.Add(ConstantNames.DotWebSystemDll, proc);
 		}
 
+		/// <summary>
+		/// This should ONLY be called for the top level assembly,
+		/// otherwise we get different resolvers and therefore different
+		/// assembly definitions for the same assembly
+		/// </summary>
+		/// <param name="asmPath"></param>
+		/// <returns></returns>
 		public Assembly ProcessAssembly(string asmPath) {
 			var asmDef = AssemblyFactory.GetAssembly(asmPath);
+			asmDef.Resolver = this.asmResolver;
 
 			foreach (CustomAttribute item in asmDef.CustomAttributes) {
 				if (item.Constructor.DeclaringType.Name == ConstantNames.AssemblyWeavedAttribute) {

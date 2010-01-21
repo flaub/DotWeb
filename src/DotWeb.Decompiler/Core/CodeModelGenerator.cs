@@ -32,11 +32,11 @@ namespace DotWeb.Decompiler.Core
 	{
 		private readonly CodeModelVirtualMachine vm;
 		private readonly MethodDefinition method;
-		private readonly TypeHierarchy typeHierarchy;
+		private readonly TypeSystem typeHierarchy;
 
 		private List<CodeStatement> statements;
 
-		public CodeModelGenerator(TypeHierarchy typeHierarchy, MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
+		public CodeModelGenerator(TypeSystem typeHierarchy, MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
 			this.typeHierarchy = typeHierarchy;
 			this.method = method;
 			this.vm = vm;

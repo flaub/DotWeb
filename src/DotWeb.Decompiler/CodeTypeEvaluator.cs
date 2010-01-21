@@ -26,9 +26,11 @@ namespace DotWeb.Decompiler
 {
 	public class CodeTypeEvaluator : ICodeExpressionVisitor<TypeReference>
 	{
+		private readonly TypeSystem typeSystem;
 		private readonly MethodDefinition context;
 
-		public CodeTypeEvaluator(MethodDefinition method) {
+		public CodeTypeEvaluator(TypeSystem typeSystem, MethodDefinition method) {
+			this.typeSystem = typeSystem;
 			this.context = method;
 		}
 
@@ -80,7 +82,7 @@ namespace DotWeb.Decompiler
 
 		public TypeReference VisitReturn(CodePrimitiveExpression obj) {
 			var primitiveType = obj.Value.GetType();
-			var ret = TypeHelper.GetTypeDefinition(primitiveType);
+			var ret = this.typeSystem.GetTypeDefinition(primitiveType);
 			return ret;
 		}
 

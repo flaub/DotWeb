@@ -55,45 +55,50 @@ namespace DotWeb.Translator
 			return null;
 		}
 
-		public static bool IsCamelCase(MemberReference memberRef) {
+		public static bool IsCamelCase(MemberReference memberRef, TypeSystem typeSystem) {
 			if (memberRef is FieldReference) {
-				return IsCamelCase((FieldReference)memberRef);
+				return IsCamelCase((FieldReference)memberRef, typeSystem);
 			}
 			if (memberRef is MethodReference) {
-				return IsCamelCase((MethodReference)memberRef);
+				return IsCamelCase((MethodReference)memberRef, typeSystem);
 			}
 			if (memberRef is PropertyReference) {
-				return IsCamelCase((PropertyReference)memberRef);
+				return IsCamelCase((PropertyReference)memberRef, typeSystem);
 			}
 			return false;
 		}
 
-		public static bool IsCamelCase(FieldReference fieldRef) {
+		public static bool IsCamelCase(FieldReference fieldRef, TypeSystem typeSystem) {
+			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
 			return
-				TypeHelper.IsDefined(fieldRef.Resolve(), JsCamelCase) ||
-				TypeHelper.IsDefined(fieldRef.DeclaringType.Resolve(), JsCamelCase);
+				typeSystem.IsDefined(fieldRef.Resolve(), typeDef) ||
+				typeSystem.IsDefined(fieldRef.DeclaringType.Resolve(), typeDef);
 		}
 
-		public static bool IsCamelCase(MethodReference methodRef) {
+		public static bool IsCamelCase(MethodReference methodRef, TypeSystem typeSystem) {
+			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
 			return
-				TypeHelper.IsDefined(methodRef.Resolve(), JsCamelCase) ||
-				TypeHelper.IsDefined(methodRef.DeclaringType.Resolve(), JsCamelCase);
+				typeSystem.IsDefined(methodRef.Resolve(), typeDef) ||
+				typeSystem.IsDefined(methodRef.DeclaringType.Resolve(), typeDef);
 		}
 
-		public static bool IsCamelCase(PropertyReference propertyRef) {
+		public static bool IsCamelCase(PropertyReference propertyRef, TypeSystem typeSystem) {
+			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
 			return
-				TypeHelper.IsDefined(propertyRef.Resolve(), JsCamelCase) ||
-				TypeHelper.IsDefined(propertyRef.DeclaringType.Resolve(), JsCamelCase);
+				typeSystem.IsDefined(propertyRef.Resolve(), typeDef) ||
+				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
 		}
 
-		public static bool IsAnonymous(TypeReference type) {
-			return TypeHelper.IsDefined(type.Resolve(), JsAnonymous);
+		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {
+			var typeDef = typeSystem.GetTypeDefinition(JsAnonymous);
+			return typeSystem.IsDefined(type.Resolve(), typeDef);
 		}
 
-		public static bool IsIntrinsic(PropertyReference propertyRef) {
+		public static bool IsIntrinsic(PropertyReference propertyRef, TypeSystem typeSystem) {
+			var typeDef = typeSystem.GetTypeDefinition(JsInstrinsic);
 			return
-				TypeHelper.IsDefined(propertyRef.Resolve(), JsInstrinsic) ||
-				TypeHelper.IsDefined(propertyRef.DeclaringType.Resolve(), JsInstrinsic);
+				typeSystem.IsDefined(propertyRef.Resolve(), typeDef) ||
+				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
 		}
 
 		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {

@@ -40,7 +40,7 @@ namespace DotWeb.Decompiler.Core
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 		public List<Instruction> Instructions { get; private set; }
 
-		public ControlFlowGraph(TypeHierarchy typeHierarchy, MethodDefinition method) {
+		public ControlFlowGraph(TypeSystem typeHierarchy, MethodDefinition method) {
 			this.Method = method;
 
 			this.Instructions = new List<Instruction>();

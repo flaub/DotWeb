@@ -31,7 +31,7 @@ namespace DotWeb.Translator.Test
 	public abstract class TranslationTestHelper<TDerived> : MarshalByRefObject 
 		where TDerived : TranslationTestHelper<TDerived>
 	{
-		protected TypeHierarchy typeHierarchy;
+		protected TypeSystem typeSystem;
 		protected GlobalAssemblyResolver resolver;
 
 		protected TranslationTestHelper(string asmName, string src) {
@@ -46,8 +46,8 @@ namespace DotWeb.Translator.Test
 	
 			this.resolver.AddSearchDirectory(dir);
 
-			this.typeHierarchy = new TypeHierarchy(this.resolver);
-			this.CompiledAssembly = this.typeHierarchy.LoadAssembly(compiledAsmName);
+			this.typeSystem = new TypeSystem(this.resolver);
+			this.CompiledAssembly = this.typeSystem.LoadAssembly(compiledAsmName);
 
 			var pathToPdb = Path.Combine(dir, compiledAsmName + ".pdb");
 			this.CompiledAssembly.MainModule.LoadSymbols();
@@ -86,8 +86,8 @@ namespace DotWeb.Translator.Test
 		protected string GenerateMethod(TypeDefinition type, string methodName, bool followDependencies) {
 			var method = type.Methods.GetMethod(methodName).First();
 			TextWriter writer = new StringWriter();
-			var generator = new JsCodeGenerator(writer, false);
-			var context = new TranslationContext(this.typeHierarchy, generator);
+			var generator = new JsCodeGenerator(this.typeSystem, writer, false);
+			var context = new TranslationContext(this.typeSystem, generator);
 			var asmDependencies = new List<AssemblyDefinition>();
 			context.GenerateMethod(method, followDependencies, asmDependencies);
 			return writer.ToString();

@@ -33,17 +33,16 @@ namespace DotWeb.Translator
 	{
 		private JsCodeGenerator generator;
 		private GlobalAssemblyResolver resolver = new GlobalAssemblyResolver();
-		private TypeHierarchy typeHierarchy;
+		private TypeSystem typeSystem;
 
 		public TranslationEngine(TextWriter writer, bool writeHeader, string path) {
-			this.generator = new JsCodeGenerator(writer, writeHeader);
 			this.resolver.AddSearchDirectory(path);
-			this.typeHierarchy = new TypeHierarchy(this.resolver);
-//			Directory.SetCurrentDirectory(path);
+			this.typeSystem = new TypeSystem(this.resolver);
+			this.generator = new JsCodeGenerator(this.typeSystem, writer, writeHeader);
 		}
 
 		private string[] TranslateType(TypeDefinition type) {
-			var context = new TranslationContext(this.typeHierarchy, this.generator);
+			var context = new TranslationContext(this.typeSystem, this.generator);
 			var method = type.Constructors.GetConstructor(false, Type.EmptyTypes);
 			var asmDependencies = new List<AssemblyDefinition>();
 			context.GenerateMethod(method, true, asmDependencies);
@@ -65,7 +64,7 @@ namespace DotWeb.Translator
 		/// <param name="aqtn"></param>
 		/// <returns></returns>
 		public string[] TranslateType(AssemblyQualifiedTypeName aqtn) {
-			var asm = this.typeHierarchy.LoadAssembly(aqtn.AssemblyName.FullName);
+			var asm = this.typeSystem.LoadAssembly(aqtn.AssemblyName.FullName);
 			var typeDef = asm.MainModule.Types[aqtn.TypeName];
 			return TranslateType(typeDef);
 		}

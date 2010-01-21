@@ -57,8 +57,8 @@
     <Compile Include="AttributeExtensions.cs" />
     <Compile Include="Cecil\GlobalAssemblyResolver.cs" />
     <Compile Include="Cecil\MethodReferenceExtenstions.cs" />
-    <Compile Include="Cecil\TypeHelper.cs" />
-    <Compile Include="Cecil\TypeHierarchy.cs" />
+    <Compile Include="Cecil\TypeDefinitionCache.cs" />
+    <Compile Include="Cecil\TypeSystem.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="NetworkBitConverter.cs" />
     <Compile Include="NetworkReader.cs" />
