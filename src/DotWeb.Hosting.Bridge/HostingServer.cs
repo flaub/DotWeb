@@ -31,7 +31,7 @@ namespace DotWeb.Hosting.Bridge
 
 		IPEndPoint EndPoint { get; }
 
-		void Start();
+		//void Start();
 		void StartAsync();
 		void Stop();
 	}
@@ -53,10 +53,6 @@ namespace DotWeb.Hosting.Bridge
 			HostedMode.Host = new CallContextStorage();
 
 			return new HostingServer();
-		}
-
-		private static void OnAppDomainInit(string[] args) {
-			HostedMode.Host = new CallContextStorage();
 		}
 	}
 
@@ -83,10 +79,10 @@ namespace DotWeb.Hosting.Bridge
 			return aqtn.ToString();
 		}
 
-		public void Start() {
-			this.listener.Start();
-			this.RunLoop();
-		}
+		//public void Start() {
+		//    this.listener.Start();
+		//    this.RunLoop();
+		//}
 
 		public void Stop() {
 			this.listener.Stop();
@@ -101,36 +97,65 @@ namespace DotWeb.Hosting.Bridge
 			var listener = (TcpListener)ar.AsyncState;
 			var client = listener.EndAcceptTcpClient(ar);
 			listener.BeginAcceptTcpClient(OnAccept, listener);
-			RunOnce(client);
+
+			RunInAppDomain(client);
 		}
 
-		private void RunOnce(TcpClient client) {
-			var stream = client.GetStream();
+		private void RunInAppDomain(TcpClient client) {
+			var curDomain = AppDomain.CurrentDomain;
+			var setup = curDomain.SetupInformation;
+
+			//setup.AppDomainInitializerArguments = null;
+			//setup.AppDomainInitializer = (string[] args) => {
+			//};
+
+			var appDomain = AppDomain.CreateDomain("DotWeb Hosting Environment", null, setup);
+			var type = typeof(IsolatedContext);
+			var context = (IsolatedContext)appDomain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
+
 			try {
-				var session = new RemoteSession(stream);
-				var factory = new DefaultFactory();
-				var bridge = new JsBridge(session, factory);
-				HostedMode.Host = bridge;
-				bridge.DispatchForever();
+				context.Run(client.GetStream());
 			}
-			catch (Exception ex) {
-				Debug.WriteLine(ex);
-				stream.Close();
+			finally {
+				client.Close();
 			}
 
-			client.Close();
+			AppDomain.Unload(appDomain);
 		}
 
-		private void RunLoop() {
-			try {
-				while (true) {
-					var client = this.listener.AcceptTcpClient();
-					RunOnce(client);
+		class IsolatedContext : MarshalByRefObject
+		{
+			public void Run(NetworkStream stream) {
+				HostedMode.Host = new CallContextStorage();
+//				var stream = client.GetStream();
+				try {
+					var session = new RemoteSession(stream);
+					var factory = new DefaultFactory();
+					var bridge = new JsBridge(session, factory);
+					HostedMode.Host = bridge;
+					bridge.DispatchForever();
+				}
+				catch (Exception ex) {
+					Debug.WriteLine(ex);
+					stream.Close();
 				}
 			}
-			catch (Exception ex) {
-				Console.WriteLine("RunLoop exception:", ex.Message);
-			}
 		}
+
+		//private void RunOnce(TcpClient client) {
+		//    new IsolatedDomain().Run(client);
+		//}
+
+		//private void RunLoop() {
+		//    try {
+		//        while (true) {
+		//            var client = this.listener.AcceptTcpClient();
+		//            RunOnce(client);
+		//        }
+		//    }
+		//    catch (Exception ex) {
+		//        Console.WriteLine("RunLoop exception:", ex.Message);
+		//    }
+		//}
 	}
 }
