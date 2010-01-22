@@ -25,8 +25,9 @@ namespace DotWeb.Client.Dom.Html
 		public extern HtmlTableSectionElement tHead { get; set; }
 		public extern HtmlTableSectionElement tFoot { get; set; }
 
-		public extern HtmlCollection rows { get; }
-		public extern HtmlCollection tBodies { get; }
+		public extern HtmlCollection<HtmlTableRowElement> rows { get; }
+		public extern HtmlCollection<HtmlTableSectionElement> tBodies { get; }
+
 		public extern string align { get; set; }
 		public extern string bgColor { get; set; }
 		public extern string border { get; set; }
@@ -37,13 +38,13 @@ namespace DotWeb.Client.Dom.Html
 		public extern string summary { get; set; }
 		public extern string width { get; set; }
 
-		public extern HtmlElement createTHead();
+		public extern HtmlTableSectionElement createTHead();
 		public extern void deleteTHead();
-		public extern HtmlElement createTFoot();
+		public extern HtmlTableSectionElement createTFoot();
 		public extern void deleteTFoot();
-		public extern HtmlElement createCaption();
+		public extern HtmlTableCaptionElement createCaption();
 		public extern void deleteCaption();
-		public extern HtmlElement insertRow(int index);
+		public extern HtmlTableRowElement insertRow(int index);
 		public extern void deleteRow(int index);
 	}
 }

@@ -39,5 +39,14 @@ namespace DotWeb.Client.Dom.Helper
 
 		[JsMacro("$doc.createElement('li')")]
 		public static extern HtmlLiElement CreateListItem();
+
+		[JsMacro("$doc.createElement('table')")]
+		public static extern HtmlTableElement CreateTable();
+
+		[JsMacro("$doc.createElement('tr')")]
+		public static extern HtmlTableRowElement CreateTableRow();
+
+		[JsMacro("$doc.createElement('td')")]
+		public static extern HtmlTableCellElement CreateTableCell();
 	}
 }

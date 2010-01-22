@@ -27,4 +27,17 @@ namespace DotWeb.Client.Dom.Html
 
 		Node namedItem(string name);
 	}
+
+	[JsIntrinsic]
+	public interface HtmlCollection<T> 
+		where T : HtmlElement
+	{
+		int length { get; }
+
+		T item(int index);
+
+		T this[int index] { get; }
+
+		T namedItem(string name);
+	}
 }

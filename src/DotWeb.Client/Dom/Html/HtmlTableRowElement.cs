@@ -21,16 +21,17 @@ namespace DotWeb.Client.Dom.Html
 	[JsIntrinsic]
 	public class HtmlTableRowElement : HtmlElement
 	{
+		public extern HtmlCollection<HtmlTableCellElement> cells { get; }
+
 		public extern int rowIndex { get; }
 		public extern int sectionRowIndex { get; }
-		public extern HtmlCollection cells { get; }
 		public extern string align { get; set; }
 		public extern string bgColor { get; set; }
 		public extern string ch { get; set; }
 		public extern string chOff { get; set; }
 		public extern string vAlign { get; set; }
 
-		public extern HtmlElement insertCell(int index);
+		public extern HtmlTableCellElement insertCell(int index);
 		public extern void deleteCell(int index);
 	}
 }
