@@ -34,7 +34,7 @@ System.Console.WriteLine = function(value /*System.Object*/) {
 };
 
 H8.SourceTests.prototype.CallTakeParameters = function() {
-	var CS$0$0000 = new System.Double[2];
+	var CS$0$0000 = new /*System.Double*/Array(2);
 	CS$0$0000[0] = 1;
 	CS$0$0000[1] = 2;
 	var result = this.TakeParameters("Hi", 1, CS$0$0000);

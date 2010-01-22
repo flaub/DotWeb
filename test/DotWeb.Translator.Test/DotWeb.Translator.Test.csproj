@@ -50,7 +50,6 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CSharpCompiler.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
@@ -78,6 +77,11 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TestCompoundNotOr.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TestCompoundNotAnd.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TestCompoundOr.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TestCompoundAnd.js" />
+    <Content Include="Expected\SourceTest\SourceTests_TestGenericNested.js" />
     <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />
     <Content Include="Expected\SourceTest\SourceTests_Callback.js" />
     <Content Include="Expected\SourceTest\SourceTests_CallDerived.js" />

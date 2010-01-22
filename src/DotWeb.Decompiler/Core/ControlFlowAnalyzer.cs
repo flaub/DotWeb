@@ -61,11 +61,15 @@ namespace DotWeb.Decompiler.Core
 							(bbThen.InEdges.Count == 1)) {
 							/* Check (X || Y) case */
 							if (bbThen.OutEdges[Node.ElseEdge] == bbElse) {
-								change = CompoundOr(bb, bbThen, bbElse);
+								if (CompoundOr(bb, bbThen, bbElse))
+									i--; // repeat the loop
+								change = true;
 							}
 							/* Check (!X && Y) case */
 							else if (bbThen.OutEdges[Node.ThenEdge] == bbElse) {
-								change = CompoundNotAnd(bb, bbThen, bbElse);
+								if (CompoundNotAnd(bb, bbThen, bbElse))
+									i--; // repeat the loop
+								change = true;
 							}
 						}
 						else if ((bbElse.IsTwoWay) &&
@@ -114,14 +118,14 @@ namespace DotWeb.Decompiler.Core
 				}
 			}
 
+			//bb.InEdgeCount--;
+
 			if (bb.IsLatchNode) {
 				this.Cfg.DfsList[bbThen.DfsLastNumber] = bb;
-			}
-			else {
-				// continue analysis
+				return false;
 			}
 
-			bb.InEdgeCount--;
+			// continue analysis
 			return true;
 		}
 
@@ -156,8 +160,12 @@ namespace DotWeb.Decompiler.Core
 					break;
 				}
 			}
+
+			//bbElse.InEdgeCount--;
+
 			if (bb.IsLatchNode) {
 				this.Cfg.DfsList[bbThen.DfsLastNumber] = bb;
+				return false;
 			}
 
 			return true;

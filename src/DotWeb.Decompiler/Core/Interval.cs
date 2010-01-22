@@ -97,7 +97,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		/// <summary>
-		/// Appends node node to the end of the interval list I, updates currNode
+		/// Appends 'node' to the end of the interval list I, updates currNode
 		/// if necessary, and removes the node from the header list H if it is 
 		/// there.  The interval header information is placed in the field 
 		/// node->inInterval.

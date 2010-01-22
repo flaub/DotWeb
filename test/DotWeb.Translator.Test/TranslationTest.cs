@@ -140,6 +140,31 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "Indexer", Resources.SourceTests_Indexer, true);
 		}
 
+		[Test]
+		public void TestGenericNested() {
+			this.TestMethod(this.sourceTestsCompiledType, "TestGenericNested", Resources.SourceTests_TestGenericNested, true);
+		}
+
+		[Test]
+		public void TestCompoundAnd() {
+			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundAnd", Resources.SourceTests_TestCompoundAnd, false);
+		}
+
+		[Test]
+		public void TestCompoundNotOr() {
+			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundNotOr", Resources.SourceTests_TestCompoundNotOr, false);
+		}
+
+		[Test]
+		public void TestCompoundNotAnd() {
+			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundNotAnd", Resources.SourceTests_TestCompoundNotAnd, false);
+		}
+
+		[Test]
+		public void TestCompoundOr() {
+			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundOr", Resources.SourceTests_TestCompoundOr, false);
+		}
+
 		private TypeDefinition sourceTestsCompiledType;
 	}
 }

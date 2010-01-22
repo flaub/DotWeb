@@ -124,10 +124,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var item = __g__initLocal0;
         ///	item.X = item.y;
         ///	item.y = item.X;
-        ///	var CS$0$0000 = [];
+        ///	var CS$0$0000 = new /*H8.AnonymousClass*/Array(2);
         ///	var __g__initLocal1 = {};
-        ///	__g__initLocal1.X = 0;
-        ///	__g__initLoca [rest of string was truncated]&quot;;.
+        ///	__g__in [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsAnonymous {
             get {
@@ -318,17 +317,16 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this._Key_i__Field;
         ///};
         ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
         ///$Namespace(&apos;System&apos;);
         ///
-        ///System.String = function() {
+        ///System.Console = function() {
         ///};
         ///
-        ///System.String.prototype.get_Length = function() {
-        ///	var V_0 = this._Length_k__BackingField;
-        ///	return V_0;
-        ///};
-        ///
-        ///__f__AnonymousType0$2. [rest of string was truncated]&quot;;.
+        ///System.Console.WriteLine = function(for [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SourceTests_AnonymousType {
             get {
@@ -547,8 +545,8 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.EnumArray = function() {
-        ///	System.Runtime.CompilerServices.RuntimeHelpers.InitializeArray(new System.Int32[4], [ 1, 2, 3, 4 ]);
-        ///	var array = new System.Int32[4];
+        ///	System.Runtime.CompilerServices.RuntimeHelpers.InitializeArray(new /*System.Int32*/Array(4), [ 1, 2, 3, 4 ]);
+        ///	var array = new /*System.Int32*/Array(4);
         ///	var CS$6$0000 = array;
         ///	var CS$7$0001 = 0;
         ///	while(CS$7$0001 &lt; /*(System.Int32)*/CS$6$0000.length) {
@@ -771,6 +769,148 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string SourceTests_TakeParameters {
             get {
                 return ResourceManager.GetString("SourceTests_TakeParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.AnonymousType = function() {
+        ///	var value = new __f__AnonymousType0$2().$ctor(&quot;Hi&quot;, 1);
+        ///	System.Console.WriteLine(&quot;{0}: {1}&quot;, value.get_Key().length, value.get_Value());
+        ///};
+        ///.
+        /// </summary>
+        internal static string SourceTests_TestCompoundAnd {
+            get {
+                return ResourceManager.GetString("SourceTests_TestCompoundAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to __f__AnonymousType0$2 = function() {
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.$ctor = function(Key /*_Key_j__TPar*/, Value /*_Value_j__TPar*/) {
+        ///	this._Key_i__Field = Key;
+        ///	this._Value_i__Field = Value;
+        ///	return this;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Key = function() {
+        ///	return this._Key_i__Field;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(for [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SourceTests_TestCompoundNotAnd {
+            get {
+                return ResourceManager.GetString("SourceTests_TestCompoundNotAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to __f__AnonymousType0$2 = function() {
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.$ctor = function(Key /*_Key_j__TPar*/, Value /*_Value_j__TPar*/) {
+        ///	this._Key_i__Field = Key;
+        ///	this._Value_i__Field = Value;
+        ///	return this;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Key = function() {
+        ///	return this._Key_i__Field;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(for [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SourceTests_TestCompoundNotOr {
+            get {
+                return ResourceManager.GetString("SourceTests_TestCompoundNotOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to __f__AnonymousType0$2 = function() {
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.$ctor = function(Key /*_Key_j__TPar*/, Value /*_Value_j__TPar*/) {
+        ///	this._Key_i__Field = Key;
+        ///	this._Value_i__Field = Value;
+        ///	return this;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Key = function() {
+        ///	return this._Key_i__Field;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};
+        ///
+        ///System.Console.WriteLine = function(for [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SourceTests_TestCompoundOr {
+            get {
+                return ResourceManager.GetString("SourceTests_TestCompoundOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.Generic$1 = function() {
+        ///};
+        ///
+        ///H8.Generic$1.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested.prototype.Foo = function() {
+        ///	var x = new H8.Generic$1_Nested_Inn [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SourceTests_TestGenericNested {
+            get {
+                return ResourceManager.GetString("SourceTests_TestGenericNested", resourceCulture);
             }
         }
         

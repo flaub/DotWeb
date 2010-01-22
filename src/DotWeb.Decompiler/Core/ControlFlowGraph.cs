@@ -57,7 +57,7 @@ namespace DotWeb.Decompiler.Core
 			BasicBlock[] blocks = new BasicBlock[this.blocks.Values.Count];
 			this.blocks.Values.CopyTo(blocks, 0);
 			foreach (BasicBlock bb in blocks) {
-				bb.InEdgeCount = 0;
+				//bb.InEdgeCount = 0;
 				if (bb.DfsTraversed != DfsTraversal.Merge) {
 					this.blocks.Remove(bb.BeginOffset);
 				}
@@ -88,7 +88,7 @@ namespace DotWeb.Decompiler.Core
 				bb.FlowControl != FlowControl.Return &&
 				bb.FlowControl != FlowControl.Throw) {
 				BasicBlock next = (BasicBlock)bb.OutEdges.First();
-				if (next.InEdgeCount != 1)
+				if (next.InEdges.Count != 1)
 					break;
 
 				bb.OutEdges.Clear();
@@ -128,7 +128,7 @@ namespace DotWeb.Decompiler.Core
 		private void ResolveBranchTarget(BasicBlock bb, int targetOffset) {
 			BasicBlock target = blocks[targetOffset];
 			if (bb.OutEdges.AddUnique(target)) {
-				target.InEdgeCount++;
+				//target.InEdgeCount++;
 			}
 		}
 
@@ -139,7 +139,7 @@ namespace DotWeb.Decompiler.Core
 				block.FlowControl != FlowControl.Branch && 
 				block.FlowControl != FlowControl.Throw) {
 				block.OutEdges.Add(ret);
-				ret.InEdgeCount++;
+				//ret.InEdgeCount++;
 			}
 			return ret;
 		}

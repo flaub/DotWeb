@@ -25,6 +25,7 @@ using Mono.Cecil;
 using System.Linq;
 using System.Collections.Generic;
 using DotWeb.Utility.Cecil;
+using DotWeb.Utility;
 
 namespace DotWeb.Translator.Test
 {

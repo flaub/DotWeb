@@ -238,4 +238,19 @@
   <data name="SystemTest_TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\systemtest_testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="SourceTests_TestGenericNested" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_testgenericnested.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_TestCompoundAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_testcompoundand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_TestCompoundNotAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_testcompoundnotand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_TestCompoundNotOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_testcompoundnotor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SourceTests_TestCompoundOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\sourcetests_testcompoundor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

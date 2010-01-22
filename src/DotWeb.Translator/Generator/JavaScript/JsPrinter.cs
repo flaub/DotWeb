@@ -141,11 +141,12 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		private string GetTypeName(TypeReference type) {
-			if (type.DeclaringType == null) {
-				return type.Name;
+			var typeDef = type.Resolve();
+			if (typeDef.DeclaringType == null) {
+				return typeDef.Name;
 			}
 
-			return string.Format("{0}_{1}", GetTypeName(type.DeclaringType), type.Name);
+			return string.Format("{0}_{1}", GetTypeName(typeDef.DeclaringType), typeDef.Name);
 		}
 
 		public string Print(TypeReference type) {
@@ -160,10 +161,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 			else
 				name = ns + "." + GetTypeName(type);
 
-			var genericType = type as GenericInstanceType;
-			if (genericType != null) {
-				name = string.Format("{0}${1}", name.Split('`').First(), genericType.GenericArguments.Count);
-			}
 			return EncodeName(name);
 		}
 
@@ -176,7 +173,23 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public static string EncodeName(string name) {
-			return name.Replace("<", "_").Replace(">", "_").Replace("`", "$");
+			var chars = name.ToCharArray();
+			for (int i = 0; i < chars.Length; i++) {
+				var ch = chars[i];
+				switch (ch) {
+					case '<':
+					case '>':
+					case '/':
+						chars[i] = '_';
+						break;
+					case '`':
+						chars[i] = '$';
+						break;
+					default:
+						break;
+				}
+			}
+			return new String(chars);
 		}
 
 		public string PrintArray(Array array) {
@@ -331,7 +344,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeParameterDeclarationExpression exp) {
-			return string.Format("{0} /*{1}*/", EncodeName(exp.Name), Print(exp.Definition.ParameterType));
+			return string.Format("{0} /*{1}*/", EncodeName(exp.Name), EncodeName(exp.Definition.ParameterType.FullName));
 		}
 
 		public string VisitReturn(CodeInvokeExpression exp) {
@@ -369,9 +382,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 				if (test &&
 					(exp.Operator != CodeBinaryOperator.IdentityEquality ||
 					exp.Operator == CodeBinaryOperator.IdentityInequality)) {
+					// convert '(x) != true' => '!(x)'
 					return string.Format("!{0}", EncloseParens(exp.Left));
 				}
 				else {
+					// convert 'x == true' => '(x)'
 					return EncloseParens(exp.Left);
 				}
 			}
@@ -385,11 +400,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeArrayCreateExpression exp) {
-			if (AttributeHelper.IsAnonymous(exp.Type, this.typeSystem)) {
-				return "[]";
-			}
 			string size = Print(exp.SizeExpression);
-			return string.Format("new {0}[{1}]", Print(exp.Type), size);
+			return string.Format("new /*{0}*/Array({1})", Print(exp.Type), size);
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {

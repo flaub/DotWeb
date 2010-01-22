@@ -74,6 +74,43 @@ namespace H8
 		}
 	}
 
+	class Generic<T>
+	{
+		class Nested
+		{
+			class Inner
+			{
+				public void Foo() { }
+			}
+
+			public void Foo() {
+				var x = new Inner();
+				x.Foo();
+			}
+		}
+
+		class Nested<Y>
+		{
+			class Inner<A, B>
+			{
+				public void Foo() { }
+			}
+
+			public void Foo() {
+				var x = new Inner<int, int>();
+				x.Foo();
+			}
+		}
+
+		public void Foo() {
+			var x = new Nested();
+			x.Foo();
+
+			var y = new Nested<int>();
+			y.Foo();
+		}
+	}
+
 	public class SourceTests
 	{
 		/// <summary>
@@ -607,6 +644,55 @@ namespace H8
 			indexer["Test"] = 1;
 			var value = indexer["Test"];
 			Console.WriteLine(value);
+		}
+
+		public void TestGenericNested() {
+			var x = new Generic<int>();
+			x.Foo();
+		}
+
+		public void TestCompoundAnd() {
+			var x = true;
+			var y = true;
+			if (x && y) {
+				Console.Write(1);
+			}
+			else {
+				Console.Write(2);
+			}
+		}
+
+		public void TestCompoundNotOr() {
+			var x = true;
+			var y = true;
+			if (!x || y) {
+				Console.Write(1);
+			}
+			else {
+				Console.Write(2);
+			}
+		}
+
+		public void TestCompoundNotAnd() {
+			var x = true;
+			var y = true;
+			if (!x && y) {
+				Console.Write(1);
+			}
+			else {
+				Console.Write(2);
+			}
+		}
+
+		public void TestCompoundOr() {
+			var x = true;
+			var y = true;
+			if (x || y) {
+				Console.Write(1);
+			}
+			else {
+				Console.Write(2);
+			}
 		}
 	}
 }
