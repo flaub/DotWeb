@@ -1,0 +1,11 @@
+﻿public void SimpleDoWhile(int a)
+{
+	Console.WriteLine(a);
+	do
+	{
+		a++;
+		Console.WriteLine(a);
+	}
+	while (a < 100);
+	Console.WriteLine(a);
+}
