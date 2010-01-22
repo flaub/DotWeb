@@ -79,8 +79,6 @@ namespace DotWeb.Hosting.Bridge
 			var client = listener.EndAcceptTcpClient(ar);
 
 			RunInAppDomain(client);
-
-			this.listener.Stop();
 		}
 
 		private void RunInAppDomain(TcpClient client) {
@@ -94,16 +92,11 @@ namespace DotWeb.Hosting.Bridge
 			try {
 				context.Run(client.GetStream());
 			}
-			catch (Exception ex) {
-				// eat this so that the listener doesn't go down...
-				// this should be a rare event, but we should probably log it somehow...
-				Debug.WriteLine(ex);
-			}
 			finally {
 				client.Close();
+				this.listener.Stop();
+				AppDomain.Unload(appDomain);
 			}
-
-			AppDomain.Unload(appDomain);
 		}
 
 		/// <summary>
