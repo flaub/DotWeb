@@ -23,7 +23,7 @@ namespace System.DotWeb
 {
 	public class JsObject
 	{
-		[JsMacro("{1} === {2}")]
+		[JsMacro("({1} === {2})")]
 		public static extern bool StrictEquals(object lhs, object rhs);
 	}
 }

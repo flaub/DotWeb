@@ -27,10 +27,12 @@ namespace System
 #endif
 {
 	[UseSystem]
+	[JsAnonymous]
+	[JsNamespace]
+	[JsCamelCase]
 	public class String
 	{
-		[JsCamelCase]
-		public int Length { get; private set; }
+		public extern int Length { get; }
 
 		//public extern static ThisType Format(string format, params object[] args);
 
@@ -49,10 +51,10 @@ namespace System
 		[JsMacro("{1} + {2} + {3} + {4}")]
 		public static extern string Concat(string str1, string str2, string str3, string str4);
 
-		[JsCode("return values;")]
+		[JsMacro("{1}.join('')")]
 		public static extern string Concat(string[] values);
 
-		[JsCode("return values;")]
+		[JsMacro("{1}.join('')")]
 		public static extern string Concat(object[] values);
 
 		[JsMacro("({1} != {2})")]
@@ -67,17 +69,8 @@ namespace System
 		[JsCode("return 0;")]
 		public extern override int GetHashCode();
 
-//#if HOSTED_MODE
-//        public String(string str) {
-//        }
+		public extern string Replace(string oldValue, string newValue);
 
-//        public static implicit operator String(string str) {
-//            return null;
-//        }
-
-//        public static implicit operator string(String str) {
-//            return null;
-//        }
-//#endif
+		public extern string Replace(char oldValue, char newValue);
 	}
 }

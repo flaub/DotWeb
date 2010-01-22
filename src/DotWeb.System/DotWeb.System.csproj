@@ -58,6 +58,7 @@
     <Compile Include="DotWeb\JsArray.cs" />
     <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
     <Compile Include="DotWeb\JsMacroAttribute.cs" />
+    <Compile Include="DotWeb\JsString.cs" />
     <Compile Include="IEquatable.cs" />
     <Compile Include="IComparable.cs" />
     <Compile Include="DateTime.cs" />
