@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using DotWeb.Client;
 
 namespace DotWeb.Functional.Test.Client
 {
-	class List
+	class List : JsScript
 	{
 		public List() {
+			var sandbox = Document.getElementById("sandbox");
+			var view = new TestResultView(sandbox);
+
 			Log.Write("List test starting");
 
 			var list = new List<string>();
@@ -15,11 +17,18 @@ namespace DotWeb.Functional.Test.Client
 			list.Add("two");
 			list.Add("three");
 
-			Log.Write(list);
+			view.AddRow("list.ToString()", "[ one,two,three ]", list);
 
-			Log.Write(list.IndexOf("one"));
-			Log.Write(list.IndexOf("three"));
-			Log.Write(list.IndexOf("none"));
+			view.AddRow("list.IndexOf('one')", 0, list.IndexOf("one"));
+			view.AddRow("list.IndexOf('two')", 1, list.IndexOf("two"));
+			view.AddRow("list.IndexOf('three')", 2, list.IndexOf("three"));
+			view.AddRow("list.IndexOf('none')", -1, list.IndexOf("none"));
+
+			list.Add("two");
+			view.AddRow("list.Add('two')", "[ one,two,three,two ]", list);
+
+			list.Remove("two");
+			view.AddRow("list.Remove('two')", "[ one,three,two ]", list);
 		}
 	}
 }

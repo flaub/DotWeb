@@ -2,9 +2,11 @@
 using DotWeb.Client;
 using DotWeb.Client.Dom.Html;
 using DotWeb.Client.Dom.Helper;
+using System.DotWeb;
 
 namespace DotWeb.Functional.Test.Client
 {
+	[JsNamespace]
 	class Log : JsScript
 	{
 		private static Log log;
@@ -27,9 +29,13 @@ namespace DotWeb.Functional.Test.Client
 			this.list.innerHTML = "";
 		}
 
+		[JsMacro("console.log({1})")]
+		private extern void Console(string value);
+
 		public void AddMessage(string content) {
+			Console(content);
 			var item = ElementFactory.CreateListItem();
-			item.innerHTML = content;
+			item.innerHTML = JsString.HtmlEncode(content);
 			this.list.appendChild(item);
 			this.ScrollToBottom();
 		}

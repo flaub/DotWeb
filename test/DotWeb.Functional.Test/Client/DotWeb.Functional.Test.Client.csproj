@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assert.cs" />
+    <Compile Include="TestResultView.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Sanity.cs" />
