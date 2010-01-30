@@ -19,9 +19,9 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using DotWeb.Utility;
-using DotWeb.Tools.Weaver;
 using System;
 using System.Diagnostics;
+using DotWeb.Hosting.Weaver;
 
 namespace DotWeb.Hosting.Bridge
 {

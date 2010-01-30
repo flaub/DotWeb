@@ -28,7 +28,7 @@ using DotWeb.Utility;
 using System.Diagnostics;
 using DotWeb.Hosting;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	public class AssemblyProcessor : IAssembly
 	{

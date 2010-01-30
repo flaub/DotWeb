@@ -30,7 +30,7 @@ using SRE = System.Reflection.Emit;
 using System.Diagnostics;
 using DotWeb.Hosting;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class MethodProcessor
 	{

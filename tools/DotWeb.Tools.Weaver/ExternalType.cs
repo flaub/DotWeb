@@ -23,7 +23,7 @@ using System.Text;
 using System.Reflection;
 using Mono.Cecil;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class ExternalType : IType
 	{

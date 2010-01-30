@@ -24,7 +24,7 @@ using Mono.Cecil;
 using System.Reflection.Emit;
 using SR = System.Reflection;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class GenericProcessorBase
 	{

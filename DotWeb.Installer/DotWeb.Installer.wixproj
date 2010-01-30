@@ -103,8 +103,8 @@
       <Project>{81320140-ba96-4316-af77-34cd16952db0}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\tools\DotWeb.Tools.Weaver\DotWeb.Tools.Weaver.csproj">
-      <Name>DotWeb.Tools.Weaver</Name>
+    <ProjectReference Include="..\tools\DotWeb.Tools.Weaver\DotWeb.Hosting.Weaver.csproj">
+      <Name>DotWeb.Hosting.Weaver</Name>
       <Project>{de8a6c27-b315-41e3-82bf-7a3741c7653d}</Project>
       <Private>True</Private>
     </ProjectReference>

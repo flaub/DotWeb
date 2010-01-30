@@ -8,8 +8,8 @@
     <ProjectGuid>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotWeb.Tools.Weaver</RootNamespace>
-    <AssemblyName>DotWeb.Tools.Weaver</AssemblyName>
+    <RootNamespace>DotWeb.Hosting.Weaver</RootNamespace>
+    <AssemblyName>DotWeb.Hosting.Weaver</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>

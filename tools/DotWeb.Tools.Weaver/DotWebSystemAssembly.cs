@@ -22,7 +22,7 @@ using System.Linq;
 using Mono.Cecil;
 using System.Reflection;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class DotWebSystemAssembly : ITypeResolver
 	{

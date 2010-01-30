@@ -23,9 +23,9 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DotWeb.Tools.Weaver")]
+[assembly: AssemblyTitle("DotWeb.Hosting.Weaver")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyProduct("DotWeb.Tools.Weaver")]
+[assembly: AssemblyProduct("DotWeb.Hosting.Weaver")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

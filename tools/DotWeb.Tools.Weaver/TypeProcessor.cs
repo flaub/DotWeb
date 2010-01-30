@@ -28,7 +28,7 @@ using SRE = System.Reflection.Emit;
 using System.Collections;
 using Mono.Cecil.Metadata;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class TypeProcessor : IType
 	{

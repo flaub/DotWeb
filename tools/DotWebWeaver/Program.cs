@@ -18,8 +18,8 @@
 
 using System;
 using System.Linq;
-using DotWeb.Tools.Weaver;
 using System.IO;
+using DotWeb.Hosting.Weaver;
 
 namespace DotWebWeaver
 {

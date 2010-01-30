@@ -20,7 +20,7 @@ using System;
 using Mono.Cecil;
 using System.Reflection;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	public interface ITypeResolver
 	{

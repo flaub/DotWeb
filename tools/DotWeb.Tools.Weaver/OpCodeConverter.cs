@@ -28,7 +28,7 @@ using CecilOpCodes = Mono.Cecil.Cil.OpCodes;
 using SysOpCode = System.Reflection.Emit.OpCode;
 using SysOpCodes = System.Reflection.Emit.OpCodes;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class OperandTypeNames
 	{

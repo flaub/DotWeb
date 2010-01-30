@@ -24,7 +24,7 @@ using System.Reflection.Emit;
 using Mono.Cecil.Cil;
 using System.Collections;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	class ScopeProcessor
 	{

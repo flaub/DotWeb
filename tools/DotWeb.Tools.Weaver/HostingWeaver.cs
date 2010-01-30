@@ -28,7 +28,7 @@ using System.Diagnostics;
 using DotWeb.Hosting;
 using DotWeb.Utility.Cecil;
 
-namespace DotWeb.Tools.Weaver
+namespace DotWeb.Hosting.Weaver
 {
 	public class HostingWeaver : IResolver
 	{

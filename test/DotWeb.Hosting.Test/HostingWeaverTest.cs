@@ -21,9 +21,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using DotWeb.Tools.Weaver;
 using System.Reflection;
 using System.IO;
+using DotWeb.Hosting.Weaver;
 
 namespace DotWeb.Hosting.Test
 {
