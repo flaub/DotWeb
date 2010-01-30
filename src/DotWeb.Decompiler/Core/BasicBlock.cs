@@ -48,8 +48,7 @@ namespace DotWeb.Decompiler.Core
 
 		private MethodDefinition method;
 
-		public BasicBlock(MethodDefinition method, int id)
-			: base(id) {
+		public BasicBlock(MethodDefinition method) {
 			this.method = method;
 			this.Instructions = new List<Instruction>();
 			this.Statements = new List<CodeStatement>();
@@ -79,7 +78,7 @@ namespace DotWeb.Decompiler.Core
 
 			// Depth-first traversal into other basic blocks
 			// Accumulate statements into this.Statements
-			foreach (BasicBlock next in this.OutEdges) {
+			foreach (BasicBlock next in this.Successors) {
 				if (next.DfsTraversed != DfsTraversal.CodeDom) {
 					next.GenerateCodeModel(typeHierarchy, context);
 				}

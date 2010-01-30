@@ -63,6 +63,6 @@ namespace DotWeb.Decompiler.CodeModel
 		/// <summary>
 		/// Used for debugging purposes
 		/// </summary>
-		public IEnumerable<Instruction> Instructions { get; set; }
+		//public IEnumerable<Instruction> Instructions { get; set; }
 	}
 }

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mono.Cecil.Cil;
+using DotWeb.Utility;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -42,48 +43,56 @@ namespace DotWeb.Decompiler.Core
 		Jump
 	}
 
-	public class Node
+	public abstract class Node
 	{
 		public const int NoNode = -1;
 		public const int NoDominator = -1;
 
-		public const int ThenEdge = 0;
-		public const int ElseEdge = 1;
+		//public const int ThenEdge = 0;
+		//public const int ElseEdge = 1;
 
-		public int ID { get; private set; }
-	
-		public virtual string FullName {
-			get {
-				string[] values = this.Nodes.Select(x => x.RefName).ToArray();
-				string line = string.Join(", ", values);
-				return string.Format("{0}: {1}", this.RefName, line);
-			} 
-		}
+		public int Id { get; set; }
+
+		public abstract string FullName { get; }
+		//    get {
+		//        string[] values = this.Nodes.Select(x => x.RefName).ToArray();
+		//        string line = string.Join(", ", values);
+		//        return string.Format("{0}: {1}", this.RefName, line);
+		//    } 
+		//}
 
 		public virtual string RefName {
 			get {
-				return string.Format("{0}{1}", this.GetType().Name[0], ID);
+				return string.Format("{0}{1}", this.GetType().Name[0], Id);
 			}
 		}
 
 		public virtual FlowControl FlowControl { get { return FlowControl.Next; } }
-		public List<Node> Nodes { get; private set; }
 
 		#region Edges
-		public List<Node> InEdges { get; private set; }
-		public List<Node> OutEdges { get; private set; }
+		public List<Node> Predecessors { get; private set; }
+		public List<Node> Successors { get; private set; }
+
+		public Node ThenEdge {
+			get { return this.Successors[0]; }
+			set { this.Successors[0] = value; }
+		}
+
+		public Node ElseEdge {
+			get { return this.Successors[1]; }
+			set { this.Successors[1] = value; }
+		}
 		#endregion
 
 		#region Interval Construction
-		public bool BeenOnHeaders { get; set; }
-		public int InEdgeCount { get; set; }
-		public Node ReachingInterval { get; set; }
+		//public bool BeenOnHeaders { get; set; }
+		//public Node ReachingInterval { get; set; }
 		public Interval Interval { get; set; }
 		#endregion
 
 		#region DFS Traversal
-		public int DfsFirstNumber { get; set; }
-		public int DfsLastNumber { get; set; }
+		public int DfsPreOrder { get; set; }
+		public int DfsPostOrder { get; set; }
 		public DfsTraversal DfsTraversed { get; set; }
 		#endregion
 
@@ -101,15 +110,13 @@ namespace DotWeb.Decompiler.Core
 		public int CaseTail { get; set; }
 		#endregion
 
-		public Node(int id) {
-			this.ID = id;
-			this.Nodes = new List<Node>();
-			this.InEdges = new List<Node>();
-			this.OutEdges = new List<Node>();
-			this.BeenOnHeaders = false;
-			this.InEdgeCount = 0;
-			this.DfsFirstNumber = 0;
-			this.DfsLastNumber = 0;
+		public Node() {
+			this.Id = -1;
+			this.Predecessors = new List<Node>();
+			this.Successors = new List<Node>();
+			//this.BeenOnHeaders = false;
+			this.DfsPreOrder = 0;
+			this.DfsPostOrder = 0;
 			this.DfsTraversed = DfsTraversal.None;
 			this.ImmediateDominator = NoDominator;
 			this.BackEdgeCount = 0;
@@ -123,9 +130,8 @@ namespace DotWeb.Decompiler.Core
 			this.CaseTail = NoNode;
 		}
 
-		public void AddInEdge(Node node) {
-			this.InEdges.Add(node);
-			this.InEdgeCount++;
+		public virtual void CollectNodes(List<Node> nodes) {
+			nodes.Add(this);
 		}
 
 		/// <summary>
@@ -135,39 +141,27 @@ namespace DotWeb.Decompiler.Core
 		/// </summary>
 		public void DfsNumbering(Node[] dfsList, ref int first, ref int last) {
 			this.DfsTraversed = DfsTraversal.Numbering;
-			this.DfsFirstNumber = first++;
+			this.DfsPreOrder = first++;
 
-			foreach (Node node in this.OutEdges) {
-				node.AddInEdge(this);
+			foreach (Node node in this.Successors) {
 				if (node.DfsTraversed != DfsTraversal.Numbering)
 					node.DfsNumbering(dfsList, ref first, ref last);
 			}
-			this.DfsLastNumber = last;
-			dfsList[last] = this;
-			last--;
-		}
 
-		public void CollectNodes(List<Node> nodes) {
-			if (this.Nodes.Any()) {
-				foreach (Node node in this.Nodes) {
-					node.CollectNodes(nodes);
-				}
-			}
-			else {
-				nodes.Add(this);
-			}
+			this.DfsPostOrder = last--;
+			dfsList[this.DfsPostOrder] = this;
 		}
 
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
 			sb.AppendFormat("{0}", FullName);
-			if (InEdges.Any()) {
-				string[] values = InEdges.Select(x => x.RefName).ToArray();
+			if (Predecessors.Any()) {
+				string[] values = Predecessors.Select(x => x.RefName).ToArray();
 				string line = string.Join(", ", values);
 				sb.AppendFormat("\n\tIn : {0}", line);
 			}
-			if (OutEdges.Any()) {
-				string[] values = OutEdges.Select(x => x.RefName).ToArray();
+			if (Successors.Any()) {
+				string[] values = Successors.Select(x => x.RefName).ToArray();
 				string line = string.Join(", ", values);
 				sb.AppendFormat("\n\tOut: {0}", line);
 			}

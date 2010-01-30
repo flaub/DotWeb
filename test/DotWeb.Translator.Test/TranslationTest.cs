@@ -23,7 +23,7 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class TranslationTest : TranslationTestHelper<TranslationTest>
+	public class TranslationTest : TranslationTestHelper
 	{
 		public TranslationTest()
 			: base("DotWeb.Translator.Test.Script", Resources.TranslationTest) {
@@ -33,46 +33,6 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void HelloWorld() {
 			this.TestMethod(this.sourceTestsCompiledType, "HelloWorld", Resources.SourceTests_HelloWorld);
-		}
-
-		[Test]
-		public void WhileLoop() {
-			this.TestMethod(this.sourceTestsCompiledType, "WhileLoop", Resources.SourceTests_WhileLoop);
-		}
-
-		[Test]
-		public void ForLoop() {
-			this.TestMethod(this.sourceTestsCompiledType, "ForLoop", Resources.SourceTests_ForLoop);
-		}
-
-		[Test]
-		public void DoWhileLoop() {
-			this.TestMethod(this.sourceTestsCompiledType, "DoWhileLoop", Resources.SourceTests_DoWhileLoop);
-		}
-
-		[Test]
-		public void WhileBreakLoop() {
-			this.TestMethod(this.sourceTestsCompiledType, "WhileBreakLoop", Resources.SourceTests_WhileBreakLoop);
-		}
-
-		[Test]
-		public void WhileCondBreakLoop() {
-			this.TestMethod(this.sourceTestsCompiledType, "WhileCondBreakLoop", Resources.SourceTests_WhileCondBreakLoop);
-		}
-
-		[Test]
-		public void If() {
-			this.TestMethod(this.sourceTestsCompiledType, "If", Resources.SourceTests_If);
-		}
-
-		[Test]
-		public void IfElse() {
-			this.TestMethod(this.sourceTestsCompiledType, "IfElse", Resources.SourceTests_IfElse);
-		}
-
-		[Test]
-		public void IfIf() {
-			this.TestMethod(this.sourceTestsCompiledType, "IfIf", Resources.SourceTests_IfIf);
 		}
 
 		[Test]
@@ -143,26 +103,6 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestGenericNested() {
 			this.TestMethod(this.sourceTestsCompiledType, "TestGenericNested", Resources.SourceTests_TestGenericNested, true);
-		}
-
-		[Test]
-		public void TestCompoundAnd() {
-			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundAnd", Resources.SourceTests_TestCompoundAnd, false);
-		}
-
-		[Test]
-		public void TestCompoundNotOr() {
-			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundNotOr", Resources.SourceTests_TestCompoundNotOr, false);
-		}
-
-		[Test]
-		public void TestCompoundNotAnd() {
-			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundNotAnd", Resources.SourceTests_TestCompoundNotAnd, false);
-		}
-
-		[Test]
-		public void TestCompoundOr() {
-			this.TestMethod(this.sourceTestsCompiledType, "TestCompoundOr", Resources.SourceTests_TestCompoundOr, false);
 		}
 
 		private TypeDefinition sourceTestsCompiledType;

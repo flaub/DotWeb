@@ -29,8 +29,7 @@ using DotWeb.Utility;
 
 namespace DotWeb.Translator.Test
 {
-	public abstract class TranslationTestHelper<TDerived> : MarshalByRefObject 
-		where TDerived : TranslationTestHelper<TDerived>
+	public abstract class TranslationTestHelper
 	{
 		protected TypeSystem typeSystem;
 		protected GlobalAssemblyResolver resolver;

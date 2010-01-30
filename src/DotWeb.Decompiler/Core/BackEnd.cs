@@ -33,8 +33,7 @@ namespace DotWeb.Decompiler.Core
 			this.Cfg = cfg;
 
 			this.Method = new CodeMethodMember(cfg.Method) {
-				ExternalMethods = cfg.ExternalMethods,
-				Instructions = cfg.Instructions
+				ExternalMethods = cfg.ExternalMethods
 			};
 
 			//foreach (LocalVariableInfo local in cfg.Method.GetMethodBody().LocalVariables) {
@@ -64,22 +63,22 @@ namespace DotWeb.Decompiler.Core
 			bool emptyThen = false;
 			if (bb.IfFollow != Node.NoNode) /* there is a follow */ {
 				/* process the THEN part */
-				Node succ = bb.OutEdges[Node.ThenEdge];
+				Node succ = bb.ThenEdge;
 				if (succ.DfsTraversed != DfsTraversal.Alpha) /* not visited */ {
-					if (succ.DfsLastNumber != bb.IfFollow) /* THEN part */ {
+					if (succ.DfsPostOrder != bb.IfFollow) /* THEN part */ {
 						test = test.Invert();
 						WriteCode((BasicBlock)succ, latchNode, bb.IfFollow, condition.TrueStatements);
 					}
 					else /* empty THEN part => negate ELSE part */ {
-						WriteCode((BasicBlock)bb.OutEdges[Node.ElseEdge], latchNode, bb.IfFollow, condition.TrueStatements);
+						WriteCode((BasicBlock)bb.ElseEdge, latchNode, bb.IfFollow, condition.TrueStatements);
 						emptyThen = true;
 					}
 				}
 
 				/* process the ELSE part */
-				succ = bb.OutEdges[Node.ElseEdge];
+				succ = bb.ElseEdge;
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
-					if (succ.DfsLastNumber != bb.IfFollow) /* ELSE part */ {
+					if (succ.DfsPostOrder != bb.IfFollow) /* ELSE part */ {
 						WriteCode((BasicBlock)succ, latchNode, bb.IfFollow, condition.FalseStatements);
 					}
 				}
@@ -88,15 +87,15 @@ namespace DotWeb.Decompiler.Core
 				}
 
 				/* Continue with the follow */
-				succ = this.Cfg.DfsList[bb.IfFollow];
+				succ = this.Cfg.DepthFirstPostOrder[bb.IfFollow];
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
 					WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
 				}
 			}
 			else /* no follow => if..then..else */ {
 				test = test.Invert();
-				WriteCode((BasicBlock)bb.OutEdges[Node.ThenEdge], latchNode, ifFollow, condition.TrueStatements);
-				WriteCode((BasicBlock)bb.OutEdges[Node.ElseEdge], latchNode, ifFollow, condition.FalseStatements);
+				WriteCode((BasicBlock)bb.ThenEdge, latchNode, ifFollow, condition.TrueStatements);
+				WriteCode((BasicBlock)bb.ElseEdge, latchNode, ifFollow, condition.FalseStatements);
 			}
 
 			condition.Condition = test;
@@ -105,22 +104,22 @@ namespace DotWeb.Decompiler.Core
 		private void WriteLoopInner(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
 			Node succ;
 			if (bb.LoopType == LoopType.While) {
-				succ = bb.OutEdges[Node.ThenEdge];
-				if (succ.DfsLastNumber == bb.LoopFollow) {
-					succ = bb.OutEdges[Node.ElseEdge];
+				succ = bb.ThenEdge;
+				if (succ.DfsPostOrder == bb.LoopFollow) {
+					succ = bb.ElseEdge;
 				}
 			}
 			else {
-				succ = bb.OutEdges.First();
+				succ = bb.Successors.First();
 			}
 
 			if (succ.DfsTraversed != DfsTraversal.Alpha) {
-				WriteCode((BasicBlock)succ, bb.LatchNode.DfsLastNumber, ifFollow, stmts);
+				WriteCode((BasicBlock)succ, bb.LatchNode.DfsPostOrder, ifFollow, stmts);
 			}
 		}
 
 		private void WriteLoopFollow(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
-			Node succ = this.Cfg.DfsList[bb.LoopFollow];
+			Node succ = this.Cfg.DepthFirstPostOrder[bb.LoopFollow];
 			if (succ.DfsTraversed != DfsTraversal.Alpha) {
 				WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
 			}
@@ -135,7 +134,7 @@ namespace DotWeb.Decompiler.Core
 			CodeStatement last = bb.Statements[i];
 			CodeExpressionStatement ces = last as CodeExpressionStatement;
 			CodeExpression test = ces.Expression;
-			if (bb.OutEdges[Node.ElseEdge].DfsLastNumber == bb.LoopFollow) {
+			if (bb.ElseEdge.DfsPostOrder == bb.LoopFollow) {
 				test = test.Invert();
 			}
 
@@ -200,7 +199,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void WriteCode(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
-			if ((ifFollow != Node.NoNode) && (bb == this.Cfg.DfsList[ifFollow])) {
+			if ((ifFollow != Node.NoNode) && (bb == this.Cfg.DepthFirstPostOrder[ifFollow])) {
 				return;
 			}
 			if (bb.DfsTraversed == DfsTraversal.Alpha) {
@@ -216,7 +215,7 @@ namespace DotWeb.Decompiler.Core
 			}
 			else if (bb.FlowControl == FlowControl.Return || 
 				bb.FlowControl == FlowControl.Throw || 
-				bb.DfsLastNumber == latchNode) {
+				bb.DfsPostOrder == latchNode) {
 				WriteBasicBlock(bb, stmts);
 				return;
 			}
@@ -225,7 +224,7 @@ namespace DotWeb.Decompiler.Core
 			}
 			else {
 				WriteBasicBlock(bb, stmts);
-				Node succ = bb.OutEdges.First();
+				Node succ = bb.Successors.First();
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
 					WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
 				}
@@ -244,7 +243,7 @@ namespace DotWeb.Decompiler.Core
 
 			var cases = (Instruction[])bb.LastInstruction.Operand;
 			Dictionary<int, CodeCase> ccDict = new Dictionary<int, CodeCase>();
-			foreach (BasicBlock succ in bb.OutEdges) {
+			foreach (BasicBlock succ in bb.Successors) {
 				CodeCase cc = new CodeCase();
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
 					WriteCode(succ, latchNode, bb.CaseTail, cc.Statements);
@@ -262,7 +261,7 @@ namespace DotWeb.Decompiler.Core
 
 			if (bb.CaseTail != Node.NoNode) {
 				/* Continue with the follow */
-				Node next = this.Cfg.DfsList[bb.CaseTail];
+				Node next = this.Cfg.DepthFirstPostOrder[bb.CaseTail];
 				if (next.DfsTraversed != DfsTraversal.Alpha) {
 					WriteCode((BasicBlock)next, latchNode, ifFollow, stmts);
 				}

@@ -344,7 +344,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeParameterDeclarationExpression exp) {
-			return string.Format("{0} /*{1}*/", EncodeName(exp.Name), EncodeName(exp.Definition.ParameterType.FullName));
+			return string.Format("/*{0}*/ {1}", EncodeName(exp.Definition.ParameterType.FullName), EncodeName(exp.Name));
 		}
 
 		public string VisitReturn(CodeInvokeExpression exp) {

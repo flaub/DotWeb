@@ -1,4 +1,4 @@
-﻿H8.SourceTests.prototype.Switch = function(val /*System.Int32*/) {
+﻿H8.SourceTests.prototype.Switch = function(/*System.Int32*/ val) {
 	System.Console.WriteLine("Hello");
 	var CS$0$0000 = val;
 	switch(CS$0$0000 - 1) {

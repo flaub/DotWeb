@@ -8,7 +8,7 @@ System.Collections.Generic.List$1.prototype.$ctor = function() {
 	return this;
 };
 
-System.Collections.Generic.List$1.prototype.Add = function(item /*T*/) {
+System.Collections.Generic.List$1.prototype.Add = function(/*T*/ item) {
 	this.items.push(item);
 };
 

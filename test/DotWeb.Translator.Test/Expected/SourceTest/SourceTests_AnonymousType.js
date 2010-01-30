@@ -1,7 +1,7 @@
 ﻿__f__AnonymousType0$2 = function() {
 };
 
-__f__AnonymousType0$2.prototype.$ctor = function(Key /*_Key_j__TPar*/, Value /*_Value_j__TPar*/) {
+__f__AnonymousType0$2.prototype.$ctor = function(/*_Key_j__TPar*/ Key, /*_Value_j__TPar*/ Value) {
 	this._Key_i__Field = Key;
 	this._Value_i__Field = Value;
 	return this;
@@ -20,7 +20,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(format /*System.String*/, arg0 /*System.Object*/, arg1 /*System.Object*/) {
+System.Console.WriteLine = function(/*System.String*/ format, /*System.Object*/ arg0, /*System.Object*/ arg1) {
 	console.log(format);
 };
 

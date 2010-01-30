@@ -23,7 +23,7 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class NativeTest : TranslationTestHelper<NativeTest>
+	public class NativeTest : TranslationTestHelper
 	{
 		public NativeTest()
 			: base("DotWeb.Translator.Test.Script", Resources.NativeTest) {

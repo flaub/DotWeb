@@ -39,11 +39,11 @@ H8.SourceTests.prototype.SourceTests_SimpleEvent = function() {
 System.Delegate = function() {
 };
 
-System.Delegate.Combine = function(a /*System.Delegate*/, b /*System.Delegate*/) {
+System.Delegate.Combine = function(/*System.Delegate*/ a, /*System.Delegate*/ b) {
 	throw 'Not Supported';
 };
 
-H8.SourceTests.prototype.Callback = function(del /*H8.SourceTests_SimpleDelegate*/) {
+H8.SourceTests.prototype.Callback = function(/*H8.SourceTests_SimpleDelegate*/ del) {
 	if (del) {
 		del.Invoke();
 	}

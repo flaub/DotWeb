@@ -26,7 +26,7 @@ namespace DotWeb.Translator.Test
 	/// Summary description for DecorationTest
 	/// </summary>
 	[TestFixture]
-	public class SystemTest : TranslationTestHelper<SystemTest>
+	public class SystemTest : TranslationTestHelper
 	{
 		public SystemTest()
 			: base("DotWeb.Translator.Test.Script", Resources.SystemTest) {

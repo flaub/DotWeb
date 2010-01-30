@@ -49,24 +49,24 @@ namespace DotWeb.Decompiler.Core
 				change = false;
 				/* Traverse nodes in postorder, this way, the header node of a
 				 * compound condition is analysed first */
-				for (int i = 0; i < this.Cfg.DfsList.Length; i++) {
-					BasicBlock bb = this.Cfg.DfsList[i];
+				for (int i = 0; i < this.Cfg.DepthFirstPostOrder.Length; i++) {
+					BasicBlock bb = this.Cfg.DepthFirstPostOrder[i];
 
 					if (bb.IsTwoWay) {
-						BasicBlock bbThen = (BasicBlock)bb.OutEdges[Node.ThenEdge];
-						BasicBlock bbElse = (BasicBlock)bb.OutEdges[Node.ElseEdge];
+						BasicBlock bbThen = (BasicBlock)bb.ThenEdge;
+						BasicBlock bbElse = (BasicBlock)bb.ElseEdge;
 
 						if ((bbThen.IsTwoWay) &&
 							(bbThen.Statements.Count == 1) &&
-							(bbThen.InEdges.Count == 1)) {
+							(bbThen.Predecessors.Count == 1)) {
 							/* Check (X || Y) case */
-							if (bbThen.OutEdges[Node.ElseEdge] == bbElse) {
+							if (bbThen.ElseEdge == bbElse) {
 								if (CompoundOr(bb, bbThen, bbElse))
 									i--; // repeat the loop
 								change = true;
 							}
 							/* Check (!X && Y) case */
-							else if (bbThen.OutEdges[Node.ThenEdge] == bbElse) {
+							else if (bbThen.ThenEdge == bbElse) {
 								if (CompoundNotAnd(bb, bbThen, bbElse))
 									i--; // repeat the loop
 								change = true;
@@ -74,13 +74,13 @@ namespace DotWeb.Decompiler.Core
 						}
 						else if ((bbElse.IsTwoWay) &&
 							(bbElse.Statements.Count == 1) &&
-							(bbElse.InEdges.Count == 1)) {
+							(bbElse.Predecessors.Count == 1)) {
 							/* Check (X && Y) case */
-							if (bbElse.OutEdges[Node.ThenEdge] == bbThen) {
+							if (bbElse.ThenEdge == bbThen) {
 								change = CompoundAnd(bb, bbThen, bbElse);
 							}
 							/* Check (!X || Y) case */
-							else if (bbElse.OutEdges[Node.ElseEdge] == bbThen) {
+							else if (bbElse.ElseEdge == bbThen) {
 								change = CompoundNotOr(bb, bbThen, bbElse);
 							}
 						}
@@ -90,7 +90,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool CompoundOr(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			BasicBlock obb = (BasicBlock)bbThen.OutEdges[Node.ThenEdge];
+			BasicBlock obb = (BasicBlock)bbThen.ThenEdge;
 			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
 			CodeExpressionStatement rhs = (CodeExpressionStatement)bbThen.LastStatement;
 
@@ -101,19 +101,19 @@ namespace DotWeb.Decompiler.Core
 				rhs.Expression
 			);
 			/* Replace in-edge to obb from t to pbb */
-			for (int i = 0; i < obb.InEdges.Count; i++) {
-				if (obb.InEdges[i] == bbThen) {
-					obb.InEdges[i] = bb;
+			for (int i = 0; i < obb.Predecessors.Count; i++) {
+				if (obb.Predecessors[i] == bbThen) {
+					obb.Predecessors[i] = bb;
 					break;
 				}
 			}
 			/* New THEN out-edge of pbb */
-			bb.OutEdges[Node.ThenEdge] = obb;
+			bb.ThenEdge = obb;
 
 			/* Remove in-edge t to e */
-			for (int i = 0; i < bbElse.InEdges.Count - 1; i++) {
-				if (bbElse.InEdges[i] == bbThen) {
-					bbElse.InEdges.RemoveAt(i);
+			for (int i = 0; i < bbElse.Predecessors.Count - 1; i++) {
+				if (bbElse.Predecessors[i] == bbThen) {
+					bbElse.Predecessors.RemoveAt(i);
 					break;
 				}
 			}
@@ -121,7 +121,7 @@ namespace DotWeb.Decompiler.Core
 			//bb.InEdgeCount--;
 
 			if (bb.IsLatchNode) {
-				this.Cfg.DfsList[bbThen.DfsLastNumber] = bb;
+				this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
 				return false;
 			}
 
@@ -130,7 +130,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool CompoundNotAnd(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			BasicBlock obb = (BasicBlock)bbThen.OutEdges[Node.ElseEdge];
+			BasicBlock obb = (BasicBlock)bbThen.ElseEdge;
 			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
 			CodeExpressionStatement rhs = (CodeExpressionStatement)bbThen.LastStatement;
 
@@ -142,21 +142,21 @@ namespace DotWeb.Decompiler.Core
 			);
 
 			/* Replace in-edge to obb from t to pbb */
-			for (int i = 0; i < obb.InEdges.Count; i++) {
-				if (obb.InEdges[i] == bbThen) {
-					obb.InEdges[i] = bb;
+			for (int i = 0; i < obb.Predecessors.Count; i++) {
+				if (obb.Predecessors[i] == bbThen) {
+					obb.Predecessors[i] = bb;
 					break;
 				}
 			}
 
 			/* New THEN and ELSE out-edges of pbb */
-			bb.OutEdges[Node.ThenEdge] = bbElse;
-			bb.OutEdges[Node.ElseEdge] = obb;
+			bb.ThenEdge = bbElse;
+			bb.ElseEdge = obb;
 
 			/* Remove in-edge t to e */
-			for (int i = 0; i < (bbElse.InEdges.Count - 1); i++) {
-				if (bbElse.InEdges[i] == bbThen) {
-					bbElse.InEdges.RemoveAt(i);
+			for (int i = 0; i < (bbElse.Predecessors.Count - 1); i++) {
+				if (bbElse.Predecessors[i] == bbThen) {
+					bbElse.Predecessors.RemoveAt(i);
 					break;
 				}
 			}
@@ -164,7 +164,7 @@ namespace DotWeb.Decompiler.Core
 			//bbElse.InEdgeCount--;
 
 			if (bb.IsLatchNode) {
-				this.Cfg.DfsList[bbThen.DfsLastNumber] = bb;
+				this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
 				return false;
 			}
 
@@ -183,9 +183,9 @@ namespace DotWeb.Decompiler.Core
 			bb.DfsTraversed = DfsTraversal.Display;
 
 			Console.WriteLine("{0}: NodeType: {1}, in: {2}, out: {3}",
-				bb.RefName, bb.FlowControl, bb.InEdges.Count, bb.OutEdges.Count);
+				bb.RefName, bb.FlowControl, bb.Predecessors.Count, bb.Successors.Count);
 			Console.WriteLine("dfsFirst: {0}, dfsLast: {1}, immedDom: {2}",
-				bb.DfsFirstNumber, bb.DfsFirstNumber, bb.ImmediateDominator);
+				bb.DfsPreOrder, bb.DfsPreOrder, bb.ImmediateDominator);
 
 			string latch = "(null)";
 			if (bb.LatchNode != null)
@@ -196,7 +196,7 @@ namespace DotWeb.Decompiler.Core
 				bb.IfFollow);
 			Console.WriteLine("----");
 
-			foreach (Node node in bb.OutEdges) {
+			foreach (Node node in bb.Successors) {
 				if (node.DfsTraversed != DfsTraversal.Display)
 					DisplayDfs((BasicBlock)node);
 			}
@@ -209,11 +209,11 @@ namespace DotWeb.Decompiler.Core
 		/// Note: graph should be reducible
 		/// </summary>
 		private void FindImmediateDominator() {
-			Node[] dfsList = this.Cfg.DfsList;
+			Node[] dfsList = this.Cfg.DepthFirstPostOrder;
 			for (int curIndex = 0; curIndex < dfsList.Length; curIndex++) {
 				Node node = dfsList[curIndex];
-				foreach (Node pred in node.InEdges) {
-					int predIndex = pred.DfsLastNumber;
+				foreach (Node pred in node.Predecessors) {
+					int predIndex = pred.DfsPostOrder;
 					if (predIndex < curIndex) {
 						node.ImmediateDominator = CommonDominator(node.ImmediateDominator, predIndex);
 					}
@@ -233,16 +233,16 @@ namespace DotWeb.Decompiler.Core
 			while ((curImmDom != Node.NoDominator) && (predImmDom != Node.NoDominator) &&
 				(curImmDom != predImmDom)) {
 				if (curImmDom < predImmDom)
-					predImmDom = this.Cfg.DfsList[predImmDom].ImmediateDominator;
+					predImmDom = this.Cfg.DepthFirstPostOrder[predImmDom].ImmediateDominator;
 				else
-					curImmDom = this.Cfg.DfsList[curImmDom].ImmediateDominator;
+					curImmDom = this.Cfg.DepthFirstPostOrder[curImmDom].ImmediateDominator;
 			}
 			return curImmDom;
 		}
 
 		private bool IsSuccessor(int successor, int header)
 		{
-			return Cfg.DfsList[header].OutEdges.Any(x => x.DfsLastNumber == successor);
+			return Cfg.DepthFirstPostOrder[header].Successors.Any(x => x.DfsPostOrder == successor);
 		}
 
 		private void StructureCases() {
@@ -251,19 +251,19 @@ namespace DotWeb.Decompiler.Core
 
 			/* Linear scan of the nodes in reverse dfsLast order, searching for
 			 * case nodes                           */
-			for (int i = Cfg.DfsList.Length - 1; i >= 0; i--) {
-				BasicBlock caseHeader = (BasicBlock)Cfg.DfsList[i];
+			for (int i = Cfg.DepthFirstPostOrder.Length - 1; i >= 0; i--) {
+				BasicBlock caseHeader = (BasicBlock)Cfg.DepthFirstPostOrder[i];
 				if (caseHeader.LastInstruction.OpCode != OpCodes.Switch)
 					continue;
 
 				/* Find descendant node which has as immediate predecessor 
 				 * the current header node, and is not a successor.    */
-				for (int j = i + 2; j < Cfg.DfsList.Length; j++) {
-					if (!IsSuccessor(j, i) && Cfg.DfsList[j].ImmediateDominator == i) {
+				for (int j = i + 2; j < Cfg.DepthFirstPostOrder.Length; j++) {
+					if (!IsSuccessor(j, i) && Cfg.DepthFirstPostOrder[j].ImmediateDominator == i) {
 						if (exitNode == Node.NoNode) {
 							exitNode = j;
 						}
-						else if (Cfg.DfsList[exitNode].InEdges.Count < Cfg.DfsList[j].InEdges.Count) {
+						else if (Cfg.DepthFirstPostOrder[exitNode].Predecessors.Count < Cfg.DepthFirstPostOrder[j].Predecessors.Count) {
 							exitNode = j;
 						}
 					}
@@ -275,11 +275,11 @@ namespace DotWeb.Decompiler.Core
 
 				caseNodes.Add(i);
 				caseHeader.CaseHead = i;
-				foreach (BasicBlock node in caseHeader.OutEdges) {
+				foreach (BasicBlock node in caseHeader.Successors) {
 					TagNodesInCase(node, caseNodes, i, exitNode);
 				}
 				if (exitNode != Node.NoNode) {
-					Cfg.DfsList[exitNode].CaseHead = i;
+					Cfg.DepthFirstPostOrder[exitNode].CaseHead = i;
 				}
 			}
 		}
@@ -294,13 +294,13 @@ namespace DotWeb.Decompiler.Core
 		/// <param name="tail"></param>
 		private void TagNodesInCase(BasicBlock node, ICollection<int> list, int head, int tail) {
 			node.DfsTraversed = DfsTraversal.Case;
-			int current = node.DfsLastNumber;
+			int current = node.DfsPostOrder;
 			if ((current != tail) &&
 				(node.LastInstruction.OpCode != OpCodes.Switch) &&
 				list.Contains(node.ImmediateDominator)) {
 				list.Add(current);
 				node.CaseHead = head;
-				foreach (BasicBlock bb in node.OutEdges) {
+				foreach (BasicBlock bb in node.Successors) {
 					if (bb.DfsTraversed != DfsTraversal.Case) {
 						TagNodesInCase(bb, list, head, tail);
 					}
@@ -318,7 +318,7 @@ namespace DotWeb.Decompiler.Core
 		/// <param name="succ"></param>
 		/// <returns></returns>
 		private bool IsBackEdge(Node pred, Node succ) {
-			if (pred.DfsFirstNumber >= succ.DfsFirstNumber) {
+			if (pred.DfsPreOrder >= succ.DfsPreOrder) {
 				succ.BackEdgeCount++;
 				return true;
 			}
@@ -327,23 +327,23 @@ namespace DotWeb.Decompiler.Core
 
 		private void StructureLoops() {
 			int level = 0;
-			foreach (IntervalGraph graph in this.Cfg.Graphs) {
+			foreach (var graph in this.Cfg.Graphs) {
 				level++;
-				foreach (Interval interval in graph) {
-					/* Find nodes that belong to the interval (nodes from G1) */
+				foreach (Interval interval in graph.Nodes) {
+					// Find nodes that belong to the interval (nodes from G1)
 					List<Node> nodes = new List<Node>();
 					interval.CollectNodes(nodes);
 					BasicBlock head = (BasicBlock)nodes.First();
 
 					BasicBlock latchNode = null;
 					/* Find greatest enclosing back edge (if any) */
-					foreach (BasicBlock pred in head.InEdges) {
+					foreach (BasicBlock pred in head.Predecessors) {
 						if (nodes.Contains(pred) && IsBackEdge(pred, head)) {
 							if (latchNode == null) {
 								latchNode = pred;
 							}
 							else {
-								if (pred.DfsLastNumber > latchNode.DfsLastNumber)
+								if (pred.DfsPostOrder > latchNode.DfsPostOrder)
 									latchNode = pred;
 							}
 						}
@@ -373,13 +373,13 @@ namespace DotWeb.Decompiler.Core
 		/// <param name="headerNode"></param>
 		/// <param name="nodes"></param>
 		private void FindNodesInLoop(BasicBlock latchNode, BasicBlock headerNode, List<Node> nodes) {
-			headerNode.LoopHead = headerNode.DfsLastNumber;
+			headerNode.LoopHead = headerNode.DfsPostOrder;
 
 			List<int> loopNodes = new List<int>();
 			loopNodes.Add(headerNode.LoopHead);
 
-			for (int i = headerNode.LoopHead + 1; i < latchNode.DfsLastNumber; i++) {
-				Node node = this.Cfg.DfsList[i];
+			for (int i = headerNode.LoopHead + 1; i < latchNode.DfsPostOrder; i++) {
+				Node node = this.Cfg.DepthFirstPostOrder[i];
 				int immedDom = node.ImmediateDominator;
 				if (loopNodes.Contains(immedDom) && nodes.Contains(node)) {
 					loopNodes.Add(i);
@@ -393,10 +393,10 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void ClassifyLoop(BasicBlock headerNode, BasicBlock latchNode, List<int> loopNodes) {
-			int thenDfs = headerNode.OutEdges[Node.ThenEdge].DfsLastNumber;
+			int thenDfs = headerNode.ThenEdge.DfsPostOrder;
 			int elseDfs = Node.NoNode;
-			if (headerNode.OutEdges.Count > 1)
-				elseDfs = headerNode.OutEdges[Node.ElseEdge].DfsLastNumber;
+			if (headerNode.Successors.Count > 1)
+				elseDfs = headerNode.ElseEdge.DfsPostOrder;
 
 			latchNode.LoopHead = headerNode.LoopHead;
 			if (latchNode.IsTwoWay) {
@@ -405,10 +405,10 @@ namespace DotWeb.Decompiler.Core
 						loopNodes.Contains(thenDfs) &&
 						loopNodes.Contains(elseDfs)) {
 						headerNode.LoopType = LoopType.Repeat;
-						if (latchNode.OutEdges[Node.ThenEdge] == headerNode)
-							headerNode.LoopFollow = latchNode.OutEdges[Node.ElseEdge].DfsLastNumber;
+						if (latchNode.ThenEdge == headerNode)
+							headerNode.LoopFollow = latchNode.ElseEdge.DfsPostOrder;
 						else
-							headerNode.LoopFollow = latchNode.OutEdges[Node.ThenEdge].DfsLastNumber;
+							headerNode.LoopFollow = latchNode.ThenEdge.DfsPostOrder;
 						latchNode.IsLoopNode = true;
 					}
 					else {
@@ -422,10 +422,10 @@ namespace DotWeb.Decompiler.Core
 				}
 				else /* head = anything besides 2-way, latch = 2-way */ {
 					headerNode.LoopType = LoopType.Repeat;
-					if (latchNode.OutEdges[Node.ThenEdge] == headerNode)
-						headerNode.LoopFollow = latchNode.OutEdges[Node.ElseEdge].DfsLastNumber;
+					if (latchNode.ThenEdge == headerNode)
+						headerNode.LoopFollow = latchNode.ElseEdge.DfsPostOrder;
 					else
-						headerNode.LoopFollow = latchNode.OutEdges[Node.ThenEdge].DfsLastNumber;
+						headerNode.LoopFollow = latchNode.ThenEdge.DfsPostOrder;
 					latchNode.IsLoopNode = true;
 				}
 			}
@@ -434,27 +434,27 @@ namespace DotWeb.Decompiler.Core
 					headerNode.LoopType = LoopType.While;
 					Node node = latchNode;
 					while (true) {
-						if (node.DfsLastNumber == thenDfs) {
+						if (node.DfsPostOrder == thenDfs) {
 							headerNode.LoopFollow = elseDfs;
 							break;
 						}
-						else if (node.DfsLastNumber == elseDfs) {
+						else if (node.DfsPostOrder == elseDfs) {
 							headerNode.LoopFollow = thenDfs;
 							break;
 						}
 						/* Check if couldn't find it, then it is a strangely formed
 						 * loop, so it is safer to consider it an endless loop */
-						if (node.DfsLastNumber <= headerNode.DfsLastNumber) {
+						if (node.DfsPostOrder <= headerNode.DfsPostOrder) {
 							headerNode.LoopType = LoopType.Endless;
 							// findEndlessFollow();
 							break;
 						}
 
-						node = this.Cfg.DfsList[node.ImmediateDominator];
+						node = this.Cfg.DepthFirstPostOrder[node.ImmediateDominator];
 					}
 
-					if (node.DfsLastNumber > headerNode.DfsLastNumber) {
-						this.Cfg.DfsList[headerNode.LoopFollow].LoopHead = Node.NoNode;
+					if (node.DfsPostOrder > headerNode.DfsPostOrder) {
+						this.Cfg.DepthFirstPostOrder[headerNode.LoopFollow].LoopHead = Node.NoNode;
 					}
 					headerNode.IsLoopNode = true;
 				}
@@ -466,23 +466,23 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StructureIfs() {
-			int bbCount = this.Cfg.DfsList.Length;
+			int bbCount = this.Cfg.DepthFirstPostOrder.Length;
 			List<int> domDesc = new List<int>();
 			List<int> unresolved = new List<int>();
 
 			/* Linear scan of nodes in reverse dfsLast order */
 			for (int cur = bbCount - 1; cur >= 0; cur--) {
-				BasicBlock curNode = (BasicBlock)this.Cfg.DfsList[cur];
+				BasicBlock curNode = (BasicBlock)this.Cfg.DepthFirstPostOrder[cur];
 				if (curNode.IsTwoWay && !curNode.IsLoopNode) {
 					int followInEdges = 0;
 					int follow = 0;
 
 					/* Find all nodes that have this node as immediate dominator */
 					for (int desc = cur + 1; desc < bbCount; desc++) {
-						Node node = this.Cfg.DfsList[desc];
+						Node node = this.Cfg.DepthFirstPostOrder[desc];
 						if (node.ImmediateDominator == cur) {
 							domDesc.Add(desc);
-							int delta = node.InEdges.Count - node.BackEdgeCount;
+							int delta = node.Predecessors.Count - node.BackEdgeCount;
 							if (delta >= followInEdges) {
 								follow = desc;
 								followInEdges = delta;
@@ -509,7 +509,7 @@ namespace DotWeb.Decompiler.Core
 			while(list.Any())
 			{
 				int index = list.First();
-				this.Cfg.DfsList[index].IfFollow = follow;
+				this.Cfg.DepthFirstPostOrder[index].IfFollow = follow;
 				list.RemoveAt(0);
 			}
 		}

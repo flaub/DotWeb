@@ -3,7 +3,7 @@
 H8.DecorationTests = function() {
 };
 
-H8.DecorationTests.prototype.box_OnMouseOver = function(evt /*DotWeb.Client.Dom.Events.MouseEvent*/) {
+H8.DecorationTests.prototype.box_OnMouseOver = function(/*DotWeb.Client.Dom.Events.MouseEvent*/ evt) {
 };
 
 H8.DecorationTests.prototype.TestCastInterface = function() {

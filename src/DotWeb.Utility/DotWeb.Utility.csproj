@@ -64,6 +64,7 @@
     <Compile Include="NetworkBitConverter.cs" />
     <Compile Include="NetworkReader.cs" />
     <Compile Include="NetworkWriter.cs" />
+    <Compile Include="OrderedSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

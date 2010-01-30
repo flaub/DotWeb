@@ -3,15 +3,15 @@
 H8.OuterClassTest = function() {
 };
 
-H8.OuterClassTest.prototype.set_Text = function(value /*System.String*/) {
+H8.OuterClassTest.prototype.set_Text = function(/*System.String*/ value) {
 	this._Text_k__BackingField = value;
 };
 
-H8.OuterClassTest.prototype.set_Value = function(value /*System.Int32*/) {
+H8.OuterClassTest.prototype.set_Value = function(/*System.Int32*/ value) {
 	this.m_value = value;
 };
 
-H8.OuterClassTest.prototype.$ctor = function(text /*System.String*/, value /*System.Int32*/) {
+H8.OuterClassTest.prototype.$ctor = function(/*System.String*/ text, /*System.Int32*/ value) {
 	this.set_Text(text);
 	this.set_Value(value);
 	return this;
@@ -34,7 +34,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(format /*System.String*/, arg0 /*System.Object*/, arg1 /*System.Object*/) {
+System.Console.WriteLine = function(/*System.String*/ format, /*System.Object*/ arg0, /*System.Object*/ arg1) {
 	console.log(format);
 };
 

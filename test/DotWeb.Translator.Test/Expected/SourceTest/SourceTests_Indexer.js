@@ -12,7 +12,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value /*System.Object*/) {
+System.Console.WriteLine = function(/*System.Object*/ value) {
 	console.log(value);
 };
 

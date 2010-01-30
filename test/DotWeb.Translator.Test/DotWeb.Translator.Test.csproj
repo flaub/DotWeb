@@ -50,6 +50,20 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Conditions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Conditions.resx</DependentUpon>
+    </Compile>
+    <None Include="Script\Conditions.cs" />
+    <Compile Include="ConditionsTest.cs" />
+    <Compile Include="Loops.Designer.cs">
+      <DependentUpon>Loops.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="LoopsTest.cs" />
+    <None Include="Script\Loops.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
@@ -68,6 +82,20 @@
     <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\Conditions\SimpleIfAndNot.js" />
+    <Content Include="Expected\Conditions\SimpleIfNotAndNot.js" />
+    <Content Include="Expected\Conditions\SimpleIfOrNot.js" />
+    <Content Include="Expected\Conditions\SimpleIfNotOrNot.js" />
+    <Content Include="Expected\Conditions\SimpleIfNotAnd.js" />
+    <Content Include="Expected\Conditions\SimpleIfNotOr.js" />
+    <Content Include="Expected\Conditions\SimpleIfElseIf.js" />
+    <Content Include="Expected\Conditions\SimpleIfIf.js" />
+    <Content Include="Expected\Conditions\NullCoalesce.js" />
+    <Content Include="Expected\Conditions\ReturnNestedTernary.js" />
+    <Content Include="Expected\Conditions\ReturnTernary.js" />
+    <Content Include="Expected\Conditions\SimpleIfElse.js" />
+    <Content Include="Expected\Conditions\SimpleIf.js" />
+    <Content Include="Expected\Conditions\SimpleIfAnd.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsArray.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
@@ -76,11 +104,15 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\Loops\BreakInWhile.js" />
+    <Content Include="Expected\Loops\WhileCondBreak.js" />
+    <Content Include="Expected\Loops\WhileBreak.js" />
+    <Content Include="Expected\Loops\NestedDoWhile.js" />
+    <Content Include="Expected\Loops\SimpleWhile.js" />
+    <Content Include="Expected\Loops\SimpleDoWhile.js" />
+    <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
-    <Content Include="Expected\SourceTest\SourceTests_TestCompoundNotOr.js" />
-    <Content Include="Expected\SourceTest\SourceTests_TestCompoundNotAnd.js" />
-    <Content Include="Expected\SourceTest\SourceTests_TestCompoundOr.js" />
-    <Content Include="Expected\SourceTest\SourceTests_TestCompoundAnd.js" />
+    <Content Include="Expected\Conditions\SimpleIfOr.js" />
     <Content Include="Expected\SourceTest\SourceTests_TestGenericNested.js" />
     <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />
     <Content Include="Expected\SourceTest\SourceTests_Callback.js" />
@@ -89,21 +121,12 @@
     <Content Include="Expected\SourceTest\SourceTests_Cifuentes.js" />
     <Content Include="Expected\SourceTest\SourceTests_CreateInnerObject.js" />
     <Content Include="Expected\SourceTest\SourceTests_CreateOuterObject.js" />
-    <Content Include="Expected\SourceTest\SourceTests_DoWhileLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_EnumArray.js" />
-    <Content Include="Expected\SourceTest\SourceTests_ForLoop.js" />
     <Content Include="Expected\SourceTest\SourceTests_HelloWorld.js" />
-    <Content Include="Expected\SourceTest\SourceTests_If.js" />
-    <Content Include="Expected\SourceTest\SourceTests_IfElse.js" />
-    <Content Include="Expected\SourceTest\SourceTests_IfElseIf.js" />
-    <Content Include="Expected\SourceTest\SourceTests_IfIf.js" />
     <Content Include="Expected\SourceTest\SourceTests_Indexer.js" />
     <Content Include="Expected\SourceTest\SourceTests_Linq.js" />
     <Content Include="Expected\SourceTest\SourceTests_Switch.js" />
     <Content Include="Expected\SourceTest\SourceTests_TakeParameters.js" />
-    <Content Include="Expected\SourceTest\SourceTests_WhileBreakLoop.js" />
-    <Content Include="Expected\SourceTest\SourceTests_WhileCondBreakLoop.js" />
-    <Content Include="Expected\SourceTest\SourceTests_WhileLoop.js" />
     <Content Include="Expected\SystemTest\SystemTest_TestList.js" />
     <Content Include="Expected\SystemTest\SystemTest_TestDerivedThruBaseIndirect.js" />
     <Content Include="Expected\SystemTest\SystemTest_TestDerivedThruBase.js" />
@@ -129,6 +152,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Conditions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Conditions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Loops.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Loops.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
