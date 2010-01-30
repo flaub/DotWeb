@@ -57,6 +57,7 @@
     </Compile>
     <None Include="Script\Conditions.cs" />
     <Compile Include="ConditionsTest.cs" />
+    <Compile Include="IntervalTests.cs" />
     <Compile Include="Loops.Designer.cs">
       <DependentUpon>Loops.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -28,7 +28,6 @@ namespace DotWeb.Decompiler.Core
 {
 	class ControlFlowGraph
 	{
-		//private int intervalIdGenerator = 1;
 		private readonly CodeModelVirtualMachine context = new CodeModelVirtualMachine();
 
 		public MethodDefinition Method { get; private set; }
@@ -130,63 +129,6 @@ namespace DotWeb.Decompiler.Core
 			this.DepthFirstPostOrder = new BasicBlock[this.BasicGraph.Nodes.Count];
 			this.Root.DfsNumbering(this.DepthFirstPostOrder, ref first, ref last);
 		}
-
-		//private void DeriveSequences() {
-		//    this.Graphs = new List<IntervalGraph>();
-		//    Node root = this.Root;
-
-		//    IntervalGraph intervals;
-		//    int graphId = 1;
-		//    do {
-		//        intervals = FindIntervals(graphId++, root);
-		//        this.Graphs.Add(intervals);
-		//        root = intervals.First();
-		//    }
-		//    while (intervals.Count > 1);
-		//}
-
-		/// <summary>
-		/// Finds the intervals of graph derivedGi->Gi and places them in the list 
-		/// of intervals derivedGi->Ii.
-		/// Algorithm by M.S.Hecht.
-		/// </summary>
-		/// <returns></returns>
-		//private IntervalGraph FindIntervals(int graphId, Node root) {
-		//    IntervalGraph intervals = new IntervalGraph(graphId);
-		//    var headers = new List<Node>();
-
-		//    //headers.Enqueue(root);
-		//    headers.Add(root);
-		//    root.BeenOnHeaders = true;
-		//    //root.ReachingInterval = new Node(-1);
-
-		//    /* Process header nodes list H */
-		//    while (headers.Any()) {
-		//        Node header = headers.Dequeue();
-
-		//        Interval interval = new Interval(intervalIdGenerator++);
-		//        interval.Process(headers, header);
-
-		//        intervals.Add(interval);
-		//    }
-
-		//    ResolveLinks(intervals);
-		//    return intervals;
-		//}
-
-		//private void ResolveLinks(IntervalGraph intervals) {
-		//    foreach (Interval interval in intervals.Where(x => x.ExternalEdgeCount > 0)) {
-		//        foreach (Node node in interval.Nodes) {
-		//            foreach (Node succ in node.Successors) {
-		//                if (succ.Interval != node.Interval) {
-		//                    interval.Successors.Add(succ.Interval);
-		//                    //succ.Interval.AddPredecessor(interval);
-		//                    succ.Interval.Predecessors.Add(interval);
-		//                }
-		//            }
-		//        }
-		//    }
-		//}
 
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
