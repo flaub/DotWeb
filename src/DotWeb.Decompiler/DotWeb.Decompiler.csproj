@@ -113,7 +113,6 @@
     <Compile Include="Core\MethodBodyReader.cs" />
     <Compile Include="Core\Node.cs" />
     <Compile Include="MethodDecompiler.cs" />
-    <Compile Include="ProgramContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
