@@ -1,7 +1,0 @@
-﻿public void SimpleFor(int a)
-{
-	for (int V_0 = 0; V_0 < 10; V_0++)
-	{
-		a++;
-	}
-}

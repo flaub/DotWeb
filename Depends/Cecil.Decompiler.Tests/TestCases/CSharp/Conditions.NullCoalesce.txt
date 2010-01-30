@@ -1,4 +1,0 @@
-﻿public string NullCoalesce(string s)
-{
-	return s ?? "nil";
-}

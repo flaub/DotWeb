@@ -1,4 +1,0 @@
-﻿public Bar AsBar(object o)
-{
-	return o as Bar;
-}

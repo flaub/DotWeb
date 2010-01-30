@@ -1,4 +1,0 @@
-﻿public Type TypeOf()
-{
-	return typeof(object);
-}

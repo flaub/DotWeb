@@ -1,4 +1,0 @@
-﻿public bool IsBar(object o)
-{
-	return o is Bar;
-}

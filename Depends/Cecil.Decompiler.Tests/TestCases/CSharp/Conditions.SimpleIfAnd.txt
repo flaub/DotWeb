@@ -1,7 +1,0 @@
-﻿public void SimpleIfAnd(int a)
-{
-	if ((a < 12) && (a > 2))
-	{
-		a = 42;
-	}
-}
