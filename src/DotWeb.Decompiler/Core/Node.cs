@@ -91,6 +91,7 @@ namespace DotWeb.Decompiler.Core
 		public int DfsPreOrder { get; set; }
 		public int DfsPostOrder { get; set; }
 		public DfsTraversal DfsTraversed { get; set; }
+		public bool IsInvalid { get; set; }
 		#endregion
 
 		#region Structure
@@ -124,10 +125,13 @@ namespace DotWeb.Decompiler.Core
 			this.IsLoopNode = false;
 			this.CaseHead = NoNode;
 			this.CaseTail = NoNode;
+			this.IsInvalid = false;
 		}
 
 		public virtual void CollectNodes(List<Node> nodes) {
-			nodes.Add(this);
+			if (!IsInvalid) {
+				nodes.Add(this);
+			}
 		}
 
 		/// <summary>

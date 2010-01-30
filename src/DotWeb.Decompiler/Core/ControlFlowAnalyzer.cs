@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil.Cil;
+using DotWeb.Utility;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -37,8 +38,9 @@ namespace DotWeb.Decompiler.Core
 				StructureCases();
 			}
 			StructureLoops();
-			StructureIfs();
+
 			CompoundConditions();
+			StructureIfs();
 
 			//DisplayDfs(this.Cfg.Root);
 		}
@@ -52,7 +54,7 @@ namespace DotWeb.Decompiler.Core
 				for (int i = 0; i < this.Cfg.DepthFirstPostOrder.Length; i++) {
 					BasicBlock bb = this.Cfg.DepthFirstPostOrder[i];
 
-					if (bb.IsTwoWay) {
+					if (!bb.IsInvalid && bb.IsTwoWay) {
 						BasicBlock bbThen = (BasicBlock)bb.Successors[1];
 						BasicBlock bbElse = (BasicBlock)bb.Successors[0];
 
@@ -97,6 +99,8 @@ namespace DotWeb.Decompiler.Core
 			// Remove in-edge bbElse to bbThen
 			bbThen.Predecessors.Remove(bbElse);
 
+			bbElse.IsInvalid = true;
+
 			if (bb.IsLatchNode) {
 				this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
 				return false;
@@ -125,6 +129,8 @@ namespace DotWeb.Decompiler.Core
 
 			// Remove in-edge bbElse to bbThen
 			bbThen.Predecessors.Remove(bbElse);
+
+			bbElse.IsInvalid = true;
 
 			if (bb.IsLatchNode) {
 				this.Cfg.DepthFirstPostOrder[bbElse.DfsPostOrder] = bb;
@@ -421,22 +427,23 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StructureIfs() {
-			int bbCount = this.Cfg.DepthFirstPostOrder.Length;
-			List<int> domDesc = new List<int>();
-			List<int> unresolved = new List<int>();
+			var bbCount = this.Cfg.DepthFirstPostOrder.Length;
+			var unresolved = new List<Node>();
 
-			/* Linear scan of nodes in reverse dfsLast order */
+			// Linear scan of nodes in reverse dfsLast order
 			for (int cur = bbCount - 1; cur >= 0; cur--) {
 				BasicBlock curNode = (BasicBlock)this.Cfg.DepthFirstPostOrder[cur];
+				if (curNode.IsInvalid)
+					continue;
+
 				if (curNode.IsTwoWay && !curNode.IsLoopNode) {
 					int followInEdges = 0;
 					int follow = 0;
 
-					/* Find all nodes that have this node as immediate dominator */
+					// Find all nodes that have this node as immediate dominator
 					for (int desc = cur + 1; desc < bbCount; desc++) {
 						Node node = this.Cfg.DepthFirstPostOrder[desc];
 						if (node.ImmediateDominator == cur) {
-							domDesc.Add(desc);
 							int delta = node.Predecessors.Count - node.BackEdgeCount;
 							if (delta >= followInEdges) {
 								follow = desc;
@@ -445,8 +452,8 @@ namespace DotWeb.Decompiler.Core
 						}
 					}
 				
-					/* Determine follow according to number of descendants
-					 * immediately dominated by this node  */
+					// Determine follow according to number of descendants 
+					// immediately dominated by this node 
 					if ((follow != 0) && (followInEdges > 1)) {
 						curNode.IfFollow = follow;
 						if (unresolved.Any()) {
@@ -454,18 +461,16 @@ namespace DotWeb.Decompiler.Core
 						}
 					}
 					else {
-						unresolved.Add(cur);
+						unresolved.Add(curNode);
 					}
 				}
 			}
 		}
 
-		private void FlagNodes(List<int> list, int follow) {
-			while(list.Any())
-			{
-				int index = list.First();
-				this.Cfg.DepthFirstPostOrder[index].IfFollow = follow;
-				list.RemoveAt(0);
+		private void FlagNodes(List<Node> list, int follow) {
+			while (list.Any()) {
+				var node = list.Dequeue();
+				node.IfFollow = follow;
 			}
 		}
 	}
