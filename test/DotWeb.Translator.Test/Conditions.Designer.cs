@@ -74,6 +74,46 @@ namespace DotWeb.Translator.Test {
         ///};
         ///.
         /// </summary>
+        internal static string IfAndAnd {
+            get {
+                return ResourceManager.GetString("IfAndAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfAndOr {
+            get {
+                return ResourceManager.GetString("IfAndOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
         internal static string IfGreaterAnd {
             get {
                 return ResourceManager.GetString("IfGreaterAnd", resourceCulture);
@@ -101,9 +141,9 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
         ///	var ret = 0;
-        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///	if ((x &gt; 1) || (y &gt; 1)) {
         ///		ret = 1;
         ///	}
         ///	else {
@@ -161,9 +201,9 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.IfLessAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///   Looks up a localized string similar to Conditions.prototype.IfLessOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
         ///	var ret = 0;
-        ///	if ((x &lt; 1) &amp;&amp; (y &lt; 1)) {
+        ///	if ((x &lt; 1) || (y &lt; 1)) {
         ///		ret = 1;
         ///	}
         ///	else {
@@ -177,6 +217,46 @@ namespace DotWeb.Translator.Test {
         internal static string IfLessOr {
             get {
                 return ResourceManager.GetString("IfLessOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfOrAnd {
+            get {
+                return ResourceManager.GetString("IfOrAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfOrOr {
+            get {
+                return ResourceManager.GetString("IfOrOr", resourceCulture);
             }
         }
         

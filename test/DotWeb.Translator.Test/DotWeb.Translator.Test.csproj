@@ -82,6 +82,10 @@
     <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\Conditions\IfAndOr.js" />
+    <Content Include="Expected\Conditions\IfAndAnd.js" />
+    <Content Include="Expected\Conditions\IfOrAnd.js" />
+    <Content Include="Expected\Conditions\IfOrOr.js" />
     <Content Include="Expected\Conditions\IfLessOr.js" />
     <Content Include="Expected\Conditions\IfGreaterOr.js" />
     <Content Include="Expected\Conditions\IfGreaterAndLess.js" />

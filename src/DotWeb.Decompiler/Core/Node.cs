@@ -81,10 +81,6 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		public void RemovePredecessor(Node search) {
-			for (int i = 0; i < this.Predecessors.Count; i++) {
-			}
-		}
 		#endregion
 
 		#region Interval Construction

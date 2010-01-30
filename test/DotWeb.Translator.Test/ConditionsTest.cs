@@ -29,23 +29,49 @@ namespace DotWeb.Translator.Test
 			: base("DotWeb.Translator.Test.Script", "H8.Conditions", Conditions.ResourceManager) {
 		}
 
-		[Test] public void SimpleIf() { this.RunTest(); }
-		[Test] public void SimpleIfIf() { this.RunTest(); }
-		[Test] public void SimpleIfElse() { this.RunTest(); }
-		[Test] public void SimpleIfElseIf() { this.RunTest(); }
-		[Test] public void SimpleIfAnd() { this.RunTest(); }
-		[Test] public void SimpleIfAndNot() { this.RunTest(); }
-		[Test] public void SimpleIfNotAnd() { this.RunTest(); }
-		[Test] public void SimpleIfNotAndNot() { this.RunTest(); }
-		[Test] public void SimpleIfOr() { this.RunTest(); }
-		[Test] public void SimpleIfOrNot() { this.RunTest(); }
-		[Test] public void SimpleIfNotOr() { this.RunTest(); }
-		[Test] public void SimpleIfNotOrNot() { this.RunTest(); }
-		[Test] public void IfGreaterAnd() { this.RunTest(); }
-		[Test] public void IfLessAnd() { this.RunTest(); }
-		[Test] public void IfGreaterOr() { this.RunTest(); }
-		[Test] public void IfLessOr() { this.RunTest(); }
-		[Test] public void IfGreaterAndLess() { this.RunTest(); }
-		[Test] public void IfLessAndGreater() { this.RunTest(); }
+		[Test]
+		public void SimpleIf() { this.RunTest(); }
+		[Test]
+		public void SimpleIfIf() { this.RunTest(); }
+		[Test]
+		public void SimpleIfElse() { this.RunTest(); }
+		[Test]
+		public void SimpleIfElseIf() { this.RunTest(); }
+		[Test]
+		public void SimpleIfAnd() { this.RunTest(); }
+		[Test]
+		public void SimpleIfAndNot() { this.RunTest(); }
+		[Test]
+		public void SimpleIfNotAnd() { this.RunTest(); }
+		[Test]
+		public void SimpleIfNotAndNot() { this.RunTest(); }
+		[Test]
+		public void SimpleIfOr() { this.RunTest(); }
+		[Test]
+		public void SimpleIfOrNot() { this.RunTest(); }
+		[Test]
+		public void SimpleIfNotOr() { this.RunTest(); }
+		[Test]
+		public void SimpleIfNotOrNot() { this.RunTest(); }
+		[Test]
+		public void IfGreaterAnd() { this.RunTest(); }
+		[Test]
+		public void IfLessAnd() { this.RunTest(); }
+		[Test]
+		public void IfGreaterOr() { this.RunTest(); }
+		[Test]
+		public void IfLessOr() { this.RunTest(); }
+		[Test]
+		public void IfGreaterAndLess() { this.RunTest(); }
+		[Test]
+		public void IfLessAndGreater() { this.RunTest(); }
+		[Test]
+		public void IfOrOr() { this.RunTest(); }
+		[Test]
+		public void IfAndOr() { this.RunTest(); }
+		[Test]
+		public void IfOrAnd() { this.RunTest(); }
+		[Test]
+		public void IfAndAnd() { this.RunTest(); }
 	}
 }

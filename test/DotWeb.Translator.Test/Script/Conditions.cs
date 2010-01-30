@@ -223,5 +223,53 @@ namespace H8
 		public string NullCoalesce(string s) {
 			return s ?? "nil";
 		}
+
+		public int IfOrOr(bool x, bool y, bool z) {
+			int ret = 0;
+			if (x || y || z) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfAndOr(bool x, bool y, bool z) {
+			int ret = 0;
+			if (x && y || z) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfOrAnd(bool x, bool y, bool z) {
+			int ret = 0;
+			if (x || y && z) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfAndAnd(bool x, bool y, bool z) {
+			int ret = 0;
+			if (x && y && z) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
 	}
 }

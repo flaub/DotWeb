@@ -23,48 +23,18 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class LoopsTest : TranslationTestHelper
+	public class LoopsTest : TestBase
 	{
-		private TypeDefinition sourceTestsCompiledType;
-
 		public LoopsTest()
-			: base("DotWeb.Translator.Test.Script", Loops.Source) {
-			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.Loops"];
+			: base("DotWeb.Translator.Test.Script", "H8.Loops", Loops.ResourceManager) {
 		}
 
-		[Test]
-		public void SimpleFor() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleFor", Loops.SimpleFor);
-		}
-
-		[Test]
-		public void SimpleDoWhile() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleDoWhile", Loops.SimpleDoWhile);
-		}
-
-		[Test]
-		public void SimpleWhile() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleWhile", Loops.SimpleWhile);
-		}
-
-		[Test]
-		public void NestedDoWhile() {
-			this.TestMethod(this.sourceTestsCompiledType, "NestedDoWhile", Loops.NestedDoWhile);
-		}
-
-		[Test]
-		public void BreakInWhile() {
-			this.TestMethod(this.sourceTestsCompiledType, "BreakInWhile", Loops.BreakInWhile);
-		}
-
-		[Test]
-		public void WhileBreak() {
-			this.TestMethod(this.sourceTestsCompiledType, "WhileBreak", Loops.WhileBreak);
-		}
-
-		[Test]
-		public void WhileCondBreak() {
-			this.TestMethod(this.sourceTestsCompiledType, "WhileCondBreak", Loops.WhileCondBreak);
-		}
+		[Test] public void SimpleFor() { this.RunTest(); }
+		[Test] public void SimpleDoWhile() { this.RunTest(); }
+		[Test] public void SimpleWhile() { this.RunTest(); }
+		[Test] public void NestedDoWhile() { this.RunTest(); }
+		[Test] public void BreakInWhile() { this.RunTest(); }
+		[Test] public void WhileBreak() { this.RunTest(); }
+		[Test] public void WhileCondBreak() { this.RunTest(); }
 	}
 }
