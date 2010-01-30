@@ -102,9 +102,9 @@
 				<File Id="DotWeb.Web.Mvc.xml"
 					  Source="$(var.DotWeb.Web.Mvc.TargetDir)$(var.DotWeb.Web.Mvc.TargetName).xml"/>
 			</Component>
-			<Component Id="DotWeb.Tools.Weaver" Guid="{8B39016F-5A87-4665-BD33-C6D42E5A6E55}" Directory="INSTALLDIR">
-				<File Id="DotWeb.Tools.Weaver" KeyPath="yes" Checksum="yes"
-					  Source="$(var.DotWeb.Tools.Weaver.TargetPath)"/>
+			<Component Id="DotWeb.Hosting.Weaver" Guid="{8B39016F-5A87-4665-BD33-C6D42E5A6E55}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Hosting.Weaver" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Hosting.Weaver.TargetPath)"/>
 			</Component>
 		</ComponentGroup>
 

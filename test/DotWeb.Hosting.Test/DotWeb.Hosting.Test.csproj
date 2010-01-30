@@ -80,7 +80,7 @@
       <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
       <Name>Hosted-DotWeb.System</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\tools\DotWeb.Tools.Weaver\DotWeb.Hosting.Weaver.csproj">
+    <ProjectReference Include="..\..\src\DotWeb.Hosting.Weaver\DotWeb.Hosting.Weaver.csproj">
       <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
       <Name>DotWeb.Hosting.Weaver</Name>
     </ProjectReference>

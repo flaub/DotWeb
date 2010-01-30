@@ -59,9 +59,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosted-DotWeb.System", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Test.Script", "test\DotWeb.Hosting.Test.Script\DotWeb.Hosting.Test.Script.csproj", "{4AE3435E-B364-4362-9911-ACAEDC6E1A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Weaver", "tools\DotWeb.Tools.Weaver\DotWeb.Hosting.Weaver.csproj", "{DE8A6C27-B315-41E3-82BF-7A3741C7653D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Hosting.Weaver", "src\DotWeb.Hosting.Weaver\DotWeb.Hosting.Weaver.csproj", "{DE8A6C27-B315-41E3-82BF-7A3741C7653D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWebWeaver", "tools\DotWebWeaver\DotWebWeaver.csproj", "{63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWebWeaver", "src\DotWebWeaver\DotWebWeaver.csproj", "{63D7BDD6-78BE-46B8-9BD3-E2026E34F4CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWeb.Weaver.Test.Script", "test\DotWeb.Weaver.Test.Script\DotWeb.Weaver.Test.Script.csproj", "{A3E6A831-894F-45BB-967D-68695685A4EE}"
 EndProject

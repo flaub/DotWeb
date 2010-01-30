@@ -68,6 +68,11 @@
       <Project>{cdb3dd8e-7178-42a5-ba0e-f0fabc627b46}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Hosting.Weaver\DotWeb.Hosting.Weaver.csproj">
+      <Name>DotWeb.Hosting.Weaver</Name>
+      <Project>{de8a6c27-b315-41e3-82bf-7a3741c7653d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\src\DotWeb.Hosting\DotWeb.Hosting.csproj">
       <Name>DotWeb.Hosting</Name>
       <Project>{9004e34c-2d35-40ee-be98-c1aed18081cf}</Project>
@@ -101,11 +106,6 @@
     <ProjectReference Include="..\src\DotWeb.Web\DotWeb.Web.csproj">
       <Name>DotWeb.Web</Name>
       <Project>{81320140-ba96-4316-af77-34cd16952db0}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\tools\DotWeb.Tools.Weaver\DotWeb.Hosting.Weaver.csproj">
-      <Name>DotWeb.Hosting.Weaver</Name>
-      <Project>{de8a6c27-b315-41e3-82bf-7a3741c7653d}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
