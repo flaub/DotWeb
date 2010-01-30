@@ -61,6 +61,126 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfGreaterAnd {
+            get {
+                return ResourceManager.GetString("IfGreaterAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAndLess = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &lt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfGreaterAndLess {
+            get {
+                return ResourceManager.GetString("IfGreaterAndLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfGreaterAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &gt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfGreaterOr {
+            get {
+                return ResourceManager.GetString("IfGreaterOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfLessAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &lt; 1) &amp;&amp; (y &lt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfLessAnd {
+            get {
+                return ResourceManager.GetString("IfLessAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfLessAndGreater = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &lt; 1) &amp;&amp; (y &gt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfLessAndGreater {
+            get {
+                return ResourceManager.GetString("IfLessAndGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.prototype.IfLessAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+        ///	var ret = 0;
+        ///	if ((x &lt; 1) &amp;&amp; (y &lt; 1)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfLessOr {
+            get {
+                return ResourceManager.GetString("IfLessOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.SimpleIfOr = function(/*System.Int32*/ a) {
         ///	if ((a == 12) || (a == 14)) {
         ///		a = 42;
@@ -117,14 +237,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((!x) &amp;&amp; (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfAnd = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((x) &amp;&amp; (y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -135,14 +257,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((!x) &amp;&amp; (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfAndNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((x) &amp;&amp; (!y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -209,14 +333,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((x) &amp;&amp; (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotAnd = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((!x) &amp;&amp; (y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -227,14 +353,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((x) &amp;&amp; (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotAndNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((!x) &amp;&amp; (!y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -245,14 +373,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((x) || (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotOr = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((!x) || (y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -263,14 +393,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((x) || (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfNotOrNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((!x) || (!y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -281,14 +413,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((!x) || (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfOr = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((x) || (y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>
@@ -299,14 +433,16 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfOr = function(/*System.Int32*/ x, /*System.Int32*/ y) {
-        ///	if ((!x) || (!y)) {
-        ///		x = 42;
+        ///   Looks up a localized string similar to Conditions.prototype.SimpleIfOrNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((x) || (!y)) {
+        ///		ret = 1;
         ///	}
         ///	else {
-        ///		x = 1;
+        ///		ret = 2;
         ///	}
-        ///	y = 2;
+        ///	ret = ret + 1;
+        ///	return ret;
         ///};
         ///.
         /// </summary>

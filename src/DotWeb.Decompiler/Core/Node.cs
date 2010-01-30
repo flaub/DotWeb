@@ -48,23 +48,12 @@ namespace DotWeb.Decompiler.Core
 		public const int NoNode = -1;
 		public const int NoDominator = -1;
 
-		//public const int ThenEdge = 0;
-		//public const int ElseEdge = 1;
-
 		public int Id { get; set; }
 
 		public abstract string FullName { get; }
-		//    get {
-		//        string[] values = this.Nodes.Select(x => x.RefName).ToArray();
-		//        string line = string.Join(", ", values);
-		//        return string.Format("{0}: {1}", this.RefName, line);
-		//    } 
-		//}
 
 		public virtual string RefName {
-			get {
-				return string.Format("{0}{1}", this.GetType().Name[0], Id);
-			}
+			get { return string.Format("{0}{1}", this.GetType().Name[0], Id); }
 		}
 
 		public virtual FlowControl FlowControl { get { return FlowControl.Next; } }
@@ -82,11 +71,23 @@ namespace DotWeb.Decompiler.Core
 			get { return this.Successors[1]; }
 			set { this.Successors[1] = value; }
 		}
+
+		public void ReplacePredecessorsWith(Node search, Node replace) {
+			for (int i = 0; i < this.Predecessors.Count; i++) {
+				if (this.Predecessors[i] == search) {
+					this.Predecessors[i] = replace;
+					break;
+				}
+			}
+		}
+
+		public void RemovePredecessor(Node search) {
+			for (int i = 0; i < this.Predecessors.Count; i++) {
+			}
+		}
 		#endregion
 
 		#region Interval Construction
-		//public bool BeenOnHeaders { get; set; }
-		//public Node ReachingInterval { get; set; }
 		public Interval Interval { get; set; }
 		#endregion
 
@@ -114,7 +115,6 @@ namespace DotWeb.Decompiler.Core
 			this.Id = -1;
 			this.Predecessors = new List<Node>();
 			this.Successors = new List<Node>();
-			//this.BeenOnHeaders = false;
 			this.DfsPreOrder = 0;
 			this.DfsPostOrder = 0;
 			this.DfsTraversed = DfsTraversal.None;

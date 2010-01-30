@@ -379,21 +379,26 @@ namespace DotWeb.Translator.Generator.JavaScript
 			CodePrimitiveExpression cpe = exp.Right as CodePrimitiveExpression;
 			if (cpe != null && cpe.Value is bool) {
 				bool test = (bool)cpe.Value;
-				if (test &&
-					(exp.Operator != CodeBinaryOperator.IdentityEquality ||
-					exp.Operator == CodeBinaryOperator.IdentityInequality)) {
-					// convert '(x) != true' => '!(x)'
+				if ((test && exp.Operator == CodeBinaryOperator.IdentityEquality) ||
+					(!test && exp.Operator == CodeBinaryOperator.IdentityInequality)) {
+					// (x == true) -> (x)
+					// (x != false) -> (x)
+					return EncloseParens(exp.Left);
+				}
+				else if ((test && exp.Operator == CodeBinaryOperator.IdentityInequality) ||
+					(!test && exp.Operator == CodeBinaryOperator.IdentityEquality)) {
+					// (x != true) -> !(x)
+					// (x == false) -> !(x)
 					return string.Format("!{0}", EncloseParens(exp.Left));
 				}
 				else {
-					// convert 'x == true' => '(x)'
-					return EncloseParens(exp.Left);
+					throw new NotSupportedException();
 				}
 			}
 			else {
-				return string.Format("{0} {1} {2}", 
-					EncloseParens(exp.Left), 
-					Print(exp.Operator), 
+				return string.Format("{0} {1} {2}",
+					EncloseParens(exp.Left),
+					Print(exp.Operator),
 					EncloseParens(exp.Right)
 				);
 			}

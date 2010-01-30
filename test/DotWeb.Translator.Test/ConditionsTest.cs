@@ -23,73 +23,29 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class ConditionsTest : TranslationTestHelper
+	public class ConditionsTest : TestBase
 	{
-		private TypeDefinition sourceTestsCompiledType;
-
 		public ConditionsTest()
-			: base("DotWeb.Translator.Test.Script", Conditions.Source) {
-			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.Conditions"];
+			: base("DotWeb.Translator.Test.Script", "H8.Conditions", Conditions.ResourceManager) {
 		}
 
-		[Test]
-		public void SimpleIf() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIf", Conditions.SimpleIf);
-		}
-
-		[Test]
-		public void SimpleIfIf() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfIf", Conditions.SimpleIfIf);
-		}
-
-		[Test]
-		public void SimpleIfElse() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfElse", Conditions.SimpleIfElse);
-		}
-
-		[Test]
-		public void SimpleIfElseIf() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfElseIf", Conditions.SimpleIfElseIf);
-		}
-
-		[Test]
-		public void SimpleIfAnd() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfAnd", Conditions.SimpleIfAnd);
-		}
-
-		[Test]
-		public void SimpleIfAndNot() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfAndNot", Conditions.SimpleIfAndNot);
-		}
-
-		[Test]
-		public void SimpleIfNotAnd() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfNotAnd", Conditions.SimpleIfNotAnd);
-		}
-
-		[Test]
-		public void SimpleIfNotAndNot() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfNotAndNot", Conditions.SimpleIfNotAndNot);
-		}
-
-		[Test]
-		public void SimpleIfOr() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfOr", Conditions.SimpleIfOr);
-		}
-
-		[Test]
-		public void SimpleIfOrNot() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfOrNot", Conditions.SimpleIfOrNot);
-		}
-
-		[Test]
-		public void SimpleIfNotOr() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfNotOr", Conditions.SimpleIfNotOr);
-		}
-
-		[Test]
-		public void SimpleIfNotOrNot() {
-			this.TestMethod(this.sourceTestsCompiledType, "SimpleIfNotOrNot", Conditions.SimpleIfNotOrNot);
-		}
+		[Test] public void SimpleIf() { this.RunTest(); }
+		[Test] public void SimpleIfIf() { this.RunTest(); }
+		[Test] public void SimpleIfElse() { this.RunTest(); }
+		[Test] public void SimpleIfElseIf() { this.RunTest(); }
+		[Test] public void SimpleIfAnd() { this.RunTest(); }
+		[Test] public void SimpleIfAndNot() { this.RunTest(); }
+		[Test] public void SimpleIfNotAnd() { this.RunTest(); }
+		[Test] public void SimpleIfNotAndNot() { this.RunTest(); }
+		[Test] public void SimpleIfOr() { this.RunTest(); }
+		[Test] public void SimpleIfOrNot() { this.RunTest(); }
+		[Test] public void SimpleIfNotOr() { this.RunTest(); }
+		[Test] public void SimpleIfNotOrNot() { this.RunTest(); }
+		[Test] public void IfGreaterAnd() { this.RunTest(); }
+		[Test] public void IfLessAnd() { this.RunTest(); }
+		[Test] public void IfGreaterOr() { this.RunTest(); }
+		[Test] public void IfLessOr() { this.RunTest(); }
+		[Test] public void IfGreaterAndLess() { this.RunTest(); }
+		[Test] public void IfLessAndGreater() { this.RunTest(); }
 	}
 }

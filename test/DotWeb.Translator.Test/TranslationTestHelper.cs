@@ -26,6 +26,8 @@ using System.Linq;
 using System.Collections.Generic;
 using DotWeb.Utility.Cecil;
 using DotWeb.Utility;
+using System.Resources;
+using System.Diagnostics;
 
 namespace DotWeb.Translator.Test
 {
@@ -94,5 +96,23 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected AssemblyDefinition CompiledAssembly;
+	}
+
+	public abstract class TestBase : TranslationTestHelper
+	{
+		protected TypeDefinition sourceCompiledType;
+		protected ResourceManager resource;
+
+		public TestBase(string asmName, string typeName, ResourceManager resource)
+			: base(asmName, resource.GetString("Source")) {
+			this.resource = resource;
+			this.sourceCompiledType = this.CompiledAssembly.MainModule.Types[typeName];
+		}
+
+		public void RunTest() {
+			var frame = new StackFrame(1);
+			var name = frame.GetMethod().Name;
+			this.TestMethod(this.sourceCompiledType, name, resource.GetString(name));
+		}
 	}
 }

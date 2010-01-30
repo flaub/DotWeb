@@ -53,35 +53,20 @@ namespace DotWeb.Decompiler.Core
 					BasicBlock bb = this.Cfg.DepthFirstPostOrder[i];
 
 					if (bb.IsTwoWay) {
-						BasicBlock bbThen = (BasicBlock)bb.ThenEdge;
-						BasicBlock bbElse = (BasicBlock)bb.ElseEdge;
+						BasicBlock bbThen = (BasicBlock)bb.Successors[1];
+						BasicBlock bbElse = (BasicBlock)bb.Successors[0];
 
-						if ((bbThen.IsTwoWay) &&
-							(bbThen.Statements.Count == 1) &&
-							(bbThen.Predecessors.Count == 1)) {
-							/* Check (X || Y) case */
-							if (bbThen.ElseEdge == bbElse) {
+						if (bbElse.IsTwoWay &&
+							bbElse.Predecessors.Count == 1) {
+							if (bbElse.Successors[1] == bbThen) {
+								if (CompoundAnd(bb, bbThen, bbElse))
+									i--;
+								change = true;
+							}
+							else if (bbElse.Successors[0] == bbThen) {
 								if (CompoundOr(bb, bbThen, bbElse))
-									i--; // repeat the loop
+									i--;
 								change = true;
-							}
-							/* Check (!X && Y) case */
-							else if (bbThen.ThenEdge == bbElse) {
-								if (CompoundNotAnd(bb, bbThen, bbElse))
-									i--; // repeat the loop
-								change = true;
-							}
-						}
-						else if ((bbElse.IsTwoWay) &&
-							(bbElse.Statements.Count == 1) &&
-							(bbElse.Predecessors.Count == 1)) {
-							/* Check (X && Y) case */
-							if (bbElse.ThenEdge == bbThen) {
-								change = CompoundAnd(bb, bbThen, bbElse);
-							}
-							/* Check (!X || Y) case */
-							else if (bbElse.ElseEdge == bbThen) {
-								change = CompoundNotOr(bb, bbThen, bbElse);
 							}
 						}
 					}
@@ -90,78 +75,27 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool CompoundOr(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			BasicBlock obb = (BasicBlock)bbThen.ThenEdge;
+			BasicBlock finalThen = (BasicBlock)bbElse.Successors[1];
 			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
-			CodeExpressionStatement rhs = (CodeExpressionStatement)bbThen.LastStatement;
+			CodeExpressionStatement rhs = (CodeExpressionStatement)bbElse.LastStatement;
 
-			/* Construct compound DBL_OR expression */
-			lhs.Expression = new CodeBinaryExpression(
-				lhs.Expression,
-				CodeBinaryOperator.BooleanOr,
-				rhs.Expression
-			);
-			/* Replace in-edge to obb from t to pbb */
-			for (int i = 0; i < obb.Predecessors.Count; i++) {
-				if (obb.Predecessors[i] == bbThen) {
-					obb.Predecessors[i] = bb;
-					break;
-				}
-			}
-			/* New THEN out-edge of pbb */
-			bb.ThenEdge = obb;
-
-			/* Remove in-edge t to e */
-			for (int i = 0; i < bbElse.Predecessors.Count - 1; i++) {
-				if (bbElse.Predecessors[i] == bbThen) {
-					bbElse.Predecessors.RemoveAt(i);
-					break;
-				}
-			}
-
-			//bb.InEdgeCount--;
-
-			if (bb.IsLatchNode) {
-				this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
-				return false;
-			}
-
-			// continue analysis
-			return true;
-		}
-
-		private bool CompoundNotAnd(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			BasicBlock obb = (BasicBlock)bbThen.ElseEdge;
-			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
-			CodeExpressionStatement rhs = (CodeExpressionStatement)bbThen.LastStatement;
-
-			/* Construct compound DBL_AND expression */
+			// Build an AND because the BackEnd will invert it later
 			lhs.Expression = new CodeBinaryExpression(
 				lhs.Expression.Invert(),
 				CodeBinaryOperator.BooleanAnd,
 				rhs.Expression
 			);
 
-			/* Replace in-edge to obb from t to pbb */
-			for (int i = 0; i < obb.Predecessors.Count; i++) {
-				if (obb.Predecessors[i] == bbThen) {
-					obb.Predecessors[i] = bb;
-					break;
-				}
-			}
+			// Replace in-edge to finalThen from bbElse to bb
+			finalThen.ReplacePredecessorsWith(bbElse, bb);
 
-			/* New THEN and ELSE out-edges of pbb */
-			bb.ThenEdge = bbElse;
-			bb.ElseEdge = obb;
+			// New THEN out-edge of bb
+			bb.Successors[1] = finalThen;
+			// New ELSE out-edge of bb
+			bb.Successors[0] = bbThen;
 
-			/* Remove in-edge t to e */
-			for (int i = 0; i < (bbElse.Predecessors.Count - 1); i++) {
-				if (bbElse.Predecessors[i] == bbThen) {
-					bbElse.Predecessors.RemoveAt(i);
-					break;
-				}
-			}
-
-			//bbElse.InEdgeCount--;
+			// Remove in-edge bbElse to bbThen
+			bbThen.Predecessors.Remove(bbElse);
 
 			if (bb.IsLatchNode) {
 				this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
@@ -172,11 +106,32 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool CompoundAnd(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			throw new NotImplementedException();
-		}
+			BasicBlock finalElse = (BasicBlock)bbElse.Successors[0];
+			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
+			CodeExpressionStatement rhs = (CodeExpressionStatement)bbElse.LastStatement;
 
-		private bool CompoundNotOr(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
-			throw new NotImplementedException();
+			// Build an OR because the BackEnd will invert it later
+			lhs.Expression = new CodeBinaryExpression(
+				lhs.Expression,
+				CodeBinaryOperator.BooleanOr,
+				rhs.Expression
+			);
+
+			// Replace in-edge to finalElse from bbElse to bb
+			finalElse.ReplacePredecessorsWith(bbElse, bb);
+
+			// New ELSE out-edge of bb
+			bb.Successors[0] = finalElse;
+
+			// Remove in-edge bbElse to bbThen
+			bbThen.Predecessors.Remove(bbElse);
+
+			if (bb.IsLatchNode) {
+				this.Cfg.DepthFirstPostOrder[bbElse.DfsPostOrder] = bb;
+				return false;
+			}
+
+			return true;
 		}
 
 		private void DisplayDfs(BasicBlock bb) {

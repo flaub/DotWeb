@@ -112,6 +112,78 @@ namespace H8
 			return ret;
 		}
 
+		public int IfGreaterAnd(int x, int y) {
+			int ret = 0;
+			if (x > 1 && y > 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfLessAnd(int x, int y) {
+			int ret = 0;
+			if (x < 1 && y < 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfGreaterOr(int x, int y) {
+			int ret = 0;
+			if (x > 1 || y > 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfLessOr(int x, int y) {
+			int ret = 0;
+			if (x < 1 || y < 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfLessAndGreater(int x, int y) {
+			int ret = 0;
+			if (x < 1 && y > 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
+		public int IfGreaterAndLess(int x, int y) {
+			int ret = 0;
+			if (x > 1 && y < 1) {
+				ret = 1;
+			}
+			else {
+				ret = 2;
+			}
+			ret++;
+			return ret;
+		}
+
 		public int SimpleIfNotAnd(bool x, bool y) {
 			int ret = 0;
 			if (!x && y) {

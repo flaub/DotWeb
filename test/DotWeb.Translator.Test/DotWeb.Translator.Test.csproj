@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\build\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -82,6 +82,12 @@
     <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\Conditions\IfLessOr.js" />
+    <Content Include="Expected\Conditions\IfGreaterOr.js" />
+    <Content Include="Expected\Conditions\IfGreaterAndLess.js" />
+    <Content Include="Expected\Conditions\IfLessAndGreater.js" />
+    <Content Include="Expected\Conditions\IfLessAnd.js" />
+    <Content Include="Expected\Conditions\IfGreaterAnd.js" />
     <Content Include="Expected\Conditions\SimpleIfAndNot.js" />
     <Content Include="Expected\Conditions\SimpleIfNotAndNot.js" />
     <Content Include="Expected\Conditions\SimpleIfOrNot.js" />
