@@ -23,6 +23,7 @@ using DotWeb.Utility;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using DotWeb.Utility.Cecil;
+using System.Diagnostics;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -62,6 +63,8 @@ namespace DotWeb.Decompiler.Core
 		private void CreateBlocks(Dictionary<int, BasicBlock> blocksByOffset) {
 			BasicBlock lastBlock = null;
 			foreach (Instruction cil in Method.Body.Instructions) {
+				Debug.Assert(cil.OpCode.FlowControl != FlowControl.Break);
+
 				if (cil.OpCode.OperandType == OperandType.InlineSwitch)
 					this.HasCases = true;
 
@@ -85,6 +88,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void Merge(BasicBlock bb) {
 			while (bb.FlowControl != FlowControl.Cond_Branch &&
+				bb.FlowControl != FlowControl.Branch &&
 				bb.FlowControl != FlowControl.Return &&
 				bb.FlowControl != FlowControl.Throw) {
 				BasicBlock next = (BasicBlock)bb.Successors.First();
@@ -132,18 +136,15 @@ namespace DotWeb.Decompiler.Core
 
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
-			if (Graphs != null) {
-				foreach (BasicBlock block in this.BasicGraph.Nodes) {
-					sb.AppendLine(block.ToString());
-				}
+			foreach (BasicBlock block in this.BasicGraph.Nodes) {
+				sb.AppendLine(block.ToStringDetails());
 			}
-			else {
-				int i = 0;
-				foreach (var graph in Graphs) {
-					sb.AppendFormat("Level: {0}\n", i++);
-					foreach (var interval in graph.Nodes) {
-						sb.AppendLine(interval.ToString());
-					}
+
+			int i = 0;
+			foreach (var graph in Graphs) {
+				sb.AppendFormat("Level: {0}\n", i++);
+				foreach (var interval in graph.Nodes) {
+					sb.AppendLine(interval.ToString());
 				}
 			}
 			return sb.ToString();

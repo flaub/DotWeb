@@ -287,9 +287,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StructureLoops() {
-			int level = 0;
 			foreach (var graph in this.Cfg.Graphs) {
-				level++;
 				foreach (Interval interval in graph.Nodes) {
 					// Find nodes that belong to the interval (nodes from G1)
 					List<Node> nodes = new List<Node>();
@@ -350,6 +348,11 @@ namespace DotWeb.Decompiler.Core
 				}
 			}
 
+			latchNode.LoopHead = headerNode.LoopHead;
+			if (latchNode != headerNode) {
+				loopNodes.Add(latchNode.DfsPostOrder);
+			}
+
 			ClassifyLoop(headerNode, latchNode, loopNodes);
 		}
 
@@ -359,7 +362,6 @@ namespace DotWeb.Decompiler.Core
 			if (headerNode.Successors.Count > 1)
 				elseDfs = headerNode.ElseEdge.DfsPostOrder;
 
-			latchNode.LoopHead = headerNode.LoopHead;
 			if (latchNode.IsTwoWay) {
 				if ((headerNode.IsTwoWay) || (latchNode == headerNode)) {
 					if ((latchNode == headerNode) ||
@@ -407,7 +409,7 @@ namespace DotWeb.Decompiler.Core
 						 * loop, so it is safer to consider it an endless loop */
 						if (node.DfsPostOrder <= headerNode.DfsPostOrder) {
 							headerNode.LoopType = LoopType.Endless;
-							// findEndlessFollow();
+							FindEndlessFollow(loopNodes, headerNode);
 							break;
 						}
 
@@ -421,7 +423,21 @@ namespace DotWeb.Decompiler.Core
 				}
 				else {
 					headerNode.LoopType = LoopType.Endless;
-					// findEndlessFollow();
+					FindEndlessFollow(loopNodes, headerNode);
+				}
+			}
+		}
+
+		private void FindEndlessFollow(List<int> loopNodes, BasicBlock head) {
+			head.LoopFollow = int.MaxValue;
+
+			foreach (var i in loopNodes) {
+				var node = this.Cfg.DepthFirstPostOrder[i];
+				foreach (var succ in node.Successors) {
+					if (!loopNodes.Contains(succ.DfsPostOrder) &&
+						(succ.DfsPostOrder < head.LoopFollow)) {
+						head.LoopFollow = succ.DfsPostOrder;
+					}
 				}
 			}
 		}

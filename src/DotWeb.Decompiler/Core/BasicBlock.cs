@@ -22,6 +22,7 @@ using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil.Cil;
 using Mono.Cecil;
 using DotWeb.Utility.Cecil;
+using System.Text;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -33,6 +34,18 @@ namespace DotWeb.Decompiler.Core
 				return string.Format("{0}: {1:0000} - {2}", this.RefName, BeginOffset, il.DisplayString());
 			}
 		}
+
+		public string ToStringDetails() {
+			var sb = new StringBuilder(this.ToString());
+			sb.AppendLine();
+			foreach (var cil in this.Instructions) {
+				sb.Append("\t");
+				sb.Append(cil.DisplayString());
+				sb.AppendLine();
+			}
+			return sb.ToString();
+		}
+
 
 		public List<CodeStatement> Statements { get; private set; }
 

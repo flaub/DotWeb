@@ -28,10 +28,11 @@ namespace DotWeb.Decompiler
 	public static class MethodDecompiler
 	{
 		public static CodeMethodMember Parse(TypeSystem typeHierarchy, MethodDefinition method) {
-			Console.WriteLine(method);
-
 			var cfg = new ControlFlowGraph(typeHierarchy, method);
+#if DEBUG
+			Console.WriteLine(method);
 			Console.WriteLine(cfg);
+#endif
 
 			var cfa = new ControlFlowAnalyzer(cfg);
 			cfa.Structure();

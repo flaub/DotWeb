@@ -172,6 +172,20 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
+		public void WhileBreak() {
+			var builder = new GraphBuilder(4);
+			builder.Connect(1, 2);
+			builder.Connect(2, 3);
+			builder.Connect(3, 2);
+			builder.Connect(2, 4);
+			builder.Test(
+				"L1, i1, n1", 
+				"L1, i2, n2, n3, n4", 
+				"L2, i1, n1, n2, n3, n4"
+			);
+		}
+
+		[Test]
 		public void DragonBook() {
 			// Taken from the Dragon book, Page 661, Example 10.30, Fig. 10.45
 			var builder = new GraphBuilder(10);

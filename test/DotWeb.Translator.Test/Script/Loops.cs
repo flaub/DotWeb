@@ -42,11 +42,12 @@ namespace H8
 		public void BreakInWhile(int a) {
 			while (a < 100) {
 				if (a == 12) {
-					Console.WriteLine(a);
+					Console.WriteLine("break");
 					break;
 				}
-				else
-					Console.WriteLine(a);
+				else {
+					Console.WriteLine("else");
+				}
 
 				a--;
 			}
@@ -56,27 +57,28 @@ namespace H8
 		public void WhileBreak() {
 			int i = 0;
 			while (true) {
+				i = 20;
 				if (i == 10) {
-					Console.WriteLine(i);
+					Console.WriteLine("break");
 					break;
 				}
-				Console.WriteLine(i);
+				Console.WriteLine("loop");
 				i++;
 			}
-			Console.WriteLine(i);
+			Console.WriteLine("exit");
 		}
 
 		public void WhileCondBreak() {
 			int i = 0;
 			while (i < 9) {
 				if (i == 10) {
-					Console.WriteLine(i);
+					Console.WriteLine("break");
 					break;
 				}
-				Console.WriteLine(i);
+				Console.WriteLine("loop");
 				i++;
 			}
-			Console.WriteLine(i);
+			Console.WriteLine("exit");
 		}
 	}
 }
