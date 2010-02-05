@@ -83,8 +83,100 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.ComplexLoop = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string ComplexLoop {
+            get {
+                return ResourceManager.GetString("ComplexLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.ComplexNestedLoop = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string ComplexNestedLoop {
+            get {
+                return ResourceManager.GetString("ComplexNestedLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.MultiReturns = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string MultiReturns {
+            get {
+                return ResourceManager.GetString("MultiReturns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.MultiReturns2 = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string MultiReturns2 {
+            get {
+                return ResourceManager.GetString("MultiReturns2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.NestedDoWhile = function(/*System.Int32*/ a) {
-        ///	while (a &lt; 100) {
+        ///	while(a &lt; 100) {
         ///		do {
         ///			a = a * 10;
         ///		} while(a &lt; 10);
@@ -191,13 +283,17 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loops.prototype.SimpleWhile = function(/*System.Int32*/ a) {
-        ///	System.Console.WriteLine(a);
-        ///	while(a &lt; 100) {
-        ///		a = a + 1;
-        ///		System.Console.WriteLine(a);
+        ///   Looks up a localized string similar to Loops.prototype.WhileBreak = function() {
+        ///	var i = 0;
+        ///	while(true) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///		i = i + 1;
         ///	}
-        ///	System.Console.WriteLine(a);
+        ///	System.Console.WriteLine(i);
         ///};
         ///.
         /// </summary>
@@ -208,13 +304,40 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loops.prototype.SimpleWhile = function(/*System.Int32*/ a) {
-        ///	System.Console.WriteLine(a);
-        ///	while(a &lt; 100) {
-        ///		a = a + 1;
-        ///		System.Console.WriteLine(a);
+        ///   Looks up a localized string similar to Loops.prototype.WhileBreak = function() {
+        ///	var i = 0;
+        ///	while(true) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///		i = i + 1;
         ///	}
-        ///	System.Console.WriteLine(a);
+        ///	System.Console.WriteLine(i);
+        ///};
+        ///.
+        /// </summary>
+        internal static string WhileBreakBreak {
+            get {
+                return ResourceManager.GetString("WhileBreakBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.WhileCondBreak = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
         ///};
         ///.
         /// </summary>

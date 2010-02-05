@@ -99,6 +99,8 @@
     <Compile Include="CodeModel\Statement\CodeThrowStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeVariableDeclarationStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeWhileStatement.cs" />
+    <Compile Include="CodeModel\Statement\CodeBreakStatement.cs" />
+    <Compile Include="CodeModel\Statement\CodeContinueStatement.cs" />
     <Compile Include="CodeModel\Statement\ICodeStatementVisitor.cs" />
     <Compile Include="Core\BackEnd.cs" />
     <Compile Include="Core\BasicBlock.cs" />
@@ -107,9 +109,11 @@
     <Compile Include="Core\CodeModelVirtualMachine.cs" />
     <Compile Include="Core\ControlFlowAnalyzer.cs" />
     <Compile Include="Core\ControlFlowGraph.cs" />
+    <Compile Include="Core\ControlFlowGraphBuilder.cs" />
     <Compile Include="Core\Graph.cs" />
     <Compile Include="Core\ILInstruction.cs" />
     <Compile Include="Core\Interval.cs" />
+    <Compile Include="Core\Loop.cs" />
     <Compile Include="Core\MethodBodyReader.cs" />
     <Compile Include="Core\Node.cs" />
     <Compile Include="MethodDecompiler.cs" />

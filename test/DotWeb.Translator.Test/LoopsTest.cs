@@ -29,12 +29,37 @@ namespace DotWeb.Translator.Test
 			: base("DotWeb.Translator.Test.Script", "H8.Loops", Loops.ResourceManager) {
 		}
 
-		[Test] public void SimpleFor() { this.RunTest(); }
-		[Test] public void SimpleDoWhile() { this.RunTest(); }
-		[Test] public void SimpleWhile() { this.RunTest(); }
-		[Test] public void NestedDoWhile() { this.RunTest(); }
-		[Test] public void BreakInWhile() { this.RunTest(); }
-		[Test] public void WhileBreak() { this.RunTest(); }
-		[Test] public void WhileCondBreak() { this.RunTest(); }
+		[Test]
+		public void SimpleFor() { this.RunTest(); }
+		[Test]
+		public void SimpleDoWhile() { this.RunTest(); }
+		[Test]
+		public void SimpleWhile() { this.RunTest(); }
+		[Test]
+		public void NestedDoWhile() { this.RunTest(); }
+		[Test]
+		public void BreakInWhile() { this.RunTest(); }
+		[Test]
+		public void WhileBreak() { this.RunTest(); }
+		[Test]
+		public void WhileCondBreak() { this.RunTest(); }
+		[Test]
+		public void WhileBreakBreak() { this.RunTest(); }
+		[Test]
+		public void WhileContinue() { this.RunTest(); }
+		[Test]
+		public void WhileCondContinue() { this.RunTest(); }
+		[Test]
+		public void WhileBreakContinue() { this.RunTest(); }
+		[Test]
+		public void EndlessLoop() { this.RunTest(); }
+		[Test]
+		public void ComplexLoop() { this.RunTest(); }
+		[Test]
+		public void ComplexNestedLoop() { this.RunTest(); }
+		[Test]
+		public void MultiReturns() { this.RunTest(); }
+		[Test]
+		public void MultiReturns2() { this.RunTest(); }
 	}
 }

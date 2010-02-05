@@ -29,109 +29,28 @@ namespace DotWeb.Decompiler.Core
 {
 	class ControlFlowGraph
 	{
-		private readonly CodeModelVirtualMachine context = new CodeModelVirtualMachine();
+		private readonly CodeModelGenerator generator;
 
 		public MethodDefinition Method { get; private set; }
 		public BasicBlock Root { get { return (BasicBlock)this.BasicGraph.Root; } }
-		public List<Graph> Graphs { get; private set; }
+		public List<Graph> Sequences { get; private set; }
 		public BasicBlock[] DepthFirstPostOrder { get; private set; }
 		public bool HasCases { get; private set; }
-		public HashSet<MethodReference> ExternalMethods { get; private set; }
+		public HashSet<MethodReference> ExternalMethods { get { return this.generator.ExternalMethods; } }
 		public Graph BasicGraph { get; private set; }
 
 		public ControlFlowGraph(TypeSystem typeSystem, MethodDefinition method) {
 			this.Method = method;
-			this.BasicGraph = new Graph(null);
 			this.HasCases = false;
 
-			var blocksByOffset = new Dictionary<int, BasicBlock>();
+			this.generator = new CodeModelGenerator(typeSystem, method);
 
-			CreateBlocks(blocksByOffset);
-			ResolveBranches(blocksByOffset);
-			Merge(this.Root);
-
-			this.BasicGraph.Nodes.RemoveAll((Node node) => {
-				return node.DfsTraversed != DfsTraversal.Merge;
-			});
+			var builder = new ControlFlowGraphBuilder(method);
+			this.BasicGraph = builder.CreateGraph();
 
 			DfsNumbering();
-			this.Graphs = this.BasicGraph.DeriveSequences();
-			this.Root.GenerateCodeModel(typeSystem, this.context);
-			this.ExternalMethods = this.context.ExternalMethods;
-		}
-
-		private void CreateBlocks(Dictionary<int, BasicBlock> blocksByOffset) {
-			BasicBlock lastBlock = null;
-			foreach (Instruction cil in Method.Body.Instructions) {
-				Debug.Assert(cil.OpCode.FlowControl != FlowControl.Break);
-
-				if (cil.OpCode.OperandType == OperandType.InlineSwitch)
-					this.HasCases = true;
-
-				var block = new BasicBlock(Method);
-				block.Instructions.Add(cil);
-				blocksByOffset.Add(block.BeginOffset, block);
-				this.BasicGraph.AddNode(block);
-
-				if (lastBlock != null) {
-					var flow = lastBlock.FlowControl;
-					if (flow != FlowControl.Return && 
-						flow != FlowControl.Branch &&
-						flow != FlowControl.Throw) {
-						this.BasicGraph.Connect(lastBlock, block);
-					}
-				}
-
-				lastBlock = block;
-			}
-		}
-
-		private void Merge(BasicBlock bb) {
-			while (bb.FlowControl != FlowControl.Cond_Branch &&
-				bb.FlowControl != FlowControl.Branch &&
-				bb.FlowControl != FlowControl.Return &&
-				bb.FlowControl != FlowControl.Throw) {
-				BasicBlock next = (BasicBlock)bb.Successors.First();
-				if (next.Predecessors.Count != 1)
-					break;
-
-				this.BasicGraph.Merge(bb, next);
-
-				bb.Instructions.AddRange(next.Instructions);
-			}
-			bb.DfsTraversed = DfsTraversal.Merge;
-
-			foreach (BasicBlock next in bb.Successors) {
-				if (next.DfsTraversed != DfsTraversal.Merge) {
-					Merge(next);
-				}
-			}
-		}
-
-		/// <summary>
-		/// resolve branches into in/out edges
-		/// </summary>
-		private void ResolveBranches(Dictionary<int, BasicBlock> blocksByOffset) {
-			var branchBlocks = blocksByOffset.Values.Where(x => x.LastInstruction.IsBranch());
-			foreach (BasicBlock bb in branchBlocks) {
-				if (bb.LastInstruction.OpCode.OperandType == OperandType.InlineSwitch) {
-					var targets = (Instruction[])bb.LastInstruction.Operand;
-					foreach (var target in targets) {
-						this.BasicGraph.Connect(bb, blocksByOffset[target.Offset]);
-					}
-				}
-				else {
-					var target = (Instruction)bb.LastInstruction.Operand;
-					this.BasicGraph.Connect(bb, blocksByOffset[target.Offset]);
-				}
-			}
-		}
-
-		private void DfsNumbering() {
-			int first = 0;
-			int last = this.BasicGraph.Nodes.Count - 1;
-			this.DepthFirstPostOrder = new BasicBlock[this.BasicGraph.Nodes.Count];
-			this.Root.DfsNumbering(this.DepthFirstPostOrder, ref first, ref last);
+			this.Sequences = this.BasicGraph.DeriveSequences();
+			GenerateCodeModel();
 		}
 
 		public override string ToString() {
@@ -141,7 +60,7 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			int i = 0;
-			foreach (var graph in Graphs) {
+			foreach (var graph in Sequences) {
 				sb.AppendFormat("Level: {0}\n", i++);
 				foreach (var interval in graph.Nodes) {
 					sb.AppendLine(interval.ToString());
@@ -149,5 +68,52 @@ namespace DotWeb.Decompiler.Core
 			}
 			return sb.ToString();
 		}
+
+		public void PrintDot() {
+			Console.WriteLine("digraph G {");
+			Console.WriteLine("\tgraph [label=\"{0}\"];", this.Method);
+			var first = this.Sequences.First();
+
+			foreach (Interval interval in first.Nodes) {
+				Console.WriteLine("\tsubgraph cluster_{0} {{", interval.RefName);
+				Console.WriteLine("\t\tgraph [label=\"{0}\"];", interval.RefName);
+				var nodes = new List<Node>();
+				interval.CollectNodes(nodes);
+				foreach (BasicBlock block in nodes) {
+					Console.WriteLine("\t\t{0} [label=\"{0} (#{1}) (^{2})\\n{3}\"];", 
+						block.RefName, 
+						block.DfsIndex,
+						block.ImmediateDominatorNode == null ? "" : block.ImmediateDominatorNode.RefName,
+						block.LastInstruction.OpCode);
+				}
+				Console.WriteLine("\t}");
+			}
+
+			foreach (var block in this.BasicGraph.Nodes) {
+				foreach (var succ in block.Successors) {
+					Console.WriteLine("\t{0} -> {1};", block.RefName, succ.RefName);
+				}
+			}
+
+			Console.WriteLine("}");
+		}
+
+		public void Structure() {
+		}
+
+		private void GenerateCodeModel() {
+			this.BasicGraph.DepthFirstTraversal((Node node) => {
+				// Accumulate statements into node.Statements
+				this.generator.ProcessBlock((BasicBlock)node);
+			});
+		}
+
+		private void DfsNumbering() {
+			int first = 0;
+			int last = this.BasicGraph.Nodes.Count - 1;
+			this.DepthFirstPostOrder = new BasicBlock[this.BasicGraph.Nodes.Count];
+			this.Root.DfsNumbering(this.DepthFirstPostOrder, ref first, ref last);
+		}
+
 	}
 }

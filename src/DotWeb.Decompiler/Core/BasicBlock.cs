@@ -26,7 +26,7 @@ using System.Text;
 
 namespace DotWeb.Decompiler.Core
 {
-	class BasicBlock : Node
+	public class BasicBlock : Node
 	{
 		public override string FullName {
 			get {
@@ -45,7 +45,6 @@ namespace DotWeb.Decompiler.Core
 			}
 			return sb.ToString();
 		}
-
 
 		public List<CodeStatement> Statements { get; private set; }
 
@@ -81,21 +80,6 @@ namespace DotWeb.Decompiler.Core
 
 		public bool IsMultiWay {
 			get { return LastInstruction.IsMultiWay(); }
-		}
-
-		public void GenerateCodeModel(TypeSystem typeHierarchy, CodeModelVirtualMachine context) {
-			// Iterate thru the instructions in this basic block 
-			// The production of statements goes into this.Statements
-			new CodeModelGenerator(typeHierarchy, this.method, context, this.Instructions, this.Statements);
-			this.DfsTraversed = DfsTraversal.CodeDom;
-
-			// Depth-first traversal into other basic blocks
-			// Accumulate statements into this.Statements
-			foreach (BasicBlock next in this.Successors) {
-				if (next.DfsTraversed != DfsTraversal.CodeDom) {
-					next.GenerateCodeModel(typeHierarchy, context);
-				}
-			}
 		}
 	}
 }

@@ -118,43 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BreakInWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\breakinwhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="NullBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\graphbuildertest\nullblock.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="ComplexLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\complexloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="OneBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\graphbuildertest\oneblock.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="ComplexNestedLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\complexnestedloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="MultiReturns" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\multireturns.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="MultiReturns2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\multireturns2.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="NestedDoWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\nesteddowhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SimpleDoWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\simpledowhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SimpleFor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\simplefor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SimpleWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\simplewhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SimpleIf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\graphbuildertest\simpleif.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>script\loops.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>script\graphbuildertest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="WhileBreak" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\whilebreak.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="WhileBreakBreak" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\whilebreakbreak.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="WhileCondBreak" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\loops\whilecondbreak.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\graphbuildertest\whilebreak.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

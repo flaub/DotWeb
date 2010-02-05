@@ -55,6 +55,7 @@
     <Compile Include="AssemblyQualifiedTypeName.cs" />
     <Compile Include="AssociatedProperty.cs" />
     <Compile Include="AttributeExtensions.cs" />
+    <Compile Include="BitVector.cs" />
     <Compile Include="Cecil\GlobalAssemblyResolver.cs" />
     <Compile Include="Cecil\MethodReferenceExtenstions.cs" />
     <Compile Include="Cecil\TypeDefinitionCache.cs" />

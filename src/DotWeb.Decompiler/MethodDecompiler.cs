@@ -37,6 +37,10 @@ namespace DotWeb.Decompiler
 			var cfa = new ControlFlowAnalyzer(cfg);
 			cfa.Structure();
 
+#if DEBUG
+			cfg.PrintDot();
+#endif
+
 			var be = new BackEnd(cfg);
 			be.WriteCode();
 

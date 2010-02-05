@@ -28,21 +28,25 @@ using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
-	class CodeModelGenerator
+	public class CodeModelGenerator
 	{
-		private readonly CodeModelVirtualMachine vm;
 		private readonly MethodDefinition method;
-		private readonly TypeSystem typeHierarchy;
-
+		private readonly TypeSystem typeSystem;
+		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
 		private List<CodeStatement> statements;
 
-		public CodeModelGenerator(TypeSystem typeHierarchy, MethodDefinition method, CodeModelVirtualMachine vm, IEnumerable<Instruction> instructions, List<CodeStatement> statements) {
-			this.typeHierarchy = typeHierarchy;
+		public HashSet<MethodReference> ExternalMethods { get; private set; }
+
+		public CodeModelGenerator(TypeSystem typeSystem, MethodDefinition method) {
+			this.ExternalMethods = new HashSet<MethodReference>();
+			this.typeSystem = typeSystem;
 			this.method = method;
-			this.vm = vm;
-			this.statements = statements;
-			foreach (var il in instructions) {
-				HandleInstruction(il);
+		}
+
+		public void ProcessBlock(BasicBlock block) {
+			this.statements = block.Statements;
+			foreach (var cil in block.Instructions) {
+				HandleInstruction(cil);
 			}
 		}
 
@@ -454,7 +458,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void Return(Instruction il) {
 			var ret = new CodeReturnStatement();
-			if (vm.Stack.Any())
+			if (this.stack.Any())
 				ret.Expression = Pop();
 			AddStatment(ret);
 		}
@@ -478,12 +482,12 @@ namespace DotWeb.Decompiler.Core
 				if (!isVirtual && targetObject is CodeThisReference) {
 					targetObject = new CodeBaseReference();
 				}
-				var overrides = this.typeHierarchy.GetOverridesForVirtualMethod(method);
+				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
 				foreach (var overridenMethod in overrides) {
-					this.vm.ExternalMethods.Add(overridenMethod);
+					this.ExternalMethods.Add(overridenMethod);
 				}
 			}
-			this.vm.ExternalMethods.Add(method);
+			this.ExternalMethods.Add(method);
 			
 			expr.Method = new CodeMethodReference(targetObject, method);
 
@@ -497,7 +501,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			this.vm.ExternalMethods.Add(method);
+			this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 0) {
 				var targetObject = GetTargetObject(method);
@@ -514,7 +518,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			this.vm.ExternalMethods.Add(method);
+			this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				CodeExpression rhs = Pop();
@@ -574,7 +578,7 @@ namespace DotWeb.Decompiler.Core
 			var method = (MethodReference)il.Operand;
 			CodeTypeReference type = new CodeTypeReference(method.DeclaringType);
 			CodeMethodReference expr = new CodeMethodReference(type, method);
-			this.vm.ExternalMethods.Add(method);
+			this.ExternalMethods.Add(method);
 			Push(expr);
 		}
 
@@ -741,7 +745,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void NewObject(Instruction il) {
 			var ctor = (MethodReference)il.Operand;
-			this.vm.ExternalMethods.Add(ctor);
+			this.ExternalMethods.Add(ctor);
 
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Constructor = ctor
@@ -817,15 +821,15 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Push(CodeExpression expr) {
-			vm.Stack.Push(expr);
+			this.stack.Push(expr);
 		}
 
 		private CodeExpression Pop() {
-			return vm.Stack.Pop();
+			return this.stack.Pop();
 		}
 
 		private CodeExpression Peek() {
-			return vm.Stack.Peek();
+			return this.stack.Peek();
 		}
 
 		private List<CodeExpression> PopRange(int count) {

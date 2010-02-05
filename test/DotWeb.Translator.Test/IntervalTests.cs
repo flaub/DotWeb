@@ -9,13 +9,6 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class IntervalTests
 	{
-		class NodeTest : Node
-		{
-			public override string FullName {
-				get { return this.RefName; }
-			}
-		}
-
 		class IntervalSpec
 		{
 			public int[] NodeIds { get; set; }
@@ -102,83 +95,49 @@ namespace DotWeb.Translator.Test
 			}
 		}
 
-		class GraphBuilder
-		{
-			private Graph graph;
+		private void Print(List<Graph> graphs) {
+			int i = 0;
+			foreach (var graph in graphs) {
+				Console.WriteLine("Level: {0}", i++);
 
-			public GraphBuilder(int count) {
-				this.graph = new Graph(null);
-
-				for (int i = 0; i < count; i++) {
-					var node = new NodeTest();
-					this.graph.AddNode(node);
+				foreach (var interval in graph.Nodes) {
+					Console.WriteLine(interval);
 				}
 			}
+		}
 
-			public void Connect(int src, int tgt) {
-				var pred = this.graph.Nodes[src - 1];
-				var succ = this.graph.Nodes[tgt - 1];
-				this.graph.Connect(pred, succ);
+		private void Test(Graph graph, params string[] lines) {
+			var sequences = graph.DeriveSequences();
+			Print(sequences);
+
+			var spec = new TestSpec();
+			foreach (var line in lines) {
+				spec.ReadLine(line);
 			}
 
-			public void Print(List<Graph> graphs) {
-				int i = 0;
-				foreach (var graph in graphs) {
-					Console.WriteLine("Level: {0}", i++);
-
-					foreach (var interval in graph.Nodes) {
-						Console.WriteLine(interval);
-					}
-				}
-			}
-
-			public void Test(params string[] lines) {
-				var sequences = this.graph.DeriveSequences();
-				Print(sequences);
-
-				var spec = new TestSpec();
-				foreach (var line in lines) {
-					spec.ReadLine(line);
-				}
-
-				spec.Test(this.graph, sequences);
-			}
+			spec.Test(graph, sequences);
 		}
 
 		[Test]
 		public void Simple() {
-			var builder = new GraphBuilder(2);
+			var builder = new SimpleGraphBuilder(2);
 			builder.Connect(1, 2);
-			builder.Test("L1, i1, n1, n2");
+			Test(builder.Graph, "L1, i1, n1, n2");
 		}
 
 		[Test]
 		public void SimpleBranch() {
-			var builder = new GraphBuilder(4);
-			builder.Connect(1, 2);
-			builder.Connect(1, 3);
-			builder.Connect(2, 4);
-			builder.Connect(3, 4);
-			builder.Test("L1, i1, n1, n2, n3, n4");
+			Test(GraphLibrary.SimpleBranch(), "L1, i1, n1, n2, n3, n4");
 		}
 
 		[Test]
 		public void SimpleLoop() {
-			var builder = new GraphBuilder(3);
-			builder.Connect(1, 2);
-			builder.Connect(2, 3);
-			builder.Connect(3, 1);
-			builder.Test("L1, i1, n1, n2, n3");
+			Test(GraphLibrary.SimpleLoop(), "L1, i1, n1, n2, n3");
 		}
 
 		[Test]
 		public void WhileBreak() {
-			var builder = new GraphBuilder(4);
-			builder.Connect(1, 2);
-			builder.Connect(2, 3);
-			builder.Connect(3, 2);
-			builder.Connect(2, 4);
-			builder.Test(
+			Test(GraphLibrary.WhileBreak(), 
 				"L1, i1, n1", 
 				"L1, i2, n2, n3, n4", 
 				"L2, i1, n1, n2, n3, n4"
@@ -187,25 +146,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void DragonBook() {
-			// Taken from the Dragon book, Page 661, Example 10.30, Fig. 10.45
-			var builder = new GraphBuilder(10);
-			builder.Connect(1, 3);
-			builder.Connect(1, 2);
-			builder.Connect(2, 3);
-			builder.Connect(3, 4);
-			builder.Connect(4, 6);
-			builder.Connect(4, 5);
-			builder.Connect(4, 3);
-			builder.Connect(5, 7);
-			builder.Connect(6, 7);
-			builder.Connect(7, 4);
-			builder.Connect(7, 8);
-			builder.Connect(8, 10);
-			builder.Connect(8, 9);
-			builder.Connect(8, 3);
-			builder.Connect(9, 1);
-			builder.Connect(10, 7);
-			builder.Test(
+			Test(GraphLibrary.DragonBook(), 
 				"L1, i1, n1, n2",
 				"L1, i2, n3",
 				"L1, i3, n4, n5, n6",
@@ -221,16 +162,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void Cifuentes1() {
-			// Taken from "Reverse Compilation Techniques", by C. Cifuentes, Section 6.3, Fig. 6-11
-			var builder = new GraphBuilder(6);
-			builder.Connect(1, 2);
-			builder.Connect(2, 3);
-			builder.Connect(3, 4);
-			builder.Connect(4, 2);
-			builder.Connect(2, 5);
-			builder.Connect(5, 1);
-			builder.Connect(5, 6);
-			builder.Test(
+			Test(GraphLibrary.Cifuentes1(), 
 				"L1, i1, n1",
 				"L1, i2, n2, n3, n4, n5, n6",
 				"L2, i1, n1, n2, n3, n4, n5, n6"
@@ -239,29 +171,7 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void Cifuentes2() {
-			// Taken from "Reverse Compilation Techniques", by C. Cifuentes, Section 6.3, Fig. 6-23
-			var builder = new GraphBuilder(15);
-			builder.Connect(1, 2);
-			builder.Connect(1, 5);
-			builder.Connect(2, 3);
-			builder.Connect(2, 4);
-			builder.Connect(3, 5);
-			builder.Connect(4, 5);
-			builder.Connect(5, 6);
-			builder.Connect(6, 7);
-			builder.Connect(6, 11);
-			builder.Connect(7, 8);
-			builder.Connect(8, 9);
-			builder.Connect(9, 8);
-			builder.Connect(9, 10);
-			builder.Connect(10, 6);
-			builder.Connect(11, 12);
-			builder.Connect(11, 13);
-			builder.Connect(12, 13);
-			builder.Connect(12, 14);
-			builder.Connect(13, 14);
-			builder.Connect(14, 15);
-			builder.Test(
+			Test(GraphLibrary.Cifuentes2(), 
 				"L1, i1, n1, n2, n3, n4, n5",
 				"L1, i2, n6, n7, n11, n12, n13, n14, n15",
 				"L1, i3, n8, n9, n10",

@@ -57,6 +57,16 @@
     </Compile>
     <None Include="Script\Conditions.cs" />
     <Compile Include="ConditionsTest.cs" />
+    <Compile Include="GraphLibrary.cs" />
+    <Compile Include="StructureConditionsTest.cs" />
+    <Compile Include="StructureLoopsTest.cs" />
+    <Compile Include="DominatorTest.cs" />
+    <Compile Include="GraphBuilderTest.cs" />
+    <Compile Include="GraphBuilderTestData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GraphBuilderTestData.resx</DependentUpon>
+    </Compile>
     <Compile Include="IntervalTests.cs" />
     <Compile Include="Loops.Designer.cs">
       <DependentUpon>Loops.resx</DependentUpon>
@@ -65,6 +75,8 @@
     </Compile>
     <Compile Include="LoopsTest.cs" />
     <None Include="Script\Loops.cs" />
+    <None Include="Script\GraphBuilderTest.cs" />
+    <Compile Include="SimpleGraphBuilder.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="NativeTest.cs" />
@@ -115,7 +127,20 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\GraphBuilderTest\WhileBreak.txt" />
+    <Content Include="Expected\GraphBuilderTest\SimpleIf.txt" />
+    <Content Include="Expected\GraphBuilderTest\OneBlock.txt" />
+    <Content Include="Expected\GraphBuilderTest\NullBlock.txt" />
     <Content Include="Expected\Loops\BreakInWhile.js" />
+    <Content Include="Expected\Loops\ComplexLoop.js" />
+    <Content Include="Expected\Loops\ComplexNestedLoop.js" />
+    <Content Include="Expected\Loops\MultiReturns2.js" />
+    <Content Include="Expected\Loops\MultiReturns.js" />
+    <Content Include="Expected\Loops\EndlessLoop.js" />
+    <Content Include="Expected\Loops\WhileBreakContinue.js" />
+    <Content Include="Expected\Loops\WhileCondContinue.js" />
+    <Content Include="Expected\Loops\WhileContinue.js" />
+    <Content Include="Expected\Loops\WhileBreakBreak.js" />
     <Content Include="Expected\Loops\WhileCondBreak.js" />
     <Content Include="Expected\Loops\WhileBreak.js" />
     <Content Include="Expected\Loops\NestedDoWhile.js" />
@@ -166,6 +191,10 @@
     <EmbeddedResource Include="Conditions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Conditions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphBuilderTestData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GraphBuilderTestData.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Loops.resx">
       <Generator>ResXFileCodeGenerator</Generator>

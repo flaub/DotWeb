@@ -29,6 +29,52 @@ namespace DotWeb.Decompiler.Core
 		public ControlFlowGraph Cfg { get; private set; }
 		public CodeMethodMember Method { get; private set; }
 
+		class Context
+		{
+			private ControlFlowGraph cfg;
+			public Node LatchNode { get; private set; }
+			public Node IfFollow { get; private set; }
+			public Node LoopFollow { get; private set; }
+			public Node LoopHeader { get; private set; }
+
+			public Context(ControlFlowGraph cfg) {
+				this.cfg = cfg;
+				this.LatchNode = null;
+				this.IfFollow = null;
+				this.LoopHeader = null;
+				this.LoopFollow = null;
+			}
+
+			public Context Clone() {
+				return new Context(this.cfg) {
+					LatchNode = this.LatchNode,
+					IfFollow = this.IfFollow,
+					LoopFollow = this.LoopFollow,
+					LoopHeader = this.LoopHeader
+				};
+			}
+
+			public Context NewIfFollow(int ifFollow) {
+				var node = this.cfg.DepthFirstPostOrder[ifFollow];
+				var ctx = this.Clone();
+				ctx.IfFollow = node;
+				return ctx;
+			}
+
+			public Context NewLatch(Node latchNode) {
+				var ctx = this.Clone();
+				ctx.LatchNode = latchNode;
+				return ctx;
+			}
+
+			public Context NewLoop(int loopHeader, int loopFollow) {
+				var ctx = this.Clone();
+				ctx.LoopHeader = this.cfg.DepthFirstPostOrder[loopHeader];
+				ctx.LoopFollow = this.cfg.DepthFirstPostOrder[loopFollow];
+				return ctx;
+			}
+		}
+
 		public BackEnd(ControlFlowGraph cfg) {
 			this.Cfg = cfg;
 
@@ -45,10 +91,10 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		public void WriteCode() {
-			this.WriteCode(this.Cfg.Root, Node.NoNode, Node.NoNode, this.Method.Statements);
+			this.WriteCode(this.Cfg.Root, new Context(this.Cfg), this.Method.Statements);
 		}
 
-		private void WriteIf(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteIf(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			int i = 0;
 			for (i = 0; i < bb.Statements.Count - 1; i++) {
 				stmts.Add(bb.Statements[i]);
@@ -61,47 +107,55 @@ namespace DotWeb.Decompiler.Core
 			stmts.Add(condition);
 
 			bool emptyThen = false;
-			if (bb.IfFollow != Node.NoNode) /* there is a follow */ {
-				/* process the THEN part */
+			// is there a follow?
+			if (bb.IfFollow != Node.NoNode) {
+				// process the THEN part
 				Node succ = bb.ThenEdge;
-				if (succ.DfsTraversed != DfsTraversal.Alpha) /* not visited */ {
-					if (succ.DfsPostOrder != bb.IfFollow) /* THEN part */ {
+				if (succ.DfsTraversed != DfsTraversal.Alpha) {
+					// not visited
+					context = context.NewIfFollow(bb.IfFollow);
+					if (succ.DfsPostOrder != bb.IfFollow) {
+						// THEN part 
 						test = test.Invert();
-						WriteCode((BasicBlock)succ, latchNode, bb.IfFollow, condition.TrueStatements);
+						WriteCode((BasicBlock)succ, context, condition.TrueStatements);
 					}
-					else /* empty THEN part => negate ELSE part */ {
-						WriteCode((BasicBlock)bb.ElseEdge, latchNode, bb.IfFollow, condition.TrueStatements);
+					else {
+						// empty THEN part => negate ELSE part
+						WriteCode((BasicBlock)bb.ElseEdge, context, condition.TrueStatements);
 						emptyThen = true;
 					}
 				}
 
-				/* process the ELSE part */
+				// process the ELSE part
 				succ = bb.ElseEdge;
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
-					if (succ.DfsPostOrder != bb.IfFollow) /* ELSE part */ {
-						WriteCode((BasicBlock)succ, latchNode, bb.IfFollow, condition.FalseStatements);
+					if (succ.DfsPostOrder != bb.IfFollow) {
+						// ELSE part
+						WriteCode((BasicBlock)succ, context.NewIfFollow(bb.IfFollow), condition.FalseStatements);
 					}
 				}
-				else if (!emptyThen) /* already visited => emit label */ {
+				else if (!emptyThen) {
+					// already visited => emit label
 					throw new InvalidOperationException();
 				}
 
-				/* Continue with the follow */
+				// Continue with the follow
 				succ = this.Cfg.DepthFirstPostOrder[bb.IfFollow];
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
-					WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
+					WriteCode((BasicBlock)succ, context, stmts);
 				}
 			}
-			else /* no follow => if..then..else */ {
+			else {
+				// no follow => if..then..else
 				test = test.Invert();
-				WriteCode((BasicBlock)bb.ThenEdge, latchNode, ifFollow, condition.TrueStatements);
-				WriteCode((BasicBlock)bb.ElseEdge, latchNode, ifFollow, condition.FalseStatements);
+				WriteCode((BasicBlock)bb.ThenEdge, context, condition.TrueStatements);
+				WriteCode((BasicBlock)bb.ElseEdge, context, condition.FalseStatements);
 			}
 
 			condition.Condition = test;
 		}
 
-		private void WriteLoopInner(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteLoopInner(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			Node succ;
 			if (bb.LoopType == LoopType.While) {
 				succ = bb.ThenEdge;
@@ -114,46 +168,56 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			if (succ.DfsTraversed != DfsTraversal.Alpha) {
-				WriteCode((BasicBlock)succ, bb.LatchNode.DfsPostOrder, ifFollow, stmts);
+				WriteCode((BasicBlock)succ, context.NewLatch(bb.LatchNode), stmts);
 			}
 		}
 
-		private void WriteLoopFollow(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteLoopFollow(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			Node succ = this.Cfg.DepthFirstPostOrder[bb.LoopFollow];
 			if (succ.DfsTraversed != DfsTraversal.Alpha) {
-				WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
+				WriteCode((BasicBlock)succ, context, stmts);
 			}
 		}
 
-		private void WriteWhileLoop(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
-			int i = 0;
-			for (i = 0; i < bb.Statements.Count - 1; i++) {
-				stmts.Add(bb.Statements[i]);
-			}
+		private void WriteWhileLoop(BasicBlock bb, Context context, List<CodeStatement> stmts) {
+			context = context.NewLoop(bb.LoopHead, bb.LoopFollow);
 
-			CodeStatement last = bb.Statements[i];
-			CodeExpressionStatement ces = last as CodeExpressionStatement;
-			CodeExpression test = ces.Expression;
-			if (bb.ElseEdge.DfsPostOrder == bb.LoopFollow) {
-				test = test.Invert();
-			}
+			CodeWhileStatement loop;
+			if (bb.Statements.Count > 1) {
+				// emit a while(true) { $bb.stmts; if($condition) { $then_stmts; break; } ... }
+				loop = new CodeWhileStatement {
+					TestExpression = new CodePrimitiveExpression(true)
+				};
 
-			CodeWhileStatement loop = new CodeWhileStatement {
-				TestExpression = test
-			};
+				WriteIf(bb, context, loop.Statements);
+			}
+			else {
+				CodeStatement last = bb.Statements.Last();
+				CodeExpressionStatement ces = last as CodeExpressionStatement;
+				CodeExpression test = ces.Expression;
+
+				if (bb.ElseEdge.DfsPostOrder == bb.LoopFollow) {
+					test = test.Invert();
+				}
+
+				// emit a pre-tested loop
+				loop = new CodeWhileStatement {
+					TestExpression = test
+				};
+			}
 
 			stmts.Add(loop);
 
 			if (bb != bb.LatchNode) {
-				WriteLoopInner(bb, latchNode, ifFollow, loop.Statements);
+				WriteLoopInner(bb, context, loop.Statements);
 			}
 
 			if (bb.LoopFollow != Node.NoNode) {
-				WriteLoopFollow(bb, latchNode, ifFollow, stmts);
+				WriteLoopFollow(bb, context, stmts);
 			}
 		}
 
-		private void WriteRepeatLoop(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteRepeatLoop(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			List<CodeStatement> temp = new List<CodeStatement>();
 			int i = 0;
 			for (i = 0; i < bb.Statements.Count - 1; i++) {
@@ -169,23 +233,23 @@ namespace DotWeb.Decompiler.Core
 			stmts.Add(loop);
 
 			if (bb != bb.LatchNode) {
-				WriteLoopInner(bb, latchNode, ifFollow, loop.Statements);
+				WriteLoopInner(bb, context, loop.Statements);
 			}
 
 			loop.Statements.AddRange(temp);
 
 			if (bb.LoopFollow != Node.NoNode) {
-				WriteLoopFollow(bb, latchNode, ifFollow, stmts);
+				WriteLoopFollow(bb, context, stmts);
 			}
 		}
 
-		private void WriteLoop(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteLoop(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			switch (bb.LoopType) {
 				case LoopType.While:
-					WriteWhileLoop(bb, latchNode, ifFollow, stmts);
+					WriteWhileLoop(bb, context, stmts);
 					break;
 				case LoopType.Repeat:
-					WriteRepeatLoop(bb, latchNode, ifFollow, stmts);
+					WriteRepeatLoop(bb, context, stmts);
 					break;
 				case LoopType.Endless:
 					Debug.Assert(false);
@@ -198,8 +262,8 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void WriteCode(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
-			if ((ifFollow != Node.NoNode) && (bb == this.Cfg.DepthFirstPostOrder[ifFollow])) {
+		private void WriteCode(BasicBlock bb, Context context, List<CodeStatement> stmts) {
+			if ((context.IfFollow != null) && (bb == context.IfFollow)) {
 				return;
 			}
 			if (bb.DfsTraversed == DfsTraversal.Alpha) {
@@ -208,30 +272,30 @@ namespace DotWeb.Decompiler.Core
 			bb.DfsTraversed = DfsTraversal.Alpha;
 
 			if (bb.LoopType != LoopType.None) {
-				WriteLoop(bb, latchNode, ifFollow, stmts);
+				WriteLoop(bb, context, stmts);
 			}
 			else if (bb.IsTwoWay) {
-				WriteIf(bb, latchNode, ifFollow, stmts);
+				WriteIf(bb, context, stmts);
 			}
-			else if (bb.FlowControl == FlowControl.Return || 
-				bb.FlowControl == FlowControl.Throw || 
-				bb.DfsPostOrder == latchNode) {
-				WriteBasicBlock(bb, stmts);
+			else if (bb.FlowControl == FlowControl.Return ||
+				bb.FlowControl == FlowControl.Throw ||
+				bb == context.LatchNode) {
+				WriteBasicBlock(bb, context, stmts);
 				return;
 			}
 			else if (bb.IsMultiWay) {
-				WriteCases(bb, latchNode, ifFollow, stmts);
+				WriteCases(bb, context, stmts);
 			}
 			else {
-				WriteBasicBlock(bb, stmts);
+				WriteBasicBlock(bb, context, stmts);
 				Node succ = bb.Successors.First();
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
-					WriteCode((BasicBlock)succ, latchNode, ifFollow, stmts);
+					WriteCode((BasicBlock)succ, context, stmts);
 				}
 			}
 		}
 
-		private void WriteCases(BasicBlock bb, int latchNode, int ifFollow, List<CodeStatement> stmts) {
+		private void WriteCases(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			int i = 0;
 			for (i = 0; i < bb.Statements.Count - 1; i++) {
 				stmts.Add(bb.Statements[i]);
@@ -246,7 +310,7 @@ namespace DotWeb.Decompiler.Core
 			foreach (BasicBlock succ in bb.Successors) {
 				CodeCase cc = new CodeCase();
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
-					WriteCode(succ, latchNode, bb.CaseTail, cc.Statements);
+					WriteCode(succ, context.NewIfFollow(bb.CaseTail), cc.Statements);
 				}
 				ccDict.Add(succ.BeginOffset, cc);
 			}
@@ -263,16 +327,33 @@ namespace DotWeb.Decompiler.Core
 				/* Continue with the follow */
 				Node next = this.Cfg.DepthFirstPostOrder[bb.CaseTail];
 				if (next.DfsTraversed != DfsTraversal.Alpha) {
-					WriteCode((BasicBlock)next, latchNode, ifFollow, stmts);
+					WriteCode((BasicBlock)next, context, stmts);
 				}
 			}
 		}
 
-		private void WriteBasicBlock(BasicBlock bb, List<CodeStatement> stmts) {
+		private void WriteBasicBlock(BasicBlock bb, Context context, List<CodeStatement> stmts) {
 			foreach (CodeStatement stmt in bb.Statements) {
-				if (stmt is CodeGotoStatement)
-					continue;
-				stmts.Add(stmt);
+				var gotoStmt = stmt as CodeGotoStatement;
+				if (gotoStmt != null) {
+					if (context.LoopFollow != null) {
+						var bbFollow = (BasicBlock)context.LoopFollow;
+						if (bbFollow.FirstInstruction == gotoStmt.Target) {
+							stmts.Add(new CodeBreakStatement());
+							continue;
+						}
+					}
+					if (context.LoopHeader != null) {
+						var bbHeader = (BasicBlock)context.LoopHeader;
+						if (bbHeader.FirstInstruction == gotoStmt.Target) {
+							stmts.Add(new CodeContinueStatement());
+							continue;
+						}
+					}
+				}
+				else {
+					stmts.Add(stmt);
+				}
 			}
 		}
 	}

@@ -191,6 +191,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("}} while({0});", Print(stmt.TestExpression));
 		}
 
+		public void Visit(CodeBreakStatement stmt) {
+			WriteLine("break;");
+		}
+
+		public void Visit(CodeContinueStatement stmt) {
+			WriteLine("continue;");
+		}
+
 		public void Visit(CodeIfStatement stmt) {
 			WriteLine("if ({0}) {{", Print(stmt.Condition));
 			this.writer.Indent++;

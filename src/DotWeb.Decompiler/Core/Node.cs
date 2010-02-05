@@ -20,6 +20,8 @@ using System.Linq;
 using System.Text;
 using Mono.Cecil.Cil;
 using DotWeb.Utility;
+using System.Collections;
+using System;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -41,6 +43,12 @@ namespace DotWeb.Decompiler.Core
 		Case,
 		Alpha,
 		Jump
+	}
+
+	public class Conditional
+	{
+		public Node Header { get; set; }
+		public Node Follow { get; set; }
 	}
 
 	public abstract class Node
@@ -88,6 +96,7 @@ namespace DotWeb.Decompiler.Core
 		#endregion
 
 		#region DFS Traversal
+		public int DfsIndex { get; set; }
 		public int DfsPreOrder { get; set; }
 		public int DfsPostOrder { get; set; }
 		public DfsTraversal DfsTraversed { get; set; }
@@ -95,6 +104,10 @@ namespace DotWeb.Decompiler.Core
 		#endregion
 
 		#region Structure
+		public BitVector Dominators { get; set; }
+		public List<Loop> Loops { get; private set; }
+		public Conditional Condition { get; set; }
+		public Node ImmediateDominatorNode { get; set; }
 		public int ImmediateDominator { get; set; }
 		public int BackEdgeCount { get; set; }
 		public int LoopHead { get; set; }
@@ -112,6 +125,8 @@ namespace DotWeb.Decompiler.Core
 			this.Id = -1;
 			this.Predecessors = new List<Node>();
 			this.Successors = new List<Node>();
+			this.Loops = new List<Loop>();
+			this.DfsIndex = -1;
 			this.DfsPreOrder = 0;
 			this.DfsPostOrder = 0;
 			this.DfsTraversed = DfsTraversal.None;
@@ -158,12 +173,14 @@ namespace DotWeb.Decompiler.Core
 			if (Predecessors.Any()) {
 				string[] values = Predecessors.Select(x => x.RefName).ToArray();
 				string line = string.Join(", ", values);
-				sb.AppendFormat("\n\tIn : {0}", line);
+				sb.AppendLine();
+				sb.AppendFormat("\tIn : {0}", line);
 			}
 			if (Successors.Any()) {
 				string[] values = Successors.Select(x => x.RefName).ToArray();
 				string line = string.Join(", ", values);
-				sb.AppendFormat("\n\tOut: {0}", line);
+				sb.AppendLine();
+				sb.AppendFormat("\tOut: {0}", line);
 			}
 			return sb.ToString();
 		}
