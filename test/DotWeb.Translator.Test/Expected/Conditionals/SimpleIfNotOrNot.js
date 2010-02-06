@@ -1,4 +1,4 @@
-﻿Conditions.prototype.SimpleIfNotOrNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+﻿Conditionals.prototype.SimpleIfNotOrNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
 	var ret = 0;
 	if ((!x) || (!y)) {
 		ret = 1;

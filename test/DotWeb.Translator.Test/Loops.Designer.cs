@@ -129,6 +129,21 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.EndlessLoop = function() {
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;loop&quot;);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string EndlessLoop {
+            get {
+                return ResourceManager.GetString("EndlessLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.MultiReturns = function() {
         ///	var i = 0;
         ///	while(i &lt; 9) {
@@ -286,14 +301,15 @@ namespace DotWeb.Translator.Test {
         ///   Looks up a localized string similar to Loops.prototype.WhileBreak = function() {
         ///	var i = 0;
         ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
         ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
         ///			break;
         ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;loop&quot;);
         ///		i = i + 1;
         ///	}
-        ///	System.Console.WriteLine(i);
+        ///	System.Console.WriteLine(&quot;break&quot;);
+        ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
@@ -304,23 +320,54 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loops.prototype.WhileBreak = function() {
+        ///   Looks up a localized string similar to Loops.prototype.WhileBreakBreak = function() {
         ///	var i = 0;
         ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
         ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
+        ///			System.Console.WriteLine(&quot;break1&quot;);
         ///			break;
         ///		}
-        ///		System.Console.WriteLine(i);
+        ///		if (i == 5) {
+        ///			System.Console.WriteLine(&quot;break2&quot;);
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
         ///		i = i + 1;
         ///	}
-        ///	System.Console.WriteLine(i);
+        ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
         internal static string WhileBreakBreak {
             get {
                 return ResourceManager.GetString("WhileBreakBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.WhileBreakContinue = function() {
+        ///	var i = 0;
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if(i == 10) {
+        ///			System.Console.WriteLine(&quot;continue&quot;);
+        ///			continue;
+        ///		}
+        ///		if (i == 20) {
+        ///			System.Console.WriteLine(&quot;break&quot;);
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
+        ///		i = i + 1;
+        ///	}
+        ///	System.Console.WriteLine(&quot;exit&quot;);
+        ///};
+        ///.
+        /// </summary>
+        internal static string WhileBreakContinue {
+            get {
+                return ResourceManager.GetString("WhileBreakContinue", resourceCulture);
             }
         }
         
@@ -344,6 +391,50 @@ namespace DotWeb.Translator.Test {
         internal static string WhileCondBreak {
             get {
                 return ResourceManager.GetString("WhileCondBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.WhileCondBreak = function() {
+        ///	var i = 0;
+        ///	while(i &lt; 9) {
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(i);
+        ///			break;
+        ///		}
+        ///		else {
+        ///			System.Console.WriteLine(i);
+        ///			i = i + 1;
+        ///		}
+        ///		System.Console.WriteLine(i);
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string WhileCondContinue {
+            get {
+                return ResourceManager.GetString("WhileCondContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.WhileContinue = function() {
+        ///	var i = 0;
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if(i == 10) {
+        ///			System.Console.WriteLine(&quot;continue&quot;);
+        ///			continue;
+        ///		}
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
+        ///		i = i + 1;
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string WhileContinue {
+            get {
+                return ResourceManager.GetString("WhileContinue", resourceCulture);
             }
         }
     }

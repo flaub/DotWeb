@@ -28,7 +28,7 @@ using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
-	public class CodeModelGenerator
+	public class Interpreter
 	{
 		private readonly MethodDefinition method;
 		private readonly TypeSystem typeSystem;
@@ -37,7 +37,7 @@ namespace DotWeb.Decompiler.Core
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 
-		public CodeModelGenerator(TypeSystem typeSystem, MethodDefinition method) {
+		public Interpreter(TypeSystem typeSystem, MethodDefinition method) {
 			this.ExternalMethods = new HashSet<MethodReference>();
 			this.typeSystem = typeSystem;
 			this.method = method;

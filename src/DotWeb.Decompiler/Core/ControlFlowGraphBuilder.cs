@@ -22,8 +22,6 @@ namespace DotWeb.Decompiler.Core
 		public Graph CreateGraph() {
 			DelimitBlocks();
 			ConnectBlocks();
-			this.graph.SortByDepthFirstPostOrder();
-			this.graph.ComputeDominators();
 			return this.graph;
 		}
 

@@ -102,20 +102,16 @@
     <Compile Include="CodeModel\Statement\CodeBreakStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeContinueStatement.cs" />
     <Compile Include="CodeModel\Statement\ICodeStatementVisitor.cs" />
-    <Compile Include="Core\BackEnd.cs" />
     <Compile Include="Core\BasicBlock.cs" />
-    <Compile Include="Core\CodeModelGenerator.cs" />
+    <Compile Include="Core\Interpreter.cs" />
     <Compile Include="CodeTypeEvaluator.cs" />
-    <Compile Include="Core\CodeModelVirtualMachine.cs" />
-    <Compile Include="Core\ControlFlowAnalyzer.cs" />
-    <Compile Include="Core\ControlFlowGraph.cs" />
     <Compile Include="Core\ControlFlowGraphBuilder.cs" />
     <Compile Include="Core\Graph.cs" />
-    <Compile Include="Core\ILInstruction.cs" />
+    <Compile Include="Core\InstructionExtensions.cs" />
     <Compile Include="Core\Interval.cs" />
     <Compile Include="Core\Loop.cs" />
-    <Compile Include="Core\MethodBodyReader.cs" />
     <Compile Include="Core\Node.cs" />
+    <Compile Include="Core\StatementsGenerator.cs" />
     <Compile Include="MethodDecompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

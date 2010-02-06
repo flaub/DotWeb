@@ -49,13 +49,41 @@ namespace DotWeb.Decompiler.Core
 	{
 		public Node Header { get; set; }
 		public Node Follow { get; set; }
+
+		private Graph graph;
+
+		public Conditional(Graph graph, Node header) {
+			this.graph = graph;
+			this.Header = header;
+		}
+
+		public override string ToString() {
+			return string.Format("{0} -> {1}", Header.RefName, Follow == null ? "" : Follow.RefName);
+		}
+
+		public void FindFollow() {
+			int followPredCount = 0;
+			Node follow = null;
+
+			for (int i = Header.DfsIndex + 1; i < this.graph.Nodes.Count; i++) {
+				var descendant = this.graph.Nodes[i];
+				if (descendant.ImmediateDominator == this.Header) {
+					var forwardInEdges = descendant.Predecessors.Where(x => x.DfsIndex < descendant.DfsIndex).Count();
+					if (forwardInEdges >= followPredCount) {
+						followPredCount = forwardInEdges;
+						follow = descendant;
+					}
+				}
+			}
+
+			if (follow != null && followPredCount > 1) {
+				this.Follow = follow;
+			}
+		}
 	}
 
 	public abstract class Node
 	{
-		public const int NoNode = -1;
-		public const int NoDominator = -1;
-
 		public int Id { get; set; }
 
 		public abstract string FullName { get; }
@@ -97,92 +125,53 @@ namespace DotWeb.Decompiler.Core
 
 		#region DFS Traversal
 		public int DfsIndex { get; set; }
-		public int DfsPreOrder { get; set; }
-		public int DfsPostOrder { get; set; }
 		public DfsTraversal DfsTraversed { get; set; }
-		public bool IsInvalid { get; set; }
 		#endregion
 
 		#region Structure
-		public BitVector Dominators { get; set; }
-		public List<Loop> Loops { get; private set; }
-		public Conditional Condition { get; set; }
-		public Node ImmediateDominatorNode { get; set; }
-		public int ImmediateDominator { get; set; }
-		public int BackEdgeCount { get; set; }
-		public int LoopHead { get; set; }
-		public bool IsLatchNode { get; set; }
-		public Node LatchNode { get; set; }
-		public LoopType LoopType { get; set; }
-		public int LoopFollow { get; set; }
-		public int IfFollow { get; set; }
+		public Loop Loop { get; set; }
+		public Conditional Conditional { get; set; }
+		public Node ImmediateDominator { get; set; }
 		public bool IsLoopNode { get; set; }
-		public int CaseHead { get; set; }
-		public int CaseTail { get; set; }
+		public bool IsLoopHeader { get; set; }
+		public bool IsLoopLatch { get; set; }
+		//public int CaseHead { get; set; }
+		//public int CaseTail { get; set; }
 		#endregion
 
 		public Node() {
 			this.Id = -1;
 			this.Predecessors = new List<Node>();
 			this.Successors = new List<Node>();
-			this.Loops = new List<Loop>();
 			this.DfsIndex = -1;
-			this.DfsPreOrder = 0;
-			this.DfsPostOrder = 0;
 			this.DfsTraversed = DfsTraversal.None;
-			this.ImmediateDominator = NoDominator;
-			this.BackEdgeCount = 0;
-			this.LoopHead = NoNode;
-			this.IsLatchNode = false;
-			this.LoopType = LoopType.None;
-			this.LoopFollow = NoNode;
-			this.IfFollow = NoNode;
 			this.IsLoopNode = false;
-			this.CaseHead = NoNode;
-			this.CaseTail = NoNode;
-			this.IsInvalid = false;
+			this.IsLoopHeader = false;
+			//this.CaseHead = NoNode;
+			//this.CaseTail = NoNode;
 		}
 
 		public virtual void CollectNodes(List<Node> nodes) {
-			if (!IsInvalid) {
-				nodes.Add(this);
-			}
-		}
-
-		/// <summary>
-		/// Depth First Search is a traversal method that selects edges to
-		/// traverse emanating from the most recently visited node which still
-		/// has unvisited edges.
-		/// </summary>
-		public void DfsNumbering(Node[] dfsList, ref int first, ref int last) {
-			this.DfsTraversed = DfsTraversal.Numbering;
-			this.DfsPreOrder = first++;
-
-			foreach (Node node in this.Successors) {
-				if (node.DfsTraversed != DfsTraversal.Numbering)
-					node.DfsNumbering(dfsList, ref first, ref last);
-			}
-
-			this.DfsPostOrder = last--;
-			dfsList[this.DfsPostOrder] = this;
+			nodes.Add(this);
 		}
 
 		public override string ToString() {
-			StringBuilder sb = new StringBuilder();
-			sb.AppendFormat("{0}", FullName);
-			if (Predecessors.Any()) {
-				string[] values = Predecessors.Select(x => x.RefName).ToArray();
-				string line = string.Join(", ", values);
-				sb.AppendLine();
-				sb.AppendFormat("\tIn : {0}", line);
-			}
-			if (Successors.Any()) {
-				string[] values = Successors.Select(x => x.RefName).ToArray();
-				string line = string.Join(", ", values);
-				sb.AppendLine();
-				sb.AppendFormat("\tOut: {0}", line);
-			}
-			return sb.ToString();
+			return FullName;
+			//StringBuilder sb = new StringBuilder();
+			//sb.AppendFormat("{0}", FullName);
+			//if (Predecessors.Any()) {
+			//    string[] values = Predecessors.Select(x => x.RefName).ToArray();
+			//    string line = string.Join(", ", values);
+			//    sb.AppendLine();
+			//    sb.AppendFormat("\tIn : {0}", line);
+			//}
+			//if (Successors.Any()) {
+			//    string[] values = Successors.Select(x => x.RefName).ToArray();
+			//    string line = string.Join(", ", values);
+			//    sb.AppendLine();
+			//    sb.AppendFormat("\tOut: {0}", line);
+			//}
+			//return sb.ToString();
 		}
 	}
 }

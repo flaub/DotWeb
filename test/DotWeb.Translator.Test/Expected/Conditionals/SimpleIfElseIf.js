@@ -1,4 +1,4 @@
-﻿Conditions.prototype.SimpleIfElseIf = function() {
+﻿Conditionals.prototype.SimpleIfElseIf = function() {
 	var i = 0;
 	if (i == 1) {
 		System.Console.WriteLine("True");

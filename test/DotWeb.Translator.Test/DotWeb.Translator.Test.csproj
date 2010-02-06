@@ -50,17 +50,16 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Conditions.Designer.cs">
+    <Compile Include="Conditionals.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Conditions.resx</DependentUpon>
+      <DependentUpon>Conditionals.resx</DependentUpon>
     </Compile>
-    <None Include="Script\Conditions.cs" />
-    <Compile Include="ConditionsTest.cs" />
+    <None Include="Script\Conditionals.cs" />
+    <Compile Include="ConditionalsTest.cs" />
     <Compile Include="GraphLibrary.cs" />
-    <Compile Include="StructureConditionsTest.cs" />
+    <Compile Include="StructureConditionalsTest.cs" />
     <Compile Include="StructureLoopsTest.cs" />
-    <Compile Include="DominatorTest.cs" />
     <Compile Include="GraphBuilderTest.cs" />
     <Compile Include="GraphBuilderTestData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -95,30 +94,30 @@
     <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Expected\Conditions\IfAndOr.js" />
-    <Content Include="Expected\Conditions\IfAndAnd.js" />
-    <Content Include="Expected\Conditions\IfOrAnd.js" />
-    <Content Include="Expected\Conditions\IfOrOr.js" />
-    <Content Include="Expected\Conditions\IfLessOr.js" />
-    <Content Include="Expected\Conditions\IfGreaterOr.js" />
-    <Content Include="Expected\Conditions\IfGreaterAndLess.js" />
-    <Content Include="Expected\Conditions\IfLessAndGreater.js" />
-    <Content Include="Expected\Conditions\IfLessAnd.js" />
-    <Content Include="Expected\Conditions\IfGreaterAnd.js" />
-    <Content Include="Expected\Conditions\SimpleIfAndNot.js" />
-    <Content Include="Expected\Conditions\SimpleIfNotAndNot.js" />
-    <Content Include="Expected\Conditions\SimpleIfOrNot.js" />
-    <Content Include="Expected\Conditions\SimpleIfNotOrNot.js" />
-    <Content Include="Expected\Conditions\SimpleIfNotAnd.js" />
-    <Content Include="Expected\Conditions\SimpleIfNotOr.js" />
-    <Content Include="Expected\Conditions\SimpleIfElseIf.js" />
-    <Content Include="Expected\Conditions\SimpleIfIf.js" />
-    <Content Include="Expected\Conditions\NullCoalesce.js" />
-    <Content Include="Expected\Conditions\ReturnNestedTernary.js" />
-    <Content Include="Expected\Conditions\ReturnTernary.js" />
-    <Content Include="Expected\Conditions\SimpleIfElse.js" />
-    <Content Include="Expected\Conditions\SimpleIf.js" />
-    <Content Include="Expected\Conditions\SimpleIfAnd.js" />
+    <Content Include="Expected\Conditionals\IfAndOr.js" />
+    <Content Include="Expected\Conditionals\IfAndAnd.js" />
+    <Content Include="Expected\Conditionals\IfOrAnd.js" />
+    <Content Include="Expected\Conditionals\IfOrOr.js" />
+    <Content Include="Expected\Conditionals\IfLessOr.js" />
+    <Content Include="Expected\Conditionals\IfGreaterOr.js" />
+    <Content Include="Expected\Conditionals\IfGreaterAndLess.js" />
+    <Content Include="Expected\Conditionals\IfLessAndGreater.js" />
+    <Content Include="Expected\Conditionals\IfLessAnd.js" />
+    <Content Include="Expected\Conditionals\IfGreaterAnd.js" />
+    <Content Include="Expected\Conditionals\SimpleIfAndNot.js" />
+    <Content Include="Expected\Conditionals\SimpleIfNotAndNot.js" />
+    <Content Include="Expected\Conditionals\SimpleIfOrNot.js" />
+    <Content Include="Expected\Conditionals\SimpleIfNotOrNot.js" />
+    <Content Include="Expected\Conditionals\SimpleIfNotAnd.js" />
+    <Content Include="Expected\Conditionals\SimpleIfNotOr.js" />
+    <Content Include="Expected\Conditionals\SimpleIfElseIf.js" />
+    <Content Include="Expected\Conditionals\SimpleIfIf.js" />
+    <Content Include="Expected\Conditionals\NullCoalesce.js" />
+    <Content Include="Expected\Conditionals\ReturnNestedTernary.js" />
+    <Content Include="Expected\Conditionals\ReturnTernary.js" />
+    <Content Include="Expected\Conditionals\SimpleIfElse.js" />
+    <Content Include="Expected\Conditionals\SimpleIf.js" />
+    <Content Include="Expected\Conditionals\SimpleIfAnd.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsArray.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
@@ -148,7 +147,7 @@
     <Content Include="Expected\Loops\SimpleDoWhile.js" />
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
-    <Content Include="Expected\Conditions\SimpleIfOr.js" />
+    <Content Include="Expected\Conditionals\SimpleIfOr.js" />
     <Content Include="Expected\SourceTest\SourceTests_TestGenericNested.js" />
     <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />
     <Content Include="Expected\SourceTest\SourceTests_Callback.js" />
@@ -188,9 +187,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Conditions.resx">
+    <EmbeddedResource Include="Conditionals.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Conditions.Designer.cs</LastGenOutput>
+      <LastGenOutput>Conditionals.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphBuilderTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>

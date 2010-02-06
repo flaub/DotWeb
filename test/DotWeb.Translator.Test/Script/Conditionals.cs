@@ -4,7 +4,7 @@ using System;
 namespace H8
 {
 	[JsNamespace]
-	class Conditions
+	class Conditionals
 	{
 		public int ReturnTernary(int a) {
 			return a > 10 ? 12 : 42;

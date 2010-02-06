@@ -27,37 +27,44 @@ namespace DotWeb.Decompiler
 {
 	public static class MethodDecompiler
 	{
-		public static CodeMethodMember Parse(TypeSystem typeHierarchy, MethodDefinition method) {
-			var cfg = new ControlFlowGraph(typeHierarchy, method);
+		public static CodeMethodMember Parse(TypeSystem typeSystem, MethodDefinition method) {
 #if DEBUG
 			Console.WriteLine(method);
-			Console.WriteLine(cfg);
 #endif
 
-			var cfa = new ControlFlowAnalyzer(cfg);
-			cfa.Structure();
+			var builder = new ControlFlowGraphBuilder(method);
+			var graph = builder.CreateGraph();
 
 #if DEBUG
-			cfg.PrintDot();
+			graph.PrintDot(method.Name);
 #endif
 
-			var be = new BackEnd(cfg);
-			be.WriteCode();
+			var interpreter = new Interpreter(typeSystem, method);
+			graph.DepthFirstTraversal((Node node) => {
+				// Accumulate statements into node.Statements
+				interpreter.ProcessBlock((BasicBlock)node);
+			});
+
+			graph.Structure();
+
+			var generator = new StatementsGenerator(method, graph);
+			var ret = generator.WriteMethodBody();
+			ret.ExternalMethods = interpreter.ExternalMethods;
 
 			var ap = method.GetMonoAssociatedProperty();
 			if (ap != null) {
 				if (ap.IsGetter) {
-					return new CodePropertyGetterMember(be.Method) {
+					return new CodePropertyGetterMember(ret) {
 						Property = ap.Definition
 					};
 				}
 
-				return new CodePropertySetterMember(be.Method) {
+				return new CodePropertySetterMember(ret) {
 					Property = ap.Definition
 				};
 			}
 
-			return be.Method;
+			return ret;
 		}
 	}
 }

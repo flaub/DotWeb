@@ -1,12 +1,13 @@
 ﻿Loops.prototype.WhileBreak = function() {
 	var i = 0;
 	while(true) {
+		System.Console.WriteLine("top");
 		if (i == 10) {
-			System.Console.WriteLine(i);
 			break;
 		}
-		System.Console.WriteLine(i);
+		System.Console.WriteLine("loop");
 		i = i + 1;
 	}
-	System.Console.WriteLine(i);
+	System.Console.WriteLine("break");
+	System.Console.WriteLine("exit");
 };

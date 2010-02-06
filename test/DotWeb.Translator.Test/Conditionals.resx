@@ -119,81 +119,81 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IfAndAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\ifandand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\ifandand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfAndOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\ifandor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\ifandor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfGreaterAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\ifgreaterand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\ifgreaterand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfGreaterAndLess" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\ifgreaterandless.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\ifgreaterandless.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfGreaterOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\ifgreateror.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\ifgreateror.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfLessAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\iflessand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\iflessand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfLessAndGreater" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\iflessandgreater.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\iflessandgreater.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfLessOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\iflessor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\iflessor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfOrAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\iforand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\iforand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="IfOrOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\iforor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\iforor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="NullCoalesce" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\nullcoalesce.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\nullcoalesce.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ReturnNestedTernary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\returnnestedternary.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\returnnestedternary.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ReturnTernary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\returnternary.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\returnternary.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfAndNot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifandnot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifandnot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfElse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifelse.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifelse.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfElseIf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifelseif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifelseif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfIf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifif.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfNotAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifnotand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifnotand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfNotAndNot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifnotandnot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifnotandnot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfNotOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifnotor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifnotor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfNotOrNot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifnotornot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifnotornot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SimpleIfOrNot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>expected\conditions\simpleifornot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\conditionals\simpleifornot.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>script\conditions.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>script\conditionals.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

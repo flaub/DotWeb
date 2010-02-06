@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DotWeb.Utility;
 using System.Collections;
+using DotWeb.Decompiler.CodeModel;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -30,6 +31,12 @@ namespace DotWeb.Decompiler.Core
 		public void Connect(Node predecessor, Node successor) {
 			predecessor.Successors.AddUnique(successor);
 			successor.Predecessors.AddUnique(predecessor);
+		}
+
+		public void Structure() {
+			CompoundConditionals();
+			StructureLoops();
+			StructureConditionals();
 		}
 
 		public void SortByDepthFirstPostOrder() {
@@ -60,36 +67,35 @@ namespace DotWeb.Decompiler.Core
 			action(node);
 		}
 
-		public void ComputeDominators() {
-			foreach (var node in this.Nodes) {
-				node.Dominators = new BitVector(this.Nodes.Count);
-				node.Dominators.SetAll();
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			foreach (BasicBlock block in this.Nodes) {
+				sb.AppendLine(block.ToStringDetails());
+			}
+			return sb.ToString();
+		}
+
+		public void PrintDot(string name) {
+			SortByDepthFirstPostOrder();
+
+			Console.WriteLine("digraph G {");
+			Console.WriteLine("\tgraph [label=\"{0}\"];", name);
+
+			foreach (BasicBlock block in this.Nodes) {
+				Console.WriteLine("\t{0} [label=\"{0} (#{1}) (^{2})\\n{3}\"];",
+					block.RefName,
+					block.DfsIndex,
+					block.ImmediateDominator == null ? "" : block.ImmediateDominator.RefName,
+					block.LastInstruction.OpCode);
 			}
 
-			this.Root.Dominators.ClearAll();
-			this.Root.Dominators.Set(this.Root.Id - 1);
-
-			var temp = new BitVector(this.Nodes.Count);
-			bool changed;
-			do {
-				changed = false;
-
-				foreach (var block in this.Nodes) {
-					if (block == this.Root)
-						continue;
-
-					foreach (var pred in block.Predecessors) {
-						temp.ClearAll();
-						temp.Or(block.Dominators);
-
-						block.Dominators.And(pred.Dominators);
-						block.Dominators.Set(block.Id - 1);
-						if (block.Dominators != temp) {
-							changed = true;
-						}
-					}
+			foreach (var block in this.Nodes) {
+				foreach (var succ in block.Successors) {
+					Console.WriteLine("\t{0} -> {1};", block.RefName, succ.RefName);
 				}
-			} while (changed);
+			}
+
+			Console.WriteLine("}");
 		}
 
 		public List<Graph> DeriveSequences() {
@@ -98,27 +104,6 @@ namespace DotWeb.Decompiler.Core
 			return graphs;
 		}
 
-		/*		 
-		ComputeNaturalLoops()
-		{
-			LoopSet   loopSet;
-		 
-			for each block in block_list {
-				if (block == entry_block)
-					continue
-
-				for each succ in block->successors {
-		 
-					// Every successor that dominates its predecessor
-					// must be the header of a loop.
-					// That is, block -> succ is a back edge.
-		 
-					if block->dominators->find(succ)
-						loopSet += NaturalLoopForEdge(succ, block);
-		 
-				}
-			}
-		}*/
 		public List<Loop> StructureLoops() {
 			var loops = new List<Loop>();
 			var graphs = DeriveSequences();
@@ -135,6 +120,142 @@ namespace DotWeb.Decompiler.Core
 			return loops;
 		}
 
+		public List<Conditional> StructureConditionals() {
+			var conditionals = new List<Conditional>();
+			var unresolved = new List<Conditional>();
+
+			for (int i = this.Nodes.Count - 1; i >= 0; --i) {
+				var node = this.Nodes[i];
+
+				if (node.Successors.Count > 1 && !node.IsLoopNode) {
+					var conditional = new Conditional(this, node);
+					conditional.FindFollow();
+					node.Conditional = conditional;
+
+					if (conditional.Follow != null) {
+						while (unresolved.Any()) {
+							var item = unresolved.Dequeue();
+							item.Follow = conditional.Follow;
+						}
+					}
+					else {
+						unresolved.Add(conditional);
+					}
+
+					conditionals.Add(conditional);
+				}
+			}
+
+			return conditionals;
+		}
+
+		public void CompoundConditionals() {
+			SortByDepthFirstPostOrder();
+
+			bool change = true;
+			while (change) {
+				change = false;
+
+				// nodes should be sorted in postorder at this point
+				foreach (BasicBlock block in this.Nodes) {
+					if (block.Successors.Count == 2) {
+						if (CompoundConditionals(block)) {
+							change = true;
+							break;
+						}
+					}
+				}
+			}
+
+			SortByDepthFirstPostOrder();
+		}
+
+		private bool CompoundConditionals(BasicBlock block) {
+			if (block.Successors.Count == 2) {
+				var thenBlock = (BasicBlock)block.Successors[1];
+				var elseBlock = (BasicBlock)block.Successors[0];
+
+				if (elseBlock.Successors.Count == 2 &&
+					elseBlock.Predecessors.Count == 1) {
+					if (elseBlock.Successors[1] == thenBlock) {
+						if (CompoundAnd(block, thenBlock, elseBlock)) {
+							this.Nodes.Remove(elseBlock);
+							return true;
+						}
+					}
+					else if (elseBlock.Successors[0] == thenBlock) {
+						if (CompoundOr(block, thenBlock, elseBlock)) {
+							this.Nodes.Remove(elseBlock);
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
+
+		private bool CompoundOr(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
+			BasicBlock finalThen = (BasicBlock)bbElse.Successors[1];
+			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
+			CodeExpressionStatement rhs = (CodeExpressionStatement)bbElse.LastStatement;
+
+			// Build an AND because the BackEnd will invert it later
+			lhs.Expression = new CodeBinaryExpression(
+				lhs.Expression.Invert(),
+				CodeBinaryOperator.BooleanAnd,
+				rhs.Expression
+			);
+
+			// Replace in-edge to finalThen from bbElse to bb
+			finalThen.ReplacePredecessorsWith(bbElse, bb);
+
+			// New THEN out-edge of bb
+			bb.Successors[1] = finalThen;
+			// New ELSE out-edge of bb
+			bb.Successors[0] = bbThen;
+
+			// Remove in-edge bbElse to bbThen
+			bbThen.Predecessors.Remove(bbElse);
+
+			//if (bb.IsLatchNode) {
+			//    this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
+			//    return false;
+			//}
+
+			return true;
+		}
+
+		private bool CompoundAnd(BasicBlock bb, BasicBlock bbThen, BasicBlock bbElse) {
+			BasicBlock finalElse = (BasicBlock)bbElse.Successors[0];
+			CodeExpressionStatement lhs = (CodeExpressionStatement)bb.LastStatement;
+			CodeExpressionStatement rhs = (CodeExpressionStatement)bbElse.LastStatement;
+
+			// Build an OR because the BackEnd will invert it later
+			lhs.Expression = new CodeBinaryExpression(
+				lhs.Expression,
+				CodeBinaryOperator.BooleanOr,
+				rhs.Expression
+			);
+
+			// Replace in-edge to finalElse from bbElse to bb
+			finalElse.ReplacePredecessorsWith(bbElse, bb);
+
+			// New ELSE out-edge of bb
+			bb.Successors[0] = finalElse;
+
+			// Remove in-edge bbElse to bbThen
+			bbThen.Predecessors.Remove(bbElse);
+
+			//if (bb.IsLatchNode) {
+			//    this.Cfg.DepthFirstPostOrder[bbElse.DfsPostOrder] = bb;
+			//    return false;
+			//}
+
+			return true;
+		}
+
+
 		private Loop StructureLoopForInterval(Interval interval) {
 			var nodes = new List<Node>();
 			interval.CollectNodes(nodes);
@@ -143,7 +264,7 @@ namespace DotWeb.Decompiler.Core
 			var tails = new List<Node>();
 
 			foreach (var pred in header.Predecessors) {
-				if (nodes.Contains(pred) && pred.Dominators.Get(header.Id - 1)) {
+				if (nodes.Contains(pred)) {// && pred.Dominators.Get(header.Id - 1)) {
 					tails.Add(pred);
 				}
 			}
@@ -204,7 +325,7 @@ namespace DotWeb.Decompiler.Core
 			foreach (var node in this.Nodes) {
 				foreach (var pred in node.Predecessors) {
 					if (pred.DfsIndex < node.DfsIndex) {
-						node.ImmediateDominatorNode = CommonDominator(node.ImmediateDominatorNode, pred);
+						node.ImmediateDominator = CommonDominator(node.ImmediateDominator, pred);
 					}
 				}
 			}
@@ -220,10 +341,10 @@ namespace DotWeb.Decompiler.Core
 				return lhs;
 			while ((lhs != null) && (rhs != null) && (lhs != rhs)) {
 				if (lhs.DfsIndex < rhs.DfsIndex) {
-					rhs = rhs.ImmediateDominatorNode;
+					rhs = rhs.ImmediateDominator;
 				}
 				else {
-					lhs = lhs.ImmediateDominatorNode;
+					lhs = lhs.ImmediateDominator;
 				}
 			}
 			return lhs;

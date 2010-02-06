@@ -127,6 +127,9 @@
   <data name="ComplexNestedLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\loops\complexnestedloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="EndlessLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\loops\endlessloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="MultiReturns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\loops\multireturns.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -154,7 +157,16 @@
   <data name="WhileBreakBreak" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\loops\whilebreakbreak.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="WhileBreakContinue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\loops\whilebreakcontinue.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="WhileCondBreak" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\loops\whilecondbreak.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="WhileCondContinue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\loops\whilecondcontinue.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="WhileContinue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\loops\whilecontinue.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

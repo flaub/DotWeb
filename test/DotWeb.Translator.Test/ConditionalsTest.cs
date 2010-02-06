@@ -23,10 +23,10 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class ConditionsTest : TestBase
+	public class ConditionalsTest : TestBase
 	{
-		public ConditionsTest()
-			: base("DotWeb.Translator.Test.Script", "H8.Conditions", Conditions.ResourceManager) {
+		public ConditionalsTest()
+			: base("DotWeb.Translator.Test.Script", "H8.Conditionals", Conditionals.ResourceManager) {
 		}
 
 		[Test]

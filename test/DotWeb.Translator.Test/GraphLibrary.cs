@@ -387,6 +387,25 @@ namespace DotWeb.Translator.Test
 		}
 
 		public static Graph DragonBook() {
+			//digraph G {
+			//    graph [label="DragonBook"];
+			//    B1 -> B3;
+			//    B1 -> B2;
+			//    B2 -> B3;
+			//    B3 -> B4;
+			//    B4 -> B6;
+			//    B4 -> B5;
+			//    B4 -> B3;
+			//    B5 -> B7;
+			//    B6 -> B7;
+			//    B7 -> B4;
+			//    B7 -> B8;
+			//    B8 -> B10;
+			//    B8 -> B9;
+			//    B8 -> B3;
+			//    B9 -> B1;
+			//    B10 -> B7;
+			//}
 			// Taken from the Dragon book, Page 661, Example 10.30, Fig. 10.45
 			var builder = new SimpleGraphBuilder(10);
 			builder.Connect(1, 3);
@@ -438,6 +457,29 @@ namespace DotWeb.Translator.Test
 		}
 
 		public static Graph Cifuentes2() {
+			//digraph G {
+			//    graph [label="Cifuentes2"];
+			//    B1 -> B2;
+			//    B1 -> B5;
+			//    B2 -> B3;
+			//    B2 -> B4;
+			//    B3 -> B5;
+			//    B4 -> B5;
+			//    B5 -> B6;
+			//    B6 -> B7;
+			//    B6 -> B11;
+			//    B7 -> B8;
+			//    B8 -> B9;
+			//    B9 -> B8;
+			//    B9 -> B10;
+			//    B10 -> B6;
+			//    B11 -> B12;
+			//    B11 -> B13;
+			//    B12 -> B13;
+			//    B12 -> B14;
+			//    B13 -> B14;
+			//    B14 -> B15;
+			//}
 			// Taken from "Reverse Compilation Techniques", by C. Cifuentes, Section 6.3, Fig. 6-23
 			var builder = new SimpleGraphBuilder(15);
 			builder.Connect(1, 2);

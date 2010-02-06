@@ -11,25 +11,41 @@ namespace DotWeb.Decompiler.Core
 	{
 		public LoopType LoopType { get; set; }
 		public Node Header { get; set; }
-		public List<Node> Tails { get; private set; }
+		public Node Latch { get; set; }
 		public Node Follow { get; set; }
+		public List<Node> Tails { get; private set; }
 		public List<Node> Exits { get; private set; }
 		public List<Node> Nodes { get; private set; }
 
 		private Graph graph;
 
-		public Loop(Graph graph) {
+		public Loop(Graph graph, Node header, List<Node> tails) {
 			this.graph = graph;
+			this.Header = header;
+			this.Tails = tails.OrderBy(x => x.DfsIndex).ToList();
+			this.Latch = tails.Last();
+			this.Latch.IsLoopLatch = true;
 			this.LoopType = LoopType.None;
-			this.Tails = new List<Node>();
 			this.Nodes = new List<Node>();
 			this.Exits = new List<Node>();
+
+			header.IsLoopNode = true;
+			header.IsLoopHeader = true;
+			header.Loop = this;
+			AddNode(header);
+
+			foreach (var tail in this.Tails) {
+				tail.IsLoopNode = true;
+				AddFromTail(tail);
+			}
 		}
 
 		private string GetNodeName(Node node) {
 			var str = node.RefName;
 			if (Tails.Contains(node))
 				str = "#" + str;
+			if (node == Latch)
+				str = "&" + str;
 			if (node == Header)
 				str = "$" + str;
 			return str;
@@ -48,84 +64,11 @@ namespace DotWeb.Decompiler.Core
 
 		public void AddNode(Node node) {
 			this.Nodes.Add(node);
-			node.Loops.Add(this);
 		}
 
-		public CodeLoopStatement CreateLoopStatement() {
-//			var bbHeader = (BasicBlock)this.Header;
-			if (this.LoopType == LoopType.While ||
-				this.LoopType == LoopType.Endless) {
-				return CreateWhileStatement();
-			}
-			else {
-				return CreateRepeatStatement();
-			}
-		}
-
-		private CodeWhileStatement CreateWhileStatement() {
-			var stmt = new CodeWhileStatement {
-				TestExpression = new CodePrimitiveExpression(true)
-			};
-
-			Node succ;
-			if (Header.Successors.Count > 1) {
-				// not an endless loop:
-				// if(cond) { <then>; break; }
-				// FIXME: get correct successor here
-				succ = Header.Successors.First();
-			}
-			else {
-				succ = Header.Successors.First();
-			}
-
-			return stmt;
-		}
-
-		private CodeRepeatStatement CreateRepeatStatement() {
-			return null;
-		}
-
-
-		/*
-		NaturalLoopForEdge(Block header, Block tail)
-		{
-			Stack workList;
-			Loop  loop;
-		 
-			loop = new Loop();
-		 
-			loop->header = header
-			loop->blocks += header
-		 
-			if header != tail {
-				loop->blocks += tail
-				workList += tail
-			}
-			while workList not empty {
-				block = workList.pop
-				for each pred in block->predecessors {
-					if not loop->find(pred) {
-						loop->blocks += pred
-						workList += pred
-					}
-				}
-			}
-			return loop
-		}*/
 		public static Loop Construct(Graph graph, Node header, List<Node> tails) {
-			var loop = new Loop(graph) {
-				Header = header,
-				Tails = tails
-			};
-
-			loop.AddNode(header);
-
-			foreach (var tail in tails) {
-				loop.AddFromTail(tail);
-			}
-
+			var loop = new Loop(graph, header, tails);
 			loop.ProcessExits();
-
 			return loop;
 		}
 
@@ -146,7 +89,6 @@ namespace DotWeb.Decompiler.Core
 					}
 				}
 			}
-
 		}
 
 		private void ProcessExits() {
@@ -190,12 +132,12 @@ namespace DotWeb.Decompiler.Core
 					var commonDom = Graph.CommonDominator(joint, exit);
 					Node start;
 					Node other;
-					if (joint.ImmediateDominatorNode == commonDom) {
+					if (joint.ImmediateDominator == commonDom) {
 						// walk down exit2 until we get a node that has an ImmediateDominator == commonDom
 						start = exit;
 						other = joint;
 					}
-					else if (exit.ImmediateDominatorNode == commonDom) {
+					else if (exit.ImmediateDominator == commonDom) {
 						// walk down exit1
 						start = joint;
 						other = exit;
@@ -250,20 +192,12 @@ namespace DotWeb.Decompiler.Core
 		private Node FindJoint(Node node, Node immediateDom, List<Node> visited) {
 			visited.AddUnique(node);
 
-			//for (int i = node.DfsIndex; i < this.graph.Nodes.Count; i++) {
-			//    var succ = this.graph.Nodes[i];
-			//    if (succ.ImmediateDominatorNode == immediateDom)
-			//        return succ;
-
-			//    visited.AddUnique(succ);
-			//}
-
 			foreach (var succ in node.Successors) {
 				// skip back-edges
 				if (succ.DfsIndex < node.DfsIndex)
 					continue;
 
-				if (succ.ImmediateDominatorNode == immediateDom)
+				if (succ.ImmediateDominator == immediateDom)
 					return succ;
 
 				return FindJoint(succ, immediateDom, visited);

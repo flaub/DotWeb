@@ -1,14 +1,17 @@
 ﻿Loops.prototype.MultiReturns2 = function() {
 	var i = 0;
-	while(i < 9) {
-		if (i == 10) {
-			System.Console.WriteLine(i);
-			break;
+	System.Console.WriteLine("enter");
+	while(i < 100) {
+		System.Console.WriteLine("top");
+		if (i > 10) {
+			System.Console.WriteLine("return1");
+			return;
 		}
-		else {
-			System.Console.WriteLine(i);
-			i = i + 1;
+		if (i < 50) {
+			System.Console.WriteLine("return2");
+			return;
 		}
-		System.Console.WriteLine(i);
+		System.Console.WriteLine("bottom");
 	}
+	System.Console.WriteLine("return2");
 };

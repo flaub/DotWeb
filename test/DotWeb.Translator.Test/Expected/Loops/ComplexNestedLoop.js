@@ -1,14 +1,22 @@
 ﻿Loops.prototype.ComplexNestedLoop = function() {
 	var i = 0;
-	while(i < 9) {
-		if (i == 10) {
-			System.Console.WriteLine(i);
-			break;
+	System.Console.WriteLine("enter");
+	while(true) {
+		System.Console.WriteLine("top");
+		if (i < 10) {
+			System.Console.WriteLine("i < 10");
+			if (i == 1) {
+				System.Console.WriteLine("i == 1");
+				break;
+			}
+			if (i == 2) {
+				do {
+					System.Console.WriteLine("inner loop");
+				} while(i < 4);
+				break;
+			}
+			System.Console.WriteLine("bottom");
 		}
-		else {
-			System.Console.WriteLine(i);
-			i = i + 1;
-		}
-		System.Console.WriteLine(i);
 	}
+	System.Console.WriteLine("return");
 };
