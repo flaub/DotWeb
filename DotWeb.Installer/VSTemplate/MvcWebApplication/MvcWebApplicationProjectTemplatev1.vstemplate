@@ -1,0 +1,31 @@
+<VSTemplate Version="2.0.0" Type="ProjectGroup"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>ASP.NET MVC Web Application</Name>
+        <Description>A project for creating an application using the ASP.NET MVC framework (1.0) with a preconfigured script library (.NET Framework 3.5)</Description>
+		<Icon Package="{349c5850-65df-11da-9384-00065b846f21}" ID="9001" />
+        <ProjectType>CSharp</ProjectType>
+		<SortOrder>1000</SortOrder>
+		<CreateNewFolder>false</CreateNewFolder>
+		<DefaultName>DotWebMvcApplication</DefaultName>
+		<ProvideDefaultName>true</ProvideDefaultName>
+		<LocationField>Enabled</LocationField>
+		<PromptForSaveOnCreation>true</PromptForSaveOnCreation>
+		<EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+		<RequiredFrameworkVersion>3.5</RequiredFrameworkVersion>
+    </TemplateData>
+    <TemplateContent>
+		<ProjectCollection>
+            <ProjectTemplateLink ProjectName="$safeprojectname$.Script">
+                ClassLibrary\ClassLibrary.vstemplate
+            </ProjectTemplateLink>
+            <ProjectTemplateLink ProjectName="$safeprojectname$">
+                MvcWebApplicationProjectTemplatev1.cs\MvcWebApplicationProjectTemplate.cs.vstemplate
+            </ProjectTemplateLink>
+        </ProjectCollection>
+    </TemplateContent>
+	<WizardExtension>
+		<Assembly>DotWeb.TemplateConfigurator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2be05ab7c49c9035</Assembly>
+		<FullClassName>DotWeb.TemplateConfigurator.MvcTemplateWizard</FullClassName>
+	</WizardExtension>
+</VSTemplate>

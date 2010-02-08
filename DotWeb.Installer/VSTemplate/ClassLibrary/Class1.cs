@@ -4,11 +4,11 @@ using DotWeb.Client.Dom;
 
 namespace $safeprojectname$
 {
-    public class Class1 : JsScript
+    public class Class1
     {
 		public Class1()
 		{
-			Window.alert("Hello World!");
+			Global.Window.alert("Hello World!");
 		}
     }
 }

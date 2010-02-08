@@ -1,1 +1,0 @@
-﻿This directoy is the output for DotWeb's translated javascript files.

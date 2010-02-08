@@ -1,18 +1,22 @@
 <VSTemplate Version="2.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
-	<TemplateData>
-		<Name>DotWeb Class Library</Name>
-		<Description>A Class Library project that can be used with DotWeb</Description>
-		<Icon Package="{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}" ID="4547" />
-		<ProjectType>CSharp</ProjectType>
-		<SortOrder>20</SortOrder>
-		<CreateNewFolder>true</CreateNewFolder>
-		<DefaultName>ClassLibrary</DefaultName>
-		<ProvideDefaultName>true</ProvideDefaultName>
-	</TemplateData>
-	<TemplateContent>
-		<Project File="ClassLibrary.csproj" ReplaceParameters="true">
-			<ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-			<ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
-		</Project>
-	</TemplateContent>
+  <TemplateData>
+    <Name>Class Library</Name>
+    <Description>Text</Description>
+    <Icon Package="{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}" ID="4547" />
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>20</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>ClassLibrary</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ClassLibrary.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+	<Assembly>DotWeb.TemplateConfigurator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2be05ab7c49c9035</Assembly>
+	<FullClassName>DotWeb.TemplateConfigurator.ClassLibraryTemplateWizard</FullClassName>
+  </WizardExtension>
 </VSTemplate>
