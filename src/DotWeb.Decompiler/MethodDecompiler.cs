@@ -40,11 +40,12 @@ namespace DotWeb.Decompiler
 			graph.PrintDot(method.Name);
 #endif
 
+			graph.SortByDepthFirstPostOrder();
+
 			var interpreter = new Interpreter(typeSystem, method);
-			graph.DepthFirstTraversalPreAction((Node node) => {
-				// Accumulate statements into node.Statements
-				interpreter.ProcessBlock((BasicBlock)node);
-			});
+			foreach (BasicBlock block in graph.Nodes) {
+				interpreter.ProcessBlock(block);
+			}
 
 			graph.Structure();
 

@@ -44,7 +44,7 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype.$ctor = function(
 
 System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = function(/*System.Object*/ element, /*System.Int32*/ i, /*System.DotWeb.JsArray*/ array) {
 	if (!this.foundFirst) {
-		var V_1 = (this.item === element) == 0;
+		var V_1 = !(this.item === element);
 	}
 	else {
 		V_1 = true;

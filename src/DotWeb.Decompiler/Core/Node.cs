@@ -82,8 +82,6 @@ namespace DotWeb.Decompiler.Core
 		public bool IsLoopNode { get; set; }
 		public bool IsLoopHeader { get; set; }
 		public bool IsLoopLatch { get; set; }
-		//public int CaseHead { get; set; }
-		//public int CaseTail { get; set; }
 		#endregion
 
 		public Node() {
@@ -94,8 +92,6 @@ namespace DotWeb.Decompiler.Core
 			this.DfsTraversed = DfsTraversal.None;
 			this.IsLoopNode = false;
 			this.IsLoopHeader = false;
-			//this.CaseHead = NoNode;
-			//this.CaseTail = NoNode;
 		}
 
 		public virtual void CollectNodes(List<Node> nodes) {

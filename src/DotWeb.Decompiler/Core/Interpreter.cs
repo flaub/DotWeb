@@ -34,6 +34,8 @@ namespace DotWeb.Decompiler.Core
 		private readonly TypeSystem typeSystem;
 		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
 		private List<CodeStatement> statements;
+		private Dictionary<Instruction, int> consumed = new Dictionary<Instruction, int>();
+		private HashSet<Instruction> ignored = new HashSet<Instruction>();
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 
@@ -49,39 +51,46 @@ namespace DotWeb.Decompiler.Core
 				HandleInstruction(cil);
 			}
 
+			// In debug builds, the compiler emits CIL that helps the debugger with locality, 
+			// but screws up the stack because we assume that each block defines a stack boundry. 
+			// That is, at the start and end of each block, the stack is assumed to be empty,
+			// This is an attempt to have instructions that cause the stack to become empty be
+			// consumed by the predecessors that need them in order to make this assumption true.
 			if (this.stack.Any()) {
 				PeekForward(block);
 			}
 		}
 
 		private void PeekForward(BasicBlock block) {
-			var flowControl = block.LastInstruction.OpCode.FlowControl;
-			Instruction next = null;
-			if (flowControl == FlowControl.Next) {
-				next = block.LastInstruction.Next;
-			}
-			else if (flowControl == FlowControl.Branch) {
-				next = (Instruction)block.LastInstruction.Operand;
-			}
-			else {
-				Debug.Assert(false);
-			}
+			// go forward consuming instructions until the stack becomes empty.
+			// maintain a counter for each predecessor's pass over an instruction.
+			// once the counter reaches the number of predecessors, mark the instruction as ignored
+			// NOTE: this all assumes that we are traversing in DepthFirstOrder - make sure nodes are sorted
+			var next = (BasicBlock)block.Successors.FirstOrDefault();
+			if(next == null)
+				throw new NotSupportedException();
 
-			var copy = new CodeExpression[this.stack.Count];
-			this.stack.CopyTo(copy, 0);
+			foreach (var cil in next.Instructions) {
+				if (this.stack.Count == 0)
+					break;
 
-			while (next != null && this.stack.Any()) {
-				// peek ahead until the stack becomes empty
-				// finish out any statements for this block
-				HandleInstruction(next);
+				HandleInstruction(cil);
 
-				next = next.Next;
+				int count = 0;
+				this.consumed.TryGetValue(cil, out count);
+				count++;
+				this.consumed[cil] = count;
+
+				if (count == next.Predecessors.Count) {
+					this.ignored.Add(cil);
+				}
 			}
-
-			this.stack = new Stack<CodeExpression>(copy);
 		}
 
 		private void HandleInstruction(Instruction il) {
+			if (this.ignored.Contains(il))
+				return;
+
 			switch (il.OpCode.Code) {
 				#region Load
 				case Code.Ldnull:

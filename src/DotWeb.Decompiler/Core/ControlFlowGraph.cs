@@ -190,16 +190,12 @@ namespace DotWeb.Decompiler.Core
 				if (elseBlock.Successors.Count == 2 &&
 					elseBlock.Predecessors.Count == 1) {
 					if (elseBlock.ElseEdge == thenBlock) {
-						if (CompoundAnd(block, thenBlock, elseBlock)) {
-							this.Nodes.Remove(elseBlock);
-							return true;
-						}
+						CompoundAnd(block, thenBlock, elseBlock);
+						return true;
 					}
 					else if (elseBlock.ThenEdge == thenBlock) {
-						if (CompoundOr(block, thenBlock, elseBlock)) {
-							this.Nodes.Remove(elseBlock);
-							return true;
-						}
+						CompoundOr(block, thenBlock, elseBlock);
+						return true;
 					}
 				}
 			}
@@ -230,10 +226,7 @@ namespace DotWeb.Decompiler.Core
 			// Remove in-edge bbElse to bbThen
 			bbThen.Predecessors.Remove(bbElse);
 
-			//if (bb.IsLatchNode) {
-			//    this.Cfg.DepthFirstPostOrder[bbThen.DfsPostOrder] = bb;
-			//    return false;
-			//}
+			this.Nodes.Remove(bbElse);
 
 			return true;
 		}
@@ -259,10 +252,7 @@ namespace DotWeb.Decompiler.Core
 			// Remove in-edge bbElse to bbThen
 			bbThen.Predecessors.Remove(bbElse);
 
-			//if (bb.IsLatchNode) {
-			//    this.Cfg.DepthFirstPostOrder[bbElse.DfsPostOrder] = bb;
-			//    return false;
-			//}
+			this.Nodes.Remove(bbElse);
 
 			return true;
 		}
