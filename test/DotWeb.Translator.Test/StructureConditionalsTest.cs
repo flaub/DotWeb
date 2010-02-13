@@ -91,8 +91,8 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void ComplexNestedLoop() {
 			TestConditionals(GraphLibrary.ComplexNestedLoop(),
-				"0: N5 -> N6",
-				"1: N3 -> "
+				"0: N5 -> N9",
+				"1: N3 -> N9"
 			);
 		}
 

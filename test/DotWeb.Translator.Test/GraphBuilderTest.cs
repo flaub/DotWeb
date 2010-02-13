@@ -34,6 +34,7 @@ namespace DotWeb.Translator.Test
 			var method = this.compiledType.Methods.GetMethod(methodName).First();
 			var builder = new ControlFlowGraphBuilder(method);
 			var graph = builder.CreateGraph();
+			graph.SortByDepthFirstPostOrder();
 
 			var actual = ToStringDetails(graph).Trim();
 			Console.WriteLine("Actual:");

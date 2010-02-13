@@ -157,21 +157,6 @@ namespace DotWeb.Decompiler.Core
 
 		public override string ToString() {
 			return FullName;
-			//StringBuilder sb = new StringBuilder();
-			//sb.AppendFormat("{0}", FullName);
-			//if (Predecessors.Any()) {
-			//    string[] values = Predecessors.Select(x => x.RefName).ToArray();
-			//    string line = string.Join(", ", values);
-			//    sb.AppendLine();
-			//    sb.AppendFormat("\tIn : {0}", line);
-			//}
-			//if (Successors.Any()) {
-			//    string[] values = Successors.Select(x => x.RefName).ToArray();
-			//    string line = string.Join(", ", values);
-			//    sb.AppendLine();
-			//    sb.AppendFormat("\tOut: {0}", line);
-			//}
-			//return sb.ToString();
 		}
 	}
 }

@@ -36,7 +36,20 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		public string ToStringDetails() {
-			var sb = new StringBuilder(this.ToString());
+			var sb = new StringBuilder();
+			sb.AppendFormat("{0}", FullName);
+			if (Predecessors.Any()) {
+				string[] values = Predecessors.Select(x => x.RefName).ToArray();
+				string line = string.Join(", ", values);
+				sb.AppendLine();
+				sb.AppendFormat("\tIn : {0}", line);
+			}
+			if (Successors.Any()) {
+				string[] values = Successors.Select(x => x.RefName).ToArray();
+				string line = string.Join(", ", values);
+				sb.AppendLine();
+				sb.AppendFormat("\tOut: {0}", line);
+			}
 			sb.AppendLine();
 			foreach (var cil in this.Instructions) {
 				sb.Append("\t");
