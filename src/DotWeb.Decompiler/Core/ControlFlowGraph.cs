@@ -91,7 +91,7 @@ namespace DotWeb.Decompiler.Core
 
 			foreach (var graph in graphs) {
 				foreach (Interval interval in graph.Nodes) {
-					var loop = StructureLoopForInterval(interval);
+					var loop = interval.StructureLoop(this);
 					if (loop != null) {
 						loops.Add(loop);
 					}
@@ -239,26 +239,6 @@ namespace DotWeb.Decompiler.Core
 			return true;
 		}
 
-
-		private Loop StructureLoopForInterval(Interval interval) {
-			var nodes = new List<Node>();
-			interval.CollectNodes(nodes);
-			var header = nodes.First();
-
-			var tails = new List<Node>();
-
-			foreach (var pred in header.Predecessors) {
-				if (nodes.Contains(pred)) {// && pred.Dominators.Get(header.Id - 1)) {
-					tails.Add(pred);
-				}
-			}
-
-			if (tails.Any()) {
-				return Loop.Construct(this, header, tails);
-			}
-
-			return null;
-		}
 
 		private void ComputeImmediateDominators() {
 			// assume that nodes are sorted by DfsPostOrder

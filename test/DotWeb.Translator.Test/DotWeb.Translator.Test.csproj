@@ -118,6 +118,7 @@
     <Content Include="Expected\Conditionals\SimpleIfElse.js" />
     <Content Include="Expected\Conditionals\SimpleIf.js" />
     <Content Include="Expected\Conditionals\SimpleIfAnd.js" />
+    <Content Include="Expected\Conditionals\Switch.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsArray.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
@@ -149,6 +150,7 @@
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
+    <Content Include="Expected\SourceTest\SwitchInsideWhile.js" />
     <Content Include="Expected\SourceTest\SourceTests_TestGenericNested.js" />
     <Content Include="Expected\SourceTest\SourceTests_AnonymousType.js" />
     <Content Include="Expected\SourceTest\SourceTests_Callback.js" />
@@ -161,7 +163,6 @@
     <Content Include="Expected\SourceTest\SourceTests_HelloWorld.js" />
     <Content Include="Expected\SourceTest\SourceTests_Indexer.js" />
     <Content Include="Expected\SourceTest\SourceTests_Linq.js" />
-    <Content Include="Expected\SourceTest\SourceTests_Switch.js" />
     <Content Include="Expected\SourceTest\SourceTests_TakeParameters.js" />
     <Content Include="Expected\SystemTest\SystemTest_TestList.js" />
     <Content Include="Expected\SystemTest\SystemTest_TestDerivedThruBaseIndirect.js" />

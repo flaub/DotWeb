@@ -405,23 +405,6 @@ namespace H8
 			}
 		}
 
-		public void Switch(int x) {
-			Console.WriteLine("enter");
-			switch (x) {
-				case 0:
-					Console.WriteLine("Zero");
-					break;
-				case 1:
-				case 2:
-					Console.WriteLine("One & Two");
-					break;
-				default:
-					Console.WriteLine("default");
-					break;
-			}
-			Console.WriteLine("exit");
-		}
-
 		public void AnonymousType() {
 			var value = new {
 				Key = "Hi",
@@ -446,6 +429,30 @@ namespace H8
 		public void TestGenericNested() {
 			var x = new Generic<int>();
 			x.Foo();
+		}
+
+		public void SwitchInsideWhile(int x) {
+			Console.WriteLine("enter");
+			while (x > 10) {
+				Console.WriteLine("head");
+				switch (x) {
+					case 0:
+						Console.WriteLine("Zero: return");
+						return;
+					case 1:
+					case 2:
+						Console.WriteLine("One & Two");
+						break;
+					case 3:
+						Console.WriteLine("Three: continue");
+						continue;
+					default:
+						Console.WriteLine("default");
+						break;
+				}
+				Console.WriteLine("tail");
+			}
+			Console.WriteLine("exit");
 		}
 
 	}

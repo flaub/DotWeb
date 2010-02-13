@@ -539,7 +539,7 @@ namespace DotWeb.Translator.Test {
         ///namespace H8
         ///{
         ///	[JsNamespace]
-        ///	class Conditions
+        ///	class Conditionals
         ///	{
         ///		public int ReturnTernary(int a) {
         ///			return a &gt; 10 ? 12 : 42;
@@ -565,11 +565,37 @@ namespace DotWeb.Translator.Test {
         ///			}
         ///		}
         ///
-        ///		public void SimpleIfElse(int a)  [rest of string was truncated]&quot;;.
+        ///		public void SimpleIfElse(int a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
                 return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditionals.prototype.Switch = function(/*System.Int32*/ x) {
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	var CS$0$0000 = x;
+        ///	switch(CS$0$0000) {
+        ///		default:
+        ///			System.Console.WriteLine(&quot;default&quot;);
+        ///			break;
+        ///		case 0:
+        ///			System.Console.WriteLine(&quot;Zero&quot;);
+        ///			break;
+        ///		case 1:
+        ///		case 2:
+        ///			System.Console.WriteLine(&quot;One &amp; Two&quot;);
+        ///			break;
+        ///	}
+        ///	System.Console.WriteLine(&quot;exit&quot;);
+        ///};
+        ///.
+        /// </summary>
+        internal static string Switch {
+            get {
+                return ResourceManager.GetString("Switch", resourceCulture);
             }
         }
     }

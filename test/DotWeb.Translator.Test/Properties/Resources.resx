@@ -178,9 +178,6 @@
   <data name="SourceTests_Linq" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_linq.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SourceTests_Switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_switch.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SourceTests_TakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_takeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -213,5 +210,8 @@
   </data>
   <data name="SourceTests_TestGenericNested" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\sourcetests_testgenericnested.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SwitchInsideWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\switchinsidewhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

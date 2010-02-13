@@ -386,6 +386,76 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
+		public static ControlFlowGraph Switch() {
+			//digraph G {
+			//    graph [label="Switch"];
+			//    B1 [label="B1 (#1) (^)\nswitch"];
+			//    B4 [label="B4 (#2) (^B1)\nbr.s"];
+			//    B3 [label="B3 (#3) (^B1)\nbr.s"];
+			//    B2 [label="B2 (#4) (^B1)\nbr.s"];
+			//    B5 [label="B5 (#5) (^B2)\ncall"];
+			//    B6 [label="B6 (#6) (^B1)\nret"];
+			//    B1 -> B2;
+			//    B1 -> B3;
+			//    B1 -> B4;
+			//    B4 -> B6;
+			//    B3 -> B6;
+			//    B2 -> B5;
+			//    B5 -> B6;
+			//}
+			var builder = new SimpleGraphBuilder(6);
+			builder.Connect(1, 2);
+			builder.Connect(1, 3);
+			builder.Connect(1, 4);
+			builder.Connect(4, 6);
+			builder.Connect(3, 6);
+			builder.Connect(2, 5);
+			builder.Connect(5, 6);
+			return builder.Graph;
+		}
+
+		public static ControlFlowGraph SwitchInsideWhile() {
+			//digraph G {
+			//    graph [label="SwitchInsideWhile"];
+			//    B1 [label="B1 (#1) (^)\nbr.s"];
+			//    B9 [label="B9 (#2) (^B1)\nbgt.s"];
+			//    B2 [label="B2 (#3) (^B9)\nswitch"];
+			//    B6 [label="B6 (#4) (^B2)\nbr.s"];
+			//    B5 [label="B5 (#5) (^B2)\nbr.s"];
+			//    B4 [label="B4 (#6) (^B2)\nret"];
+			//    B3 [label="B3 (#7) (^B2)\nbr.s"];
+			//    B7 [label="B7 (#8) (^B3)\ncall"];
+			//    B8 [label="B8 (#9) (^B2)\ncall"];
+			//    B10 [label="B10 (#10) (^B9)\nret"];
+			//    B1 -> B9;
+			//    B9 -> B10;
+			//    B9 -> B2;
+			//    B2 -> B3;
+			//    B2 -> B4;
+			//    B2 -> B5;
+			//    B2 -> B6;
+			//    B6 -> B9;
+			//    B5 -> B8;
+			//    B3 -> B7;
+			//    B7 -> B8;
+			//    B8 -> B9;
+			//}
+			var builder = new SimpleGraphBuilder(10);
+			builder.Connect(1, 9);
+			builder.Connect(9, 10);
+			builder.Connect(9, 2);
+			builder.Connect(2, 3);
+			builder.Connect(2, 4);
+			builder.Connect(2, 5);
+			builder.Connect(2, 6);
+			builder.Connect(6, 9);
+			builder.Connect(5, 8);
+			builder.Connect(3, 7);
+			builder.Connect(7, 8);
+			builder.Connect(8, 9);
+			return builder.Graph;
+		}
+
 		public static ControlFlowGraph DragonBook() {
 			//digraph G {
 			//    graph [label="DragonBook"];

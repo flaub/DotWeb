@@ -51,6 +51,27 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
+		public Loop StructureLoop(Graph graph) {
+			var nodes = new List<Node>();
+			CollectNodes(nodes);
+			
+			var header = nodes.First();
+			var tails = new List<Node>();
+
+			foreach (var pred in header.Predecessors) {
+				if (nodes.Contains(pred)) {// && pred.Dominators.Get(header.Id - 1)) {
+					tails.Add(pred);
+				}
+			}
+
+			if (tails.Any()) {
+				return Loop.Construct(graph, header, tails);
+			}
+
+			return null;
+		}
+
+
 		private void AddNode(Node node) {
 			node.Interval = this;
 			this.Nodes.Add(node);

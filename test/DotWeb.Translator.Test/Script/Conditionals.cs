@@ -271,5 +271,22 @@ namespace H8
 			ret++;
 			return ret;
 		}
+
+		public void Switch(int x) {
+			Console.WriteLine("enter");
+			switch (x) {
+				case 0:
+					Console.WriteLine("Zero");
+					break;
+				case 1:
+				case 2:
+					Console.WriteLine("One & Two");
+					break;
+				default:
+					Console.WriteLine("default");
+					break;
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }

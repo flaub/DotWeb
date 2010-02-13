@@ -118,6 +118,20 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
+		public void Switch() {
+			TestConditionals(GraphLibrary.Switch(),
+				"0: N1 -> N6"
+			);
+		}
+
+		[Test]
+		public void SwitchInsideWhile() {
+			TestConditionals(GraphLibrary.SwitchInsideWhile(),
+				"0: N2 -> N8"
+			);
+		}
+
+		[Test]
 		[ExpectedException(typeof(NotImplementedException))]
 		public void DragonBook() {
 			TestConditionals(GraphLibrary.DragonBook());

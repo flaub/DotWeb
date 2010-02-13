@@ -140,6 +140,13 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
+		public void SwitchInsideWhile() {
+			TestLoops(GraphLibrary.SwitchInsideWhile(),
+				"0: (While) $N9, #N6, N2, &#N8, N5, N7, N3, N4, !N10"
+			);
+		}
+
+		[Test]
 		[ExpectedException(typeof(NotImplementedException))]
 		public void DragonBook() {
 			TestLoops(GraphLibrary.DragonBook(),

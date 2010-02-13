@@ -620,38 +620,6 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.Switch = function(/*System.Int32*/ val) {
-        ///	System.Console.WriteLine(&quot;Hello&quot;);
-        ///	var CS$0$0000 = val;
-        ///	switch(CS$0$0000 - 1) {
-        ///		default:
-        ///			System.Console.WriteLine(&quot;default&quot;);
-        ///			break;
-        ///		case 0:
-        ///			System.Console.WriteLine(&quot;1&quot;);
-        ///			break;
-        ///		case 1:
-        ///			System.Console.WriteLine(&quot;2&quot;);
-        ///			break;
-        ///		case 2:
-        ///			System.Console.WriteLine(&quot;3&quot;);
-        ///			break;
-        ///		case 3:
-        ///		case 4:
-        ///			System.Console.WriteLine(&quot;4, 5&quot;);
-        ///			break;
-        ///	}
-        ///	System.Console.WriteLine(&quot;Bye&quot;);
-        ///};
-        ///.
-        /// </summary>
-        internal static string SourceTests_Switch {
-            get {
-                return ResourceManager.GetString("SourceTests_Switch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(/*System.String*/ str, /*System.Int32*/ value, /*System.Double[]*/ rad) {
         ///	System.Console.WriteLine(str);
         ///	var x = System.Math.Sin(rad[value] * 1.570795);
@@ -698,6 +666,42 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string SourceTests_TestGenericNested {
             get {
                 return ResourceManager.GetString("SourceTests_TestGenericNested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.Generic$1 = function() {
+        ///};
+        ///
+        ///H8.Generic$1.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.Generic$1_Nested_Inner.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.Generic$1_Nested.prototype.Foo = function() {
+        ///	var x = new H8.Generic$1_Nested_Inn [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SwitchInsideWhile {
+            get {
+                return ResourceManager.GetString("SwitchInsideWhile", resourceCulture);
             }
         }
         

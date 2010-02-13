@@ -61,11 +61,6 @@ namespace DotWeb.Translator.Test
 		}
 
 		[Test]
-		public void Switch() {
-			this.TestMethod(this.sourceTestsCompiledType, "Switch", Resources.SourceTests_Switch);
-		}
-
-		[Test]
 		public void AnonymousType() {
 			var value = new {
 				Key = "Hi",
@@ -103,6 +98,11 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestGenericNested() {
 			this.TestMethod(this.sourceTestsCompiledType, "TestGenericNested", Resources.SourceTests_TestGenericNested, true);
+		}
+
+		[Test]
+		public void SwitchInsideWhile() {
+			this.TestMethod(this.sourceTestsCompiledType, "SwitchInsideWhile", Resources.SwitchInsideWhile);
 		}
 
 		private TypeDefinition sourceTestsCompiledType;

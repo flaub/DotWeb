@@ -98,20 +98,30 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public void Visit(CodeSwitchStatement stmt) {
 			WriteLine("switch({0}) {{", Print(stmt.Expression));
 			this.writer.Indent++;
+			CodeCase defaultCase = null;
+
 			foreach (CodeCase cc in stmt.Cases) {
 				if (cc.Expressions.Count == 0) {
-					WriteLine("default:");
+					defaultCase = cc;
+					continue;
 				}
-				else {
-					foreach (CodeExpression exp in cc.Expressions) {
-						WriteLine("case {0}:", Print(exp));
-					}
+				foreach (CodeExpression exp in cc.Expressions) {
+					WriteLine("case {0}:", Print(exp));
 				}
 				this.writer.Indent++;
 				Write(cc.Statements);
-				WriteLine("break;");
+				//WriteLine("break;");
 				this.writer.Indent--;
 			}
+
+			if (defaultCase != null) {
+				WriteLine("default:");
+				this.writer.Indent++;
+				Write(defaultCase.Statements);
+				//WriteLine("break;");
+				this.writer.Indent--;
+			}
+
 			this.writer.Indent--;
 			WriteLine("}}");
 		}

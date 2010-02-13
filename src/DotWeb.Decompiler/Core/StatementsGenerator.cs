@@ -94,10 +94,11 @@ namespace DotWeb.Decompiler.Core
 			if (block.IsLoopHeader) {
 				return WriteLoop(block, stmts, context);
 			}
+			else if (block.IsMultiWay) {
+				return WriteSwitch(block, stmts, context);
+			}
 			else if (block.Conditional != null) {
 				return WriteIf(block, block.Conditional, stmts, context);
-			}
-			else if (block.IsMultiWay) {
 			}
 			else {
 				var isReturn = WriteBasicBlock(block, stmts);
@@ -107,8 +108,6 @@ namespace DotWeb.Decompiler.Core
 				var succ = (BasicBlock)block.Successors.FirstOrDefault();
 				return WriteCode(block, succ, stmts, context);
 			}
-
-			return false;
 		}
 
 		private bool WriteLoop(BasicBlock block, List<CodeStatement> stmts, Context context) {
@@ -124,6 +123,43 @@ namespace DotWeb.Decompiler.Core
 				default:
 					throw new InvalidOperationException();
 			}
+		}
+
+		private bool WriteSwitch(BasicBlock block, List<CodeStatement> stmts, Context context) {
+			stmts.AddRange(block.Statements);
+			var switchStmt = (CodeSwitchStatement)block.Statements.Last();
+
+			var targets = (Instruction[])block.LastInstruction.Operand;
+			var casesByOffset = new Dictionary<int, CodeCase>();
+			var follow = block.Conditional.Follow;
+
+			foreach (BasicBlock succ in block.Successors) {
+				CodeCase codeCase = new CodeCase();
+				if (succ.DfsTraversed != DfsTraversal.Alpha) {
+					var followContext = context;
+					if (follow != null) {
+						followContext = context.NewUntil(follow);
+					}
+					if (!WriteCode(block, succ, codeCase.Statements, followContext)) {
+						codeCase.Statements.Add(new CodeBreakStatement());
+					}
+				}
+				casesByOffset.Add(succ.BeginOffset, codeCase);
+			}
+
+			for (int i = 0; i < targets.Length; i++) {
+				int offset = targets[i].Offset;
+				var codeCase = casesByOffset[offset];
+				codeCase.Expressions.Add(new CodePrimitiveExpression(i));
+			}
+
+			switchStmt.Cases.AddRange(casesByOffset.Values);
+
+			if (follow != null) {
+				return WriteCode(null, (BasicBlock)follow, stmts, context);
+			}
+
+			return false;
 		}
 
 		private bool WriteIf(BasicBlock block, Conditional conditional, List<CodeStatement> stmts, Context context) {
