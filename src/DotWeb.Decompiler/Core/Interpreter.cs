@@ -890,9 +890,45 @@ namespace DotWeb.Decompiler.Core
 					throw new NotSupportedException();
 				}
 			}
+
+			if (IsBooleanExpression(lhs) && IsFalse(rhs)) {
+				return lhs.Invert();
+			}
+
 			return new CodeBinaryExpression(lhs, op, rhs);
 		}
 
+		bool IsBooleanExpression(CodeExpression expression) {
+			if (expression is CodeBinaryExpression) {
+				return IsComparisonOperator(((CodeBinaryExpression)expression).Operator);
+			}
+			else if (expression is CodeInvokeExpression) {
+				var reference = ((CodeInvokeExpression)expression).Method.Reference;
+				if (reference != null)
+					return reference.ReturnType.ReturnType.FullName == Constants.Boolean;
+			}
+			return false;
+		}
+
+		static bool IsComparisonOperator(CodeBinaryOperator op) {
+			switch (op) {
+				case CodeBinaryOperator.GreaterThan:
+				case CodeBinaryOperator.LessThan:
+				case CodeBinaryOperator.GreaterThanOrEqual:
+				case CodeBinaryOperator.LessThanOrEqual:
+				case CodeBinaryOperator.IdentityEquality:
+				case CodeBinaryOperator.IdentityInequality:
+					return true;
+			}
+			return false;
+		}
+
+		static bool IsFalse(CodeExpression expression) {
+			var literal = expression as CodePrimitiveExpression;
+			if (literal == null)
+				return false;
+			return 0.Equals(literal.Value);
+		}
 		#endregion
 	}
 }
