@@ -9,7 +9,7 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class StructureConditionalsTest
 	{
-		private List<Conditional> TestConditionals(Graph graph, params string[] args) {
+		private List<Conditional> TestConditionals(ControlFlowGraph graph, params string[] args) {
 			graph.SortByDepthFirstPostOrder();
 
 			graph.StructureLoops();

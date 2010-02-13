@@ -12,14 +12,13 @@ namespace DotWeb.Decompiler.Core
 	{
 		private MethodBody body;
 		private SortedDictionary<int, BasicBlock> blocks = new SortedDictionary<int, BasicBlock>();
-		private Graph graph;
+		private ControlFlowGraph graph = new ControlFlowGraph();
 
 		public ControlFlowGraphBuilder(MethodDefinition method) {
 			this.body = method.Body;
-			this.graph = new Graph(null);
 		}
 
-		public Graph CreateGraph() {
+		public ControlFlowGraph CreateGraph() {
 			DelimitBlocks();
 			ConnectBlocks();
 			return this.graph;
@@ -40,13 +39,8 @@ namespace DotWeb.Decompiler.Core
 			var cil = block.LastInstruction;
 			switch (block.FlowControl) {
 				case FlowControl.Branch:
-				case FlowControl.Cond_Branch: {
-						var target = GetBranchTargetBlock(cil);
-						if (block.FlowControl == FlowControl.Cond_Branch && cil.Next != null) {
-							this.graph.Connect(block, GetBlock(cil.Next));
-						}
-						this.graph.Connect(block, target);
-					}
+				case FlowControl.Cond_Branch:
+					ConnectBranch(block);
 					break;
 				case FlowControl.Call:
 				case FlowControl.Next:
@@ -62,10 +56,31 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
+		private void ConnectBranch(BasicBlock block) {
+			var cil = block.LastInstruction;
+			if (cil.IsMultiWay()) {
+				var blocks = GetBranchTargetsBlocks(cil);
+				if (cil.Next != null) {
+					this.graph.Connect(block, GetBlock(cil.Next));
+				}
+				foreach (var target in blocks) {
+					this.graph.Connect(block, target);
+				}
+			}
+			else {
+				var target = GetBranchTargetBlock(cil);
+				if (block.FlowControl == FlowControl.Cond_Branch && cil.Next != null) {
+					this.graph.Connect(block, GetBlock(cil.Next));
+				}
+				this.graph.Connect(block, target);
+			}
+		}
+
 		private void MarkBlockStarts() {
 			for (int i = 0; i < this.body.Instructions.Count; i++) {
 				var cil = this.body.Instructions[i];
 				if (i == 0) {
+					// the first instruction starts a block
 					MarkBlockStart(cil);
 				}
 
@@ -73,9 +88,20 @@ namespace DotWeb.Decompiler.Core
 					continue;
 				}
 
-				var target = GetBranchTarget(cil);
-				if (target != null) {
-					MarkBlockStart(target);
+				if (cil.IsMultiWay()) {
+					// each switch case first instruction starts a block
+					foreach (var target in GetBranchTargets(cil)) {
+						if (target != null) {
+							MarkBlockStart(target);
+						}
+					}
+				}
+				else {
+					// the target of a branch starts a block
+					var target = GetBranchTarget(cil);
+					if (target != null) {
+						MarkBlockStart(target);
+					}
 				}
 
 				// the next instruction after a branch starts a block
@@ -157,8 +183,21 @@ namespace DotWeb.Decompiler.Core
 			return (Instruction)cil.Operand;
 		}
 
+		private Instruction[] GetBranchTargets(Instruction cil) {
+			return (Instruction[])cil.Operand;
+		}
+
 		private BasicBlock GetBranchTargetBlock(Instruction cil) {
 			return GetBlock(GetBranchTarget(cil));
+		}
+	
+		private BasicBlock[] GetBranchTargetsBlocks(Instruction cil) {
+			var targets = GetBranchTargets(cil);
+			var blocks = new BasicBlock[targets.Length];
+			for (int i = 0; i < targets.Length; i++) {
+				blocks[i] = GetBlock(targets[i]);
+			}
+			return blocks;
 		}
 	}
 }

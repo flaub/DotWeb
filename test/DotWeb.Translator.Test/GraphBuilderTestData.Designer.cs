@@ -84,7 +84,7 @@ namespace DotWeb.Translator.Test {
         
         /// <summary>
         ///   Looks up a localized string similar to B1: 0000 - 0001: brfalse.s 0013 Cond_Branch
-        ///	Out: B3, B2
+        ///	Out: B2, B3
         ///	0000: ldarg.1 Next
         ///	0001: brfalse.s 0013 Cond_Branch
         ///
@@ -126,9 +126,19 @@ namespace DotWeb.Translator.Test {
         ///				Console.WriteLine(&quot;x&quot;);
         ///			}
         ///		}
-        ///	}
-        ///}
-        ///.
+        ///
+        ///		public void WhileBreak() {
+        ///			int i = 0;
+        ///			while (true) {
+        ///				Console.WriteLine(&quot;top&quot;);
+        ///				if (i == 10) {
+        ///					Console.WriteLine(&quot;break&quot;);
+        ///					break;
+        ///				}
+        ///				Console.WriteLine(&quot;loop&quot;);
+        ///				i++;
+        ///			}
+        ///		 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
@@ -137,21 +147,56 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0001: brfalse.s 0013 Cond_Branch
-        ///	Out: B3, B2
-        ///	0000: ldarg.1 Next
-        ///	0001: brfalse.s 0013 Cond_Branch
+        ///   Looks up a localized string similar to B1: 0000 - 0001: stloc.0 Next
+        ///	Out: B2
+        ///	0000: ldc.i4.0 Next
+        ///	0001: stloc.0 Next
         ///
-        ///B2: 0003 - 0008: call [return: System.Void] System.Console::WriteLine() Call
-        ///	In : B1
-        ///	Out: B3
-        ///	0003: ldstr &quot;x&quot; Next
-        ///	0008: call [return: System.Void] System.Console::WriteLine() Call
+        ///B2: 0002 - 0015: bne.un.s 0029 Cond_Branch
+        ///	In : B1, B4
+        ///	Out: B3, B4
+        ///	0002: ldstr &quot;top&quot; Next
+        ///	0007: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0012: ldloc.0 Next
+        ///	0013: ldc.i4.s 10 Next
+        ///	0015: bne.un.s 0029 Cond_Branch
         ///
-        ///B3: 0013 - 0013: ret Return
-        ///	In : B1, B2
-        ///	0013: ret Return
-        ///.
+        ///B4: 0029 - 0043: br.s 0002 Branch
+        ///	In : B2
+        ///	Out: B2
+        ///	0029: ldstr &quot;loop&quot; Next
+        ///	0034: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0039: ldloc.0 Next
+        ///	0040: ld [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Switch {
+            get {
+                return ResourceManager.GetString("Switch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B1: 0000 - 0001: stloc.0 Next
+        ///	Out: B2
+        ///	0000: ldc.i4.0 Next
+        ///	0001: stloc.0 Next
+        ///
+        ///B2: 0002 - 0015: bne.un.s 0029 Cond_Branch
+        ///	In : B1, B4
+        ///	Out: B3, B4
+        ///	0002: ldstr &quot;top&quot; Next
+        ///	0007: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0012: ldloc.0 Next
+        ///	0013: ldc.i4.s 10 Next
+        ///	0015: bne.un.s 0029 Cond_Branch
+        ///
+        ///B4: 0029 - 0043: br.s 0002 Branch
+        ///	In : B2
+        ///	Out: B2
+        ///	0029: ldstr &quot;loop&quot; Next
+        ///	0034: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0039: ldloc.0 Next
+        ///	0040: ld [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WhileBreak {
             get {

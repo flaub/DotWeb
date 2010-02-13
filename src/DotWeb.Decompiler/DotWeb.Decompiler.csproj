@@ -103,6 +103,8 @@
     <Compile Include="CodeModel\Statement\CodeContinueStatement.cs" />
     <Compile Include="CodeModel\Statement\ICodeStatementVisitor.cs" />
     <Compile Include="Core\BasicBlock.cs" />
+    <Compile Include="Core\Conditional.cs" />
+    <Compile Include="Core\ControlFlowGraph.cs" />
     <Compile Include="Core\Interpreter.cs" />
     <Compile Include="CodeTypeEvaluator.cs" />
     <Compile Include="Core\ControlFlowGraphBuilder.cs" />

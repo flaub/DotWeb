@@ -9,9 +9,8 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class StructureLoopsTest
 	{
-		private List<Loop> TestLoops(Graph graph, params string[] args) {
+		private List<Loop> TestLoops(ControlFlowGraph graph, params string[] args) {
 			graph.SortByDepthFirstPostOrder();
-			//graph.ComputeDominators();
 
 			var loops = graph.StructureLoops();
 

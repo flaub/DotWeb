@@ -126,6 +126,7 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\GraphBuilderTest\Switch.txt" />
     <Content Include="Expected\GraphBuilderTest\WhileBreak.txt" />
     <Content Include="Expected\GraphBuilderTest\SimpleIf.txt" />
     <Content Include="Expected\GraphBuilderTest\OneBlock.txt" />

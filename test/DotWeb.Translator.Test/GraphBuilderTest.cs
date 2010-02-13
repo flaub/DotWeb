@@ -58,5 +58,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void WhileBreak() { TestGraph(); }
+
+		[Test]
+		public void Switch() { TestGraph(); }
 	}
 }

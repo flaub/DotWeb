@@ -106,7 +106,7 @@ namespace DotWeb.Translator.Test
 			}
 		}
 
-		private void Test(Graph graph, params string[] lines) {
+		private void Test(ControlFlowGraph graph, params string[] lines) {
 			var sequences = graph.DeriveSequences();
 			Print(sequences);
 

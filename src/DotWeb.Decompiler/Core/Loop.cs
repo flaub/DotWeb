@@ -7,6 +7,14 @@ using System.Diagnostics;
 
 namespace DotWeb.Decompiler.Core
 {
+	public enum LoopType
+	{
+		None,
+		While,
+		Repeat,
+		Endless
+	}
+
 	public class Loop
 	{
 		public LoopType LoopType { get; set; }

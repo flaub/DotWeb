@@ -13,10 +13,10 @@ namespace DotWeb.Translator.Test
 
 	class SimpleGraphBuilder
 	{
-		public Graph Graph { get; private set; }
+		public ControlFlowGraph Graph { get; private set; }
 
 		public SimpleGraphBuilder(int count) {
-			this.Graph = new Graph(null);
+			this.Graph = new ControlFlowGraph();
 
 			for (int i = 0; i < count; i++) {
 				var node = new NodeTest();

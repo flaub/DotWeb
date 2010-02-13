@@ -8,13 +8,13 @@ namespace DotWeb.Translator.Test
 {
 	static class GraphLibrary
 	{
-		public static Graph Simple() {
+		public static ControlFlowGraph Simple() {
 			var builder = new SimpleGraphBuilder(2);
 			builder.Connect(1, 2);
 			return builder.Graph;
 		}
 
-		public static Graph SimpleBranch() {
+		public static ControlFlowGraph SimpleBranch() {
 			var builder = new SimpleGraphBuilder(4);
 			builder.Connect(1, 2);
 			builder.Connect(1, 3);
@@ -23,7 +23,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph SimpleLoop() {
+		public static ControlFlowGraph SimpleLoop() {
 			// /->1
 			// |  |
 			// |  v
@@ -38,7 +38,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph SimpleDoWhile() {
+		public static ControlFlowGraph SimpleDoWhile() {
 			//  1
 			//  |
 			//  v
@@ -53,7 +53,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph SimpleWhile() {
+		public static ControlFlowGraph SimpleWhile() {
 			// 1
 			// |   
 			// |   
@@ -72,7 +72,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileBreak() {
+		public static ControlFlowGraph WhileBreak() {
 			//    1
 			//    |
 			//    v
@@ -88,7 +88,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileContinue() {
+		public static ControlFlowGraph WhileContinue() {
 			//    1
 			//    |
 			//    v
@@ -105,7 +105,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileCondBreak() {
+		public static ControlFlowGraph WhileCondBreak() {
 			// 1
 			// |   
 			// |   
@@ -130,7 +130,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileCondContinue() {
+		public static ControlFlowGraph WhileCondContinue() {
 			// 1
 			// |   
 			// |   
@@ -155,7 +155,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileBreakContinue() {
+		public static ControlFlowGraph WhileBreakContinue() {
 			//       1
 			//       |
 			//       v
@@ -178,7 +178,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph WhileBreakBreak() {
+		public static ControlFlowGraph WhileBreakBreak() {
 			//    1
 			//    |
 			//    v
@@ -209,7 +209,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph ComplexLoop() {
+		public static ControlFlowGraph ComplexLoop() {
 			//      1
 			//      |
 			//      v
@@ -234,7 +234,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph ComplexNestedLoop() {
+		public static ControlFlowGraph ComplexNestedLoop() {
 			//digraph G {
 			//    graph [label="System.Void H8.Loops::ComplexNestedLoop()"];
 			//    subgraph cluster_I1 {
@@ -287,7 +287,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph MultiReturns() {
+		public static ControlFlowGraph MultiReturns() {
 			//digraph G {
 			//    graph [label="System.Void H8.Loops::MultiReturns()"];
 			//    subgraph cluster_I1 {
@@ -327,7 +327,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph MultiReturns2() {
+		public static ControlFlowGraph MultiReturns2() {
 			//digraph G {
 			//    graph [label="System.Void H8.Loops::MultiReturns2()"];
 			//    subgraph cluster_I1 {
@@ -365,7 +365,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph NestedDoWhile() {
+		public static ControlFlowGraph NestedDoWhile() {
 			//    1
 			//    |
 			//    v
@@ -386,7 +386,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph DragonBook() {
+		public static ControlFlowGraph DragonBook() {
 			//digraph G {
 			//    graph [label="DragonBook"];
 			//    B1 -> B3;
@@ -427,7 +427,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph Cifuentes1() {
+		public static ControlFlowGraph Cifuentes1() {
 			// Taken from "Reverse Compilation Techniques", by C. Cifuentes, Section 6.3, Fig. 6-11
 			// /---->1
 			// |     |
@@ -456,7 +456,7 @@ namespace DotWeb.Translator.Test
 			return builder.Graph;
 		}
 
-		public static Graph Cifuentes2() {
+		public static ControlFlowGraph Cifuentes2() {
 			//digraph G {
 			//    graph [label="Cifuentes2"];
 			//    B1 -> B2;
