@@ -66,6 +66,12 @@ namespace H8
 		public void TestList() {
 			var list = new List<string>();
 			list.Add("one");
+			Console.WriteLine(list.ToString());
+
+			var index = list.IndexOf("one");
+			Console.WriteLine(index);
+
+			list.Remove("two");
 		}
 	}
 }

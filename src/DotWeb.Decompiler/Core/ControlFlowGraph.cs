@@ -39,7 +39,7 @@ namespace DotWeb.Decompiler.Core
 
 		public void SortByDepthFirstPostOrder() {
 			var sorted = new List<Node>(this.Nodes.Count);
-			DepthFirstTraversal((Node node) => {
+			DepthFirstTraversalPostAction((Node node) => {
 				node.DfsIndex = this.Nodes.Count - sorted.Count;
 				sorted.Insert(0, node);
 			});
@@ -48,21 +48,32 @@ namespace DotWeb.Decompiler.Core
 			ComputeImmediateDominators();
 		}
 
-		public void DepthFirstTraversal(Action<Node> action) {
+		public void DepthFirstTraversalPreAction(Action<Node> action) {
 			var visited = new HashSet<Node>();
-			DepthFirstTraversal(this.Root, action, visited);
+			DepthFirstTraversal(this.Root, action, null, visited);
 		}
 
-		private void DepthFirstTraversal(Node node, Action<Node> action, HashSet<Node> visited) {
+		public void DepthFirstTraversalPostAction(Action<Node> action) {
+			var visited = new HashSet<Node>();
+			DepthFirstTraversal(this.Root, null, action, visited);
+		}
+
+		private void DepthFirstTraversal(Node node, Action<Node> preAction, Action<Node> postAction, HashSet<Node> visited) {
 			visited.Add(node);
+
+			if (preAction != null) {
+				preAction(node);
+			}
 
 			foreach (var succ in node.Successors) {
 				if (!visited.Contains(succ)) {
-					DepthFirstTraversal(succ, action, visited);
+					DepthFirstTraversal(succ, preAction, postAction, visited);
 				}
 			}
 
-			action(node);
+			if (postAction != null) {
+				postAction(node);
+			}
 		}
 
 		public override string ToString() {

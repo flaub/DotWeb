@@ -36,11 +36,12 @@ namespace DotWeb.Decompiler
 			var graph = builder.CreateGraph();
 
 #if DEBUG
+			Console.WriteLine(graph);
 			graph.PrintDot(method.Name);
 #endif
 
 			var interpreter = new Interpreter(typeSystem, method);
-			graph.DepthFirstTraversal((Node node) => {
+			graph.DepthFirstTraversalPreAction((Node node) => {
 				// Accumulate statements into node.Statements
 				interpreter.ProcessBlock((BasicBlock)node);
 			});
