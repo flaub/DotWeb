@@ -221,6 +221,26 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conditionals.prototype.IfNotAndCall = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+        ///	var ret = 0;
+        ///	if ((!x) &amp;&amp; (y)) {
+        ///		ret = 1;
+        ///	}
+        ///	else {
+        ///		ret = 2;
+        ///	}
+        ///	ret = ret + 1;
+        ///	return ret;
+        ///};
+        ///.
+        /// </summary>
+        internal static string IfNotAndCall {
+            get {
+                return ResourceManager.GetString("IfNotAndCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conditionals.prototype.IfOrAnd = function(/*System.Boolean*/ x, /*System.Boolean*/ y, /*System.Boolean*/ z) {
         ///	var ret = 0;
         ///	if ((x) || ((y) &amp;&amp; (z))) {
@@ -533,39 +553,18 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.DotWeb;
-        ///using System;
-        ///
-        ///namespace H8
-        ///{
-        ///	[JsNamespace]
-        ///	class Conditionals
-        ///	{
-        ///		public int ReturnTernary(int a) {
-        ///			return a &gt; 10 ? 12 : 42;
-        ///		}
-        ///
-        ///		public int ReturnNestedTernary(int a) {
-        ///			return (a &lt; 0 ? (a &lt; 100 ? 12 : 24) : (a &gt; 0 ? 10 : 42));
-        ///		}
-        ///
-        ///		public void SimpleIf(int a) {
-        ///			if (a == 12) {
-        ///				a = 14;
-        ///			}
-        ///		}
-        ///
-        ///		public void SimpleIfIf(int a) {
-        ///			if (a == 12) {
-        ///				a = 14;
-        ///			}
-        ///
-        ///			if (a == 13) {
-        ///				a = 15;
-        ///			}
-        ///		}
-        ///
-        ///		public void SimpleIfElse(int a [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to // Copyright 2010, Frank Laub
+        ///// 
+        ///// This file is part of DotWeb.
+        ///// 
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        ///// 
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
@@ -578,15 +577,15 @@ namespace DotWeb.Translator.Test {
         ///	System.Console.WriteLine(&quot;enter&quot;);
         ///	var CS$0$0000 = x;
         ///	switch(CS$0$0000) {
-        ///		default:
-        ///			System.Console.WriteLine(&quot;default&quot;);
-        ///			break;
         ///		case 0:
         ///			System.Console.WriteLine(&quot;Zero&quot;);
         ///			break;
         ///		case 1:
         ///		case 2:
         ///			System.Console.WriteLine(&quot;One &amp; Two&quot;);
+        ///			break;
+        ///		default:
+        ///			System.Console.WriteLine(&quot;default&quot;);
         ///			break;
         ///	}
         ///	System.Console.WriteLine(&quot;exit&quot;);

@@ -75,5 +75,7 @@ namespace DotWeb.Translator.Test
 		public void IfAndAnd() { this.RunTest(); }
 		[Test]
 		public void Switch() { this.RunTest(); }
+		[Test]
+		public void IfNotAndCall() { this.RunTest(); }
 	}
 }

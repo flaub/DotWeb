@@ -94,6 +94,7 @@
     <Compile Include="TypeHierarchyTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\Conditionals\IfNotAndCall.js" />
     <Content Include="Expected\Conditionals\IfAndOr.js" />
     <Content Include="Expected\Conditionals\IfAndAnd.js" />
     <Content Include="Expected\Conditionals\IfOrAnd.js" />

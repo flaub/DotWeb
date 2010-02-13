@@ -305,5 +305,16 @@ namespace H8
 			}
 			Console.WriteLine("exit");
 		}
+
+		private bool foundFirst = false;
+		private object item = null;
+	
+		public bool IfNotAndCall(object element, int i, JsArray array) {
+			if (!this.foundFirst && JsObject.StrictEquals(this.item, element)) {
+				this.foundFirst = true;
+				return false;
+			}
+			return true;
+		}
 	}
 }

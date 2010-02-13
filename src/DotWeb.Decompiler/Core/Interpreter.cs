@@ -48,6 +48,37 @@ namespace DotWeb.Decompiler.Core
 			foreach (var cil in block.Instructions) {
 				HandleInstruction(cil);
 			}
+
+			if (this.stack.Any()) {
+				PeekForward(block);
+			}
+		}
+
+		private void PeekForward(BasicBlock block) {
+			var flowControl = block.LastInstruction.OpCode.FlowControl;
+			Instruction next = null;
+			if (flowControl == FlowControl.Next) {
+				next = block.LastInstruction.Next;
+			}
+			else if (flowControl == FlowControl.Branch) {
+				next = (Instruction)block.LastInstruction.Operand;
+			}
+			else {
+				Debug.Assert(false);
+			}
+
+			var copy = new CodeExpression[this.stack.Count];
+			this.stack.CopyTo(copy, 0);
+
+			while (next != null && this.stack.Any()) {
+				// peek ahead until the stack becomes empty
+				// finish out any statements for this block
+				HandleInstruction(next);
+
+				next = next.Next;
+			}
+
+			this.stack = new Stack<CodeExpression>(copy);
 		}
 
 		private void HandleInstruction(Instruction il) {
@@ -558,10 +589,6 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private TypeReference Import(Type type) {
-			return this.method.DeclaringType.Module.Import(type);
-		}
-
 		private void OnConvert(Type type) {
 			PushCastExpression(Import(type));
 		}
@@ -694,7 +721,7 @@ namespace DotWeb.Decompiler.Core
 		private void BinaryExpression(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = Pop();
 			CodeExpression lhs = Pop();
-			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
+			var expr = OptimizeBinaryExpression(lhs, op, rhs);
 			Push(expr);
 		}
 
@@ -707,14 +734,14 @@ namespace DotWeb.Decompiler.Core
 		private void Comparision(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = Pop();
 			CodeExpression lhs = Pop();
-			CodeBinaryExpression expr = new CodeBinaryExpression(lhs, op, rhs);
+			var expr = OptimizeBinaryExpression(lhs, op, rhs);
 			Push(expr);
 		}
 
 		private void ConditionalBranch(Instruction il, CodeBinaryOperator op) {
 			CodeExpression rhs = Pop();
 			CodeExpression lhs = Pop();
-			CodeBinaryExpression condition = new CodeBinaryExpression(lhs, op, rhs);
+			var condition = OptimizeBinaryExpression(lhs, op, rhs);
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt);
 		}
@@ -722,8 +749,7 @@ namespace DotWeb.Decompiler.Core
 		private void ConditionalBranch(Instruction il, bool test) {
 			CodePrimitiveExpression rhs = new CodePrimitiveExpression(test);
 			CodeExpression lhs = Pop();
-			CodeBinaryExpression condition = new CodeBinaryExpression(
-				lhs, CodeBinaryOperator.IdentityEquality, rhs);
+			var condition = OptimizeBinaryExpression(lhs, CodeBinaryOperator.IdentityEquality, rhs);
 			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt);
 		}
@@ -838,6 +864,33 @@ namespace DotWeb.Decompiler.Core
 				args.Insert(0, Pop());
 			}
 			return args;
+		}
+
+		private TypeReference Import(Type type) {
+			return this.method.DeclaringType.Module.Import(type);
+		}
+
+		private CodeExpression OptimizeBinaryExpression(CodeExpression lhs, CodeBinaryOperator op, CodeExpression rhs) {
+			CodePrimitiveExpression cpe = rhs as CodePrimitiveExpression;
+			if (cpe != null && cpe.Value is bool) {
+				bool test = (bool)cpe.Value;
+				if ((test && op == CodeBinaryOperator.IdentityEquality) ||
+					(!test && op == CodeBinaryOperator.IdentityInequality)) {
+					// (x == true) -> (x)
+					// (x != false) -> (x)
+					return lhs;
+				}
+				else if ((test && op == CodeBinaryOperator.IdentityInequality) ||
+					(!test && op == CodeBinaryOperator.IdentityEquality)) {
+					// (x != true) -> !(x)
+					// (x == false) -> !(x)
+					return lhs.Invert();
+				}
+				else {
+					throw new NotSupportedException();
+				}
+			}
+			return new CodeBinaryExpression(lhs, op, rhs);
 		}
 
 		#endregion

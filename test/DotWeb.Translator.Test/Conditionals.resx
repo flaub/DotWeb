@@ -142,6 +142,9 @@
   <data name="IfLessOr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\conditionals\iflessor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="IfNotAndCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\conditionals\ifnotandcall.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="IfOrAnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>expected\conditionals\iforand.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
