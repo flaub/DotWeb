@@ -25,6 +25,8 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class TranslationTest : TranslationTestHelper
 	{
+		private TypeDefinition sourceTestsCompiledType;
+
 		public TranslationTest()
 			: base("DotWeb.Translator.Test.Script", Resources.TranslationTest) {
 			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.SourceTests"];
@@ -110,6 +112,9 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue3", Resources.GitHub_Issue3);
 		}
 
-		private TypeDefinition sourceTestsCompiledType;
+		[Test]
+		public void GitHub_Issue4() {
+			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue4", Resources.GitHub_Issue4, true);
+		}
 	}
 }

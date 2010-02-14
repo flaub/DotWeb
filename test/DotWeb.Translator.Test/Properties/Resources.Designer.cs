@@ -265,30 +265,26 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.SwitchInsideWhile = function(/*System.Int32*/ x) {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
-        ///	while(x &gt; 10) {
-        ///		System.Console.WriteLine(&quot;head&quot;);
-        ///		var CS$0$0000 = x;
-        ///		switch(CS$0$0000) {
-        ///			case 0:
-        ///				System.Console.WriteLine(&quot;Zero: return&quot;);
-        ///				return;
-        ///			case 1:
-        ///			case 2:
-        ///				System.Console.WriteLine(&quot;One &amp; Two&quot;);
-        ///				break;
-        ///			case 3:
-        ///				System.Console.WriteLine(&quot;Three: continue&quot;);
-        ///				continue;
-        ///			default:
-        ///				System.Console.WriteLine(&quot;default&quot;);
-        ///				break;
-        ///		 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.GitHub_Issue3 = function() {
+        ///	new jQueryTest($doc);
+        ///};
+        ///.
         /// </summary>
         internal static string GitHub_Issue3 {
             get {
                 return ResourceManager.GetString("GitHub_Issue3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.GitHub_Issue3 = function() {
+        ///	new jQueryTest($doc);
+        ///};
+        ///.
+        /// </summary>
+        internal static string GitHub_Issue4 {
+            get {
+                return ResourceManager.GetString("GitHub_Issue4", resourceCulture);
             }
         }
         

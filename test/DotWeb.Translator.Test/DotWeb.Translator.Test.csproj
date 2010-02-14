@@ -151,6 +151,7 @@
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
+    <Content Include="Expected\SourceTest\GitHub_Issue4.js" />
     <Content Include="Expected\SourceTest\GitHub_Issue3.js" />
     <Content Include="Expected\SourceTest\SwitchInsideWhile.js" />
     <Content Include="Expected\SourceTest\SourceTests_TestGenericNested.js" />

@@ -217,4 +217,7 @@
   <data name="GitHub_Issue3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\github_issue3.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="GitHub_Issue4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\github_issue4.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

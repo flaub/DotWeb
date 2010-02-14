@@ -459,6 +459,11 @@ namespace H8
 		public void GitHub_Issue3() {
 			new jQuery13.jQueryTest(Global.Document);
 		}
+
+		public void GitHub_Issue4() {
+			Action action = () => Global.Window.alert("test");
+			action();
+		}
 	}
 }
 
