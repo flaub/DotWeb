@@ -265,6 +265,34 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.SwitchInsideWhile = function(/*System.Int32*/ x) {
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(x &gt; 10) {
+        ///		System.Console.WriteLine(&quot;head&quot;);
+        ///		var CS$0$0000 = x;
+        ///		switch(CS$0$0000) {
+        ///			case 0:
+        ///				System.Console.WriteLine(&quot;Zero: return&quot;);
+        ///				return;
+        ///			case 1:
+        ///			case 2:
+        ///				System.Console.WriteLine(&quot;One &amp; Two&quot;);
+        ///				break;
+        ///			case 3:
+        ///				System.Console.WriteLine(&quot;Three: continue&quot;);
+        ///				continue;
+        ///			default:
+        ///				System.Console.WriteLine(&quot;default&quot;);
+        ///				break;
+        ///		 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GitHub_Issue3 {
+            get {
+                return ResourceManager.GetString("GitHub_Issue3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
         /////
         ///// This file is part of DotWeb.
@@ -670,34 +698,26 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.Generic$1 = function() {
-        ///};
-        ///
-        ///H8.Generic$1.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///H8.Generic$1_Nested = function() {
-        ///};
-        ///
-        ///H8.Generic$1_Nested.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///H8.Generic$1_Nested_Inner = function() {
-        ///};
-        ///
-        ///H8.Generic$1_Nested_Inner.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///H8.Generic$1_Nested_Inner.prototype.Foo = function() {
-        ///};
-        ///
-        ///H8.Generic$1_Nested.prototype.Foo = function() {
-        ///	var x = new H8.Generic$1_Nested_Inn [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.SwitchInsideWhile = function(/*System.Int32*/ x) {
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(x &gt; 10) {
+        ///		System.Console.WriteLine(&quot;head&quot;);
+        ///		var CS$0$0000 = x;
+        ///		switch(CS$0$0000) {
+        ///			case 0:
+        ///				System.Console.WriteLine(&quot;Zero: return&quot;);
+        ///				return;
+        ///			case 1:
+        ///			case 2:
+        ///				System.Console.WriteLine(&quot;One &amp; Two&quot;);
+        ///				break;
+        ///			case 3:
+        ///				System.Console.WriteLine(&quot;Three: continue&quot;);
+        ///				continue;
+        ///			default:
+        ///				System.Console.WriteLine(&quot;default&quot;);
+        ///				break;
+        ///		 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SwitchInsideWhile {
             get {
@@ -874,15 +894,14 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.items.push(item);
         ///};
         ///
-        ///$Namespace(&apos;H8&apos;);
-        ///
-        ///H8.SystemTests = function() {
+        ///System.Collections.Generic.List$1.prototype.toString = function() {
+        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///	return V_0;
         ///};
         ///
-        ///H8.SystemTests.prototype.TestList = function() {
-        ///	var list = new System.Collections.Generic.List$1().$ctor();
-        ///	list.Add(&quot;one&quot;);
-        ///}; [rest of string was truncated]&quot;;.
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function()  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SystemTest_TestList {
             get {

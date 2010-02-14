@@ -19,6 +19,7 @@ using System;
 using System.Linq;
 using DotWeb.Client;
 using System.DotWeb;
+using DotWeb.Client.Dom;
 
 namespace H8
 {
@@ -455,5 +456,18 @@ namespace H8
 			Console.WriteLine("exit");
 		}
 
+		public void GitHub_Issue3() {
+			new jQuery13.jQueryTest(Global.Document);
+		}
+	}
+}
+
+namespace jQuery13
+{
+	[JsNamespace]
+	[JsIntrinsic]
+	public class jQueryTest : JsObject
+	{
+		public extern jQueryTest(Document document);
 	}
 }

@@ -105,6 +105,11 @@ namespace DotWeb.Translator.Test
 			this.TestMethod(this.sourceTestsCompiledType, "SwitchInsideWhile", Resources.SwitchInsideWhile);
 		}
 
+		[Test]
+		public void GitHub_Issue3() {
+			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue3", Resources.GitHub_Issue3);
+		}
+
 		private TypeDefinition sourceTestsCompiledType;
 	}
 }
