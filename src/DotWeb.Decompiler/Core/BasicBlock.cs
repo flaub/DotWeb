@@ -94,5 +94,49 @@ namespace DotWeb.Decompiler.Core
 		public bool IsMultiWay {
 			get { return LastInstruction.IsMultiWay(); }
 		}
+
+		#region Stack Stash
+		private int stashSize = 0;
+		private Dictionary<int, CodeExpression> stash = new Dictionary<int, CodeExpression>();
+
+		public CodeExpression PushStash(TypeSystem typeSystem, CodeExpression rhs) {
+			this.stashSize++;
+
+			int index = this.StashSize;
+			var variableName = string.Format("R_{0}", index);
+			var eval = new CodeTypeEvaluator(typeSystem, this.method);
+			var variableType = eval.Evaluate(rhs);
+			var variable = new VariableDefinition(variableName, -index, this.method, variableType);
+			var lhs = new CodeVariableReference(variable);
+
+			this.stash[index] = lhs;
+
+			return lhs;
+		}
+
+		public CodeExpression GetStashItem(int index) {
+			CodeExpression item;
+			if (!this.stash.TryGetValue(index, out item)) {
+				var pred = (BasicBlock)this.Predecessors.First();
+				item = pred.GetStashItem(index);
+			}
+			return item;
+		}
+
+		public CodeExpression PopStash() {
+			var index = this.StashSize;
+			this.stashSize--;
+			return GetStashItem(index);
+		}
+
+		public int StashSize {
+			get {
+				if (this.Predecessors.Count == 0)
+					return this.stashSize;
+				var pred = (BasicBlock)this.Predecessors.First();
+				return pred.StashSize + stashSize;
+			}
+		}
+		#endregion
 	}
 }

@@ -33,9 +33,7 @@ namespace DotWeb.Decompiler.Core
 		private readonly MethodDefinition method;
 		private readonly TypeSystem typeSystem;
 		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
-		private List<CodeStatement> statements;
-		private Dictionary<Instruction, int> consumed = new Dictionary<Instruction, int>();
-		private HashSet<Instruction> ignored = new HashSet<Instruction>();
+		private BasicBlock block;
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 
@@ -46,7 +44,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		public void ProcessBlock(BasicBlock block) {
-			this.statements = block.Statements;
+			this.block = block;
 			foreach (var cil in block.Instructions) {
 				HandleInstruction(cil);
 			}
@@ -56,41 +54,44 @@ namespace DotWeb.Decompiler.Core
 			// That is, at the start and end of each block, the stack is assumed to be empty,
 			// This is an attempt to have instructions that cause the stack to become empty be
 			// consumed by the predecessors that need them in order to make this assumption true.
+			// Another case occurs when the compiler decides to push a value in one block
+			// and then pop it in another.
+			// This new strategy involves creating temporary register variables that can 
+			// be used to transfer extra stack values from one block to another.
 			if (this.stack.Any()) {
-				PeekForward(block);
+				StashStackExtras(block);
 			}
 		}
 
-		private void PeekForward(BasicBlock block) {
-			// go forward consuming instructions until the stack becomes empty.
-			// maintain a counter for each predecessor's pass over an instruction.
-			// once the counter reaches the number of predecessors, mark the instruction as ignored
-			// NOTE: this all assumes that we are traversing in DepthFirstOrder - make sure nodes are sorted
-			var next = (BasicBlock)block.Successors.FirstOrDefault();
-			if(next == null)
-				throw new NotSupportedException();
-
-			foreach (var cil in next.Instructions) {
-				if (this.stack.Count == 0)
-					break;
-
-				HandleInstruction(cil);
-
-				int count = 0;
-				this.consumed.TryGetValue(cil, out count);
-				count++;
-				this.consumed[cil] = count;
-
-				if (count == next.Predecessors.Count) {
-					this.ignored.Add(cil);
-				}
+		private void StashStackExtras(BasicBlock block) {
+			var extra = this.stack.Reverse();
+			foreach (var item in extra) {
+				var lhs = block.PushStash(this.typeSystem, item);
+				var stmt = new CodeAssignStatement(lhs, item);
+				var last = this.block.Statements.Count;
+				if (last > 0)
+					last--;
+				this.block.Statements.Insert(last, stmt);
 			}
+			this.stack.Clear();
+		}
+
+		private void Push(CodeExpression expr) {
+			this.stack.Push(expr);
+		}
+
+		private CodeExpression Pop() {
+			if (!this.stack.Any()) {
+				return this.block.PopStash();
+			}
+			return this.stack.Pop();
+		}
+
+		private CodeExpression Peek() {
+			return this.stack.Peek();
 		}
 
 		private void HandleInstruction(Instruction il) {
-			if (this.ignored.Contains(il))
-				return;
-
 			switch (il.OpCode.Code) {
 				#region Load
 				case Code.Ldnull:
@@ -473,7 +474,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void AddStatment(CodeStatement stmt) {
-			this.statements.Add(stmt);
+			this.block.Statements.Add(stmt);
 		}
 
 		private void Unbox(Instruction il) {
@@ -855,18 +856,6 @@ namespace DotWeb.Decompiler.Core
 			Push(new CodePrimitiveExpression(value));
 		}
 
-		private void Push(CodeExpression expr) {
-			this.stack.Push(expr);
-		}
-
-		private CodeExpression Pop() {
-			return this.stack.Pop();
-		}
-
-		private CodeExpression Peek() {
-			return this.stack.Peek();
-		}
-
 		private List<CodeExpression> PopRange(int count) {
 			var args = new List<CodeExpression>();
 			for (int i = 0; i < count; i++) {
@@ -938,6 +927,7 @@ namespace DotWeb.Decompiler.Core
 				return false;
 			return 0.Equals(literal.Value);
 		}
+
 		#endregion
 	}
 }
