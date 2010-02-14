@@ -116,5 +116,10 @@ namespace DotWeb.Translator.Test
 		public void GitHub_Issue4() {
 			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue4", Resources.GitHub_Issue4, true);
 		}
+
+		[Test]
+		public void GitHub_Issue5() {
+			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue5", Resources.GitHub_Issue5, true);
+		}
 	}
 }

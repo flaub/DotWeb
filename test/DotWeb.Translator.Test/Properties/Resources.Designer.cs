@@ -277,14 +277,52 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.GitHub_Issue3 = function() {
-        ///	new jQueryTest($doc);
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SourceTests = function() {
+        ///};
+        ///
+        ///H8.SourceTests._GitHub_Issue4_b__2 = function() {
+        ///	$wnd.alert(&quot;test&quot;);
+        ///};
+        ///
+        ///H8.SourceTests.prototype.GitHub_Issue4 = function() {
+        ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3) {
+        ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.SourceTests, H8.SourceTests._GitHub_Issue4_b__2);
+        ///	}
+        ///	var action = H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3;
+        ///	action();
         ///};
         ///.
         /// </summary>
         internal static string GitHub_Issue4 {
             get {
                 return ResourceManager.GetString("GitHub_Issue4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SourceTests = function() {
+        ///};
+        ///
+        ///H8.SourceTests._GitHub_Issue4_b__2 = function() {
+        ///	$wnd.alert(&quot;test&quot;);
+        ///};
+        ///
+        ///H8.SourceTests.prototype.GitHub_Issue4 = function() {
+        ///	if (!H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3) {
+        ///		H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.SourceTests, H8.SourceTests._GitHub_Issue4_b__2);
+        ///	}
+        ///	var action = H8.SourceTests.CS$__9__CachedAnonymousMethodDelegate3;
+        ///	action();
+        ///};
+        ///.
+        /// </summary>
+        internal static string GitHub_Issue5 {
+            get {
+                return ResourceManager.GetString("GitHub_Issue5", resourceCulture);
             }
         }
         

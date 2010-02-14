@@ -464,6 +464,10 @@ namespace H8
 			Action action = () => Global.Window.alert("test");
 			action();
 		}
+
+		public void GitHub_Issue5() {
+			new GitHub_Issue5.Class1();
+		}
 	}
 }
 
@@ -474,5 +478,19 @@ namespace jQuery13
 	public class jQueryTest : JsObject
 	{
 		public extern jQueryTest(Document document);
+	}
+}
+
+namespace GitHub_Issue5
+{
+	public class Class1
+	{
+		public void Call(Action action) {
+			action();
+		}
+
+		public Class1() {
+			Call(() => Global.Window.alert("test"));
+		}
 	}
 }
