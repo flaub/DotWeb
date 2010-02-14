@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="ArrayTest.cs" />
     <Compile Include="CastTest.cs" />
+    <Compile Include="MiscTest.cs" />
     <Compile Include="NativeCallbackTest.cs" />
     <Compile Include="NestedTest.cs" />
     <Compile Include="TypeTest.cs" />
@@ -55,6 +56,11 @@
       <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
       <Name>DotWeb.System</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

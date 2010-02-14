@@ -18,6 +18,7 @@
 using System;
 using DotWeb.Client;
 using System.DotWeb;
+using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Weaver.Test.Script
 {
@@ -34,6 +35,11 @@ namespace DotWeb.Weaver.Test.Script
 		First = 0x01,
 		Second = 0x02,
 		Third = 0x04
+	}
+
+	class GenericType<T>
+	{
+		public extern T Item { get; set; }
 	}
 
 	class TypeTest
@@ -53,6 +59,8 @@ namespace DotWeb.Weaver.Test.Script
 
 		public const EnumTest EnumValue = EnumTest.First;
 		public const FlagsTest FlagsValue = FlagsTest.First;
+
+		public extern GenericType<TypeTest> GenericInstance { get; }
 	}
 
 	class NativeType : JsObject

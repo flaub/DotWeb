@@ -7,7 +7,7 @@
 			DependsOnTargets="_CopyFilesMarkedCopyLocal">
 		<Message Text="DotWebWeaver: @(IntermediateAssembly->'%(FullPath).dotweb')" Importance="high"></Message>
 
-		<Exec Command="$(TargetDir)DotWebWeaver.exe @(IntermediateAssembly->'%(FullPath)') @(IntermediateAssembly->'%(FullPath)') $(TargetDir)">
+		<Exec Command="$(TargetDir)DotWebWeaver.exe @(IntermediateAssembly->'%(FullPath)') $(TargetDir)">
 		</Exec>
 
 		<Touch AlwaysCreate="true" Files="@(IntermediateAssembly->'%(FullPath).dotweb')" />

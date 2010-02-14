@@ -161,6 +161,10 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private IType ResolveType(TypeReference typeRef) {
+			if (typeRef is TypeSpecification) {
+				return ResolveTypeSpecification((TypeSpecification)typeRef);
+			}
+
 			var scope = typeRef.Scope;
 			string key;
 			if (scope == null)
@@ -170,6 +174,33 @@ namespace DotWeb.Hosting.Weaver
 			var moduleProc = this.modules[key];
 			var typeProc = moduleProc.ResolveTypeReference(typeRef);
 			return typeProc;
+		}
+
+		private IType ResolveTypeSpecification(TypeSpecification typeSpec) {
+			if (typeSpec is ArrayType) {
+				var arrayType = (ArrayType)typeSpec;
+				var elementProc = ResolveTypeReference(arrayType.ElementType);
+				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
+				var externalWrapper = new ExternalType(this, realType);
+				return externalWrapper;
+			}
+
+			if (typeSpec is GenericInstanceType) {
+				var typeDef = typeSpec.Resolve();
+				var genericTypeProc = ResolveTypeReference(typeDef);
+				var genericInstanceType = (GenericInstanceType)typeSpec;
+				var genericArgumentRefs = genericInstanceType.GenericArguments.Cast<TypeReference>();
+				var typeArguments = genericArgumentRefs.Select(x => ResolveTypeReference(x).Type).ToArray();
+				var concreteType = genericTypeProc.Type.MakeGenericType(typeArguments);
+				if (genericTypeProc is ExternalType) {
+					return new ExternalType(this, concreteType);
+				}
+				else {
+					return new GenericType(this, (TypeProcessor)genericTypeProc, concreteType);
+				}
+			}
+
+			throw new NotSupportedException();
 		}
 
 		#region IResolver Members

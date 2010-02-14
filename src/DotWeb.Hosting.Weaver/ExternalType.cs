@@ -22,6 +22,8 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using Mono.Cecil;
+using System.Reflection.Emit;
+using System.Diagnostics;
 
 namespace DotWeb.Hosting.Weaver
 {
@@ -38,9 +40,11 @@ namespace DotWeb.Hosting.Weaver
 			BindingFlags.Public | 
 			BindingFlags.NonPublic;
 
-		public Type Type { get; private set; }
+		public Type Type { get; protected set; }
 
 		public ExternalType(IResolver resolver, Type type) {
+			if (type == null)
+				throw new ArgumentNullException("type");
 			this.resolver = resolver;
 			this.Type = type;
 		}
@@ -49,31 +53,31 @@ namespace DotWeb.Hosting.Weaver
 			return string.Format("ExternalType: {0}", this.Type.ToString());
 		}
 
-		public MethodBase ResolveMethod(MethodReference methodRef) {
+		public virtual MethodBase ResolveMethod(MethodReference methodRef) {
 			var argDefs = methodRef.Parameters.Cast<ParameterDefinition>();
 			var types = argDefs.Select(x => ResolveTypeReference(x)).ToArray();
 			if (methodRef.Name == ConstructorInfo.ConstructorName) {
-				var ret = this.Type.GetConstructor(Flags, Type.DefaultBinder, types, null);
+				var ret = GetConstructor(Flags, Type.DefaultBinder, types, null);
 				if (ret == null)
 					throw new NullReferenceException(string.Format("Could not find ctor: {0}", methodRef.ToString()));
 				return ret;
 			}
 			else {
-				var ret = this.Type.GetMethod(methodRef.Name, Flags, Type.DefaultBinder, types, null);
+				var ret = GetMethod(methodRef.Name, Flags, Type.DefaultBinder, types, null);
 				if (ret == null)
 					throw new NullReferenceException(string.Format("Could not find method: {0}", methodRef.ToString()));
 				return ret;
 			}
 		}
 
-		public FieldInfo ResolveField(FieldDefinition fieldDef) {
-			var ret = this.Type.GetField(fieldDef.Name, Flags);
+		public virtual FieldInfo ResolveField(FieldDefinition fieldDef) {
+			var ret = GetField(fieldDef.Name, Flags);
 			if (ret == null)
 				throw new NullReferenceException(string.Format("Could not find field: {0}", fieldDef.ToString()));
 			return ret;				
 		}
 
-		Type ResolveTypeReference(ParameterDefinition parameterDef) {
+		protected Type ResolveTypeReference(ParameterDefinition parameterDef) {
 			if (parameterDef.ParameterType.Name.StartsWith("!")) {
 				var genericArg = (GenericParameter)parameterDef.ParameterType;
 				var args = this.Type.GetGenericArguments();
@@ -82,10 +86,66 @@ namespace DotWeb.Hosting.Weaver
 			return this.resolver.ResolveTypeReference(parameterDef.ParameterType).Type;
 		}
 
+		public virtual void Close() {
+		}
+
+		public virtual void Process() {
+		}
+
+		protected virtual ConstructorInfo GetConstructor(BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers) {
+			return this.Type.GetConstructor(bindingAttr, binder, types, modifiers);
+		}
+
+		protected virtual MethodInfo GetMethod(string name, BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers) {
+			return this.Type.GetMethod(name, bindingAttr, binder, types, modifiers);
+		}
+
+		protected virtual FieldInfo GetField(string name, BindingFlags bindingAttr) {
+			return this.Type.GetField(name, bindingAttr);
+		}
+	}
+
+	class GenericType : IType
+	{
+		private IResolver resolver;
+		private Type concreteType;
+		private TypeProcessor genericTypeProc;
+
+		public GenericType(IResolver resolver, TypeProcessor genericTypeProc, Type concreteType) {
+			this.resolver = resolver;
+			this.genericTypeProc = genericTypeProc;
+			this.concreteType = concreteType;
+		}
+
+		public override string ToString() {
+			return string.Format("GenericType: [{0}]", this.Type.ToString());
+		}
+
+		public Type Type {
+			get { return this.concreteType; }
+		}
+
 		public void Close() {
+			throw new NotImplementedException();
 		}
 
 		public void Process() {
+			throw new NotImplementedException();
+		}
+
+		public MethodBase ResolveMethod(MethodReference methodRef) {
+			var genericMethod = this.genericTypeProc.ResolveMethod(methodRef);
+			if (methodRef.Name == ConstructorInfo.ConstructorName) {
+				return TypeBuilder.GetConstructor(this.concreteType, (ConstructorInfo)genericMethod);
+			}
+			else {
+				return TypeBuilder.GetMethod(this.concreteType, (MethodInfo)genericMethod);
+			}
+		}
+
+		public FieldInfo ResolveField(FieldDefinition fieldDef) {
+			var genericField = this.genericTypeProc.ResolveField(fieldDef);
+			return TypeBuilder.GetField(this.concreteType, genericField);
 		}
 	}
 }

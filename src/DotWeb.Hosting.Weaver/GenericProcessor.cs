@@ -28,10 +28,10 @@ namespace DotWeb.Hosting.Weaver
 {
 	class GenericProcessorBase
 	{
-		private IResolver resolver;
+		private ITypeResolver resolver;
 		private Dictionary<string, GenericTypeParameterBuilder> byName = new Dictionary<string, GenericTypeParameterBuilder>();
 
-		protected GenericProcessorBase(IResolver resolver) {
+		protected GenericProcessorBase(ITypeResolver resolver) {
 			this.resolver = resolver;
 		}
 
@@ -58,21 +58,16 @@ namespace DotWeb.Hosting.Weaver
 
 			if (genericParameter.HasConstraints) {
 				var interfaces = new List<Type>();
-				Type baseTypeConstraint = null;
 
 				foreach (TypeReference item in genericParameter.Constraints) {
 					var constraint = item.Resolve();
-					var type = resolver.ResolveTypeReference(constraint).Type;
+					var type = this.resolver.ResolveTypeReference(constraint).Type;
 					if (constraint.IsInterface) {
 						interfaces.Add(type);
 					}
 					else {
-						baseTypeConstraint = type;
+						genericBuilder.SetBaseTypeConstraint(type);
 					}
-				}
-
-				if (baseTypeConstraint != null) {
-					genericBuilder.SetBaseTypeConstraint(baseTypeConstraint);
 				}
 
 				if (interfaces.Any()) {
@@ -96,7 +91,7 @@ namespace DotWeb.Hosting.Weaver
 
 	class GenericProcessor : GenericProcessorBase
 	{
-		public GenericProcessor(IResolver resolver)
+		public GenericProcessor(ITypeResolver resolver)
 			: base(resolver) {
 		}
 

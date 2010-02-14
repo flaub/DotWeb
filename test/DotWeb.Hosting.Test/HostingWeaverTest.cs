@@ -111,6 +111,12 @@ namespace DotWeb.Hosting.Test
 
 			var evt = type.GetEvent("Event");
 			Assert.IsNotNull(evt);
+
+			var genericInstance = type.GetProperty("GenericInstance");
+			Assert.IsNotNull(genericInstance);
+
+			var genericInstanceGetMethod = genericInstance.GetGetMethod();
+			Assert.IsNotNull(genericInstanceGetMethod);
 		}
 
 		[Test]
@@ -186,11 +192,11 @@ namespace DotWeb.Hosting.Test
 
 			var field = type.GetField("fieldArray");
 			Assert.IsNotNull(field);
-			Assert.AreEqual(typeof(int[]), field.FieldType);
+			Assert.AreEqual("System.Int32[*]", field.FieldType.ToString());
 
 			var property = type.GetProperty("PropertyArray");
 			Assert.IsNotNull(property);
-			Assert.AreEqual(typeof(string[]), property.PropertyType);
+			Assert.AreEqual("System.String[*]", property.PropertyType.ToString());
 
 			var typeArray = type.GetField("typeArray");
 			Assert.IsNotNull(typeArray);
@@ -252,6 +258,17 @@ namespace DotWeb.Hosting.Test
 			var type = test.GetType();
 			Assert.IsNotNull(type);
 			Assert.IsTrue(invokeCalled);
+		}
+
+		[Test]
+		public void Misc_ListTest() {
+			try {
+				this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.Misc_ListTest");
+			}
+			catch (TargetInvocationException ex) {
+				if (!(ex.InnerException is NullReferenceException))
+					throw;
+			}
 		}
 	}
 }

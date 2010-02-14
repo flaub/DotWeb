@@ -26,9 +26,9 @@ namespace DotWeb.Client.Dom.Html
 		public extern string chOff { get; set; }
 		public extern string vAlign { get; set; }
 
-		public extern HtmlCollection<HtmlTableRowElement> rows { get; }
+		public extern HtmlCollection<HtmlElement> rows { get; }
 		public extern HtmlTableRowElement insertRow(int index);
-		
+
 		public extern void deleteRow(int index);
 	}
 }

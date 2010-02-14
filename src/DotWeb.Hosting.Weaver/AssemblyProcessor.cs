@@ -100,9 +100,9 @@ namespace DotWeb.Hosting.Weaver
 			// Proposal:
 			// Resolve() all TypeReferences to TypeDefinitions to get a consistent key
 
-			// NOTE: the above approach breaks resolution of array types
+			// NOTE: the above approach breaks resolution of array types (and GenericInstanceTypes)
 			// because Resolve() removes the fact that the typeRef is an array.
-			if (typeRef is ArrayType) {
+			if (typeRef is TypeSpecification) {
 				return typeRef.FullName;
 			}
 
@@ -121,14 +121,6 @@ namespace DotWeb.Hosting.Weaver
 
 		private IType ProcessType(TypeReference typeRef) {
 			var typeDef = typeRef.Resolve();
-			if (typeRef is ArrayType) {
-				var arrayType = (ArrayType)typeRef;
-				var elementProc = this.resolver.ResolveTypeReference(arrayType.ElementType);
-				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
-				var externalWrapper = new ExternalType(this.resolver, realType);
-				return externalWrapper;
-			}
-
 			TypeBuilder outerBuilder = null;
 			if (typeDef.IsNested) {
 				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType);

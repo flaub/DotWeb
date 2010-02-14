@@ -43,15 +43,31 @@ namespace DotWeb.Hosting.Weaver
 		private IResolver resolver;
 		private GenericProcessor genericProc;
 		private bool isClosing = false;
+		private bool isProcessed = false;
 		private HashSet<TypeProcessor> dependentTypes = new HashSet<TypeProcessor>();
 		private List<IType> nestedTypes = new List<IType>();
+
+		class DependentTypeResolver : ITypeResolver
+		{
+			TypeProcessor typeProc;
+
+			public DependentTypeResolver(TypeProcessor typeProc) {
+				this.typeProc = typeProc;
+			}
+
+			public IType ResolveTypeReference(TypeReference typeRef) {
+				return this.typeProc.ResolveTypeReferenceToProc(typeRef, true);
+			}
+		}
 
 		public TypeProcessor(IResolver resolver, AssemblyProcessor parent, TypeDefinition typeDef, ModuleBuilder moduleBuilder, TypeBuilder outerBuilder) {
 			this.resolver = resolver;
 			this.parent = parent;
 			this.typeDef = typeDef;
 			this.ModuleBuilder = moduleBuilder;
-			this.genericProc = new GenericProcessor(this.resolver);
+
+			var dtr = new DependentTypeResolver(this);
+			this.genericProc = new GenericProcessor(dtr);
 
 			var typeAttrs = (SR.TypeAttributes)this.typeDef.Attributes;
 			if (outerBuilder == null) {
@@ -104,6 +120,11 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public void Process() {
+			if (this.isProcessed)
+				return;
+
+			this.isProcessed = true;
+
 			if (this.typeDef.HasCustomAttributes) {
 				CustomAttributeProcessor.Process(this.resolver, this.typeDef, this.typeBuilder);
 			}
@@ -304,19 +325,21 @@ namespace DotWeb.Hosting.Weaver
 			this.fields.Add(fieldDef, field);
 		}
 
+		private IType ResolveTypeReferenceToProc(TypeReference typeRef, bool dependent) {
+			var type = this.resolver.ResolveTypeReference(typeRef);
+			var typeProc = type as TypeProcessor;
+			if (typeProc != null && typeProc != this && (dependent || type.Type.IsEnum)) {
+				this.dependentTypes.Add(typeProc);
+			}
+			return type;
+		}
+
 		private Type ResolveTypeReference(TypeReference typeRef, bool dependent) {
 			if (typeRef is GenericParameter) {
 				return this.genericProc.GetGenericParameter(typeRef);
 			}
 
-			var type = this.resolver.ResolveTypeReference(typeRef);
-//			var typeDef = typeRef.Resolve();
-			if (dependent || (!(type is ExternalType) && type.Type.IsEnum)) {
-				var typeProc = type as TypeProcessor;
-				if (typeProc != null && typeProc != this)
-					this.dependentTypes.Add(typeProc);
-			}
-			return type.Type;
+			return ResolveTypeReferenceToProc(typeRef, dependent).Type;
 		}
 
 		private Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters) {
