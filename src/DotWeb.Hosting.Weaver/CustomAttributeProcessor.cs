@@ -29,8 +29,8 @@ namespace DotWeb.Hosting.Weaver
 {
 	static class CustomAttributeProcessor
 	{
-		static CustomAttributeBuilder Process(IResolver resolver, CustomAttribute customAttribute) {
-			var ctor = (ConstructorInfo)resolver.ResolveMethodReference(customAttribute.Constructor);
+		static CustomAttributeBuilder Process(IResolver resolver, CustomAttribute customAttribute, IGenericScope genericScope) {
+			var ctor = (ConstructorInfo)resolver.ResolveMethodReference(customAttribute.Constructor, genericScope);
 			var type = ctor.DeclaringType;
 
 			var ctorArgs = customAttribute.ConstructorParameters.Cast<object>().ToArray();
@@ -62,97 +62,97 @@ namespace DotWeb.Hosting.Weaver
 			return builder;
 		}
 
-		public static void Process(IResolver resolver, PropertyDefinition def, PropertyBuilder builder) {
+		public static void Process(IResolver resolver, PropertyDefinition def, PropertyBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, FieldDefinition def, FieldBuilder builder) {
+		public static void Process(IResolver resolver, FieldDefinition def, FieldBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, MethodDefinition def, MethodBuilder builder) {
+		public static void Process(IResolver resolver, MethodDefinition def, MethodBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, MethodDefinition def, ConstructorBuilder builder) {
+		public static void Process(IResolver resolver, MethodDefinition def, ConstructorBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, TypeDefinition def, TypeBuilder builder) {
+		public static void Process(IResolver resolver, TypeDefinition def, TypeBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, EventDefinition def, EventBuilder builder) {
+		public static void Process(IResolver resolver, EventDefinition def, EventBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, AssemblyDefinition def, AssemblyBuilder builder) {
+		public static void Process(IResolver resolver, AssemblyDefinition def, AssemblyBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}
 		}
 
-		public static void Process(IResolver resolver, TypeDefinition def, EnumBuilder builder) {
+		public static void Process(IResolver resolver, TypeDefinition def, EnumBuilder builder, IGenericScope genericScope) {
 			foreach (CustomAttribute item in def.CustomAttributes) {
 				if (item.Blob == null) {
-					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item));
+					builder.SetCustomAttribute(CustomAttributeProcessor.Process(resolver, item, genericScope));
 				}
 				else {
-					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor);
+					var ctor = (ConstructorInfo)resolver.ResolveMethodReference(item.Constructor, genericScope);
 					builder.SetCustomAttribute(ctor, item.Blob);
 				}
 			}

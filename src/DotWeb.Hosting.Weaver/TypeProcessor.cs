@@ -55,7 +55,7 @@ namespace DotWeb.Hosting.Weaver
 				this.typeProc = typeProc;
 			}
 
-			public IType ResolveTypeReference(TypeReference typeRef) {
+			public IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope) {
 				return this.typeProc.ResolveTypeReferenceToProc(typeRef, true);
 			}
 		}
@@ -116,7 +116,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public Type GetGenericParameter(TypeReference typeRef) {
-			return this.genericProc.GetGenericParameter(typeRef);
+			return this.genericProc.ResolveGenericParameter(typeRef);
 		}
 
 		public void Process() {
@@ -126,7 +126,7 @@ namespace DotWeb.Hosting.Weaver
 			this.isProcessed = true;
 
 			if (this.typeDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, this.typeDef, this.typeBuilder);
+				CustomAttributeProcessor.Process(this.resolver, this.typeDef, this.typeBuilder, this.genericProc);
 			}
 
 			foreach (FieldDefinition item in this.typeDef.Fields) {
@@ -158,7 +158,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private void ProcessNestedType(TypeDefinition typeDef) {
-			var nestedType = this.resolver.ResolveTypeReference(typeDef);
+			var nestedType = this.resolver.ResolveTypeReference(typeDef, this.genericProc);
 			this.nestedTypes.Add(nestedType);
 		}
 
@@ -167,16 +167,16 @@ namespace DotWeb.Hosting.Weaver
 			var eventBuilder = this.typeBuilder.DefineEvent(eventDef.Name, (SR.EventAttributes)eventDef.Attributes, eventType);
 
 			if (eventDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, eventDef, eventBuilder);
+				CustomAttributeProcessor.Process(this.resolver, eventDef, eventBuilder, this.genericProc);
 			}
 
 			if (eventDef.AddMethod != null) {
-				var method = (MethodBuilder)this.resolver.ResolveMethodReference(eventDef.AddMethod);
+				var method = (MethodBuilder)this.resolver.ResolveMethodReference(eventDef.AddMethod, this.genericProc);
 				eventBuilder.SetAddOnMethod(method);
 			}
 
 			if (eventDef.RemoveMethod != null) {
-				var method = (MethodBuilder)this.resolver.ResolveMethodReference(eventDef.RemoveMethod);
+				var method = (MethodBuilder)this.resolver.ResolveMethodReference(eventDef.RemoveMethod, this.genericProc);
 				eventBuilder.SetRemoveOnMethod(method);
 			}
 		}
@@ -197,7 +197,7 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			if (fieldDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, fieldDef, fieldBuilder);
+				CustomAttributeProcessor.Process(this.resolver, fieldDef, fieldBuilder, this.genericProc);
 			}
 
 			RegisterField(fieldDef, fieldBuilder);
@@ -215,16 +215,16 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			if (propertyDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, propertyDef, propertyBuilder);
+				CustomAttributeProcessor.Process(this.resolver, propertyDef, propertyBuilder, this.genericProc);
 			}
 
 			if (propertyDef.GetMethod != null) {
-				var method = this.resolver.ResolveMethodReference(propertyDef.GetMethod);
+				var method = this.resolver.ResolveMethodReference(propertyDef.GetMethod, this.genericProc);
 				propertyBuilder.SetGetMethod((MethodBuilder)method);
 			}
 
 			if (propertyDef.SetMethod != null) {
-				var method = this.resolver.ResolveMethodReference(propertyDef.SetMethod);
+				var method = this.resolver.ResolveMethodReference(propertyDef.SetMethod, this.genericProc);
 				propertyBuilder.SetSetMethod((MethodBuilder)method);
 			}
 		}
@@ -262,7 +262,7 @@ namespace DotWeb.Hosting.Weaver
 
 			if (realMethodDef.HasOverrides) {
 				foreach (MethodReference methodRef in realMethodDef.Overrides) {
-					var methodDecl = this.resolver.ResolveMethodReference(methodRef);
+					var methodDecl = this.resolver.ResolveMethodReference(methodRef, this.genericProc);
 					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
 				}
 			}
@@ -326,7 +326,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private IType ResolveTypeReferenceToProc(TypeReference typeRef, bool dependent) {
-			var type = this.resolver.ResolveTypeReference(typeRef);
+			var type = this.resolver.ResolveTypeReference(typeRef, this.genericProc);
 			var typeProc = type as TypeProcessor;
 			if (typeProc != null && typeProc != this && (dependent || type.Type.IsEnum)) {
 				this.dependentTypes.Add(typeProc);
@@ -336,7 +336,7 @@ namespace DotWeb.Hosting.Weaver
 
 		private Type ResolveTypeReference(TypeReference typeRef, bool dependent) {
 			if (typeRef is GenericParameter) {
-				return this.genericProc.GetGenericParameter(typeRef);
+				return this.genericProc.ResolveGenericParameter(typeRef);
 			}
 
 			return ResolveTypeReferenceToProc(typeRef, dependent).Type;

@@ -32,7 +32,7 @@ using DotWeb.Hosting;
 
 namespace DotWeb.Hosting.Weaver
 {
-	class MethodProcessor
+	class MethodProcessor : IGenericScope
 	{
 		private TypeProcessor parent;
 		private IResolver resolver;
@@ -70,7 +70,7 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			if (methodDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, methodDef, methodBuilder);
+				CustomAttributeProcessor.Process(this.resolver, methodDef, methodBuilder, this);
 			}
 
 			methodBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
@@ -97,7 +97,7 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			if (methodDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, methodDef, ctorBuilder);
+				CustomAttributeProcessor.Process(this.resolver, methodDef, ctorBuilder, this);
 			}
 
 			ctorBuilder.SetImplementationFlags((SR.MethodImplAttributes)methodDef.ImplAttributes);
@@ -352,7 +352,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public void EmitMethod(ILGenerator generator, SRE.OpCode code, MethodReference methodRef) {
-			var methodBase = this.resolver.ResolveMethodReference(methodRef);
+			var methodBase = this.resolver.ResolveMethodReference(methodRef, this);
 			if (methodBase is ConstructorInfo)
 				generator.Emit(code, (ConstructorInfo)methodBase);
 			else
@@ -379,7 +379,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public void EmitField(ILGenerator generator, SRE.OpCode code, FieldReference fieldRef) {
-			var field = this.resolver.ResolveFieldReference(fieldRef);
+			var field = this.resolver.ResolveFieldReference(fieldRef, this);
 			generator.Emit(code, field);
 		}
 
@@ -388,13 +388,10 @@ namespace DotWeb.Hosting.Weaver
 			if (typeRef is GenericParameter || 
 				(arrayType != null && arrayType.ElementType is GenericParameter)) {
 				// deals with T[] also
-				var arg = this.genericProc.GetGenericParameter(typeRef);
-				if (arg != null)
-					return arg;
-				return this.parent.GetGenericParameter(typeRef);
+				return ResolveGenericParameter(typeRef);
 			}
 
-			return this.resolver.ResolveTypeReference(typeRef).Type;
+			return this.resolver.ResolveTypeReference(typeRef, this).Type;
 		}
 
 		private Type[] ResolveParameterTypes(ParameterDefinitionCollection parameters) {
@@ -407,5 +404,16 @@ namespace DotWeb.Hosting.Weaver
 			return ret;
 		}
 
+
+		#region IGenericScope Members
+
+		public Type ResolveGenericParameter(TypeReference typeRef) {
+			var arg = this.genericProc.ResolveGenericParameter(typeRef);
+			if (arg != null)
+				return arg;
+			return this.parent.GetGenericParameter(typeRef);
+		}
+
+		#endregion
 	}
 }

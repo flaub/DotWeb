@@ -36,7 +36,7 @@ namespace DotWeb.Hosting.Weaver
 			this.asm = asm;
 		}
 
-		public IType ResolveTypeReference(TypeReference typeRef) {
+		public IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope) {
 			ExternalType ret;
 			if (!this.cache.TryGetValue(typeRef, out ret)) {
 				string fullName = typeRef.FullName.Replace("/", "+");

@@ -26,7 +26,7 @@ using SR = System.Reflection;
 
 namespace DotWeb.Hosting.Weaver
 {
-	class GenericProcessorBase
+	class GenericProcessorBase : IGenericScope
 	{
 		private ITypeResolver resolver;
 		private Dictionary<string, GenericTypeParameterBuilder> byName = new Dictionary<string, GenericTypeParameterBuilder>();
@@ -41,7 +41,7 @@ namespace DotWeb.Hosting.Weaver
 			return ret;
 		}
 
-		public Type GetGenericParameter(TypeReference typeRef) {
+		public Type ResolveGenericParameter(TypeReference typeRef) {
 			// need to deal with T[]
 			if (typeRef is ArrayType) {
 				var arrayType = (ArrayType)typeRef;
@@ -61,7 +61,7 @@ namespace DotWeb.Hosting.Weaver
 
 				foreach (TypeReference item in genericParameter.Constraints) {
 					var constraint = item.Resolve();
-					var type = this.resolver.ResolveTypeReference(constraint).Type;
+					var type = this.resolver.ResolveTypeReference(constraint, this).Type;
 					if (constraint.IsInterface) {
 						interfaces.Add(type);
 					}
@@ -86,7 +86,6 @@ namespace DotWeb.Hosting.Weaver
 				ProcessParameter(arg, builder);
 			}
 		}
-
 	}
 
 	class GenericProcessor : GenericProcessorBase

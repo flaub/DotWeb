@@ -57,13 +57,13 @@ namespace DotWeb.Hosting.Weaver
 			var argDefs = methodRef.Parameters.Cast<ParameterDefinition>();
 			var types = argDefs.Select(x => ResolveTypeReference(x)).ToArray();
 			if (methodRef.Name == ConstructorInfo.ConstructorName) {
-				var ret = GetConstructor(Flags, Type.DefaultBinder, types, null);
+				var ret = this.Type.GetConstructor(Flags, Type.DefaultBinder, types, null);
 				if (ret == null)
 					throw new NullReferenceException(string.Format("Could not find ctor: {0}", methodRef.ToString()));
 				return ret;
 			}
 			else {
-				var ret = GetMethod(methodRef.Name, Flags, Type.DefaultBinder, types, null);
+				var ret = this.Type.GetMethod(methodRef.Name, Flags, Type.DefaultBinder, types, null);
 				if (ret == null)
 					throw new NullReferenceException(string.Format("Could not find method: {0}", methodRef.ToString()));
 				return ret;
@@ -71,7 +71,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public virtual FieldInfo ResolveField(FieldDefinition fieldDef) {
-			var ret = GetField(fieldDef.Name, Flags);
+			var ret = this.Type.GetField(fieldDef.Name, Flags);
 			if (ret == null)
 				throw new NullReferenceException(string.Format("Could not find field: {0}", fieldDef.ToString()));
 			return ret;				
@@ -83,25 +83,13 @@ namespace DotWeb.Hosting.Weaver
 				var args = this.Type.GetGenericArguments();
 				return args[genericArg.Position];
 			}
-			return this.resolver.ResolveTypeReference(parameterDef.ParameterType).Type;
+			return this.resolver.ResolveTypeReference(parameterDef.ParameterType, null).Type;
 		}
 
 		public virtual void Close() {
 		}
 
 		public virtual void Process() {
-		}
-
-		protected virtual ConstructorInfo GetConstructor(BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers) {
-			return this.Type.GetConstructor(bindingAttr, binder, types, modifiers);
-		}
-
-		protected virtual MethodInfo GetMethod(string name, BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers) {
-			return this.Type.GetMethod(name, bindingAttr, binder, types, modifiers);
-		}
-
-		protected virtual FieldInfo GetField(string name, BindingFlags bindingAttr) {
-			return this.Type.GetField(name, bindingAttr);
 		}
 	}
 

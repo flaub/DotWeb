@@ -160,26 +160,10 @@ namespace DotWeb.Hosting.Weaver
 			return name;
 		}
 
-		private IType ResolveType(TypeReference typeRef) {
-			if (typeRef is TypeSpecification) {
-				return ResolveTypeSpecification((TypeSpecification)typeRef);
-			}
-
-			var scope = typeRef.Scope;
-			string key;
-			if (scope == null)
-				key = ConstantNames.Mscorlib;
-			else
-				key = scope.Name;
-			var moduleProc = this.modules[key];
-			var typeProc = moduleProc.ResolveTypeReference(typeRef);
-			return typeProc;
-		}
-
-		private IType ResolveTypeSpecification(TypeSpecification typeSpec) {
+		private IType ResolveTypeSpecification(TypeSpecification typeSpec, IGenericScope genericScope) {
 			if (typeSpec is ArrayType) {
 				var arrayType = (ArrayType)typeSpec;
-				var elementProc = ResolveTypeReference(arrayType.ElementType);
+				var elementProc = ResolveTypeReference(arrayType.ElementType, genericScope);
 				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
 				var externalWrapper = new ExternalType(this, realType);
 				return externalWrapper;
@@ -187,10 +171,10 @@ namespace DotWeb.Hosting.Weaver
 
 			if (typeSpec is GenericInstanceType) {
 				var typeDef = typeSpec.Resolve();
-				var genericTypeProc = ResolveTypeReference(typeDef);
+				var genericTypeProc = ResolveTypeReference(typeDef, genericScope);
 				var genericInstanceType = (GenericInstanceType)typeSpec;
 				var genericArgumentRefs = genericInstanceType.GenericArguments.Cast<TypeReference>();
-				var typeArguments = genericArgumentRefs.Select(x => ResolveTypeReference(x).Type).ToArray();
+				var typeArguments = genericArgumentRefs.Select(x => ResolveTypeReference(x, genericScope).Type).ToArray();
 				var concreteType = genericTypeProc.Type.MakeGenericType(typeArguments);
 				if (genericTypeProc is ExternalType) {
 					return new ExternalType(this, concreteType);
@@ -205,23 +189,42 @@ namespace DotWeb.Hosting.Weaver
 
 		#region IResolver Members
 
-		public IType ResolveTypeReference(TypeReference typeRef) {
+		public IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope) {
 			if (typeRef.FullName == Constants.Void) {
 				return ExternalType.Void;
 			}
-			return ResolveType(typeRef);
+
+			if (typeRef is TypeSpecification) {
+				return ResolveTypeSpecification((TypeSpecification)typeRef, genericScope);
+			}
+
+			if (typeRef is GenericParameter) {
+				var type = genericScope.ResolveGenericParameter(typeRef);
+				var simpleType = new SimpleType(type);
+				return simpleType;
+			}
+
+			var scope = typeRef.Scope;
+			string key;
+			if (scope == null)
+				key = ConstantNames.Mscorlib;
+			else
+				key = scope.Name;
+			var moduleProc = this.modules[key];
+			var typeProc = moduleProc.ResolveTypeReference(typeRef, genericScope);
+			return typeProc;
 		}
 
-		public MethodBase ResolveMethodReference(MethodReference methodRef) {
-			var type = ResolveType(methodRef.DeclaringType);
+		public MethodBase ResolveMethodReference(MethodReference methodRef, IGenericScope genericScope) {
+			var type = ResolveTypeReference(methodRef.DeclaringType, genericScope);
 			if (type == null)
 				throw new NullReferenceException(string.Format("Could not find DeclaringType for method: {0}", methodRef.ToString()));
 			return type.ResolveMethod(methodRef);
 		}
 
-		public FieldInfo ResolveFieldReference(FieldReference fieldRef) {
+		public FieldInfo ResolveFieldReference(FieldReference fieldRef, IGenericScope genericScope) {
 			var fieldDef = fieldRef.Resolve();
-			var type = ResolveType(fieldDef.DeclaringType);
+			var type = ResolveTypeReference(fieldDef.DeclaringType, genericScope);
 			if (type == null)
 				throw new NullReferenceException(string.Format("Could not find DeclaringType for field: {0}", fieldRef.ToString()));
 			return type.ResolveField(fieldDef);

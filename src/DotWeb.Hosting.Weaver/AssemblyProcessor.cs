@@ -80,7 +80,7 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			if (this.asmDef.HasCustomAttributes) {
-				CustomAttributeProcessor.Process(this.resolver, this.asmDef, this.asmBuilder);
+				CustomAttributeProcessor.Process(this.resolver, this.asmDef, this.asmBuilder, null);
 			}
 
 			var type = typeof(AssemblyWeavedAttribute);
@@ -109,7 +109,7 @@ namespace DotWeb.Hosting.Weaver
 			return typeRef.Resolve().FullName;
 		}
 
-		public IType ResolveTypeReference(TypeReference typeRef) {
+		public IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope) {
 			IType type;
 			string key = GetTypeKey(typeRef);
 			if (!this.typesByDef.TryGetValue(key, out type)) {
@@ -123,7 +123,7 @@ namespace DotWeb.Hosting.Weaver
 			var typeDef = typeRef.Resolve();
 			TypeBuilder outerBuilder = null;
 			if (typeDef.IsNested) {
-				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType);
+				var outerProc = this.resolver.ResolveTypeReference(typeDef.DeclaringType, null);
 				outerBuilder = (TypeBuilder)outerProc.Type;
 			}
 

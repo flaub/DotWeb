@@ -32,4 +32,37 @@ namespace DotWeb.Hosting.Weaver
 		void Process();
 	}
 
+	public class SimpleType : IType
+	{
+		private Type type;
+
+		public SimpleType(Type type) {
+			this.type = type;
+		}
+
+		#region IType Members
+
+		public Type Type {
+			get { return this.type; }
+		}
+
+		public MethodBase ResolveMethod(MethodReference methodRef) {
+			throw new NotImplementedException();
+		}
+
+		public FieldInfo ResolveField(FieldDefinition fieldDef) {
+			throw new NotImplementedException();
+		}
+
+		public void Close() {
+			throw new NotImplementedException();
+		}
+
+		public void Process() {
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
+
 }

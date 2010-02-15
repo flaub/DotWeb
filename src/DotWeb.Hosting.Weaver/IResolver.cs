@@ -22,9 +22,14 @@ using System.Reflection;
 
 namespace DotWeb.Hosting.Weaver
 {
+	public interface IGenericScope
+	{
+		Type ResolveGenericParameter(TypeReference typeRef);
+	}
+
 	public interface ITypeResolver
 	{
-		IType ResolveTypeReference(TypeReference typeRef);
+		IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope);
 	}
 
 	public interface IAssembly : ITypeResolver
@@ -34,7 +39,7 @@ namespace DotWeb.Hosting.Weaver
 
 	public interface IResolver : ITypeResolver
 	{
-		MethodBase ResolveMethodReference(MethodReference methodRef);
-		FieldInfo ResolveFieldReference(FieldReference fieldRef);
+		MethodBase ResolveMethodReference(MethodReference methodRef, IGenericScope genericScope);
+		FieldInfo ResolveFieldReference(FieldReference fieldRef, IGenericScope genericScope);
 	}
 }

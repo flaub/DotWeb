@@ -37,7 +37,7 @@ namespace DotWeb.Hosting.Weaver
 			this.useSystemAttribute = this.asm.GetType("DotWeb.System.DotWeb.UseSystemAttribute");
 		}
 
-		public IType ResolveTypeReference(TypeReference typeRef) {
+		public IType ResolveTypeReference(TypeReference typeRef, IGenericScope genericScope) {
 			ExternalType ret;
 			if (this.cache.TryGetValue(typeRef, out ret)) {
 				return ret;
@@ -76,7 +76,7 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private ExternalType ResolveArrayType(TypeReference typeRef, ArrayType arrayTypeSpec) {
-			var elementType = this.resolver.ResolveTypeReference(arrayTypeSpec.ElementType);
+			var elementType = this.resolver.ResolveTypeReference(arrayTypeSpec.ElementType, null);
 			return new ExternalType(this.resolver, MakeArrayType(elementType.Type, arrayTypeSpec.Rank));
 		}
 
@@ -92,7 +92,7 @@ namespace DotWeb.Hosting.Weaver
 			}
 			else {
 				var genericArgumentRefs = genericTypeSpec.GenericArguments.Cast<TypeReference>();
-				var typeArguments = genericArgumentRefs.Select(x => this.resolver.ResolveTypeReference(x).Type).ToArray();
+				var typeArguments = genericArgumentRefs.Select(x => this.resolver.ResolveTypeReference(x, null).Type).ToArray();
 				var concreteType = genericType.MakeGenericType(typeArguments);
 
 				return new ExternalType(this.resolver, concreteType);
