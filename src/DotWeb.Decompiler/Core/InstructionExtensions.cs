@@ -40,6 +40,10 @@ namespace DotWeb.Decompiler.Core
 			return cil.OpCode == OpCodes.Switch;
 		}
 
+		public static bool IsLeave(this Instruction cil) {
+			return cil.OpCode == OpCodes.Leave || cil.OpCode == OpCodes.Leave_S;
+		}
+
 		public static string PrimitiveName(this Instruction cil) {
 			return cil.OpCode.Name.Split('.').First();
 		}

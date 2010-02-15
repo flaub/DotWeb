@@ -251,5 +251,26 @@ namespace H8
 			}
 			// unreachable
 		}
+
+		public void WhileTryCatchFinally(int x) {
+			Console.WriteLine("enter");
+			while (x < 10) {
+				try {
+					Console.WriteLine("try");
+				}
+				catch (NotImplementedException) {
+					Console.WriteLine("continue");
+					continue;
+				}
+				catch (Exception) {
+					Console.WriteLine("break");
+					break;
+				}
+				finally {
+					Console.WriteLine("finally");
+				}
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }

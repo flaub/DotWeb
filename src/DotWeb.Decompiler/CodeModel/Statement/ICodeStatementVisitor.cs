@@ -27,6 +27,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeCommentStatement>
 		, ICodeVisitor<CodeExpressionStatement>
 		, ICodeVisitor<CodeIfStatement>
+		, ICodeVisitor<CodeTryStatement>
 		, ICodeVisitor<CodeRepeatStatement>
 		, ICodeVisitor<CodeReturnStatement>
 		, ICodeVisitor<CodeSwitchStatement>
@@ -43,6 +44,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeCommentStatement, Return>
 		, ICodeVisitor<CodeExpressionStatement, Return>
 		, ICodeVisitor<CodeIfStatement, Return>
+		, ICodeVisitor<CodeTryStatement, Return>
 		, ICodeVisitor<CodeRepeatStatement, Return>
 		, ICodeVisitor<CodeReturnStatement, Return>
 		, ICodeVisitor<CodeSwitchStatement, Return>

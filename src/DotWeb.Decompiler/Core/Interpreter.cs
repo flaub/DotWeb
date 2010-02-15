@@ -88,6 +88,9 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private CodeExpression Peek() {
+			if (!this.stack.Any()) {
+				return this.block.PeekStash();
+			}
 			return this.stack.Peek();
 		}
 
@@ -797,7 +800,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Leave(Instruction il) {
-			Debug.Assert(false);
+			this.stack.Clear();
 			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
 			AddStatment(stmt);
 		}

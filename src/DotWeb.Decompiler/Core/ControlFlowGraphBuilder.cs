@@ -30,6 +30,7 @@ namespace DotWeb.Decompiler.Core
 		private MethodBody body;
 		private SortedDictionary<int, BasicBlock> blocks = new SortedDictionary<int, BasicBlock>();
 		private ControlFlowGraph graph = new ControlFlowGraph();
+		private HashSet<int> exceptionOffsets = new HashSet<int>();
 
 		public ControlFlowGraphBuilder(MethodDefinition method) {
 			this.body = method.Body;
@@ -43,6 +44,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void DelimitBlocks() {
 			MarkBlockStarts();
+//			MarkBlockStartsForExceptions();
 			MarkBlockEnds();
 		}
 
@@ -75,6 +77,9 @@ namespace DotWeb.Decompiler.Core
 
 		private void ConnectBranch(BasicBlock block) {
 			var cil = block.LastInstruction;
+			if (cil.IsLeave())
+				return;
+
 			if (cil.IsMultiWay()) {
 				var blocks = GetBranchTargetsBlocks(cil);
 				if (cil.Next != null) {
@@ -126,6 +131,25 @@ namespace DotWeb.Decompiler.Core
 					MarkBlockStart(cil.Next);
 				}
 			}
+		}
+
+		private void MarkBlockStartsForExceptions() {
+			foreach (ExceptionHandler handler in this.body.ExceptionHandlers) {
+				MarkBlockStart(handler.TryStart);
+				MarkBlockStart(handler.HandlerStart);
+
+				if (handler.Type == ExceptionHandlerType.Filter) {
+					MarkExceptionObjectPosition(handler.FilterStart);
+					MarkBlockStart(handler.FilterStart);
+				}
+				else if (handler.Type == ExceptionHandlerType.Catch) {
+					MarkExceptionObjectPosition(handler.HandlerStart);
+				}
+			}
+		}
+
+		private void MarkExceptionObjectPosition(Instruction cil) {
+			this.exceptionOffsets.Add(cil.Offset);
 		}
 
 		private void MarkBlockEnds() {

@@ -95,6 +95,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		#region Statements
+		public void Visit(CodeTryStatement obj) {
+			throw new NotImplementedException();
+		}
+
 		public void Visit(CodeSwitchStatement stmt) {
 			WriteLine("switch({0}) {{", Print(stmt.Expression));
 			this.writer.Indent++;

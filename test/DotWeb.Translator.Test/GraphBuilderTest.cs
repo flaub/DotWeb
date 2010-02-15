@@ -66,17 +66,15 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void NullBlock() { TestGraph(); }
-
 		[Test]
 		public void OneBlock() { TestGraph(); }
-
 		[Test]
 		public void SimpleIf() { TestGraph(); }
-
 		[Test]
 		public void WhileBreak() { TestGraph(); }
-
 		[Test]
 		public void Switch() { TestGraph(); }
+		[Test]
+		public void TryCatchFinally() { TestGraph(); }
 	}
 }

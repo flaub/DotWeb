@@ -32,7 +32,6 @@ namespace DotWeb.Decompiler.Core
 
 		public void Structure() {
 			CompoundConditionals();
-			StructureCases();
 			StructureLoops();
 			StructureConditionals();
 		}
@@ -156,9 +155,6 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			return conditionals;
-		}
-
-		public void StructureCases() {
 		}
 
 		public void CompoundConditionals() {

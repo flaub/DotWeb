@@ -128,6 +128,7 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\GraphBuilderTest\TryCatchFinally.txt" />
     <Content Include="Expected\GraphBuilderTest\Switch.txt" />
     <Content Include="Expected\GraphBuilderTest\WhileBreak.txt" />
     <Content Include="Expected\GraphBuilderTest\SimpleIf.txt" />
@@ -136,6 +137,7 @@
     <Content Include="Expected\Loops\BreakInWhile.js" />
     <Content Include="Expected\Loops\ComplexLoop.js" />
     <Content Include="Expected\Loops\ComplexNestedLoop.js" />
+    <Content Include="Expected\Loops\WhileTryCatchFinally.js" />
     <Content Include="Expected\Loops\MultiReturns2.js" />
     <Content Include="Expected\Loops\MultiReturns.js" />
     <Content Include="Expected\Loops\EndlessLoop.js" />

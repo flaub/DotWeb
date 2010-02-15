@@ -61,5 +61,7 @@ namespace DotWeb.Translator.Test
 		public void MultiReturns() { this.RunTest(); }
 		[Test]
 		public void MultiReturns2() { this.RunTest(); }
+		[Test]
+		public void WhileTryCatchFinally() { this.RunTest(); }
 	}
 }

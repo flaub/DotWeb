@@ -64,12 +64,10 @@ namespace DotWeb.Translator.Test {
         ///   Looks up a localized string similar to Loops.prototype.BreakInWhile = function(/*System.Int32*/ a) {
         ///	while(a &lt; 100) {
         ///		if (a == 12) {
-        ///			System.Console.WriteLine(a);
+        ///			System.Console.WriteLine(&quot;break&quot;);
         ///			break;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(a);
-        ///		}
+        ///		System.Console.WriteLine(&quot;else&quot;);
         ///		a = a - 1;
         ///	}
         ///	System.Console.WriteLine(a);
@@ -85,17 +83,24 @@ namespace DotWeb.Translator.Test {
         /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.ComplexLoop = function() {
         ///	var i = 0;
-        ///	while(i &lt; 9) {
-        ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if (i &lt; 10) {
+        ///			System.Console.WriteLine(&quot;i &lt; 10&quot;);
+        ///			if (i == 1) {
+        ///				System.Console.WriteLine(&quot;i == 1&quot;);
+        ///				break;
+        ///			}
+        ///			if (i == 2) {
+        ///				System.Console.WriteLine(&quot;i == 2&quot;);
+        ///				continue;
+        ///			}
         ///			break;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
-        ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
         ///	}
+        ///	System.Console.WriteLine(&quot;return&quot;);
         ///};
         ///.
         /// </summary>
@@ -108,17 +113,25 @@ namespace DotWeb.Translator.Test {
         /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.ComplexNestedLoop = function() {
         ///	var i = 0;
-        ///	while(i &lt; 9) {
-        ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
-        ///			break;
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if (i &lt; 10) {
+        ///			System.Console.WriteLine(&quot;i &lt; 10&quot;);
+        ///			if (i == 1) {
+        ///				System.Console.WriteLine(&quot;i == 1&quot;);
+        ///				break;
+        ///			}
+        ///			if (i == 2) {
+        ///				do {
+        ///					System.Console.WriteLine(&quot;inner loop&quot;);
+        ///				} while(i &lt; 4);
+        ///				break;
+        ///			}
+        ///			System.Console.WriteLine(&quot;bottom&quot;);
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
-        ///		}
-        ///		System.Console.WriteLine(i);
         ///	}
+        ///	System.Console.WriteLine(&quot;return&quot;);
         ///};
         ///.
         /// </summary>
@@ -146,17 +159,20 @@ namespace DotWeb.Translator.Test {
         /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.MultiReturns = function() {
         ///	var i = 0;
-        ///	while(i &lt; 9) {
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(i &lt; 100) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
         ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
+        ///			System.Console.WriteLine(&quot;return1&quot;);
+        ///			return;
+        ///		}
+        ///		if (i == 50) {
+        ///			System.Console.WriteLine(&quot;break&quot;);
         ///			break;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
-        ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
         ///	}
+        ///	System.Console.WriteLine(&quot;return2&quot;);
         ///};
         ///.
         /// </summary>
@@ -169,17 +185,20 @@ namespace DotWeb.Translator.Test {
         /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.MultiReturns2 = function() {
         ///	var i = 0;
-        ///	while(i &lt; 9) {
-        ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
-        ///			break;
+        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	while(i &lt; 100) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if (i &gt; 10) {
+        ///			System.Console.WriteLine(&quot;return1&quot;);
+        ///			return;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
+        ///		if (i &lt; 50) {
+        ///			System.Console.WriteLine(&quot;return2&quot;);
+        ///			return;
         ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
         ///	}
+        ///	System.Console.WriteLine(&quot;return2&quot;);
         ///};
         ///.
         /// </summary>
@@ -257,39 +276,18 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.DotWeb;
-        ///using System;
-        ///
-        ///namespace H8
-        ///{
-        ///	[JsNamespace]
-        ///	class Loops
-        ///	{
-        ///		public void SimpleFor(int a) {
-        ///			for (int i = 0; i &lt; 10; i++) {
-        ///				a++;
-        ///			}
-        ///		}
-        ///
-        ///		public void SimpleDoWhile(int a) {
-        ///			Console.WriteLine(a);
-        ///			do {
-        ///				a++;
-        ///				Console.WriteLine(a);
-        ///			} while (a &lt; 100);
-        ///			Console.WriteLine(a);
-        ///		}
-        ///
-        ///		public void SimpleWhile(int a) {
-        ///			Console.WriteLine(a);
-        ///			while (a &lt; 100) {
-        ///				a++;
-        ///				Console.WriteLine(a);
-        ///			}
-        ///			Console.WriteLine(a);
-        ///		}
-        ///
-        ///		pu [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to // Copyright 2010, Frank Laub
+        ///// 
+        ///// This file is part of DotWeb.
+        ///// 
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        ///// 
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
@@ -350,17 +348,17 @@ namespace DotWeb.Translator.Test {
         ///	var i = 0;
         ///	while(true) {
         ///		System.Console.WriteLine(&quot;top&quot;);
-        ///		if(i == 10) {
+        ///		if (i == 10) {
         ///			System.Console.WriteLine(&quot;continue&quot;);
         ///			continue;
         ///		}
         ///		if (i == 20) {
-        ///			System.Console.WriteLine(&quot;break&quot;);
         ///			break;
         ///		}
         ///		System.Console.WriteLine(&quot;bottom&quot;);
         ///		i = i + 1;
         ///	}
+        ///	System.Console.WriteLine(&quot;break&quot;);
         ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
         ///.
@@ -375,16 +373,15 @@ namespace DotWeb.Translator.Test {
         ///   Looks up a localized string similar to Loops.prototype.WhileCondBreak = function() {
         ///	var i = 0;
         ///	while(i &lt; 9) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
         ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
+        ///			System.Console.WriteLine(&quot;break&quot;);
         ///			break;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
-        ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;loop&quot;);
+        ///		i = i + 1;
         ///	}
+        ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
@@ -395,19 +392,18 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loops.prototype.WhileCondBreak = function() {
+        ///   Looks up a localized string similar to Loops.prototype.WhileCondContinue = function() {
         ///	var i = 0;
         ///	while(i &lt; 9) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
         ///		if (i == 10) {
-        ///			System.Console.WriteLine(i);
-        ///			break;
+        ///			System.Console.WriteLine(&quot;continue&quot;);
+        ///			continue;
         ///		}
-        ///		else {
-        ///			System.Console.WriteLine(i);
-        ///			i = i + 1;
-        ///		}
-        ///		System.Console.WriteLine(i);
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
+        ///		i = i + 1;
         ///	}
+        ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
@@ -422,7 +418,7 @@ namespace DotWeb.Translator.Test {
         ///	var i = 0;
         ///	while(true) {
         ///		System.Console.WriteLine(&quot;top&quot;);
-        ///		if(i == 10) {
+        ///		if (i == 10) {
         ///			System.Console.WriteLine(&quot;continue&quot;);
         ///			continue;
         ///		}
@@ -435,6 +431,27 @@ namespace DotWeb.Translator.Test {
         internal static string WhileContinue {
             get {
                 return ResourceManager.GetString("WhileContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.WhileContinue = function() {
+        ///	var i = 0;
+        ///	while(true) {
+        ///		System.Console.WriteLine(&quot;top&quot;);
+        ///		if (i == 10) {
+        ///			System.Console.WriteLine(&quot;continue&quot;);
+        ///			continue;
+        ///		}
+        ///		System.Console.WriteLine(&quot;bottom&quot;);
+        ///		i = i + 1;
+        ///	}
+        ///};
+        ///.
+        /// </summary>
+        internal static string WhileTryCatchFinally {
+            get {
+                return ResourceManager.GetString("WhileTryCatchFinally", resourceCulture);
             }
         }
     }

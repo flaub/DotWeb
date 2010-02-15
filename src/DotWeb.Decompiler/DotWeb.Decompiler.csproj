@@ -52,7 +52,6 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CodeModel\CodeLinePragma.cs" />
     <Compile Include="CodeModel\CodeObject.cs" />
     <Compile Include="CodeModel\Expression\CodeArrayCreateExpression.cs" />
     <Compile Include="CodeModel\Expression\CodeArrayIndexerExpression.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="CodeModel\Statement\CodeWhileStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeBreakStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeContinueStatement.cs" />
+    <Compile Include="CodeModel\Statement\CodeTryStatement.cs" />
     <Compile Include="CodeModel\Statement\ICodeStatementVisitor.cs" />
     <Compile Include="Core\BasicBlock.cs" />
     <Compile Include="Core\Conditional.cs" />

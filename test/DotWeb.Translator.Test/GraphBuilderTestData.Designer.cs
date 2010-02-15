@@ -106,43 +106,49 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.DotWeb;
-        ///using System;
-        ///
-        ///namespace H8
-        ///{
-        ///	[JsNamespace]
-        ///	class GraphBuilderTest
-        ///	{
-        ///		public void NullBlock() {
-        ///		}
-        ///
-        ///		public void OneBlock() {
-        ///			Console.WriteLine(&quot;hello&quot;);
-        ///		}
-        ///
-        ///		public void SimpleIf(bool x) {
-        ///			if (x) {
-        ///				Console.WriteLine(&quot;x&quot;);
-        ///			}
-        ///		}
-        ///
-        ///		public void WhileBreak() {
-        ///			int i = 0;
-        ///			while (true) {
-        ///				Console.WriteLine(&quot;top&quot;);
-        ///				if (i == 10) {
-        ///					Console.WriteLine(&quot;break&quot;);
-        ///					break;
-        ///				}
-        ///				Console.WriteLine(&quot;loop&quot;);
-        ///				i++;
-        ///			}
-        ///		 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to // Copyright 2010, Frank Laub
+        ///// 
+        ///// This file is part of DotWeb.
+        ///// 
+        ///// DotWeb is free software: you can redistribute it and/or modify
+        ///// it under the terms of the GNU General Public License as published by
+        ///// the Free Software Foundation, either version 3 of the License, or
+        ///// (at your option) any later version.
+        ///// 
+        ///// DotWeb is distributed in the hope that it will be useful,
+        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
                 return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B1: 0000 - 0013: switch [0032, 0044, 0044] Cond_Branch
+        ///	Out: B2, B3, B4
+        ///	0000: ldstr &quot;enter&quot; Next
+        ///	0005: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0010: ldarg.1 Next
+        ///	0011: stloc.0 Next
+        ///	0012: ldloc.0 Next
+        ///	0013: switch [0032, 0044, 0044] Cond_Branch
+        ///
+        ///B4: 0044 - 0054: br.s 0066 Branch
+        ///	In : B1
+        ///	Out: B6
+        ///	0044: ldstr &quot;One &amp; Two&quot; Next
+        ///	0049: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0054: br.s 0066 Branch
+        ///
+        ///B3: 0032 - 0042: br.s 0066 Branch
+        ///	In : B1
+        ///	Out:  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Switch {
+            get {
+                return ResourceManager.GetString("Switch", resourceCulture);
             }
         }
         
@@ -169,9 +175,9 @@ namespace DotWeb.Translator.Test {
         ///	0039: ldloc.0 Next
         ///	0040: ld [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Switch {
+        internal static string TryCatchFinally {
             get {
-                return ResourceManager.GetString("Switch", resourceCulture);
+                return ResourceManager.GetString("TryCatchFinally", resourceCulture);
             }
         }
         

@@ -129,6 +129,11 @@ namespace DotWeb.Decompiler.Core
 			return GetStashItem(index);
 		}
 
+		public CodeExpression PeekStash() {
+			var index = this.StashSize;
+			return GetStashItem(index);
+		}
+
 		public int StashSize {
 			get {
 				if (this.Predecessors.Count == 0)

@@ -66,5 +66,26 @@ namespace H8
 			}
 			Console.WriteLine("exit");
 		}
+
+		public void TryCatchFinally(bool x) {
+			Console.WriteLine("enter");
+			try {
+				Console.WriteLine("try begin");
+				if (x) {
+					throw new NotImplementedException();
+				}
+				Console.WriteLine("try end");
+			}
+			catch (NotImplementedException ex) {
+				Console.WriteLine("NotImplementedException: " + ex.Message);
+			}
+			catch (Exception ex) {
+				Console.WriteLine("Exception: " + ex.Message);
+			}
+			finally {
+				Console.WriteLine("finally");
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }

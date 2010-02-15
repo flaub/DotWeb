@@ -24,13 +24,5 @@ namespace DotWeb.Decompiler.CodeModel
 {
 	public abstract class CodeStatement : CodeObject
 	{
-		//
-		// Summary:
-		//     Gets or sets the line on which the code statement occurs.
-		//
-		// Returns:
-		//     A DotWeb.Decompiler.CodeModel.CodeLinePragma object that indicates the context of the
-		//     code statement.
-		public CodeLinePragma LinePragma { get; set; }
 	}
 }
