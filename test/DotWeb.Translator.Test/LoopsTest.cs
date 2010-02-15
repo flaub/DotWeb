@@ -26,7 +26,7 @@ namespace DotWeb.Translator.Test
 	public class LoopsTest : TestBase
 	{
 		public LoopsTest()
-			: base("DotWeb.Translator.Test.Script", "H8.Loops", Loops.ResourceManager) {
+			: base("DotWeb.Translator.Test.Script", "H8.Loops", Loops.ResourceManager, "Source") {
 		}
 
 		[Test]

@@ -145,42 +145,6 @@
   <data name="NativeTest_TestTuple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\nativetest\nativetest_testtuple.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SourceTests_AnonymousType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_anonymoustype.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_Callback" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_callback.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_CallDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_callderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_CallTakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_calltakeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_Cifuentes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_cifuentes.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_CreateInnerObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_createinnerobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_CreateOuterObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_createouterobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_EnumArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_enumarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_HelloWorld" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_helloworld.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_Indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_indexer.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_Linq" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_linq.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SourceTests_TakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_takeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="TranslationTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\script\translationtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -208,9 +172,6 @@
   <data name="SystemTest_TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\systemtest_testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SourceTests_TestGenericNested" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\sourcetest\sourcetests_testgenericnested.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SwitchInsideWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\switchinsidewhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -222,5 +183,47 @@
   </data>
   <data name="GitHub_Issue5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\github_issue5.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="GitHub_Issue6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\github_issue6.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AnonymousType" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\anonymoustype.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Callback" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\callback.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CallDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\callderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CallTakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\calltakeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Cifuentes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\cifuentes.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CreateInnerObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\createinnerobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CreateOuterObject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\createouterobject.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EnumArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\enumarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="HelloWorld" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\helloworld.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Indexer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\indexer.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Linq" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\linq.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TakeParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\takeparameters.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestGenericNested" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\testgenericnested.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

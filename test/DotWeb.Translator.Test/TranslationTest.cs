@@ -23,103 +23,48 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class TranslationTest : TranslationTestHelper
+	public class TranslationTest : TestBase
 	{
-		private TypeDefinition sourceTestsCompiledType;
-
 		public TranslationTest()
-			: base("DotWeb.Translator.Test.Script", Resources.TranslationTest) {
-			this.sourceTestsCompiledType = this.CompiledAssembly.MainModule.Types["H8.SourceTests"];
+			: base("DotWeb.Translator.Test.Script", "H8.SourceTests", Resources.ResourceManager, "TranslationTest") {
 		}
 
 		[Test]
-		public void HelloWorld() {
-			this.TestMethod(this.sourceTestsCompiledType, "HelloWorld", Resources.SourceTests_HelloWorld);
-		}
-
+		public void HelloWorld() { RunTest(); }
 		[Test]
-		public void Cifuentes() {
-			this.TestMethod(this.sourceTestsCompiledType, "Cifuentes", Resources.SourceTests_Cifuentes);
-		}
-
+		public void Cifuentes() { RunTest(); }
 		[Test]
-		public void EnumArray() {
-			this.TestMethod(this.sourceTestsCompiledType, "EnumArray", Resources.SourceTests_EnumArray);
-		}
-
+		public void EnumArray() { RunTest(); }
 		[Test]
-		public void CreateInnerObject() {
-			this.TestMethod(this.sourceTestsCompiledType, "CreateInnerObject", Resources.SourceTests_CreateInnerObject, true);
-		}
-
+		public void CreateInnerObject() { RunTestWithDependencies(); }
 		[Test]
-		public void CreateOuterObject() {
-			this.TestMethod(this.sourceTestsCompiledType, "CreateOuterObject", Resources.SourceTests_CreateOuterObject, true);
-		}
-
+		public void CreateOuterObject() { RunTestWithDependencies(); }
 		[Test]
-		public void TakeParameters() {
-			this.TestMethod(this.sourceTestsCompiledType, "TakeParameters", Resources.SourceTests_TakeParameters);
-		}
-
+		public void TakeParameters() { RunTest(); }
 		[Test]
-		public void AnonymousType() {
-			var value = new {
-				Key = "Hi",
-				Value = 1
-			};
-			this.TestMethod(this.sourceTestsCompiledType, "AnonymousType", Resources.SourceTests_AnonymousType, true);
-		}
-
+		public void AnonymousType() { RunTestWithDependencies(); }
 		[Test]
 		[Ignore]
-		public void Linq() {
-			this.TestMethod(this.sourceTestsCompiledType, "Linq", Resources.SourceTests_Linq, true);
-		}
-
+		public void Linq() { RunTest(); }
 		[Test]
-		public void Callback() {
-			this.TestMethod(this.sourceTestsCompiledType, "Callback", Resources.SourceTests_Callback, true);
-		}
-
+		public void Callback() { RunTestWithDependencies(); }
 		[Test]
-		public void CallTakeParameters() {
-			this.TestMethod(this.sourceTestsCompiledType, "CallTakeParameters", Resources.SourceTests_CallTakeParameters, true);
-		}
-
+		public void CallTakeParameters() { RunTestWithDependencies(); }
 		[Test]
-		public void CallDerived() {
-			this.TestMethod(this.sourceTestsCompiledType, "CallDerived", Resources.SourceTests_CallDerived, true);
-		}
-
+		public void CallDerived() { RunTestWithDependencies(); }
 		[Test]
-		public void Indexer() {
-			this.TestMethod(this.sourceTestsCompiledType, "Indexer", Resources.SourceTests_Indexer, true);
-		}
-
+		public void Indexer() { RunTestWithDependencies(); }
 		[Test]
-		public void TestGenericNested() {
-			this.TestMethod(this.sourceTestsCompiledType, "TestGenericNested", Resources.SourceTests_TestGenericNested, true);
-		}
-
+		public void TestGenericNested() { RunTestWithDependencies(); }
 		[Test]
-		public void SwitchInsideWhile() {
-			this.TestMethod(this.sourceTestsCompiledType, "SwitchInsideWhile", Resources.SwitchInsideWhile);
-		}
-
+		public void SwitchInsideWhile() { RunTest(); }
 		[Test]
-		public void GitHub_Issue3() {
-			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue3", Resources.GitHub_Issue3);
-		}
-
+		public void GitHub_Issue3() { RunTest(); }
 		[Test]
-		public void GitHub_Issue4() {
-			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue4", Resources.GitHub_Issue4, true);
-		}
-
+		public void GitHub_Issue4() { RunTestWithDependencies(); }
 		[Test]
-		public void GitHub_Issue5() {
-			this.TestMethod(this.sourceTestsCompiledType, "GitHub_Issue5", Resources.GitHub_Issue5, true);
-		}
+		public void GitHub_Issue5() { RunTestWithDependencies(); }
+		[Test]
+		public void GitHub_Issue6() { RunTest(); }
 	}
 }

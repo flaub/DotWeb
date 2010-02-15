@@ -468,6 +468,27 @@ namespace H8
 		public void GitHub_Issue5() {
 			new GitHub_Issue5.Class1();
 		}
+
+		public void GitHub_Issue6(bool x) {
+			Console.WriteLine("enter");
+			try {
+				Console.WriteLine("try begin");
+				if (x) {
+					throw new NotImplementedException();
+				}
+				Console.WriteLine("try end");
+			}
+			catch (NotImplementedException ex) {
+				Console.WriteLine("NotImplementedException: " + ex.Message);
+			}
+			catch (Exception ex) {
+				Console.WriteLine("Exception: " + ex.Message);
+			}
+			finally {
+				Console.WriteLine("finally");
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }
 

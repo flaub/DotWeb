@@ -103,10 +103,16 @@ namespace DotWeb.Translator.Test
 		protected TypeDefinition sourceCompiledType;
 		protected ResourceManager resource;
 
-		public TestBase(string asmName, string typeName, ResourceManager resource)
-			: base(asmName, resource.GetString("Source")) {
+		public TestBase(string asmName, string typeName, ResourceManager resource, string source)
+			: base(asmName, resource.GetString(source)) {
 			this.resource = resource;
 			this.sourceCompiledType = this.CompiledAssembly.MainModule.Types[typeName];
+		}
+
+		public void RunTestWithDependencies() {
+			var frame = new StackFrame(1);
+			var name = frame.GetMethod().Name;
+			this.TestMethod(this.sourceCompiledType, name, resource.GetString(name), true);
 		}
 
 		public void RunTest() {
