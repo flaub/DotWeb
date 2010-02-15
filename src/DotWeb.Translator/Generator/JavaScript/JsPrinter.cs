@@ -320,7 +320,15 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeMethodReference exp) {
-			return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Reference));
+			var methodName = GetMemberName(exp.Reference);
+			var target = Print(exp.TargetObject);
+			if (this.typeSystem.IsDelegate(exp.Reference.DeclaringType)) {
+				if (methodName == "Invoke") {
+					return target;
+				}
+				throw new NotSupportedException();
+			}
+			return string.Format("{0}.{1}", target, methodName);
 		}
 
 		public string VisitReturn(CodeArgumentReference exp) {
@@ -416,8 +424,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.Type), exp.Parameters);
 			}
 
-			var delegateType = this.typeSystem.GetTypeDefinition(typeof(Delegate));
-			if (this.typeSystem.IsSubclassOf(exp.Type, delegateType)) {
+			if (this.typeSystem.IsDelegate(exp.Type)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")

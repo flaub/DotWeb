@@ -45,10 +45,10 @@ System.Delegate.Combine = function(/*System.Delegate*/ a, /*System.Delegate*/ b)
 
 H8.SourceTests.prototype.Callback = function(/*H8.SourceTests_SimpleDelegate*/ del) {
 	if (del) {
-		del.Invoke();
+		del();
 	}
 	if (this.SimpleEvent) {
-		this.SimpleEvent.Invoke();
+		this.SimpleEvent();
 	}
 	this.SimpleEvent = /*(H8.SourceTests_SimpleDelegate)*/System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
 };

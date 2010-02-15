@@ -1,4 +1,21 @@
-﻿using System;
+﻿// Copyright 2010, Frank Laub
+//
+// This file is part of DotWeb.
+//
+// DotWeb is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// DotWeb is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,6 +82,10 @@ namespace DotWeb.Utility.Cecil
 		public bool IsSubclassOf(TypeReference subclassType, TypeReference baseType) {
 			var subclasses = GetSubclasses(baseType);
 			return subclasses.Contains(subclassType.Resolve());
+		}
+
+		public bool IsDelegate(TypeReference typeRef) {
+			return IsSubclassOf(typeRef, this.TypeDefinitionCache.Delegate);
 		}
 
 		public MethodSet GetOverridesForVirtualMethod(MethodDefinition method) {
@@ -178,15 +199,6 @@ namespace DotWeb.Utility.Cecil
 			}
 		}
 
-		//public static string GetScopeName(IMetadataScope scope) {
-		//    string name = scope.Name;
-		//    if (name.EndsWith(Names.DllSuffix)) {
-		//        var index = name.Length - Names.DllSuffix.Length;
-		//        return name.Substring(0, index);
-		//    }
-		//    return name;
-		//}
-
 		public bool IsEquivalent(TypeReference typeRef, Type reflectionType) {
 			if (typeRef == null)
 				return false;
@@ -198,24 +210,6 @@ namespace DotWeb.Utility.Cecil
 		public bool IsEquivalent(TypeReference lhs, TypeReference rhs) {
 			return (lhs.Resolve() == rhs.Resolve());
 		}
-		//    if (lhs == null || rhs == null)
-		//        return false;
-
-		//    var lhsDef = lhs.Resolve();
-		//    var rhsDef = rhs.Resolve();
-
-		//    string lhsScopeName = GetScopeName(lhsDef.Scope);
-		//    string rhsScopeName = GetScopeName(rhsDef.Scope);
-		//    return lhsScopeName == rhsScopeName && lhsDef.MetadataToken == rhsDef.MetadataToken;
-		//}
-
-		//public bool IsEquivalent(TypeReference lhs, string typeName) {
-		//    TypeReference rhs = asmSystem.MainModule.Types[typeName];
-		//    if (lhs == null || rhs == null)
-		//        return false;
-
-		//    return IsEquivalent(lhs, rhs);
-		//}
 
 		public bool IsDefined(ICustomAttributeProvider provider, string attributeTypeName) {
 			TypeReference attributeType = asmSystem.MainModule.Types[attributeTypeName];
