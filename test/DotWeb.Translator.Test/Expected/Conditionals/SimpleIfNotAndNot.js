@@ -1,4 +1,4 @@
-﻿Conditionals.prototype.SimpleIfNotAndNot = function(/*System.Boolean*/ x, /*System.Boolean*/ y) {
+﻿Conditionals.prototype.SimpleIfNotAndNot = function(x, y) {
 	var ret = 0;
 	if (!x && !y) {
 		ret = 1;

@@ -1,4 +1,4 @@
-﻿Conditionals.prototype.IfLessAnd = function(/*System.Int32*/ x, /*System.Int32*/ y) {
+﻿Conditionals.prototype.IfLessAnd = function(x, y) {
 	var ret = 0;
 	if ((x < 1) && (y < 1)) {
 		ret = 1;

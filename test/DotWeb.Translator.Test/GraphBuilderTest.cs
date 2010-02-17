@@ -61,6 +61,8 @@ namespace DotWeb.Translator.Test
 			Console.WriteLine("Expected:");
 			Console.WriteLine(expected);
 
+			graph.PrintDot(methodName);
+
 			Assert.AreEqual(expected, actual);
 		}
 

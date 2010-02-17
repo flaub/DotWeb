@@ -1,6 +1,6 @@
-﻿Loops.prototype.SimpleFor = function(/*System.Int32*/ a) {
+﻿Loops.prototype.SimpleFor = function(a) {
 	var i = 0;
-	while(i < 10) {
+	while (i < 10) {
 		a = a + 1;
 		i = i + 1;
 	}

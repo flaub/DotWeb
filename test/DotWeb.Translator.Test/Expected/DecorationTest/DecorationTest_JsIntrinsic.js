@@ -12,7 +12,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.Write = function(/*System.Int32*/ value) {
+System.Console.Write = function(value) {
 	console.log(value);
 };
 

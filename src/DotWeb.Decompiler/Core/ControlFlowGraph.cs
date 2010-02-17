@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using DotWeb.Utility;
 using DotWeb.Decompiler.CodeModel;
+using Mono.Cecil.Cil;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -34,6 +35,7 @@ namespace DotWeb.Decompiler.Core
 			CompoundConditionals();
 			StructureLoops();
 			StructureConditionals();
+			StructureExceptions();
 		}
 
 		public void SortByDepthFirstPostOrder() {
@@ -87,11 +89,60 @@ namespace DotWeb.Decompiler.Core
 			Console.WriteLine("digraph G {");
 			Console.WriteLine("\tgraph [label=\"{0}\"];", name);
 
+			var loops = new List<Loop>();
+
 			foreach (BasicBlock block in this.Nodes) {
-				Console.WriteLine("\t{0} [label=\"{0} (#{1}) (^{2})\\n{3}\"];",
+				var attrs = new List<string>();
+				if (block.Try != null) {
+					if (block.IsTryHeader) {
+						attrs.Add("TH");
+					}
+					if (block == block.Try.Finally) {
+						attrs.Add(string.Format("F: {0}", block.Try.Header.RefName));
+					}
+					if (block.Try.Catches.Contains(block)) {
+						attrs.Add(string.Format("C: {0}", block.Try.Header.RefName));
+					}
+					if (block.Try.Nodes.Contains(block)) {
+						attrs.Add(string.Format("T: {0}", block.Try.Header.RefName));
+					}
+					if (block == block.Try.Follow) {
+						attrs.Add(string.Format("TF: {0}", block.Try.Header.RefName));
+					}
+				}
+
+				if (block.Loop != null) {
+					loops.Add(block.Loop);
+				}
+				if (block.IsLoopHeader) {
+					attrs.Add("LH");
+				}
+				if (block.IsLoopLatch) {
+					attrs.Add("LL");
+				}
+				if (loops.Any(x => x.Follow == block)) {
+					attrs.Add("LF");
+				}
+
+				if (block.Conditional != null) {
+					if (block.Conditional.Header != null) {
+						attrs.Add("CH");
+					}
+					if (block.Conditional.Follow != null) {
+						attrs.Add("CF");
+					}
+				}
+
+				var attrsLine = "";
+				if (attrs.Any()) {
+					attrsLine = "\\n" + string.Join(", ", attrs.ToArray());
+				}
+
+				Console.WriteLine("\t{0} [label=\"{1}: {0} (^{2}){3}\\n{4}\"];",
 					block.RefName,
 					block.DfsIndex,
 					block.ImmediateDominator == null ? "" : block.ImmediateDominator.RefName,
+					attrsLine,
 					block.LastInstruction.OpCode);
 			}
 
@@ -153,6 +204,20 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			return conditionals;
+		}
+
+		public List<TryStructure> StructureExceptions() {
+			var tries = new List<TryStructure>();
+			foreach (BasicBlock block in this.Nodes) {
+				if (block.ExceptionHandler != null) {
+					var first = block.Instructions.First();
+					if (block.ExceptionHandler.TryStart == first) {
+						var tryStructure = new TryStructure(this, block);
+						tries.Add(tryStructure);
+					}
+				}
+			}
+			return tries;
 		}
 
 		public void CompoundConditionals() {

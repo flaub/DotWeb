@@ -194,7 +194,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string PrintArray(Array array) {
 			StringBuilder sb = new StringBuilder();
-			sb.Append("[ ");
+			sb.Append("[");
 			bool isFirst = true;
 			foreach (var item in array) {
 				if (isFirst)
@@ -203,7 +203,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 					sb.Append(", ");
 				sb.Append(item);
 			}
-			sb.Append(" ]");
+			sb.Append("]");
 			return sb.ToString();
 		}
 
@@ -344,7 +344,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeCastExpression exp) {
-			return string.Format("/*({0})*/{1}", Print(exp.TargetType), Print(exp.Expression));
+			//return string.Format("/*({0})*/{1}", Print(exp.TargetType), Print(exp.Expression));
+			return Print(exp.Expression);
 		}
 
 		public string VisitReturn(CodeInstanceOfExpression exp) {
@@ -352,7 +353,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeParameterDeclarationExpression exp) {
-			return string.Format("/*{0}*/ {1}", EncodeName(exp.Definition.ParameterType.FullName), EncodeName(exp.Name));
+			//return string.Format("/*{0}*/ {1}", EncodeName(exp.Definition.ParameterType.FullName), EncodeName(exp.Name));
+			return EncodeName(exp.Name);
 		}
 
 		public string VisitReturn(CodeInvokeExpression exp) {
@@ -414,7 +416,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeArrayCreateExpression exp) {
 			string size = Print(exp.SizeExpression);
-			return string.Format("new /*{0}*/Array({1})", Print(exp.Type), size);
+			//return string.Format("new /*{0}*/Array({1})", Print(exp.Type), size);
+			return string.Format("new Array({0})", size);
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {

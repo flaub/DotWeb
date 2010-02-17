@@ -28,7 +28,7 @@ H8.SystemTests_Derived.prototype.Foo = function() {
 H8.SystemTests = function() {
 };
 
-H8.SystemTests.prototype.UseBase = function(/*H8.SystemTests_Base*/ x) {
+H8.SystemTests.prototype.UseBase = function(x) {
 	x.Foo();
 };
 

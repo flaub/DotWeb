@@ -7,7 +7,7 @@ GitHub_Issue5.Class1._.ctor_b__0 = function() {
 	$wnd.alert("test");
 };
 
-GitHub_Issue5.Class1.prototype.Call = function(/*System.Action*/ action) {
+GitHub_Issue5.Class1.prototype.Call = function(action) {
 	action();
 };
 

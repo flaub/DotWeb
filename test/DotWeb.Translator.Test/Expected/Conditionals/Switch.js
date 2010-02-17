@@ -1,7 +1,7 @@
-﻿Conditionals.prototype.Switch = function(/*System.Int32*/ x) {
+﻿Conditionals.prototype.Switch = function(x) {
 	System.Console.WriteLine("enter");
 	var CS$0$0000 = x;
-	switch(CS$0$0000) {
+	switch (CS$0$0000) {
 		case 0:
 			System.Console.WriteLine("Zero");
 			break;

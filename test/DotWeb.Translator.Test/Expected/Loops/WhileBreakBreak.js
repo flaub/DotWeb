@@ -1,6 +1,6 @@
 ﻿Loops.prototype.WhileBreakBreak = function() {
 	var i = 0;
-	while(true) {
+	while (true) {
 		System.Console.WriteLine("top");
 		if (i == 10) {
 			System.Console.WriteLine("break1");

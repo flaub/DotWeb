@@ -8,7 +8,7 @@ System.Collections.Generic.List$1.prototype.$ctor = function() {
 	return this;
 };
 
-System.Collections.Generic.List$1.prototype.Add = function(/*T*/ item) {
+System.Collections.Generic.List$1.prototype.Add = function(item) {
 	this.items.push(item);
 };
 
@@ -22,16 +22,16 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(/*System.String*/ value) {
+System.Console.WriteLine = function(value) {
 	console.log(value);
 };
 
-System.Collections.Generic.List$1.prototype.IndexOf = function(/*T*/ item) {
+System.Collections.Generic.List$1.prototype.IndexOf = function(item) {
 	var V_0 = this.items.indexOf(item);
 	return V_0;
 };
 
-System.Console.WriteLine = function(/*System.Object*/ value) {
+System.Console.WriteLine = function(value) {
 	console.log(value);
 };
 
@@ -42,7 +42,7 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype.$ctor = function(
 	return this;
 };
 
-System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = function(/*System.Object*/ element, /*System.Int32*/ i, /*System.DotWeb.JsArray*/ array) {
+System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = function(element, i, array) {
 	if (!this.foundFirst) {
 		var R_1 = !(this.item === element);
 	}
@@ -60,7 +60,7 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = fu
 	return V_0;
 };
 
-System.Collections.Generic.List$1.prototype.Remove = function(/*T*/ item) {
+System.Collections.Generic.List$1.prototype.Remove = function(item) {
 	var V_0 = new System.Collections.Generic.List$1___c__DisplayClass5().$ctor();
 	V_0.item = item;
 	V_0.foundFirst = false;

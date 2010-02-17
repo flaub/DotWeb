@@ -1,3 +1,3 @@
-﻿H8.DecorationTests.prototype.TestJsCode = function(/*System.String*/ arg) {
+﻿H8.DecorationTests.prototype.TestJsCode = function(arg) {
 	alert(arg);
 };

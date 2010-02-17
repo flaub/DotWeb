@@ -133,10 +133,12 @@ namespace DotWeb.Decompiler.Core
 
 		private void MarkBlockStartsForExceptions() {
 			foreach (ExceptionHandler handler in this.body.ExceptionHandlers) {
-				MarkBlockStart(handler.TryStart);
-				var block = MarkBlockStart(handler.HandlerStart);
-				block.ExceptionHandler = handler;
-				this.graph.Orphans.AddUnique(block);
+				var tryBlock = MarkBlockStart(handler.TryStart);
+				tryBlock.ExceptionHandler = handler;
+
+				var handlerBlock = MarkBlockStart(handler.HandlerStart);
+				handlerBlock.ExceptionHandler = handler;
+				this.graph.Orphans.AddUnique(handlerBlock);
 
 				switch (handler.Type) {
 					case ExceptionHandlerType.Fault:

@@ -43,6 +43,12 @@ namespace DotWeb.Decompiler.Core
 			this.method = method;
 		}
 
+		public static CodeVariableReference CreateExceptionVariableReference(MethodDefinition method, TypeReference typeRef) {
+			var variable = new VariableDefinition("__ex__", 0, method, typeRef);
+			var code = new CodeVariableReference(variable);
+			return code;
+		}
+
 		public void ProcessBlock(BasicBlock block) {
 			this.block = block;
 
@@ -53,9 +59,8 @@ namespace DotWeb.Decompiler.Core
 				// this is a catch handler
 				// the exception object is expected to be sitting on the top of the stack 
 				// on entry to the catch block
-				var variable = new VariableDefinition(this.block.ExceptionHandler.CatchType);
-				var code = new CodeVariableReference(variable);
-				Push(code);
+				var exception = CreateExceptionVariableReference(this.method, this.block.ExceptionHandler.CatchType);
+				Push(exception);
 			}
 
 			foreach (var cil in block.Instructions) {

@@ -11,12 +11,12 @@
 		}
 	}
 	var a = 0;
-	while(a < 10) {
+	while (a < 10) {
 		var b = a;
 		do {
 			b = b + 1;
 			System.Console.WriteLine("{0}, {1}", a, b);
-		} while(b < 5);
+		} while (b < 5);
 		a = a + 1;
 	}
 	if ((x < y) || ((y * 2) > x)) {

@@ -42,25 +42,36 @@ namespace DotWeb.Decompiler.Core
 	{
 		class Context
 		{
+			private TryStructure tryContext;
 			private Loop loop;
 			private HashSet<Node> until;
 
 			public Context() {
 				this.loop = null;
+				this.tryContext = null;
 				this.until = new HashSet<Node>();
 			}
 
-			private Context(Loop loop, HashSet<Node> until) {
+			private Context(Loop loop, HashSet<Node> until, TryStructure tryContext) {
 				this.loop = loop;
 				this.until = until;
+				this.tryContext = tryContext;
 			}
 
 			public Context NewLoop(Loop loop) {
-				return new Context(loop, this.until);
+				return new Context(loop, this.until, this.tryContext);
 			}
 
 			public Context NewUntil(Node node) {
-				return new Context(this.loop, this.until.NewAdd(node));
+				return new Context(this.loop, this.until.NewAdd(node), this.tryContext);
+			}
+
+			public Context NewTry(TryStructure tryContext) {
+				var until = this.until;
+				if (tryContext.Follow != null) {
+					until = this.until.NewAdd(tryContext.Follow);
+				}
+				return new Context(this.loop, until, tryContext);
 			}
 
 			public Node LoopHeader {
@@ -74,6 +85,10 @@ namespace DotWeb.Decompiler.Core
 			public bool IsUntil(Node node) {
 				return this.until.Contains(node);
 			}
+
+			public TryStructure Try {
+				get { return this.tryContext; }
+			}
 		}
 
 		private Graph graph;
@@ -81,7 +96,6 @@ namespace DotWeb.Decompiler.Core
 
 		public StatementsGenerator(MethodDefinition methodDef, Graph graph) {
 			this.graph = graph;
-
 			this.method = new CodeMethodMember(methodDef);
 		}
 
@@ -106,6 +120,10 @@ namespace DotWeb.Decompiler.Core
 				return false;
 			}
 
+			if (block.IsTryHeader && context.Try != block.Try) {
+				return WriteTry(block, stmts, context);
+			}
+
 			block.DfsTraversed = DfsTraversal.Alpha;
 
 			if (block.IsLoopHeader) {
@@ -125,6 +143,43 @@ namespace DotWeb.Decompiler.Core
 				var succ = (BasicBlock)block.Successors.FirstOrDefault();
 				return WriteCode(block, succ, stmts, context);
 			}
+		}
+
+		private bool WriteTry(BasicBlock block, List<CodeStatement> stmts, Context context) {
+			// find catch/finally blocks that match this try
+			// write this block into the try
+			// continue until we find the try follow, which is the first block that has a last != leave
+			// if the try follow lands on a loop or conditional header, then use their follow instead
+			// TODO: deal with nested trys
+			var tryStmt = new CodeTryStatement();
+			stmts.Add(tryStmt);
+
+			var tryContext = context.NewTry(block.Try);
+
+			WriteCode(null, block, tryStmt.Try, tryContext);
+
+			foreach (BasicBlock catchBlock in block.Try.Catches) {
+				var catchType = catchBlock.ExceptionHandler.CatchType;
+				var variable = Interpreter.CreateExceptionVariableReference(this.method.Definition, catchType);
+				var catchClause = new CodeCatchClause {
+					Type = new CodeTypeReference(catchType),
+					Variable = variable
+				};
+
+				tryStmt.Catches.Add(catchClause);
+
+				WriteCode(null, catchBlock, catchClause.Statements, tryContext);
+			}
+
+			if (block.Try.Finally != null) {
+				WriteCode(null, (BasicBlock)block.Try.Finally, tryStmt.Finally, tryContext);
+			}
+
+			if (block.Try.Follow != null) {
+				return WriteCode(block, (BasicBlock)block.Try.Follow, stmts, context);
+			}
+
+			return true;
 		}
 
 		private bool WriteLoop(BasicBlock block, List<CodeStatement> stmts, Context context) {
@@ -352,7 +407,8 @@ namespace DotWeb.Decompiler.Core
 				stmts.Add(stmt);
 			}
 
-			if (block.FlowControl == FlowControl.Return) {
+			if (block.FlowControl == FlowControl.Return || 
+				block.FlowControl == FlowControl.Throw) {
 				return true;
 			}
 			return false;

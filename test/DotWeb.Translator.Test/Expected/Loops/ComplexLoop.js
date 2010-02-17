@@ -1,7 +1,7 @@
 ﻿Loops.prototype.ComplexLoop = function() {
 	var i = 0;
 	System.Console.WriteLine("enter");
-	while(true) {
+	while (true) {
 		System.Console.WriteLine("top");
 		if (i < 10) {
 			System.Console.WriteLine("i < 10");

@@ -1,5 +1,5 @@
-﻿Loops.prototype.BreakInWhile = function(/*System.Int32*/ a) {
-	while(a < 100) {
+﻿Loops.prototype.BreakInWhile = function(a) {
+	while (a < 100) {
 		if (a == 12) {
 			System.Console.WriteLine("break");
 			break;

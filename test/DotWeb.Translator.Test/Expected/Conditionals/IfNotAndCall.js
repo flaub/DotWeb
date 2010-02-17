@@ -1,4 +1,4 @@
-﻿Conditionals.prototype.IfNotAndCall = function(/*System.Object*/ element, /*System.Int32*/ i, /*System.DotWeb.JsArray*/ array) {
+﻿Conditionals.prototype.IfNotAndCall = function(element, i, array) {
 	if (!this.foundFirst && (this.item === element)) {
 		this.foundFirst = true;
 		return 0;

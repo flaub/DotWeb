@@ -80,6 +80,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.WriteLine(format, args);
 		}
 
+		private void Write(object arg) {
+			this.writer.Write(arg);
+		}
+
+		private void Write(string format, params object[] args) {
+			this.writer.Write(format, args);
+		}
+
 		private void Write(IEnumerable<CodeStatement> stmts) {
 			foreach (var stmt in stmts) {
 				stmt.Accept(this);
@@ -95,12 +103,43 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		#region Statements
-		public void Visit(CodeTryStatement obj) {
-			throw new NotImplementedException();
+		public void Visit(CodeTryStatement stmt) {
+			WriteLine("try {{");
+			this.writer.Indent++;
+			Write(stmt.Try);
+			this.writer.Indent--;
+			WriteLine("}}");
+			if (stmt.Catches.Any()) {
+				WriteLine("catch (__ex__) {{");
+				this.writer.Indent++;
+				bool isFirst = true;
+				foreach (var catchClause in stmt.Catches) {
+					if (isFirst) {
+						isFirst = false;
+					}
+					else {
+						Write("else ");
+					}
+					WriteLine("if (__ex__ instanceof {0}) {{", Print(catchClause.Type));
+					this.writer.Indent++;
+					Write(catchClause.Statements);
+					this.writer.Indent--;
+					WriteLine("}}");
+				}
+				this.writer.Indent--;
+				WriteLine("}}");
+			}
+			if (stmt.Finally.Any()) {
+				WriteLine("finally {{");
+				this.writer.Indent++;
+				Write(stmt.Finally);
+				this.writer.Indent--;
+				WriteLine("}}");
+			}
 		}
 
 		public void Visit(CodeSwitchStatement stmt) {
-			WriteLine("switch({0}) {{", Print(stmt.Expression));
+			WriteLine("switch ({0}) {{", Print(stmt.Expression));
 			this.writer.Indent++;
 			CodeCase defaultCase = null;
 
@@ -190,7 +229,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodeWhileStatement stmt) {
-			WriteLine("while({0}) {{", Print(stmt.TestExpression));
+			WriteLine("while ({0}) {{", Print(stmt.TestExpression));
 			this.writer.Indent++;
 			Write(stmt.Statements);
 			this.writer.Indent--;
@@ -202,7 +241,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.writer.Indent++;
 			Write(stmt.Statements);
 			this.writer.Indent--;
-			WriteLine("}} while({0});", Print(stmt.TestExpression));
+			WriteLine("}} while ({0});", Print(stmt.TestExpression));
 		}
 
 		public void Visit(CodeBreakStatement stmt) {
@@ -229,7 +268,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodeThrowStatement stmt) {
-			WriteLine("throw {0}", Print(stmt.Expression));
+			WriteLine("throw {0};", Print(stmt.Expression));
 		}
 
 		#endregion

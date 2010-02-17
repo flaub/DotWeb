@@ -166,7 +166,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///System.Console = function() {
         ///};
         ///
-        ///System.Console.WriteLine = function(/*System.String*/ value) {
+        ///System.Console.WriteLine = function(value) {
         ///	console.log(value);
         ///};
         ///
@@ -186,7 +186,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.SourceTests = function() {
         ///};
         ///
-        ///H8.SourceTests.prototype.TakeParameters = function(/*System.String*/ str, /*System.Int32*/ value, /*System.D [rest of string was truncated]&quot;;.
+        ///H8.SourceTests.prototype.TakeParameters = function(str, /*System.Int32*/ value, /*System.D [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallTakeParameters {
             get {
@@ -235,7 +235,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.SourceTests_InnerClassTest = function() {
         ///};
         ///
-        ///H8.SourceTests_InnerClassTest.prototype.set_Text = function(/*System.String*/ value) {
+        ///H8.SourceTests_InnerClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
         ///};
         ///
@@ -243,7 +243,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this._Value_k__BackingField = value;
         ///};
         ///
-        ///H8.SourceTests_InnerClassTest.prototype.$ctor = function(/*System.String*/ text, /*System.Int32*/ value) {
+        ///H8.SourceTests_InnerClassTest.prototype.$ctor = function(text, /*System.Int32*/ value) {
         ///	this.set_Text(text);
         ///	this.set_Value(value);
         ///	return this;
@@ -261,7 +261,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.OuterClassTest = function() {
         ///};
         ///
-        ///H8.OuterClassTest.prototype.set_Text = function(/*System.String*/ value) {
+        ///H8.OuterClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
         ///};
         ///
@@ -269,7 +269,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.m_value = value;
         ///};
         ///
-        ///H8.OuterClassTest.prototype.$ctor = function(/*System.String*/ text, /*System.Int32*/ value) {
+        ///H8.OuterClassTest.prototype.$ctor = function(text, /*System.Int32*/ value) {
         ///	this.set_Text(text);
         ///	this.set_Value(value);
         ///	return this;
@@ -395,7 +395,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(/*System.String*/ arg) {
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg) {
         ///	alert(arg);
         ///};
         ///.
@@ -919,7 +919,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(/*System.String*/ str, /*System.Int32*/ value, /*System.Double[]*/ rad) {
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, /*System.Int32*/ value, /*System.Double[]*/ rad) {
         ///	System.Console.WriteLine(str);
         ///	var x = System.Math.Sin(rad[value] * 1.570795);
         ///	return System.Math.Cos(x);

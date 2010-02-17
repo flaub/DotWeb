@@ -1,7 +1,7 @@
 ﻿Loops.prototype.ComplexNestedLoop = function() {
 	var i = 0;
 	System.Console.WriteLine("enter");
-	while(true) {
+	while (true) {
 		System.Console.WriteLine("top");
 		if (i < 10) {
 			System.Console.WriteLine("i < 10");
@@ -12,7 +12,7 @@
 			if (i == 2) {
 				do {
 					System.Console.WriteLine("inner loop");
-				} while(i < 4);
+				} while (i < 4);
 				break;
 			}
 			System.Console.WriteLine("bottom");

@@ -37,7 +37,6 @@ namespace DotWeb.Decompiler
 
 #if DEBUG
 			Console.WriteLine(graph);
-			graph.PrintDot(method.Name);
 #endif
 
 			graph.SortByDepthFirstPostOrder();
@@ -48,6 +47,10 @@ namespace DotWeb.Decompiler
 			}
 
 			graph.Structure();
+
+#if DEBUG
+			graph.PrintDot(method.Name);
+#endif
 
 			var generator = new StatementsGenerator(method, graph);
 			var ret = generator.WriteMethodBody();

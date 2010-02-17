@@ -1,9 +1,9 @@
-﻿H8.SourceTests.prototype.SwitchInsideWhile = function(/*System.Int32*/ x) {
+﻿H8.SourceTests.prototype.SwitchInsideWhile = function(x) {
 	System.Console.WriteLine("enter");
-	while(x > 10) {
+	while (x > 10) {
 		System.Console.WriteLine("head");
 		var CS$0$0000 = x;
-		switch(CS$0$0000) {
+		switch (CS$0$0000) {
 			case 0:
 				System.Console.WriteLine("Zero: return");
 				return;

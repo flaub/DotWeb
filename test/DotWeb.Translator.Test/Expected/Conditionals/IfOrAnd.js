@@ -1,4 +1,4 @@
-﻿Conditionals.prototype.IfOrAnd = function(/*System.Boolean*/ x, /*System.Boolean*/ y, /*System.Boolean*/ z) {
+﻿Conditionals.prototype.IfOrAnd = function(x, y, z) {
 	var ret = 0;
 	if (x || (y && z)) {
 		ret = 1;

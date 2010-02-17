@@ -1,4 +1,4 @@
-﻿Conditionals.prototype.SimpleIfIf = function(/*System.Int32*/ a) {
+﻿Conditionals.prototype.SimpleIfIf = function(a) {
 	if (a == 12) {
 		a = 14;
 	}

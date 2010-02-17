@@ -5,7 +5,7 @@ DefaultNamespaceTest.prototype.$ctor = function() {
 	return this;
 };
 
-DefaultNamespaceTest.prototype.set_Value = function(/*System.Int32*/ value) {
+DefaultNamespaceTest.prototype.set_Value = function(value) {
 	this._Value_k__BackingField = value;
 };
 
@@ -22,7 +22,7 @@ DefaultNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-Foo.FooNamespaceTest.prototype.set_Value = function(/*System.Int32*/ value) {
+Foo.FooNamespaceTest.prototype.set_Value = function(value) {
 	this._Value_k__BackingField = value;
 };
 
@@ -35,7 +35,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(/*System.Object*/ value) {
+System.Console.WriteLine = function(value) {
 	console.log(value);
 };
 
