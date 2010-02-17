@@ -189,7 +189,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 						break;
 				}
 			}
-			return new String(chars);
+			return new String(chars).Replace(".ctor", "$ctor");
 		}
 
 		public string PrintArray(Array array) {
