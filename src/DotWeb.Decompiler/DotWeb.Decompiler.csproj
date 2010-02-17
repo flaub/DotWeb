@@ -114,6 +114,7 @@
     <Compile Include="Core\Loop.cs" />
     <Compile Include="Core\Node.cs" />
     <Compile Include="Core\StatementsGenerator.cs" />
+    <Compile Include="Core\TryStructure.cs" />
     <Compile Include="MethodDecompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

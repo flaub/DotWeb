@@ -226,4 +226,13 @@
   <data name="TestGenericNested" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\testgenericnested.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="NestedTry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\nestedtry.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ComplexNestedTry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\complexnestedtry.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TryInsideCatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\sourcetest\tryinsidecatch.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

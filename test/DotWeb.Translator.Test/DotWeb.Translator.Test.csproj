@@ -153,6 +153,9 @@
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
+    <Content Include="Expected\SourceTest\ComplexNestedTry.js" />
+    <Content Include="Expected\SourceTest\TryInsideCatch.js" />
+    <Content Include="Expected\SourceTest\NestedTry.js" />
     <Content Include="Expected\SourceTest\GitHub_Issue6.js" />
     <Content Include="Expected\SourceTest\GitHub_Issue5.js" />
     <Content Include="Expected\SourceTest\GitHub_Issue4.js" />

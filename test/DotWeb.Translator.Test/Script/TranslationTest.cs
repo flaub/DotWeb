@@ -489,6 +489,63 @@ namespace H8
 			}
 			Console.WriteLine("exit");
 		}
+
+		public void NestedTry() {
+			Console.WriteLine("enter");
+			try {
+				Console.WriteLine("outer try");
+				try {
+					Console.WriteLine("inner try");
+				}
+				finally {
+					Console.WriteLine("inner finally");
+				}
+				Console.WriteLine("inner follow");
+			}
+			finally {
+				Console.WriteLine("outer finally");
+			}
+			Console.WriteLine("exit");
+		}
+
+		public void ComplexNestedTry(int x) {
+			Console.WriteLine("enter");
+			try {
+				Console.WriteLine("outer try");
+				try {
+					Console.WriteLine("inner try");
+				}
+				finally {
+					Console.WriteLine("inner finally");
+				}
+				Console.WriteLine("inner follow");
+				if (x == 10) {
+					Console.WriteLine("x == 10");
+				}
+			}
+			finally {
+				Console.WriteLine("outer finally");
+			}
+			Console.WriteLine("exit");
+		}
+
+		public void TryInsideCatch() {
+			Console.WriteLine("enter");
+			try {
+				Console.WriteLine("try1");
+			}
+			catch (Exception) {
+				Console.WriteLine("catch");
+				try {
+					Console.WriteLine("try2");
+				}
+				finally {
+					Console.WriteLine("finally");
+				}
+				Console.WriteLine("try2 follow");
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }
 

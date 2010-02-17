@@ -208,7 +208,9 @@ namespace DotWeb.Decompiler.Core
 
 		public List<TryStructure> StructureExceptions() {
 			var tries = new List<TryStructure>();
-			foreach (BasicBlock block in this.Nodes) {
+			for (int i = this.Nodes.Count - 1; i >= 0; --i) {
+				//foreach (BasicBlock block in this.Nodes) {
+				var block = (BasicBlock)this.Nodes[i];
 				if (block.ExceptionHandler != null) {
 					var first = block.Instructions.First();
 					if (block.ExceptionHandler.TryStart == first) {

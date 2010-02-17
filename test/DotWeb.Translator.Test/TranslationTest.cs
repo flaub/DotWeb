@@ -66,5 +66,11 @@ namespace DotWeb.Translator.Test
 		public void GitHub_Issue5() { RunTestWithDependencies(); }
 		[Test]
 		public void GitHub_Issue6() { RunTest(); }
+		[Test]
+		public void NestedTry() { RunTest(); }
+		[Test]
+		public void ComplexNestedTry() { RunTest(); }
+		[Test]
+		public void TryInsideCatch() { RunTest(); }
 	}
 }
