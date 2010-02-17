@@ -45,6 +45,19 @@ namespace DotWeb.Decompiler.Core
 
 		public void ProcessBlock(BasicBlock block) {
 			this.block = block;
+
+			if (this.block.ExceptionHandler != null &&
+				this.block.ExceptionHandler.Type == ExceptionHandlerType.Catch) {
+				Debug.Assert(!this.stack.Any());
+
+				// this is a catch handler
+				// the exception object is expected to be sitting on the top of the stack 
+				// on entry to the catch block
+				var variable = new VariableDefinition(this.block.ExceptionHandler.CatchType);
+				var code = new CodeVariableReference(variable);
+				Push(code);
+			}
+
 			foreach (var cil in block.Instructions) {
 				HandleInstruction(cil);
 			}
@@ -468,6 +481,7 @@ namespace DotWeb.Decompiler.Core
 					break;
 				#endregion
 				#region Unsupported/Unneeded
+				case Code.Endfinally:
 				case Code.Box:
 					break;
 				#endregion
@@ -489,6 +503,9 @@ namespace DotWeb.Decompiler.Core
 			if (exp is CodeObjectCreateExpression ||
 				exp is CodeInvokeExpression) {
 				AddStatment(new CodeExpressionStatement(exp));
+			}
+			else if (exp is CodeVariableReference) {
+				// this occurs when a catch handler ignores the exception object
 			}
 			else {
 				throw new NotSupportedException(exp.ToString());

@@ -47,13 +47,11 @@ namespace DotWeb.Decompiler.Core
 			ComputeImmediateDominators();
 		}
 
-		public void DepthFirstTraversalPreAction(Action<Node> action) {
-			var visited = new HashSet<Node>();
-			DepthFirstTraversal(this.Root, action, null, visited);
-		}
-
 		public void DepthFirstTraversalPostAction(Action<Node> action) {
 			var visited = new HashSet<Node>();
+			foreach (var orphan in this.Orphans) {
+				DepthFirstTraversal(orphan, null, action, visited);
+			}
 			DepthFirstTraversal(this.Root, null, action, visited);
 		}
 

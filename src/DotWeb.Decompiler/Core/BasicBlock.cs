@@ -26,6 +26,14 @@ using System.Text;
 
 namespace DotWeb.Decompiler.Core
 {
+	public enum ExceptionNodeType
+	{
+		None,
+		Try,
+		Catch,
+		Finally
+	}
+
 	public class BasicBlock : Node
 	{
 		public override string FullName {
@@ -70,6 +78,8 @@ namespace DotWeb.Decompiler.Core
 
 		public CodeStatement FirstStatement { get { return this.Statements.First(); } }
 		public CodeStatement LastStatement { get { return this.Statements.Last(); } }
+
+		public ExceptionHandler ExceptionHandler { get; set; }
 
 		private MethodDefinition method;
 

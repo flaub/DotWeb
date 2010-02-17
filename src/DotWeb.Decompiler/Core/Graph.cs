@@ -32,10 +32,12 @@ namespace DotWeb.Decompiler.Core
 		public Graph Parent { get; private set; }
 		public Node Root { get; private set; }
 		public List<Node> Nodes { get; protected set; }
+		public List<Node> Orphans { get; protected set; }
 
 		public Graph(Graph parent) {
 			this.Parent = parent;
 			this.Nodes = new List<Node>();
+			this.Orphans = new List<Node>();
 		}
 
 		public void AddNode(Node node) {

@@ -91,7 +91,7 @@
     <None Include="Script\SystemTest.cs" />
     <Compile Include="TranslationTest.cs" />
     <Compile Include="TranslationTestHelper.cs" />
-    <Compile Include="TypeHierarchyTest.cs" />
+    <Compile Include="TypeSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Expected\Conditionals\IfNotAndCall.js" />

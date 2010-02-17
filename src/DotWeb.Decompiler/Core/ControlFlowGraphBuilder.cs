@@ -22,6 +22,7 @@ using System.Text;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System.Diagnostics;
+using DotWeb.Utility;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -44,7 +45,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void DelimitBlocks() {
 			MarkBlockStarts();
-//			MarkBlockStartsForExceptions();
+			MarkBlockStartsForExceptions();
 			MarkBlockEnds();
 		}
 
@@ -77,9 +78,6 @@ namespace DotWeb.Decompiler.Core
 
 		private void ConnectBranch(BasicBlock block) {
 			var cil = block.LastInstruction;
-			if (cil.IsLeave())
-				return;
-
 			if (cil.IsMultiWay()) {
 				var blocks = GetBranchTargetsBlocks(cil);
 				if (cil.Next != null) {
@@ -136,14 +134,19 @@ namespace DotWeb.Decompiler.Core
 		private void MarkBlockStartsForExceptions() {
 			foreach (ExceptionHandler handler in this.body.ExceptionHandlers) {
 				MarkBlockStart(handler.TryStart);
-				MarkBlockStart(handler.HandlerStart);
+				var block = MarkBlockStart(handler.HandlerStart);
+				block.ExceptionHandler = handler;
+				this.graph.Orphans.AddUnique(block);
 
-				if (handler.Type == ExceptionHandlerType.Filter) {
-					MarkExceptionObjectPosition(handler.FilterStart);
-					MarkBlockStart(handler.FilterStart);
-				}
-				else if (handler.Type == ExceptionHandlerType.Catch) {
-					MarkExceptionObjectPosition(handler.HandlerStart);
+				switch (handler.Type) {
+					case ExceptionHandlerType.Fault:
+					case ExceptionHandlerType.Filter:
+						throw new NotSupportedException();
+					case ExceptionHandlerType.Catch:
+						MarkExceptionObjectPosition(handler.HandlerStart);
+						break;
+					case ExceptionHandlerType.Finally:
+						break;
 				}
 			}
 		}
@@ -190,13 +193,14 @@ namespace DotWeb.Decompiler.Core
 			return cil;
 		}
 
-		private void MarkBlockStart(Instruction cil) {
+		private BasicBlock MarkBlockStart(Instruction cil) {
 			var block = GetBlock(cil);
 			if (block == null) {
 				block = new BasicBlock(this.body.Method);
 				block.Instructions.Add(cil);
 				RegisterBlock(block);
 			}
+			return block;
 		}
 
 		private void RegisterBlock(BasicBlock block) {
