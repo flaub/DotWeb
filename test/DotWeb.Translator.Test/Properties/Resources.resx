@@ -157,21 +157,6 @@
   <data name="SystemTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\script\systemtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SystemTest_TestBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testbase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SystemTest_TestDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SystemTest_TestDerivedThruBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testderivedthrubase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SystemTest_TestDerivedThruBaseIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SystemTest_TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\systemtest_testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SwitchInsideWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\switchinsidewhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -234,5 +219,23 @@
   </data>
   <data name="TryInsideCatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\sourcetest\tryinsidecatch.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CallThisInterfaceMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\callthisinterfacemethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testbase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestDerivedThruBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testderivedthrubase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestDerivedThruBaseIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

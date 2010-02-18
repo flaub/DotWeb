@@ -29,6 +29,16 @@ namespace DotWeb.Functional.Test.Client
 
 			list.Remove("two");
 			view.AddRow("list.Remove('two')", "[ one,three,two ]", list);
+
+			list.Clear();
+			view.AddRow("list.Clear()", "[  ]", list);
+
+			list.Add("x");
+			list.Add("y");
+			list.Add("z");
+
+			view.AddRow("list.Add(x, y, z)", "[ x,y,z ]", list);
+			view.AddRow("list.Contains('x')", "true", list.Contains("x"));
 		}
 	}
 }

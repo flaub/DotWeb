@@ -27,7 +27,7 @@ namespace System.DotWeb
 		public static extern bool StrictEquals(object lhs, object rhs);
 
 #if HOSTED_MODE
-		[JsCode("return this.toString();")]
+		[JsCamelCase]
 		public override extern string ToString();
 #endif
 	}

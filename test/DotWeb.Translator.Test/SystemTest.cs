@@ -26,38 +26,28 @@ namespace DotWeb.Translator.Test
 	/// Summary description for DecorationTest
 	/// </summary>
 	[TestFixture]
-	public class SystemTest : TranslationTestHelper
+	public class SystemTest : TestBase
 	{
 		public SystemTest()
-			: base("DotWeb.Translator.Test.Script", Resources.SystemTest) {
-			this.compiledType = this.CompiledAssembly.MainModule.Types["H8.SystemTests"];
+			: base("DotWeb.Translator.Test.Script", "H8.SystemTests", Resources.ResourceManager, "SystemTest") {
 		}
 
 		[Test]
-		public void TestBase() {
-			TestMethod(this.compiledType, "TestBase", Resources.SystemTest_TestBase, true);
-		}
+		public void TestBase() { this.RunTestWithDependencies(); }
 
 		[Test]
-		public void TestDerived() {
-			TestMethod(this.compiledType, "TestDerived", Resources.SystemTest_TestDerived, true);
-		}
+		public void TestDerived() { this.RunTestWithDependencies(); }
 
 		[Test]
-		public void TestDerivedThruBase() {
-			TestMethod(this.compiledType, "TestDerivedThruBase", Resources.SystemTest_TestDerivedThruBase, true);
-		}
+		public void TestDerivedThruBase() { this.RunTestWithDependencies(); }
 
 		[Test]
-		public void TestDerivedThruBaseIndirect() {
-			TestMethod(this.compiledType, "TestDerivedThruBaseIndirect", Resources.SystemTest_TestDerivedThruBaseIndirect, true);
-		}
+		public void TestDerivedThruBaseIndirect() { this.RunTestWithDependencies(); }
 
 		[Test]
-		public void TestList() {
-			TestMethod(this.compiledType, "TestList", Resources.SystemTest_TestList, true);
-		}
+		public void CallThisInterfaceMethod() { this.RunTestWithDependencies(); }
 
-		private TypeDefinition compiledType;
+		[Test]
+		public void TestList() { this.RunTestWithDependencies(); }
 	}
 }

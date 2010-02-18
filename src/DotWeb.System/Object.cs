@@ -28,7 +28,7 @@ namespace System
 	public class Object
 	{
 #if !HOSTED_MODE
-		[JsCode("return (this == obj);")]
+		[JsMacro("({0} == {1})")]
 		public extern virtual bool Equals(object obj);
 
 		public virtual int GetHashCode() {

@@ -174,11 +174,12 @@
     <Content Include="Expected\SourceTest\Indexer.js" />
     <Content Include="Expected\SourceTest\Linq.js" />
     <Content Include="Expected\SourceTest\TakeParameters.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestList.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestDerivedThruBaseIndirect.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestDerivedThruBase.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestBase.js" />
-    <Content Include="Expected\SystemTest\SystemTest_TestDerived.js" />
+    <Content Include="Expected\SystemTest\CallThisInterfaceMethod.js" />
+    <Content Include="Expected\SystemTest\TestList.js" />
+    <Content Include="Expected\SystemTest\TestDerivedThruBaseIndirect.js" />
+    <Content Include="Expected\SystemTest\TestDerivedThruBase.js" />
+    <Content Include="Expected\SystemTest\TestBase.js" />
+    <Content Include="Expected\SystemTest\TestDerived.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj">

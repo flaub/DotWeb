@@ -546,7 +546,11 @@ namespace DotWeb.Decompiler.Core
 
 			if (method.IsVirtual) {
 				if (!isVirtual && targetObject is CodeThisReference) {
-					targetObject = new CodeBaseReference();
+					var callerType = this.method.DeclaringType;
+					var targetType = method.DeclaringType;
+					if (callerType.BaseType == targetType) {
+						targetObject = new CodeBaseReference();
+					}
 				}
 				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
 				foreach (var overridenMethod in overrides) {

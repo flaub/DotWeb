@@ -32,9 +32,14 @@ namespace System
 	[JsCamelCase]
 	public class String
 	{
+		/// <summary>
+		/// The number of characters in the String value represented by this String object.
+		/// </summary>
+		/// <remarks>
+		/// Once a String object is created, this property is unchanging. It has the attributes { [[Writable]]:  false, 
+		/// [[Enumerable]]: false, [[Configurable]]: false }. 
+		/// </remarks>
 		public extern int Length { get; }
-
-		//public extern static ThisType Format(string format, params object[] args);
 
 		[JsMacro("{1}")]
 		public static extern string Concat(string str1);
@@ -72,5 +77,27 @@ namespace System
 		public extern string Replace(string oldValue, string newValue);
 
 		public extern string Replace(char oldValue, char newValue);
+
+		public extern string Trim();
+
+		public extern string ValueOf();
+
+		/// <summary>
+		/// Returns a String containing the character at position pos in the String resulting from converting this object to a 
+		/// String. If there is no character at that position, the result is the empty String. The result is a String value, not a 
+		/// String object. 
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public extern string CharAt(int pos);
+
+		/// <summary>
+		/// Returns a Number (a nonnegative integer less than 216) representing the code unit value of the character at 
+		/// position  pos in the String resulting from converting this object to a String. If there is no character at that 
+		/// position, the result is NaN. 
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public extern int CharCodeAt(int pos);
 	}
 }

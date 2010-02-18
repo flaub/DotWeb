@@ -29,8 +29,8 @@ namespace DotWeb.Functional.Test.Client
 
 		public void AddRow(string name, object expected, object actual) {
 			var row = ElementFactory.CreateTableRow();
-			var str1 = expected.ToString();
-			var str2 = actual.ToString();
+			var str1 = expected.ToString().Trim();
+			var str2 = actual.ToString().Trim();
 			AddCell(row, name);
 			AddCell(row, str1);
 			AddCell(row, str2);

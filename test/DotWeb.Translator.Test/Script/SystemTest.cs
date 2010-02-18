@@ -27,14 +27,27 @@ namespace H8
 	{
 		class Base
 		{
-			public virtual void Foo() {
-			}
+			public virtual void Foo() { }
 		}
 
 		class Derived : Base
 		{
 			public override void Foo() {
 				base.Foo();
+				this.Foo();
+			}
+		}
+
+		interface Interface
+		{
+			void Foo();
+		}
+		 
+		class Impl : Interface
+ 		{
+			public void Foo() { }
+
+			public void CallFoo() {
 				this.Foo();
 			}
 		}
@@ -57,6 +70,11 @@ namespace H8
 		public void TestDerivedThruBaseIndirect() {
 			Derived x = new Derived();
 			UseBase(x);
+		}
+
+		public void CallThisInterfaceMethod() {
+			var x = new Impl();
+			x.CallFoo();
 		}
 
 		private void UseBase(Base x) {

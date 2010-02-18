@@ -199,6 +199,39 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///
+        ///H8.SystemTests_Base = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Derived = function() {
+        ///	this.$super.constructor();
+        ///};
+        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
+        ///
+        ///H8.SystemTests_Derived.prototype.$ctor = function() {
+        ///	this.$super.$ctor.call(this);
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///};
+        ///
+        ///H8.SystemTests_Derived.prototype.Foo = function() {
+        ///	this.$super.Foo();
+        ///	this.Foo( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CallThisInterfaceMethod {
+            get {
+                return ResourceManager.GetString("CallThisInterfaceMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.Cifuentes = function() {
         ///	var x = 5;
         ///	var y = x * 5;
@@ -592,7 +625,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///GitHub_Issue5.Class1 = function() {
         ///};
         ///
-        ///GitHub_Issue5.Class1._.ctor_b__0 = function() {
+        ///GitHub_Issue5.Class1._$ctor_b__0 = function() {
         ///	$wnd.alert(&quot;test&quot;);
         ///};
         ///
@@ -603,7 +636,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///GitHub_Issue5.Class1.prototype.$ctor = function() {
         ///	var R_1 = this;
         ///	if (!GitHub_Issue5.Class1.CS$__9__CachedAnonymousMethodDelegate1) {
-        ///		GitHub_Issue5.Class1.CS$__9__CachedAnonymousMethodDelegate1 = $Delegate(GitHub_Issue5.Class1, GitHub_Issue5.Class1._.ctor_b__0);
+        ///		GitHub_Issue5.Class1.CS$__9__CachedAnonymousMethodDelegate1 = $Delegate(GitHub_Issue5.Class1, GitHub_Issue5.Class1._$ctor_b__0);
         ///	}
         ///	R_1.Ca [rest of string was truncated]&quot;;.
         /// </summary>
@@ -824,6 +857,20 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, value, rad) {
+        ///	System.Console.WriteLine(str);
+        ///	var x = System.Math.Sin(rad[value] * 1.570795);
+        ///	return System.Math.Cos(x);
+        ///};
+        ///.
+        /// </summary>
+        internal static string TakeParameters {
+            get {
+                return ResourceManager.GetString("TakeParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.SystemTests_Base = function() {
@@ -852,9 +899,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.SystemTests.prototype.TestBase = function() {
         ///	var x = ne [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestBase {
+        internal static string TestBase {
             get {
-                return ResourceManager.GetString("SystemTest_TestBase", resourceCulture);
+                return ResourceManager.GetString("TestBase", resourceCulture);
             }
         }
         
@@ -885,9 +932,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.$super.Foo();
         ///	this.Foo( [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestDerived {
+        internal static string TestDerived {
             get {
-                return ResourceManager.GetString("SystemTest_TestDerived", resourceCulture);
+                return ResourceManager.GetString("TestDerived", resourceCulture);
             }
         }
         
@@ -918,9 +965,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.$super.Foo();
         ///	this.Foo( [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestDerivedThruBase {
+        internal static string TestDerivedThruBase {
             get {
-                return ResourceManager.GetString("SystemTest_TestDerivedThruBase", resourceCulture);
+                return ResourceManager.GetString("TestDerivedThruBase", resourceCulture);
             }
         }
         
@@ -951,54 +998,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.$super.Foo();
         ///	this.Foo( [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest_TestDerivedThruBaseIndirect {
+        internal static string TestDerivedThruBaseIndirect {
             get {
-                return ResourceManager.GetString("SystemTest_TestDerivedThruBaseIndirect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
-        ///
-        ///System.Collections.Generic.List$1 = function() {
-        ///};
-        ///
-        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
-        ///	this.items = new Array();
-        ///	return this;
-        ///};
-        ///
-        ///System.Collections.Generic.List$1.prototype.Add = function(item) {
-        ///	this.items.push(item);
-        ///};
-        ///
-        ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///	return V_0;
-        ///};
-        ///
-        ///$Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SystemTest_TestList {
-            get {
-                return ResourceManager.GetString("SystemTest_TestList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, value, rad) {
-        ///	System.Console.WriteLine(str);
-        ///	var x = System.Math.Sin(rad[value] * 1.570795);
-        ///	return System.Math.Cos(x);
-        ///};
-        ///.
-        /// </summary>
-        internal static string TakeParameters {
-            get {
-                return ResourceManager.GetString("TakeParameters", resourceCulture);
+                return ResourceManager.GetString("TestDerivedThruBaseIndirect", resourceCulture);
             }
         }
         
@@ -1039,6 +1041,37 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
+        ///
+        ///System.Collections.Generic.List$1 = function() {
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
+        ///	this.items = new Array();
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.Add = function(item) {
+        ///	this.items.push(item);
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.toString = function() {
+        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///	return V_0;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestList {
+            get {
+                return ResourceManager.GetString("TestList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
         /////
         ///// This file is part of DotWeb.
@@ -1059,20 +1092,22 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.NestedTry = function() {
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.TryInsideCatch = function() {
         ///	System.Console.WriteLine(&quot;enter&quot;);
         ///	try {
-        ///		System.Console.WriteLine(&quot;outer try&quot;);
-        ///		try {
-        ///			System.Console.WriteLine(&quot;inner try&quot;);
-        ///		}
-        ///		finally {
-        ///			System.Console.WriteLine(&quot;inner finally&quot;);
-        ///		}
-        ///		System.Console.WriteLine(&quot;inner follow&quot;);
+        ///		System.Console.WriteLine(&quot;try1&quot;);
         ///	}
-        ///	finally {
-        ///		System.Console.WriteLine(&quot;outer finally&quot;);
+        ///	catch (__ex__) {
+        ///		if (__ex__ instanceof System.Exception) {
+        ///			System.Console.WriteLine(&quot;catch&quot;);
+        ///			try {
+        ///				System.Console.WriteLine(&quot;try2&quot;);
+        ///			}
+        ///			finally {
+        ///				System.Console.WriteLine(&quot;finally&quot;);
+        ///			}
+        ///			System.Console.WriteLine(&quot;try2 follow&quot;);
+        ///		}
         ///	}
         ///	System.Console.WriteLine(&quot;exit&quot;);
         ///};
