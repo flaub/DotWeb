@@ -43,9 +43,8 @@ namespace DotWeb.Translator.Test
 		public void TakeParameters() { RunTest(); }
 		[Test]
 		public void AnonymousType() { RunTestWithDependencies(); }
-		[Test]
-		[Ignore]
-		public void Linq() { RunTest(); }
+		//[Test]
+		//public void Linq() { RunTest(); }
 		[Test]
 		public void Callback() { RunTestWithDependencies(); }
 		[Test]

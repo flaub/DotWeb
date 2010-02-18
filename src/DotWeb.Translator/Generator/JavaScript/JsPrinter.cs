@@ -31,7 +31,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 	class JsPrinter : ICodeExpressionVisitor<string>
 	{
 		public const string CtorMethodName = "$ctor";
-		private const string LocalVarPrefix = "loc";
+		//private const string LocalVarPrefix = "loc";
 		private TypeSystem typeSystem;
 
 		public MethodDefinition CurrentMethod { get; set; }

@@ -25,5 +25,10 @@ namespace System.DotWeb
 	{
 		[JsMacro("({1} === {2})")]
 		public static extern bool StrictEquals(object lhs, object rhs);
+
+#if HOSTED_MODE
+		[JsCode("return this.toString();")]
+		public override extern string ToString();
+#endif
 	}
 }
