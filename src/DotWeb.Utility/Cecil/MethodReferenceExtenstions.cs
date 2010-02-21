@@ -23,12 +23,16 @@ namespace DotWeb.Utility.Cecil
 {
 	public static class MethodReferenceExtenstions
 	{
-		public static string GetMethodSignature(this MethodReference method) {
+		private static string GetMethodSignature(MethodReference method, bool prependTypeName) {
 			int sentinel = method.GetSentinel();
 
 			var sb = new StringBuilder();
 			sb.Append(method.ReturnType.ReturnType.FullName);
 			sb.Append(" ");
+			if (prependTypeName) {
+				sb.Append(method.DeclaringType.FullName);
+				sb.Append(".");
+			}
 			sb.Append(method.Name);
 			sb.Append("(");
 			if (method.HasParameters) {
@@ -46,5 +50,12 @@ namespace DotWeb.Utility.Cecil
 			return sb.ToString();
 		}
 
+		public static string GetMethodSignature(this MethodReference method) {
+			return GetMethodSignature(method, false);
+		}
+
+		public static string GetMethodSignatureWithTypeName(this MethodReference method) {
+			return GetMethodSignature(method, true);
+		}
 	}
 }

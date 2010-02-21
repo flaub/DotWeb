@@ -49,5 +49,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestList() { this.RunTestWithDependencies(); }
+
+		[Test]
+		public void TestListEnumerator() { this.RunTestWithDependencies(); }
 	}
 }

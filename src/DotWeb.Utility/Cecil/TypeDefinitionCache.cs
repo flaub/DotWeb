@@ -23,6 +23,7 @@ namespace DotWeb.Utility.Cecil
 	public static class ConstantTypeNames
 	{
 		public const string Delegate = "System.Delegate";
+		public const string Exception = "System.Exception";
 		public const string JsObject = "System.DotWeb.JsObject";
 	}
 
@@ -32,11 +33,13 @@ namespace DotWeb.Utility.Cecil
 			this.Object = typeSystem.GetTypeDefinition(Constants.Object);
 			this.JsObject = typeSystem.GetTypeDefinition(ConstantTypeNames.JsObject);
 			this.Delegate = typeSystem.GetTypeDefinition(ConstantTypeNames.Delegate);
+			this.Exception = typeSystem.GetTypeDefinition(ConstantTypeNames.Exception);
 		}
 
 		public TypeDefinition Object { get; private set; }
 		public TypeDefinition JsObject { get; private set; }
 		public TypeDefinition Delegate { get; private set; }
+		public TypeDefinition Exception { get; private set; }
 	}
 
 }

@@ -27,20 +27,38 @@ namespace DotWeb.Functional.Test.Client
 			return cell;
 		}
 
-		public void AddRow(string name, object expected, object actual) {
+		private void AddRow(string name, string expected, string actual, bool success) {
 			var row = ElementFactory.CreateTableRow();
-			var str1 = expected.ToString().Trim();
-			var str2 = actual.ToString().Trim();
 			AddCell(row, name);
-			AddCell(row, str1);
-			AddCell(row, str2);
-			if (str1 == str2) {
+			AddCell(row, expected);
+			AddCell(row, actual);
+			if (success) {
 				row.bgColor = "green";
 			}
 			else {
 				row.bgColor = "red";
 			}
 			this.table.tBodies[0].appendChild(row);
+		}
+
+		public void AreStringsEqual(string name, string expected, object actual) {
+			try {
+				var str = actual.ToString();
+				AddRow(name, expected, str, expected == str);
+			}
+			catch (Exception ex) {
+				AddRow(name, expected, ex.ToString(), false);
+			}
+		}
+
+		public void AreEqual(string name, object expected, object actual) {
+			var expectedString = expected.ToString();
+			try {
+				AddRow(name, expectedString, actual.ToString(), expected == actual);
+			}
+			catch (Exception ex) {
+				AddRow(name, expectedString, ex.ToString(), false);
+			}
 		}
 	}
 }

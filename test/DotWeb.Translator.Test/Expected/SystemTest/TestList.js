@@ -8,7 +8,7 @@ System.Collections.Generic.List$1.prototype.$ctor = function() {
 	return this;
 };
 
-System.Collections.Generic.List$1.prototype.Add = function(item) {
+System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
 	this.items.push(item);
 };
 
@@ -22,16 +22,16 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-System.Collections.Generic.List$1.prototype.IndexOf = function(item) {
+System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
 	var V_0 = this.items.indexOf(item);
 	return V_0;
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
@@ -60,7 +60,7 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = fu
 	return V_0;
 };
 
-System.Collections.Generic.List$1.prototype.Remove = function(item) {
+System.Collections.Generic.List$1.prototype.Remove$0 = function(item) {
 	var V_0 = new System.Collections.Generic.List$1___c__DisplayClass5().$ctor();
 	V_0.item = item;
 	V_0.foundFirst = false;
@@ -76,9 +76,9 @@ H8.SystemTests = function() {
 
 H8.SystemTests.prototype.TestList = function() {
 	var list = new System.Collections.Generic.List$1().$ctor();
-	list.Add("one");
-	System.Console.WriteLine(list.toString());
-	var index = list.IndexOf("one");
-	System.Console.WriteLine(index);
-	list.Remove("two");
+	list.Add$0("one");
+	System.Console.WriteLine$1(list.toString());
+	var index = list.IndexOf$0("one");
+	System.Console.WriteLine$0(index);
+	list.Remove$0("two");
 };

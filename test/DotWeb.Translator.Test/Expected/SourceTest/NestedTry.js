@@ -1,17 +1,17 @@
 ﻿H8.SourceTests.prototype.NestedTry = function() {
-	System.Console.WriteLine("enter");
+	System.Console.WriteLine$1("enter");
 	try {
-		System.Console.WriteLine("outer try");
+		System.Console.WriteLine$1("outer try");
 		try {
-			System.Console.WriteLine("inner try");
+			System.Console.WriteLine$1("inner try");
 		}
 		finally {
-			System.Console.WriteLine("inner finally");
+			System.Console.WriteLine$1("inner finally");
 		}
-		System.Console.WriteLine("inner follow");
+		System.Console.WriteLine$1("inner follow");
 	}
 	finally {
-		System.Console.WriteLine("outer finally");
+		System.Console.WriteLine$1("outer finally");
 	}
-	System.Console.WriteLine("exit");
+	System.Console.WriteLine$1("exit");
 };

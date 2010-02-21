@@ -5,6 +5,6 @@
 	var config = __g__initLocal0;
 	var tuple = new Tuple(config);
 	var id = tuple.id;
-	System.Console.WriteLine(id);
+	System.Console.WriteLine$0(id);
 	tuple.id = 9;
 };

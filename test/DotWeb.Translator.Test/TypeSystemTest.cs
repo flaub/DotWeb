@@ -67,22 +67,53 @@ namespace DotWeb.Translator.Test
 			var root = sysDef.MainModule.Types["System.Object"];
 			var str = sysDef.MainModule.Types["System.String"];
 
-			MethodDefinition equals = null;
-			foreach (MethodDefinition method in root.Methods) {
-				if (method.Name == "Equals")
-					equals = method;
-			}
-
+			MethodDefinition equals = FindMethodByName(root.Methods, "Equals");
 			var overrides = hierarchy.GetOverridesForVirtualMethod(equals);
 			Assert.Greater(overrides.Count, 0);
 
-			MethodDefinition overridenEquals = null;
-			foreach (MethodDefinition method in str.Methods) {
-				if (method.Name == "Equals")
-					overridenEquals = method;
-			}
-
+			MethodDefinition overridenEquals = FindMethodByName(str.Methods, "Equals");
 			Assert.IsTrue(overrides.Contains(overridenEquals));
+		}
+
+		[Test]
+		public void TestImplsOfInterface() {
+			var hierarchy = new TypeSystem(this.resolver);
+			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+
+			var iface = sysDef.MainModule.Types["System.IDisposable"];
+			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
+
+			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "Dispose");
+			var overrides = hierarchy.GetOverridesForVirtualMethod(ifaceMethod);
+			Assert.Greater(overrides.Count, 0);
+
+			MethodDefinition overridenMethod = FindMethodByName(impl.Methods, "Dispose");
+			Assert.IsTrue(overrides.Contains(overridenMethod));
+		}
+
+		[Test]
+		public void TestIEnumeratorCurrent() {
+			var hierarchy = new TypeSystem(this.resolver);
+			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+
+			var iface = sysDef.MainModule.Types["System.Collections.IEnumerator"];
+			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
+
+			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "get_Current");
+			var overrides = hierarchy.GetOverridesForVirtualMethod(ifaceMethod);
+			Assert.Greater(overrides.Count, 0);
+
+			MethodDefinition overridenMethod = FindMethodByName(impl.Methods, "System.Collections.IEnumerator.get_Current");
+			Assert.IsTrue(overrides.Contains(overridenMethod));
+		}
+
+		private MethodDefinition FindMethodByName(MethodDefinitionCollection methods, string name) {
+			foreach (MethodDefinition method in methods) {
+				if (method.Name == name) {
+					return method;
+				}
+			}
+			return null;
 		}
 	}
 }

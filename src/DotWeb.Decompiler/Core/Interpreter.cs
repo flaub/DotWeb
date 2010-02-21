@@ -59,7 +59,10 @@ namespace DotWeb.Decompiler.Core
 				// this is a catch handler
 				// the exception object is expected to be sitting on the top of the stack 
 				// on entry to the catch block
-				var exception = CreateExceptionVariableReference(this.method, this.block.ExceptionHandler.CatchType);
+				var catchType = this.block.ExceptionHandler.CatchType;
+				var catchTypeDef = catchType.Resolve();
+				this.ExternalMethods.Add(catchTypeDef.Constructors[0]);
+				var exception = CreateExceptionVariableReference(this.method, catchType);
 				Push(exception);
 			}
 
@@ -224,6 +227,9 @@ namespace DotWeb.Decompiler.Core
 				case Code.Ldsfld:
 					LoadStaticField(il);
 					break;
+				case Code.Ldflda:
+					LoadFieldAddress(il);
+					break;
 				case Code.Ldsflda:
 					LoadStaticFieldAddress(il);
 					break;
@@ -276,6 +282,9 @@ namespace DotWeb.Decompiler.Core
 					break;
 				case Code.Newobj:
 					NewObject(il);
+					break;
+				case Code.Initobj:
+					InitObj(il);
 					break;
 				#endregion
 				#region Binary Expressions
@@ -522,6 +531,11 @@ namespace DotWeb.Decompiler.Core
 //			this.AddStatment(stmt);
 		}
 
+		private void InitObj(Instruction cil) {
+			var obj = Pop();
+			AddAssignment(obj, new CodePrimitiveExpression(null));
+		}
+
 		private void Return(Instruction il) {
 			var ret = new CodeReturnStatement();
 			if (this.stack.Any())
@@ -529,20 +543,14 @@ namespace DotWeb.Decompiler.Core
 			AddStatment(ret);
 		}
 
-		private CodeExpression GetTargetObject(MethodDefinition method) {
+		private CodeExpression GetTargetObject(MethodDefinition method, bool isVirtual) {
+			CodeExpression targetObject;
 			if (method.HasThis) {
-				return Pop();
+				targetObject = Pop();
 			}
 			else {
-				return new CodeTypeReference(method.DeclaringType);
+				targetObject = new CodeTypeReference(method.DeclaringType);
 			}
-		}
-
-		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
-			CodeInvokeExpression expr = new CodeInvokeExpression();
-			expr.Parameters = PopRange(method.Parameters.Count);
-
-			CodeExpression targetObject = GetTargetObject(method);
 
 			if (method.IsVirtual) {
 				if (!isVirtual && targetObject is CodeThisReference) {
@@ -558,7 +566,14 @@ namespace DotWeb.Decompiler.Core
 				}
 			}
 			this.ExternalMethods.Add(method);
-			
+			return targetObject;
+		}
+
+		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
+			CodeInvokeExpression expr = new CodeInvokeExpression();
+			PopParametersInto(method.Parameters, expr.Parameters);
+
+			CodeExpression targetObject = GetTargetObject(method, isVirtual);
 			expr.Method = new CodeMethodReference(targetObject, method);
 
 			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {
@@ -570,40 +585,49 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			this.ExternalMethods.Add(method);
+		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
+			//this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 0) {
-				var targetObject = GetTargetObject(method);
-				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
-				CodePropertyReference expr = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Get);
+				var targetObject = GetTargetObject(method, isVirtual);
+				CodePropertyReference expr = new CodePropertyReference(CodePropertyReference.RefType.Get) {
+					Method = new CodeMethodReference(targetObject, method),
+					Property = pi
+				};
 				Push(expr);
 			}
 			else {
-				CodeIndexerExpression expr = new CodeIndexerExpression();
-				expr.Indices = PopRange(args.Count);
-				expr.TargetObject = GetTargetObject(method);
+				CodeIndexerExpression expr = new CodeIndexerExpression(CodePropertyReference.RefType.Get);
+				PopParametersInto(args, expr.Indices);
+				var targetObject = GetTargetObject(method, isVirtual);
+				expr.Method = new CodeMethodReference(targetObject, method);
+				expr.Property = pi;
 				Push(expr);
 			}
 		}
 
-		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi) {
-			this.ExternalMethods.Add(method);
+		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
+			//this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				CodeExpression rhs = Pop();
-				var targetObject = GetTargetObject(method);
-				CodeMethodReference methodRef = new CodeMethodReference(targetObject, method);
-				CodePropertyReference lhs = new CodePropertyReference(methodRef, pi, CodePropertyReference.RefType.Set);
+				var targetObject = GetTargetObject(method, isVirtual);
+				CodePropertyReference lhs = new CodePropertyReference(CodePropertyReference.RefType.Set) {
+					Method = new CodeMethodReference(targetObject, method),
+					Property = pi
+				};
 
 				AddAssignment(lhs, rhs);
 			}
 			else {
-				CodeIndexerExpression lhs = new CodeIndexerExpression();
-				lhs.Indices = PopRange(args.Count);
+				CodeIndexerExpression lhs = new CodeIndexerExpression(CodePropertyReference.RefType.Set);
+				PopParametersInto(args, lhs.Indices);
+				
 				CodeExpression rhs = lhs.Indices[lhs.Indices.Count - 1];
 				lhs.Indices.Remove(rhs);
-				lhs.TargetObject = GetTargetObject(method);
+				var targetObject = GetTargetObject(method, isVirtual);
+				lhs.Method = new CodeMethodReference(targetObject, method);
+				lhs.Property = pi;
 
 				AddAssignment(lhs, rhs);
 			}
@@ -615,13 +639,13 @@ namespace DotWeb.Decompiler.Core
 
 			var ap = def.GetMonoAssociatedProperty();
 			if (ap != null) {
-				Debug.Assert(ap.Definition != null);
-				if (ap.IsGetter) {
-					CallGetter(il, def, ap.Definition);
-				}
-				else {
-					CallSetter(il, def, ap.Definition);
-				}
+			    Debug.Assert(ap.Definition != null);
+			    if (ap.IsGetter) {
+			        CallGetter(il, def, ap.Definition, isVirtual);
+			    }
+			    else {
+			        CallSetter(il, def, ap.Definition, isVirtual);
+			    }
 			}
 			else {
 				CallMethod(il, def, isVirtual);
@@ -660,6 +684,10 @@ namespace DotWeb.Decompiler.Core
 			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
 			CodeFieldReference expr = new CodeFieldReference(typeRef, field);
 			Push(expr);
+		}
+
+		private void LoadFieldAddress(Instruction il) {
+			LoadField(il);
 		}
 
 		private void LoadStaticFieldAddress(Instruction il) {
@@ -815,7 +843,7 @@ namespace DotWeb.Decompiler.Core
 			CodeObjectCreateExpression expr = new CodeObjectCreateExpression {
 				Constructor = ctor
 			};
-			expr.Parameters = PopRange(ctor.Parameters.Count);
+			PopParametersInto(ctor.Parameters, expr.Parameters);
 
 			Push(expr);
 		}
@@ -885,12 +913,17 @@ namespace DotWeb.Decompiler.Core
 			Push(new CodePrimitiveExpression(value));
 		}
 
-		private List<CodeExpression> PopRange(int count) {
-			var args = new List<CodeExpression>();
-			for (int i = 0; i < count; i++) {
-				args.Insert(0, Pop());
+		private void PopParametersInto(ParameterDefinitionCollection parameterDefs, List<CodeExpression> result) {
+			for (int i = parameterDefs.Count - 1; i >= 0; --i) {
+				var arg = Pop();
+				result.Insert(0, arg);
+
+				var parameterDef = parameterDefs[i];
+				var cpe = arg as CodePrimitiveExpression;
+				if (parameterDef.ParameterType.FullName == Constants.Boolean && cpe != null) {
+					cpe.Value = Convert.ToBoolean(cpe.Value);
+				}
 			}
-			return args;
 		}
 
 		private TypeReference Import(Type type) {

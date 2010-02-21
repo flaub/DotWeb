@@ -3,7 +3,7 @@
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
@@ -23,13 +23,13 @@ $Namespace('H8');
 H8.SourceTests = function() {
 };
 
-H8.SourceTests.prototype.TakeParameters = function(str, value, rad) {
-	System.Console.WriteLine(str);
+H8.SourceTests.prototype.TakeParameters = function(str, value, rad, flag) {
+	System.Console.WriteLine$1(str);
 	var x = System.Math.Sin(rad[value] * 1.570795);
 	return System.Math.Cos(x);
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
@@ -37,6 +37,6 @@ H8.SourceTests.prototype.CallTakeParameters = function() {
 	var CS$0$0000 = new Array(2);
 	CS$0$0000[0] = 1;
 	CS$0$0000[1] = 2;
-	var result = this.TakeParameters("Hi", 1, CS$0$0000);
-	System.Console.WriteLine(result);
+	var result = this.TakeParameters("Hi", 1, CS$0$0000, true);
+	System.Console.WriteLine$0(result);
 };

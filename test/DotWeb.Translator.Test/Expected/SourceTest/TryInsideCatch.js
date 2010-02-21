@@ -1,19 +1,19 @@
 ﻿H8.SourceTests.prototype.TryInsideCatch = function() {
-	System.Console.WriteLine("enter");
+	System.Console.WriteLine$1("enter");
 	try {
-		System.Console.WriteLine("try1");
+		System.Console.WriteLine$1("try1");
 	}
 	catch (__ex__) {
-		if (__ex__ instanceof System.Exception) {
-			System.Console.WriteLine("catch");
+		if (__ex__) {
+			System.Console.WriteLine$1("catch");
 			try {
-				System.Console.WriteLine("try2");
+				System.Console.WriteLine$1("try2");
 			}
 			finally {
-				System.Console.WriteLine("finally");
+				System.Console.WriteLine$1("finally");
 			}
-			System.Console.WriteLine("try2 follow");
+			System.Console.WriteLine$1("try2 follow");
 		}
 	}
-	System.Console.WriteLine("exit");
+	System.Console.WriteLine$1("exit");
 };

@@ -23,9 +23,48 @@ using Mono.Cecil;
 
 using TypeSet = System.Collections.Generic.HashSet<Mono.Cecil.TypeDefinition>;
 using MethodSet = System.Collections.Generic.HashSet<Mono.Cecil.MethodDefinition>;
+using System.Diagnostics;
 
 namespace DotWeb.Utility.Cecil
 {
+	class VirtualsDictionary
+	{
+		private Dictionary<string, MethodDefinition> methods = new Dictionary<string, MethodDefinition>();
+
+		public MethodDefinition FindMethodBySignature(MethodDefinition methodDef) {
+			MethodDefinition virtualMethod = null;
+			if (!this.methods.TryGetValue(methodDef.GetMethodSignature(), out virtualMethod)) {
+				if (!this.methods.TryGetValue(methodDef.GetMethodSignatureWithTypeName(), out virtualMethod)) {
+					//Debug.Fail("Missing base method for virtual");
+					return null;
+				}
+			}
+			return virtualMethod;
+		}
+
+		public void CollectVirtualMethods(TypeDefinition typeDef) {
+			foreach (MethodDefinition method in typeDef.Methods) {
+				if (method.IsVirtual && !method.IsAbstract) {
+					// use raw method signature for key, to make sure it's unique in the case of
+					// overriden methods with the same method name, which can happen if the 'new' 
+					// keyword is used on a method definition
+					this.methods.Add(method.GetMethodSignature(), method);
+				}
+
+				//if (method.HasOverrides) {
+				//    Debug.Assert(method.IsVirtual);
+				//    foreach (MethodReference overrideRef in method.Overrides) {
+				//        var overrideDef = overrideRef.Resolve();
+				//        var signature = overrideDef.GetMethodSignature();
+				//        virtuals.Add(signature, overrideDef);
+				//    }
+				//}
+			}
+		}
+
+		public int Count { get { return this.methods.Count; } }
+	}
+
 	public class TypeSystem
 	{
 		public static class Names
@@ -100,22 +139,12 @@ namespace DotWeb.Utility.Cecil
 			return result;
 		}
 
-		private Dictionary<string, MethodDefinition> CollectVirtualMethods(TypeDefinition typeDef) {
-			var virtuals = new Dictionary<string, MethodDefinition>();
-			foreach (MethodDefinition method in typeDef.Methods) {
-				if (method.IsVirtual && !method.IsAbstract) {
-					virtuals.Add(method.GetMethodSignature(), method);
-				}
-			}
-			return virtuals;
-		}
-
-		private void ProcessMethodOverrides(Dictionary<string, MethodDefinition> virtuals, TypeDefinition baseDef) {
+		private void ProcessMethodOverrides(VirtualsDictionary virtuals, TypeDefinition baseDef) {
 			if (virtuals.Count > 0) {
 				foreach (MethodDefinition baseMethod in baseDef.Methods) {
 					if (baseMethod.IsVirtual) {
-						MethodDefinition overridenMethod;
-						if (virtuals.TryGetValue(baseMethod.GetMethodSignature(), out overridenMethod)) {
+						var overridenMethod = virtuals.FindMethodBySignature(baseMethod);
+						if (overridenMethod != null) {
 							var overrides = GetOverridesForVirtualMethod(baseMethod);
 							overrides.Add(overridenMethod);
 						}
@@ -125,7 +154,8 @@ namespace DotWeb.Utility.Cecil
 		}
 
 		private void ProcessType(TypeDefinition typeDef) {
-			var virtuals = CollectVirtualMethods(typeDef);
+			var virtuals = new VirtualsDictionary();
+			virtuals.CollectVirtualMethods(typeDef);
 
 			var baseType = typeDef.BaseType;
 			while (baseType != null) {
@@ -139,8 +169,15 @@ namespace DotWeb.Utility.Cecil
 			}
 
 			foreach (TypeReference iface in typeDef.Interfaces) {
-				var ifaceSet = GetSubclasses(iface.Resolve());
+				var ifaceDef = iface.Resolve();
+				var ifaceSet = GetSubclasses(ifaceDef);
 				ifaceSet.Add(typeDef);
+
+				ProcessMethodOverrides(virtuals, ifaceDef);
+			}
+
+			foreach (TypeDefinition nested in typeDef.NestedTypes) {
+				ProcessType(nested);
 			}
 		}
 

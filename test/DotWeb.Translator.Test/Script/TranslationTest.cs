@@ -369,14 +369,14 @@ namespace H8
 		public delegate void SimpleDelegate();
 		public event SimpleDelegate SimpleEvent;
 
-		public double TakeParameters(string str, int value, double[] rad) {
+		public double TakeParameters(string str, int value, double[] rad, bool flag) {
 			Console.WriteLine(str);
 			double x = Math.Sin(rad[value] * (Math.PI / 2.0));
 			return Math.Cos(x);
 		}
 
 		public void CallTakeParameters() {
-			double result = TakeParameters("Hi", 1, new double[] { 1.0, 2.0 });
+			double result = TakeParameters("Hi", 1, new double[] { 1.0, 2.0 }, true);
 			Console.WriteLine(result);
 		}
 

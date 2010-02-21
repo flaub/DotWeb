@@ -5,5 +5,5 @@
 	else {
 		a = 128;
 	}
-	System.Console.WriteLine(1);
+	System.Console.WriteLine$0(1);
 };

@@ -3,7 +3,7 @@
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
@@ -30,7 +30,7 @@ H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	CS$0$0000[1] = __g__initLocal2;
 	var array = CS$0$0000;
 	var first = array[0];
-	System.Console.WriteLine(first);
+	System.Console.WriteLine$0(first);
 	var dynamic = {};
 	dynamic.id = "1";
 };

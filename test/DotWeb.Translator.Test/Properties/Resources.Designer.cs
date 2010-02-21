@@ -187,10 +187,10 @@ namespace DotWeb.Translator.Test.Properties {
         ///H8.SourceTests = function() {
         ///};
         ///
-        ///H8.SourceTests.prototype.TakeParameters = function(str, value, rad) {
+        ///H8.SourceTests.prototype.TakeParameters = function(str, value, rad, flag) {
         ///	System.Console.WriteLine(str);
         ///	var x = System.Math.Sin(rad[value] * 1.570795);
-        ///	return  [rest of string was truncated]&quot;;.
+        ///	r [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallTakeParameters {
             get {
@@ -201,29 +201,28 @@ namespace DotWeb.Translator.Test.Properties {
         /// <summary>
         ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
-        ///H8.SystemTests_Base = function() {
+        ///H8.SystemTests_Impl = function() {
         ///};
         ///
-        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///H8.SystemTests_Impl.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///H8.SystemTests_Derived = function() {
-        ///	this.$super.constructor();
-        ///};
-        ///H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
-        ///
-        ///H8.SystemTests_Derived.prototype.$ctor = function() {
-        ///	this.$super.$ctor.call(this);
-        ///	return this;
+        ///H8.SystemTests_Impl.prototype.Foo = function() {
         ///};
         ///
-        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///H8.SystemTests_Impl.prototype.CallFoo = function() {
+        ///	this.Foo();
         ///};
         ///
-        ///H8.SystemTests_Derived.prototype.Foo = function() {
-        ///	this.$super.Foo();
-        ///	this.Foo( [rest of string was truncated]&quot;;.
+        ///H8.SystemTests = function() {
+        ///};
+        ///
+        ///H8.SystemTests.prototype.CallThisInterfaceMethod = function() {
+        ///	var x = new H8.SystemTests_Impl().$ctor();
+        ///	x.CallFoo();
+        ///};
+        ///.
         /// </summary>
         internal static string CallThisInterfaceMethod {
             get {
@@ -857,7 +856,7 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, value, rad) {
+        ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, value, rad, flag) {
         ///	System.Console.WriteLine(str);
         ///	var x = System.Math.Sin(rad[value] * 1.570795);
         ///	return System.Math.Cos(x);
@@ -1068,6 +1067,37 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string TestList {
             get {
                 return ResourceManager.GetString("TestList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
+        ///
+        ///System.Collections.Generic.List$1 = function() {
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
+        ///	this.items = new Array();
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.Add = function(item) {
+        ///	this.items.push(item);
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.toString = function() {
+        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///	return V_0;
+        ///};
+        ///
+        ///$Namespace(&apos;System&apos;);
+        ///
+        ///System.Console = function() {
+        ///};        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestListEnumerator {
+            get {
+                return ResourceManager.GetString("TestListEnumerator", resourceCulture);
             }
         }
         

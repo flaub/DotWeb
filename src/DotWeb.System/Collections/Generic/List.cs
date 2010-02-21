@@ -47,16 +47,20 @@ namespace System.Collections.Generic
 		}
 
 		public void Insert(int index, T item) {
-			if (index == this.items.Length) {
+			var len = this.items.Length;
+			if (index == 0) {
+				this.items.Unshift(item);
+			}
+			else if (index == len) {
 				this.items.Push(item);
 			}
 			else {
-				var newItems = new JsArray(this.items.Length + 1);
+				var newItems = new JsArray(len + 1);
 				for (int i = 0; i < index; i++) {
 					newItems[i] = this.items[i];
 				}
-				newItems.Push(item);
-				for (int i = index; i < this.items.Length; i++) {
+				newItems[index] = item;
+				for (int i = index; i < len; i++) {
 					newItems[i + 1] = this.items[i];
 				}
 				this.items = newItems;

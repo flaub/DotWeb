@@ -19,12 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mono.Cecil;
 
 namespace DotWeb.Decompiler.CodeModel
 {
-	public class CodeIndexerExpression : CodeExpression
+	public class CodeIndexerExpression : CodePropertyReference
 	{
-		public CodeIndexerExpression() {
+		public CodeIndexerExpression(RefType rt)
+			: base(rt) {
 			this.Indices = new List<CodeExpression>();
 		}
 
@@ -39,6 +41,5 @@ namespace DotWeb.Decompiler.CodeModel
 		#endregion
 
 		public List<CodeExpression> Indices { get; set; }
-		public CodeExpression TargetObject { get; set; }
 	}
 }

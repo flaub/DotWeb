@@ -31,9 +31,7 @@ namespace DotWeb.Decompiler.CodeModel
 			Set
 		}
 
-		public CodePropertyReference(CodeMethodReference method, PropertyReference property, RefType rt) {
-			this.Method = method;
-			this.Property = property;
+		public CodePropertyReference(RefType rt) {
 			this.ReferenceType = rt;
 		}
 

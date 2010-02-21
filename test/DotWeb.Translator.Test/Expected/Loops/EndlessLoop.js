@@ -1,6 +1,6 @@
 ﻿Loops.prototype.EndlessLoop = function() {
-	System.Console.WriteLine("enter");
+	System.Console.WriteLine$1("enter");
 	while (true) {
-		System.Console.WriteLine("loop");
+		System.Console.WriteLine$1("loop");
 	}
 };

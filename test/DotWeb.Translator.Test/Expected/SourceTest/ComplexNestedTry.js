@@ -1,20 +1,20 @@
 ﻿H8.SourceTests.prototype.ComplexNestedTry = function(x) {
-	System.Console.WriteLine("enter");
+	System.Console.WriteLine$1("enter");
 	try {
-		System.Console.WriteLine("outer try");
+		System.Console.WriteLine$1("outer try");
 		try {
-			System.Console.WriteLine("inner try");
+			System.Console.WriteLine$1("inner try");
 		}
 		finally {
-			System.Console.WriteLine("inner finally");
+			System.Console.WriteLine$1("inner finally");
 		}
-		System.Console.WriteLine("inner follow");
+		System.Console.WriteLine$1("inner follow");
 		if (x == 10) {
-			System.Console.WriteLine("x == 10");
+			System.Console.WriteLine$1("x == 10");
 		}
 	}
 	finally {
-		System.Console.WriteLine("outer finally");
+		System.Console.WriteLine$1("outer finally");
 	}
-	System.Console.WriteLine("exit");
+	System.Console.WriteLine$1("exit");
 };

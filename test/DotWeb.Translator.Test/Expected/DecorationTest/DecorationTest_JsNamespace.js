@@ -35,7 +35,7 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(value) {
+System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
@@ -51,5 +51,5 @@ H8.DecorationTests.prototype.TestJsNamespace = function() {
 	var __g__initLocal6 = new Foo.FooNamespaceTest().$ctor();
 	__g__initLocal6.set_Value(item1.get_Value());
 	var item2 = __g__initLocal6;
-	System.Console.WriteLine(item2.get_Value());
+	System.Console.WriteLine$0(item2.get_Value());
 };

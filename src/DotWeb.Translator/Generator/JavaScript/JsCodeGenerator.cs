@@ -120,7 +120,13 @@ namespace DotWeb.Translator.Generator.JavaScript
 					else {
 						Write("else ");
 					}
-					WriteLine("if (__ex__ instanceof {0}) {{", Print(catchClause.Type));
+					var catchTypeName = Print(catchClause.Type);
+					if (catchTypeName == ConstantTypeNames.Exception) {
+						WriteLine("if (__ex__) {{");
+					}
+					else {
+						WriteLine("if (__ex__ instanceof {0}) {{", Print(catchClause.Type));
+					}
 					this.writer.Indent++;
 					Write(catchClause.Statements);
 					this.writer.Indent--;
@@ -216,8 +222,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodeReturnStatement stmt) {
-			if (stmt.Expression != null)
+			if (stmt.Expression != null) {
 				WriteLine("return {0};", Print(stmt.Expression));
+			}
 			else {
 				// Optimize for return statements from a void method that is
 				// at the end of a function; no code follows this point
@@ -351,14 +358,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 				WriteLine("{0}.{1} = function({2}) {{",
 					Print(method.Definition.DeclaringType),
-					this.printer.GetMemberName(method.Definition),
+					this.printer.GetMethodName(method.Definition),
 					string.Join(", ", args)
 				);
 			}
 			else {
 				WriteLine("{0}.prototype.{1} = function({2}) {{",
 					Print(method.Definition.DeclaringType),
-					this.printer.GetMemberName(method.Definition),
+					this.printer.GetMethodName(method.Definition),
 					string.Join(", ", args)
 				);
 			}

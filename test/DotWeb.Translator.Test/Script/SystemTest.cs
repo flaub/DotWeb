@@ -91,5 +91,12 @@ namespace H8
 
 			list.Remove("two");
 		}
+
+		public void TestListEnumerator() {
+			var list = new List<string>();
+			foreach (var item in list) {
+				Console.WriteLine(item);
+			}
+		}
 	}
 }

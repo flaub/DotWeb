@@ -262,6 +262,31 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Format(macro, args.ToArray());
 		}
 
+		public string GetMethodName(MethodReference method) {
+			var type = method.DeclaringType.Resolve();
+			var match = type.Methods.GetMethod(method.Name);
+			if (match.Length == 1) {
+				return GetMemberName(method);
+			}
+
+			var filtered = match.Where(x => x.Parameters.Count == method.Parameters.Count).ToArray();
+			if (filtered.Length == 1) {
+				return GetMemberName(method);
+			}
+
+			if (filtered.Length > 1) {
+				// this is to handle overloaded methods (different argument types)
+				for (int i = 0; i < filtered.Length; i++) {
+					var item = filtered[i];
+					if (item.MetadataToken == method.MetadataToken) {
+						var name = string.Format("{0}${1}", method.Name, i);
+						return EncodeName(name);
+					}
+				}
+			}
+			throw new NotSupportedException();
+		}
+
 		public string GetMemberName(MemberReference member) {
 			var name = member.Name;
 			if (AttributeHelper.IsCamelCase(member, this.typeSystem)) {
@@ -312,7 +337,20 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeIndexerExpression exp) {
-			return string.Format("{0}[{1}]", Print(exp.TargetObject), Print(exp.Indices));
+			// deal with [JsMacro]
+			var method = exp.Method.Reference.Resolve();
+			string jsMacro = AttributeHelper.GetJsMacro(method);
+			if (jsMacro != null) {
+				Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+				return PrintMacro(jsMacro, method, Print(exp.TargetObject), null);
+			}
+
+			if (exp.IsFieldLike(this.typeSystem)) {
+				return string.Format("{0}[{1}]", Print(exp.TargetObject), Print(exp.Indices));
+			}
+
+			Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+			return string.Format("{0}({1})", VisitReturn(exp.Method), Print(exp.Indices));
 		}
 
 		public string VisitReturn(CodeFieldReference exp) {
@@ -320,7 +358,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeMethodReference exp) {
-			var methodName = GetMemberName(exp.Reference);
+			var methodName = GetMethodName(exp.Reference);
 			var target = Print(exp.TargetObject);
 			if (this.typeSystem.IsDelegate(exp.Reference.DeclaringType)) {
 				if (methodName == "Invoke") {
@@ -432,7 +470,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")
 					targetObject = Print(methodRef.TargetObject);
-				return string.Format("$Delegate({0}, {0}.{1})", targetObject, GetMemberName(methodRef.Reference));
+				return string.Format("$Delegate({0}, {0}.{1})", targetObject, GetMethodName(methodRef.Reference));
 			}
 			if (AttributeHelper.IsAnonymous(exp.Type, this.typeSystem)) {
 				return "{}";
