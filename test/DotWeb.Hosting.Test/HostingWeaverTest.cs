@@ -219,10 +219,22 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		[Ignore]
 		public void ExceptionTest() {
-			// fail for now
-			Assert.Fail();
+			HostedMode.Host = new HostHarness {
+				Invoker = delegate(object scope, object method, object[] args) {
+					return null;
+				}
+			};
+
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.ExceptionTest");
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+
+			type.GetMethod("SimpleTryCatch").Invoke(test, null);
+			type.GetMethod("SimpleTryFinally").Invoke(test, null);
+			type.GetMethod("SimpleTryCatchFinally").Invoke(test, null);
+			type.GetMethod("NestedTry").Invoke(test, null);
+			type.GetMethod("TryInCatch").Invoke(test, null);
 		}
 
 		[Test]

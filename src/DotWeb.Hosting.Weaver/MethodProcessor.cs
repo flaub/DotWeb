@@ -383,7 +383,7 @@ namespace DotWeb.Hosting.Weaver
 			generator.Emit(code, field);
 		}
 
-		private Type ResolveTypeReference(TypeReference typeRef) {
+		public Type ResolveTypeReference(TypeReference typeRef) {
 			var arrayType = typeRef as ArrayType;
 			if (typeRef is GenericParameter || 
 				(arrayType != null && arrayType.ElementType is GenericParameter)) {

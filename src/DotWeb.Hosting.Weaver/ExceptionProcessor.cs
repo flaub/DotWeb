@@ -28,22 +28,73 @@ namespace DotWeb.Hosting.Weaver
 {
 	class ExceptionProcessor
 	{
+		enum ExceptionLabelType
+		{
+			Start,
+			End,
+			Catch,
+			Finally
+		}
+
+		class InstructionRange
+		{
+			public int Start { get; set; }
+			public int End { get; set; }
+
+			public InstructionRange(int start, int end) {
+				this.Start = start;
+				this.End = end;
+			}
+
+			public override bool Equals(object obj) {
+				var rhs = obj as InstructionRange;
+				if (rhs == null) {
+					return false;
+				}
+				return this.Start == rhs.Start && this.End == rhs.End;
+			}
+
+			public override int GetHashCode() {
+				return Start ^ End;
+			}
+		}
+
+		class ExceptionLabel
+		{
+			public ExceptionLabelType Type { get; set; }
+			public Type CatchType { get; set; }
+		}
+
+		class LabelDictionary
+		{
+			private Dictionary<InstructionRange, ExceptionLabel> labels;
+
+			public LabelDictionary() {
+				this.labels = new Dictionary<InstructionRange, ExceptionLabel>();
+			}
+
+			public IEnumerable<ExceptionLabel> GetAllWithStart(int start) {
+				var result = new List<ExceptionLabel>();
+				foreach (var entry in this.labels) {
+					if (entry.Key.Start == start) {
+						result.Add(entry.Value);
+					}
+				}
+				return result;
+			}
+
+			public bool TryGetValue(InstructionRange key, out ExceptionLabel value) {
+				return this.labels.TryGetValue(key, out value);
+			}
+
+			public void Add(InstructionRange key, ExceptionLabel value) {
+				this.labels.Add(key, value);
+			}
+		}
+
 		private MethodProcessor parent;
 		private ILGenerator generator;
-
-		private ExceptionHandler curHandler = null;
-
-		private IEnumerator itTry;
-		private ExceptionHandler nextTry = null;
-
-		private IEnumerator itCatch;
-		private ExceptionHandler nextCatch = null;
-
-		private IEnumerator itFilter;
-		private ExceptionHandler nextFilter = null;
-
-		private IEnumerator itFinally;
-		private ExceptionHandler nextFinally = null;
+		private LabelDictionary labels = new LabelDictionary();
 
 		public ExceptionProcessor(MethodProcessor parent, ILGenerator generator) {
 			this.parent = parent;
@@ -51,39 +102,69 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		public void Start(ExceptionHandlerCollection handlers) {
-			this.itTry = handlers.GetEnumerator();
-			this.nextTry = Next(itTry);
+			var ends = new Dictionary<InstructionRange, int>();
 
-			this.itCatch = handlers.GetEnumerator();
-			this.nextCatch = Next(itCatch);
+			foreach (ExceptionHandler handler in handlers) {
+				var tryRange = new InstructionRange(handler.TryStart.Offset, handler.TryEnd.Offset);
+				ExceptionLabel tryLabel;
+				if (!this.labels.TryGetValue(tryRange, out tryLabel)) {
+					tryLabel = new ExceptionLabel {
+						Type = ExceptionLabelType.Start
+					};
+					this.labels.Add(tryRange, tryLabel);
+				}
 
-			this.itFilter = handlers.GetEnumerator();
-			this.nextFilter = Next(itFilter);
+				var handlerRange = new InstructionRange(handler.HandlerStart.Offset, handler.HandlerEnd.Offset);
+				ExceptionLabel handlerLabel;
+				if (!this.labels.TryGetValue(handlerRange, out handlerLabel)) {
+					handlerLabel = new ExceptionLabel();
+					switch (handler.Type) {
+						case ExceptionHandlerType.Catch:
+							handlerLabel.Type = ExceptionLabelType.Catch;
+							handlerLabel.CatchType = this.parent.ResolveTypeReference(handler.CatchType);
+							break;
+						case ExceptionHandlerType.Finally:
+							handlerLabel.Type = ExceptionLabelType.Finally;
+							break;
+						default:
+							throw new NotSupportedException();
+					}
+					this.labels.Add(handlerRange, handlerLabel);
+				}
 
-			this.itFinally = handlers.GetEnumerator();
-			this.nextFinally = Next(itFinally);
-		}
+				int end = 0;
+				ends.TryGetValue(tryRange, out end);
 
-		private ExceptionHandler Next(IEnumerator it) {
-			return it.MoveNext() ? (ExceptionHandler)it.Current : null;
+				end = Math.Max(end, handler.TryEnd.Offset);
+				end = Math.Max(end, handler.HandlerEnd.Offset);
+
+				ends[tryRange] = end;
+			}
+
+			foreach (var end in ends.Values) {
+				var endLabel = new ExceptionLabel { Type = ExceptionLabelType.End };
+				var endRange = new InstructionRange(end, end);
+				this.labels.Add(endRange, endLabel);
+			}
 		}
 
 		public void ProcessInstruction(Instruction cil) {
-			if (curHandler != null && cil.Offset >= curHandler.HandlerEnd.Offset) {
-				generator.EndExceptionBlock();
-			}
-
-			if (nextTry != null && cil.Offset >= nextTry.TryStart.Offset) {
-				curHandler = nextTry;
-				nextTry = Next(this.itTry);
-
-				generator.BeginExceptionBlock(); // try
-
-				//var type = this.parent.hoister.ResolveTypeReference(nextTry.CatchType);
-				//generator.BeginCatchBlock(type);
-
-				//generator.BeginFaultBlock(); 
-				//generator.BeginFinallyBlock();
+			var blocks = this.labels.GetAllWithStart(cil.Offset);
+			foreach (var block in blocks) {
+				switch (block.Type) {
+					case ExceptionLabelType.Start:
+						this.generator.BeginExceptionBlock();
+						break;
+					case ExceptionLabelType.End:
+						this.generator.EndExceptionBlock();
+						break;
+					case ExceptionLabelType.Catch:
+						this.generator.BeginCatchBlock(block.CatchType);
+						break;
+					case ExceptionLabelType.Finally:
+						this.generator.BeginFinallyBlock();
+						break;
+				}
 			}
 		}
 	}
