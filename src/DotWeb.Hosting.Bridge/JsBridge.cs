@@ -31,8 +31,6 @@ namespace DotWeb.Hosting.Bridge
 
 	using JsObjectToReferenceMap = Dictionary<object, int>;
 
-	//using DynamicPropertyMap = Dictionary<string, object>;
-	//using DynamicPropertyObjects = Dictionary<object, Dictionary<string, object>>;
 	using DotWeb.System.DotWeb;
 
 	public class JsBridge : IDotWebHost
@@ -47,8 +45,6 @@ namespace DotWeb.Hosting.Bridge
 
 		private readonly JsObjectToReferenceMap jsObjectToRef = new JsObjectToReferenceMap();
 		private readonly Dictionary<JsDynamic, JsDynamicWrapper> dynamicWrappers = new Dictionary<JsDynamic, JsDynamicWrapper>();
-
-		//private readonly DynamicPropertyObjects dynamicObjects = new DynamicPropertyObjects();
 
 		private int lastRefId = 1;
 
@@ -506,46 +502,6 @@ namespace DotWeb.Hosting.Bridge
 			AddRemoteReference(brother, handle);
 			return (T)brother;
 		}
-
-		//public object GetImplicitDynamicProperty(object obj, int stackDepth) {
-		//    StackFrame frame = new StackFrame(stackDepth + 1);
-		//    string name = GetPropertyName(frame);
-		//    return GetDynamicProperty(obj, name);
-		//}
-
-		//public void SetImplicitDynamicProperty(object obj, int stackDepth, object value) {
-		//    StackFrame frame = new StackFrame(stackDepth + 1);
-		//    string name = GetPropertyName(frame);
-		//    SetDynamicProperty(obj, name, value);
-		//}
-
-		//public bool TryGetDynamicProperty(object obj, string name, out object value) {
-		//    var map = GetDynamicPropertyMap(obj);
-		//    return map.TryGetValue(name, out value);
-		//}
-
-		//public object GetDynamicProperty(object obj, string name) {
-		//    var map = GetDynamicPropertyMap(obj);
-		//    return map[name];
-		//}
-
-		//public void SetDynamicProperty(object obj, string propertyName, object value) {
-		//    var map = GetDynamicPropertyMap(obj);
-		//    map[propertyName] = value;
-		//}
-
-		//public DynamicPropertyMap GetDynamicPropertyMap(object obj) {
-		//    DynamicPropertyMap map;
-		//    if (!this.dynamicObjects.TryGetValue(obj, out map)) {
-		//        map = new DynamicPropertyMap();
-		//        this.dynamicObjects.Add(obj, map);
-		//    }
-		//    return map;
-		//}
-
-		//private string GetPropertyName(StackFrame frame) {
-		//    return frame.GetMethod().Name.Substring("get_".Length);
-		//}
 	}
 
 }

@@ -56,14 +56,13 @@ namespace DotWeb.Functional.Test.Client
 			list.RemoveAt(2);
 			view.AreStringsEqual("list.RemoveAt(2)", "[ a,b,x,y,z,zz ]", list);
 
-			//var list2 = new List<int>();
-			list.Clear();
-			list.Add(0);
-			list.Add(1);
-			list.Add(2);
+			var list2 = new List<int>();
+			list2.Add(0);
+			list2.Add(1);
+			list2.Add(2);
 
 			int i = 0;
-			foreach (var x in list) {
+			foreach (var x in list2) {
 				Log.Write("enumerator" + i);
 				view.AreEqual("enumerator" + i, i, x);
 				i++;
