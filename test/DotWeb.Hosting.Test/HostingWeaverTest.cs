@@ -111,12 +111,6 @@ namespace DotWeb.Hosting.Test
 
 			var evt = type.GetEvent("Event");
 			Assert.IsNotNull(evt);
-
-			var genericInstance = type.GetProperty("GenericInstance");
-			Assert.IsNotNull(genericInstance);
-
-			var genericInstanceGetMethod = genericInstance.GetGetMethod();
-			Assert.IsNotNull(genericInstanceGetMethod);
 		}
 
 		[Test]
@@ -170,17 +164,39 @@ namespace DotWeb.Hosting.Test
 		}
 
 		[Test]
-		[Ignore]
-		public void GenericTypeTest() {
-			// weave a generic type then grab it via reflection
-			Assert.Fail();
+		public void GenericInstanceTest() {
+			// weave a type then get to the it via reflection
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.GenericInstanceTest");
+			Assert.IsNotNull(test);
+
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+
+			var genericInstanceProperty = type.GetProperty("GenericInstance");
+			Assert.IsNotNull(genericInstanceProperty);
+
+			var genericInstanceGetMethod = genericInstanceProperty.GetGetMethod();
+			Assert.IsNotNull(genericInstanceGetMethod);
+
+			var genericInstance = genericInstanceGetMethod.Invoke(test, null);
+			Assert.IsNotNull(genericInstance);
+
+			var genericInstanceType = genericInstance.GetType();
+			Assert.IsNotNull(genericInstanceType);
+
+			var areEqualMethod = genericInstanceType.GetMethod("AreEqual");
+			Assert.IsNotNull(areEqualMethod);
 		}
 
 		[Test]
-		[Ignore]
 		public void GenericMethodTest() {
-			// weave a generic method then grab it via reflection
-			Assert.Fail();
+			// weave a type then get to the it via reflection
+			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.GenericMethodTest");
+			var type = test.GetType();
+			Assert.IsNotNull(type);
+
+			var genericMethod = type.GetMethod("AreEqual");
+			Assert.IsNotNull(genericMethod);
 		}
 
 		[Test]

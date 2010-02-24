@@ -40,6 +40,8 @@
     </Compile>
     <Compile Include="ArrayTest.cs" />
     <Compile Include="CastTest.cs" />
+    <Compile Include="GenericMethodTest.cs" />
+    <Compile Include="GenericInstanceTest.cs" />
     <Compile Include="ExceptionTest.cs" />
     <Compile Include="MiscTest.cs" />
     <Compile Include="NativeCallbackTest.cs" />

@@ -22,47 +22,14 @@ using DotWeb.Client.Dom.Html;
 
 namespace DotWeb.Weaver.Test.Script
 {
-	enum EnumTest
+	class GenericMethodTest
 	{
-		First = 1,
-		Second = 2,
-		Third = 3
-	}
-
-	[Flags]
-	enum FlagsTest
-	{
-		First = 0x01,
-		Second = 0x02,
-		Third = 0x04
-	}
-
-	class TypeTest
-	{
-		public int field;
-		public int Property { get; set; }
-		public event Action Event;
-
-		public TypeTest() {
-			this.field = 1;
+		public bool AreEqual<T>(string name, T expected, T actual) {
+			var expectedString = expected.ToString();
+			Console.WriteLine(expectedString);
+			var equal = expected.Equals(actual);
+			Console.WriteLine(equal);
+			return equal;
 		}
-
-		public void Method() {
-			if (Event != null)
-				Event();
-		}
-
-		public const EnumTest EnumValue = EnumTest.First;
-		public const FlagsTest FlagsValue = FlagsTest.First;
-	}
-
-	class NativeType : JsObject
-	{
-		public extern NativeType();
-	}
-
-	class DerivedNativeType : NativeType
-	{
-		public extern DerivedNativeType();
 	}
 }
