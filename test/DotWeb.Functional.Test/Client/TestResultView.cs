@@ -51,7 +51,7 @@ namespace DotWeb.Functional.Test.Client
 			}
 		}
 
-		public void AreEqual<T>(string name, T expected, T actual) {
+		public void AreEqual(string name, object expected, object actual) {
 			var expectedString = expected.ToString();
 			try {
 				AddRow(name, expectedString, actual.ToString(), expected.Equals(actual));
