@@ -337,8 +337,26 @@ namespace DotWeb.Hosting.Weaver
 				case OperandTypeNames.GenericParameter:
 					EmitParameter(generator, code, (GenericParameter)cil.Operand);
 					break;
+				case OperandTypeNames.GenericInstanceMethod:
+					EmitGenericInstanceMethod(generator, code, (GenericInstanceMethod)cil.Operand);
+					break;
 				default:
 					throw new NotSupportedException(string.Format("OperandType: {0}", typeName));
+			}
+		}
+
+		private void EmitGenericInstanceMethod(ILGenerator generator, SRE.OpCode code, GenericInstanceMethod genericInstanceMethod) {
+			var methodBase = this.resolver.ResolveMethodReference(genericInstanceMethod, this);
+			if (methodBase is ConstructorInfo) {
+				var ctorInfo = (ConstructorInfo)methodBase;
+				generator.Emit(code, ctorInfo);
+			}
+			else {
+				var genericArgumentRefs = genericInstanceMethod.GenericArguments.Cast<TypeReference>();
+				var typeArguments = genericArgumentRefs.Select(x => ResolveTypeReference(x)).ToArray();
+				var genericMethod = (MethodInfo)methodBase;
+				var concreteMethod = genericMethod.MakeGenericMethod(typeArguments);
+				generator.Emit(code, concreteMethod);
 			}
 		}
 

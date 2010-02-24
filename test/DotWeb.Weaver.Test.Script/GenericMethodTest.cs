@@ -31,5 +31,9 @@ namespace DotWeb.Weaver.Test.Script
 			Console.WriteLine(equal);
 			return equal;
 		}
+
+		public void Test() {
+			AreEqual("foo", 1, 1);
+		}
 	}
 }

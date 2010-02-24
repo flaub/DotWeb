@@ -24,6 +24,8 @@ namespace DotWeb.Weaver.Test.Script
 {
 	public class GenericType<T>
 	{
+		public static T StaticItem { get; set; }
+
 		public extern T Item { get; set; }
 
 		public bool AreEqual<U>(string name, U expected, U actual) {
@@ -33,13 +35,13 @@ namespace DotWeb.Weaver.Test.Script
 			Console.WriteLine(equal);
 			return equal;
 		}
-
 	}
 
 	public class GenericInstanceTest
 	{
 		public GenericInstanceTest() {
 			this.GenericInstance = new GenericType<int>();
+			GenericType<int>.StaticItem = 1;
 		}
 
 		public GenericType<int> GenericInstance { get; private set; }

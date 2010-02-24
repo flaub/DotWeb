@@ -49,6 +49,7 @@ namespace DotWeb.Hosting.Weaver
 		public const string VariableDefinition = "VariableDefinition";
 		public const string ParameterDefinition = "ParameterDefinition";
 		public const string GenericParameter = "GenericParameter";
+		public const string GenericInstanceMethod = "GenericInstanceMethod";
 		public const string Instruction = "Instruction";
 	}
 

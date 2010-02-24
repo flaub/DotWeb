@@ -1,4 +1,4 @@
-﻿	// Copyright 2009, Frank Laub
+﻿// Copyright 2009, Frank Laub
 // 
 // This file is part of DotWeb.
 // 
@@ -38,8 +38,7 @@ namespace DotWeb.Hosting.Test
 			this.nativeObject = this.asm.GetType("DotWeb.Hosting.Test.Script.NativeObject");
 		}
 
-		private void SimulateAction(SessionHelper session, Type nativeType, string name, JsValueType retType, ref int remoteId,
-			params int[] args) {
+		private void SimulateAction(SessionHelper session, Type nativeType, string name, JsValueType retType, ref int remoteId, params int[] args) {
 			var action = session.DefineFunctionMessage(nativeType.GetMethod(name));
 			session.InvokeFunctionMessage(action.Name, 0);
 			var id = ++remoteId;
@@ -68,6 +67,10 @@ namespace DotWeb.Hosting.Test
 			bridge.DispatchForever();
 
 			mocks.VerifyAll();
+		}
+
+		[TearDown]
+		public void TearDown() {
 		}
 
 		[Test]
@@ -264,7 +267,7 @@ namespace DotWeb.Hosting.Test
 				session.OnLoadMessage(loadType);
 
 				//var element = Window.document.getElementById("box");
-				
+
 				//var window = Global.Window;
 				var window = session.DefineFunctionMessage(globalType.GetMethod("get_Window"));
 				session.InvokeFunctionMessage(window.Name, 0);
@@ -336,7 +339,7 @@ namespace DotWeb.Hosting.Test
 				session.ReturnMessage();
 
 				session.OnReturnMessage(false, JsValueType.Void, null);
-				
+
 				// var clientSide = expando["client"];
 				// NativeObject.TakeObject(expando["client"]);
 				session.InvokeFunctionMessage(takeObject.Name, 0, new JsValue(2));
