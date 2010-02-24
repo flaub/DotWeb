@@ -51,10 +51,10 @@ namespace DotWeb.Functional.Test.Client
 			}
 		}
 
-		public void AreEqual(string name, object expected, object actual) {
+		public void AreEqual<T>(string name, T expected, T actual) {
 			var expectedString = expected.ToString();
 			try {
-				AddRow(name, expectedString, actual.ToString(), expected == actual);
+				AddRow(name, expectedString, actual.ToString(), expected.Equals(actual));
 			}
 			catch (Exception ex) {
 				AddRow(name, expectedString, ex.ToString(), false);

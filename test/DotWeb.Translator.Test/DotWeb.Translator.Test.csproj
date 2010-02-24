@@ -175,6 +175,7 @@
     <Content Include="Expected\SourceTest\Linq.js" />
     <Content Include="Expected\SourceTest\TakeParameters.js" />
     <Content Include="Expected\SystemTest\CallThisInterfaceMethod.js" />
+    <Content Include="Expected\SystemTest\TestGenericMethod.js" />
     <Content Include="Expected\SystemTest\TestListEnumerator.js" />
     <Content Include="Expected\SystemTest\TestList.js" />
     <Content Include="Expected\SystemTest\TestDerivedThruBaseIndirect.js" />

@@ -1,39 +1,39 @@
-﻿B1: 0000 - 0013: switch [0032, 0044, 0044] Cond_Branch
+﻿B1: 0000 - 0013: switch [0032, 0044, 0044] <Cond_Branch>
 	Out: B2, B3, B4
-	0000: ldstr "enter" Next
-	0005: call [return: System.Void] System.Console::WriteLine() Call
-	0010: ldarg.1 Next
-	0011: stloc.0 Next
-	0012: ldloc.0 Next
-	0013: switch [0032, 0044, 0044] Cond_Branch
+	0000: ldstr "enter" <Next>
+	0005: call [return: System.Void] System.Console::WriteLine() <Call>
+	0010: ldarg.1 <Next>
+	0011: stloc.0 <Next>
+	0012: ldloc.0 <Next>
+	0013: switch [0032, 0044, 0044] <Cond_Branch>
 
-B4: 0044 - 0054: br.s 0066 Branch
+B4: 0044 - 0054: br.s 0066 <Branch>
 	In : B1
 	Out: B6
-	0044: ldstr "One & Two" Next
-	0049: call [return: System.Void] System.Console::WriteLine() Call
-	0054: br.s 0066 Branch
+	0044: ldstr "One & Two" <Next>
+	0049: call [return: System.Void] System.Console::WriteLine() <Call>
+	0054: br.s 0066 <Branch>
 
-B3: 0032 - 0042: br.s 0066 Branch
+B3: 0032 - 0042: br.s 0066 <Branch>
 	In : B1
 	Out: B6
-	0032: ldstr "Zero" Next
-	0037: call [return: System.Void] System.Console::WriteLine() Call
-	0042: br.s 0066 Branch
+	0032: ldstr "Zero" <Next>
+	0037: call [return: System.Void] System.Console::WriteLine() <Call>
+	0042: br.s 0066 <Branch>
 
-B2: 0030 - 0030: br.s 0056 Branch
+B2: 0030 - 0030: br.s 0056 <Branch>
 	In : B1
 	Out: B5
-	0030: br.s 0056 Branch
+	0030: br.s 0056 <Branch>
 
-B5: 0056 - 0061: call [return: System.Void] System.Console::WriteLine() Call
+B5: 0056 - 0061: call [return: System.Void] System.Console::WriteLine() <Call>
 	In : B2
 	Out: B6
-	0056: ldstr "default" Next
-	0061: call [return: System.Void] System.Console::WriteLine() Call
+	0056: ldstr "default" <Next>
+	0061: call [return: System.Void] System.Console::WriteLine() <Call>
 
-B6: 0066 - 0076: ret Return
+B6: 0066 - 0076: ret <Return>
 	In : B3, B4, B5
-	0066: ldstr "exit" Next
-	0071: call [return: System.Void] System.Console::WriteLine() Call
-	0076: ret Return
+	0066: ldstr "exit" <Next>
+	0071: call [return: System.Void] System.Console::WriteLine() <Call>
+	0076: ret <Return>

@@ -1,60 +1,60 @@
-﻿B1: 0000 - 0005: call [return: System.Void] System.Console::WriteLine() Call
+﻿B1: 0000 - 0005: call [return: System.Void] System.Console::WriteLine() <Call>
 	Out: B2
-	0000: ldstr "enter" Next
-	0005: call [return: System.Void] System.Console::WriteLine() Call
+	0000: ldstr "enter" <Next>
+	0005: call [return: System.Void] System.Console::WriteLine() <Call>
 
-B2: 0010 - 0021: brfalse.s 0029 Cond_Branch
+B2: 0010 - 0021: brfalse.s 0029 <Cond_Branch>
 	In : B1
 	Out: B3, B4
-	0010: ldstr "try begin" Next
-	0015: call [return: System.Void] System.Console::WriteLine() Call
-	0020: ldarg.1 Next
-	0021: brfalse.s 0029 Cond_Branch
+	0010: ldstr "try begin" <Next>
+	0015: call [return: System.Void] System.Console::WriteLine() <Call>
+	0020: ldarg.1 <Next>
+	0021: brfalse.s 0029 <Cond_Branch>
 
-B4: 0029 - 0039: leave.s 0089 Branch
+B4: 0029 - 0039: leave.s 0089 <Branch>
 	In : B2
 	Out: B7
-	0029: ldstr "try end" Next
-	0034: call [return: System.Void] System.Console::WriteLine() Call
-	0039: leave.s 0089 Branch
+	0029: ldstr "try end" <Next>
+	0034: call [return: System.Void] System.Console::WriteLine() <Call>
+	0039: leave.s 0089 <Branch>
 
-B3: 0023 - 0028: throw Throw
+B3: 0023 - 0028: throw <Throw>
 	In : B2
-	0023: newobj instance [return: System.Void] System.NotImplementedException::.ctor() Call
-	0028: throw Throw
+	0023: newobj instance [return: System.Void] System.NotImplementedException::.ctor() <Call>
+	0028: throw <Throw>
 
-B8: 0091 - 0101: endfinally Return
-	0091: ldstr "finally" Next
-	0096: call [return: System.Void] System.Console::WriteLine() Call
-	0101: endfinally Return
+B8: 0091 - 0101: endfinally <Return>
+	0091: ldstr "finally" <Next>
+	0096: call [return: System.Void] System.Console::WriteLine() <Call>
+	0101: endfinally <Return>
 
-B6: 0065 - 0087: leave.s 0089 Branch
+B6: 0065 - 0087: leave.s 0089 <Branch>
 	Out: B7
-	0065: stloc.1 Next
-	0066: ldstr "Exception: " Next
-	0071: ldloc.1 Next
-	0072: callvirt instance [return: System.String] System.Exception::get_Message() Call
-	0077: call [return: System.String] System.String::Concat() Call
-	0082: call [return: System.Void] System.Console::WriteLine() Call
-	0087: leave.s 0089 Branch
+	0065: stloc.1 <Next>
+	0066: ldstr "Exception: " <Next>
+	0071: ldloc.1 <Next>
+	0072: callvirt instance [return: System.String] System.Exception::get_Message() <Call>
+	0077: call [return: System.String] System.String::Concat() <Call>
+	0082: call [return: System.Void] System.Console::WriteLine() <Call>
+	0087: leave.s 0089 <Branch>
 
-B5: 0041 - 0063: leave.s 0089 Branch
+B5: 0041 - 0063: leave.s 0089 <Branch>
 	Out: B7
-	0041: stloc.0 Next
-	0042: ldstr "NotImplementedException: " Next
-	0047: ldloc.0 Next
-	0048: callvirt instance [return: System.String] System.Exception::get_Message() Call
-	0053: call [return: System.String] System.String::Concat() Call
-	0058: call [return: System.Void] System.Console::WriteLine() Call
-	0063: leave.s 0089 Branch
+	0041: stloc.0 <Next>
+	0042: ldstr "NotImplementedException: " <Next>
+	0047: ldloc.0 <Next>
+	0048: callvirt instance [return: System.String] System.Exception::get_Message() <Call>
+	0053: call [return: System.String] System.String::Concat() <Call>
+	0058: call [return: System.Void] System.Console::WriteLine() <Call>
+	0063: leave.s 0089 <Branch>
 
-B7: 0089 - 0089: leave.s 0102 Branch
+B7: 0089 - 0089: leave.s 0102 <Branch>
 	In : B4, B5, B6
 	Out: B9
-	0089: leave.s 0102 Branch
+	0089: leave.s 0102 <Branch>
 
-B9: 0102 - 0112: ret Return
+B9: 0102 - 0112: ret <Return>
 	In : B7
-	0102: ldstr "exit" Next
-	0107: call [return: System.Void] System.Console::WriteLine() Call
-	0112: ret Return
+	0102: ldstr "exit" <Next>
+	0107: call [return: System.Void] System.Console::WriteLine() <Call>
+	0112: ret <Return>

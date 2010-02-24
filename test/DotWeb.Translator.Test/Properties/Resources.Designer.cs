@@ -167,7 +167,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///System.Console = function() {
         ///};
         ///
-        ///System.Console.WriteLine = function(value) {
+        ///System.Console.WriteLine$1 = function(value) {
         ///	console.log(value);
         ///};
         ///
@@ -188,9 +188,8 @@ namespace DotWeb.Translator.Test.Properties {
         ///};
         ///
         ///H8.SourceTests.prototype.TakeParameters = function(str, value, rad, flag) {
-        ///	System.Console.WriteLine(str);
-        ///	var x = System.Math.Sin(rad[value] * 1.570795);
-        ///	r [rest of string was truncated]&quot;;.
+        ///	System.Console.WriteLine$1(str);
+        ///	var x = System.Math.Sin(rad[value] * 1.570795); [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallTakeParameters {
             get {
@@ -267,24 +266,24 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.ComplexNestedTry = function(x) {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	System.Console.WriteLine$1(&quot;enter&quot;);
         ///	try {
-        ///		System.Console.WriteLine(&quot;outer try&quot;);
+        ///		System.Console.WriteLine$1(&quot;outer try&quot;);
         ///		try {
-        ///			System.Console.WriteLine(&quot;inner try&quot;);
+        ///			System.Console.WriteLine$1(&quot;inner try&quot;);
         ///		}
         ///		finally {
-        ///			System.Console.WriteLine(&quot;inner finally&quot;);
+        ///			System.Console.WriteLine$1(&quot;inner finally&quot;);
         ///		}
-        ///		System.Console.WriteLine(&quot;inner follow&quot;);
+        ///		System.Console.WriteLine$1(&quot;inner follow&quot;);
         ///		if (x == 10) {
-        ///			System.Console.WriteLine(&quot;x == 10&quot;);
+        ///			System.Console.WriteLine$1(&quot;x == 10&quot;);
         ///		}
         ///	}
         ///	finally {
-        ///		System.Console.WriteLine(&quot;outer finally&quot;);
+        ///		System.Console.WriteLine$1(&quot;outer finally&quot;);
         ///	}
-        ///	System.Console.WriteLine(&quot;exit&quot;);
+        ///	System.Console.WriteLine$1(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
@@ -404,7 +403,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///System.Console = function() {
         ///};
         ///
-        ///System.Console.WriteLine = function(value) {
+        ///System.Console.WriteLine$0 = function(value) {
         ///	console.log(value);
         ///};
         ///
@@ -423,7 +422,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var CS$0$0000 = new Array(2);
         ///	var __g__initLocal1 = {};
         ///	__g__initLocal1.X = 0;
-        ///	__g__initLocal1.y = 0 [rest of string was truncated]&quot;;.
+        ///	__g__initLocal1.y = [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecorationTest_JsAnonymous {
             get {
@@ -436,13 +435,13 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var array = new Array();
         ///	if (Array.isArray(array)) {
         ///		var part = array.slice(0, 1);
-        ///		System.Console.WriteLine(part.join(&quot;,&quot;));
+        ///		System.Console.WriteLine$1(part.join(&quot;,&quot;));
         ///	}
         ///	array.splice(0, 0);
         ///	array.splice(0, 0, 1);
         ///	array.splice(0, 0, 1, &quot;two&quot;);
         ///	var x = new Array(1, 2);
-        ///	System.Console.WriteLine(x[0]);
+        ///	System.Console.WriteLine$0(x[0]);
         ///	x[1] = 1;
         ///};
         ///.
@@ -518,7 +517,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	this.jQuery(&quot;*&quot;);
         ///	H8.DecorationTests.jQuery(&quot;*&quot;);
         ///	H8.DecorationTests.TakeJQuery(this.jQuery(&quot;#id&quot;));
-        ///	System.Console.WriteLine($doc.getElementById(&quot;id&quot;));
+        ///	System.Console.WriteLine$0($doc.getElementById(&quot;id&quot;));
         ///};
         ///.
         /// </summary>
@@ -563,13 +562,12 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.EnumArray = function() {
-        ///	System.Runtime.CompilerServices.RuntimeHelpers.InitializeArray(new Array(4), [1, 2, 3, 4]);
-        ///	var array = new Array(4);
+        ///	var array = [1, 2, 3, 4];
         ///	var CS$6$0000 = array;
         ///	var CS$7$0001 = 0;
         ///	while (CS$7$0001 &lt; CS$6$0000.length) {
         ///		var item = CS$6$0000[CS$7$0001];
-        ///		System.Console.WriteLine(item);
+        ///		System.Console.WriteLine$0(item);
         ///		CS$7$0001 = CS$7$0001 + 1;
         ///	}
         ///};
@@ -647,21 +645,22 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.GitHub_Issue6 = function(x) {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	System.Console.WriteLine$1(&quot;enter&quot;);
         ///	try {
-        ///		System.Console.WriteLine(&quot;try begin&quot;);
+        ///		System.Console.WriteLine$1(&quot;try begin&quot;);
         ///		if (x) {
         ///			throw new System.NotImplementedException().$ctor();
         ///		}
-        ///		System.Console.WriteLine(&quot;try end&quot;);
+        ///		System.Console.WriteLine$1(&quot;try end&quot;);
         ///	}
         ///	catch (__ex__) {
         ///		if (__ex__ instanceof System.NotImplementedException) {
         ///			var ex = __ex__;
-        ///			System.Console.WriteLine(&quot;NotImplementedException: &quot; + ex.get_Message());
+        ///			System.Console.WriteLine$1(&quot;NotImplementedException: &quot; + ex.get_Message());
         ///		}
-        ///		else if (__ex__ instanceof System.Exception) {
-        ///			var ex = __ex__;        /// [rest of string was truncated]&quot;;.
+        ///		else if (__ex__) {
+        ///			var ex = __ex__;
+        ///			System.Console.W [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GitHub_Issue6 {
             get {
@@ -671,7 +670,7 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.HelloWorld = function() {
-        ///	System.Console.WriteLine(&quot;Hello World!&quot;);
+        ///	System.Console.WriteLine$1(&quot;Hello World!&quot;);
         ///};
         ///
         ///.
@@ -697,7 +696,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///System.Console = function() {
         ///};
         ///
-        ///System.Console.WriteLine = function(value) {
+        ///System.Console.WriteLine$0 = function(value) {
         ///	console.log(value);
         ///};
         ///
@@ -708,7 +707,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var indexer = new H8.IndexerTest().$ctor();
         ///	indexer[&quot;Test&quot;] = 1;
         ///	var value = indexer[&quot;Test&quot;];
-        ///	System.Console.WriteLine(value);
+        ///	System.Console.WriteLine$0(value);
         ///};
         ///.
         /// </summary>
@@ -769,7 +768,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	var config = __g__initLocal0;
         ///	var tuple = new Tuple(config);
         ///	var id = tuple.id;
-        ///	System.Console.WriteLine(id);
+        ///	System.Console.WriteLine$0(id);
         ///	tuple.id = 9;
         ///};
         ///.
@@ -782,21 +781,21 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.NestedTry = function() {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	System.Console.WriteLine$1(&quot;enter&quot;);
         ///	try {
-        ///		System.Console.WriteLine(&quot;outer try&quot;);
+        ///		System.Console.WriteLine$1(&quot;outer try&quot;);
         ///		try {
-        ///			System.Console.WriteLine(&quot;inner try&quot;);
+        ///			System.Console.WriteLine$1(&quot;inner try&quot;);
         ///		}
         ///		finally {
-        ///			System.Console.WriteLine(&quot;inner finally&quot;);
+        ///			System.Console.WriteLine$1(&quot;inner finally&quot;);
         ///		}
-        ///		System.Console.WriteLine(&quot;inner follow&quot;);
+        ///		System.Console.WriteLine$1(&quot;inner follow&quot;);
         ///	}
         ///	finally {
-        ///		System.Console.WriteLine(&quot;outer finally&quot;);
+        ///		System.Console.WriteLine$1(&quot;outer finally&quot;);
         ///	}
-        ///	System.Console.WriteLine(&quot;exit&quot;);
+        ///	System.Console.WriteLine$1(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>
@@ -808,26 +807,26 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.SwitchInsideWhile = function(x) {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	System.Console.WriteLine$1(&quot;enter&quot;);
         ///	while (x &gt; 10) {
-        ///		System.Console.WriteLine(&quot;head&quot;);
+        ///		System.Console.WriteLine$1(&quot;head&quot;);
         ///		var CS$0$0000 = x;
         ///		switch (CS$0$0000) {
         ///			case 0:
-        ///				System.Console.WriteLine(&quot;Zero: return&quot;);
+        ///				System.Console.WriteLine$1(&quot;Zero: return&quot;);
         ///				return;
         ///			case 1:
         ///			case 2:
-        ///				System.Console.WriteLine(&quot;One &amp; Two&quot;);
+        ///				System.Console.WriteLine$1(&quot;One &amp; Two&quot;);
         ///				break;
         ///			case 3:
-        ///				System.Console.WriteLine(&quot;Three: continue&quot;);
+        ///				System.Console.WriteLine$1(&quot;Three: continue&quot;);
         ///				continue;
         ///			default:
-        ///				System.Console.WriteLine(&quot;default&quot;);
+        ///				System.Console.WriteLine$1(&quot;default&quot;);
         ///				break;
         ///		}
-        ///		System.Con [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SwitchInsideWhile {
             get {
@@ -857,7 +856,7 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.TakeParameters = function(str, value, rad, flag) {
-        ///	System.Console.WriteLine(str);
+        ///	System.Console.WriteLine$1(str);
         ///	var x = System.Math.Sin(rad[value] * 1.570795);
         ///	return System.Math.Cos(x);
         ///};
@@ -1004,6 +1003,35 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $Namespace(&apos;System.Collections.Generic&apos;);
+        ///
+        ///System.Collections.Generic.List$1 = function() {
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.$ctor = function() {
+        ///	this.items = new Array();
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1_Enumerator = function() {
+        ///};
+        ///
+        ///System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
+        ///	this.list = list;
+        ///	this.index = 0;
+        ///	this.current = null;
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.GetEnumerator = functi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestGenericMethod {
+            get {
+                return ResourceManager.GetString("TestGenericMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
         ///
         ///H8.Generic$1 = function() {
@@ -1050,7 +1078,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.Add = function(item) {
+        ///System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
         ///	this.items.push(item);
         ///};
         ///
@@ -1062,7 +1090,7 @@ namespace DotWeb.Translator.Test.Properties {
         ///$Namespace(&apos;System&apos;);
         ///
         ///System.Console = function() {
-        ///};        /// [rest of string was truncated]&quot;;.
+        ///} [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestList {
             get {
@@ -1081,19 +1109,17 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.Add = function(item) {
-        ///	this.items.push(item);
+        ///System.Collections.Generic.List$1_Enumerator = function() {
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///	return V_0;
+        ///System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
+        ///	this.list = list;
+        ///	this.index = 0;
+        ///	this.current = null;
+        ///	return this;
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};        /// [rest of string was truncated]&quot;;.
+        ///System.Collections.Generic.List$1.prototype.GetEnumerator = functi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestListEnumerator {
             get {
@@ -1123,23 +1149,23 @@ namespace DotWeb.Translator.Test.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.TryInsideCatch = function() {
-        ///	System.Console.WriteLine(&quot;enter&quot;);
+        ///	System.Console.WriteLine$1(&quot;enter&quot;);
         ///	try {
-        ///		System.Console.WriteLine(&quot;try1&quot;);
+        ///		System.Console.WriteLine$1(&quot;try1&quot;);
         ///	}
         ///	catch (__ex__) {
-        ///		if (__ex__ instanceof System.Exception) {
-        ///			System.Console.WriteLine(&quot;catch&quot;);
+        ///		if (__ex__) {
+        ///			System.Console.WriteLine$1(&quot;catch&quot;);
         ///			try {
-        ///				System.Console.WriteLine(&quot;try2&quot;);
+        ///				System.Console.WriteLine$1(&quot;try2&quot;);
         ///			}
         ///			finally {
-        ///				System.Console.WriteLine(&quot;finally&quot;);
+        ///				System.Console.WriteLine$1(&quot;finally&quot;);
         ///			}
-        ///			System.Console.WriteLine(&quot;try2 follow&quot;);
+        ///			System.Console.WriteLine$1(&quot;try2 follow&quot;);
         ///		}
         ///	}
-        ///	System.Console.WriteLine(&quot;exit&quot;);
+        ///	System.Console.WriteLine$1(&quot;exit&quot;);
         ///};
         ///.
         /// </summary>

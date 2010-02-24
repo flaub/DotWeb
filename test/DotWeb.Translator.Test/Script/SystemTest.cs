@@ -98,5 +98,17 @@ namespace H8
 				Console.WriteLine(item);
 			}
 		}
+
+		public void TestGenericMethod() {
+			var list = new List<string>();
+			list.Add("one");
+			AreEqual("IndexOf", 0, list.IndexOf("one"));
+		}
+
+		private void AreEqual<T>(string name, T expected, T actual) {
+			var expectedString = expected.ToString();
+			var equal = expected.Equals(actual);
+			Console.WriteLine(equal);
+		}
 	}
 }

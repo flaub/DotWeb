@@ -1,37 +1,37 @@
-﻿B1: 0000 - 0001: stloc.0 Next
+﻿B1: 0000 - 0001: stloc.0 <Next>
 	Out: B2
-	0000: ldc.i4.0 Next
-	0001: stloc.0 Next
+	0000: ldc.i4.0 <Next>
+	0001: stloc.0 <Next>
 
-B2: 0002 - 0015: bne.un.s 0029 Cond_Branch
+B2: 0002 - 0015: bne.un.s 0029 <Cond_Branch>
 	In : B1, B4
 	Out: B3, B4
-	0002: ldstr "top" Next
-	0007: call [return: System.Void] System.Console::WriteLine() Call
-	0012: ldloc.0 Next
-	0013: ldc.i4.s 10 Next
-	0015: bne.un.s 0029 Cond_Branch
+	0002: ldstr "top" <Next>
+	0007: call [return: System.Void] System.Console::WriteLine() <Call>
+	0012: ldloc.0 <Next>
+	0013: ldc.i4.s 10 <Next>
+	0015: bne.un.s 0029 <Cond_Branch>
 
-B4: 0029 - 0043: br.s 0002 Branch
+B4: 0029 - 0043: br.s 0002 <Branch>
 	In : B2
 	Out: B2
-	0029: ldstr "loop" Next
-	0034: call [return: System.Void] System.Console::WriteLine() Call
-	0039: ldloc.0 Next
-	0040: ldc.i4.1 Next
-	0041: add Next
-	0042: stloc.0 Next
-	0043: br.s 0002 Branch
+	0029: ldstr "loop" <Next>
+	0034: call [return: System.Void] System.Console::WriteLine() <Call>
+	0039: ldloc.0 <Next>
+	0040: ldc.i4.1 <Next>
+	0041: add <Next>
+	0042: stloc.0 <Next>
+	0043: br.s 0002 <Branch>
 
-B3: 0017 - 0027: br.s 0045 Branch
+B3: 0017 - 0027: br.s 0045 <Branch>
 	In : B2
 	Out: B5
-	0017: ldstr "break" Next
-	0022: call [return: System.Void] System.Console::WriteLine() Call
-	0027: br.s 0045 Branch
+	0017: ldstr "break" <Next>
+	0022: call [return: System.Void] System.Console::WriteLine() <Call>
+	0027: br.s 0045 <Branch>
 
-B5: 0045 - 0055: ret Return
+B5: 0045 - 0055: ret <Return>
 	In : B3
-	0045: ldstr "exit" Next
-	0050: call [return: System.Void] System.Console::WriteLine() Call
-	0055: ret Return
+	0045: ldstr "exit" <Next>
+	0050: call [return: System.Void] System.Console::WriteLine() <Call>
+	0055: ret <Return>

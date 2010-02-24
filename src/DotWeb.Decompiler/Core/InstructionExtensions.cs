@@ -81,12 +81,16 @@ namespace DotWeb.Decompiler.Core
 							sb.AppendFormat(" \"{0}\"", cil.Operand.ToString());
 						break;
 					case OperandType.InlineType:
-					case OperandType.ShortInlineVar:
 					case OperandType.InlineI:
 					case OperandType.InlineI8:
 					case OperandType.InlineR:
+					case OperandType.InlineVar:
+					case OperandType.InlineSig:
+					case OperandType.InlineParam:
 					case OperandType.ShortInlineI:
 					case OperandType.ShortInlineR:
+					case OperandType.ShortInlineVar:
+					case OperandType.ShortInlineParam:
 						sb.AppendFormat(" {0}", cil.Operand);
 						break;
 					case OperandType.InlineTok:
@@ -102,13 +106,14 @@ namespace DotWeb.Decompiler.Core
 						var cases = ((Instruction[])cil.Operand).Select(x => x.OffsetString());
 						sb.AppendFormat(" [{0}]", string.Join(", ", cases.ToArray()));
 						break;
+					case OperandType.InlinePhi:
 					default:
 						sb.Append(" not supported");
 						break;
 				}
 			}
 
-			sb.AppendFormat(" {0}", cil.OpCode.FlowControl);
+			sb.AppendFormat(" <{0}>", cil.OpCode.FlowControl);
 			return sb.ToString();
 		}
 	}

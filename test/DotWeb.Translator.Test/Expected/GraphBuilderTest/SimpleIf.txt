@@ -1,14 +1,14 @@
-﻿B1: 0000 - 0001: brfalse.s 0013 Cond_Branch
+﻿B1: 0000 - 0001: brfalse.s 0013 <Cond_Branch>
 	Out: B2, B3
-	0000: ldarg.1 Next
-	0001: brfalse.s 0013 Cond_Branch
+	0000: ldarg.1 <Next>
+	0001: brfalse.s 0013 <Cond_Branch>
 
-B2: 0003 - 0008: call [return: System.Void] System.Console::WriteLine() Call
+B2: 0003 - 0008: call [return: System.Void] System.Console::WriteLine() <Call>
 	In : B1
 	Out: B3
-	0003: ldstr "x" Next
-	0008: call [return: System.Void] System.Console::WriteLine() Call
+	0003: ldstr "x" <Next>
+	0008: call [return: System.Void] System.Console::WriteLine() <Call>
 
-B3: 0013 - 0013: ret Return
+B3: 0013 - 0013: ret <Return>
 	In : B1, B2
-	0013: ret Return
+	0013: ret <Return>

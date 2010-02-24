@@ -221,6 +221,10 @@ namespace DotWeb.Decompiler.Core
 				case Code.Ldarg_S:
 					LoadArgument(il);
 					break;
+				case Code.Ldarga:
+				case Code.Ldarga_S:
+					LoadArgument(il);
+					break;
 				case Code.Ldfld:
 					LoadField(il);
 					break;
@@ -495,6 +499,7 @@ namespace DotWeb.Decompiler.Core
 					break;
 				#endregion
 				#region Unsupported/Unneeded
+				case Code.Constrained:
 				case Code.Endfinally:
 				case Code.Box:
 					break;
