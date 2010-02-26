@@ -903,7 +903,11 @@ namespace DotWeb.Decompiler.Core
 		private void AddAssignment(CodeExpression lhs, CodeExpression rhs) {
 			var last = this.block.Statements.LastOrDefault();
 			var lastAssignment = last as CodeAssignStatement;
-			if (lastAssignment != null && lastAssignment.Left == rhs) {
+			var variableRef = rhs as CodeVariableReference;
+			if (lastAssignment != null && 
+				variableRef != null && 
+				variableRef.Variable.Name.StartsWith("D_") && 
+				lastAssignment.Left == variableRef) {
 				// var D_0 = y;
 				// var x = D_0;
 				// ->
