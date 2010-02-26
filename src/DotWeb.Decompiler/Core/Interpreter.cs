@@ -34,6 +34,7 @@ namespace DotWeb.Decompiler.Core
 		private readonly TypeSystem typeSystem;
 		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
 		private BasicBlock block;
+		private int duplicateCounter = 0;
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 
@@ -575,6 +576,12 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
+			if (method.DeclaringType.FullName == "System.Runtime.CompilerServices.RuntimeHelpers" &&
+				method.Name == "InitializeArray") {
+				InitializeArray();
+				return;
+			}
+
 			CodeInvokeExpression expr = new CodeInvokeExpression();
 			PopParametersInto(method.Parameters, expr.Parameters);
 
@@ -591,7 +598,6 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
-			//this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 0) {
 				var targetObject = GetTargetObject(method, isVirtual);
@@ -612,7 +618,6 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
-			//this.ExternalMethods.Add(method);
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				CodeExpression rhs = Pop();
@@ -724,26 +729,12 @@ namespace DotWeb.Decompiler.Core
 			Push(expr);
 		}
 
-		private int[] ConvertInitialValue(byte[] data) {
-			int elementSize = Marshal.SizeOf(typeof(int));
-			var array = new int[data.Length / elementSize];
-			for (int i = 0; i < array.Length; i++) {
-				array[i] = BitConverter.ToInt32(data, i * elementSize);
-			}
-			return array;
-		}
-
 		private void LoadToken(Instruction il) {
 			if (il.Operand is FieldReference) {
-				var fi = (FieldReference)il.Operand;
-				var def = fi.Resolve();
-				if (def.IsStatic) {
-					// FIXME: filter this for only int[] initialization
-					int[] array = ConvertInitialValue(def.InitialValue);
-					CodePrimitiveExpression expr = new CodePrimitiveExpression(array);
-					Push(expr);
-					return;
-				}
+				var fieldRef = (FieldReference)il.Operand;
+				var expr = new CodeFieldReference(null, fieldRef);
+				Push(expr);
+				return;
 			}
 
 			throw new NotImplementedException();
@@ -854,8 +845,26 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Dup(Instruction il) {
-			var exp = Peek();
-			Push(exp);
+			var rhs = Pop();
+
+			// store this expression into a variable so that multiple pops reference
+			// the same expression instead of duplicating it
+			// this is needed because of the mismatch between the stack containing
+			// elements of values vs elements of expressions
+			int index = this.duplicateCounter++;
+			var variableName = string.Format("D_{0}", index);
+			var eval = new CodeTypeEvaluator(this.typeSystem, this.method);
+			var variableType = eval.Evaluate(rhs);
+			//Console.WriteLine("Dup: {0}", variableType);
+			// HACK: the variable index shouldn't really be used in higher-levels
+			// so we just set the index to something that won't collide with existing ones.
+			var variable = new VariableDefinition(variableName, index + 1024, this.method, variableType);
+			var lhs = new CodeVariableReference(variable);
+
+			AddAssignment(lhs, rhs);
+
+			Push(lhs);
+			Push(lhs);
 		}
 
 		private void Leave(Instruction il) {
@@ -892,7 +901,18 @@ namespace DotWeb.Decompiler.Core
 		#region Helpers
 
 		private void AddAssignment(CodeExpression lhs, CodeExpression rhs) {
-			AddStatment(new CodeAssignStatement(lhs, rhs));
+			var last = this.block.Statements.LastOrDefault();
+			var lastAssignment = last as CodeAssignStatement;
+			if (lastAssignment != null && lastAssignment.Left == rhs) {
+				// var D_0 = y;
+				// var x = D_0;
+				// ->
+				// var x = y;
+				lastAssignment.Left = lhs;
+			}
+			else {
+				AddStatment(new CodeAssignStatement(lhs, rhs));
+			}
 		}
 
 		private void PushArgumentReference(ParameterReference arg) {
@@ -995,6 +1015,37 @@ namespace DotWeb.Decompiler.Core
 			return 0.Equals(literal.Value);
 		}
 
+		private void InitializeArray() {
+			var fieldRef = (CodeFieldReference)Pop();
+			var arrayExpr = Pop();
+
+			var eval = new CodeTypeEvaluator(this.typeSystem, this.method);
+			var arrayType = (ArrayType)eval.Evaluate(arrayExpr);
+			var elementType = arrayType.ElementType;
+			var reflectionType = TypeSystem.GetReflectionType(elementType);
+
+			var fieldDef = fieldRef.Field.Resolve();
+			var data = fieldDef.InitialValue;
+
+			int elementSize = Marshal.SizeOf(reflectionType);
+			var length = data.Length / elementSize;
+			var array = Array.CreateInstance(reflectionType, length);
+			Buffer.BlockCopy(data, 0, array, 0, data.Length);
+
+			var rhs = new CodeArrayInitializeExpression {
+				ElementType = elementType,
+				InitialValues = array
+			};
+
+			var last = this.block.Statements.LastOrDefault();
+			var lastAssignment = last as CodeAssignStatement;
+			if (lastAssignment != null && lastAssignment.Right is CodeArrayCreateExpression) {
+				lastAssignment.Right = rhs;
+			}
+			else {
+				AddAssignment(arrayExpr, rhs);
+			}
+		}
 		#endregion
 	}
 }

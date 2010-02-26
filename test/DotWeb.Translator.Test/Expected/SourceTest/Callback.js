@@ -50,5 +50,6 @@ H8.SourceTests.prototype.Callback = function(del) {
 	if (this.SimpleEvent) {
 		this.SimpleEvent();
 	}
-	this.SimpleEvent = System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
+	var D_0 = this;
+	D_0.SimpleEvent = System.Delegate.Combine(D_0.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
 };

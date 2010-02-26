@@ -1,4 +1,4 @@
-﻿H8.SourceTests.prototype.EnumArray = function() {
+﻿Arrays.prototype.EnumArray = function() {
 	var array = [1, 2, 3, 4];
 	var CS$6$0000 = array;
 	var CS$7$0001 = 0;

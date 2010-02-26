@@ -34,8 +34,6 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void Cifuentes() { RunTest(); }
 		[Test]
-		public void EnumArray() { RunTest(); }
-		[Test]
 		public void CreateInnerObject() { RunTestWithDependencies(); }
 		[Test]
 		public void CreateOuterObject() { RunTestWithDependencies(); }

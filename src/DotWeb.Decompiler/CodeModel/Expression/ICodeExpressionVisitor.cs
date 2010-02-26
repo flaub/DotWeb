@@ -25,6 +25,7 @@ namespace DotWeb.Decompiler.CodeModel
 	public interface ICodeExpressionVisitor
 		: ICodeVisitor<CodeArrayCreateExpression>
 		, ICodeVisitor<CodeArrayIndexerExpression>
+		, ICodeVisitor<CodeArrayInitializeExpression>
 		, ICodeVisitor<CodeBinaryExpression>
 		, ICodeVisitor<CodeCastExpression>
 		, ICodeVisitor<CodeInstanceOfExpression>
@@ -50,6 +51,7 @@ namespace DotWeb.Decompiler.CodeModel
 	public interface ICodeExpressionVisitor<Return>
 		: ICodeVisitor<CodeArrayCreateExpression, Return>
 		, ICodeVisitor<CodeArrayIndexerExpression, Return>
+		, ICodeVisitor<CodeArrayInitializeExpression, Return>
 		, ICodeVisitor<CodeBinaryExpression, Return>
 		, ICodeVisitor<CodeCastExpression, Return>
 		, ICodeVisitor<CodeInstanceOfExpression, Return>

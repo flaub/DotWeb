@@ -39,7 +39,7 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeArrayCreateExpression obj) {
-			return obj.Type;
+			return new ArrayType(obj.Type);
 		}
 
 		public TypeReference VisitReturn(CodeArrayIndexerExpression obj) {
@@ -103,9 +103,7 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeLengthReference obj) {
-			Debug.Assert(false);
-//			return typeof(int);
-			return null;
+			throw new NotSupportedException();
 		}
 
 		public TypeReference VisitReturn(CodeMethodReference obj) {
@@ -135,5 +133,8 @@ namespace DotWeb.Decompiler
 			return def.ReturnType.ReturnType;
 		}
 
+		public TypeReference VisitReturn(CodeArrayInitializeExpression obj) {
+			return new ArrayType(obj.ElementType);
+		}
 	}
 }

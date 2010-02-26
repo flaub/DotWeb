@@ -211,18 +211,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			if (value == null)
 				return "null";
 
-			Type type = value.GetType();
-			if (type.IsArray) {
-				return PrintArray((Array)value);
+			if (value is string) {
+				return string.Format("\"{0}\"", value);
 			}
-
-			switch (type.Name) {
-				case "String":
-					return string.Format("\"{0}\"", value);
-				case "Boolean":
-					return ((bool)value) ? "true" : "false";
-				default:
-					return value.ToString();
+			else if (value is bool) {
+				return ((bool)value) ? "true" : "false";
+			}
+			else {
+				return value.ToString();
 			}
 		}
 
@@ -456,6 +452,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			string size = Print(exp.SizeExpression);
 			//return string.Format("new /*{0}*/Array({1})", Print(exp.Type), size);
 			return string.Format("new Array({0})", size);
+		}
+
+		public string VisitReturn(CodeArrayInitializeExpression obj) {
+			return PrintArray(obj.InitialValues);
 		}
 
 		public string VisitReturn(CodeObjectCreateExpression exp) {

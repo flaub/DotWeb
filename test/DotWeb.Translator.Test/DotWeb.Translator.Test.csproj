@@ -57,7 +57,14 @@
     </Compile>
     <None Include="Script\Conditionals.cs" />
     <Compile Include="ConditionalsTest.cs" />
+    <Compile Include="ArraysTest.cs" />
+    <Compile Include="Arrays.Designer.cs">
+      <DependentUpon>Arrays.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="GraphLibrary.cs" />
+    <None Include="Script\Arrays.cs" />
     <Compile Include="StructureConditionalsTest.cs" />
     <Compile Include="StructureLoopsTest.cs" />
     <Compile Include="GraphBuilderTest.cs" />
@@ -94,6 +101,10 @@
     <Compile Include="TypeSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expected\Arrays\CreateDoubleArray.js" />
+    <Content Include="Expected\Arrays\CreateIntArray.js" />
+    <Content Include="Expected\Arrays\CreateStringArray.js" />
+    <Content Include="Expected\Arrays\CreateArrayOfArrays.js" />
     <Content Include="Expected\Conditionals\IfNotAndCall.js" />
     <Content Include="Expected\Conditionals\IfAndOr.js" />
     <Content Include="Expected\Conditionals\IfAndAnd.js" />
@@ -169,7 +180,7 @@
     <Content Include="Expected\SourceTest\Cifuentes.js" />
     <Content Include="Expected\SourceTest\CreateInnerObject.js" />
     <Content Include="Expected\SourceTest\CreateOuterObject.js" />
-    <Content Include="Expected\SourceTest\EnumArray.js" />
+    <Content Include="Expected\Arrays\EnumArray.js" />
     <Content Include="Expected\SourceTest\HelloWorld.js" />
     <Content Include="Expected\SourceTest\Indexer.js" />
     <Content Include="Expected\SourceTest\Linq.js" />
@@ -205,6 +216,10 @@
     <EmbeddedResource Include="Conditionals.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Conditionals.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Arrays.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Arrays.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphBuilderTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>

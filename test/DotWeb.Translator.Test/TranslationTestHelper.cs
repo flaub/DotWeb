@@ -73,8 +73,17 @@ namespace DotWeb.Translator.Test
 
 		protected void TestMethod(TypeDefinition type, string methodName, string expected, bool followDependencies) {
 			string result = GenerateMethod(type, methodName, followDependencies);
-			string lhs = expected.Trim();
 			string rhs = result.Trim();
+
+			if (expected == null) {
+				Console.WriteLine("Actual:");
+				Console.WriteLine(rhs);
+
+				Assert.Fail("Expected is null");
+				return;
+			}
+
+			string lhs = expected.Trim();
 
 			Console.WriteLine("Expected:");
 			Console.WriteLine(lhs);

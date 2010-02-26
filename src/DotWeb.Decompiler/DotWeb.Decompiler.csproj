@@ -65,6 +65,7 @@
     <Compile Include="CodeModel\Expression\CodeParameterDeclarationExpression.cs" />
     <Compile Include="CodeModel\Expression\CodePrimitiveExpression.cs" />
     <Compile Include="CodeModel\Expression\CodeUnaryExpression.cs" />
+    <Compile Include="CodeModel\Expression\CodeArrayInitializeExpression.cs" />
     <Compile Include="CodeModel\Expression\ICodeExpressionVisitor.cs" />
     <Compile Include="CodeModel\Expression\Reference\CodeArgumentReference.cs" />
     <Compile Include="CodeModel\Expression\Reference\CodeFieldReference.cs" />

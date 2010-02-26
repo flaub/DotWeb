@@ -9,8 +9,9 @@ H8.Derived = function() {
 H8.Derived.$extend(H8.Base);
 
 H8.Derived.NextId = function() {
-	H8.Derived.counter = H8.Derived.counter + 1;
-	return H8.Derived.counter;
+	var D_0 = H8.Derived.counter;
+	H8.Derived.counter = D_0 + 1;
+	return D_0;
 };
 
 H8.Base.prototype.$ctor = function() {

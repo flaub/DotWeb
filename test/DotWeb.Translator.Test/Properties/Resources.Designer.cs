@@ -561,25 +561,6 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.SourceTests.prototype.EnumArray = function() {
-        ///	var array = [1, 2, 3, 4];
-        ///	var CS$6$0000 = array;
-        ///	var CS$7$0001 = 0;
-        ///	while (CS$7$0001 &lt; CS$6$0000.length) {
-        ///		var item = CS$6$0000[CS$7$0001];
-        ///		System.Console.WriteLine$0(item);
-        ///		CS$7$0001 = CS$7$0001 + 1;
-        ///	}
-        ///};
-        ///.
-        /// </summary>
-        internal static string EnumArray {
-            get {
-                return ResourceManager.GetString("EnumArray", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to H8.SourceTests.prototype.GitHub_Issue3 = function() {
         ///	new jQueryTest($doc);
         ///};
@@ -1013,17 +994,16 @@ namespace DotWeb.Translator.Test.Properties {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1_Enumerator = function() {
+        ///System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
+        ///	this.items.push(item);
         ///};
         ///
-        ///System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
-        ///	this.list = list;
-        ///	this.index = 0;
-        ///	this.current = null;
-        ///	return this;
+        ///System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
+        ///	var V_0 = this.items.indexOf(item);
+        ///	return V_0;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.GetEnumerator = functi [rest of string was truncated]&quot;;.
+        ///System.Collections.Generic.List$1.prototype.toString = function [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestGenericMethod {
             get {
