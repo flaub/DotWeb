@@ -37,6 +37,8 @@ namespace DotWeb.Hosting.Weaver
 			public const string DotWebSystem = "DotWeb.System";
 			public const string DotWebSystemDll = "DotWeb.System.dll";
 			public const string Mscorlib = "mscorlib";
+			public const string SystemCore = "System.Core";
+			public const string SystemCoreDll = "System.Core.dll";
 			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
 		}
 
@@ -45,8 +47,7 @@ namespace DotWeb.Hosting.Weaver
 		private string outputDir;
 		private GlobalAssemblyResolver asmResolver = new GlobalAssemblyResolver();
 		private Dictionary<string, ITypeResolver> modules = new Dictionary<string, ITypeResolver>();
-		private static ExternalAssembly asmMscorlib;
-		
+
 		public HostingWeaver(string inputDir, string outputDir, string[] searchDirs, bool forceBuild) {
 			this.inputDir = inputDir;
 			this.outputDir = outputDir;
@@ -60,18 +61,25 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			PrepareMscorlib();
+			PrepareSystemCore();
+		}
+
+		private ExternalAssembly LoadSystemAssembly(Type sysType) {
+			var asm = sysType.Assembly;
+			var asmName = AssemblyNameReference.Parse(asm.FullName);
+			var asmDef = this.asmResolver.Resolve(asmName);
+			return new ExternalAssembly(this, asm);
 		}
 
 		private void PrepareMscorlib() {
-			if (asmMscorlib == null) {
-				var sysType = typeof(object);
-				var asm = sysType.Assembly;
-				var asmName = AssemblyNameReference.Parse(asm.FullName);
+			var asm = LoadSystemAssembly(typeof(object));
+			this.modules.Add(ConstantNames.Mscorlib, asm);
+		}
 
-				var asmDef = this.asmResolver.Resolve(asmName);
-				asmMscorlib = new ExternalAssembly(this, asm);
-			}
-			this.modules.Add(ConstantNames.Mscorlib, asmMscorlib);
+		private void PrepareSystemCore() {
+			var asm = LoadSystemAssembly(typeof(Action));
+			this.modules.Add(ConstantNames.SystemCore, asm);
+			this.modules.Add(ConstantNames.SystemCoreDll, asm);
 		}
 
 		private void PrepareDotWebSystem() {
@@ -98,13 +106,18 @@ namespace DotWeb.Hosting.Weaver
 				}
 			}
 
-			return ProcessAssembly(asmDef).Assembly;
+			return ProcessAssembly(asmDef, new HashSet<string>()).Assembly;
 		}
 
 		// depth-first recursion so that we make sure to re-weave dependant assemblies when necessary
-		private IAssembly ProcessAssembly(AssemblyDefinition asmDef) {
+		private IAssembly ProcessAssembly(AssemblyDefinition asmDef, HashSet<string> visited) {
 			var dependencyChanged = false;
 			foreach (AssemblyNameReference asmRef in asmDef.MainModule.AssemblyReferences) {
+				if (visited.Contains(asmRef.Name))
+					continue;
+
+				visited.Add(asmRef.Name);
+
 				if (this.modules.ContainsKey(asmRef.Name))
 					continue;
 
@@ -114,7 +127,7 @@ namespace DotWeb.Hosting.Weaver
 				}
 
 				var child = this.asmResolver.Resolve(asmRef);
-				var childAsm = ProcessAssembly(child);
+				var childAsm = ProcessAssembly(child, visited);
 				if (childAsm is AssemblyProcessor) {
 					// otherwise it'd be an ExternalAssembly and thus didn't need processing
 					dependencyChanged = true;

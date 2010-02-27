@@ -15,7 +15,7 @@ namespace DotWeb.Functional.Test.Client
 			this.container = container;
 			this.table = ElementFactory.CreateTable();
 			this.table.id = "dotweb-unit";
-			this.table.innerHTML = 
+			this.table.innerHTML =
 				"<thead><tr><th>Test Name</th><th>Expected</th><th>Actual</th></tr></thead><tbody></tbody>";
 			this.container.appendChild(this.table);
 		}
@@ -58,6 +58,17 @@ namespace DotWeb.Functional.Test.Client
 			}
 			catch (Exception ex) {
 				AddRow(name, expectedString, ex.ToString(), false);
+			}
+		}
+
+		public void ExpectException(string name, string expectedException, Action action) {
+			try {
+				action();
+				AddRow(name, expectedException, "<None>", false);
+			}
+			catch (Exception ex) {
+				var actualException = ex.GetTypeName();
+				AddRow(name, expectedException, actualException, expectedException == actualException);
 			}
 		}
 	}

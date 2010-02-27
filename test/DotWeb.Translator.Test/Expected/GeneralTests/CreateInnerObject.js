@@ -1,7 +1,4 @@
-﻿$Namespace('H8');
-
-H8.GeneralTests_InnerClassTest = function() {
-};
+﻿$Class(null, 'H8', 'GeneralTests_InnerClassTest');
 
 H8.GeneralTests_InnerClassTest.prototype.set_Text = function(value) {
 	this._Text_k__BackingField = value;
@@ -29,17 +26,13 @@ H8.GeneralTests_InnerClassTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$3 = function(format, arg0, arg1) {
 	console.log(format);
 };
 
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.CreateInnerObject = function() {
 	var test1 = new H8.GeneralTests_InnerClassTest().$ctor$1("Test1", 1);

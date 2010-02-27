@@ -1,7 +1,4 @@
-﻿$Namespace('System');
-
-System.Exception = function() {
-};
+﻿$Class(null, 'System', 'Exception');
 
 System.Exception.prototype.set_Message = function(value) {
 	this._Message_k__BackingField = value;
@@ -12,47 +9,34 @@ System.Exception.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-System.SystemException = function() {
-	this.$super.constructor();
-};
-System.SystemException.$extend(System.Exception);
+$Class(System.Exception, 'System', 'SystemException');
 
 System.SystemException.prototype.$ctor$0 = function() {
 	this.$super.$ctor$1("System error.");
 	return this;
 };
 
-System.NotImplementedException = function() {
-	this.$super.constructor();
-};
-System.NotImplementedException.$extend(System.SystemException);
+$Class(System.SystemException, 'System', 'NotImplementedException');
 
 System.NotImplementedException.prototype.$ctor$0 = function() {
 	this.$super.$ctor$0();
 	return this;
 };
 
-$Namespace('H8');
-
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.SourceTests_SimpleEvent = function() {
 	throw new System.NotImplementedException().$ctor$0();
 };
 
-System.NotSupportedException = function() {
-	this.$super.constructor();
-};
-System.NotSupportedException.$extend(System.SystemException);
+$Class(System.SystemException, 'System', 'NotSupportedException');
 
 System.NotSupportedException.prototype.$ctor$0 = function() {
 	this.$super.$ctor$0();
 	return this;
 };
 
-System.Delegate = function() {
-};
+$Class(null, 'System', 'Delegate');
 
 System.Delegate.Combine = function(a, b) {
 	throw new System.NotSupportedException().$ctor$0();

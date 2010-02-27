@@ -1,16 +1,10 @@
-﻿$Namespace('System');
-
-System.Console = function() {
-};
+﻿$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Namespace('H8');
-
-H8.DecorationTests = function() {
-};
+$Class(null, 'H8', 'DecorationTests');
 
 H8.DecorationTests.prototype.TestJsAnonymous = function() {
 	var __g__initLocal0 = {};

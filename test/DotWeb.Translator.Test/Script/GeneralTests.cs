@@ -520,6 +520,13 @@ namespace H8
 			Console.WriteLine("begin \"quoted\" end");
 		}
 
+		class ClientScriptClass : JsScript
+		{
+			public ClientScriptClass() {
+				Console.WriteLine("Hello");
+			}
+		}
+
 		public void ClientScript() {
 			new ClientScriptClass();
 		}
@@ -533,10 +540,27 @@ namespace H8
 			}
 		}
 
-		class ClientScriptClass : JsScript
-		{
-			public ClientScriptClass() {
-				Console.WriteLine("Hello");
+		public void ExpectExceptionTest() {
+			ExpectException("System.ArgumentOutOfRangeException",
+				() => {
+					throw new ArgumentOutOfRangeException();
+				}
+			);
+		}
+
+		private void ExpectException(string name, Action action) {
+			try {
+				action();
+				Console.WriteLine("Exception expected");
+			}
+			catch (Exception ex) {
+				var actual = ex.GetTypeName();
+				if (name == actual) {
+					Console.WriteLine("Correct exception thrown");
+				}
+				else {
+					Console.WriteLine("Incorrect exception thrown");
+				}
 			}
 		}
 	}

@@ -70,10 +70,15 @@ namespace DotWeb.Functional.Test.Client
 			list.RemoveAt(0);
 			view.AreStringsEqual("list.RemoveAt(0)", "[ b,x,y,z,zz ]", list);
 
-			list.RemoveAt(-1);
-
-			list.RemoveAt(5);
+			list.RemoveAt(4);
 			view.AreStringsEqual("list.RemoveAt(5)", "[ b,x,y,z ]", list);
+
+			var strArgOutOfRange = "System.ArgumentOutOfRangeException";
+			view.ExpectException("list.Insert(5, 'zz')", strArgOutOfRange, () => list.Insert(5, "zz"));
+			view.ExpectException("list.RemoveAt(-1)", strArgOutOfRange, () => list.RemoveAt(-1));
+			view.ExpectException("list.RemoveAt(4)", strArgOutOfRange, () => list.RemoveAt(4));
+			view.ExpectException("x = list[4]", strArgOutOfRange, () => { var x = list[4]; });
+			view.ExpectException("list[4] = x", strArgOutOfRange, () => { list[4] = "x"; });
 
 			var list2 = new List<int>();
 			list2.Add(0);

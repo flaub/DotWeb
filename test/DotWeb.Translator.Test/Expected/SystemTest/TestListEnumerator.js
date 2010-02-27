@@ -1,15 +1,11 @@
-﻿$Namespace('System.Collections.Generic');
-
-System.Collections.Generic.List$1 = function() {
-};
+﻿$Class(null, 'System.Collections.Generic', 'List$1');
 
 System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
 	return this;
 };
 
-System.Collections.Generic.List$1_Enumerator = function() {
-};
+$Class(null, 'System.Collections.Generic', 'List$1_Enumerator');
 
 System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
 	this.list = list;
@@ -35,7 +31,53 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNextRare = function()
 	return V_0;
 };
 
+$Class(null, 'System', 'Exception');
+
+$Class(System.Exception, 'System', 'SystemException');
+
+$Class(System.SystemException, 'System', 'ArgumentException');
+
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+
+System.ArgumentOutOfRangeException.get_RangeMessage = function() {
+	var V_0 = "Specified argument was out of the range of valid values.";
+	return V_0;
+};
+
+System.Exception.prototype.set_Message = function(value) {
+	this._Message_k__BackingField = value;
+};
+
+System.Exception.prototype.$ctor$1 = function(message) {
+	this.set_Message(message);
+	return this;
+};
+
+System.SystemException.prototype.$ctor$1 = function(message) {
+	this.$super.$ctor$1(message);
+	return this;
+};
+
+System.ArgumentException.prototype.set_ParamName = function(value) {
+	this._ParamName_k__BackingField = value;
+};
+
+System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
+	this.$super.$ctor$1(message);
+	this.set_ParamName(paramName);
+	return this;
+};
+
+System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
+	this.$super.$ctor$3(System.ArgumentOutOfRangeException.get_RangeMessage(), paramName);
+	return this;
+};
+
 System.Collections.Generic.List$1.prototype.get_Item = function(index) {
+	var V_1 = index < this.items.length;
+	if (!V_1) {
+		throw new System.ArgumentOutOfRangeException().$ctor$1("index");
+	}
 	var V_0 = this.items[index];
 	return V_0;
 };
@@ -59,10 +101,7 @@ System.Collections.Generic.List$1_Enumerator.prototype.get_Current = function() 
 	return V_0;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$1 = function(value) {
 	console.log(value);
@@ -71,10 +110,7 @@ System.Console.WriteLine$1 = function(value) {
 System.Collections.Generic.List$1_Enumerator.prototype.Dispose = function() {
 };
 
-$Namespace('H8');
-
-H8.SystemTests = function() {
-};
+$Class(null, 'H8', 'SystemTests');
 
 H8.SystemTests.prototype.TestListEnumerator = function() {
 	var list = new System.Collections.Generic.List$1().$ctor$0();

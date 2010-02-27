@@ -1,7 +1,4 @@
-﻿$Namespace('System.Collections.Generic');
-
-System.Collections.Generic.List$1 = function() {
-};
+﻿$Class(null, 'System.Collections.Generic', 'List$1');
 
 System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
@@ -17,10 +14,7 @@ System.Collections.Generic.List$1.prototype.toString = function() {
 	return V_0;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$1 = function(value) {
 	console.log(value);
@@ -35,8 +29,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-System.Collections.Generic.List$1___c__DisplayClass5 = function() {
-};
+$Class(null, 'System.Collections.Generic', 'List$1___c__DisplayClass5');
 
 System.Collections.Generic.List$1___c__DisplayClass5.prototype.$ctor = function() {
 	return this;
@@ -69,10 +62,7 @@ System.Collections.Generic.List$1.prototype.Remove$0 = function(item) {
 	return V_1;
 };
 
-$Namespace('H8');
-
-H8.SystemTests = function() {
-};
+$Class(null, 'H8', 'SystemTests');
 
 H8.SystemTests.prototype.TestList = function() {
 	var list = new System.Collections.Generic.List$1().$ctor$0();

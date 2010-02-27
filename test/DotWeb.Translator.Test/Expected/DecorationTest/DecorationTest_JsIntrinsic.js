@@ -1,23 +1,16 @@
-﻿$Namespace('H8');
-
-H8.IntrinsicClass = function() {
-};
+﻿$Class(null, 'H8', 'IntrinsicClass');
 
 H8.IntrinsicClass.prototype.$ctor = function() {
 	return this;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.Write = function(value) {
 	console.log(value);
 };
 
-H8.DecorationTests = function() {
-};
+$Class(null, 'H8', 'DecorationTests');
 
 H8.DecorationTests.prototype.TestJsIntrinsic = function() {
 	var __g__initLocal3 = new H8.IntrinsicClass().$ctor();

@@ -1,4 +1,4 @@
-﻿// Copyright 2009, Frank Laub
+﻿// Copyright 2010, Frank Laub
 // 
 // This file is part of DotWeb.
 // 
@@ -15,19 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
+using SysAttribute = System.Attribute;
 
 #if HOSTED_MODE
-using DotWeb.System.DotWeb;
-namespace DotWeb.System
+namespace DotWeb.System.Runtime.CompilerServices
 #else
-using System.DotWeb;
-namespace System
+namespace System.Runtime.CompilerServices
 #endif
 {
-	[UseSystem]
-	public class Type
+	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Assembly)]
+	public sealed class ExtensionAttribute : SysAttribute
 	{
-		public string Name { get; private set; }
-		public string FullName { get; private set; }
+		public ExtensionAttribute() { }
 	}
 }

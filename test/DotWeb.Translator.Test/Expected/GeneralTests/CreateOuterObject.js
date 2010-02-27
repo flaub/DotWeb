@@ -1,7 +1,4 @@
-﻿$Namespace('H8');
-
-H8.OuterClassTest = function() {
-};
+﻿$Class(null, 'H8', 'OuterClassTest');
 
 H8.OuterClassTest.prototype.set_Text = function(value) {
 	this._Text_k__BackingField = value;
@@ -29,17 +26,13 @@ H8.OuterClassTest.prototype.get_Value = function() {
 	return this.m_value;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$3 = function(format, arg0, arg1) {
 	console.log(format);
 };
 
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.CreateOuterObject = function() {
 	var test1 = new H8.OuterClassTest().$ctor$1("Test1", 1);

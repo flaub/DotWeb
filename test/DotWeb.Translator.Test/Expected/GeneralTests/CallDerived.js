@@ -1,12 +1,6 @@
-﻿$Namespace('H8');
+﻿$Class(null, 'H8', 'Base');
 
-H8.Base = function() {
-};
-
-H8.Derived = function() {
-	this.$super.constructor();
-};
-H8.Derived.$extend(H8.Base);
+$Class(H8.Base, 'H8', 'Derived');
 
 H8.Derived.NextId = function() {
 	var D_0 = H8.Derived.counter;
@@ -31,8 +25,7 @@ H8.Derived.prototype.DerviedMethod = function() {
 	this.BaseMethod();
 };
 
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.CallDerived = function() {
 	var derived = new H8.Derived().$ctor$0();

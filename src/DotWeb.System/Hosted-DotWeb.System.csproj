@@ -90,6 +90,7 @@
     <Compile Include="RuntimeFieldHandle.cs" />
     <Compile Include="RuntimeTypeHandle.cs" />
     <Compile Include="Runtime\CompilerServices\CompilerGeneratedAttribute.cs" />
+    <Compile Include="Runtime\CompilerServices\ExtensionAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\MethodImplAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />
     <Compile Include="Runtime\InteropServices\ComVisibleAttribute.cs" />

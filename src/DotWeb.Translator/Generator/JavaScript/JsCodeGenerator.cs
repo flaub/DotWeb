@@ -111,7 +111,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("}}");
 			if (stmt.Catches.Any()) {
 				WriteLine("catch (__ex__) {{");
-				WriteLine("console.log(__ex__);");
+				//WriteLine("console.log(__ex__);");
 				this.writer.Indent++;
 				bool isFirst = true;
 				foreach (var catchClause in stmt.Catches) {
@@ -284,33 +284,19 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public void WriteTypeConstructor(TypeDefinition type) {
 			if(AttributeHelper.IsAnonymous(type, this.typeSystem))
 				return;
-
-			string typeName = Print(type);
 			
-			//bool isNative = false;// FIXME: type.IsSubclassOf(typeof(JsNativeBase));
-			//if (isNative) {
-			//    WriteLine("if(typeof({0}) == 'undefined') {{", typeName);
-			//    this.writer.Indent++;
-			//}
-
-			WriteLine("{0} = function() {{", typeName);
-			bool hasBase = type.HasBase(this.typeSystem);
-			this.writer.Indent++;
-			if (hasBase) {
-				WriteLine("this.$super.constructor();");
+			// $Class(System.BaseClass, '', 'Class');
+			string parent;
+			if (type.HasBase(this.typeSystem)) {
+				parent = Print(type.BaseType);
 			}
-			// field initializers go here
-			this.writer.Indent--;
-			WriteLine("}};");
-
-			if (hasBase) {
-				WriteLine("{0}.$extend({1});", typeName, Print(type.BaseType));
+			else {
+				parent = "null";
 			}
+			string ns = JsPrinter.EncodeName(JsPrinter.GetNamespace(type));
+			string name = JsPrinter.EncodeName(this.printer.GetTypeName(type));
 
-			//if (isNative) {
-			//    this.writer.Indent--;
-			//    WriteLine("}}");
-			//}
+			WriteLine("$Class({0}, '{1}', '{2}');", parent, ns, name);
 
 			WriteLine();
 		}

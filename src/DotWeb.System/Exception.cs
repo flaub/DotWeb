@@ -88,7 +88,7 @@ namespace System
 		public ArgumentException(string message) : base(message) { }
 		public ArgumentException(string message, SysException inner) : base(message, inner) { }
 
-		public ArgumentException(string paramName, string message)
+		public ArgumentException(string message, string paramName)
 			: base(message) {
 			this.ParamName = paramName;
 		}
@@ -136,18 +136,17 @@ namespace System
 		}
 
 		public virtual object ActualValue { get; private set; }
+
 		public override string Message {
 			get {
 				string message = base.Message;
 				if (this.ActualValue == null) {
 					return message;
 				}
-				//string str2 = string.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_ActualValue"), this.m_actualValue.ToString());
 				string str2 = "Actual value was " + this.ActualValue.ToString();
 				if (message == null) {
 					return str2;
 				}
-				//return (message + Environment.NewLine + str2);
 				return message + "\n" + str2;
 			}
 		}
@@ -156,4 +155,14 @@ namespace System
 			get { return "Specified argument was out of the range of valid values."; }
 		}
 	}
+
+	[UseSystem]
+	public class InvalidOperationException : SystemException
+	{
+		public InvalidOperationException()
+			: base("Operation is not valid due to the current state of the object.") {
+		}
+		public InvalidOperationException(string message) : base(message) { }
+		public InvalidOperationException(string message, SysException innerException) : base(message, innerException) { }
+ 	}
 }

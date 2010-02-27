@@ -1,7 +1,4 @@
-﻿$Namespace('System');
-
-System.Exception = function() {
-};
+﻿$Class(null, 'System', 'Exception');
 
 System.Exception.prototype.set_Message = function(value) {
 	this._Message_k__BackingField = value;
@@ -12,40 +9,28 @@ System.Exception.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-System.SystemException = function() {
-	this.$super.constructor();
-};
-System.SystemException.$extend(System.Exception);
+$Class(System.Exception, 'System', 'SystemException');
 
 System.SystemException.prototype.$ctor$1 = function(message) {
 	this.$super.$ctor$1(message);
 	return this;
 };
 
-System.ArgumentException = function() {
-	this.$super.constructor();
-};
-System.ArgumentException.$extend(System.SystemException);
+$Class(System.SystemException, 'System', 'ArgumentException');
 
 System.ArgumentException.prototype.$ctor$0 = function() {
 	this.$super.$ctor$1("Value does not fall within the expected range.");
 	return this;
 };
 
-System.ArgumentOutOfRangeException = function() {
-	this.$super.constructor();
-};
-System.ArgumentOutOfRangeException.$extend(System.ArgumentException);
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
 
 System.ArgumentOutOfRangeException.prototype.get_ActualValue = function() {
 	var V_0 = this._ActualValue_k__BackingField;
 	return V_0;
 };
 
-$Namespace('System.Text');
-
-System.Text.StringBuilder = function() {
-};
+$Class(null, 'System.Text', 'StringBuilder');
 
 System.Text.StringBuilder.prototype.$ctor = function() {
 	return this;
@@ -61,18 +46,14 @@ System.Text.StringBuilder.prototype.Append$8 = function(value) {
 	return V_0;
 };
 
-$Namespace('System.Collections.Generic');
-
-System.Collections.Generic.List$1 = function() {
-};
+$Class(null, 'System.Collections.Generic', 'List$1');
 
 System.Collections.Generic.List$1.prototype.toString = function() {
 	var V_0 = "[ " + this.items.toString() + " ]";
 	return V_0;
 };
 
-__f__AnonymousType0$2 = function() {
-};
+$Class(null, '', '__f__AnonymousType0$2');
 
 __f__AnonymousType0$2.prototype.ToString = function() {
 	var V_0 = new System.Text.StringBuilder().$ctor();
@@ -131,24 +112,19 @@ System.ArgumentException.prototype.get_Message = function() {
 	return V_1;
 };
 
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-$Namespace('H8');
-
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.ArgumentException = function() {
 	try {
 		throw new System.ArgumentException().$ctor$0();
 	}
 	catch (__ex__) {
-		console.log(__ex__);
 		if (__ex__ instanceof System.ArgumentException) {
 			var ex = __ex__;
 			System.Console.WriteLine$1(ex.get_Message());

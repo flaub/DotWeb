@@ -108,7 +108,7 @@ namespace DotWeb.Translator
 					GenerateTypeDecl(baseType, typesCache, namespaceCache);
 				}
 
-				GenerateNamespace(type, namespaceCache);
+				//GenerateNamespace(type, namespaceCache);
 				this.generator.WriteTypeConstructor(type);
 				typesCache.Add(type);
 			}

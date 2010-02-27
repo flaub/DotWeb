@@ -1,14 +1,10 @@
-﻿$Namespace('System');
-
-System.Console = function() {
-};
+﻿$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-System.Math = function() {
-};
+$Class(null, 'System', 'Math');
 
 System.Math.Sin = function(a) {
 	return Math.sin(a);
@@ -18,10 +14,7 @@ System.Math.Cos = function(a) {
 	return Math.cos(a);
 };
 
-$Namespace('H8');
-
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
 	System.Console.WriteLine$1(str);

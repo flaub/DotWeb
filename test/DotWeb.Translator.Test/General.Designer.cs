@@ -61,8 +61,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to __f__AnonymousType0$2 = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;&apos;, &apos;__f__AnonymousType0$2&apos;);
         ///
         ///__f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
         ///	this._Key_i__Field = Key;
@@ -78,13 +77,13 @@ namespace DotWeb.Translator.Test {
         ///	return this._Value_i__Field;
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};
+        ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$3 = function(format, arg0, arg1) {
-        ///	console.log(f [rest of string was truncated]&quot;;.
+        ///	console.log(format);
+        ///};
+        ///
+        ///$Class( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AnonymousType {
             get {
@@ -93,23 +92,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.GeneralTests.prototype.HelloWorld = function() {
-        ///	System.Console.WriteLine$1(&quot;Hello World!&quot;);
-        ///};
-        ///
-        ///.
-        /// </summary>
-        internal static string ArgumentException {
-            get {
-                return ResourceManager.GetString("ArgumentException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;System&apos;);
-        ///
-        ///System.Exception = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
         ///
         ///System.Exception.prototype.set_Message = function(value) {
         ///	this._Message_k__BackingField = value;
@@ -120,14 +103,45 @@ namespace DotWeb.Translator.Test {
         ///	return this;
         ///};
         ///
-        ///System.SystemException = function() {
-        ///	this.$super.constructor();
+        ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
+        ///
+        ///System.SystemException.prototype.$ctor$1 = function(message) {
+        ///	this.$super.$ctor$1(message);
+        ///	return this;
         ///};
-        ///System.SystemException.$extend(System.Exception);
+        ///
+        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;);
+        ///
+        ///System.ArgumentE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ArgumentException {
+            get {
+                return ResourceManager.GetString("ArgumentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///
+        ///System.Exception.prototype.set_Message = function(value) {
+        ///	this._Message_k__BackingField = value;
+        ///};
+        ///
+        ///System.Exception.prototype.$ctor$1 = function(message) {
+        ///	this.set_Message(message);
+        ///	return this;
+        ///};
+        ///
+        ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
         ///
         ///System.SystemException.prototype.$ctor$0 = function() {
         ///	this.$super.$ctor$1(&quot;System error.&quot;);
-        ///	return thi [rest of string was truncated]&quot;;.
+        ///	return this;
+        ///};
+        ///
+        ///$Class(System.SystemException, &apos;System&apos;, &apos;NotImplementedException&apos;);
+        ///
+        ///System.No [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Callback {
             get {
@@ -136,15 +150,9 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;Base&apos;);
         ///
-        ///H8.Base = function() {
-        ///};
-        ///
-        ///H8.Derived = function() {
-        ///	this.$super.constructor();
-        ///};
-        ///H8.Derived.$extend(H8.Base);
+        ///$Class(H8.Base, &apos;H8&apos;, &apos;Derived&apos;);
         ///
         ///H8.Derived.NextId = function() {
         ///	var D_0 = H8.Derived.counter;
@@ -165,7 +173,11 @@ namespace DotWeb.Translator.Test {
         ///H8.Base.prototype.BaseMethod = function() {
         ///};
         ///
-        ///H8.Derived.protot [rest of string was truncated]&quot;;.
+        ///H8.Derived.prototype.DerviedMethod = function() {
+        ///	this.BaseMethod();
+        ///};
+        ///
+        ///$Class(null, &apos; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallDerived {
             get {
@@ -174,17 +186,13 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$1 = function(value) {
         ///	console.log(value);
         ///};
         ///
-        ///System.Math = function() {
-        ///};
+        ///$Class(null, &apos;System&apos;, &apos;Math&apos;);
         ///
         ///System.Math.Sin = function(a) {
         ///	return Math.sin(a);
@@ -194,14 +202,15 @@ namespace DotWeb.Translator.Test {
         ///	return Math.cos(a);
         ///};
         ///
-        ///$Namespace(&apos;H8&apos;);
-        ///
-        ///H8.GeneralTests = function() {
-        ///};
+        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
         ///
         ///H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
         ///	System.Console.WriteLine$1(str);
-        ///	var x = System.Math.Sin(rad[value] * 1.570795 [rest of string was truncated]&quot;;.
+        ///	var x = System.Math.Sin(rad[value] * 1.570795);
+        ///	return System.Math.Cos(x);
+        ///};
+        ///
+        ///Syst [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallTakeParameters {
             get {
@@ -245,32 +254,29 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;DotWeb.Client&apos;);
-        ///
-        ///DotWeb.Client.JsScript = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;DotWeb.Client&apos;, &apos;JsScript&apos;);
         ///
         ///DotWeb.Client.JsScript.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};
+        ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$1 = function(value) {
         ///	console.log(value);
         ///};
         ///
-        ///$Namespace(&apos;H8&apos;);
+        ///$Class(DotWeb.Client.JsScript, &apos;H8&apos;, &apos;GeneralTests_ClientScriptClass&apos;);
         ///
-        ///H8.GeneralTests_ClientScriptClass = function() {
-        ///	this.$super.constructor();
+        ///H8.GeneralTests_ClientScriptClass.prototype.$ctor = function() {
+        ///	this.$super.$ctor();
+        ///	System.Console.WriteLine$1(&quot;Hello&quot;);
+        ///	return this;
         ///};
-        ///H8.GeneralTests_ClientScriptClass.$extend(DotWeb.Client.JsScript);
         ///
-        ///H8.GeneralTests_ClientScriptClass.prototype.$ct [rest of string was truncated]&quot;;.
+        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
+        ///
+        ///H8.GeneralTes [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ClientScript {
             get {
@@ -308,10 +314,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.GeneralTests_InnerClassTest = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests_InnerClassTest&apos;);
         ///
         ///H8.GeneralTests_InnerClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
@@ -327,7 +330,9 @@ namespace DotWeb.Translator.Test {
         ///	return this;
         ///};
         ///
-        ///H8.GeneralTests_InnerClassTest.prototype.$ctor$0 = function() [rest of string was truncated]&quot;;.
+        ///H8.GeneralTests_InnerClassTest.prototype.$ctor$0 = function() {
+        ///	return this;
+        ///} [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateInnerObject {
             get {
@@ -336,10 +341,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.OuterClassTest = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;OuterClassTest&apos;);
         ///
         ///H8.OuterClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
@@ -360,7 +362,7 @@ namespace DotWeb.Translator.Test {
         ///};
         ///
         ///H8.OuterClassTest.prototype.get_Text = function() {
-        ///	r [rest of string was truncated]&quot;;.
+        ///	return this._Text_k__ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateOuterObject {
             get {
@@ -384,6 +386,21 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.GeneralTests.prototype.EscapeStringLiterals = function() {
+        ///	System.Console.WriteLine$1(&quot;line 1\nline 2&quot;);
+        ///	System.Console.WriteLine$1(&quot;\tindented&quot;);
+        ///	System.Console.WriteLine$1(&quot;x\\y&quot;);
+        ///	System.Console.WriteLine$1(&quot;begin \&quot;quoted\&quot; end&quot;);
+        ///};
+        ///.
+        /// </summary>
+        internal static string ExpectExceptionTest {
+            get {
+                return ResourceManager.GetString("ExpectExceptionTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to H8.GeneralTests.prototype.GitHub_Issue3 = function() {
         ///	new jQueryTest($doc);
         ///};
@@ -396,10 +413,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.GeneralTests = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
         ///
         ///H8.GeneralTests._GitHub_Issue4_b__2 = function() {
         ///	$wnd.alert(&quot;test&quot;);
@@ -421,10 +435,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;GitHub_Issue5&apos;);
-        ///
-        ///GitHub_Issue5.Class1 = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;GitHub_Issue5&apos;, &apos;Class1&apos;);
         ///
         ///GitHub_Issue5.Class1._$ctor_b__0 = function() {
         ///	$wnd.alert(&quot;test&quot;);
@@ -439,7 +450,7 @@ namespace DotWeb.Translator.Test {
         ///	if (!GitHub_Issue5.Class1.CS$__9__CachedAnonymousMethodDelegate1) {
         ///		GitHub_Issue5.Class1.CS$__9__CachedAnonymousMethodDelegate1 = $Delegate(GitHub_Issue5.Class1, GitHub_Issue5.Class1._$ctor_b__0);
         ///	}
-        ///	R_1.Ca [rest of string was truncated]&quot;;.
+        ///	R_1.Call(GitHub_Issue5.Class1.CS$__9_ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GitHub_Issue5 {
             get {
@@ -486,26 +497,19 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.IndexerTest = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;IndexerTest&apos;);
         ///
         ///H8.IndexerTest.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///$Namespace(&apos;System&apos;);
-        ///
-        ///System.Console = function() {
-        ///};
+        ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$0 = function(value) {
         ///	console.log(value);
         ///};
         ///
-        ///H8.GeneralTests = function() {
-        ///};
+        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
         ///
         ///H8.GeneralTests.prototype.Indexer = function() {
         ///	var indexer = new H8.IndexerTest().$ctor();
@@ -522,10 +526,7 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.GeneralTests = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
         ///
         ///H8.GeneralTests._Linq_b__2 = function(ch /*System.Char*/) {
         ///	return System.Char.IsDigit(ch);
@@ -536,7 +537,7 @@ namespace DotWeb.Translator.Test {
         ///	if (!H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3) {
         ///		H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.GeneralTests, H8.GeneralTests._Linq_b__2);
         ///	}
-        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.GeneralTests.CS$__9__CachedAnonymo [rest of string was truncated]&quot;;.
+        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3);        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Linq {
             get {
@@ -633,24 +634,19 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Namespace(&apos;H8&apos;);
-        ///
-        ///H8.Generic$1 = function() {
-        ///};
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;Generic$1&apos;);
         ///
         ///H8.Generic$1.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///H8.Generic$1_Nested = function() {
-        ///};
+        ///$Class(null, &apos;H8&apos;, &apos;Generic$1_Nested&apos;);
         ///
         ///H8.Generic$1_Nested.prototype.$ctor = function() {
         ///	return this;
         ///};
         ///
-        ///H8.Generic$1_Nested_Inner = function() {
-        ///};
+        ///$Class(null, &apos;H8&apos;, &apos;Generic$1_Nested_Inner&apos;);
         ///
         ///H8.Generic$1_Nested_Inner.prototype.$ctor = function() {
         ///	return this;
@@ -660,7 +656,8 @@ namespace DotWeb.Translator.Test {
         ///};
         ///
         ///H8.Generic$1_Nested.prototype.Foo = function() {
-        ///	var x = new H8.Generic$1_Nested_Inn [rest of string was truncated]&quot;;.
+        ///	var x = new H8.Generic$1_Nested_Inner().$ctor();
+        ///	x. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestGenericNested {
             get {

@@ -146,6 +146,7 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
     <Content Include="Expected\GeneralTests\ClientScript.js" />
     <Content Include="Expected\GeneralTests\ArgumentException.js" />
+    <Content Include="Expected\GeneralTests\ExpectExceptionTest.js" />
     <Content Include="Expected\GraphBuilderTest\ArgumentException.txt" />
     <Content Include="Expected\GraphBuilderTest\TryCatchFinally.txt" />
     <Content Include="Expected\GraphBuilderTest\Switch.txt" />

@@ -48,6 +48,9 @@ namespace System.Collections.Generic
 
 		public void Insert(int index, T item) {
 			var len = this.items.Length;
+			if (index > len) {
+				throw new ArgumentOutOfRangeException("index");
+			}
 			if (index == 0) {
 				this.items.Unshift(item);
 			}
@@ -78,8 +81,8 @@ namespace System.Collections.Generic
 		/// </exception>
 		/// <param name="index">The zero-based index of the element to remove.</param>
 		public void RemoveAt(int index) {
-			if (index < 0 || index > this.items.Length) {
-				throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.", "index");
+			if (index < 0 || index >= this.items.Length) {
+				throw new ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
 			}
 
 			if (index == 0) {
@@ -97,15 +100,15 @@ namespace System.Collections.Generic
 
 		public T this[int index] {
 			get {
-				//if (index >= this._size) {
-				//    ThrowHelper.ThrowArgumentOutOfRangeException();
-				//}
+				if (index >= this.items.Length) {
+					throw new ArgumentOutOfRangeException("index");
+				}
 				return (T)this.items[index]; 
 			}
 			set {
-				//if (index >= this._size) {
-				//    ThrowHelper.ThrowArgumentOutOfRangeException();
-				//}
+				if (index >= this.items.Length) {
+					throw new ArgumentOutOfRangeException("index");
+				}
 				this.items[index] = value; 
 			}
 		}
@@ -198,15 +201,14 @@ namespace System.Collections.Generic
 
 		object IList.this[int index] {
 			get {
-				//if (index >= this._size) {
-				//    ThrowHelper.ThrowArgumentOutOfRangeException();
-				//}
+				if (index >= this.items.Length)
+					throw new ArgumentOutOfRangeException("index");
 				return this.items[index]; 
 			}
 			set {
-				//if (index >= this._size) {
-				//    ThrowHelper.ThrowArgumentOutOfRangeException();
-				//}
+				if (index >= this.items.Length) {
+					throw new ArgumentOutOfRangeException("index");
+				}
 				this.items[index] = value; 
 			}
 		}
@@ -287,9 +289,9 @@ namespace System.Collections.Generic
 
 			object IEnumerator.Current {
 				get {
-					//if ((this.index == 0) || (this.index == (this.list._size + 1))) {
-					//    ThrowHelper.ThrowInvalidOperationException(ExceptionResource.InvalidOperation_EnumOpCantHappen);
-					//}
+					if ((this.index == 0) || (this.index == (this.list.items.Length + 1))) {
+						throw new InvalidOperationException("Enumeration has either not started or has already finished.");
+					}
 					return this.Current;
 				}
 			}

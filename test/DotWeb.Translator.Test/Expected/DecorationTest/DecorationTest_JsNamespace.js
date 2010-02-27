@@ -1,5 +1,4 @@
-﻿DefaultNamespaceTest = function() {
-};
+﻿$Class(null, '', 'DefaultNamespaceTest');
 
 DefaultNamespaceTest.prototype.$ctor = function() {
 	return this;
@@ -9,10 +8,7 @@ DefaultNamespaceTest.prototype.set_Value = function(value) {
 	this._Value_k__BackingField = value;
 };
 
-$Namespace('Foo');
-
-Foo.FooNamespaceTest = function() {
-};
+$Class(null, 'Foo', 'FooNamespaceTest');
 
 Foo.FooNamespaceTest.prototype.$ctor = function() {
 	return this;
@@ -30,19 +26,13 @@ Foo.FooNamespaceTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Namespace('H8');
-
-H8.DecorationTests = function() {
-};
+$Class(null, 'H8', 'DecorationTests');
 
 H8.DecorationTests.prototype.TestJsNamespace = function() {
 	var __g__initLocal5 = new DefaultNamespaceTest().$ctor();

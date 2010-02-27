@@ -1,7 +1,4 @@
-﻿$Namespace('H8');
-
-H8.GeneralTests = function() {
-};
+﻿$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests._GitHub_Issue4_b__2 = function() {
 	$wnd.alert("test");

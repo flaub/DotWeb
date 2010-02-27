@@ -140,7 +140,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return string.Join(", ", parts);
 		}
 
-		private string GetTypeName(TypeReference type) {
+		public string GetTypeName(TypeReference type) {
 			var typeDef = type.Resolve();
 			if (typeDef.DeclaringType == null) {
 				return typeDef.Name;

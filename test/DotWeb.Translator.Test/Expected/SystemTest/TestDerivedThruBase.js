@@ -1,16 +1,10 @@
-﻿$Namespace('H8');
-
-H8.SystemTests_Base = function() {
-};
+﻿$Class(null, 'H8', 'SystemTests_Base');
 
 H8.SystemTests_Base.prototype.$ctor = function() {
 	return this;
 };
 
-H8.SystemTests_Derived = function() {
-	this.$super.constructor();
-};
-H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
+$Class(H8.SystemTests_Base, 'H8', 'SystemTests_Derived');
 
 H8.SystemTests_Derived.prototype.$ctor = function() {
 	this.$super.$ctor();
@@ -25,8 +19,7 @@ H8.SystemTests_Derived.prototype.Foo = function() {
 	this.Foo();
 };
 
-H8.SystemTests = function() {
-};
+$Class(null, 'H8', 'SystemTests');
 
 H8.SystemTests.prototype.TestDerivedThruBase = function() {
 	var x = new H8.SystemTests_Derived().$ctor();

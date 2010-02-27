@@ -1,7 +1,4 @@
-﻿$Namespace('H8');
-
-H8.DecorationTests = function() {
-};
+﻿$Class(null, 'H8', 'DecorationTests');
 
 H8.DecorationTests.prototype.box_OnMouseOver = function(evt) {
 };

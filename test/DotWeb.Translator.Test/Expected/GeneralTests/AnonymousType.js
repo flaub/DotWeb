@@ -1,5 +1,4 @@
-﻿__f__AnonymousType0$2 = function() {
-};
+﻿$Class(null, '', '__f__AnonymousType0$2');
 
 __f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
 	this._Key_i__Field = Key;
@@ -15,19 +14,13 @@ __f__AnonymousType0$2.prototype.get_Value = function() {
 	return this._Value_i__Field;
 };
 
-$Namespace('System');
-
-System.Console = function() {
-};
+$Class(null, 'System', 'Console');
 
 System.Console.WriteLine$3 = function(format, arg0, arg1) {
 	console.log(format);
 };
 
-$Namespace('H8');
-
-H8.GeneralTests = function() {
-};
+$Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.AnonymousType = function() {
 	var value = new __f__AnonymousType0$2().$ctor("Hi", 1);
