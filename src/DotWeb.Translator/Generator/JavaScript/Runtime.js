@@ -1,10 +1,6 @@
 ﻿$wnd = window;
 $doc = $wnd.document;
 
-function $(id) {
-    return document.getElementById(id);
-}
-
 Object.prototype.$extend = function(superclass) {
 	var tmp = function() {};
 	tmp.prototype = superclass.prototype;
@@ -19,11 +15,9 @@ $Delegate = function(scope, target) {
 	};
 };
 
-$Namespace = function(name) {
-	if (!$wnd.__namespaces) {
-		$wnd.__namespaces = {};
-	}
+$wnd.__namespaces = {};
 
+$Namespace = function(name) {
 	if ($wnd.__namespaces[name]) {
 		return;
 	}

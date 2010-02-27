@@ -6,12 +6,23 @@ namespace DotWeb.Functional.Test.Client
 {
 	class List : JsScript
 	{
+		private TestResultView view;
+
 		public List() {
 			var sandbox = Document.getElementById("sandbox");
-			var view = new TestResultView(sandbox);
+			this.view = new TestResultView(sandbox);
 
 			Log.Write("List test starting");
 
+			try {
+				RunTest();
+			}
+			catch (Exception ex) {
+				Log.Write(ex.Message);
+			}
+		}
+
+		private void RunTest() {
 			var list = new List<string>();
 			list.Add("one");
 			list.Add("two");
@@ -55,6 +66,14 @@ namespace DotWeb.Functional.Test.Client
 
 			list.RemoveAt(2);
 			view.AreStringsEqual("list.RemoveAt(2)", "[ a,b,x,y,z,zz ]", list);
+
+			list.RemoveAt(0);
+			view.AreStringsEqual("list.RemoveAt(0)", "[ b,x,y,z,zz ]", list);
+
+			list.RemoveAt(-1);
+
+			list.RemoveAt(5);
+			view.AreStringsEqual("list.RemoveAt(5)", "[ b,x,y,z ]", list);
 
 			var list2 = new List<int>();
 			list2.Add(0);

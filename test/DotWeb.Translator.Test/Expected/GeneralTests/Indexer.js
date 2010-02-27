@@ -16,10 +16,10 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-H8.SourceTests = function() {
+H8.GeneralTests = function() {
 };
 
-H8.SourceTests.prototype.Indexer = function() {
+H8.GeneralTests.prototype.Indexer = function() {
 	var indexer = new H8.IndexerTest().$ctor();
 	indexer["Test"] = 1;
 	var value = indexer["Test"];

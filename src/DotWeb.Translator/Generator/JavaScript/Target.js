@@ -1,14 +1,18 @@
-﻿Object.prototype.$extend = function(superclass) {
-	var tmp = function() {};
-    tmp.prototype = superclass.prototype;
-    this.prototype = new tmp();
-    this.prototype.constructor = this;
-    this.prototype.$super = tmp.prototype;
+﻿Object.prototype.$extend = function(parent) {
+	var tmp = function() { };
+	tmp.prototype = parent.prototype;
+//	console.log('this is: ' + this);
+	this.prototype = new tmp();
+	this.prototype.constructor = this;
+	this.prototype.$super = tmp.prototype;
 };
 
-function BaseClass() {
-	console.log('BaseClass: fieldInit');
-	// field initializers go here
+$Override = function() {
+};
+
+BaseClass = function() {
+	console.log('BaseClass()');
+	// static initializer if needed
 };
 
 BaseClass.prototype.$ctor = function(id) {
@@ -17,9 +21,9 @@ BaseClass.prototype.$ctor = function(id) {
 	return this;
 };
 
-function Class() {
+Class = function() {
 	this.$super.constructor();
-	console.log('Class: fieldInit');
+	console.log('Class()');
 };
 
 Class.$extend(BaseClass);
@@ -36,9 +40,9 @@ Class.StaticMethod = function() {
 	console.log('Class.StaticMethod');
 };
 
-function Child() {
+Child = function() {
 	this.$super.constructor();
-	console.log('Child: fieldInit');
+	console.log('Child()');
 };
 Child.$extend(Class);
 Child.prototype.$ctor = function(id) {
@@ -64,4 +68,3 @@ var child = new Child().$ctor(2);
 child.Method();
 
 console.log('-----');
-var child2 = new Child();

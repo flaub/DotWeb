@@ -22,9 +22,9 @@ GitHub_Issue5.Class1.prototype.$ctor = function() {
 
 $Namespace('H8');
 
-H8.SourceTests = function() {
+H8.GeneralTests = function() {
 };
 
-H8.SourceTests.prototype.GitHub_Issue5 = function() {
+H8.GeneralTests.prototype.GitHub_Issue5 = function() {
 	new GitHub_Issue5.Class1().$ctor();
 };

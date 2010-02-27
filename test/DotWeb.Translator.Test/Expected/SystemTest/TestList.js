@@ -3,7 +3,7 @@
 System.Collections.Generic.List$1 = function() {
 };
 
-System.Collections.Generic.List$1.prototype.$ctor = function() {
+System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
 	return this;
 };
@@ -75,7 +75,7 @@ H8.SystemTests = function() {
 };
 
 H8.SystemTests.prototype.TestList = function() {
-	var list = new System.Collections.Generic.List$1().$ctor();
+	var list = new System.Collections.Generic.List$1().$ctor$0();
 	list.Add$0("one");
 	System.Console.WriteLine$1(list.toString());
 	var index = list.IndexOf$0("one");

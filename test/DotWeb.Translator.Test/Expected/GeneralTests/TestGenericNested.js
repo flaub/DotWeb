@@ -58,10 +58,10 @@ H8.Generic$1.prototype.Foo = function() {
 	y.Foo();
 };
 
-H8.SourceTests = function() {
+H8.GeneralTests = function() {
 };
 
-H8.SourceTests.prototype.TestGenericNested = function() {
+H8.GeneralTests.prototype.TestGenericNested = function() {
 	var x = new H8.Generic$1().$ctor();
 	x.Foo();
 };

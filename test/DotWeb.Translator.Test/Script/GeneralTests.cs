@@ -112,7 +112,7 @@ namespace H8
 		}
 	}
 
-	public class SourceTests
+	public class GeneralTests
 	{
 		/// <summary>
 		/// .method public hidebysig instance void  HelloWorld() cil managed
@@ -244,30 +244,30 @@ namespace H8
 		public void CreateInnerObject() {
 			//0000: ldstr "Test1" Next
 			//0005: ldc.i4.1 Next
-			//0006: newobj instance void H8.SourceTests+InnerClassTest::.ctor() Call
+			//0006: newobj instance void H8.GeneralTests+InnerClassTest::.ctor() Call
 			//0011: stloc.0 Next
-			//0012: newobj instance void H8.SourceTests+InnerClassTest::.ctor() Call
+			//0012: newobj instance void H8.GeneralTests+InnerClassTest::.ctor() Call
 			//0017: stloc.2 Next
 			//0018: ldloc.2 Next
 			//0019: ldstr "Test2" Next
-			//0024: callvirt instance System.Void H8.SourceTests+InnerClassTest::set_Text() Call
+			//0024: callvirt instance System.Void H8.GeneralTests+InnerClassTest::set_Text() Call
 			//0029: ldloc.2 Next
 			//0030: ldc.i4.2 Next
-			//0031: callvirt instance System.Void H8.SourceTests+InnerClassTest::set_Value() Call
+			//0031: callvirt instance System.Void H8.GeneralTests+InnerClassTest::set_Value() Call
 			//0036: ldloc.2 Next
 			//0037: stloc.1 Next
 			//0038: ldstr "{0}, {1}" Next
 			//0043: ldloc.0 Next
-			//0044: callvirt instance System.String H8.SourceTests+InnerClassTest::get_Text() Call
+			//0044: callvirt instance System.String H8.GeneralTests+InnerClassTest::get_Text() Call
 			//0049: ldloc.0 Next
-			//0050: callvirt instance System.Int32 H8.SourceTests+InnerClassTest::get_Value() Call
+			//0050: callvirt instance System.Int32 H8.GeneralTests+InnerClassTest::get_Value() Call
 			//0055: box System.Int32 Next
 			//0060: call System.Void System.Console::WriteLine() Call
 			//0065: ldstr "{0}, {1}" Next
 			//0070: ldloc.1 Next
-			//0071: callvirt instance System.String H8.SourceTests+InnerClassTest::get_Text() Call
+			//0071: callvirt instance System.String H8.GeneralTests+InnerClassTest::get_Text() Call
 			//0076: ldloc.1 Next
-			//0077: callvirt instance System.Int32 H8.SourceTests+InnerClassTest::get_Value() Call
+			//0077: callvirt instance System.Int32 H8.GeneralTests+InnerClassTest::get_Value() Call
 			//0082: box System.Int32 Next
 			//0087: call System.Void System.Console::WriteLine() Call
 			//0092: ret Return
@@ -294,13 +294,13 @@ namespace H8
 		//    //0000: ldstr "ABCDE99F-J74-12-89A" Next
 		//    //0005: stloc.0 Next
 		//    //0006: ldloc.0 Next
-		//    //0007: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0007: ldsfld System.Func`2[System.Char,System.Boolean] H8.GeneralTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
 		//    //0012: brtrue.s 0031 Cond_Branch
 		//    //0014: ldnull Next
-		//    //0016: ldftn System.Boolean H8.SourceTests::<Linq>b__1() Next
+		//    //0016: ldftn System.Boolean H8.GeneralTests::<Linq>b__1() Next
 		//    //0021: newobj instance void System.Func`2[System.Char,System.Boolean]::.ctor() Call
-		//    //0026: stsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
-		//    //0031: ldsfld System.Func`2[System.Char,System.Boolean] H8.SourceTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0026: stsfld System.Func`2[System.Char,System.Boolean] H8.GeneralTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
+		//    //0031: ldsfld System.Func`2[System.Char,System.Boolean] H8.GeneralTests::CS$<>9__CachedAnonymousMethodDelegate2 Next
 		//    //0036: call System.Collections.Generic.IEnumerable`1[System.Char] System.Linq.Enumerable::Where() Call
 		//    //0041: stloc.1 Next
 		//    //0042: ldloc.1 Next
@@ -511,6 +511,33 @@ namespace H8
 				Console.WriteLine("try2 follow");
 			}
 			Console.WriteLine("exit");
+		}
+
+		public void EscapeStringLiterals() {
+			Console.WriteLine("line 1\nline 2");
+			Console.WriteLine("\tindented");
+			Console.WriteLine("x\\y");
+			Console.WriteLine("begin \"quoted\" end");
+		}
+
+		public void ClientScript() {
+			new ClientScriptClass();
+		}
+
+		public void ArgumentException() {
+			try {
+				throw new ArgumentException();
+			}
+			catch (ArgumentException ex) {
+				Console.WriteLine(ex.Message);
+			}
+		}
+
+		class ClientScriptClass : JsScript
+		{
+			public ClientScriptClass() {
+				Console.WriteLine("Hello");
+			}
 		}
 	}
 }

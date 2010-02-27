@@ -78,5 +78,7 @@ namespace DotWeb.Translator.Test
 		public void Switch() { TestGraph(); }
 		[Test]
 		public void TryCatchFinally() { TestGraph(); }
+		[Test]
+		public void ArgumentException() { TestGraph(); }
 	}
 }

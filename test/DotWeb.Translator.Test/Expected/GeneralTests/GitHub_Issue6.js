@@ -1,9 +1,9 @@
-﻿H8.SourceTests.prototype.GitHub_Issue6 = function(x) {
+﻿H8.GeneralTests.prototype.GitHub_Issue6 = function(x) {
 	System.Console.WriteLine$1("enter");
 	try {
 		System.Console.WriteLine$1("try begin");
 		if (x) {
-			throw new System.NotImplementedException().$ctor();
+			throw new System.NotImplementedException().$ctor$0();
 		}
 		System.Console.WriteLine$1("try end");
 	}

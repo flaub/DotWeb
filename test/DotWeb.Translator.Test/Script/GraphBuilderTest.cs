@@ -87,5 +87,14 @@ namespace H8
 			}
 			Console.WriteLine("exit");
 		}
+
+		public void ArgumentException() {
+			try {
+				throw new ArgumentException();
+			}
+			catch (ArgumentException ex) {
+				Console.WriteLine(ex.Message);
+			}
+		}
 	}
 }

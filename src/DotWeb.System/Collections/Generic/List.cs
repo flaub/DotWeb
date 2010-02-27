@@ -67,7 +67,21 @@ namespace System.Collections.Generic
 			}
 		}
 
+		/// <summary>
+		/// Removes the element at the specified index of the List&lt;T&gt;.
+		/// </summary>
+		/// <remarks>
+		/// This method is an O(n) operation, where n is (Count - index).
+		/// </remarks>
+		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// index is less than 0.  -or- index is equal to or greater than <see cref="Count"/>.
+		/// </exception>
+		/// <param name="index">The zero-based index of the element to remove.</param>
 		public void RemoveAt(int index) {
+			if (index < 0 || index > this.items.Length) {
+				throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.", "index");
+			}
+
 			if (index == 0) {
 				this.items.Shift();
 			}

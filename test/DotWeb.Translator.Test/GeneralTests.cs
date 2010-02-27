@@ -23,10 +23,10 @@ using Mono.Cecil;
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
-	public class TranslationTest : TestBase
+	public class GeneralTests : TestBase
 	{
-		public TranslationTest()
-			: base("DotWeb.Translator.Test.Script", "H8.SourceTests", Resources.ResourceManager, "TranslationTest") {
+		public GeneralTests()
+			: base("DotWeb.Translator.Test.Script", "H8.GeneralTests", General.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -69,5 +69,11 @@ namespace DotWeb.Translator.Test
 		public void ComplexNestedTry() { RunTest(); }
 		[Test]
 		public void TryInsideCatch() { RunTest(); }
+		[Test]
+		public void EscapeStringLiterals() { RunTest(); }
+		[Test]
+		public void ClientScript() { RunTestWithDependencies(); }
+		[Test]
+		public void ArgumentException() { RunTestWithDependencies(); }
 	}
 }

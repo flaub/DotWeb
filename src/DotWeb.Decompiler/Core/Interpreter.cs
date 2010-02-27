@@ -54,6 +54,7 @@ namespace DotWeb.Decompiler.Core
 			this.block = block;
 
 			if (this.block.ExceptionHandler != null &&
+				this.block.ExceptionHandler.TryStart.Offset != this.block.FirstInstruction.Offset &&
 				this.block.ExceptionHandler.Type == ExceptionHandlerType.Catch) {
 				Debug.Assert(!this.stack.Any());
 
@@ -73,7 +74,7 @@ namespace DotWeb.Decompiler.Core
 
 			// In debug builds, the compiler emits CIL that helps the debugger with locality, 
 			// but screws up the stack because we assume that each block defines a stack boundry. 
-			// That is, at the start and end of each block, the stack is assumed to be empty,
+			// That is, at the start and end of each block, the stack is assumed to be empty.
 			// This is an attempt to have instructions that cause the stack to become empty be
 			// consumed by the predecessors that need them in order to make this assumption true.
 			// Another case occurs when the compiler decides to push a value in one block
@@ -539,6 +540,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void InitObj(Instruction cil) {
 			var obj = Pop();
+			// TODO: this should really be a CodeDefaultInitializerExpression
 			AddAssignment(obj, new CodePrimitiveExpression(null));
 		}
 
@@ -558,17 +560,19 @@ namespace DotWeb.Decompiler.Core
 				targetObject = new CodeTypeReference(method.DeclaringType);
 			}
 
-			if (method.IsVirtual) {
+			if (method.IsVirtual || method.IsConstructor) {
 				if (!isVirtual && targetObject is CodeThisReference) {
 					var callerType = this.method.DeclaringType;
 					var targetType = method.DeclaringType;
-					if (callerType.BaseType == targetType) {
+					if (this.typeSystem.IsSubclassOf(callerType, targetType)) {
 						targetObject = new CodeBaseReference();
 					}
 				}
-				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
-				foreach (var overridenMethod in overrides) {
-					this.ExternalMethods.Add(overridenMethod);
+				if (!method.IsConstructor) {
+					var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
+					foreach (var overridenMethod in overrides) {
+						this.ExternalMethods.Add(overridenMethod);
+					}
 				}
 			}
 			this.ExternalMethods.Add(method);

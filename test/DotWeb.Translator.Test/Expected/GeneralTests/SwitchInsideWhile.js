@@ -1,4 +1,4 @@
-﻿H8.SourceTests.prototype.SwitchInsideWhile = function(x) {
+﻿H8.GeneralTests.prototype.SwitchInsideWhile = function(x) {
 	System.Console.WriteLine$1("enter");
 	while (x > 10) {
 		System.Console.WriteLine$1("head");

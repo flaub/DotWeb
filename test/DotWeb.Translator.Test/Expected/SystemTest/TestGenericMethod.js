@@ -3,7 +3,7 @@
 System.Collections.Generic.List$1 = function() {
 };
 
-System.Collections.Generic.List$1.prototype.$ctor = function() {
+System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
 	return this;
 };
@@ -43,7 +43,7 @@ H8.SystemTests.prototype.AreEqual = function(name, expected, actual) {
 };
 
 H8.SystemTests.prototype.TestGenericMethod = function() {
-	var list = new System.Collections.Generic.List$1().$ctor();
+	var list = new System.Collections.Generic.List$1().$ctor$0();
 	list.Add$0("one");
 	this.AreEqual("IndexOf", 0, list.IndexOf$0("one"));
 };

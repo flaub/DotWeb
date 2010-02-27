@@ -3,7 +3,7 @@
 System.Collections.Generic.List$1 = function() {
 };
 
-System.Collections.Generic.List$1.prototype.$ctor = function() {
+System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
 	return this;
 };
@@ -77,7 +77,7 @@ H8.SystemTests = function() {
 };
 
 H8.SystemTests.prototype.TestListEnumerator = function() {
-	var list = new System.Collections.Generic.List$1().$ctor();
+	var list = new System.Collections.Generic.List$1().$ctor$0();
 	var CS$5$0000 = list.GetEnumerator();
 	try {
 		while (CS$5$0000.MoveNext()) {

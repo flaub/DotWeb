@@ -33,11 +33,13 @@ namespace System
 		//    return null;
 		//}
 
-		[JsCode("throw 'Not Supported';")]
-		public static extern Delegate Combine(Delegate a, Delegate b);
+		public static Delegate Combine(Delegate a, Delegate b) {
+			throw new NotSupportedException();
+		}
 
-		[JsCode("throw 'Not Supported';")]
-		public static extern Delegate Remove(Delegate source, Delegate value);
+		public static Delegate Remove(Delegate source, Delegate value) {
+			throw new NotSupportedException();
+		}
 	}
 
 	[UseSystem]

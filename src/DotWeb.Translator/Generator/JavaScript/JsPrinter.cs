@@ -31,7 +31,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 	class JsPrinter : ICodeExpressionVisitor<string>
 	{
 		public const string CtorMethodName = "$ctor";
-		//private const string LocalVarPrefix = "loc";
+		public const string StaticCtorMethodName = "$cctor";
 		private TypeSystem typeSystem;
 
 		public MethodDefinition CurrentMethod { get; set; }
@@ -189,7 +189,36 @@ namespace DotWeb.Translator.Generator.JavaScript
 						break;
 				}
 			}
-			return new String(chars).Replace(".ctor", "$ctor");
+			return new String(chars).Replace(".ctor", CtorMethodName);
+		}
+
+		public static string EncodeStringLiteral(string value) {
+			var sb = new StringBuilder();
+			sb.Append('\"');
+			foreach (var ch in value) {
+				switch (ch) {
+					case '\\':
+						sb.Append("\\\\");
+						break;
+					case '\n':
+						sb.Append("\\n");
+						break;
+					case '\t':
+						sb.Append("\\t");
+						break;
+					case '\r':
+						sb.Append("\\r");
+						break;
+					case '\"':
+						sb.Append("\\\"");
+						break;
+					default:
+						sb.Append(ch);
+						break;
+				}
+			}
+			sb.Append('\"');
+			return sb.ToString();
 		}
 
 		public string PrintArray(Array array) {
@@ -212,7 +241,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return "null";
 
 			if (value is string) {
-				return string.Format("\"{0}\"", value);
+				return EncodeStringLiteral((string)value);
 			}
 			else if (value is bool) {
 				return ((bool)value) ? "true" : "false";
@@ -239,48 +268,46 @@ namespace DotWeb.Translator.Generator.JavaScript
 			args.Add(target);
 			if (parameters != null) {
 				parameters.ForEach(x => args.Add(Print(x)));
-				//int fixedArgs = GetFixedArgs(method);
-				//var replacement = new StringBuilder();
-				//for (int i = fixedArgs; i < parameters.Count; i++) {
-				//    if (i > fixedArgs)
-				//        replacement.Append(", ");
-
-				//    replacement.Append('{');
-				//    replacement.Append(i + 1);
-				//    replacement.Append('}');
-				//}
-				//macro = macro.Replace("{*}", replacement.ToString());
 			}
-			else {
-				//macro = macro.Replace("{*}", "");
-			}
-
 			return string.Format(macro, args.ToArray());
 		}
 
 		public string GetMethodName(MethodReference method) {
 			var type = method.DeclaringType.Resolve();
-			var match = type.Methods.GetMethod(method.Name);
-			if (match.Length == 1) {
-				return GetMemberName(method);
-			}
 
-			var filtered = match.Where(x => x.Parameters.Count == method.Parameters.Count).ToArray();
-			if (filtered.Length == 1) {
-				return GetMemberName(method);
-			}
-
-			if (filtered.Length > 1) {
-				// this is to handle overloaded methods (different argument types)
-				for (int i = 0; i < filtered.Length; i++) {
-					var item = filtered[i];
-					if (item.MetadataToken == method.MetadataToken) {
-						var name = string.Format("{0}${1}", method.Name, i);
-						return EncodeName(name);
-					}
+			var methodDef = method.Resolve();
+			if (!methodDef.HasBody || methodDef.Body.CodeSize == 0) {
+				var jsCode = AttributeHelper.GetJsCode(methodDef);
+				if (jsCode == null) {
+					return GetMemberName(methodDef);
 				}
 			}
-			throw new NotSupportedException();
+
+			if (methodDef.IsConstructor) {
+				if (type.Constructors.Count == 1) {
+					return CtorMethodName;
+				}
+				else {
+					return string.Format("{0}${1}", CtorMethodName, type.Constructors.IndexOf(methodDef));
+				}
+			}
+			else {
+				var match = type.Methods.GetMethod(method.Name);
+				if (match.Length == 1) {
+					return GetMemberName(method);
+				}
+				else {
+					// this is to handle overloaded methods (different argument types)
+					for (int i = 0; i < match.Length; i++) {
+						var item = match[i];
+						if (item.MetadataToken == method.MetadataToken) {
+							var name = string.Format("{0}${1}", method.Name, i);
+							return EncodeName(name);
+						}
+					}										
+					throw new NotSupportedException();
+				}
+			}
 		}
 
 		public string GetMemberName(MemberReference member) {
@@ -303,7 +330,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeVariableReference exp) {
 			return EncodeName(exp.Variable.Name);
-//			return string.Format("{0}{1}", LocalVarPrefix, exp.Variable.Name);
 		}
 
 		public string VisitReturn(CodeLengthReference expr) {
@@ -402,10 +428,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 				if (!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
 					return "";
 				}
-				List<CodeExpression> args = new List<CodeExpression>();
-				args.Add(new CodeThisReference());
-				args.AddRange(exp.Parameters);
-				return string.Format("this.$super.{0}.call({1})", CtorMethodName, Print(args));
+				//List<CodeExpression> args = new List<CodeExpression>();
+				//args.Add(new CodeThisReference());
+				//args.AddRange(exp.Parameters);
+				//return string.Format("this.$super.{0}.call({1})", CtorMethodName, Print(args));
 			}
 
 			return string.Format("{0}({1})", Print(exp.Method), Print(exp.Parameters));
@@ -479,7 +505,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
 			}
 
-			return string.Format("new {0}().{1}({2})", Print(exp.Type), CtorMethodName, Print(exp.Parameters));
+			return string.Format("new {0}().{1}({2})", Print(exp.Type), GetMethodName(exp.Constructor), Print(exp.Parameters));
 		}
 
 		public string VisitReturn(CodeArrayIndexerExpression exp) {

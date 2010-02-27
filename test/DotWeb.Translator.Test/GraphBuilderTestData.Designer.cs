@@ -61,8 +61,33 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0000: ret Return
-        ///	0000: ret Return.
+        ///   Looks up a localized string similar to B1: 0000 - 0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	Out: B2
+        ///	0000: ldstr &quot;enter&quot; &lt;Next&gt;
+        ///	0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///
+        ///B2: 0010 - 0021: brfalse.s 0029 &lt;Cond_Branch&gt;
+        ///	In : B1
+        ///	Out: B3, B4
+        ///	0010: ldstr &quot;try begin&quot; &lt;Next&gt;
+        ///	0015: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0020: ldarg.1 &lt;Next&gt;
+        ///	0021: brfalse.s 0029 &lt;Cond_Branch&gt;
+        ///
+        ///B4: 0029 - 0039: leave.s 0089 &lt;Branch&gt;
+        ///	In : B2
+        ///	Out: B7
+        ///	0029: ldstr &quot;try end&quot; &lt;N [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ArgumentException {
+            get {
+                return ResourceManager.GetString("ArgumentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B1: 0000 - 0000: ret &lt;Return&gt;
+        ///	0000: ret &lt;Return&gt;.
         /// </summary>
         internal static string NullBlock {
             get {
@@ -71,10 +96,10 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0010: ret Return
-        ///	0000: ldstr &quot;hello&quot; Next
-        ///	0005: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0010: ret Return.
+        ///   Looks up a localized string similar to B1: 0000 - 0010: ret &lt;Return&gt;
+        ///	0000: ldstr &quot;hello&quot; &lt;Next&gt;
+        ///	0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0010: ret &lt;Return&gt;.
         /// </summary>
         internal static string OneBlock {
             get {
@@ -83,20 +108,20 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0001: brfalse.s 0013 Cond_Branch
+        ///   Looks up a localized string similar to B1: 0000 - 0001: brfalse.s 0013 &lt;Cond_Branch&gt;
         ///	Out: B2, B3
-        ///	0000: ldarg.1 Next
-        ///	0001: brfalse.s 0013 Cond_Branch
+        ///	0000: ldarg.1 &lt;Next&gt;
+        ///	0001: brfalse.s 0013 &lt;Cond_Branch&gt;
         ///
-        ///B2: 0003 - 0008: call [return: System.Void] System.Console::WriteLine() Call
+        ///B2: 0003 - 0008: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
         ///	In : B1
         ///	Out: B3
-        ///	0003: ldstr &quot;x&quot; Next
-        ///	0008: call [return: System.Void] System.Console::WriteLine() Call
+        ///	0003: ldstr &quot;x&quot; &lt;Next&gt;
+        ///	0008: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
         ///
-        ///B3: 0013 - 0013: ret Return
+        ///B3: 0013 - 0013: ret &lt;Return&gt;
         ///	In : B1, B2
-        ///	0013: ret Return
+        ///	0013: ret &lt;Return&gt;
         ///.
         /// </summary>
         internal static string SimpleIf {
@@ -126,25 +151,23 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0013: switch [0032, 0044, 0044] Cond_Branch
+        ///   Looks up a localized string similar to B1: 0000 - 0013: switch [0032, 0044, 0044] &lt;Cond_Branch&gt;
         ///	Out: B2, B3, B4
-        ///	0000: ldstr &quot;enter&quot; Next
-        ///	0005: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0010: ldarg.1 Next
-        ///	0011: stloc.0 Next
-        ///	0012: ldloc.0 Next
-        ///	0013: switch [0032, 0044, 0044] Cond_Branch
+        ///	0000: ldstr &quot;enter&quot; &lt;Next&gt;
+        ///	0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0010: ldarg.1 &lt;Next&gt;
+        ///	0011: stloc.0 &lt;Next&gt;
+        ///	0012: ldloc.0 &lt;Next&gt;
+        ///	0013: switch [0032, 0044, 0044] &lt;Cond_Branch&gt;
         ///
-        ///B4: 0044 - 0054: br.s 0066 Branch
+        ///B4: 0044 - 0054: br.s 0066 &lt;Branch&gt;
         ///	In : B1
         ///	Out: B6
-        ///	0044: ldstr &quot;One &amp; Two&quot; Next
-        ///	0049: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0054: br.s 0066 Branch
+        ///	0044: ldstr &quot;One &amp; Two&quot; &lt;Next&gt;
+        ///	0049: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0054: br.s 0066 &lt;Branch&gt;
         ///
-        ///B3: 0032 - 0042: br.s 0066 Branch
-        ///	In : B1
-        ///	Out:  [rest of string was truncated]&quot;;.
+        ///B3: 0032 - 0042: br.s 0066 &lt;B [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Switch {
             get {
@@ -153,27 +176,23 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0001: stloc.0 Next
+        ///   Looks up a localized string similar to B1: 0000 - 0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
         ///	Out: B2
-        ///	0000: ldc.i4.0 Next
-        ///	0001: stloc.0 Next
+        ///	0000: ldstr &quot;enter&quot; &lt;Next&gt;
+        ///	0005: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
         ///
-        ///B2: 0002 - 0015: bne.un.s 0029 Cond_Branch
-        ///	In : B1, B4
+        ///B2: 0010 - 0021: brfalse.s 0029 &lt;Cond_Branch&gt;
+        ///	In : B1
         ///	Out: B3, B4
-        ///	0002: ldstr &quot;top&quot; Next
-        ///	0007: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0012: ldloc.0 Next
-        ///	0013: ldc.i4.s 10 Next
-        ///	0015: bne.un.s 0029 Cond_Branch
+        ///	0010: ldstr &quot;try begin&quot; &lt;Next&gt;
+        ///	0015: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0020: ldarg.1 &lt;Next&gt;
+        ///	0021: brfalse.s 0029 &lt;Cond_Branch&gt;
         ///
-        ///B4: 0029 - 0043: br.s 0002 Branch
+        ///B4: 0029 - 0039: leave.s 0089 &lt;Branch&gt;
         ///	In : B2
-        ///	Out: B2
-        ///	0029: ldstr &quot;loop&quot; Next
-        ///	0034: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0039: ldloc.0 Next
-        ///	0040: ld [rest of string was truncated]&quot;;.
+        ///	Out: B7
+        ///	0029: ldstr &quot;try end&quot; &lt;N [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TryCatchFinally {
             get {
@@ -182,27 +201,26 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B1: 0000 - 0001: stloc.0 Next
+        ///   Looks up a localized string similar to B1: 0000 - 0001: stloc.0 &lt;Next&gt;
         ///	Out: B2
-        ///	0000: ldc.i4.0 Next
-        ///	0001: stloc.0 Next
+        ///	0000: ldc.i4.0 &lt;Next&gt;
+        ///	0001: stloc.0 &lt;Next&gt;
         ///
-        ///B2: 0002 - 0015: bne.un.s 0029 Cond_Branch
+        ///B2: 0002 - 0015: bne.un.s 0029 &lt;Cond_Branch&gt;
         ///	In : B1, B4
         ///	Out: B3, B4
-        ///	0002: ldstr &quot;top&quot; Next
-        ///	0007: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0012: ldloc.0 Next
-        ///	0013: ldc.i4.s 10 Next
-        ///	0015: bne.un.s 0029 Cond_Branch
+        ///	0002: ldstr &quot;top&quot; &lt;Next&gt;
+        ///	0007: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0012: ldloc.0 &lt;Next&gt;
+        ///	0013: ldc.i4.s 10 &lt;Next&gt;
+        ///	0015: bne.un.s 0029 &lt;Cond_Branch&gt;
         ///
-        ///B4: 0029 - 0043: br.s 0002 Branch
+        ///B4: 0029 - 0043: br.s 0002 &lt;Branch&gt;
         ///	In : B2
         ///	Out: B2
-        ///	0029: ldstr &quot;loop&quot; Next
-        ///	0034: call [return: System.Void] System.Console::WriteLine() Call
-        ///	0039: ldloc.0 Next
-        ///	0040: ld [rest of string was truncated]&quot;;.
+        ///	0029: ldstr &quot;loop&quot; &lt;Next&gt;
+        ///	0034: call [return: System.Void] System.Console::WriteLine() &lt;Call&gt;
+        ///	0039: [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WhileBreak {
             get {

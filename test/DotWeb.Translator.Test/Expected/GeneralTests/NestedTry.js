@@ -1,4 +1,4 @@
-﻿H8.SourceTests.prototype.ComplexNestedTry = function(x) {
+﻿H8.GeneralTests.prototype.NestedTry = function() {
 	System.Console.WriteLine$1("enter");
 	try {
 		System.Console.WriteLine$1("outer try");
@@ -9,9 +9,6 @@
 			System.Console.WriteLine$1("inner finally");
 		}
 		System.Console.WriteLine$1("inner follow");
-		if (x == 10) {
-			System.Console.WriteLine$1("x == 10");
-		}
 	}
 	finally {
 		System.Console.WriteLine$1("outer finally");

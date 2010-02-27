@@ -11,13 +11,13 @@ H8.OuterClassTest.prototype.set_Value = function(value) {
 	this.m_value = value;
 };
 
-H8.OuterClassTest.prototype.$ctor = function(text, value) {
+H8.OuterClassTest.prototype.$ctor$1 = function(text, value) {
 	this.set_Text(text);
 	this.set_Value(value);
 	return this;
 };
 
-H8.OuterClassTest.prototype.$ctor = function() {
+H8.OuterClassTest.prototype.$ctor$0 = function() {
 	return this;
 };
 
@@ -34,19 +34,19 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(format, arg0, arg1) {
+System.Console.WriteLine$3 = function(format, arg0, arg1) {
 	console.log(format);
 };
 
-H8.SourceTests = function() {
+H8.GeneralTests = function() {
 };
 
-H8.SourceTests.prototype.CreateOuterObject = function() {
-	var test1 = new H8.OuterClassTest().$ctor("Test1", 1);
-	var __g__initLocal1 = new H8.OuterClassTest().$ctor();
+H8.GeneralTests.prototype.CreateOuterObject = function() {
+	var test1 = new H8.OuterClassTest().$ctor$1("Test1", 1);
+	var __g__initLocal1 = new H8.OuterClassTest().$ctor$0();
 	__g__initLocal1.set_Text("Test2");
 	__g__initLocal1.set_Value(2);
 	var test2 = __g__initLocal1;
-	System.Console.WriteLine("{0}, {1}", test1.get_Text(), test1.get_Value());
-	System.Console.WriteLine("{0}, {1}", test2.get_Text(), test2.get_Value());
+	System.Console.WriteLine$3("{0}, {1}", test1.get_Text(), test1.get_Value());
+	System.Console.WriteLine$3("{0}, {1}", test2.get_Text(), test2.get_Value());
 };

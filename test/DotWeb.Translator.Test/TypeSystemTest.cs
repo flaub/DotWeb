@@ -55,7 +55,7 @@ namespace DotWeb.Translator.Test
 			var asmDef = hierarchy.LoadAssembly("DotWeb.Translator.Test.Script");
 
 			var root = sysDef.MainModule.Types["System.Object"];
-			var subclass = asmDef.MainModule.Types["H8.SourceTests"];
+			var subclass = asmDef.MainModule.Types["H8.GeneralTests"];
 			Assert.IsTrue(hierarchy.IsSubclassOf(subclass, root));
 		}
 

@@ -60,7 +60,7 @@ namespace System
 	[UseSystem]
 	public class SystemException : SysException
 	{
-		public SystemException() { }
+		public SystemException() : base("System error.") { }
 		public SystemException(string message) : base(message) { }
 		public SystemException(string message, SysException innerException) : base(message, innerException) { }
 	}
@@ -79,5 +79,81 @@ namespace System
 		public NotSupportedException() { }
 		public NotSupportedException(string message) : base(message) { }
 		public NotSupportedException(string message, SysException inner) : base(message, inner) { }
+	}
+
+	[UseSystem]
+	public class ArgumentException : SystemException
+	{
+		public ArgumentException() : base("Value does not fall within the expected range.") { }
+		public ArgumentException(string message) : base(message) { }
+		public ArgumentException(string message, SysException inner) : base(message, inner) { }
+
+		public ArgumentException(string paramName, string message)
+			: base(message) {
+			this.ParamName = paramName;
+		}
+
+		public ArgumentException(string message, string paramName, SysException innerException)
+			: base(message, innerException) {
+		}
+
+		public override string Message {
+			get {
+				string message = base.Message;
+				if ((this.ParamName != null) && (this.ParamName.Length != 0)) {
+					return message + "\n" + "Parameter name: " + this.ParamName;
+					//message + Environment.NewLine + string.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("Arg_ParamName_Name"), new object[] { this.m_paramName })
+				}
+				return message;
+			}
+		}
+
+		public virtual string ParamName { get; private set; }
+	}
+
+	[UseSystem]
+	public class ArgumentNullException : ArgumentException
+	{
+		public ArgumentNullException() : base(DefaultMessage) { }
+		public ArgumentNullException(string paramName) : base(DefaultMessage, paramName) { }
+		public ArgumentNullException(string message, SysException inner) : base(message, inner) { }
+		public ArgumentNullException(string paramName, string message) : base(message, paramName) { }
+
+		private static string DefaultMessage = "Value cannot be null.";
+	}
+
+	[UseSystem]
+	public class ArgumentOutOfRangeException : ArgumentException
+	{
+		public ArgumentOutOfRangeException() : base(RangeMessage) { }
+		public ArgumentOutOfRangeException(string paramName) : base(RangeMessage, paramName) { }
+		public ArgumentOutOfRangeException(string message, SysException inner) : base(message, inner) { }
+		public ArgumentOutOfRangeException(string paramName, string message) : base(message, paramName) { }
+
+		public ArgumentOutOfRangeException(string paramName, object actualValue, string message)
+			: base(message, paramName) {
+			this.ActualValue = actualValue;
+		}
+
+		public virtual object ActualValue { get; private set; }
+		public override string Message {
+			get {
+				string message = base.Message;
+				if (this.ActualValue == null) {
+					return message;
+				}
+				//string str2 = string.Format(CultureInfo.CurrentCulture, Environment.GetResourceString("ArgumentOutOfRange_ActualValue"), this.m_actualValue.ToString());
+				string str2 = "Actual value was " + this.ActualValue.ToString();
+				if (message == null) {
+					return str2;
+				}
+				//return (message + Environment.NewLine + str2);
+				return message + "\n" + str2;
+			}
+		}
+
+		private static string RangeMessage {
+			get { return "Specified argument was out of the range of valid values."; }
+		}
 	}
 }

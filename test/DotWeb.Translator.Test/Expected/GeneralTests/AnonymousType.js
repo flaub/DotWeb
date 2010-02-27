@@ -20,16 +20,16 @@ $Namespace('System');
 System.Console = function() {
 };
 
-System.Console.WriteLine = function(format, arg0, arg1) {
+System.Console.WriteLine$3 = function(format, arg0, arg1) {
 	console.log(format);
 };
 
 $Namespace('H8');
 
-H8.SourceTests = function() {
+H8.GeneralTests = function() {
 };
 
-H8.SourceTests.prototype.AnonymousType = function() {
+H8.GeneralTests.prototype.AnonymousType = function() {
 	var value = new __f__AnonymousType0$2().$ctor("Hi", 1);
-	System.Console.WriteLine("{0}: {1}", value.get_Key().length, value.get_Value());
+	System.Console.WriteLine$3("{0}: {1}", value.get_Key().length, value.get_Value());
 };

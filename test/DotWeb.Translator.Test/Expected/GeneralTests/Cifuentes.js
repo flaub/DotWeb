@@ -1,4 +1,4 @@
-﻿H8.SourceTests.prototype.Cifuentes = function() {
+﻿H8.GeneralTests.prototype.Cifuentes = function() {
 	var x = 5;
 	var y = x * 5;
 	if (x < y) {
@@ -15,7 +15,7 @@
 		var b = a;
 		do {
 			b = b + 1;
-			System.Console.WriteLine("{0}, {1}", a, b);
+			System.Console.WriteLine$3("{0}, {1}", a, b);
 		} while (b < 5);
 		a = a + 1;
 	}

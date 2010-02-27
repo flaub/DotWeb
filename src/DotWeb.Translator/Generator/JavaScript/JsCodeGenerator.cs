@@ -111,6 +111,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("}}");
 			if (stmt.Catches.Any()) {
 				WriteLine("catch (__ex__) {{");
+				WriteLine("console.log(__ex__);");
 				this.writer.Indent++;
 				bool isFirst = true;
 				foreach (var catchClause in stmt.Catches) {
@@ -335,40 +336,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			this.currentMethod = method;
 			this.locals.Clear();
 
-			//if (method.Instructions != null) {
-			//    WriteLine("/*");
-			//    foreach (var il in method.Instructions) {
-			//        this.WriteLine(il);
-			//    }
-			//    WriteLine(" */");
-			//}
-
 			string[] args = method.Parameters.Select(x => Print(x)).ToArray();
-			string name = method.Name;
-			if (method.Definition.IsConstructor) {
-				WriteLine("{0}.prototype.{1} = function({2}) {{",
-					Print(method.Definition.DeclaringType),
-					JsPrinter.CtorMethodName,
-					string.Join(", ", args)
-				);
+			Write(Print(method.Definition.DeclaringType));
+			Write(".");
+			if (!method.Definition.IsStatic) {
+				Write("prototype.");
 			}
-			else if (method.Definition.IsStatic) {
-				if (name == ".cctor")
-					name = JsPrinter.CtorMethodName;
-
-				WriteLine("{0}.{1} = function({2}) {{",
-					Print(method.Definition.DeclaringType),
-					this.printer.GetMethodName(method.Definition),
-					string.Join(", ", args)
-				);
-			}
-			else {
-				WriteLine("{0}.prototype.{1} = function({2}) {{",
-					Print(method.Definition.DeclaringType),
-					this.printer.GetMethodName(method.Definition),
-					string.Join(", ", args)
-				);
-			}
+			Write(this.printer.GetMethodName(method.Definition));
+			WriteLine(" = function({0}) {{", string.Join(", ", args));
 
 			this.writer.Indent++;
 			if (string.IsNullOrEmpty(method.NativeCode)) {

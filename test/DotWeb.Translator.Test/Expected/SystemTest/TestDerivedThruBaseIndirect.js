@@ -13,7 +13,7 @@ H8.SystemTests_Derived = function() {
 H8.SystemTests_Derived.$extend(H8.SystemTests_Base);
 
 H8.SystemTests_Derived.prototype.$ctor = function() {
-	this.$super.$ctor.call(this);
+	this.$super.$ctor();
 	return this;
 };
 

@@ -63,8 +63,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="General.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>General.resx</DependentUpon>
+    </Compile>
     <Compile Include="GraphLibrary.cs" />
     <None Include="Script\Arrays.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="StructureConditionalsTest.cs" />
     <Compile Include="StructureLoopsTest.cs" />
     <Compile Include="GraphBuilderTest.cs" />
@@ -89,14 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Script\DecorationTest.cs" />
     <None Include="Script\NativeTest.cs" />
-    <None Include="Script\TranslationTest.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <None Include="Script\GeneralTests.cs" />
     <None Include="Script\SystemTest.cs" />
-    <Compile Include="TranslationTest.cs" />
+    <Compile Include="GeneralTests.cs" />
     <Compile Include="TranslationTestHelper.cs" />
     <Compile Include="TypeSystemTest.cs" />
   </ItemGroup>
@@ -139,6 +144,9 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\GeneralTests\ClientScript.js" />
+    <Content Include="Expected\GeneralTests\ArgumentException.js" />
+    <Content Include="Expected\GraphBuilderTest\ArgumentException.txt" />
     <Content Include="Expected\GraphBuilderTest\TryCatchFinally.txt" />
     <Content Include="Expected\GraphBuilderTest\Switch.txt" />
     <Content Include="Expected\GraphBuilderTest\WhileBreak.txt" />
@@ -164,27 +172,28 @@
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
-    <Content Include="Expected\SourceTest\ComplexNestedTry.js" />
-    <Content Include="Expected\SourceTest\TryInsideCatch.js" />
-    <Content Include="Expected\SourceTest\NestedTry.js" />
-    <Content Include="Expected\SourceTest\GitHub_Issue6.js" />
-    <Content Include="Expected\SourceTest\GitHub_Issue5.js" />
-    <Content Include="Expected\SourceTest\GitHub_Issue4.js" />
-    <Content Include="Expected\SourceTest\GitHub_Issue3.js" />
-    <Content Include="Expected\SourceTest\SwitchInsideWhile.js" />
-    <Content Include="Expected\SourceTest\TestGenericNested.js" />
-    <Content Include="Expected\SourceTest\AnonymousType.js" />
-    <Content Include="Expected\SourceTest\Callback.js" />
-    <Content Include="Expected\SourceTest\CallDerived.js" />
-    <Content Include="Expected\SourceTest\CallTakeParameters.js" />
-    <Content Include="Expected\SourceTest\Cifuentes.js" />
-    <Content Include="Expected\SourceTest\CreateInnerObject.js" />
-    <Content Include="Expected\SourceTest\CreateOuterObject.js" />
+    <Content Include="Expected\GeneralTests\ComplexNestedTry.js" />
+    <Content Include="Expected\GeneralTests\EscapeStringLiterals.js" />
+    <Content Include="Expected\GeneralTests\TryInsideCatch.js" />
+    <Content Include="Expected\GeneralTests\NestedTry.js" />
+    <Content Include="Expected\GeneralTests\GitHub_Issue6.js" />
+    <Content Include="Expected\GeneralTests\GitHub_Issue5.js" />
+    <Content Include="Expected\GeneralTests\GitHub_Issue4.js" />
+    <Content Include="Expected\GeneralTests\GitHub_Issue3.js" />
+    <Content Include="Expected\GeneralTests\SwitchInsideWhile.js" />
+    <Content Include="Expected\GeneralTests\TestGenericNested.js" />
+    <Content Include="Expected\GeneralTests\AnonymousType.js" />
+    <Content Include="Expected\GeneralTests\Callback.js" />
+    <Content Include="Expected\GeneralTests\CallDerived.js" />
+    <Content Include="Expected\GeneralTests\CallTakeParameters.js" />
+    <Content Include="Expected\GeneralTests\Cifuentes.js" />
+    <Content Include="Expected\GeneralTests\CreateInnerObject.js" />
+    <Content Include="Expected\GeneralTests\CreateOuterObject.js" />
     <Content Include="Expected\Arrays\EnumArray.js" />
-    <Content Include="Expected\SourceTest\HelloWorld.js" />
-    <Content Include="Expected\SourceTest\Indexer.js" />
-    <Content Include="Expected\SourceTest\Linq.js" />
-    <Content Include="Expected\SourceTest\TakeParameters.js" />
+    <Content Include="Expected\GeneralTests\HelloWorld.js" />
+    <Content Include="Expected\GeneralTests\Indexer.js" />
+    <Content Include="Expected\GeneralTests\Linq.js" />
+    <Content Include="Expected\GeneralTests\TakeParameters.js" />
     <Content Include="Expected\SystemTest\CallThisInterfaceMethod.js" />
     <Content Include="Expected\SystemTest\TestGenericMethod.js" />
     <Content Include="Expected\SystemTest\TestListEnumerator.js" />
@@ -220,6 +229,10 @@
     <EmbeddedResource Include="Arrays.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Arrays.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>General.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphBuilderTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
