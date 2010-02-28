@@ -581,12 +581,6 @@ namespace DotWeb.Decompiler.Core
 						targetObject = new CodeBaseReference();
 					}
 				}
-				if (!method.IsConstructor) {
-					var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
-					foreach (var overridenMethod in overrides) {
-						this.ExternalMethods.Add(overridenMethod);
-					}
-				}
 			}
 			this.ExternalMethods.Add(method);
 			return targetObject;

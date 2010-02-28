@@ -48,11 +48,8 @@ namespace DotWeb.Translator
 			List<AssemblyDefinition> asmDependencies) {
 			if (followDependencies) {
 				var typesCache = new List<TypeDefinition>();
-				GenerateMethod(
-					method,
-					typesCache, 
-					new List<MethodDefinition>(), 
-					new List<string>());
+				var methodsCache = new List<MethodDefinition>();
+				GenerateMethod(method, typesCache, methodsCache);
 
 				foreach (var type in typesCache) {
 					var asm = type.Module.Assembly;
@@ -65,50 +62,45 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateMethod(
-			MethodDefinition method, 
-			List<TypeDefinition> typesCache, 
-			List<MethodDefinition> methodsCache, 
-			List<string> namespaceCache) {
+		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache) {
+			if (methodsCache.Contains(method))
+				return;
 
 			// to deal with recursive methods, add to the cache before processing
 			methodsCache.Add(method);
 
-			var parsedMethod = Parse(method);
-			foreach (var external in parsedMethod.ExternalMethods) {
-				var def = external.Resolve();
-				if (IsEmittable(def)) {
-					if (!methodsCache.Contains(def)) {
-						GenerateMethod(def, typesCache, methodsCache, namespaceCache);
+			if (IsEmittable(method)) {
+				var parsedMethod = Parse(method);
+				foreach (var external in parsedMethod.ExternalMethods) {
+					var externalDef = external.Resolve();
+					GenerateMethod(externalDef, typesCache, methodsCache);
+				}
+
+				var type = parsedMethod.Definition.DeclaringType;
+				GenerateTypeDecl(type, typesCache);
+
+				this.generator.Write(parsedMethod);
+			}
+
+			// we still need to process virtual methods even if they aren't emittable
+			if (method.IsVirtual) {
+				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
+				foreach (var overridenMethod in overrides) {
+					var overridenType = overridenMethod.DeclaringType;
+					if (typesCache.Contains(overridenType)) {
+						GenerateMethod(overridenMethod, typesCache, methodsCache);
 					}
 				}
 			}
-
-			var type = parsedMethod.Definition.DeclaringType;
-			GenerateTypeDecl(type, typesCache, namespaceCache);
-
-			this.generator.Write(parsedMethod);
 		}
 
-		private void GenerateNamespace(TypeDefinition type, List<string> namespaceCache) {
-			string ns = JsPrinter.GetNamespace(type);
-			if (!string.IsNullOrEmpty(ns)) {
-				if (!namespaceCache.Contains(ns)) {
-					CodeNamespace cns = new CodeNamespace { Name = ns };
-					this.generator.WriteNamespaceDecl(cns);
-					namespaceCache.Add(ns);
-				}
-			}
-		}
-
-		private void GenerateTypeDecl(TypeDefinition type, List<TypeDefinition> typesCache, List<string> namespaceCache) {
+		private void GenerateTypeDecl(TypeDefinition type, List<TypeDefinition> typesCache) {
 			if (!typesCache.Contains(type)) {
 				var baseType = type.BaseType.Resolve();
 				if (IsEmittable(baseType)) {
-					GenerateTypeDecl(baseType, typesCache, namespaceCache);
+					GenerateTypeDecl(baseType, typesCache);
 				}
 
-				//GenerateNamespace(type, namespaceCache);
 				this.generator.WriteTypeConstructor(type);
 				typesCache.Add(type);
 			}

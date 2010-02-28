@@ -9,13 +9,6 @@ System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
 	this.items.push(item);
 };
 
-$Class(null, 'System.Text', 'StringBuilder');
-
-System.Text.StringBuilder.prototype.toString = function() {
-	var V_0 = this.value;
-	return V_0;
-};
-
 System.Collections.Generic.List$1.prototype.toString = function() {
 	var V_0 = "[ " + this.items.toString() + " ]";
 	return V_0;

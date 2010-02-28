@@ -14,13 +14,6 @@ System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
 	return V_0;
 };
 
-$Class(null, 'System.Text', 'StringBuilder');
-
-System.Text.StringBuilder.prototype.toString = function() {
-	var V_0 = this.value;
-	return V_0;
-};
-
 System.Collections.Generic.List$1.prototype.toString = function() {
 	var V_0 = "[ " + this.items.toString() + " ]";
 	return V_0;
