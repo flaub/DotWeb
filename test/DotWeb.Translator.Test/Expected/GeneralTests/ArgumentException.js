@@ -33,16 +33,32 @@ System.ArgumentOutOfRangeException.prototype.get_ActualValue = function() {
 $Class(null, 'System.Text', 'StringBuilder');
 
 System.Text.StringBuilder.prototype.$ctor = function() {
+	this.value = "";
 	return this;
 };
 
-System.Text.StringBuilder.prototype.Append$11 = function(value) {
-	var V_0 = this;
+System.Text.StringBuilder.prototype.Append$0 = function(value) {
+	var V_1 = value != null;
+	if (!V_1) {
+		var V_0 = this;
+	}
+	else {
+		V_1 = value.length != 0;
+		if (!V_1) {
+			this.value = value;
+			V_0 = this;
+		}
+		else {
+			var D_0 = this;
+			D_0.value = D_0.value + value;
+			V_0 = this;
+		}
+	}
 	return V_0;
 };
 
-System.Text.StringBuilder.prototype.Append$8 = function(value) {
-	var V_0 = this;
+System.Text.StringBuilder.prototype.toString = function() {
+	var V_0 = this.value;
 	return V_0;
 };
 
@@ -53,15 +69,20 @@ System.Collections.Generic.List$1.prototype.toString = function() {
 	return V_0;
 };
 
+System.Text.StringBuilder.prototype.Append$7 = function(value) {
+	var V_0 = this.Append$0(value.toString());
+	return V_0;
+};
+
 $Class(null, '', '__f__AnonymousType0$2');
 
-__f__AnonymousType0$2.prototype.ToString = function() {
+__f__AnonymousType0$2.prototype.toString = function() {
 	var V_0 = new System.Text.StringBuilder().$ctor();
-	V_0.Append$11("{ Key = ");
-	V_0.Append$8(this._Key_i__Field);
-	V_0.Append$11(", Value = ");
-	V_0.Append$8(this._Value_i__Field);
-	V_0.Append$11(" }");
+	V_0.Append$0("{ Key = ");
+	V_0.Append$7(this._Key_i__Field);
+	V_0.Append$0(", Value = ");
+	V_0.Append$7(this._Value_i__Field);
+	V_0.Append$0(" }");
 	return V_0.toString();
 };
 

@@ -386,13 +386,24 @@ namespace DotWeb.Translator.Test {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to H8.GeneralTests.prototype.EscapeStringLiterals = function() {
-        ///	System.Console.WriteLine$1(&quot;line 1\nline 2&quot;);
-        ///	System.Console.WriteLine$1(&quot;\tindented&quot;);
-        ///	System.Console.WriteLine$1(&quot;x\\y&quot;);
-        ///	System.Console.WriteLine$1(&quot;begin \&quot;quoted\&quot; end&quot;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///
+        ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
+        ///
+        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;);
+        ///
+        ///$Class(System.ArgumentException, &apos;System&apos;, &apos;ArgumentOutOfRangeException&apos;);
+        ///
+        ///System.ArgumentOutOfRangeException.get_RangeMessage = function() {
+        ///	var V_0 = &quot;Specified argument was out of the range of valid values.&quot;;
+        ///	return V_0;
         ///};
-        ///.
+        ///
+        ///System.Exception.prototype.set_Message = function(value) {
+        ///	this._Message_k__BackingField = value;
+        ///};
+        ///
+        ///Sys [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExpectExceptionTest {
             get {
@@ -568,6 +579,37 @@ namespace DotWeb.Translator.Test {
         internal static string NestedTry {
             get {
                 return ResourceManager.GetString("NestedTry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;&apos;, &apos;__f__AnonymousType0$2&apos;);
+        ///
+        ///__f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
+        ///	this._Key_i__Field = Key;
+        ///	this._Value_i__Field = Value;
+        ///	return this;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Key = function() {
+        ///	return this._Key_i__Field;
+        ///};
+        ///
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return this._Value_i__Field;
+        ///};
+        ///
+        ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
+        ///
+        ///System.Console.WriteLine$3 = function(format, arg0, arg1) {
+        ///	console.log(format);
+        ///};
+        ///
+        ///$Class( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Primitives {
+            get {
+                return ResourceManager.GetString("Primitives", resourceCulture);
             }
         }
         

@@ -77,5 +77,7 @@ namespace DotWeb.Translator.Test
 		public void ArgumentException() { RunTestWithDependencies(); }
 		[Test]
 		public void ExpectExceptionTest() { RunTestWithDependencies(); }
+		[Test]
+		public void Primitives() { RunTest(); }
 	}
 }

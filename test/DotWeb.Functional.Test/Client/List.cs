@@ -24,7 +24,7 @@ namespace DotWeb.Functional.Test.Client
 
 		private void RunTest() {
 			var list = new List<string>();
-			list.Add("one");
+			list.Add("one");			
 			list.Add("two");
 			list.Add("three");
 

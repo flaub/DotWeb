@@ -44,7 +44,6 @@
     <Compile Include="GraphBuilderTest.cs" />
     <Compile Include="Loops.cs" />
     <Compile Include="DecorationTest.cs" />
-    <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemTest.cs" />
   </ItemGroup>
@@ -57,9 +56,6 @@
       <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
       <Name>DotWeb.System</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

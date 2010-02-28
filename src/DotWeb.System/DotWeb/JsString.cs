@@ -22,7 +22,7 @@ namespace System.DotWeb
 #endif
 {
 	[JsCamelCase]
-	public class JsString //: JsObject
+	public class JsString
 	{
 		[JsMacro("RegExp({1}, 'g')")]
 		private static extern object RE(string pattern);

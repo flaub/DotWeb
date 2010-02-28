@@ -25,8 +25,16 @@ namespace System
 #endif
 {
 	[UseSystem]
-	public class Array
+	[JsNamespace]
+	[JsCamelCase]
+	public class Array : JsObject
 	{
+		private Array() {
+		}
+
+		public extern int Length { get; }
+		public extern object this[int index] { get; set; }
+
 #if !HOSTED_MODE
 		/// <summary>
 		/// Copies a range of elements from an Array starting at the specified source index and 
@@ -46,7 +54,6 @@ namespace System
 			int length) {
 			var jsSource = new JsArray(sourceArray);
 			var jsDest = new JsArray(destinationArray);
-
 		}
 #endif
 	}

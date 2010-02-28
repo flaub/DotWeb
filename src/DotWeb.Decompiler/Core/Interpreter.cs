@@ -499,11 +499,13 @@ namespace DotWeb.Decompiler.Core
 				case Code.Unbox_Any:
 					Unbox(il);
 					break;
+				case Code.Box:
+					Box(il);
+					break;
 				#endregion
 				#region Unsupported/Unneeded
 				case Code.Constrained:
 				case Code.Endfinally:
-				case Code.Box:
 					break;
 				#endregion
 				default:
@@ -513,6 +515,17 @@ namespace DotWeb.Decompiler.Core
 
 		private void AddStatment(CodeStatement stmt) {
 			this.block.Statements.Add(stmt);
+		}
+
+		private void Box(Instruction il) {
+			var typeRef = (TypeReference)il.Operand;
+			var expr = Peek();
+			var cpe = expr as CodePrimitiveExpression;
+			if (cpe != null) {
+				var targetType = TypeSystem.GetReflectionType(typeRef);
+				var converted = Convert.ChangeType(cpe.Value, targetType);
+				cpe.Value = converted;
+			}
 		}
 
 		private void Unbox(Instruction il) {

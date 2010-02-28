@@ -106,6 +106,11 @@ namespace H8
 			get;
 		}
 
+		public extern char this[int index] { 
+			[JsMacro("{0}.charAt({1})")]
+			get; 
+		}
+
 		[JsCamelCase]
 		public void CamelCase() { }
 
@@ -120,6 +125,7 @@ namespace H8
 			StaticJQuery("*");
 			TakeJQuery(JQuery("#id"));
 			Console.WriteLine(Document.getElementById("id"));
+			Console.WriteLine(this[0]);
 		}
 
 		public void TestJsArray() {

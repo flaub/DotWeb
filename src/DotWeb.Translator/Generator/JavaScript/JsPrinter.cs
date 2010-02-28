@@ -192,32 +192,38 @@ namespace DotWeb.Translator.Generator.JavaScript
 			return new String(chars).Replace(".ctor", CtorMethodName);
 		}
 
+		private static string EncodeChar(char value) {
+			switch (value) {
+				case '\\':
+					return ("\\\\");
+				case '\n':
+					return ("\\n");
+				case '\t':
+					return ("\\t");
+				case '\r':
+					return ("\\r");
+				case '\"':
+					return ("\\\"");
+				default:
+					return Convert.ToString(value);
+			}
+		}
+
 		public static string EncodeStringLiteral(string value) {
 			var sb = new StringBuilder();
 			sb.Append('\"');
 			foreach (var ch in value) {
-				switch (ch) {
-					case '\\':
-						sb.Append("\\\\");
-						break;
-					case '\n':
-						sb.Append("\\n");
-						break;
-					case '\t':
-						sb.Append("\\t");
-						break;
-					case '\r':
-						sb.Append("\\r");
-						break;
-					case '\"':
-						sb.Append("\\\"");
-						break;
-					default:
-						sb.Append(ch);
-						break;
-				}
+				sb.Append(EncodeChar(ch));
 			}
 			sb.Append('\"');
+			return sb.ToString();
+		}
+
+		public static string EncodeCharLiteral(char value) {
+			var sb = new StringBuilder();
+			sb.Append('\'');
+			sb.Append(EncodeChar(value));
+			sb.Append('\'');
 			return sb.ToString();
 		}
 
@@ -245,6 +251,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 			else if (value is bool) {
 				return ((bool)value) ? "true" : "false";
+			}
+			else if (value is char) {
+				return EncodeCharLiteral((char)value);
 			}
 			else {
 				return value.ToString();
@@ -312,7 +321,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string GetMemberName(MemberReference member) {
 			var name = member.Name;
-			if (AttributeHelper.IsCamelCase(member, this.typeSystem)) {
+			if (name == "ToString" || AttributeHelper.IsCamelCase(member, this.typeSystem)) {
 				char[] chars = name.ToCharArray();
 				chars[0] = Char.ToLower(chars[0]);
 				name = new string(chars);
@@ -364,7 +373,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			string jsMacro = AttributeHelper.GetJsMacro(method);
 			if (jsMacro != null) {
 				Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
-				return PrintMacro(jsMacro, method, Print(exp.TargetObject), null);
+				return PrintMacro(jsMacro, method, Print(exp.TargetObject), exp.Indices);
 			}
 
 			if (exp.IsFieldLike(this.typeSystem)) {
@@ -428,10 +437,6 @@ namespace DotWeb.Translator.Generator.JavaScript
 				if (!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
 					return "";
 				}
-				//List<CodeExpression> args = new List<CodeExpression>();
-				//args.Add(new CodeThisReference());
-				//args.AddRange(exp.Parameters);
-				//return string.Format("this.$super.{0}.call({1})", CtorMethodName, Print(args));
 			}
 
 			return string.Format("{0}({1})", Print(exp.Method), Print(exp.Parameters));

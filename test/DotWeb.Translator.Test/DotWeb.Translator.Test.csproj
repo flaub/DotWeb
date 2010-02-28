@@ -95,10 +95,8 @@
     <Compile Include="SimpleGraphBuilder.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
-    <Compile Include="NativeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Script\DecorationTest.cs" />
-    <None Include="Script\NativeTest.cs" />
     <None Include="Script\GeneralTests.cs" />
     <None Include="Script\SystemTest.cs" />
     <Compile Include="GeneralTests.cs" />
@@ -146,6 +144,7 @@
     <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
     <Content Include="Expected\GeneralTests\ClientScript.js" />
     <Content Include="Expected\GeneralTests\ArgumentException.js" />
+    <Content Include="Expected\GeneralTests\Primitives.js" />
     <Content Include="Expected\GeneralTests\ExpectExceptionTest.js" />
     <Content Include="Expected\GraphBuilderTest\ArgumentException.txt" />
     <Content Include="Expected\GraphBuilderTest\TryCatchFinally.txt" />
@@ -171,7 +170,6 @@
     <Content Include="Expected\Loops\SimpleWhile.js" />
     <Content Include="Expected\Loops\SimpleDoWhile.js" />
     <Content Include="Expected\Loops\SimpleFor.js" />
-    <Content Include="Expected\NativeTest\NativeTest_TestTuple.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
     <Content Include="Expected\GeneralTests\ComplexNestedTry.js" />
     <Content Include="Expected\GeneralTests\EscapeStringLiterals.js" />

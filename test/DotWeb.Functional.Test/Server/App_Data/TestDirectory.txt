@@ -1,3 +1,5 @@
 ﻿Sanity
 List
 Lambda
+StringTest
+ArrayTest

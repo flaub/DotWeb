@@ -165,4 +165,20 @@ namespace System
 		public InvalidOperationException(string message) : base(message) { }
 		public InvalidOperationException(string message, SysException innerException) : base(message, innerException) { }
  	}
+
+	[UseSystem]
+	public sealed class IndexOutOfRangeException : SystemException
+	{
+		public IndexOutOfRangeException() : base("Array index is out of range.") { }
+		public IndexOutOfRangeException(string message) : base(message) { }
+		public IndexOutOfRangeException(string message, SysException innerException) : base(message, innerException) { }
+	}
+
+	[UseSystem]
+	public class FormatException : SystemException
+	{
+		public FormatException() : base("Invalid format.") { }
+		public FormatException(string message) : base(message) { }
+		public FormatException(string message, SysException innerException) : base(message, innerException) { }
+	}
 }

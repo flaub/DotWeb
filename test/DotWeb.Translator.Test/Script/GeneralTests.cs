@@ -563,6 +563,17 @@ namespace H8
 				}
 			}
 		}
+
+		public void Primitives() {
+			Console.WriteLine(-1);
+			Console.WriteLine(-1L); 
+			Console.WriteLine(1.1f);
+			Console.WriteLine(1.1);
+			Console.WriteLine('x');
+			Console.WriteLine("x");
+			Console.WriteLine(true);
+			Console.WriteLine(false);
+		}
 	}
 }
 

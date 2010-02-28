@@ -104,14 +104,9 @@ namespace System.DotWeb
 		/// <summary>
 		/// The length property of this Array object is a data property whose value is always numerically greater than the name of every deletable property whose name is an array index.
 		/// </summary>
-		public extern int Length {
-			get;
-		}
+		public extern int Length { get; }
 
-		public extern object this[int index] {
-			get;
-			set;
-		}
+		public extern object this[int index] { get; set; }
 
 		//[JsMacro("{0}")]
 		//public static extern implicit operator Array(JsArray from);
