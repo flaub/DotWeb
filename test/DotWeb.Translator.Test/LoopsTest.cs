@@ -25,7 +25,7 @@ namespace DotWeb.Translator.Test
 	public class LoopsTest : TestBase
 	{
 		public LoopsTest()
-			: base("DotWeb.Translator.Test.Script", "H8.Loops", Loops.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.Loops", Resources.Loops.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -62,5 +62,7 @@ namespace DotWeb.Translator.Test
 		public void MultiReturns2() { this.RunTest(); }
 		[Test]
 		public void WhileTryCatchFinally() { this.RunTest(); }
+		[Test]
+		public void WhileIfLessOrLessBreak() { this.RunTest(); }
 	}
 }

@@ -45,6 +45,8 @@ namespace DotWeb.Weaver.Test.Script
 			this.fieldArray[0] = 1;
 			this.typeArray = new ArrayTest[1];
 			this.typeArray[0] = this;
+
+			this.fieldArray = new int[] { 1, 2, 3, 3 };
 		}
 	}
 }

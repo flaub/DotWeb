@@ -272,5 +272,18 @@ namespace H8
 			}
 			Console.WriteLine("exit");
 		}
+
+		public void WhileIfLessOrLessBreak(int x) {
+			Console.WriteLine("enter");
+			int p = 0;
+			while (true) {
+				Console.WriteLine("top");
+				if (x < 0 || 9 < x)
+					break;
+				Console.WriteLine("bottom");
+				p++;
+			}
+			Console.WriteLine("exit");
+		}
 	}
 }

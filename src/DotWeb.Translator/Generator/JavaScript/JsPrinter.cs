@@ -310,16 +310,21 @@ namespace DotWeb.Translator.Generator.JavaScript
 					for (int i = 0; i < match.Length; i++) {
 						var item = match[i];
 						if (item.MetadataToken == method.MetadataToken) {
-							var name = string.Format("{0}${1}", method.Name, i);
+							var name = string.Format("{0}${1}", GetMemberName(method), i);
 							return EncodeName(name);
 						}
-					}										
+					}
 					throw new NotSupportedException();
 				}
 			}
 		}
 
 		public string GetMemberName(MemberReference member) {
+			var jsName = AttributeHelper.GetJsName(member);
+			if (jsName != null) {
+				return jsName;
+			}
+
 			var name = member.Name;
 			if (name == "ToString" || AttributeHelper.IsCamelCase(member, this.typeSystem)) {
 				char[] chars = name.ToCharArray();

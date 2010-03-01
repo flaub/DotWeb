@@ -55,6 +55,8 @@
     <Compile Include="Collections\IEqualityComparer.cs" />
     <Compile Include="Collections\IList.cs" />
     <Compile Include="Console.cs" />
+    <Compile Include="DotWeb\JsNameAttribute.cs" />
+    <Compile Include="DotWeb\JsAugmentAttribute.cs" />
     <Compile Include="DotWeb\JsArray.cs" />
     <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
     <Compile Include="DotWeb\JsMacroAttribute.cs" />
@@ -69,7 +71,6 @@
     <Compile Include="DotWeb\JsDynamic.cs" />
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
-    <Compile Include="DotWeb\JsNativeAttribute.cs" />
     <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\UseSystemAttribute.cs" />
     <Compile Include="Enum.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="RuntimeFieldHandle.cs" />
     <Compile Include="RuntimeTypeHandle.cs" />
     <Compile Include="Runtime\CompilerServices\CompilerGeneratedAttribute.cs" />
+    <Compile Include="Runtime\CompilerServices\IndexerNameAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\ExtensionAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\MethodImplAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />

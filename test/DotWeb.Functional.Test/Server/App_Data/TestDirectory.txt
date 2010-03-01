@@ -2,4 +2,5 @@
 List
 Lambda
 StringTest
+StringBuilderTest
 ArrayTest

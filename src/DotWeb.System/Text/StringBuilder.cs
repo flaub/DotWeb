@@ -42,71 +42,9 @@ namespace System.Text
 
 			this.value += value;
 			return this;
-		
-			//if (_length == 0 && value.Length < _maxCapacity && value.Length > _str.Length) {
-			//    _length = value.Length;
-			//    _str = _cached_str = value;
-			//    return this;
-			//}
-
-			//int needed_cap = _length + value.Length;
-			//if (null != _cached_str || _str.Length < needed_cap)
-			//    InternalEnsureCapacity(needed_cap);
-
-			//String.CharCopy(_str, _length, value, 0, value.Length);
-			//_length = needed_cap;
-			//return this;
-		}
-
-		public StringBuilder Append(bool value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(byte value) {
-			return Append(value.ToString());
-		}
-
-		//public StringBuilder Append(decimal value) {
-		//    return this;
-		//}
-
-		public StringBuilder Append(double value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(float value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(int value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(long value) {
-			return Append(value.ToString());
 		}
 
 		public StringBuilder Append(object value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(sbyte value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(short value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(uint value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(ulong value) {
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(ushort value) {
 			return Append(value.ToString());
 		}
 
@@ -118,37 +56,10 @@ namespace System.Text
 				this.Append(value[i]);
 			}
 
-			//int needed_cap = _length + value.Length;
-			//if (null != _cached_str || _str.Length < needed_cap)
-			//    InternalEnsureCapacity(needed_cap);
-
-			//String.CharCopy(_str, _length, value, 0, value.Length);
-			//_length = needed_cap;
-			return Append(value.ToString());
-		}
-
-		public StringBuilder Append(char value) {
-			//int needed_cap = _length + 1;
-			//if (null != _cached_str || _str.Length < needed_cap)
-			//    InternalEnsureCapacity(needed_cap);
-
-			//_str.InternalSetChar(_length, value);
-			//_length = needed_cap;
-
-			//return this;
 			return Append(value.ToString());
 		}
 
 		public StringBuilder Append(char value, int repeatCount) {
-			//if (repeatCount < 0)
-			//    throw new ArgumentOutOfRangeException();
-
-			//InternalEnsureCapacity(_length + repeatCount);
-
-			//for (int i = 0; i < repeatCount; i++)
-			//    _str.InternalSetChar(_length++, value);
-
-			//return this;
 			for (int i = 0; i < repeatCount; i++) {
 				this.Append(value);
 			}
@@ -171,11 +82,6 @@ namespace System.Text
 				this.Append(value[i]);
 			}
 
-			//int needed_cap = _length + charCount;
-			//InternalEnsureCapacity(needed_cap);
-
-			//String.CharCopy(_str, _length, value, startIndex, charCount);
-			//_length = needed_cap;
 			return this;
 		}
 
@@ -191,17 +97,10 @@ namespace System.Text
 				(startIndex > value.Length - count))
 				throw new ArgumentOutOfRangeException();
 
-			for (int i = startIndex; i < count; i++) {
+			for (int i = startIndex; i < startIndex + count; i++) {
 				this.Append(value[i]);
 			}
 
-			//int needed_cap = _length + count;
-			//if (null != _cached_str || _str.Length < needed_cap)
-			//    InternalEnsureCapacity(needed_cap);
-
-			//String.CharCopy(_str, _length, value, startIndex, count);
-
-			//_length = needed_cap;
 			return this;
 		}
 

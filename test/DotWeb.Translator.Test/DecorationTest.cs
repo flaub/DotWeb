@@ -28,7 +28,7 @@ namespace DotWeb.Translator.Test
 	public class DecorationTest : TestBase
 	{
 		public DecorationTest()
-			: base("DotWeb.Translator.Test.Script", "H8.DecorationTests", Decoration.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.DecorationTests", Resources.Decoration.ResourceManager, "Source") {
 		}
 
 		[Test]

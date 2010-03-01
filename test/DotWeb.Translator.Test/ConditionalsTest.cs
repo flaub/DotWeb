@@ -25,7 +25,7 @@ namespace DotWeb.Translator.Test
 	public class ConditionalsTest : TestBase
 	{
 		public ConditionalsTest()
-			: base("DotWeb.Translator.Test.Script", "H8.Conditionals", Conditionals.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.Conditionals", Resources.Conditionals.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -76,5 +76,9 @@ namespace DotWeb.Translator.Test
 		public void Switch() { this.RunTest(); }
 		[Test]
 		public void IfNotAndCall() { this.RunTest(); }
+		[Test]
+		public void CharLiteralIf() { this.RunTest(); }
+		[Test]
+		public void IfCharLiteral() { this.RunTest(); }
 	}
 }

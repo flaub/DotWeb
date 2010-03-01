@@ -63,12 +63,13 @@
     <Compile Include="Delegate.cs" />
     <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
     <Compile Include="DotWeb\JsArray.cs" />
+    <Compile Include="DotWeb\JsAugmentAttribute.cs" />
     <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
     <Compile Include="DotWeb\JsMacroAttribute.cs" />
+    <Compile Include="DotWeb\JsNameAttribute.cs" />
     <Compile Include="DotWeb\JsObject.cs" />
     <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
-    <Compile Include="DotWeb\JsNativeAttribute.cs" />
     <Compile Include="DotWeb\JsCodeAttribute.cs" />
     <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
     <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="RuntimeTypeHandle.cs" />
     <Compile Include="Runtime\CompilerServices\CompilerGeneratedAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\ExtensionAttribute.cs" />
+    <Compile Include="Runtime\CompilerServices\IndexerNameAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\MethodImplAttribute.cs" />
     <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />
     <Compile Include="Runtime\InteropServices\ComVisibleAttribute.cs" />

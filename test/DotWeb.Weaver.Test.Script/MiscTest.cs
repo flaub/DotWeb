@@ -73,4 +73,12 @@ namespace DotWeb.Weaver.Test.Script
 			//view.AddRow("list.Remove('two')", "[ one,three,two ]", list);
 		}
 	}
+
+	class Misc_IndexerNameTest
+	{
+		public Misc_IndexerNameTest() {
+			var str = "Test";
+			Console.WriteLine(str[0]);
+		}
+	}
 }

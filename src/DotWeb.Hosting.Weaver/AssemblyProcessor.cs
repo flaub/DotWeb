@@ -67,6 +67,9 @@ namespace DotWeb.Hosting.Weaver
 				if (typeDef.Name == Constants.ModuleType)
 					continue;
 
+				if (typeDef.Name.StartsWith("__StaticArrayInitTypeSize="))
+					continue;
+
 				IType item;
 				if (!this.typesByDef.TryGetValue(typeDef.FullName, out item)) {
 					item = ProcessType(typeDef);

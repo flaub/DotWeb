@@ -35,6 +35,7 @@ namespace DotWeb.Decompiler.Core
 		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
 		private BasicBlock block;
 		private int duplicateCounter = 0;
+		private CodeTypeEvaluator typeEvaluator;
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
 
@@ -42,6 +43,7 @@ namespace DotWeb.Decompiler.Core
 			this.ExternalMethods = new HashSet<MethodReference>();
 			this.typeSystem = typeSystem;
 			this.method = method;
+			this.typeEvaluator = new CodeTypeEvaluator(this.typeSystem, this.method);
 		}
 
 		public static CodeVariableReference CreateExceptionVariableReference(MethodDefinition method, TypeReference typeRef) {
@@ -519,13 +521,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void Box(Instruction il) {
 			var typeRef = (TypeReference)il.Operand;
-			var expr = Peek();
-			var cpe = expr as CodePrimitiveExpression;
-			if (cpe != null) {
-				var targetType = TypeSystem.GetReflectionType(typeRef);
-				var converted = Convert.ChangeType(cpe.Value, targetType);
-				cpe.Value = converted;
-			}
+			RefineExpression(Peek(), typeRef);
 		}
 
 		private void Unbox(Instruction il) {
@@ -562,28 +558,6 @@ namespace DotWeb.Decompiler.Core
 			if (this.stack.Any())
 				ret.Expression = Pop();
 			AddStatment(ret);
-		}
-
-		private CodeExpression GetTargetObject(MethodDefinition method, bool isVirtual) {
-			CodeExpression targetObject;
-			if (method.HasThis) {
-				targetObject = Pop();
-			}
-			else {
-				targetObject = new CodeTypeReference(method.DeclaringType);
-			}
-
-			if (method.IsVirtual || method.IsConstructor) {
-				if (!isVirtual && targetObject is CodeThisReference) {
-					var callerType = this.method.DeclaringType;
-					var targetType = method.DeclaringType;
-					if (this.typeSystem.IsSubclassOf(callerType, targetType)) {
-						targetObject = new CodeBaseReference();
-					}
-				}
-			}
-			this.ExternalMethods.Add(method);
-			return targetObject;
 		}
 
 		private void CallMethod(Instruction il, MethodDefinition method, bool isVirtual) {
@@ -631,7 +605,7 @@ namespace DotWeb.Decompiler.Core
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
 			var args = method.Parameters;
 			if (args.Count == 1) {
-				CodeExpression rhs = Pop();
+				var rhs = RefineExpression(Pop(), pi.PropertyType);
 				var targetObject = GetTargetObject(method, isVirtual);
 				CodePropertyReference lhs = new CodePropertyReference(CodePropertyReference.RefType.Set) {
 					Method = new CodeMethodReference(targetObject, method),
@@ -756,13 +730,21 @@ namespace DotWeb.Decompiler.Core
 			var index = Pop();
 			var array = Pop();
 
-			CodeArrayIndexerExpression lhs = new CodeArrayIndexerExpression(array, index);
+			var type = this.typeEvaluator.Evaluate(array);
+			if (type is ArrayType) {
+				type = ((ArrayType)type).ElementType;
+			}
+
+			var lhs = new CodeArrayIndexerExpression(array, index);
+			RefineExpression(value, type);
 			AddAssignment(lhs, value);
 		}
 
 		private void StoreArgument(Instruction il) {
-			PushArgumentReference((ParameterReference)il.Operand);
-			AddAssignment(Pop(), Pop());
+			var parameterRef = (ParameterReference)il.Operand;
+			var lhs = new CodeArgumentReference(parameterRef);
+			var rhs = RefineExpression(Pop(), parameterRef.ParameterType);
+			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreLocal(int index) {
@@ -771,65 +753,68 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StoreLocal(VariableReference variable) {
-			CodeVariableReference lhs = new CodeVariableReference(variable);
-			CodeExpression rhs = Pop();
+			var lhs = new CodeVariableReference(variable);
+			var rhs = RefineExpression(Pop(), variable.VariableType);
 			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			CodeExpression rhs = Pop();
-			CodeExpression targetObject = Pop();
-			CodeFieldReference lhs = new CodeFieldReference(targetObject, field);
+			var rhs = RefineExpression(Pop(), field.FieldType);
+			var targetObject = Pop();
+			var lhs = new CodeFieldReference(targetObject, field);
 			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreStaticField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			CodeTypeReference typeRef = new CodeTypeReference(field.DeclaringType);
-			CodeFieldReference lhs = new CodeFieldReference(typeRef, field);
-			CodeExpression rhs = Pop();
+			var rhs = RefineExpression(Pop(), field.FieldType);
+			var typeRef = new CodeTypeReference(field.DeclaringType);
+			var lhs = new CodeFieldReference(typeRef, field);
 			AddAssignment(lhs, rhs);
 		}
 
 		private void BinaryExpression(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = Pop();
-			CodeExpression lhs = Pop();
+			var rhs = Pop();
+			var lhs = Pop();
+			RefineBinaryExpression(lhs, rhs);
 			var expr = OptimizeBinaryExpression(lhs, op, rhs);
 			Push(expr);
 		}
 
 		private void UnaryExpression(Instruction il, CodeUnaryOperator op) {
-			CodeExpression operand = Pop();
-			CodeUnaryExpression expr = new CodeUnaryExpression(operand, op);
+			var operand = Pop();
+			var expr = new CodeUnaryExpression(operand, op);
 			Push(expr);
 		}
 
 		private void Comparision(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = Pop();
-			CodeExpression lhs = Pop();
+			var rhs = Pop();
+			var lhs = Pop();
+			RefineBinaryExpression(lhs, rhs);
 			var expr = OptimizeBinaryExpression(lhs, op, rhs);
 			Push(expr);
 		}
 
 		private void ConditionalBranch(Instruction il, CodeBinaryOperator op) {
-			CodeExpression rhs = Pop();
-			CodeExpression lhs = Pop();
+			var rhs = Pop();
+			var lhs = Pop();
+			RefineBinaryExpression(lhs, rhs);
 			var condition = OptimizeBinaryExpression(lhs, op, rhs);
-			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
+			var stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt);
 		}
 
 		private void ConditionalBranch(Instruction il, bool test) {
-			CodePrimitiveExpression rhs = new CodePrimitiveExpression(test);
-			CodeExpression lhs = Pop();
+			var rhs = new CodePrimitiveExpression(test);
+			var lhs = Pop();
 			var condition = OptimizeBinaryExpression(lhs, CodeBinaryOperator.IdentityEquality, rhs);
-			CodeExpressionStatement stmt = new CodeExpressionStatement(condition);
+			var stmt = new CodeExpressionStatement(condition);
 			AddStatment(stmt);
 		}
 
 		private void Branch(Instruction il) {
-			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
+			var stmt = new CodeGotoStatement((Instruction)il.Operand);
 			AddStatment(stmt);
 		}
 
@@ -864,8 +849,7 @@ namespace DotWeb.Decompiler.Core
 			// elements of values vs elements of expressions
 			int index = this.duplicateCounter++;
 			var variableName = string.Format("D_{0}", index);
-			var eval = new CodeTypeEvaluator(this.typeSystem, this.method);
-			var variableType = eval.Evaluate(rhs);
+			var variableType = this.typeEvaluator.Evaluate(rhs);
 			//Console.WriteLine("Dup: {0}", variableType);
 			// HACK: the variable index shouldn't really be used in higher-levels
 			// so we just set the index to something that won't collide with existing ones.
@@ -911,6 +895,28 @@ namespace DotWeb.Decompiler.Core
 
 		#region Helpers
 
+		private CodeExpression GetTargetObject(MethodDefinition method, bool isVirtual) {
+			CodeExpression targetObject;
+			if (method.HasThis) {
+				targetObject = Pop();
+			}
+			else {
+				targetObject = new CodeTypeReference(method.DeclaringType);
+			}
+
+			if (method.IsVirtual || method.IsConstructor) {
+				if (!isVirtual && targetObject is CodeThisReference) {
+					var callerType = this.method.DeclaringType;
+					var targetType = method.DeclaringType;
+					if (this.typeSystem.IsSubclassOf(callerType, targetType)) {
+						targetObject = new CodeBaseReference();
+					}
+				}
+			}
+			this.ExternalMethods.Add(method);
+			return targetObject;
+		}
+
 		private void AddAssignment(CodeExpression lhs, CodeExpression rhs) {
 			var last = this.block.Statements.LastOrDefault();
 			var lastAssignment = last as CodeAssignStatement;
@@ -942,7 +948,7 @@ namespace DotWeb.Decompiler.Core
 				}
 				index--;
 			}
-			Push(new CodeArgumentReference(this.method.Parameters[index]));
+			PushArgumentReference(this.method.Parameters[index]);
 		}
 
 		private void PushCastExpression(TypeReference type) {
@@ -955,19 +961,36 @@ namespace DotWeb.Decompiler.Core
 
 		private void PopParametersInto(ParameterDefinitionCollection parameterDefs, List<CodeExpression> result) {
 			for (int i = parameterDefs.Count - 1; i >= 0; --i) {
-				var arg = Pop();
-				result.Insert(0, arg);
-
 				var parameterDef = parameterDefs[i];
-				var cpe = arg as CodePrimitiveExpression;
-				if (parameterDef.ParameterType.FullName == Constants.Boolean && cpe != null) {
-					cpe.Value = Convert.ToBoolean(cpe.Value);
-				}
+				var arg = RefineExpression(Pop(), parameterDef.ParameterType);
+				result.Insert(0, arg);
 			}
+		}
+
+		private CodeExpression RefineExpression(CodeExpression expr, TypeReference typeRef) {
+			var cpe = expr as CodePrimitiveExpression;
+			if (cpe != null) {
+				var targetType = TypeSystem.GetReflectionType(typeRef);
+				var converted = Convert.ChangeType(cpe.Value, targetType);
+				cpe.Value = converted;
+				return cpe;
+			}
+			return expr;
 		}
 
 		private TypeReference Import(Type type) {
 			return this.method.DeclaringType.Module.Import(type);
+		}
+
+		private void RefineBinaryExpression(CodeExpression lhs, CodeExpression rhs) {
+			if (lhs is CodePrimitiveExpression) {
+				var rhsType = this.typeEvaluator.Evaluate(rhs);
+				RefineExpression(lhs, rhsType);
+			}
+			else if (rhs is CodePrimitiveExpression) {
+				var lhsType = this.typeEvaluator.Evaluate(lhs);
+				RefineExpression(rhs, lhsType);
+			}
 		}
 
 		private CodeExpression OptimizeBinaryExpression(CodeExpression lhs, CodeBinaryOperator op, CodeExpression rhs) {
@@ -1034,8 +1057,7 @@ namespace DotWeb.Decompiler.Core
 			var fieldRef = (CodeFieldReference)Pop();
 			var arrayExpr = Pop();
 
-			var eval = new CodeTypeEvaluator(this.typeSystem, this.method);
-			var arrayType = (ArrayType)eval.Evaluate(arrayExpr);
+			var arrayType = (ArrayType)this.typeEvaluator.Evaluate(arrayExpr);
 			var elementType = arrayType.ElementType;
 			var reflectionType = TypeSystem.GetReflectionType(elementType);
 

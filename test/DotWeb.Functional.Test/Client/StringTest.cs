@@ -28,6 +28,11 @@ namespace DotWeb.Functional.Test.Client
 			this.view.AreStringsEqual("self equality", str, str);
 			this.view.AreEqual("str.Length", 16, str.Length);
 			this.view.AreEqual("str[0] == 'T'", 'T', str[0]);
+			this.view.AreStringsEqual("str.Substring(10)", "string", str.Substring(10));
+			this.view.AreStringsEqual("str.Substring(0, 4)", "This", str.Substring(0, 4));
+			this.view.AreStringsEqual("str.Substring(5, 4)", "is a", str.Substring(5, 4));
+			this.view.AreStringsEqual("str.Substring(0)", str, str.Substring(0));
+			this.view.AreStringsEqual("string.Format('Test: {0}'", "Test: arg0", string.Format("Test: {0}", "arg0"));
 			//this.view.AreEqual("str.GetHashCode()", 0, str.GetHashCode());
 		}
 	}

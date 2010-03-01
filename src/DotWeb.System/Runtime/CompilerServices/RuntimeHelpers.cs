@@ -16,11 +16,14 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 #if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System.Runtime.CompilerServices
 #else
+using System.DotWeb;
 namespace System.Runtime.CompilerServices
 #endif
 {
+	[UseSystem]
 	public static class RuntimeHelpers
 	{
 		public static void InitializeArray(Array array, RuntimeFieldHandle fldHandle) {

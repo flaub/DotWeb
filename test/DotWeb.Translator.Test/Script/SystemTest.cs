@@ -137,5 +137,12 @@ namespace H8
 			x[1] = 1;
 		}
 
+		public void TestString() {
+			var str = "This is a test";
+			Console.WriteLine(str.Length);
+			var test = str.Substring(9);
+			Console.WriteLine(test);
+			//Console.WriteLine(string.Format("Test: {0}", "arg0"));
+		}
 	}
 }

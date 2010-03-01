@@ -316,5 +316,19 @@ namespace H8
 			}
 			return true;
 		}
+
+		public char IfCharLiteral(char x) {
+			if (x == 'x') {
+				x = 'o';
+			}
+			return x;
+		}
+
+		public char CharLiteralIf(char x) {
+			if ('x' == x) {
+				x = 'o';
+			}
+			return x;
+		}
 	}
 }

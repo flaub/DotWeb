@@ -16,11 +16,14 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 #if HOSTED_MODE
+using DotWeb.System.DotWeb;
 namespace DotWeb.System
 #else
+using System.DotWeb;
 namespace System
 #endif
 {
+	[UseSystem]
 	public struct RuntimeFieldHandle
 	{
 	}

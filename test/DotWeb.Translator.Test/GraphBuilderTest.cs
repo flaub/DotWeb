@@ -32,7 +32,7 @@ namespace DotWeb.Translator.Test
 		private TypeDefinition compiledType;
 
 		public GraphBuilderTest()
-			: base("DotWeb.Translator.Test.Script", GraphBuilderTestData.Source) {
+			: base("DotWeb.Translator.Test.Script", Resources.GraphBuilderTestData.Source) {
 			this.compiledType = this.CompiledAssembly.MainModule.Types["H8.GraphBuilderTest"];
 		}
 
@@ -56,7 +56,7 @@ namespace DotWeb.Translator.Test
 			Console.WriteLine("Actual:");
 			Console.WriteLine(actual);
 
-			var expected = GraphBuilderTestData.ResourceManager.GetString(methodName).Trim();
+			var expected = Resources.GraphBuilderTestData.ResourceManager.GetString(methodName).Trim();
 			Console.WriteLine("Expected:");
 			Console.WriteLine(expected);
 

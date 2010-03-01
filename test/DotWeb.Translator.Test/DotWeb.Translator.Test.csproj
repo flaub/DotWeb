@@ -50,54 +50,66 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Conditionals.Designer.cs">
+    <None Include="Script\Conditionals.cs" />
+    <Compile Include="ConditionalsTest.cs" />
+    <Compile Include="ArraysTest.cs" />
+    <Compile Include="ConditionalsTestDebug.cs" />
+    <Compile Include="GeneralTestsDebug.cs" />
+    <Compile Include="GraphLibrary.cs" />
+    <None Include="Script\Arrays.cs" />
+    <Compile Include="Resources\Arrays.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Arrays.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Conditionals.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Conditionals.resx</DependentUpon>
     </Compile>
-    <None Include="Script\Conditionals.cs" />
-    <Compile Include="ConditionalsTest.cs" />
-    <Compile Include="ArraysTest.cs" />
-    <Compile Include="Arrays.Designer.cs">
-      <DependentUpon>Arrays.resx</DependentUpon>
+    <Compile Include="Resources\ConditionalsDebug.Designer.cs">
+      <DependentUpon>ConditionalsDebug.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Decoration.Designer.cs">
+    <Compile Include="Resources\Decoration.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Decoration.resx</DependentUpon>
     </Compile>
-    <Compile Include="General.Designer.cs">
+    <Compile Include="Resources\General.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>General.resx</DependentUpon>
     </Compile>
-    <Compile Include="GraphLibrary.cs" />
-    <None Include="Script\Arrays.cs" />
-    <Compile Include="StructureConditionalsTest.cs" />
-    <Compile Include="StructureLoopsTest.cs" />
-    <Compile Include="GraphBuilderTest.cs" />
-    <Compile Include="GraphBuilderTestData.Designer.cs">
+    <Compile Include="Resources\GeneralDebug.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralDebug.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\GraphBuilderTestData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GraphBuilderTestData.resx</DependentUpon>
     </Compile>
-    <Compile Include="IntervalTests.cs" />
-    <Compile Include="Loops.Designer.cs">
-      <DependentUpon>Loops.resx</DependentUpon>
+    <Compile Include="Resources\Loops.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Loops.resx</DependentUpon>
     </Compile>
-    <Compile Include="LoopsTest.cs" />
-    <None Include="Script\Loops.cs" />
-    <None Include="Script\GraphBuilderTest.cs" />
-    <Compile Include="SimpleGraphBuilder.cs" />
-    <Compile Include="SystemTestData.Designer.cs">
+    <Compile Include="Resources\SystemTestData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SystemTestData.resx</DependentUpon>
     </Compile>
+    <Compile Include="StructureConditionalsTest.cs" />
+    <Compile Include="StructureLoopsTest.cs" />
+    <Compile Include="GraphBuilderTest.cs" />
+    <Compile Include="IntervalTests.cs" />
+    <Compile Include="LoopsTest.cs" />
+    <None Include="Script\Loops.cs" />
+    <None Include="Script\GraphBuilderTest.cs" />
+    <Compile Include="SimpleGraphBuilder.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +125,37 @@
     <Content Include="Expected\Arrays\CreateIntArray.js" />
     <Content Include="Expected\Arrays\CreateStringArray.js" />
     <Content Include="Expected\Arrays\CreateArrayOfArrays.js" />
+    <Content Include="Expected\Conditionals\CharLiteralIf.js" />
+    <Content Include="Expected\Conditionals\Debug\CharLiteralIf.js" />
+    <Content Include="Expected\Conditionals\Debug\IfAndAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\IfAndOr.js" />
+    <Content Include="Expected\Conditionals\Debug\IfCharLiteral.js" />
+    <Content Include="Expected\Conditionals\Debug\IfGreaterAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\IfGreaterAndLess.js" />
+    <Content Include="Expected\Conditionals\Debug\IfGreaterOr.js" />
+    <Content Include="Expected\Conditionals\Debug\IfLessAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\IfLessAndGreater.js" />
+    <Content Include="Expected\Conditionals\Debug\IfLessOr.js" />
+    <Content Include="Expected\Conditionals\Debug\IfNotAndCall.js" />
+    <Content Include="Expected\Conditionals\Debug\IfOrAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\IfOrOr.js" />
+    <Content Include="Expected\Conditionals\Debug\NullCoalesce.js" />
+    <Content Include="Expected\Conditionals\Debug\ReturnNestedTernary.js" />
+    <Content Include="Expected\Conditionals\Debug\ReturnTernary.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIf.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfAndNot.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfElse.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfElseIf.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfIf.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfNotAnd.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfNotAndNot.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfNotOr.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfNotOrNot.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfOr.js" />
+    <Content Include="Expected\Conditionals\Debug\SimpleIfOrNot.js" />
+    <Content Include="Expected\Conditionals\Debug\Switch.js" />
+    <Content Include="Expected\Conditionals\IfCharLiteral.js" />
     <Content Include="Expected\Conditionals\IfNotAndCall.js" />
     <Content Include="Expected\Conditionals\IfAndOr.js" />
     <Content Include="Expected\Conditionals\IfAndAnd.js" />
@@ -140,6 +183,38 @@
     <Content Include="Expected\Conditionals\SimpleIfAnd.js" />
     <Content Include="Expected\Conditionals\Switch.js" />
     <Content Include="Expected\DecorationTest\TestJsCamelCase.js" />
+    <Content Include="Expected\GeneralTests\Release\CompareCharLiteral.js" />
+    <Content Include="Expected\GeneralTests\Debug\AnonymousType.js" />
+    <Content Include="Expected\GeneralTests\Debug\ArgumentException.js" />
+    <Content Include="Expected\GeneralTests\Debug\Callback.js" />
+    <Content Include="Expected\GeneralTests\Debug\CallDerived.js" />
+    <Content Include="Expected\GeneralTests\Debug\CallTakeParameters.js" />
+    <Content Include="Expected\GeneralTests\Debug\Cifuentes.js" />
+    <Content Include="Expected\GeneralTests\Debug\ClientScript.js" />
+    <Content Include="Expected\GeneralTests\Debug\CompareCharLiteral.js" />
+    <Content Include="Expected\GeneralTests\Debug\ComplexNestedTry.js" />
+    <Content Include="Expected\GeneralTests\Debug\CreateInnerObject.js" />
+    <Content Include="Expected\GeneralTests\Debug\CreateOuterObject.js" />
+    <Content Include="Expected\GeneralTests\Debug\EscapeStringLiterals.js" />
+    <Content Include="Expected\GeneralTests\Debug\ExpectExceptionTest.js" />
+    <Content Include="Expected\GeneralTests\Debug\GitHub_Issue3.js" />
+    <Content Include="Expected\GeneralTests\Debug\GitHub_Issue4.js" />
+    <Content Include="Expected\GeneralTests\Debug\GitHub_Issue5.js" />
+    <Content Include="Expected\GeneralTests\Debug\GitHub_Issue6.js" />
+    <Content Include="Expected\GeneralTests\Debug\HelloWorld.js" />
+    <Content Include="Expected\GeneralTests\Debug\Indexer.js" />
+    <Content Include="Expected\GeneralTests\Debug\Linq.js" />
+    <Content Include="Expected\GeneralTests\Debug\NestedTry.js" />
+    <Content Include="Expected\GeneralTests\Debug\ParseDecimal.js" />
+    <Content Include="Expected\GeneralTests\Debug\Primitives.js" />
+    <Content Include="Expected\GeneralTests\Debug\SwitchInsideWhile.js" />
+    <Content Include="Expected\GeneralTests\Debug\TakeParameters.js" />
+    <Content Include="Expected\GeneralTests\Debug\TestGenericNested.js" />
+    <Content Include="Expected\GeneralTests\Debug\TryInsideCatch.js" />
+    <Content Include="Expected\GeneralTests\Release\StringFormat.js" />
+    <Content Include="Expected\GeneralTests\Release\ParseDecimal.js" />
+    <Content Include="Expected\Loops\WhileIfLessOrLessBreak.js" />
+    <Content Include="Expected\SystemTest\TestString.js" />
     <Content Include="Expected\SystemTest\TestJsArray.js" />
     <Content Include="Expected\DecorationTest\TestJsMacro.js" />
     <Content Include="Expected\SystemTest\CastInterface.js" />
@@ -147,10 +222,10 @@
     <Content Include="Expected\DecorationTest\TestJsCode.js" />
     <Content Include="Expected\DecorationTest\TestJsIntrinsic.js" />
     <Content Include="Expected\DecorationTest\TestJsNamespace.js" />
-    <Content Include="Expected\GeneralTests\ClientScript.js" />
-    <Content Include="Expected\GeneralTests\ArgumentException.js" />
-    <Content Include="Expected\GeneralTests\Primitives.js" />
-    <Content Include="Expected\GeneralTests\ExpectExceptionTest.js" />
+    <Content Include="Expected\GeneralTests\Release\ClientScript.js" />
+    <Content Include="Expected\GeneralTests\Release\ArgumentException.js" />
+    <Content Include="Expected\GeneralTests\Release\Primitives.js" />
+    <Content Include="Expected\GeneralTests\Release\ExpectExceptionTest.js" />
     <Content Include="Expected\GraphBuilderTest\ArgumentException.txt" />
     <Content Include="Expected\GraphBuilderTest\TryCatchFinally.txt" />
     <Content Include="Expected\GraphBuilderTest\Switch.txt" />
@@ -176,28 +251,28 @@
     <Content Include="Expected\Loops\SimpleDoWhile.js" />
     <Content Include="Expected\Loops\SimpleFor.js" />
     <Content Include="Expected\Conditionals\SimpleIfOr.js" />
-    <Content Include="Expected\GeneralTests\ComplexNestedTry.js" />
-    <Content Include="Expected\GeneralTests\EscapeStringLiterals.js" />
-    <Content Include="Expected\GeneralTests\TryInsideCatch.js" />
-    <Content Include="Expected\GeneralTests\NestedTry.js" />
-    <Content Include="Expected\GeneralTests\GitHub_Issue6.js" />
-    <Content Include="Expected\GeneralTests\GitHub_Issue5.js" />
-    <Content Include="Expected\GeneralTests\GitHub_Issue4.js" />
-    <Content Include="Expected\GeneralTests\GitHub_Issue3.js" />
-    <Content Include="Expected\GeneralTests\SwitchInsideWhile.js" />
-    <Content Include="Expected\GeneralTests\TestGenericNested.js" />
-    <Content Include="Expected\GeneralTests\AnonymousType.js" />
-    <Content Include="Expected\GeneralTests\Callback.js" />
-    <Content Include="Expected\GeneralTests\CallDerived.js" />
-    <Content Include="Expected\GeneralTests\CallTakeParameters.js" />
-    <Content Include="Expected\GeneralTests\Cifuentes.js" />
-    <Content Include="Expected\GeneralTests\CreateInnerObject.js" />
-    <Content Include="Expected\GeneralTests\CreateOuterObject.js" />
+    <Content Include="Expected\GeneralTests\Release\ComplexNestedTry.js" />
+    <Content Include="Expected\GeneralTests\Release\EscapeStringLiterals.js" />
+    <Content Include="Expected\GeneralTests\Release\TryInsideCatch.js" />
+    <Content Include="Expected\GeneralTests\Release\NestedTry.js" />
+    <Content Include="Expected\GeneralTests\Release\GitHub_Issue6.js" />
+    <Content Include="Expected\GeneralTests\Release\GitHub_Issue5.js" />
+    <Content Include="Expected\GeneralTests\Release\GitHub_Issue4.js" />
+    <Content Include="Expected\GeneralTests\Release\GitHub_Issue3.js" />
+    <Content Include="Expected\GeneralTests\Release\SwitchInsideWhile.js" />
+    <Content Include="Expected\GeneralTests\Release\TestGenericNested.js" />
+    <Content Include="Expected\GeneralTests\Release\AnonymousType.js" />
+    <Content Include="Expected\GeneralTests\Release\Callback.js" />
+    <Content Include="Expected\GeneralTests\Release\CallDerived.js" />
+    <Content Include="Expected\GeneralTests\Release\CallTakeParameters.js" />
+    <Content Include="Expected\GeneralTests\Release\Cifuentes.js" />
+    <Content Include="Expected\GeneralTests\Release\CreateInnerObject.js" />
+    <Content Include="Expected\GeneralTests\Release\CreateOuterObject.js" />
     <Content Include="Expected\Arrays\EnumArray.js" />
-    <Content Include="Expected\GeneralTests\HelloWorld.js" />
-    <Content Include="Expected\GeneralTests\Indexer.js" />
-    <Content Include="Expected\GeneralTests\Linq.js" />
-    <Content Include="Expected\GeneralTests\TakeParameters.js" />
+    <Content Include="Expected\GeneralTests\Release\HelloWorld.js" />
+    <Content Include="Expected\GeneralTests\Release\Indexer.js" />
+    <Content Include="Expected\GeneralTests\Release\Linq.js" />
+    <Content Include="Expected\GeneralTests\Release\TakeParameters.js" />
     <Content Include="Expected\SystemTest\CallThisInterfaceMethod.js" />
     <Content Include="Expected\SystemTest\TestGenericMethod.js" />
     <Content Include="Expected\SystemTest\TestListEnumerator.js" />
@@ -226,31 +301,39 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Conditionals.resx">
+    <EmbeddedResource Include="Resources\Conditionals.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Conditionals.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Arrays.resx">
+    <EmbeddedResource Include="Resources\Arrays.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Arrays.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Decoration.resx">
+    <EmbeddedResource Include="Resources\ConditionalsDebug.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConditionalsDebug.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GeneralDebug.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralDebug.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Decoration.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Decoration.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="General.resx">
+    <EmbeddedResource Include="Resources\General.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>General.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphBuilderTestData.resx">
+    <EmbeddedResource Include="Resources\GraphBuilderTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GraphBuilderTestData.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Loops.resx">
+    <EmbeddedResource Include="Resources\Loops.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Loops.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SystemTestData.resx">
+    <EmbeddedResource Include="Resources\SystemTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SystemTestData.Designer.cs</LastGenOutput>
     </EmbeddedResource>

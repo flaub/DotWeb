@@ -158,6 +158,10 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private void ProcessNestedType(TypeDefinition typeDef) {
+			if (typeDef.Name.StartsWith("__StaticArrayInitTypeSize=")) {
+				return;
+			}
+
 			var nestedType = this.resolver.ResolveTypeReference(typeDef, this.genericProc);
 			this.nestedTypes.Add(nestedType);
 		}
@@ -182,8 +186,17 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private FieldBuilder ProcessField(FieldDefinition fieldDef) {
-			var fieldType = ResolveTypeReference(fieldDef.FieldType, false);
-			var fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
+			FieldBuilder fieldBuilder;
+			if (fieldDef.InitialValue != null && fieldDef.InitialValue.Length > 0) {
+				fieldBuilder = this.typeBuilder.DefineInitializedData(
+					fieldDef.Name,
+					fieldDef.InitialValue,
+					(SR.FieldAttributes)fieldDef.Attributes);
+			}
+			else {
+				var fieldType = ResolveTypeReference(fieldDef.FieldType, false);
+				fieldBuilder = this.typeBuilder.DefineField(fieldDef.Name, fieldType, (SR.FieldAttributes)fieldDef.Attributes);
+			}
 
 			if (fieldDef.HasConstant) {
 				// FIXME: Not sure what this was doing here! I have not found a suitable test to make things break without it.

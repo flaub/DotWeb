@@ -27,65 +27,35 @@ namespace DotWeb.Translator
 	public static class AttributeHelper
 	{
 		public static string GetJsCode(MethodDefinition method) {
-			var customAttr = FindByName(method, JsCode);
-			if (customAttr != null) {
-				var args = customAttr.ConstructorParameters;
-				return (string)args[0];
-			}
-			return null;
+			return GetStringFromAttribute(method, JsCode);
 		}
 
 		public static string GetJsMacro(MethodDefinition method) {
-			var customAttr = FindByName(method, JsMacro);
-			if (customAttr != null) {
-				var args = customAttr.ConstructorParameters;
-				return (string)args[0];
-			}
-			return null;
+			return GetStringFromAttribute(method, JsMacro);
 		}
 
 		public static string GetJsNamespace(TypeReference typeRef) {
-			var customAttr = FindByName(typeRef, JsNamespace);
-			if (customAttr != null) {
-				var args = customAttr.ConstructorParameters;
-				if (args.Count == 1)
-					return (string)args[0];
-				return "";
-			}
-			return null;
+			return GetStringFromAttribute(typeRef, JsNamespace);
+		}
+
+		public static string GetJsAugment(TypeReference typeRef) {
+			return GetStringFromAttribute(typeRef, JsAugment);
+		}
+
+		public static string GetJsName(MemberReference memberRef) {
+			var provider = GetProvider(memberRef);
+			if (provider == null)
+				return null;
+			return GetStringFromAttribute(provider, JsName);
 		}
 
 		public static bool IsCamelCase(MemberReference memberRef, TypeSystem typeSystem) {
 			if (IsCamelCase((ICustomAttributeProvider)memberRef.DeclaringType, typeSystem))
 				return true;
-			var fieldRef = memberRef as FieldReference;
-			if (fieldRef != null) {
-				var def = fieldRef.Resolve();
-				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
-			}
-			var methodRef = memberRef as MethodReference;
-			if (methodRef != null) {
-				var def = methodRef.Resolve();
-				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
-			}
-			var propertyRef = memberRef as PropertyReference;
-			if (propertyRef != null) {
-				var def = propertyRef.Resolve();
-				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
-			}
-			return false;
-		}
-
-		private static bool IsCamelCase(ICustomAttributeProvider provider, TypeSystem typeSystem) {
-			var customAttr = FindByName(provider, JsCamelCase);
-			if (customAttr == null)
+			var provider = GetProvider(memberRef);
+			if (provider == null)
 				return false;
-
-			if (customAttr.ConstructorParameters.Count == 0)
-				return true;
-
-			var enabled = customAttr.Properties["Enabled"];
-			return (bool)enabled;
+			return IsCamelCase(provider, typeSystem);
 		}
 
 		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {
@@ -100,6 +70,29 @@ namespace DotWeb.Translator
 				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
 		}
 
+		private static string GetStringFromAttribute(ICustomAttributeProvider provider, string attributeName) {
+			var customAttr = FindByName(provider, attributeName);
+			if (customAttr != null) {
+				var args = customAttr.ConstructorParameters;
+				if (args.Count == 1)
+					return (string)args[0];
+				return "";
+			}
+			return null;
+		}
+
+		private static bool IsCamelCase(ICustomAttributeProvider provider, TypeSystem typeSystem) {
+			var customAttr = FindByName(provider, JsCamelCase);
+			if (customAttr == null)
+				return false;
+
+			if (customAttr.ConstructorParameters.Count == 0)
+				return true;
+
+			var enabled = customAttr.Properties["Enabled"];
+			return (bool)enabled;
+		}
+
 		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {
 			if (provider.HasCustomAttributes) {
 				foreach (CustomAttribute item in provider.CustomAttributes) {
@@ -110,11 +103,29 @@ namespace DotWeb.Translator
 			return null;
 		}
 
+		private static ICustomAttributeProvider GetProvider(MemberReference memberRef) {
+			var fieldRef = memberRef as FieldReference;
+			if (fieldRef != null) {
+				return fieldRef.Resolve();
+			}
+			var methodRef = memberRef as MethodReference;
+			if (methodRef != null) {
+				return methodRef.Resolve();
+			}
+			var propertyRef = memberRef as PropertyReference;
+			if (propertyRef != null) {
+				return propertyRef.Resolve();
+			}
+			return null;
+		}
+
 		private const string JsNamespace = "System.DotWeb.JsNamespaceAttribute";
 		private const string JsCode = "System.DotWeb.JsCodeAttribute";
 		private const string JsMacro = "System.DotWeb.JsMacroAttribute";
 		private const string JsInstrinsic = "System.DotWeb.JsIntrinsicAttribute";
 		private const string JsCamelCase = "System.DotWeb.JsCamelCaseAttribute";
 		private const string JsAnonymous = "System.DotWeb.JsAnonymousAttribute";
+		private const string JsAugment = "System.DotWeb.JsAugmentAttribute";
+		private const string JsName = "System.DotWeb.JsNameAttribute";
 	}
 }

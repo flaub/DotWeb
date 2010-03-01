@@ -25,7 +25,7 @@ namespace DotWeb.Translator.Test
 	public class GeneralTests : TestBase
 	{
 		public GeneralTests()
-			: base("DotWeb.Translator.Test.Script", "H8.GeneralTests", General.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.GeneralTests", Resources.General.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -78,5 +78,11 @@ namespace DotWeb.Translator.Test
 		public void ExpectExceptionTest() { RunTestWithDependencies(); }
 		[Test]
 		public void Primitives() { RunTest(); }
+		[Test]
+		public void CompareCharLiteral() { RunTest(); }
+		[Test]
+		public void ParseDecimal() { RunTest(); }
+		[Test]
+		public void StringFormat() { RunTestWithDependencies(); }
 	}
 }

@@ -282,8 +282,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#endregion
 
 		public void WriteTypeConstructor(TypeDefinition type) {
-			if(AttributeHelper.IsAnonymous(type, this.typeSystem))
+			if (AttributeHelper.IsAnonymous(type, this.typeSystem) ||
+				AttributeHelper.GetJsAugment(type) != null) {
 				return;
+			}
 			
 			// $Class(System.BaseClass, '', 'Class');
 			string parent;

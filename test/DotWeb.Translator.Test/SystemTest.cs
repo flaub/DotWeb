@@ -28,7 +28,7 @@ namespace DotWeb.Translator.Test
 	public class SystemTest : TestBase
 	{
 		public SystemTest()
-			: base("DotWeb.Translator.Test.Script", "H8.SystemTests", SystemTestData.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.SystemTests", Resources.SystemTestData.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -60,5 +60,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestJsArray() { RunTest(); }
+
+		[Test]
+		public void TestString() { RunTestWithDependencies(); }
 	}
 }

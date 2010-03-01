@@ -22,6 +22,7 @@ using System.Text;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using System.IO;
 
 namespace DotWeb.Utility
 {
@@ -54,17 +55,26 @@ namespace DotWeb.Utility
 		}
 
 		public Assembly CompileFile(string filename, Assembly startingReference) {
-			return DoCompile(filename, GetReferences(startingReference), true).CompiledAssembly;
+			return DoCompile(filename, GetReferences(startingReference), true, false).CompiledAssembly;
 		}
 
-		public CompilerResults CompileSource(string source, Assembly startingReference) {
-			return DoCompile(source, GetReferences(startingReference), false);
+		public CompilerResults CompileSource(string source, Assembly startingReference, bool isDebug) {
+			return DoCompile(source, GetReferences(startingReference), false, isDebug);
 		}
 
-		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile) {
+		private CompilerResults DoCompile(string source, List<Assembly> references, bool isFile, bool isDebug) {
+			var compilerOptions = "/nostdlib";
+			if (!isDebug) {
+				compilerOptions += " /debug:pdbonly";
+			}
+
+			var outputAssembly = Path.GetTempFileName() + ".dll";
+
 			CompilerParameters options = new CompilerParameters {
-				//GenerateInMemory = true,
-				CompilerOptions = "/nostdlib /debug:pdbonly"
+				GenerateInMemory = false,
+				IncludeDebugInformation = isDebug,
+				CompilerOptions = compilerOptions,
+				OutputAssembly = outputAssembly
 			};
 
 			foreach (var asmRef in references) {

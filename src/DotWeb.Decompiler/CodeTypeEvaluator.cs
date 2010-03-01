@@ -48,8 +48,33 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeBinaryExpression obj) {
-			// FIXME: find 'highest' type of each side
-			return Evaluate(obj.Left);
+			switch (obj.Operator) {
+				case CodeBinaryOperator.BooleanAnd:
+				case CodeBinaryOperator.BooleanOr:
+				case CodeBinaryOperator.GreaterThan:
+				case CodeBinaryOperator.GreaterThanOrEqual:
+				case CodeBinaryOperator.IdentityEquality:
+				case CodeBinaryOperator.IdentityInequality:
+				case CodeBinaryOperator.LessThan:
+				case CodeBinaryOperator.LessThanOrEqual:
+				case CodeBinaryOperator.ValueEquality:
+					return this.typeSystem.TypeDefinitionCache.Boolean;
+				case CodeBinaryOperator.Add:
+				case CodeBinaryOperator.BitwiseAnd:
+				case CodeBinaryOperator.BitwiseOr:
+				case CodeBinaryOperator.Divide:
+				case CodeBinaryOperator.ExclusiveOr:
+				case CodeBinaryOperator.LeftShift:
+				case CodeBinaryOperator.Modulus:
+				case CodeBinaryOperator.Multiply:
+				case CodeBinaryOperator.RightShift:
+				case CodeBinaryOperator.Subtract:
+				case CodeBinaryOperator.UnsignedRightShift:
+					// FIXME: find 'highest' type of each side
+					return Evaluate(obj.Left);
+				default:
+					throw new NotSupportedException();
+			}
 		}
 
 		public TypeReference VisitReturn(CodeCastExpression obj) {
@@ -61,11 +86,7 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeIndexerExpression obj) {
-			var target = Evaluate(obj.TargetObject);
-			var def = target.Resolve();
-			var property = def.Properties.GetProperties("Item").First();
-			//var property = target.GetProperty("Item");
-			return property.PropertyType;
+			return obj.Property.PropertyType;
 		}
 
 		public TypeReference VisitReturn(CodeInvokeExpression obj) {

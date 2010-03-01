@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayTest.cs" />
+    <Compile Include="StringBuilderTest.cs" />
     <Compile Include="StringTest.cs" />
     <Compile Include="Lambda.cs" />
     <Compile Include="TestResultView.cs" />

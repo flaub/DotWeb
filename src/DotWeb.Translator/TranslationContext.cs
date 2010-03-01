@@ -63,6 +63,17 @@ namespace DotWeb.Translator
 		}
 
 		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache) {
+			// we still need to process virtual methods even if they aren't emittable
+			if (method.IsVirtual) {
+				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
+				foreach (var overridenMethod in overrides) {
+					var overridenType = overridenMethod.DeclaringType;
+					if (typesCache.Contains(overridenType)) {
+						GenerateMethod(overridenMethod, typesCache, methodsCache);
+					}
+				}
+			}
+
 			if (methodsCache.Contains(method))
 				return;
 
@@ -80,17 +91,6 @@ namespace DotWeb.Translator
 				GenerateTypeDecl(type, typesCache);
 
 				this.generator.Write(parsedMethod);
-			}
-
-			// we still need to process virtual methods even if they aren't emittable
-			if (method.IsVirtual) {
-				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
-				foreach (var overridenMethod in overrides) {
-					var overridenType = overridenMethod.DeclaringType;
-					if (typesCache.Contains(overridenType)) {
-						GenerateMethod(overridenMethod, typesCache, methodsCache);
-					}
-				}
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace DotWeb.Translator
 
 			if (!method.HasBody || method.Body.CodeSize == 0) {
 				string msg = string.Format(
-					"{0}\nA method marked extern must either have [JsCode], [JsMacro], or be declared in a type derived from JsObject.",
+					"{0}\nA method marked extern must have [JsCode], [JsMacro], or declared in a type derived from JsObject.",
 					method
 				);
 				throw new MissingMethodException(msg);
@@ -181,10 +181,22 @@ namespace DotWeb.Translator
 		}
 
 		private bool IsEmittable(MethodDefinition method) {
-			if (AttributeHelper.GetJsMacro(method) != null)
+			if (AttributeHelper.GetJsMacro(method) != null) {
 				return false;
+			}
+
+			if (AttributeHelper.GetJsCode(method) != null) {
+				return true;
+			}
 
 			var type = method.DeclaringType;
+
+			if (!method.HasBody || method.Body.CodeSize == 0) {
+				if (AttributeHelper.GetJsAugment(type) != null) {
+					return false;
+				}
+			}
+
 			return IsEmittable(type);
 		}
 

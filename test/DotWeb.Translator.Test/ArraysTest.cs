@@ -25,7 +25,7 @@ namespace DotWeb.Translator.Test
 	public class ArraysTest : TestBase
 	{
 		public ArraysTest()
-			: base("DotWeb.Translator.Test.Script", "H8.Arrays", Arrays.ResourceManager, "Source") {
+			: base("DotWeb.Translator.Test.Script", "H8.Arrays", Resources.Arrays.ResourceManager, "Source") {
 		}
 
 		[Test]

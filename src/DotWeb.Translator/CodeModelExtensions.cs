@@ -36,11 +36,22 @@ namespace DotWeb.Translator
 		}
 
 		public static bool IsFieldLike(this CodePropertyReference cpr, TypeSystem typeSystem) {
-			return
+			if (typeSystem.IsSubclassOf(cpr.Property.DeclaringType, typeSystem.TypeDefinitionCache.JsObject) ||
 				AttributeHelper.IsIntrinsic(cpr.Property, typeSystem) ||
-				AttributeHelper.IsAnonymous(cpr.Property.DeclaringType, typeSystem) ||
-				typeSystem.IsSubclassOf(cpr.Property.DeclaringType, typeSystem.TypeDefinitionCache.JsObject)
-			;
+				AttributeHelper.IsAnonymous(cpr.Property.DeclaringType, typeSystem)) {
+				return true;
+			}
+
+			var methodDef = cpr.Method.Reference.Resolve();
+			// virtual properties can never be field-like
+			if (methodDef.IsVirtual)
+				return false;
+
+			// extern methods are field-like
+			if(!methodDef.HasBody || methodDef.Body.CodeSize == 0)
+				return true;
+
+			return false;
 		}
 
 		private static bool IsAutoImplemented(CodeFieldReference field, PropertyDefinition property) {

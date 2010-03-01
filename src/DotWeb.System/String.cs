@@ -25,23 +25,24 @@ namespace DotWeb.System
 using ThisType = System.String;
 using System.DotWeb;
 using System.Text;
+using System.Runtime.CompilerServices;
 namespace System
 #endif
 {
 	[UseSystem]
-	[JsAnonymous]
-	[JsNamespace]
 	[JsCamelCase]
+	[JsNamespace]
+	[JsAugment("String")]
 	public class String
 	{
+#if !HOSTED_MODE
 		public static readonly string Empty = "";
 	
 		/// <summary>
 		/// The number of characters in the String value represented by this String object.
 		/// </summary>
 		/// <remarks>
-		/// Once a String object is created, this property is unchanging. It has the attributes { [[Writable]]:  false, 
-		/// [[Enumerable]]: false, [[Configurable]]: false }. 
+		/// Once a String object is created, this property is unchanging.
 		/// </remarks>
 		public extern int Length { get; }
 
@@ -88,52 +89,48 @@ namespace System
 
 		public extern string Trim();
 
+		[IndexerName("Chars")]
 		public extern char this[int index] {
 			[JsMacro("{0}.charAt({1})")]
 			get;
 		}
 
-#if !HOSTED_MODE
+		[JsName("_Substring")]
 		public string Substring(int startIndex) {
 			if (startIndex == 0)
 				return this;
 			if (startIndex < 0 || startIndex > this.Length)
 				throw new ArgumentOutOfRangeException("startIndex");
-			return InternalSubstring(startIndex, this.Length - startIndex);
+			return InternalSubstring(startIndex, this.Length);
 		}
-#endif
+
+		[JsName("_Substring")]
+		public string Substring(int startIndex, int length) {
+			if (length < 0)
+				throw new ArgumentOutOfRangeException("length", "Cannot be negative.");
+			if (startIndex < 0)
+				throw new ArgumentOutOfRangeException("startIndex", "Cannot be negative.");
+			if (startIndex > this.Length)
+				throw new ArgumentOutOfRangeException("startIndex", "Cannot exceed length of string.");
+			if (startIndex > this.Length - length)
+				throw new ArgumentOutOfRangeException("length", "startIndex + length > this.length");
+			if (startIndex == 0 && length == this.Length)
+				return this;
+			return InternalSubstring(startIndex, startIndex + length);
+		}
 
 		[JsMacro("{0}.substring({1}, {2})")]
 		internal extern string InternalSubstring(int start, int end);
 
-		//public string Substring(int startIndex, int length) {
-		//    if (length < 0)
-		//        throw new ArgumentOutOfRangeException("length", "Cannot be negative.");
-		//    if (startIndex < 0)
-		//        throw new ArgumentOutOfRangeException("startIndex", "Cannot be negative.");
-		//    if (startIndex > this.Length)
-		//        throw new ArgumentOutOfRangeException("startIndex", "Cannot exceed length of string.");
-		//    if (startIndex > this.Length - length)
-		//        throw new ArgumentOutOfRangeException("length", "startIndex + length > this.length");
-		//    //if (startIndex == 0 && length == this.Length)
-		//    //    return this;
-		//    return InternalSubstring(startIndex, length);
-		//}
+		public static string Format(string format, object arg0) {
+			var sb = FormatHelper(null, format, arg0);
+			return sb.ToString();
+		}
 
-		//internal string InternalSubstring(int startIndex, int length) {
-		//    if (length == 0)
-		//        return string.Empty;
-		//    return null;
-
-		//    //string tmp = InternalAllocateStr(length);
-		//    //fixed (char* dest = tmp, src = this) {
-		//    //    CharCopy(dest, src + startIndex, length);
-		//    //}
-		//    //return tmp;
-		//}
-
-		//internal static void CharCopy(char[] dest, char[] src, int count) {
-		//}
+		public static string Format(string format, object arg0, object arg1) {
+			var sb = FormatHelper(null, format, arg0, arg1);
+			return sb.ToString();
+		}
 
 		public static string Format(string format, params object[] args) {
 			var sb = FormatHelper(null, format, args);
@@ -156,126 +153,187 @@ namespace System
 				char ch = format[ptr++];
 				if (ch == '{') {
 					result.Append(format, start, ptr - start - 1);
+					JsDebug.Log(result.ToString());
 
 					// check for escaped open bracket
 					if (format[ptr] == '{') {
 						start = ptr++;
 						continue;
 					}
-				
+
 					// parse specifier
+					var specifier = new FormatSpecifier(format, ptr);
+					ptr = specifier.ptr;
+
+					if (specifier.n >= args.Length) {
+						throw new FormatException("Index (zero based) must be greater than or equal to zero and less than the size of the argument list.");
+					}
+
+					// format argument
+					object arg = args[specifier.n];
+
+					string str;
+					//ICustomFormatter formatter = null;
+					//if (provider != null)
+					//    formatter = provider.GetFormat(typeof(ICustomFormatter))
+					//        as ICustomFormatter;
+					if (arg == null)
+						str = "";
+					//else if (formatter != null)
+					//    str = formatter.Format(arg_format, arg, provider);
+					//else if (arg is IFormattable)
+					//    str = ((IFormattable)arg).ToString(arg_format, provider);
+					//else
+					str = arg.ToString();
+
+					if (specifier.width > str.Length) {
+						const char padchar = ' ';
+						int padlen = specifier.width - str.Length;
+
+						if (specifier.left_align) {
+							result.Append(str);
+							result.Append(padchar, padlen);
+						}
+						else {
+							result.Append(padchar, padlen);
+							result.Append(str);
+						}
+					}
+					else
+						result.Append(str);
+
+					start = ptr;
+				}
+				else if (ch == '}' && ptr < format.Length && format[ptr] == '}') {
+					result.Append(format, start, ptr - start - 1);
+					start = ptr++;
+				}
+				else if (ch == '}') {
+					throw new FormatException("Input string was not in a correct format.");
 				}
 			}
 
 			return result;
 		}
 
-		//private static void ParseFormatSpecifier(
-		//    string str, 
-		//    ref int ptr, 
-		//    out int n, 
-		//    out int width, 
-		//    out bool left_align, 
-		//    out string format) {
-		//    // parses format specifier of form:
-		//    //   N,[\ +[-]M][:F]}
-		//    //
-		//    // where:
+		class FormatSpecifier
+		{
+			public int ptr;
+			public int n;
+			public int width;
+			public bool left_align;
+			public string format;
 
-		//    try {
-		//        // N = argument number (non-negative integer)
+			public FormatSpecifier(string str, int ptr) {
+				this.ptr = ptr;
+				ParseFormatSpecifier(str);
+			}
 
-		//        n = ParseDecimal(str, ref ptr);
-		//        if (n < 0)
-		//            throw new FormatException("Input string was not in a correct format.");
+			private void ParseFormatSpecifier(string str) {
+				// parses format specifier of form:
+				//   N,[\ +[-]M][:F]}
+				//
+				// where:
 
-		//        // M = width (non-negative integer)
+				try {
+					// N = argument number (non-negative integer)
 
-		//        if (str[ptr] == ',') {
-		//            // White space between ',' and number or sign.
-		//            ++ptr;
-		//            while (Char.IsWhiteSpace(str[ptr]))
-		//                ++ptr;
-		//            int start = ptr;
+					n = ParseDecimal(str);
+					if (n < 0)
+						throw new FormatException("Input string was not in a correct format.");
 
-		//            //format = str.Substring(start, ptr - start);
+					// M = width (non-negative integer)
 
-		//            left_align = (str[ptr] == '-');
-		//            if (left_align)
-		//                ++ptr;
+					if (str[ptr] == ',') {
+						// White space between ',' and number or sign.
+						++ptr;
+						while (Char.IsWhiteSpace(str[ptr])) {
+							++ptr;
+						}
+						int start = ptr;
 
-		//            width = ParseDecimal(str, ref ptr);
-		//            if (width < 0)
-		//                throw new FormatException("Input string was not in a correct format.");
-		//        }
-		//        else {
-		//            width = 0;
-		//            left_align = false;
-		//            format = String.Empty;
-		//        }
+						format = str.Substring(start, ptr - start);
 
-		//        // F = argument format (string)
+						left_align = (str[ptr] == '-');
+						if (left_align)
+							++ptr;
 
-		//        if (str[ptr] == ':') {
-		//            int start = ++ptr;
-		//            while (str[ptr] != '}')
-		//                ++ptr;
+						width = ParseDecimal(str);
+						if (width < 0)
+							throw new FormatException("Input string was not in a correct format.");
+					}
+					else {
+						width = 0;
+						left_align = false;
+						format = "";
+					}
 
-		//            format += str.Substring(start, ptr - start);
-		//        }
-		//        else
-		//            format = null;
+					// F = argument format (string)
 
-		//        if (str[ptr++] != '}')
-		//            throw new FormatException("Input string was not in a correct format.");
-		//    }
-		//    catch (IndexOutOfRangeException) {
-		//        throw new FormatException("Input string was not in a correct format.");
-		//    }
-		//}
+					if (str[ptr] == ':') {
+						int start = ++ptr;
+						while (str[ptr] != '}') {
+							++ptr;
+						}
 
-		//private static int ParseDecimal(string str, ref int ptr) {
-		//    int p = ptr;
-		//    int n = 0;
-		//    while (true) {
-		//        char ch = str[p];
-		//        if (ch < '0' || '9' < ch)
-		//            break;
+						format += str.Substring(start, ptr - start);
+					}
+					else
+						format = null;
 
-		//        n = n * 10 + ch - '0';
-		//        ++p;
-		//    }
+					if (str[ptr++] != '}')
+						throw new FormatException("Input string was not in a correct format.");
+				}
+				catch (IndexOutOfRangeException) {
+					throw new FormatException("Input string was not in a correct format.");
+				}
+			}
 
-		//    if (p == ptr)
-		//        return -1;
+			private int ParseDecimal(string str) {
+				int p = ptr;
+				int n = 0;
+				while (true) {
+					int ch = str.CharCodeAt(p);
+					if (ch < '0' || '9' < ch)
+						break;
 
-		//    ptr = p;
-		//    return n;
-		//}
+					n = n * 10 + ch - '0';
+					++p;
+				}
+
+				if (p == ptr)
+					return -1;
+
+				ptr = p;
+				return n;
+			}
+		}
 
 		#region Javascript Methods
 		//public extern string ValueOf();
 
-		/// <summary>
-		/// Returns a String containing the character at position pos in the String resulting from converting this object to a 
-		/// String. If there is no character at that position, the result is the empty String. The result is a String value, not a 
-		/// String object. 
-		/// </summary>
-		/// <param name="pos"></param>
-		/// <returns></returns>
+		///// <summary>
+		///// Returns a String containing the character at position pos in the String resulting from converting this object to a 
+		///// String. If there is no character at that position, the result is the empty String. The result is a String value, not a 
+		///// String object. 
+		///// </summary>
+		///// <param name="pos"></param>
+		///// <returns></returns>
 		//public extern string CharAt(int pos);
 
-		/// <summary>
-		/// Returns a Number (a nonnegative integer less than 216) representing the code unit value of the character at 
-		/// position  pos in the String resulting from converting this object to a String. If there is no character at that 
-		/// position, the result is NaN. 
-		/// </summary>
-		/// <param name="pos"></param>
-		/// <returns></returns>
-		public extern int CharCodeAt(int pos);
+		///// <summary>
+		///// Returns a Number (a nonnegative integer less than 216) representing the code unit value of the character at 
+		///// position  pos in the String resulting from converting this object to a String. If there is no character at that 
+		///// position, the result is NaN. 
+		///// </summary>
+		///// <param name="pos"></param>
+		///// <returns></returns>
+		//public extern int CharCodeAt(int pos);
 		#endregion
+#endif
 	}
 
+#if !HOSTED_MODE
 	[JsNamespace]
 	internal static class StringHelper
 	{
@@ -288,5 +346,17 @@ namespace System
 			return hash;
 		}
 	}
+#endif
 
+	public static class StringExtensions
+	{
+		[JsMacro("{1}.charCodeAt({2})")]
+		public static extern int CharCodeAt(this string str, int pos);
+	}
+
+	public static class JsDebug
+	{
+		[JsMacro("console.log({1})")]
+		public static extern void Log(object obj);
+	}
 }

@@ -20,6 +20,7 @@ using System.Linq;
 using DotWeb.Client;
 using System.DotWeb;
 using DotWeb.Client.Dom;
+using DotWeb.Client.Dom.Helper;
 
 namespace H8
 {
@@ -524,6 +525,10 @@ namespace H8
 		{
 			public ClientScriptClass() {
 				Console.WriteLine("Hello");
+
+				var div = ElementFactory.CreateDiv();
+				var x = div.getElementsByTagName("ol")[0];
+				Console.WriteLine(x);
 			}
 		}
 
@@ -573,6 +578,33 @@ namespace H8
 			Console.WriteLine("x");
 			Console.WriteLine(true);
 			Console.WriteLine(false);
+		}
+
+		public void CompareCharLiteral(char x) {
+			var equal = x == 'x';
+			Console.WriteLine(equal);
+		}
+
+		public int ParseDecimal(string str, int ptr) {
+			int p = ptr;
+			int n = 0;
+			while (true) {
+				char ch = str[p];
+				if (ch < '0' || '9' < ch)
+					break;
+
+				n = n * 10 + ch - '0';
+				++p;
+			}
+
+			if (p == ptr)
+				return -1;
+
+			return n;
+		}
+
+		public void StringFormat() {
+			Console.WriteLine(string.Format("Test: {0}", "arg0"));
 		}
 	}
 }

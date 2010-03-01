@@ -25,6 +25,7 @@ namespace DotWeb.Utility.Cecil
 		public const string Delegate = "System.Delegate";
 		public const string Exception = "System.Exception";
 		public const string JsObject = "System.DotWeb.JsObject";
+		public const string Boolean = "System.Boolean";
 	}
 
 	public class TypeDefinitionCache
@@ -34,12 +35,14 @@ namespace DotWeb.Utility.Cecil
 			this.JsObject = typeSystem.GetTypeDefinition(ConstantTypeNames.JsObject);
 			this.Delegate = typeSystem.GetTypeDefinition(ConstantTypeNames.Delegate);
 			this.Exception = typeSystem.GetTypeDefinition(ConstantTypeNames.Exception);
+			this.Boolean = typeSystem.GetTypeDefinition(ConstantTypeNames.Boolean);
 		}
 
 		public TypeDefinition Object { get; private set; }
 		public TypeDefinition JsObject { get; private set; }
 		public TypeDefinition Delegate { get; private set; }
 		public TypeDefinition Exception { get; private set; }
+		public TypeDefinition Boolean { get; private set; }
 	}
 
 }

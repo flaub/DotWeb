@@ -36,10 +36,14 @@ namespace DotWeb.Translator.Test
 		protected TypeSystem typeSystem;
 		protected GlobalAssemblyResolver resolver;
 
-		protected TranslationTestHelper(string asmName, string src) {
+		protected TranslationTestHelper(string asmName, string src)
+			: this(asmName, src, false) {
+		}
+
+		protected TranslationTestHelper(string asmName, string src, bool isDebug) {
 			var compiler = new CSharpCompiler();
 			var asm = Assembly.Load(asmName);
-			var result = compiler.CompileSource(src, asm);
+			var result = compiler.CompileSource(src, asm, isDebug);
 
 			this.resolver = new GlobalAssemblyResolver();
 
@@ -51,10 +55,11 @@ namespace DotWeb.Translator.Test
 			this.typeSystem = new TypeSystem(this.resolver);
 			this.CompiledAssembly = this.typeSystem.LoadAssembly(compiledAsmName);
 
-			var pathToPdb = Path.Combine(dir, compiledAsmName + ".pdb");
 			this.CompiledAssembly.MainModule.LoadSymbols();
-			File.Delete(result.PathToAssembly);
+			var pathToPdb = Path.Combine(dir, compiledAsmName + ".pdb");
 			File.Delete(pathToPdb);
+
+			File.Delete(result.PathToAssembly);
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {
@@ -112,10 +117,14 @@ namespace DotWeb.Translator.Test
 		protected TypeDefinition sourceCompiledType;
 		protected ResourceManager resource;
 
-		public TestBase(string asmName, string typeName, ResourceManager resource, string source)
-			: base(asmName, resource.GetString(source)) {
+		public TestBase(string asmName, string typeName, ResourceManager resource, string source, bool isDebug)
+			: base(asmName, resource.GetString(source), isDebug) {
 			this.resource = resource;
 			this.sourceCompiledType = this.CompiledAssembly.MainModule.Types[typeName];
+		}
+
+		public TestBase(string asmName, string typeName, ResourceManager resource, string source)
+			: this(asmName, typeName, resource, source, false) {
 		}
 
 		public void RunTestWithDependencies() {
