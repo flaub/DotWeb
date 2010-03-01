@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DotWeb.Translator.Test.Properties {
+namespace DotWeb.Translator.Test {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DotWeb.Translator.Test.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class SystemTestData {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal SystemTestData() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DotWeb.Translator.Test.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DotWeb.Translator.Test.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DotWeb.Translator.Test.SystemTestData", typeof(SystemTestData).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -89,193 +89,21 @@ namespace DotWeb.Translator.Test.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to // Copyright 2009, Frank Laub
-        /////
-        ///// This file is part of DotWeb.
-        /////
-        ///// DotWeb is free software: you can redistribute it and/or modify
-        ///// it under the terms of the GNU General Public License as published by
-        ///// the Free Software Foundation, either version 3 of the License, or
-        ///// (at your option) any later version.
-        /////
-        ///// DotWeb is distributed in the hope that it will be useful,
-        ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DecorationTest {
-            get {
-                return ResourceManager.GetString("DecorationTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;DecorationTests&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;SystemTests&apos;);
         ///
-        ///H8.DecorationTests.prototype.box_OnMouseOver = function(evt) {
+        ///H8.SystemTests.prototype.box_OnMouseOver = function(evt) {
         ///};
         ///
-        ///H8.DecorationTests.prototype.TestCastInterface = function() {
+        ///H8.SystemTests.prototype.CastInterface = function() {
         ///	var element = $doc.getElementById(&quot;box&quot;);
         ///	var box = element;
         ///	box.onmouseover = $Delegate(this, this.box_OnMouseOver);
         ///};
         ///.
         /// </summary>
-        internal static string DecorationTest_CastInterface {
+        internal static string CastInterface {
             get {
-                return ResourceManager.GetString("DecorationTest_CastInterface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Console&apos;);
-        ///
-        ///System.Console.WriteLine$0 = function(value) {
-        ///	console.log(value);
-        ///};
-        ///
-        ///$Class(null, &apos;H8&apos;, &apos;DecorationTests&apos;);
-        ///
-        ///H8.DecorationTests.prototype.TestJsAnonymous = function() {
-        ///	var __g__initLocal0 = {};
-        ///	__g__initLocal0.X = 1;
-        ///	__g__initLocal0.y = 2;
-        ///	var item = __g__initLocal0;
-        ///	item.X = item.y;
-        ///	item.y = item.X;
-        ///	var CS$0$0000 = new Array(2);
-        ///	var __g__initLocal1 = {};
-        ///	__g__initLocal1.X = 0;
-        ///	__g__initLocal1.y = 0;
-        ///	CS$0$0000[0] = __g__initLocal1;
-        ///	var  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DecorationTest_JsAnonymous {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsAnonymous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsArray = function() {
-        ///	var array = new Array();
-        ///	if (Array.isArray(array)) {
-        ///		var part = array.slice(0, 1);
-        ///		System.Console.WriteLine$1(part.join(&quot;,&quot;));
-        ///	}
-        ///	array.splice(0, 0);
-        ///	array.splice(0, 0, 1);
-        ///	array.splice(0, 0, 1, &quot;two&quot;);
-        ///	var x = new Array(1, 2);
-        ///	System.Console.WriteLine$0(x[0]);
-        ///	x[1] = 1;
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsArray {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsArray", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCamelCase = function() {
-        ///	var x = new H8.CamelCaseTest().$ctor();
-        ///	x.foo();
-        ///	this.camelCase();
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsCamelCase {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsCamelCase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsCode = function(arg) {
-        ///	alert(arg);
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsCode {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;IntrinsicClass&apos;);
-        ///
-        ///H8.IntrinsicClass.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
-        ///
-        ///System.Console.Write = function(value) {
-        ///	console.log(value);
-        ///};
-        ///
-        ///$Class(null, &apos;H8&apos;, &apos;DecorationTests&apos;);
-        ///
-        ///H8.DecorationTests.prototype.TestJsIntrinsic = function() {
-        ///	var __g__initLocal3 = new H8.IntrinsicClass().$ctor();
-        ///	__g__initLocal3.Value = 1;
-        ///	var item = __g__initLocal3;
-        ///	System.Console.Write(item.Value);
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsIntrinsic {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsIntrinsic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsMacro = function() {
-        ///	this.jQuery(&quot;*&quot;);
-        ///	H8.DecorationTests.jQuery(&quot;*&quot;);
-        ///	H8.DecorationTests.TakeJQuery(this.jQuery(&quot;#id&quot;));
-        ///	System.Console.WriteLine$0($doc.getElementById(&quot;id&quot;));
-        ///	System.Console.WriteLine$0(this.charAt(0));
-        ///};
-        ///.
-        /// </summary>
-        internal static string DecorationTest_JsMacro {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsMacro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;&apos;, &apos;DefaultNamespaceTest&apos;);
-        ///
-        ///DefaultNamespaceTest.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///DefaultNamespaceTest.prototype.set_Value = function(value) {
-        ///	this._Value_k__BackingField = value;
-        ///};
-        ///
-        ///$Class(null, &apos;Foo&apos;, &apos;FooNamespaceTest&apos;);
-        ///
-        ///Foo.FooNamespaceTest.prototype.$ctor = function() {
-        ///	return this;
-        ///};
-        ///
-        ///DefaultNamespaceTest.prototype.get_Value = function() {
-        ///	return this._Value_k__BackingField;
-        ///};
-        ///
-        ///Foo.FooNamespaceTest.prototype.set_Value = function(value) {
-        ///	this [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DecorationTest_JsNamespace {
-            get {
-                return ResourceManager.GetString("DecorationTest_JsNamespace", resourceCulture);
+                return ResourceManager.GetString("CastInterface", resourceCulture);
             }
         }
         
@@ -293,9 +121,9 @@ namespace DotWeb.Translator.Test.Properties {
         ///// but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SystemTest {
+        internal static string Source {
             get {
-                return ResourceManager.GetString("SystemTest", resourceCulture);
+                return ResourceManager.GetString("Source", resourceCulture);
             }
         }
         
@@ -307,13 +135,6 @@ namespace DotWeb.Translator.Test.Properties {
         ///};
         ///
         ///H8.SystemTests_Base.prototype.Foo = function() {
-        ///};
-        ///
-        ///$Class(H8.SystemTests_Base, &apos;H8&apos;, &apos;SystemTests_Derived&apos;);
-        ///
-        ///H8.SystemTests_Derived.prototype.Foo = function() {
-        ///	this.$super.Foo();
-        ///	this.Foo();
         ///};
         ///
         ///$Class(null, &apos;H8&apos;, &apos;SystemTests&apos;);
@@ -449,6 +270,28 @@ namespace DotWeb.Translator.Test.Properties {
         internal static string TestGenericMethod {
             get {
                 return ResourceManager.GetString("TestGenericMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H8.DecorationTests.prototype.TestJsArray = function() {
+        ///	var array = new Array();
+        ///	if (Array.isArray(array)) {
+        ///		var part = array.slice(0, 1);
+        ///		System.Console.WriteLine$1(part.join(&quot;,&quot;));
+        ///	}
+        ///	array.splice(0, 0);
+        ///	array.splice(0, 0, 1);
+        ///	array.splice(0, 0, 1, &quot;two&quot;);
+        ///	var x = new Array(1, 2);
+        ///	System.Console.WriteLine$0(x[0]);
+        ///	x[1] = 1;
+        ///};
+        ///.
+        /// </summary>
+        internal static string TestJsArray {
+            get {
+                return ResourceManager.GetString("TestJsArray", resourceCulture);
             }
         }
         

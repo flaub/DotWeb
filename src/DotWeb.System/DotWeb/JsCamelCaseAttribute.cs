@@ -33,6 +33,11 @@ namespace System.DotWeb
 		AllowMultiple = false, Inherited = false)]
 	public class JsCamelCaseAttribute : SysAttribute
 	{
-		public JsCamelCaseAttribute() { }
+		public bool Enabled { get; private set; }
+
+		public JsCamelCaseAttribute() : this(true) { }
+		public JsCamelCaseAttribute(bool enabled) {
+			this.Enabled = enabled;
+		}
 	}
 }

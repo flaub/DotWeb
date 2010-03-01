@@ -20,7 +20,6 @@ using System.Linq;
 using NUnit.Framework;
 using DotWeb.Decompiler.Core;
 using System.Collections.Generic;
-using DotWeb.Translator.Test.Properties;
 using Mono.Cecil;
 using System.Diagnostics;
 using System.Text;

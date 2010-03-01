@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DotWeb.Translator.Test.Properties;
 using NUnit.Framework;
 using Mono.Cecil;
 
@@ -29,7 +28,7 @@ namespace DotWeb.Translator.Test
 	public class SystemTest : TestBase
 	{
 		public SystemTest()
-			: base("DotWeb.Translator.Test.Script", "H8.SystemTests", Resources.ResourceManager, "SystemTest") {
+			: base("DotWeb.Translator.Test.Script", "H8.SystemTests", SystemTestData.ResourceManager, "Source") {
 		}
 
 		[Test]
@@ -55,5 +54,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestGenericMethod() { this.RunTestWithDependencies(); }
+
+		[Test]
+		public void CastInterface() { RunTestWithDependencies(); }
 	}
 }

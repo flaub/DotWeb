@@ -93,13 +93,18 @@ namespace System
 			get;
 		}
 
-		//public string Substring(int startIndex) {
-		//    //if (startIndex == 0)
-		//    //    return this;
-		//    if (startIndex < 0 || startIndex > this.Length)
-		//        throw new ArgumentOutOfRangeException("startIndex");
-		//    return InternalSubstring(startIndex, this.Length - startIndex);
-		//}
+#if !HOSTED_MODE
+		public string Substring(int startIndex) {
+			if (startIndex == 0)
+				return this;
+			if (startIndex < 0 || startIndex > this.Length)
+				throw new ArgumentOutOfRangeException("startIndex");
+			return InternalSubstring(startIndex, this.Length - startIndex);
+		}
+#endif
+
+		[JsMacro("{0}.substring({1}, {2})")]
+		internal extern string InternalSubstring(int start, int end);
 
 		//public string Substring(int startIndex, int length) {
 		//    if (length < 0)

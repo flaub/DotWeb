@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DotWeb.Translator.Test.Properties;
 using NUnit.Framework;
 using Mono.Cecil;
 
@@ -26,71 +25,28 @@ namespace DotWeb.Translator.Test
 	/// Summary description for DecorationTest
 	/// </summary>
 	[TestFixture]
-	public class DecorationTest : TranslationTestHelper
+	public class DecorationTest : TestBase
 	{
 		public DecorationTest()
-			: base("DotWeb.Translator.Test.Script", Resources.DecorationTest) {
-			this.compiledType = this.CompiledAssembly.MainModule.Types["H8.DecorationTests"];
+			: base("DotWeb.Translator.Test.Script", "H8.DecorationTests", Decoration.ResourceManager, "Source") {
 		}
 
 		[Test]
-		public void TestJsCode() {
-			TestMethod(this.compiledType, "TestJsCode", Resources.DecorationTest_JsCode);
-		}
+		public void TestJsCode() { RunTest(); }
 
 		[Test]
-		public void TestJsArray() {
-			TestMethod(this.compiledType, "TestJsArray", Resources.DecorationTest_JsArray);
-		}
+		public void TestJsAnonymous() { RunTestWithDependencies(); }
 
 		[Test]
-		public void TestJsAnonymous() {
-			TestMethod(this.compiledType, "TestJsAnonymous", Resources.DecorationTest_JsAnonymous, true);
-		}
+		public void TestJsIntrinsic() { RunTestWithDependencies(); }
 
 		[Test]
-		public void TestJsIntrinsic() {
-			TestMethod(this.compiledType, "TestJsIntrinsic", Resources.DecorationTest_JsIntrinsic, true);
-		}
+		public void TestJsNamespace() { RunTestWithDependencies(); }
 
 		[Test]
-		public void TestJsNamespace() {
-			TestMethod(this.compiledType, "TestJsNamespace", Resources.DecorationTest_JsNamespace, true);
-		}
-
-		//[Test]
-		//[ExpectedException(typeof(InvalidAnonymousUsageException))]
-		//public void InvalidAnonymousClass1() {
-		//    GenerateMethod(this.compiledType, "InvalidAnonymousClass1", true);
-		//}
-
-		//[Test]
-		//[ExpectedException(typeof(InvalidAnonymousUsageException))]
-		//public void InvalidAnonymousClass2() {
-		//    GenerateMethod(this.compiledType, "InvalidAnonymousClass2", true);
-		//}
-
-		//[Test]
-		//[ExpectedException(typeof(InvalidIntrinsicUsageException))]
-		//public void InvalidIntrinsicClass() {
-		//    GenerateMethod(this.compiledType, "InvalidIntrinsicClass", true);
-		//}
+		public void TestJsMacro() { RunTest(); }
 
 		[Test]
-		public void TestCastInterface() {
-			TestMethod(this.compiledType, "TestCastInterface", Resources.DecorationTest_CastInterface, true);
-		}
-
-		[Test]
-		public void TestJsMacro() {
-			TestMethod(this.compiledType, "TestJsMacro", Resources.DecorationTest_JsMacro);
-		}
-
-		[Test]
-		public void TestJsCamelCase() {
-			TestMethod(this.compiledType, "TestJsCamelCase", Resources.DecorationTest_JsCamelCase);
-		}
-
-		private TypeDefinition compiledType;
+		public void TestJsCamelCase() { RunTest(); }
 	}
 }

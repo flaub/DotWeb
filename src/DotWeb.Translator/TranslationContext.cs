@@ -115,7 +115,7 @@ namespace DotWeb.Translator
 				return ret;
 			}
 
-			if (!method.HasBody || method.Body.Instructions.Count == 0) {
+			if (!method.HasBody || method.Body.CodeSize == 0) {
 				string msg = string.Format(
 					"{0}\nA method marked extern must either have [JsCode], [JsMacro], or be declared in a type derived from JsObject.",
 					method

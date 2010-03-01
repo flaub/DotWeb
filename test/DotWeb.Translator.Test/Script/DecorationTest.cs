@@ -128,21 +128,6 @@ namespace H8
 			Console.WriteLine(this[0]);
 		}
 
-		public void TestJsArray() {
-			var array = new JsArray();
-			if (JsArray.IsArray(array)) {
-				var part = array.Slice(0, 1);
-				Console.WriteLine(part.Join(","));
-			}
-
-			var result1 = array.Splice(0, 0);
-			var result2 = array.Splice(0, 0, 1);
-			var result3 = array.Splice(0, 0, 1, "two");
-			var x = new JsArray(1, 2);
-			Console.WriteLine(x[0]);
-			x[1] = 1;
-		}
-
 		public void TestJsAnonymous() {
 			var item = new AnonymousClass {
 				X = 1,
@@ -197,13 +182,5 @@ namespace H8
 			Console.WriteLine(item2.Value);
 		}
 
-		public void TestCastInterface() {
-			var element = Global.Document.getElementById("box");
-			var box = (HtmlDivElement)element;
-			box.onmouseover = box_OnMouseOver;
-		}
-
-		private void box_OnMouseOver(MouseEvent evt) {
-		}
 	}
 }

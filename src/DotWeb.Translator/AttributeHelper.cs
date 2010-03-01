@@ -56,37 +56,36 @@ namespace DotWeb.Translator
 		}
 
 		public static bool IsCamelCase(MemberReference memberRef, TypeSystem typeSystem) {
-			if (memberRef is FieldReference) {
-				return IsCamelCase((FieldReference)memberRef, typeSystem);
+			if (IsCamelCase((ICustomAttributeProvider)memberRef.DeclaringType, typeSystem))
+				return true;
+			var fieldRef = memberRef as FieldReference;
+			if (fieldRef != null) {
+				var def = fieldRef.Resolve();
+				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
 			}
-			if (memberRef is MethodReference) {
-				return IsCamelCase((MethodReference)memberRef, typeSystem);
+			var methodRef = memberRef as MethodReference;
+			if (methodRef != null) {
+				var def = methodRef.Resolve();
+				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
 			}
-			if (memberRef is PropertyReference) {
-				return IsCamelCase((PropertyReference)memberRef, typeSystem);
+			var propertyRef = memberRef as PropertyReference;
+			if (propertyRef != null) {
+				var def = propertyRef.Resolve();
+				return IsCamelCase((ICustomAttributeProvider)def, typeSystem);
 			}
 			return false;
 		}
 
-		public static bool IsCamelCase(FieldReference fieldRef, TypeSystem typeSystem) {
-			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
-			return
-				typeSystem.IsDefined(fieldRef.Resolve(), typeDef) ||
-				typeSystem.IsDefined(fieldRef.DeclaringType.Resolve(), typeDef);
-		}
+		private static bool IsCamelCase(ICustomAttributeProvider provider, TypeSystem typeSystem) {
+			var customAttr = FindByName(provider, JsCamelCase);
+			if (customAttr == null)
+				return false;
 
-		public static bool IsCamelCase(MethodReference methodRef, TypeSystem typeSystem) {
-			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
-			return
-				typeSystem.IsDefined(methodRef.Resolve(), typeDef) ||
-				typeSystem.IsDefined(methodRef.DeclaringType.Resolve(), typeDef);
-		}
+			if (customAttr.ConstructorParameters.Count == 0)
+				return true;
 
-		public static bool IsCamelCase(PropertyReference propertyRef, TypeSystem typeSystem) {
-			var typeDef = typeSystem.GetTypeDefinition(JsCamelCase);
-			return
-				typeSystem.IsDefined(propertyRef.Resolve(), typeDef) ||
-				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
+			var enabled = customAttr.Properties["Enabled"];
+			return (bool)enabled;
 		}
 
 		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {

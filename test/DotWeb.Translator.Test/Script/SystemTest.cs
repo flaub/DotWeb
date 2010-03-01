@@ -20,6 +20,8 @@ using System.Linq;
 using DotWeb.Client;
 using System.DotWeb;
 using System.Collections.Generic;
+using DotWeb.Client.Dom.Events;
+using DotWeb.Client.Dom.Html;
 
 namespace H8
 {
@@ -110,5 +112,30 @@ namespace H8
 			var equal = expected.Equals(actual);
 			Console.WriteLine(equal);
 		}
+
+		public void CastInterface() {
+			var element = Global.Document.getElementById("box");
+			var box = (HtmlDivElement)element;
+			box.onmouseover = box_OnMouseOver;
+		}
+
+		private void box_OnMouseOver(MouseEvent evt) {
+		}
+
+		public void TestJsArray() {
+			var array = new JsArray();
+			if (JsArray.IsArray(array)) {
+				var part = array.Slice(0, 1);
+				Console.WriteLine(part.Join(","));
+			}
+
+			var result1 = array.Splice(0, 0);
+			var result2 = array.Splice(0, 0, 1);
+			var result3 = array.Splice(0, 0, 1, "two");
+			var x = new JsArray(1, 2);
+			Console.WriteLine(x[0]);
+			x[1] = 1;
+		}
+
 	}
 }

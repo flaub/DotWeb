@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DotWeb.Translator.Test.Properties;
 using NUnit.Framework;
 using Mono.Cecil;
 

@@ -118,58 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DecorationTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\script\decorationtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_CastInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_castinterface.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsAnonymous" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsanonymous.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jscode.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsIntrinsic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsintrinsic.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsMacro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsmacro.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsNamespace" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsnamespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jsarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DecorationTest_JsCamelCase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\decorationtest\decorationtest_jscamelcase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SystemTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\script\systemtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="CallThisInterfaceMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\callthisinterfacemethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\callthisinterfacemethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CastInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\systemtest\castinterface.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Source" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>script\systemtest.cs;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testbase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\testbase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestDerived" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\testderived.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestDerivedThruBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testderivedthrubase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\testderivedthrubase.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestDerivedThruBaseIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="TestListEnumerator" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testlistenumerator.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestGenericMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\systemtest\testgenericmethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>expected\systemtest\testgenericmethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestJsArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\systemtest\testjsarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\systemtest\testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestListEnumerator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>expected\systemtest\testlistenumerator.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

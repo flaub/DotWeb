@@ -63,6 +63,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Decoration.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Decoration.resx</DependentUpon>
+    </Compile>
     <Compile Include="General.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,11 +75,6 @@
     </Compile>
     <Compile Include="GraphLibrary.cs" />
     <None Include="Script\Arrays.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="StructureConditionalsTest.cs" />
     <Compile Include="StructureLoopsTest.cs" />
     <Compile Include="GraphBuilderTest.cs" />
@@ -93,6 +93,11 @@
     <None Include="Script\Loops.cs" />
     <None Include="Script\GraphBuilderTest.cs" />
     <Compile Include="SimpleGraphBuilder.cs" />
+    <Compile Include="SystemTestData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemTestData.resx</DependentUpon>
+    </Compile>
     <Compile Include="SystemTest.cs" />
     <Compile Include="DecorationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,14 +139,14 @@
     <Content Include="Expected\Conditionals\SimpleIf.js" />
     <Content Include="Expected\Conditionals\SimpleIfAnd.js" />
     <Content Include="Expected\Conditionals\Switch.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsCamelCase.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsArray.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsMacro.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_CastInterface.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsAnonymous.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsCode.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsIntrinsic.js" />
-    <Content Include="Expected\DecorationTest\DecorationTest_JsNamespace.js" />
+    <Content Include="Expected\DecorationTest\TestJsCamelCase.js" />
+    <Content Include="Expected\SystemTest\TestJsArray.js" />
+    <Content Include="Expected\DecorationTest\TestJsMacro.js" />
+    <Content Include="Expected\SystemTest\CastInterface.js" />
+    <Content Include="Expected\DecorationTest\TestJsAnonymous.js" />
+    <Content Include="Expected\DecorationTest\TestJsCode.js" />
+    <Content Include="Expected\DecorationTest\TestJsIntrinsic.js" />
+    <Content Include="Expected\DecorationTest\TestJsNamespace.js" />
     <Content Include="Expected\GeneralTests\ClientScript.js" />
     <Content Include="Expected\GeneralTests\ArgumentException.js" />
     <Content Include="Expected\GeneralTests\Primitives.js" />
@@ -229,6 +234,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Arrays.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Decoration.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Decoration.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="General.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>General.Designer.cs</LastGenOutput>
@@ -241,9 +250,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Loops.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="SystemTestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>SystemTestData.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
