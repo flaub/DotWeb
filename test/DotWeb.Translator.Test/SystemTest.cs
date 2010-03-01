@@ -57,5 +57,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void CastInterface() { RunTestWithDependencies(); }
+
+		[Test]
+		public void TestJsArray() { RunTest(); }
 	}
 }

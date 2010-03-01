@@ -1,4 +1,4 @@
-﻿H8.DecorationTests.prototype.TestJsArray = function() {
+﻿H8.SystemTests.prototype.TestJsArray = function() {
 	var array = new Array();
 	if (Array.isArray(array)) {
 		var part = array.slice(0, 1);
