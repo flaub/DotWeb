@@ -9,7 +9,8 @@
 			System.Console.WriteLine$1("inner finally");
 		}
 		System.Console.WriteLine$1("inner follow");
-		if (x == 10) {
+		var CS$4$0000 = x != 10;
+		if (!CS$4$0000) {
 			System.Console.WriteLine$1("x == 10");
 		}
 	}

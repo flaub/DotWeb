@@ -1,12 +1,17 @@
 ﻿H8.GeneralTests.prototype.SwitchInsideWhile = function(x) {
 	System.Console.WriteLine$1("enter");
-	while (x > 10) {
+	while (true) {
+		var CS$4$0001 = x > 10;
+		if (!CS$4$0001) {
+			System.Console.WriteLine$1("exit");
+			break;
+		}
 		System.Console.WriteLine$1("head");
-		var CS$0$0000 = x;
-		switch (CS$0$0000) {
+		var CS$4$0000 = x;
+		switch (CS$4$0000) {
 			case 0:
 				System.Console.WriteLine$1("Zero: return");
-				return;
+				break;
 			case 1:
 			case 2:
 				System.Console.WriteLine$1("One & Two");
@@ -20,5 +25,4 @@
 		}
 		System.Console.WriteLine$1("tail");
 	}
-	System.Console.WriteLine$1("exit");
 };

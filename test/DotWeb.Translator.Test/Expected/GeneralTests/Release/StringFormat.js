@@ -411,8 +411,10 @@ String.formatHelper = function(result, format, args) {
 	return V_7;
 };
 
-String.format = function(format, args) {
-	var V_0 = String.formatHelper(null, format, args);
+String.format$0 = function(format, arg0) {
+	var V_2 = new Array(1);
+	V_2[0] = arg0;
+	var V_0 = String.formatHelper(null, format, V_2);
 	var V_1 = V_0.toString();
 	return V_1;
 };
@@ -426,7 +428,5 @@ System.Console.WriteLine$1 = function(value) {
 $Class(null, 'H8', 'GeneralTests');
 
 H8.GeneralTests.prototype.StringFormat = function() {
-	var CS$0$0000 = new Array(1);
-	CS$0$0000[0] = "arg0";
-	System.Console.WriteLine$1(String.format("Test: {0}", CS$0$0000));
+	System.Console.WriteLine$1(String.format$0("Test: {0}", "arg0"));
 };

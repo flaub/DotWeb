@@ -2,7 +2,8 @@
 	System.Console.WriteLine$1("enter");
 	try {
 		System.Console.WriteLine$1("try begin");
-		if (x) {
+		var CS$4$0000 = !x;
+		if (!CS$4$0000) {
 			throw new System.NotImplementedException().$ctor$0();
 		}
 		System.Console.WriteLine$1("try end");

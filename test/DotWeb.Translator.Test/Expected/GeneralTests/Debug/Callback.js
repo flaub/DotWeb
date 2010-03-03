@@ -43,10 +43,12 @@ System.Delegate.Combine = function(a, b) {
 };
 
 H8.GeneralTests.prototype.Callback = function(del) {
-	if (del) {
+	var CS$4$0000 = del == null;
+	if (!CS$4$0000) {
 		del();
 	}
-	if (this.SimpleEvent) {
+	CS$4$0000 = this.SimpleEvent == null;
+	if (!CS$4$0000) {
 		this.SimpleEvent();
 	}
 	var D_0 = this;

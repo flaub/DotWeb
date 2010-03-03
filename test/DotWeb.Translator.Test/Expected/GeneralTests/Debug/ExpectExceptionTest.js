@@ -60,7 +60,8 @@ H8.GeneralTests.prototype.ExpectException = function(name, action) {
 		if (__ex__) {
 			var ex = __ex__;
 			var actual = ex.$typename;
-			if ((name == actual)) {
+			var CS$4$0000 = !(name == actual);
+			if (!CS$4$0000) {
 				System.Console.WriteLine$1("Correct exception thrown");
 			}
 			else {

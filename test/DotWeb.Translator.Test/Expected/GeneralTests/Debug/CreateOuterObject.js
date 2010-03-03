@@ -19,11 +19,13 @@ H8.OuterClassTest.prototype.$ctor$0 = function() {
 };
 
 H8.OuterClassTest.prototype.get_Text = function() {
-	return this._Text_k__BackingField;
+	var V_0 = this._Text_k__BackingField;
+	return V_0;
 };
 
 H8.OuterClassTest.prototype.get_Value = function() {
-	return this.m_value;
+	var CS$1$0000 = this.m_value;
+	return CS$1$0000;
 };
 
 $Class(null, 'System', 'Console');
