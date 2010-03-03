@@ -26,6 +26,7 @@ namespace System.Text
 	[UseSystem]
 	public class StringBuilder
 	{
+#if !HOSTED_MODE
 		private string value = "";
 
 		public StringBuilder() {
@@ -105,14 +106,25 @@ namespace System.Text
 		}
 
 		public StringBuilder AppendFormat(string format, params object[] args) {
-			return this;
+			return string.FormatHelper(this, format, args);
 		}
 
 		//public StringBuilder AppendFormat(IFormatProvider provider, string format, params object[] args) {
 		//    return this;
 		//}
-		//public StringBuilder AppendFormat(string format, object arg0, object arg1);
-		//public StringBuilder AppendFormat(string format, object arg0, object arg1, object arg2);
+
+		public StringBuilder AppendFormat(string format, object arg0) {
+			return string.FormatHelper(this, format, arg0);
+		}
+
+		public StringBuilder AppendFormat(string format, object arg0, object arg1) {
+			return string.FormatHelper(this, format, arg0, arg1);
+		}
+
+		public StringBuilder AppendFormat(string format, object arg0, object arg1, object arg2) {
+			return string.FormatHelper(this, format, arg0, arg1, arg2);
+		}
+
 		public StringBuilder AppendLine() {
 			//return Append(System.Environment.NewLine);
 			return this;
@@ -125,5 +137,6 @@ namespace System.Text
 		public override string ToString() {
 			return this.value;
 		}
+#endif
 	}
 }

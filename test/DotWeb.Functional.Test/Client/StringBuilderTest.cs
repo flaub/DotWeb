@@ -39,6 +39,9 @@ namespace DotWeb.Functional.Test.Client
 
 			sb.Append("/test/", 1, 4);
 			this.view.AreStringsEqual("sb.Append(\"/test/\", 1, 4)", "true:xxtest", sb);
+
+			sb.AppendFormat("Test: {0}", 55);
+			this.view.AreStringsEqual("sb.Append(\"Test: {0}\", 55)", "true:xxtestTest: 55", sb);
 		}
 	}
 }
