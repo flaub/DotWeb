@@ -6,6 +6,5 @@
 	else {
 		ret = 2;
 	}
-	ret = ret + 1;
-	return ret;
+	return ret + 1;
 };

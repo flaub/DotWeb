@@ -5,8 +5,7 @@ $Class(H8.Base, 'H8', 'Derived');
 H8.Derived.NextId = function() {
 	var D_0 = H8.Derived.counter;
 	H8.Derived.counter = D_0 + 1;
-	var CS$1$0000 = D_0;
-	return CS$1$0000;
+	return D_0;
 };
 
 H8.Base.prototype.$ctor = function() {

@@ -7,8 +7,7 @@ $Class(System.SystemException, 'System', 'ArgumentException');
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
 
 System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-	var V_0 = "Specified argument was out of the range of valid values.";
-	return V_0;
+	return "Specified argument was out of the range of valid values.";
 };
 
 System.Exception.prototype.set_Message = function(value) {

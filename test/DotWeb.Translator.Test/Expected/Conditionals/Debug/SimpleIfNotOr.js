@@ -14,6 +14,5 @@
 		ret = 2;
 	}
 	ret = ret + 1;
-	var CS$1$0000 = ret;
-	return CS$1$0000;
+	return ret;
 };

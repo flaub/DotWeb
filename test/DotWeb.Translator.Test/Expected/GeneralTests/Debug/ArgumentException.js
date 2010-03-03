@@ -24,13 +24,11 @@ System.ArgumentException.prototype.$ctor$0 = function() {
 };
 
 System.Exception.prototype.get_Message = function() {
-	var V_0 = this._Message_k__BackingField;
-	return V_0;
+	return this._Message_k__BackingField;
 };
 
 System.ArgumentException.prototype.get_ParamName = function() {
-	var V_0 = this._ParamName_k__BackingField;
-	return V_0;
+	return this._ParamName_k__BackingField;
 };
 
 System.ArgumentException.prototype.get_Message = function() {

@@ -106,12 +106,12 @@ namespace DotWeb.Decompiler.Core
 
 		private bool WriteCode(BasicBlock previous, BasicBlock block, List<CodeStatement> stmts, Context context) {
 			if (block == context.LoopFollow) {
-				stmts.Add(new CodeBreakStatement());
+				AddStatement(stmts, new CodeBreakStatement());
 				return true;
 			}
 
 			if (block == context.LoopHeader && (previous == null || !previous.IsLoopLatch)) {
-				stmts.Add(new CodeContinueStatement());
+				AddStatement(stmts, new CodeContinueStatement());
 				return true;
 			}
 
@@ -152,7 +152,7 @@ namespace DotWeb.Decompiler.Core
 			// if the try follow lands on a loop or conditional header, then use their follow instead
 			// TODO: deal with nested trys
 			var tryStmt = new CodeTryStatement();
-			stmts.Add(tryStmt);
+			AddStatement(stmts, tryStmt);
 
 			var tryContext = context.NewTry(block.Try);
 
@@ -198,7 +198,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private bool WriteSwitch(BasicBlock block, List<CodeStatement> stmts, Context context) {
-			stmts.AddRange(block.Statements);
+			AddManyStatements(stmts, block.Statements);
 			var switchStmt = (CodeSwitchStatement)block.Statements.Last();
 
 			var targets = (Instruction[])block.LastInstruction.Operand;
@@ -236,14 +236,14 @@ namespace DotWeb.Decompiler.Core
 
 		private bool WriteIf(BasicBlock block, Conditional conditional, List<CodeStatement> stmts, Context context) {
 			var preStmts = block.Statements.Take(block.Statements.Count - 1);
-			stmts.AddRange(preStmts);
+			AddManyStatements(stmts, preStmts);
 
 			var last = (CodeExpressionStatement)block.Statements.Last();
 			var ifStmt = new CodeIfStatement {
 				Condition = last.Expression
 			};
 
-			stmts.Add(ifStmt);
+			AddStatement(stmts, ifStmt);
 		
 			bool emptyThen = false;
 			// is there a follow?
@@ -321,7 +321,7 @@ namespace DotWeb.Decompiler.Core
 				};
 			}
 
-			stmts.Add(whileStmt);
+			AddStatement(stmts, whileStmt);
 
 			if (!loop.Tails.Contains(block)) {
 				WriteLoopInner(block, loop, whileStmt.Statements, loopContext);
@@ -342,7 +342,7 @@ namespace DotWeb.Decompiler.Core
 				TestExpression = test
 			};
 
-			stmts.Add(repeatStmt);
+			AddStatement(stmts, repeatStmt);
 
 			if (!loop.Tails.Contains(block)) {
 				WriteLoopInner(block, loop, repeatStmt.Statements, loopContext);
@@ -364,7 +364,7 @@ namespace DotWeb.Decompiler.Core
 				TestExpression = new CodePrimitiveExpression(true)
 			};
 
-			stmts.Add(whileStmt);
+			AddStatement(stmts, whileStmt);
 
 			if (block.Successors.Count > 1) {
 				var conditional = new Conditional(this.graph, block);
@@ -404,15 +404,45 @@ namespace DotWeb.Decompiler.Core
 				if (stmt is CodeGotoStatement)
 					continue;
 
-				stmts.Add(stmt);
+				AddStatement(stmts, stmt);
 			}
 
 			if (block.FlowControl == FlowControl.Return || 
 				block.FlowControl == FlowControl.Throw) {
+
+				var lastReturn = stmts.LastOrDefault() as CodeReturnStatement;
+				if (lastReturn != null) {
+					var lastAssignment = lastReturn.Previous as CodeAssignStatement;
+					if (lastAssignment != null) {
+						var lhsVariable = lastAssignment.Left as CodeVariableReference;
+						var rhsVariable = lastReturn.Expression as CodeVariableReference;
+						if (lhsVariable != null && rhsVariable != null && lhsVariable.Variable == rhsVariable.Variable) {
+
+							lastReturn.Previous = lastAssignment.Previous;
+							stmts.Remove(lastAssignment);
+
+							lastReturn.Expression = lastAssignment.Right;
+						}
+					}
+				}
 				return true;
 			}
 			return false;
 		}
 
+		private void AddStatement(List<CodeStatement> stmts, CodeStatement stmt) {
+			var last = stmts.LastOrDefault();
+			if (last != null) {
+				last.Next = stmt;
+				stmt.Previous = last;
+			}
+			stmts.Add(stmt);
+		}
+
+		private void AddManyStatements(List<CodeStatement> stmts, IEnumerable<CodeStatement> range) {
+			foreach (var stmt in range) {
+				AddStatement(stmts, stmt);
+			}
+		}
 	}
 }

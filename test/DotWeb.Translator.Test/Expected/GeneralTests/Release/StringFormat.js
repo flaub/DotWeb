@@ -31,8 +31,7 @@ System.FormatException.prototype.$ctor$1 = function(message) {
 };
 
 System.Text.StringBuilder.prototype.toString = function() {
-	var V_0 = this.value;
-	return V_0;
+	return this.value;
 };
 
 System.Text.StringBuilder.prototype.Append$0 = function(value) {
@@ -56,8 +55,7 @@ System.Text.StringBuilder.prototype.Append$0 = function(value) {
 };
 
 System.Text.StringBuilder.prototype.Append$1 = function(value) {
-	var V_0 = this.Append$0(value.toString());
-	return V_0;
+	return this.Append$0(value.toString());
 };
 
 $Class(System.SystemException, 'System', 'ArgumentException');
@@ -65,8 +63,7 @@ $Class(System.SystemException, 'System', 'ArgumentException');
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
 
 System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-	var V_0 = "Specified argument was out of the range of valid values.";
-	return V_0;
+	return "Specified argument was out of the range of valid values.";
 };
 
 System.ArgumentException.prototype.$ctor$1 = function(message) {
@@ -179,8 +176,7 @@ System.Char.IsWhiteSpace = function(c) {
 	else {
 		R_1 = 1;
 	}
-	var V_0 = R_1;
-	return V_0;
+	return R_1;
 };
 
 System.ArgumentOutOfRangeException.prototype.$ctor$3 = function(paramName, message) {
@@ -317,8 +313,7 @@ System.Text.StringBuilder.prototype.Append$3 = function(value, repeatCount) {
 		this.Append$1(value);
 		V_0 = V_0 + 1;
 	}
-	var V_1 = this;
-	return V_1;
+	return this;
 };
 
 String.formatHelper = function(result, format, args) {
@@ -407,16 +402,14 @@ String.formatHelper = function(result, format, args) {
 			}
 		}
 	}
-	var V_7 = result;
-	return V_7;
+	return result;
 };
 
 String.format$0 = function(format, arg0) {
 	var V_2 = new Array(1);
 	V_2[0] = arg0;
 	var V_0 = String.formatHelper(null, format, V_2);
-	var V_1 = V_0.toString();
-	return V_1;
+	return V_0.toString();
 };
 
 $Class(null, 'System', 'Console');

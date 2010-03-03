@@ -24,5 +24,7 @@ namespace DotWeb.Decompiler.CodeModel
 {
 	public abstract class CodeStatement : CodeObject
 	{
+		public CodeStatement Previous { get; set; }
+		public CodeStatement Next { get; set; }
 	}
 }

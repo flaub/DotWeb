@@ -15,20 +15,17 @@ System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
 };
 
 System.Collections.Generic.List$1.prototype.GetEnumerator = function() {
-	var V_0 = new System.Collections.Generic.List$1_Enumerator().$ctor(this);
-	return V_0;
+	return new System.Collections.Generic.List$1_Enumerator().$ctor(this);
 };
 
 System.Collections.Generic.List$1.prototype.get_Count = function() {
-	var V_0 = this.items.length;
-	return V_0;
+	return this.items.length;
 };
 
 System.Collections.Generic.List$1_Enumerator.prototype.MoveNextRare = function() {
 	this.index = this.list.get_Count() + 1;
 	this.current = null;
-	var V_0 = false;
-	return V_0;
+	return false;
 };
 
 $Class(null, 'System', 'Exception');
@@ -40,8 +37,7 @@ $Class(System.SystemException, 'System', 'ArgumentException');
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
 
 System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-	var V_0 = "Specified argument was out of the range of valid values.";
-	return V_0;
+	return "Specified argument was out of the range of valid values.";
 };
 
 System.Exception.prototype.set_Message = function(value) {
@@ -78,8 +74,7 @@ System.Collections.Generic.List$1.prototype.get_Item = function(index) {
 	if (!V_1) {
 		throw new System.ArgumentOutOfRangeException().$ctor$1("index");
 	}
-	var V_0 = this.items[index];
-	return V_0;
+	return this.items[index];
 };
 
 System.Collections.Generic.List$1_Enumerator.prototype.MoveNext = function() {
@@ -97,8 +92,7 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNext = function() {
 };
 
 System.Collections.Generic.List$1_Enumerator.prototype.get_Current = function() {
-	var V_0 = this.current;
-	return V_0;
+	return this.current;
 };
 
 $Class(null, 'System', 'Console');

@@ -10,13 +10,11 @@ System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
 };
 
 System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
-	var V_0 = this.items.indexOf(item);
-	return V_0;
+	return this.items.indexOf(item);
 };
 
 System.Collections.Generic.List$1.prototype.toString = function() {
-	var V_0 = "[ " + this.items.toString() + " ]";
-	return V_0;
+	return "[ " + this.items.toString() + " ]";
 };
 
 $Class(null, 'System', 'Console');

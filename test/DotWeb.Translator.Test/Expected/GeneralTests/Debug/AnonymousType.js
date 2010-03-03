@@ -7,13 +7,11 @@ __f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
 };
 
 __f__AnonymousType0$2.prototype.get_Key = function() {
-	var V_0 = this._Key_i__Field;
-	return V_0;
+	return this._Key_i__Field;
 };
 
 __f__AnonymousType0$2.prototype.get_Value = function() {
-	var V_0 = this._Value_i__Field;
-	return V_0;
+	return this._Value_i__Field;
 };
 
 $Class(null, 'System', 'Console');

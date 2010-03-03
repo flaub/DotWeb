@@ -19,13 +19,11 @@ H8.GeneralTests_InnerClassTest.prototype.$ctor$0 = function() {
 };
 
 H8.GeneralTests_InnerClassTest.prototype.get_Text = function() {
-	var V_0 = this._Text_k__BackingField;
-	return V_0;
+	return this._Text_k__BackingField;
 };
 
 H8.GeneralTests_InnerClassTest.prototype.get_Value = function() {
-	var V_0 = this._Value_k__BackingField;
-	return V_0;
+	return this._Value_k__BackingField;
 };
 
 $Class(null, 'System', 'Console');

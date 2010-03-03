@@ -555,8 +555,9 @@ namespace DotWeb.Decompiler.Core
 
 		private void Return(Instruction il) {
 			var ret = new CodeReturnStatement();
-			if (this.stack.Any())
+			if (this.stack.Any()) {
 				ret.Expression = Pop();
+			}
 			AddStatment(ret);
 		}
 

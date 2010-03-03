@@ -10,8 +10,7 @@ System.Collections.Generic.List$1.prototype.Add$0 = function(item) {
 };
 
 System.Collections.Generic.List$1.prototype.toString = function() {
-	var V_0 = "[ " + this.items.toString() + " ]";
-	return V_0;
+	return "[ " + this.items.toString() + " ]";
 };
 
 $Class(null, 'System', 'Console');
@@ -21,8 +20,7 @@ System.Console.WriteLine$1 = function(value) {
 };
 
 System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
-	var V_0 = this.items.indexOf(item);
-	return V_0;
+	return this.items.indexOf(item);
 };
 
 System.Console.WriteLine$0 = function(value) {
@@ -58,8 +56,7 @@ System.Collections.Generic.List$1.prototype.Remove$0 = function(item) {
 	V_0.item = item;
 	V_0.foundFirst = false;
 	this.items = this.items.filter($Delegate(V_0, V_0._Remove_b__4));
-	var V_1 = V_0.foundFirst;
-	return V_1;
+	return V_0.foundFirst;
 };
 
 $Class(null, 'H8', 'SystemTests');
