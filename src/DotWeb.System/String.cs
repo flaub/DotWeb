@@ -147,13 +147,15 @@ namespace System
 				result = new StringBuilder();
 			}
 
+			//JsDebug.Log("Format: " + format);
+
 			int ptr = 0;
 			int start = ptr;
 			while (ptr < format.Length) {
 				char ch = format[ptr++];
+				//JsDebug.Log(ch);
 				if (ch == '{') {
 					result.Append(format, start, ptr - start - 1);
-					JsDebug.Log(result.ToString());
 
 					// check for escaped open bracket
 					if (format[ptr] == '{') {
@@ -213,11 +215,16 @@ namespace System
 				}
 			}
 
+			if (start < format.Length) {
+				result.Append(format, start, format.Length - start);
+			}
+
 			return result;
 		}
 
 		class FormatSpecifier
 		{
+			public string str;
 			public int ptr;
 			public int n;
 			public int width;
@@ -225,18 +232,20 @@ namespace System
 			public string format;
 
 			public FormatSpecifier(string str, int ptr) {
+				this.str = str;
 				this.ptr = ptr;
-				ParseFormatSpecifier(str);
+				ParseFormatSpecifier();
 			}
 
-			private bool IsWhiteSpace(string str, int ptr) {
+			private bool IsWhiteSpace() {
 				var ch = str.CharCodeAt(ptr);
 				return (ch >= 0x09 && ch <= 0x0d) ||
+					ch == 0x20 ||
 					ch == 0x85 ||
 					ch == 0x205F;
 			}
 
-			private void ParseFormatSpecifier(string str) {
+			private void ParseFormatSpecifier() {
 				// parses format specifier of form:
 				//   N,[\ +[-]M][:F]}
 				//
@@ -245,29 +254,30 @@ namespace System
 				try {
 					// N = argument number (non-negative integer)
 
-					n = ParseDecimal(str);
+					n = ParseDecimal();
 					if (n < 0)
-						throw new FormatException("Input string was not in a correct format.");
+						throw new FormatException("Invalid argument specifier.");
 
 					// M = width (non-negative integer)
 
 					if (str[ptr] == ',') {
 						// White space between ',' and number or sign.
 						++ptr;
-						while (IsWhiteSpace(str, ptr)) {
+						while (IsWhiteSpace()) {
 							++ptr;
 						}
 						int start = ptr;
+						int len = ptr - start;
 
-						format = str.Substring(start, ptr - start);
+						format = str.Substring(start, len);
 
 						left_align = (str[ptr] == '-');
 						if (left_align)
 							++ptr;
 
-						width = ParseDecimal(str);
+						width = ParseDecimal();
 						if (width < 0)
-							throw new FormatException("Input string was not in a correct format.");
+							throw new FormatException("Invalid width specifier.");
 					}
 					else {
 						width = 0;
@@ -289,14 +299,14 @@ namespace System
 						format = null;
 
 					if (str[ptr++] != '}')
-						throw new FormatException("Input string was not in a correct format.");
+						throw new FormatException("Missing end characeter.");
 				}
 				catch (IndexOutOfRangeException) {
 					throw new FormatException("Input string was not in a correct format.");
 				}
 			}
 
-			private int ParseDecimal(string str) {
+			private int ParseDecimal() {
 				int p = ptr;
 				int n = 0;
 				while (true) {

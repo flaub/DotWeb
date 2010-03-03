@@ -36,7 +36,8 @@ namespace DotWeb.Functional.Test.Client
 			this.view.AreStringsEqual("str.Substring(0, 4)", "This", str.Substring(0, 4));
 			this.view.AreStringsEqual("str.Substring(5, 4)", "is a", str.Substring(5, 4));
 			this.view.AreStringsEqual("str.Substring(0)", str, str.Substring(0));
-			this.view.AreStringsEqual("string.Format('Test: {0}')", "Test: arg0", string.Format("Test: {0}", "arg0"));
+			this.view.AreStringsEqual("string.Format(\"Test: {0}\")", "Test: arg0", string.Format("Test: {0}", "arg0"));
+			this.view.AreStringsEqual("string.Format(\"/{0, 10}/\")", "/         1/", string.Format("/{0, 10}/", 1));
 			//this.view.AreEqual("str.GetHashCode()", 0, str.GetHashCode());
 
 		}
