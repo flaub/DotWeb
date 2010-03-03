@@ -5,8 +5,8 @@ obj
 *.suo
 *.vsp
 *~
-[Dd]ebug
-[Rr]elease
+/build/bin/[Dd]ebug
+/build/bin/[Rr]elease
 TestResult.xml
 _ReSharper.*
 tools/*.pdb
