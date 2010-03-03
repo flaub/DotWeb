@@ -81,4 +81,13 @@ namespace DotWeb.Weaver.Test.Script
 			Console.WriteLine(str[0]);
 		}
 	}
+
+	class Misc_BindToVarArgs
+	{
+		public Misc_BindToVarArgs() {
+			var str = "This is a string";
+			var parts = str.Split(' ');
+			Console.WriteLine(parts);
+		}
+	}
 }

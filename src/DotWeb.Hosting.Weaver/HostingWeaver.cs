@@ -177,7 +177,11 @@ namespace DotWeb.Hosting.Weaver
 			if (typeSpec is ArrayType) {
 				var arrayType = (ArrayType)typeSpec;
 				var elementProc = ResolveTypeReference(arrayType.ElementType, genericScope);
-				var realType = elementProc.Type.MakeArrayType(arrayType.Rank);
+				Type realType;
+				if (arrayType.Rank == 1)
+					realType = elementProc.Type.MakeArrayType();
+				else
+					realType = elementProc.Type.MakeArrayType(arrayType.Rank);
 				var externalWrapper = new ExternalType(this, realType);
 				return externalWrapper;
 			}
