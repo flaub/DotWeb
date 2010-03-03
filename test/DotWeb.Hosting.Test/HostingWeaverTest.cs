@@ -208,11 +208,11 @@ namespace DotWeb.Hosting.Test
 
 			var field = type.GetField("fieldArray");
 			Assert.IsNotNull(field);
-			Assert.AreEqual("System.Int32[*]", field.FieldType.ToString());
+			Assert.AreEqual("System.Int32[]", field.FieldType.ToString());
 
 			var property = type.GetProperty("PropertyArray");
 			Assert.IsNotNull(property);
-			Assert.AreEqual("System.String[*]", property.PropertyType.ToString());
+			Assert.AreEqual("System.String[]", property.PropertyType.ToString());
 
 			var typeArray = type.GetField("typeArray");
 			Assert.IsNotNull(typeArray);
