@@ -67,5 +67,8 @@ H8.GeneralTests.prototype.ArgumentException = function() {
 			System.Console.WriteLine$1(ex.get_Message());
 			return;
 		}
+		else {
+			throw __ex__;
+		}
 	}
 };

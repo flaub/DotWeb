@@ -81,8 +81,7 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNext = function() {
 	var V_1 = this.index >= this.list.get_Count();
 	if (!V_1) {
 		this.current = this.list.get_Item(this.index);
-		var D_0 = this;
-		D_0.index = D_0.index + 1;
+		this.index = this.index + 1;
 		var V_0 = true;
 	}
 	else {

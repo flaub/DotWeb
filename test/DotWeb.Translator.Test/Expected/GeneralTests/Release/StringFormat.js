@@ -46,8 +46,7 @@ System.Text.StringBuilder.prototype.Append$0 = function(value) {
 			V_0 = this;
 		}
 		else {
-			var D_0 = this;
-			D_0.value = D_0.value + value;
+			this.value = this.value + value;
 			V_0 = this;
 		}
 	}
@@ -165,13 +164,10 @@ System.String_FormatSpecifier.prototype.ParseDecimal = function(str) {
 	return V_3;
 };
 
-$Class(null, 'System', 'ValueType');
-
-$Class(System.ValueType, 'System', 'Char');
-
-System.Char.IsWhiteSpace = function(c) {
-	if (((c < '\t') || (c > '\r')) && (c != '')) {
-		var R_1 = c == ' ';
+System.String_FormatSpecifier.prototype.IsWhiteSpace = function(str, ptr) {
+	var V_0 = str.charCodeAt(ptr);
+	if (((V_0 < 9) || (V_0 > 13)) && (V_0 != 133)) {
+		var R_1 = V_0 == 8287;
 	}
 	else {
 		R_1 = 1;
@@ -233,23 +229,20 @@ System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
 		}
 		V_1 = str.charAt(this.ptr) != ',';
 		if (!V_1) {
-			var D_0 = this;
-			D_0.ptr = D_0.ptr + 1;
+			this.ptr = this.ptr + 1;
 			while (true) {
-				V_1 = System.Char.IsWhiteSpace(str.charAt(this.ptr));
+				V_1 = this.IsWhiteSpace(str, this.ptr);
 				if (!V_1) {
 					break;
 				}
-				var D_1 = this;
-				D_1.ptr = D_1.ptr + 1;
+				this.ptr = this.ptr + 1;
 			}
 			var V_0 = this.ptr;
 			this.format = str._Substring$1(V_0, this.ptr - V_0);
 			this.left_align = str.charAt(this.ptr) == '-';
 			V_1 = !this.left_align;
 			if (!V_1) {
-				var D_2 = this;
-				D_2.ptr = D_2.ptr + 1;
+				this.ptr = this.ptr + 1;
 			}
 			this.width = this.ParseDecimal(str);
 			V_1 = this.width >= 0;
@@ -264,27 +257,25 @@ System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
 		}
 		V_1 = str.charAt(this.ptr) != ':';
 		if (!V_1) {
-			var D_3 = this;
-			var V_2 = D_3.ptr + 1;
-			D_3.ptr = D_4;
+			var D_0 = this.ptr + 1;
+			var V_2 = D_0;
+			this.ptr = D_0;
 			V_0 = V_2;
 			while (true) {
 				V_1 = str.charAt(this.ptr) != '}';
 				if (!V_1) {
 					break;
 				}
-				var D_5 = this;
-				D_5.ptr = D_5.ptr + 1;
+				this.ptr = this.ptr + 1;
 			}
-			var D_6 = this;
-			D_6.format = D_6.format + str._Substring$1(V_0, this.ptr - V_0);
+			this.format = this.format + str._Substring$1(V_0, this.ptr - V_0);
 		}
 		else {
 			this.format = null;
 		}
-		var D_7 = this;
-		V_2 = D_7.ptr;
-		D_7.ptr = D_8 + 1;
+		var D_1 = this.ptr;
+		V_2 = D_1;
+		this.ptr = D_1 + 1;
 		V_1 = str.charAt(V_2) == '}';
 		if (!V_1) {
 			throw new System.FormatException().$ctor$1("Input string was not in a correct format.");
@@ -293,6 +284,9 @@ System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
 	catch (__ex__) {
 		if (__ex__ instanceof System.IndexOutOfRangeException) {
 			throw new System.FormatException().$ctor$1("Input string was not in a correct format.");
+		}
+		else {
+			throw __ex__;
 		}
 	}
 };

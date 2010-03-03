@@ -229,6 +229,13 @@ namespace System
 				ParseFormatSpecifier(str);
 			}
 
+			private bool IsWhiteSpace(string str, int ptr) {
+				var ch = str.CharCodeAt(ptr);
+				return (ch >= 0x09 && ch <= 0x0d) ||
+					ch == 0x85 ||
+					ch == 0x205F;
+			}
+
 			private void ParseFormatSpecifier(string str) {
 				// parses format specifier of form:
 				//   N,[\ +[-]M][:F]}
@@ -247,7 +254,7 @@ namespace System
 					if (str[ptr] == ',') {
 						// White space between ',' and number or sign.
 						++ptr;
-						while (Char.IsWhiteSpace(str[ptr])) {
+						while (IsWhiteSpace(str, ptr)) {
 							++ptr;
 						}
 						int start = ptr;

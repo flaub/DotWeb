@@ -114,6 +114,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				//WriteLine("console.log(__ex__);");
 				this.writer.Indent++;
 				bool isFirst = true;
+				bool hasGeneric = false;
 				foreach (var catchClause in stmt.Catches) {
 					if (isFirst) {
 						isFirst = false;
@@ -124,12 +125,20 @@ namespace DotWeb.Translator.Generator.JavaScript
 					var catchTypeName = Print(catchClause.Type);
 					if (catchTypeName == ConstantTypeNames.Exception) {
 						WriteLine("if (__ex__) {{");
+						hasGeneric = true;
 					}
 					else {
 						WriteLine("if (__ex__ instanceof {0}) {{", Print(catchClause.Type));
 					}
 					this.writer.Indent++;
 					Write(catchClause.Statements);
+					this.writer.Indent--;
+					WriteLine("}}");
+				}
+				if (!isFirst && !hasGeneric) {
+					WriteLine("else {{");
+					this.writer.Indent++;
+					WriteLine("throw __ex__;");
 					this.writer.Indent--;
 					WriteLine("}}");
 				}

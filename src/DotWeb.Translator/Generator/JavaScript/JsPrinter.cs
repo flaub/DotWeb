@@ -205,6 +205,9 @@ namespace DotWeb.Translator.Generator.JavaScript
 				case '\"':
 					return ("\\\"");
 				default:
+					if (char.IsControl(value)) {
+						return Convert.ToString((int)value);
+					}
 					return Convert.ToString(value);
 			}
 		}

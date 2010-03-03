@@ -844,6 +844,12 @@ namespace DotWeb.Decompiler.Core
 		private void Dup(Instruction il) {
 			var rhs = Pop();
 
+			if (rhs is CodeThisReference) {
+				Push(rhs);
+				Push(rhs);
+				return;
+			}
+
 			// store this expression into a variable so that multiple pops reference
 			// the same expression instead of duplicating it
 			// this is needed because of the mismatch between the stack containing
@@ -919,22 +925,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void AddAssignment(CodeExpression lhs, CodeExpression rhs) {
-			var last = this.block.Statements.LastOrDefault();
-			var lastAssignment = last as CodeAssignStatement;
-			var variableRef = rhs as CodeVariableReference;
-			if (lastAssignment != null && 
-				variableRef != null && 
-				variableRef.Variable.Name.StartsWith("D_") && 
-				lastAssignment.Left == variableRef) {
-				// var D_0 = y;
-				// var x = D_0;
-				// ->
-				// var x = y;
-				lastAssignment.Left = lhs;
-			}
-			else {
-				AddStatment(new CodeAssignStatement(lhs, rhs));
-			}
+			AddStatment(new CodeAssignStatement(lhs, rhs));
 		}
 
 		private void PushArgumentReference(ParameterReference arg) {

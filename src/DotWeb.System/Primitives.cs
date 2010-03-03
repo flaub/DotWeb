@@ -93,15 +93,6 @@ namespace System
 	[UseSystem]
 	public struct Char
 	{
-		public static bool IsDigit(char ch) {
-			return false;
-		}
-
-		public static bool IsWhiteSpace(char c) {
-			return (c >= (char)0x09 && c <= (char)0x0d) || 
-				c == (char)0x85 || 
-				c == (char)0x205F;
-		}
 	}
 
 	[UseSystem]

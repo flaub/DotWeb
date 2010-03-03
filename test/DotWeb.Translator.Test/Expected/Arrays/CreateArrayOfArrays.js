@@ -1,5 +1,6 @@
 ﻿Arrays.prototype.CreateArrayOfArrays = function() {
-	var inner = [1, 2, 3];
+	var D_0 = [1, 2, 3];
+	var inner = D_0;
 	var CS$0$0000 = new Array(2);
 	CS$0$0000[0] = inner;
 	CS$0$0000[1] = inner;

@@ -51,6 +51,5 @@ H8.GeneralTests.prototype.Callback = function(del) {
 	if (!CS$4$0000) {
 		this.SimpleEvent();
 	}
-	var D_0 = this;
-	D_0.SimpleEvent = System.Delegate.Combine(D_0.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
+	this.SimpleEvent = System.Delegate.Combine(this.SimpleEvent, $Delegate(this, this.SourceTests_SimpleEvent));
 };
