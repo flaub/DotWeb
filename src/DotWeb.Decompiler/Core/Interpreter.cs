@@ -521,7 +521,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void Box(Instruction il) {
 			var typeRef = (TypeReference)il.Operand;
-			RefineExpression(Peek(), typeRef);
+			RefinePrimitiveExpression(Peek(), typeRef);
 		}
 
 		private void Unbox(Instruction il) {
@@ -605,7 +605,7 @@ namespace DotWeb.Decompiler.Core
 		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
 			var args = method.Parameters;
 			if (args.Count == 1) {
-				var rhs = RefineExpression(Pop(), pi.PropertyType);
+				var rhs = RefinePrimitiveExpression(Pop(), pi.PropertyType);
 				var targetObject = GetTargetObject(method, isVirtual);
 				CodePropertyReference lhs = new CodePropertyReference(CodePropertyReference.RefType.Set) {
 					Method = new CodeMethodReference(targetObject, method),
@@ -736,14 +736,14 @@ namespace DotWeb.Decompiler.Core
 			}
 
 			var lhs = new CodeArrayIndexerExpression(array, index);
-			RefineExpression(value, type);
+			RefinePrimitiveExpression(value, type);
 			AddAssignment(lhs, value);
 		}
 
 		private void StoreArgument(Instruction il) {
 			var parameterRef = (ParameterReference)il.Operand;
 			var lhs = new CodeArgumentReference(parameterRef);
-			var rhs = RefineExpression(Pop(), parameterRef.ParameterType);
+			var rhs = RefinePrimitiveExpression(Pop(), parameterRef.ParameterType);
 			AddAssignment(lhs, rhs);
 		}
 
@@ -754,13 +754,13 @@ namespace DotWeb.Decompiler.Core
 
 		private void StoreLocal(VariableReference variable) {
 			var lhs = new CodeVariableReference(variable);
-			var rhs = RefineExpression(Pop(), variable.VariableType);
+			var rhs = RefinePrimitiveExpression(Pop(), variable.VariableType);
 			AddAssignment(lhs, rhs);
 		}
 
 		private void StoreField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			var rhs = RefineExpression(Pop(), field.FieldType);
+			var rhs = RefinePrimitiveExpression(Pop(), field.FieldType);
 			var targetObject = Pop();
 			var lhs = new CodeFieldReference(targetObject, field);
 			AddAssignment(lhs, rhs);
@@ -768,7 +768,7 @@ namespace DotWeb.Decompiler.Core
 
 		private void StoreStaticField(Instruction il) {
 			var field = (FieldReference)il.Operand;
-			var rhs = RefineExpression(Pop(), field.FieldType);
+			var rhs = RefinePrimitiveExpression(Pop(), field.FieldType);
 			var typeRef = new CodeTypeReference(field.DeclaringType);
 			var lhs = new CodeFieldReference(typeRef, field);
 			AddAssignment(lhs, rhs);
@@ -962,12 +962,12 @@ namespace DotWeb.Decompiler.Core
 		private void PopParametersInto(ParameterDefinitionCollection parameterDefs, List<CodeExpression> result) {
 			for (int i = parameterDefs.Count - 1; i >= 0; --i) {
 				var parameterDef = parameterDefs[i];
-				var arg = RefineExpression(Pop(), parameterDef.ParameterType);
+				var arg = RefinePrimitiveExpression(Pop(), parameterDef.ParameterType);
 				result.Insert(0, arg);
 			}
 		}
 
-		private CodeExpression RefineExpression(CodeExpression expr, TypeReference typeRef) {
+		private CodeExpression RefinePrimitiveExpression(CodeExpression expr, TypeReference typeRef) {
 			var cpe = expr as CodePrimitiveExpression;
 			if (cpe != null) {
 				var targetType = TypeSystem.GetReflectionType(typeRef);
@@ -985,11 +985,11 @@ namespace DotWeb.Decompiler.Core
 		private void RefineBinaryExpression(CodeExpression lhs, CodeExpression rhs) {
 			if (lhs is CodePrimitiveExpression) {
 				var rhsType = this.typeEvaluator.Evaluate(rhs);
-				RefineExpression(lhs, rhsType);
+				RefinePrimitiveExpression(lhs, rhsType);
 			}
 			else if (rhs is CodePrimitiveExpression) {
 				var lhsType = this.typeEvaluator.Evaluate(lhs);
-				RefineExpression(rhs, lhsType);
+				RefinePrimitiveExpression(rhs, lhsType);
 			}
 		}
 
