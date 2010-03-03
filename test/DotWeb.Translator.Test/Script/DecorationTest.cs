@@ -83,7 +83,10 @@ namespace H8
 	[JsCamelCase]
 	class CamelCaseTest
 	{
-		public void Foo() { }
+		public void CamelCase() { }
+
+		[JsCamelCase(false)]
+		public void NotCamelCase() { }
 	}
 
 	public class DecorationTests
@@ -116,7 +119,8 @@ namespace H8
 
 		public void TestJsCamelCase() {
 			var x = new CamelCaseTest();
-			x.Foo();
+			x.CamelCase();
+			x.NotCamelCase();
 			CamelCase();
 		}
 

@@ -134,12 +134,12 @@ System.Text.StringBuilder.prototype.Append$5 = function(value, startIndex, count
 
 $Class(null, 'System', 'String_FormatSpecifier');
 
-System.String_FormatSpecifier.prototype.ParseDecimal = function(str) {
+System.String_FormatSpecifier.prototype.ParseDecimal = function() {
 	var V_0 = this.ptr;
 	var V_1 = 0;
 	while (true) {
 		var V_4 = true;
-		var V_2 = str.charCodeAt(V_0);
+		var V_2 = this.str.charCodeAt(V_0);
 		if (V_2 >= 48) {
 			var R_1 = 57 >= V_2;
 		}
@@ -164,9 +164,9 @@ System.String_FormatSpecifier.prototype.ParseDecimal = function(str) {
 	return V_3;
 };
 
-System.String_FormatSpecifier.prototype.IsWhiteSpace = function(str, ptr) {
-	var V_0 = str.charCodeAt(ptr);
-	if (((V_0 < 9) || (V_0 > 13)) && (V_0 != 133)) {
+System.String_FormatSpecifier.prototype.IsWhiteSpace = function() {
+	var V_0 = this.str.charCodeAt(this.ptr);
+	if ((((V_0 < 9) || (V_0 > 13)) && (V_0 != 32)) && (V_0 != 133)) {
 		var R_1 = V_0 == 8287;
 	}
 	else {
@@ -220,34 +220,35 @@ System.IndexOutOfRangeException.prototype.$ctor$0 = function() {
 	return this;
 };
 
-System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
+System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function() {
 	try {
-		this.n = this.ParseDecimal(str);
-		var V_1 = this.n >= 0;
-		if (!V_1) {
-			throw new System.FormatException().$ctor$1("Input string was not in a correct format.");
+		this.n = this.ParseDecimal();
+		var V_2 = this.n >= 0;
+		if (!V_2) {
+			throw new System.FormatException().$ctor$1("Invalid argument specifier.");
 		}
-		V_1 = str.charAt(this.ptr) != ',';
-		if (!V_1) {
+		V_2 = this.str.charAt(this.ptr) != ',';
+		if (!V_2) {
 			this.ptr = this.ptr + 1;
 			while (true) {
-				V_1 = this.IsWhiteSpace(str, this.ptr);
-				if (!V_1) {
+				V_2 = this.IsWhiteSpace();
+				if (!V_2) {
 					break;
 				}
 				this.ptr = this.ptr + 1;
 			}
 			var V_0 = this.ptr;
-			this.format = str._Substring$1(V_0, this.ptr - V_0);
-			this.left_align = str.charAt(this.ptr) == '-';
-			V_1 = !this.left_align;
-			if (!V_1) {
+			var V_1 = this.ptr - V_0;
+			this.format = this.str._Substring$1(V_0, V_1);
+			this.left_align = this.str.charAt(this.ptr) == '-';
+			V_2 = !this.left_align;
+			if (!V_2) {
 				this.ptr = this.ptr + 1;
 			}
-			this.width = this.ParseDecimal(str);
-			V_1 = this.width >= 0;
-			if (!V_1) {
-				throw new System.FormatException().$ctor$1("Input string was not in a correct format.");
+			this.width = this.ParseDecimal();
+			V_2 = this.width >= 0;
+			if (!V_2) {
+				throw new System.FormatException().$ctor$1("Invalid width specifier.");
 			}
 		}
 		else {
@@ -255,30 +256,30 @@ System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
 			this.left_align = false;
 			this.format = "";
 		}
-		V_1 = str.charAt(this.ptr) != ':';
-		if (!V_1) {
+		V_2 = this.str.charAt(this.ptr) != ':';
+		if (!V_2) {
 			var D_0 = this.ptr + 1;
-			var V_2 = D_0;
+			var V_3 = D_0;
 			this.ptr = D_0;
-			V_0 = V_2;
+			V_0 = V_3;
 			while (true) {
-				V_1 = str.charAt(this.ptr) != '}';
-				if (!V_1) {
+				V_2 = this.str.charAt(this.ptr) != '}';
+				if (!V_2) {
 					break;
 				}
 				this.ptr = this.ptr + 1;
 			}
-			this.format = this.format + str._Substring$1(V_0, this.ptr - V_0);
+			this.format = this.format + this.str._Substring$1(V_0, this.ptr - V_0);
 		}
 		else {
 			this.format = null;
 		}
 		var D_1 = this.ptr;
-		V_2 = D_1;
+		V_3 = D_1;
 		this.ptr = D_1 + 1;
-		V_1 = str.charAt(V_2) == '}';
-		if (!V_1) {
-			throw new System.FormatException().$ctor$1("Input string was not in a correct format.");
+		V_2 = this.str.charAt(V_3) == '}';
+		if (!V_2) {
+			throw new System.FormatException().$ctor$1("Missing end characeter.");
 		}
 	}
 	catch (__ex__) {
@@ -292,8 +293,9 @@ System.String_FormatSpecifier.prototype.ParseFormatSpecifier = function(str) {
 };
 
 System.String_FormatSpecifier.prototype.$ctor = function(str, ptr) {
+	this.str = str;
 	this.ptr = ptr;
-	this.ParseFormatSpecifier(str);
+	this.ParseFormatSpecifier();
 	return this;
 };
 
@@ -336,7 +338,6 @@ String.formatHelper = function(result, format, args) {
 		V_8 = V_2 != '{';
 		if (!V_8) {
 			result.Append$5(format, V_1, (V_0 - V_1) - 1);
-			console.log(result.toString());
 			V_8 = format.charAt(V_0) != '{';
 			if (!V_8) {
 				var D_2 = V_0;
@@ -395,6 +396,10 @@ String.formatHelper = function(result, format, args) {
 				R_1 = 1;
 			}
 		}
+	}
+	V_8 = V_1 >= format.length;
+	if (!V_8) {
+		result.Append$5(format, V_1, format.length - V_1);
 	}
 	return result;
 };

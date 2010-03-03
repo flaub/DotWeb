@@ -37,7 +37,9 @@ namespace System
 	{
 #if !HOSTED_MODE
 		public static readonly string Empty = "";
-	
+
+		#region Native methods
+
 		/// <summary>
 		/// The number of characters in the String value represented by this String object.
 		/// </summary>
@@ -76,12 +78,13 @@ namespace System
 		[JsMacro("({0} == {1})")]
 		public extern override bool Equals(object obj);
 
-		[JsMacro("StringHelper.GetHashCode({0})")]
-		public override int GetHashCode() {
-			return StringHelper.GetHashCode(this);
-		}
+		public extern int IndexOf(string searchString);
 
-		public extern bool Contains(string value);
+		public extern int IndexOf(string searchString, int position);
+
+		public extern int LastIndexOf(string searchString);
+
+		public extern int LastIndexOf(string searchString, int position);
 
 		public extern string Replace(string oldValue, string newValue);
 
@@ -89,10 +92,48 @@ namespace System
 
 		public extern string Trim();
 
+		[JsName("toLocaleUpperCase")]
+		public extern string ToUpper();
+
+		[JsName("toLocaleLowerCase")]
+		public extern string ToLower();
+
+		[JsName("toUpperCase")]
+		public extern string ToUpperInvariant();
+
+		[JsName("toLowerCase")]
+		public extern string ToLowerInvariant();
+
+		[JsName("substring")]
+		private extern string NativeSubstring(int start, int end);
+
+		[JsName("split")]
+		private extern string[] NativeSplit(object separator);
+
+		[JsName("split")]
+		private extern string[] NativeSplit(object separator, int count);
+		#endregion
+
+		#region .NET Methods
+
 		[IndexerName("Chars")]
 		public extern char this[int index] {
 			[JsMacro("{0}.charAt({1})")]
 			get;
+		}
+
+		[JsCamelCase(false)]
+		public override int GetHashCode() {
+			int hash = 0;
+			for (int i = 0; i < this.Length; i++) {
+				int ch = this.CharCodeAt(i);
+				hash = (hash << 5) - hash + ch;
+			}
+			return hash;
+		}
+
+		public bool Contains(string value) {
+			return IndexOf(value) != -1;
 		}
 
 		[JsName("_Substring")]
@@ -101,7 +142,7 @@ namespace System
 				return this;
 			if (startIndex < 0 || startIndex > this.Length)
 				throw new ArgumentOutOfRangeException("startIndex");
-			return InternalSubstring(startIndex, this.Length);
+			return NativeSubstring(startIndex, this.Length);
 		}
 
 		[JsName("_Substring")]
@@ -116,11 +157,26 @@ namespace System
 				throw new ArgumentOutOfRangeException("length", "startIndex + length > this.length");
 			if (startIndex == 0 && length == this.Length)
 				return this;
-			return InternalSubstring(startIndex, startIndex + length);
+			return NativeSubstring(startIndex, startIndex + length);
 		}
 
-		[JsMacro("{0}.substring({1}, {2})")]
-		internal extern string InternalSubstring(int start, int end);
+		[JsName("_Split")]
+		public string[] Split(params char[] seperator) {
+			if (seperator.Length == 1) {
+				return this.NativeSplit(seperator);
+			}
+			throw new NotSupportedException();
+		}
+
+		[JsName("_Split")]
+		public string[] Split(char[] seperator, int count) {
+			if (seperator.Length == 1) {
+				return this.NativeSplit(seperator, count);
+			}
+			throw new NotSupportedException();
+		}
+
+		#region Format
 
 		public static string Format(string format, object arg0) {
 			var sb = FormatHelper(null, format, arg0);
@@ -325,23 +381,11 @@ namespace System
 				return n;
 			}
 		}
-#endif
-	}
+		#endregion
 
-#if !HOSTED_MODE
-	[JsNamespace]
-	internal static class StringHelper
-	{
-		internal static int GetHashCode(String str) {
-			int hash = 0;
-			for (int i = 0; i < str.Length; i++) {
-				int ch = str.CharCodeAt(i);
-				hash = (hash << 5) - hash + ch;
-			}
-			return hash;
-		}
-	}
+		#endregion
 #endif
+	}
 
 	public static class StringExtensions
 	{

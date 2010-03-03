@@ -50,12 +50,13 @@ namespace DotWeb.Translator
 		}
 
 		public static bool IsCamelCase(MemberReference memberRef, TypeSystem typeSystem) {
-			if (IsCamelCase((ICustomAttributeProvider)memberRef.DeclaringType, typeSystem))
-				return true;
 			var provider = GetProvider(memberRef);
 			if (provider == null)
 				return false;
-			return IsCamelCase(provider, typeSystem);
+			var ret = GetBooleanFromAttribute(provider, JsCamelCase);
+			if (ret.HasValue)
+				return ret.Value;
+			return GetBooleanFromAttribute(memberRef.DeclaringType, JsCamelCase) ?? false;
 		}
 
 		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {
@@ -72,25 +73,24 @@ namespace DotWeb.Translator
 
 		private static string GetStringFromAttribute(ICustomAttributeProvider provider, string attributeName) {
 			var customAttr = FindByName(provider, attributeName);
-			if (customAttr != null) {
-				var args = customAttr.ConstructorParameters;
-				if (args.Count == 1)
-					return (string)args[0];
-				return "";
-			}
-			return null;
+			if (customAttr == null)
+				return null;
+
+			var args = customAttr.ConstructorParameters;
+			if (args.Count == 1)
+				return (string)args[0];
+			return "";
 		}
 
-		private static bool IsCamelCase(ICustomAttributeProvider provider, TypeSystem typeSystem) {
-			var customAttr = FindByName(provider, JsCamelCase);
+		private static bool? GetBooleanFromAttribute(ICustomAttributeProvider provider, string attributeName) {
+			var customAttr = FindByName(provider, attributeName);
 			if (customAttr == null)
-				return false;
+				return null;
 
-			if (customAttr.ConstructorParameters.Count == 0)
-				return true;
-
-			var enabled = customAttr.Properties["Enabled"];
-			return (bool)enabled;
+			var args = customAttr.ConstructorParameters;
+			if (args.Count == 1)
+				return (bool)args[0];
+			return true;
 		}
 
 		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {
