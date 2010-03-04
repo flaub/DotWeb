@@ -279,12 +279,6 @@ namespace DotWeb.Hosting.Weaver
 					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
 				}
 			}
-			else {
-				if (realMethodDef.DeclaringType != this.typeDef) {
-					var methodDecl = this.resolver.ResolveMethodReference(realMethodDef, this.genericProc);
-					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
-				}
-			}
 
 			return methodBuilder;
 		}
