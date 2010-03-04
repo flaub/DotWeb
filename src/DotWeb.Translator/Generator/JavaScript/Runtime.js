@@ -52,3 +52,7 @@ $Delegate = function(scope, target) {
 		return target.apply(scope, arguments);
 	};
 };
+
+Error.prototype.get_Message = function() {
+	return this.message;
+}

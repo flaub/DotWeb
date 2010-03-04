@@ -69,7 +69,7 @@ namespace System.DotWeb
 	/// </code>
 	/// </example>
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
 	public class JsAnonymousAttribute : SysAttribute
 	{
 	}

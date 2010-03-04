@@ -54,6 +54,12 @@ namespace H8
 			}
 		}
 
+		class CtorChain
+		{
+			public CtorChain() : this(55) { }
+			public CtorChain(int x) { }
+		}
+
 		public void TestBase() {
 			Base x = new Base();
 			x.Foo();
@@ -143,6 +149,10 @@ namespace H8
 			var test = str.Substring(9);
 			Console.WriteLine(test);
 			//Console.WriteLine(string.Format("Test: {0}", "arg0"));
+		}
+
+		public void TestCtorChain() {
+			new CtorChain();
 		}
 	}
 }

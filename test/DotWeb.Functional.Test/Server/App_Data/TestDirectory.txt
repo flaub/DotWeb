@@ -1,6 +1,6 @@
 ﻿Sanity
-List
-Lambda
 StringTest
 StringBuilderTest
 ArrayTest
+List
+HashtableTest

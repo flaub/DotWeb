@@ -152,6 +152,31 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;SystemTests_CtorChain&apos;);
+        ///
+        ///H8.SystemTests_CtorChain.prototype.$ctor$1 = function(x) {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_CtorChain.prototype.$ctor$0 = function() {
+        ///	this.$ctor$1(55);
+        ///	return this;
+        ///};
+        ///
+        ///$Class(null, &apos;H8&apos;, &apos;SystemTests&apos;);
+        ///
+        ///H8.SystemTests.prototype.TestCtorChain = function() {
+        ///	new H8.SystemTests_CtorChain().$ctor$0();
+        ///};
+        ///.
+        /// </summary>
+        internal static string TestCtorChain {
+            get {
+                return ResourceManager.GetString("TestCtorChain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;SystemTests_Base&apos;);
         ///
         ///H8.SystemTests_Base.prototype.$ctor = function() {
@@ -260,12 +285,14 @@ namespace DotWeb.Translator.Test.Resources {
         ///};
         ///
         ///System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
-        ///	var V_0 = this.items.indexOf(item);
-        ///	return V_0;
+        ///	return this.items.indexOf(item);
         ///};
         ///
         ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toStrin [rest of string was truncated]&quot;;.
+        ///	return &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
+        ///};
+        ///
+        ///$ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestGenericMethod {
             get {
@@ -308,14 +335,16 @@ namespace DotWeb.Translator.Test.Resources {
         ///};
         ///
         ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	var V_0 = &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///	return V_0;
+        ///	return &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
         ///};
         ///
         ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$1 = function(value) {
-        ///	console.log( [rest of string was truncated]&quot;;.
+        ///	console.log(value);
+        ///};
+        ///
+        ///Sy [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestList {
             get {
@@ -341,7 +370,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///};
         ///
         ///System.Collections.Generic.List$1.prototype.GetEnumerator = function() {
-        ///	var V_0 = new System.Collections [rest of string was truncated]&quot;;.
+        ///	return new System.Collections.Ge [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestListEnumerator {
             get {
@@ -365,9 +394,10 @@ namespace DotWeb.Translator.Test.Resources {
         ///$Class(System.ArgumentException, &apos;System&apos;, &apos;ArgumentOutOfRangeException&apos;);
         ///
         ///System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-        ///	var V_0 = &quot;Specified argument was out of the range of valid values.&quot;;
-        ///	return V_0;
-        ///}; [rest of string was truncated]&quot;;.
+        ///	return &quot;Specified argument was out of the range of valid values.&quot;;
+        ///};
+        ///
+        ///System.Except [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestString {
             get {

@@ -123,7 +123,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			// This is to fix a problem with Mono.Cecil, nested types don't return
 			// the namespace correctly.
 			string ret = null;
-			var nextType = type;
+			var nextType = type.Resolve();
 			while (nextType != null) {
 				ret = nextType.Namespace;
 				nextType = nextType.DeclaringType;
@@ -442,7 +442,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			if (method.IsConstructor) {
-				if (!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
+				if (method.DeclaringType != this.CurrentMethod.DeclaringType &&
+					!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
 					return "";
 				}
 			}

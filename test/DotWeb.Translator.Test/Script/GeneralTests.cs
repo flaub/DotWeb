@@ -277,8 +277,10 @@ namespace H8
 				Text = "Test2",
 				Value = 2
 			};
-			Console.WriteLine("{0}, {1}", test1.Text, test1.Value);
-			Console.WriteLine("{0}, {1}", test2.Text, test2.Value);
+			Console.WriteLine(test1.Text);
+			Console.WriteLine(test1.Value);
+			Console.WriteLine(test2.Text);
+			Console.WriteLine(test2.Value);
 		}
 
 		public void CreateOuterObject() {
@@ -287,8 +289,10 @@ namespace H8
 				Text = "Test2",
 				Value = 2
 			};
-			Console.WriteLine("{0}, {1}", test1.Text, test1.Value);
-			Console.WriteLine("{0}, {1}", test2.Text, test2.Value);
+			Console.WriteLine(test1.Text);
+			Console.WriteLine(test1.Value);
+			Console.WriteLine(test2.Text);
+			Console.WriteLine(test2.Value);
 		}
 
 		//public void Linq() {
@@ -378,7 +382,8 @@ namespace H8
 				Key = "Hi",
 				Value = 1
 			};
-			Console.WriteLine("{0}: {1}", value.Key.Length, value.Value);
+			Console.WriteLine(value.Key.Length);
+			Console.WriteLine(value.Value);
 		}
 
 		public void CallDerived() {

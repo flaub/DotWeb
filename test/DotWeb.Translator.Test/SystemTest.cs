@@ -63,5 +63,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestString() { RunTestWithDependencies(); }
+
+		[Test]
+		public void TestCtorChain() { RunTestWithDependencies(); }
 	}
 }
