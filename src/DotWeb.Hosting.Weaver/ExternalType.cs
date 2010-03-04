@@ -113,6 +113,8 @@ namespace DotWeb.Hosting.Weaver
 			get { return this.concreteType; }
 		}
 
+		public TypeProcessor GenericTypeProc { get { return this.genericTypeProc; } }
+
 		public void Close() {
 			throw new NotImplementedException();
 		}

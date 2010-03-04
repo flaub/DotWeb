@@ -48,6 +48,8 @@ namespace DotWeb.Hosting.Weaver
 				var builder = GetParameterByName(arrayType.ElementType.Name);
 				if (builder == null)
 					return null;
+				if (arrayType.Rank == 1)
+					return builder.MakeArrayType();
 				return builder.MakeArrayType(arrayType.Rank);
 			}
 			return GetParameterByName(typeRef.Name);

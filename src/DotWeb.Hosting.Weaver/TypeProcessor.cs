@@ -279,6 +279,12 @@ namespace DotWeb.Hosting.Weaver
 					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
 				}
 			}
+			else {
+				if (realMethodDef.DeclaringType != this.typeDef) {
+					var methodDecl = this.resolver.ResolveMethodReference(realMethodDef, this.genericProc);
+					this.typeBuilder.DefineMethodOverride(methodBuilder, (MethodInfo)methodDecl);
+				}
+			}
 
 			return methodBuilder;
 		}
@@ -340,9 +346,19 @@ namespace DotWeb.Hosting.Weaver
 
 		private IType ResolveTypeReferenceToProc(TypeReference typeRef, bool dependent) {
 			var type = this.resolver.ResolveTypeReference(typeRef, this.genericProc);
-			var typeProc = type as TypeProcessor;
-			if (typeProc != null && typeProc != this && (dependent || type.Type.IsEnum)) {
-				this.dependentTypes.Add(typeProc);
+			var baseType = type.Type.BaseType;
+			bool isEnum = baseType != null && baseType.FullName == Constants.Enum;
+			if (type != this && (dependent || isEnum)) {
+				var typeProc = type as TypeProcessor;
+				if (typeProc != null) {
+					this.dependentTypes.Add(typeProc);
+				}
+				else {
+					var genericProc = type as GenericType;
+					if (genericProc != null) {
+						this.dependentTypes.Add(genericProc.GenericTypeProc);
+					}
+				}
 			}
 			return type;
 		}

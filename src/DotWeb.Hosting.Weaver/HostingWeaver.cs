@@ -40,6 +40,7 @@ namespace DotWeb.Hosting.Weaver
 			public const string SystemCore = "System.Core";
 			public const string SystemCoreDll = "System.Core.dll";
 			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
+			public const string CommonLanguageRuntimeLibrary = "CommonLanguageRuntimeLibrary";
 		}
 
 		private bool forceBuild;
@@ -74,6 +75,7 @@ namespace DotWeb.Hosting.Weaver
 		private void PrepareMscorlib() {
 			var asm = LoadSystemAssembly(typeof(object));
 			this.modules.Add(ConstantNames.Mscorlib, asm);
+			this.modules.Add(ConstantNames.CommonLanguageRuntimeLibrary, asm);
 		}
 
 		private void PrepareSystemCore() {
@@ -199,6 +201,12 @@ namespace DotWeb.Hosting.Weaver
 				else {
 					return new GenericType(this, (TypeProcessor)genericTypeProc, concreteType);
 				}
+			}
+
+			if (typeSpec is ReferenceType) {
+				var elementType = ResolveTypeReference(typeSpec.ElementType, genericScope);
+				var refType = elementType.Type.MakeByRefType();
+				return new SimpleType(refType);
 			}
 
 			throw new NotSupportedException();
