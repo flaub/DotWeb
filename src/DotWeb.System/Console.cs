@@ -35,10 +35,12 @@ namespace System
 		[JsCode("console.log(value);")]
 		public static extern void WriteLine(string value);
 
-		[JsCode("console.log(format);")]
-		public static extern void WriteLine(string format, params object[] args);
+		public static void WriteLine(string format, params object[] args) {
+			WriteLine(string.Format(format, args));
+		}
 
-		[JsCode("console.log(format);")]
-		public static extern void WriteLine(string format, object arg0, object arg1);
+		public static void WriteLine(string format, object arg0, object arg1) {
+			WriteLine(string.Format(format, arg0, arg1));
+		}
 	}
 }

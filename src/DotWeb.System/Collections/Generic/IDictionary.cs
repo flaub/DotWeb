@@ -23,18 +23,30 @@ namespace DotWeb.System.Collections.Generic
 namespace System.Collections.Generic
 #endif
 {
-//	[TypeDependency("System.SZArrayHelper")]
-	public interface ICollection<T> : IEnumerable<T>
+	public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>
 	{
-		// Methods
-		void Add(T item);
-		void Clear();
-		bool Contains(T item);
-		void CopyTo(T[] array, int arrayIndex);
-		bool Remove(T item);
+		void Add(TKey key, TValue value);
+		bool ContainsKey(TKey key);
+		bool Remove(TKey key);
+		bool TryGetValue(TKey key, out TValue value);
+		TValue this[TKey key] { get; set; }
+		ICollection<TKey> Keys { get; }
+		ICollection<TValue> Values { get; }
+	}
 
-		// Properties
-		int Count { get; }
-		bool IsReadOnly { get; }
+	public class KeyValuePair<TKey, TValue>
+	{
+		public KeyValuePair(TKey key, TValue value) {
+			this.Key = key;
+			this.Value = value;
+		}
+
+		public TKey Key { get; private set; }
+		public TValue Value { get; private set; }
+
+		public override string ToString() {
+			return "[" + (Key != null ? Key.ToString() : string.Empty) + ", " + (Value != null ? Value.ToString() : string.Empty) + "]";
+		}
 	}
 }
+

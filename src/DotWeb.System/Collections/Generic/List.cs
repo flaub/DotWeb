@@ -28,7 +28,7 @@ namespace System.Collections.Generic
 //	[Serializable]
 //	[DebuggerDisplay("Count = {Count}")]
 //	[DebuggerTypeProxy(typeof(Mscorlib_CollectionDebugView<>))]
-	public class List<T> : IList<T>, ICollection<T>, IEnumerable<T>, IList, ICollection, IEnumerable
+	public class List<T> : IList<T>, IList
 	{
 		private JsArray items;
 

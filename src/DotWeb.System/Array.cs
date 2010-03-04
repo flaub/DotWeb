@@ -36,25 +36,25 @@ namespace System
 		public extern object this[int index] { get; set; }
 
 #if !HOSTED_MODE
-		/// <summary>
-		/// Copies a range of elements from an Array starting at the specified source index and 
-		/// pastes them to another Array starting at the specified destination index. 
-		/// The length and the indexes are specified as 32-bit integers.
-		/// </summary>
-		/// <param name="sourceArray">The Array that contains the data to copy.</param>
-		/// <param name="sourceIndex">A 32-bit integer that represents the index in the sourceArray at which copying begins.</param>
-		/// <param name="destinationArray">The Array that receives the data.</param>
-		/// <param name="destinationIndex">A 32-bit integer that represents the index in the destinationArray at which storing begins.</param>
-		/// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
-		public static void Copy(
-			global::System.Array sourceArray,
-			int sourceIndex,
-			global::System.Array destinationArray,
-			int destinationIndex,
-			int length) {
-			var jsSource = new JsArray(sourceArray);
-			var jsDest = new JsArray(destinationArray);
-		}
+		///// <summary>
+		///// Copies a range of elements from an Array starting at the specified source index and 
+		///// pastes them to another Array starting at the specified destination index. 
+		///// The length and the indexes are specified as 32-bit integers.
+		///// </summary>
+		///// <param name="sourceArray">The Array that contains the data to copy.</param>
+		///// <param name="sourceIndex">A 32-bit integer that represents the index in the sourceArray at which copying begins.</param>
+		///// <param name="destinationArray">The Array that receives the data.</param>
+		///// <param name="destinationIndex">A 32-bit integer that represents the index in the destinationArray at which storing begins.</param>
+		///// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
+		//public static void Copy(
+		//    global::System.Array sourceArray,
+		//    int sourceIndex,
+		//    global::System.Array destinationArray,
+		//    int destinationIndex,
+		//    int length) {
+		//    var jsSource = new JsArray(sourceArray);
+		//    var jsDest = new JsArray(destinationArray);
+		//}
 #endif
 	}
 }

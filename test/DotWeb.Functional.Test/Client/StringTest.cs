@@ -25,10 +25,10 @@ namespace DotWeb.Functional.Test.Client
 		private void RunTest() {
 			var str = "This is a string";
 
-			this.view.AreStringsEqual("self equality", str, str);
+			this.view.AreStringsEqual("str == str", str, str);
 
 			var str2 = "This is a string";
-			this.view.AreStringsEqual("equality", str, str2);
+			this.view.AreStringsEqual("str == str2", str, str2);
 
 			this.view.AreEqual("str.Length", 16, str.Length);
 			this.view.AreEqual("str[0] == 'T'", 'T', str[0]);

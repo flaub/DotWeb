@@ -15,27 +15,44 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
+using System;
+
 #if HOSTED_MODE
 namespace DotWeb.System.Collections
 #else
 namespace System.Collections
 #endif
 {
-//	[ComVisible(true)]
-	public interface IList : ICollection, IEnumerable
+	public interface IDictionary : ICollection
 	{
-		// Methods
-		int Add(object value);
-		void Clear();
-		bool Contains(object value);
-		int IndexOf(object value);
-		void Insert(int index, object value);
-		void Remove(object value);
-		void RemoveAt(int index);
-
-		// Properties
 		bool IsFixedSize { get; }
 		bool IsReadOnly { get; }
-		object this[int index] { get; set; }
+		object this[object key] { get; set; }
+		ICollection Keys { get; }
+		ICollection Values { get; }
+
+		void Add(object key, object value);
+		void Clear();
+		bool Contains(object key);
+		new IDictionaryEnumerator GetEnumerator();
+		void Remove(object key);
+	}
+
+	public interface IDictionaryEnumerator : IEnumerator
+	{
+		DictionaryEntry Entry { get; }
+		object Key { get; }
+		object Value { get; }
+	}
+
+	public class DictionaryEntry
+	{
+		public DictionaryEntry(object key, object value) {
+			this.Key = key;
+			this.Value = value;
+		}
+
+		public object Key { get; set; }
+		public object Value { get; set; }
 	}
 }

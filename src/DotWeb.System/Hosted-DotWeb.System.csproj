@@ -47,13 +47,18 @@
     <Compile Include="Action.cs" />
     <Compile Include="Array.cs" />
     <Compile Include="Attribute.cs" />
+    <Compile Include="Collections\Generic\Dictionary.cs" />
     <Compile Include="Collections\Generic\EqualityComparer.cs" />
+    <Compile Include="Collections\Generic\HashSet.cs" />
     <Compile Include="Collections\Generic\ICollection.cs" />
+    <Compile Include="Collections\Generic\IDictionary.cs" />
     <Compile Include="Collections\Generic\IEnumerable.cs" />
     <Compile Include="Collections\Generic\IEnumerator.cs" />
     <Compile Include="Collections\Generic\IList.cs" />
     <Compile Include="Collections\Generic\List.cs" />
+    <Compile Include="Collections\Hashtable.cs" />
     <Compile Include="Collections\ICollection.cs" />
+    <Compile Include="Collections\IDictionary.cs" />
     <Compile Include="Collections\IEnumerable.cs" />
     <Compile Include="Collections\IEnumerator.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Func.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="IComparable.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="IEquatable.cs" />

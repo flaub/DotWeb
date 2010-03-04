@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
-using System;
+using SysArray = System.Array;
 
 #if HOSTED_MODE
 namespace DotWeb.System.Collections
@@ -25,10 +25,7 @@ namespace System.Collections
 {
 	public interface ICollection : IEnumerable
 	{
-		// Methods
-		void CopyTo(global::System.Array array, int index);
-
-		// Properties
+		void CopyTo(SysArray array, int index);
 		int Count { get; }
 		bool IsSynchronized { get; }
 		object SyncRoot { get; }

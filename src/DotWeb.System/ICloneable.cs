@@ -15,27 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
+
 #if HOSTED_MODE
-namespace DotWeb.System.Collections
+namespace DotWeb.System
 #else
-namespace System.Collections
+namespace System
 #endif
 {
-//	[ComVisible(true)]
-	public interface IList : ICollection, IEnumerable
+	public interface ICloneable
 	{
-		// Methods
-		int Add(object value);
-		void Clear();
-		bool Contains(object value);
-		int IndexOf(object value);
-		void Insert(int index, object value);
-		void Remove(object value);
-		void RemoveAt(int index);
-
-		// Properties
-		bool IsFixedSize { get; }
-		bool IsReadOnly { get; }
-		object this[int index] { get; set; }
+		object Clone();
 	}
 }
