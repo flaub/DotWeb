@@ -25,6 +25,7 @@ using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;
 using Mono.Cecil;
 using DotWeb.Utility.Cecil;
+using DotWeb.Decompiler;
 
 namespace DotWeb.Translator.Generator.JavaScript
 {
@@ -263,17 +264,17 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		private int GetFixedArgs(MethodDefinition method) {
-			for (int i = 0; i < method.Parameters.Count; i++) {
-				var def = method.Parameters[i];
-				foreach (CustomAttribute attr in def.CustomAttributes) {
-					if (attr.Constructor.DeclaringType.FullName == "System.ParamArrayAttribute") {
-						return i;
-					}
-				}
-			}
-			return method.Parameters.Count;
-		}
+		//private int GetFixedArgs(MethodDefinition method) {
+		//    for (int i = 0; i < method.Parameters.Count; i++) {
+		//        var def = method.Parameters[i];
+		//        foreach (CustomAttribute attr in def.CustomAttributes) {
+		//            if (attr.Constructor.DeclaringType.FullName == "System.ParamArrayAttribute") {
+		//                return i;
+		//            }
+		//        }
+		//    }
+		//    return method.Parameters.Count;
+		//}
 
 		private string PrintMacro(string macro, MethodDefinition method, string target, List<CodeExpression> parameters) {
 			var args = new List<string>();
@@ -422,6 +423,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 		public string VisitReturn(CodeCastExpression exp) {
 			//return string.Format("/*({0})*/{1}", Print(exp.TargetType), Print(exp.Expression));
+			var evaluator = new CodeTypeEvaluator(this.typeSystem, this.CurrentMethod);
+			var type = evaluator.Evaluate(exp.Expression);
+			if (exp.TargetType.FullName == Constants.Int32 && type.FullName != Constants.Int32) {
+				return string.Format("Math.floor({0})", Print(exp.Expression));
+			}
 			return Print(exp.Expression);
 		}
 

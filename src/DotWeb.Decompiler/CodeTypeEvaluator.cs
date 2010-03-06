@@ -59,22 +59,55 @@ namespace DotWeb.Decompiler
 				case CodeBinaryOperator.LessThanOrEqual:
 				case CodeBinaryOperator.ValueEquality:
 					return this.typeSystem.TypeDefinitionCache.Boolean;
-				case CodeBinaryOperator.Add:
 				case CodeBinaryOperator.BitwiseAnd:
 				case CodeBinaryOperator.BitwiseOr:
-				case CodeBinaryOperator.Divide:
 				case CodeBinaryOperator.ExclusiveOr:
 				case CodeBinaryOperator.LeftShift:
 				case CodeBinaryOperator.Modulus:
-				case CodeBinaryOperator.Multiply:
 				case CodeBinaryOperator.RightShift:
-				case CodeBinaryOperator.Subtract:
 				case CodeBinaryOperator.UnsignedRightShift:
-					// FIXME: find 'highest' type of each side
 					return Evaluate(obj.Left);
+				case CodeBinaryOperator.Add:
+				case CodeBinaryOperator.Subtract:
+				case CodeBinaryOperator.Multiply:
+				case CodeBinaryOperator.Divide:
+					return SelectType(obj.Left, obj.Right);
 				default:
 					throw new NotSupportedException();
 			}
+		}
+
+		private int GetTypeScore(TypeReference type) {
+			switch (type.FullName) {
+				case Constants.Byte:
+				case Constants.SByte:
+				case Constants.Char:
+					return 1;
+				case Constants.Int16:
+				case Constants.UInt16:
+					return 2;
+				case Constants.Int32:
+				case Constants.UInt32:
+					return 3;
+				case Constants.Int64:
+				case Constants.UInt64:
+					return 4;
+				case Constants.Single:
+					return 5;
+				case Constants.Double:
+					return 6;
+			}
+			return 0;
+		}
+
+		private TypeReference SelectType(CodeExpression lhs, CodeExpression rhs) {
+			var lhsType = Evaluate(lhs);
+			var rhsType = Evaluate(rhs);
+
+			int lhsScore = GetTypeScore(lhsType);
+			int rhsScore = GetTypeScore(rhsType);
+
+			return lhsScore > rhsScore ? lhsType : rhsType;
 		}
 
 		public TypeReference VisitReturn(CodeCastExpression obj) {
@@ -124,7 +157,7 @@ namespace DotWeb.Decompiler
 		}
 
 		public TypeReference VisitReturn(CodeLengthReference obj) {
-			throw new NotSupportedException();
+			return this.typeSystem.TypeDefinitionCache.Int32;
 		}
 
 		public TypeReference VisitReturn(CodeMethodReference obj) {

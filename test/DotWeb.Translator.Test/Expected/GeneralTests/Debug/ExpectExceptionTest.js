@@ -1,17 +1,7 @@
 ﻿$Class(null, 'System', 'Exception');
 
-$Class(System.Exception, 'System', 'SystemException');
-
-$Class(System.SystemException, 'System', 'ArgumentException');
-
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
-
-System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-	return "Specified argument was out of the range of valid values.";
-};
-
 System.Exception.prototype.set_Message = function(value) {
-	this._Message_k__BackingField = value;
+	this.message = value;
 };
 
 System.Exception.prototype.$ctor$1 = function(message) {
@@ -19,18 +9,28 @@ System.Exception.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
+$Class(System.Exception, 'System', 'SystemException');
+
 System.SystemException.prototype.$ctor$1 = function(message) {
 	this.$super.$ctor$1(message);
 	return this;
 };
+
+$Class(System.SystemException, 'System', 'ArgumentException');
 
 System.ArgumentException.prototype.$ctor$1 = function(message) {
 	this.$super.$ctor$1(message);
 	return this;
 };
 
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+
+(function() {
+	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
+})();
+
 System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1(System.ArgumentOutOfRangeException.get_RangeMessage());
+	this.$super.$ctor$1(System.ArgumentOutOfRangeException.RangeMessage);
 	return this;
 };
 

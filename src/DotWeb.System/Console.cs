@@ -30,6 +30,9 @@ namespace System
 		public static extern void Write(int value);
 
 		[JsCode("console.log(value);")]
+		public static extern void Write(object value);
+
+		[JsCode("console.log(value);")]
 		public static extern void WriteLine(object value);
 
 		[JsCode("console.log(value);")]

@@ -214,6 +214,7 @@
     <Content Include="Expected\GeneralTests\Release\StringFormat.js" />
     <Content Include="Expected\GeneralTests\Release\ParseDecimal.js" />
     <Content Include="Expected\Loops\WhileIfLessOrLessBreak.js" />
+    <Content Include="Expected\SystemTest\TestCastPrimitive.js" />
     <Content Include="Expected\SystemTest\TestCtorChain.js" />
     <Content Include="Expected\SystemTest\TestString.js" />
     <Content Include="Expected\SystemTest\TestJsArray.js" />

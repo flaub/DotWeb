@@ -56,7 +56,6 @@
     <Compile Include="Collections\Generic\IEnumerator.cs" />
     <Compile Include="Collections\Generic\IList.cs" />
     <Compile Include="Collections\Generic\List.cs" />
-    <Compile Include="Collections\Hashtable.cs" />
     <Compile Include="Collections\ICollection.cs" />
     <Compile Include="Collections\IDictionary.cs" />
     <Compile Include="Collections\IEnumerable.cs" />

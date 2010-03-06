@@ -102,6 +102,13 @@ namespace DotWeb.Translator
 				}
 
 				this.generator.WriteTypeConstructor(type);
+				var staticCtor = type.Constructors.Cast<MethodDefinition>().SingleOrDefault(x => x.IsStatic);
+				if (staticCtor != null) {
+					var staticCtorMethod = MethodDecompiler.ParseStaticConstructor(this.typeSystem, staticCtor);
+					if (staticCtorMethod.Statements.Any() || !string.IsNullOrEmpty(staticCtorMethod.NativeCode)) {
+						this.generator.WriteStaticConstructor(staticCtorMethod);
+					}
+				}
 				typesCache.Add(type);
 			}
 		}

@@ -4,11 +4,11 @@ using DotWeb.Client;
 
 namespace DotWeb.Functional.Test.Client
 {
-	class List : JsScript
+	class ListTest : JsScript
 	{
 		private TestResultView view;
 
-		public List() {
+		public ListTest() {
 			var sandbox = Document.getElementById("sandbox");
 			this.view = new TestResultView(sandbox);
 
@@ -28,50 +28,50 @@ namespace DotWeb.Functional.Test.Client
 			list.Add("two");
 			list.Add("three");
 
-			view.AreStringsEqual("list.ToString()", "[ one,two,three ]", list);
+			view.AreStringsEqual("list.ToString()", "[ one,two,three ]", () => list);
 
-			view.AreEqual("list.IndexOf('one')", 0, list.IndexOf("one"));
-			view.AreEqual("list.IndexOf('two')", 1, list.IndexOf("two"));
-			view.AreEqual("list.IndexOf('three')", 2, list.IndexOf("three"));
-			view.AreEqual("list.IndexOf('none')", -1, list.IndexOf("none"));
+			view.AreEqual("list.IndexOf('one')", 0, () => list.IndexOf("one"));
+			view.AreEqual("list.IndexOf('two')", 1, () => list.IndexOf("two"));
+			view.AreEqual("list.IndexOf('three')", 2, () => list.IndexOf("three"));
+			view.AreEqual("list.IndexOf('none')", -1, () => list.IndexOf("none"));
 
 			list.Add("two");
-			view.AreStringsEqual("list.Add('two')", "[ one,two,three,two ]", list);
+			view.AreStringsEqual("list.Add('two')", "[ one,two,three,two ]", () => list);
 
 			list.Remove("two");
-			view.AreStringsEqual("list.Remove('two')", "[ one,three,two ]", list);
+			view.AreStringsEqual("list.Remove('two')", "[ one,three,two ]", () => list);
 
 			list.Clear();
-			view.AreStringsEqual("list.Clear()", "[  ]", list);
+			view.AreStringsEqual("list.Clear()", "[  ]", () => list);
 
 			list.Add("x");
 			list.Add("y");
 			list.Add("z");
 
-			view.AreStringsEqual("list.Add(x, y, z)", "[ x,y,z ]", list);
-			view.AreEqual("list.Contains('x')", true, list.Contains("x"));
-			view.AreEqual("list.Contains('nothere')", false, list.Contains("nothere"));
+			view.AreStringsEqual("list.Add(x, y, z)", "[ x,y,z ]", () => list);
+			view.AreEqual("list.Contains('x')", true, () => list.Contains("x"));
+			view.AreEqual("list.Contains('nothere')", false, () => list.Contains("nothere"));
 
 			list.Insert(0, "a");
-			view.AreStringsEqual("list.Insert(0, 'a')", "[ a,x,y,z ]", list);
+			view.AreStringsEqual("list.Insert(0, 'a')", "[ a,x,y,z ]", () => list);
 
 			list.Insert(4, "zz");
-			view.AreStringsEqual("list.Insert(4, 'zz')", "[ a,x,y,z,zz ]", list);
+			view.AreStringsEqual("list.Insert(4, 'zz')", "[ a,x,y,z,zz ]", () => list);
 
 			list.Insert(1, "b");
-			view.AreStringsEqual("list.Insert(1, 'b')", "[ a,b,x,y,z,zz ]", list);
+			view.AreStringsEqual("list.Insert(1, 'b')", "[ a,b,x,y,z,zz ]", () => list);
 
 			list.Insert(2, "c");
-			view.AreStringsEqual("list.Insert(2, 'c')", "[ a,b,c,x,y,z,zz ]", list);
+			view.AreStringsEqual("list.Insert(2, 'c')", "[ a,b,c,x,y,z,zz ]", () => list);
 
 			list.RemoveAt(2);
-			view.AreStringsEqual("list.RemoveAt(2)", "[ a,b,x,y,z,zz ]", list);
+			view.AreStringsEqual("list.RemoveAt(2)", "[ a,b,x,y,z,zz ]", () => list);
 
 			list.RemoveAt(0);
-			view.AreStringsEqual("list.RemoveAt(0)", "[ b,x,y,z,zz ]", list);
+			view.AreStringsEqual("list.RemoveAt(0)", "[ b,x,y,z,zz ]", () => list);
 
 			list.RemoveAt(4);
-			view.AreStringsEqual("list.RemoveAt(5)", "[ b,x,y,z ]", list);
+			view.AreStringsEqual("list.RemoveAt(5)", "[ b,x,y,z ]", () => list);
 
 			var strArgOutOfRange = "System.ArgumentOutOfRangeException";
 			view.ExpectException("list.Insert(5, 'zz')", strArgOutOfRange, () => list.Insert(5, "zz"));
@@ -88,7 +88,7 @@ namespace DotWeb.Functional.Test.Client
 			int i = 0;
 			foreach (var x in list2) {
 				Log.Write("enumerator" + i);
-				view.AreEqual("enumerator" + i, i, x);
+				view.AreEqual("enumerator" + i, i, () => x);
 				i++;
 			}
 		}

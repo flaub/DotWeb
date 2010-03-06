@@ -28,6 +28,40 @@ namespace DotWeb.Decompiler
 	public static class MethodDecompiler
 	{
 		public static CodeMethodMember Parse(TypeSystem typeSystem, MethodDefinition method) {
+			var interpreter = new Interpreter(typeSystem, method);
+			var ret = ParseMethod(method, typeSystem, interpreter);
+			var ap = method.GetMonoAssociatedProperty();
+			if (ap != null) {
+				if (ap.IsGetter) {
+					return new CodePropertyGetterMember(ret) {
+						Property = ap.Definition
+					};
+				}
+
+				return new CodePropertySetterMember(ret) {
+					Property = ap.Definition
+				};
+			}
+			return ret;
+		}
+
+		public static CodeTypeInitializer ParseStaticConstructor(TypeSystem typeSystem, MethodDefinition method) {
+			var interpreter = new Interpreter(typeSystem, method);
+			var methodMember = ParseMethod(method, typeSystem, interpreter);
+			var typeInitializer = new CodeTypeInitializer(methodMember);
+
+			var type = method.DeclaringType;
+			foreach (FieldDefinition field in type.Fields) {
+				if (field.IsStatic && !interpreter.StaticFieldsSet.Contains(field)) {
+					// create default initializer
+					typeInitializer.DefaultStaticFields.Add(field);
+				}
+			}
+
+			return typeInitializer;
+		}
+
+		private static CodeMethodMember ParseMethod(MethodDefinition method, TypeSystem typeSystem, Interpreter interpreter) {
 #if DEBUG
 			Console.WriteLine(method);
 #endif
@@ -41,7 +75,6 @@ namespace DotWeb.Decompiler
 
 			graph.SortByDepthFirstPostOrder();
 
-			var interpreter = new Interpreter(typeSystem, method);
 			foreach (BasicBlock block in graph.Nodes) {
 				interpreter.ProcessBlock(block);
 			}
@@ -55,20 +88,6 @@ namespace DotWeb.Decompiler
 			var generator = new StatementsGenerator(method, graph);
 			var ret = generator.WriteMethodBody();
 			ret.ExternalMethods = interpreter.ExternalMethods;
-
-			var ap = method.GetMonoAssociatedProperty();
-			if (ap != null) {
-				if (ap.IsGetter) {
-					return new CodePropertyGetterMember(ret) {
-						Property = ap.Definition
-					};
-				}
-
-				return new CodePropertySetterMember(ret) {
-					Property = ap.Definition
-				};
-			}
-
 			return ret;
 		}
 	}

@@ -44,7 +44,6 @@
     <Compile Include="Array.cs" />
     <Compile Include="Attribute.cs" />
     <Compile Include="Collections\Generic\HashSet.cs" />
-    <Compile Include="Collections\Hashtable.cs" />
     <Compile Include="Collections\IDictionary.cs" />
     <Compile Include="Collections\Generic\IDictionary.cs" />
     <Compile Include="Collections\Generic\Dictionary.cs" />

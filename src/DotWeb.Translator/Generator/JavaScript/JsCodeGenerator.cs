@@ -312,6 +312,48 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine();
 		}
 
+		public void WriteStaticConstructor(CodeTypeInitializer method) {
+			this.printer.CurrentMethod = method.Definition;
+			this.currentMethod = method;
+			this.locals.Clear();
+
+			WriteLine("(function() {{");
+			this.writer.Indent++;
+
+			foreach (var field in method.DefaultStaticFields) {
+				var typeRef = new CodeTypeReference(field.DeclaringType);
+				var lhs = new CodeFieldReference(typeRef, field);
+
+				object initialValue = 0;
+				if (field.Constant != null) {
+					initialValue = field.Constant;
+				}
+
+				var targetType = TypeSystem.GetReflectionType(field.FieldType);
+				if (targetType.IsPrimitive) {
+					initialValue = Convert.ChangeType(initialValue, targetType);
+				}
+				else {
+					initialValue = null;
+				}
+				var rhs = new CodePrimitiveExpression(initialValue);
+
+				WriteLine("{0} = {1};", Print(lhs), Print(rhs));
+			}
+
+			if (string.IsNullOrEmpty(method.NativeCode)) {
+				Write(method.Statements);
+			}
+			else {
+				this.writer.WriteLine(method.NativeCode);
+			}
+
+			this.writer.Indent--;
+			WriteLine("}})();");
+
+			WriteLine();
+		}
+
 		#region Members
 		public void Visit(CodeTypeDeclaration type) {
 			try {

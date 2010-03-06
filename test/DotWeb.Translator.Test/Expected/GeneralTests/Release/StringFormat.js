@@ -8,7 +8,7 @@ System.Text.StringBuilder.prototype.$ctor = function() {
 $Class(null, 'System', 'Exception');
 
 System.Exception.prototype.set_Message = function(value) {
-	this._Message_k__BackingField = value;
+	this.message = value;
 };
 
 System.Exception.prototype.$ctor$1 = function(message) {
@@ -53,25 +53,54 @@ System.Text.StringBuilder.prototype.Append$0 = function(value) {
 	return V_0;
 };
 
+System.Exception.prototype.get_Message = function() {
+	var V_1 = this.message != null;
+	if (!V_1) {
+		this.message = String.format$0("Exception of type '{0}' was thrown.", this.$typename);
+	}
+	return this.message;
+};
+
+System.Exception.prototype.get_InnerException = function() {
+	return this._InnerException_k__BackingField;
+};
+
+System.Text.StringBuilder.prototype.AppendLine$0 = function() {
+	return this;
+};
+
+System.Exception.prototype.toString = function() {
+	var V_0 = new System.Text.StringBuilder().$ctor();
+	V_0.Append$0(this.$typename);
+	V_0.Append$0(": ").Append$0(this.get_Message());
+	var V_2 = this.get_InnerException() == null;
+	if (!V_2) {
+		V_0.Append$0(" ---> ").Append$0(this.get_InnerException().toString());
+		V_0.AppendLine$0();
+		V_0.Append$0("  --- End of inner exception stack trace ---");
+	}
+	return V_0.toString();
+};
+
 System.Text.StringBuilder.prototype.Append$1 = function(value) {
 	return this.Append$0(value.toString());
 };
 
 $Class(System.SystemException, 'System', 'ArgumentException');
 
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
-
-System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-	return "Specified argument was out of the range of valid values.";
-};
-
 System.ArgumentException.prototype.$ctor$1 = function(message) {
 	this.$super.$ctor$1(message);
 	return this;
 };
 
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+
+(function() {
+	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
+})();
+
 System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1(System.ArgumentOutOfRangeException.get_RangeMessage());
+	this.$super.$ctor$1(System.ArgumentOutOfRangeException.RangeMessage);
 	return this;
 };
 
@@ -86,6 +115,10 @@ System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
 };
 
 $Class(System.ArgumentException, 'System', 'ArgumentNullException');
+
+(function() {
+	System.ArgumentNullException.DefaultMessage = "Value cannot be null.";
+})();
 
 System.ArgumentNullException.prototype.$ctor$1 = function(paramName) {
 	this.$super.$ctor$3(System.ArgumentNullException.DefaultMessage, paramName);
@@ -179,6 +212,10 @@ System.ArgumentOutOfRangeException.prototype.$ctor$3 = function(paramName, messa
 	this.$super.$ctor$3(message, paramName);
 	return this;
 };
+
+(function() {
+	String.empty = "";
+})();
 
 String.prototype._Substring$1 = function(startIndex, length) {
 	var V_1 = length >= 0;

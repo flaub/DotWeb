@@ -34,12 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayTest.cs" />
-    <Compile Include="HashtableTest.cs" />
+    <Compile Include="DictionaryTest.cs" />
     <Compile Include="StringBuilderTest.cs" />
     <Compile Include="StringTest.cs" />
     <Compile Include="Lambda.cs" />
     <Compile Include="TestResultView.cs" />
-    <Compile Include="List.cs" />
+    <Compile Include="ListTest.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Sanity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

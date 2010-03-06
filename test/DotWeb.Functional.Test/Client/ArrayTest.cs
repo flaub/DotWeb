@@ -25,7 +25,7 @@ namespace DotWeb.Functional.Test.Client
 		private void RunTest() {
 			var array = new int[] { 1, 2, 3 };
 
-			this.view.AreEqual("identity", array, array);
+			this.view.AreEqual("identity", array, () => array);
 		}
 	}
 }

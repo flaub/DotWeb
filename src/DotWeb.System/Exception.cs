@@ -20,47 +20,72 @@ using SysException = System.Exception;
 
 #if HOSTED_MODE
 using DotWeb.System.DotWeb;
+using DotWeb.System.Text;
 namespace DotWeb.System
 #else
 using System.DotWeb;
+using System.Text;
 namespace System
 #endif
 {
 	[UseSystem]
 	public class Exception
 	{
+		private string message;
+
 		public Exception() {
 		}
 
 		public Exception(string message) {
 			Message = message;
 		}
-		//		protected Exception(SerializationInfo info, StreamingContext context);
+
 		public Exception(string message, Exception innerException) {
 			Message = message;
 			InnerException = innerException;
 		}
 
-		//		public virtual IDictionary Data { get; }
-		//		public virtual string HelpLink { get; set; }
-		//		protected int HResult { get; set; }
 		public Exception InnerException { get; protected set; }
-
-		public virtual string Message { get; protected set; }
 		public virtual string Source { get; set; }
 		public virtual string StackTrace { get; protected set; }
 
-		//		public MethodBase TargetSite { get; }
-		//		public virtual Exception GetBaseException();
-		//		public virtual void GetObjectData(SerializationInfo info, StreamingContext context);
-		//		public Type GetType();
-		//		public override string ToString();
+		public virtual string Message {
+			get {
+				if (message == null) {
+					message = string.Format("Exception of type '{0}' was thrown.", this.GetTypeName());
+				}
+				return message;
+			}
+			protected set { this.message = value; }
+		}
+
+#if !HOSTED_MODE
+		public override string ToString() {
+			var result = new StringBuilder();
+			result.Append(this.GetTypeName());
+			result.Append(": ").Append(Message);
+
+			//if (null != _remoteStackTraceString)
+			//    result.Append(_remoteStackTraceString);
+
+			if (InnerException != null) {
+				result.Append(" ---> ").Append(InnerException.ToString());
+				//result.Append(Environment.NewLine);
+				result.AppendLine();
+				result.Append("  --- End of inner exception stack trace ---");
+			}
+
+			//if (StackTrace != null)
+			//    result.Append(Environment.NewLine).Append(StackTrace);
+			return result.ToString();
+		}
+#endif
 	}
 
 	[UseSystem]
 	public class SystemException : SysException
 	{
-		public SystemException() : base("System error.") { }
+		public SystemException() : base("A system exception has occurred.") { }
 		public SystemException(string message) : base(message) { }
 		public SystemException(string message, SysException innerException) : base(message, innerException) { }
 	}
@@ -68,7 +93,7 @@ namespace System
 	[UseSystem]
 	public class NotImplementedException : SystemException
 	{
-		public NotImplementedException() { }
+		public NotImplementedException() : base("The requested feature is not implemented.") { }
 		public NotImplementedException(string message) : base(message) { }
 		public NotImplementedException(string message, SysException inner) : base(message, inner) { }
 	}
@@ -76,7 +101,7 @@ namespace System
 	[UseSystem]
 	public class NotSupportedException : SystemException
 	{
-		public NotSupportedException() { }
+		public NotSupportedException() : base("Operation is not supported.") { }
 		public NotSupportedException(string message) : base(message) { }
 		public NotSupportedException(string message, SysException inner) : base(message, inner) { }
 	}
@@ -151,9 +176,7 @@ namespace System
 			}
 		}
 
-		private static string RangeMessage {
-			get { return "Specified argument was out of the range of valid values."; }
-		}
+		private static string RangeMessage = "Specified argument was out of the range of valid values.";
 	}
 
 	[UseSystem]

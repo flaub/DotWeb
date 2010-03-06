@@ -41,8 +41,9 @@ namespace DotWeb.Functional.Test.Client
 			this.table.tBodies[0].appendChild(row);
 		}
 
-		public void AreStringsEqual(string name, string expected, object actual) {
+		public void AreStringsEqual(string name, string expected, Func<object> func) {
 			try {
+				var actual = func();
 				var str = actual.ToString();
 				AddRow(name, expected, str, expected == str);
 			}
@@ -51,9 +52,10 @@ namespace DotWeb.Functional.Test.Client
 			}
 		}
 
-		public void AreEqual(string name, object expected, object actual) {
+		public void AreEqual(string name, object expected, Func<object> func) {
 			var expectedString = expected.ToString();
 			try {
+				var actual = func();
 				AddRow(name, expectedString, actual.ToString(), expected.Equals(actual));
 			}
 			catch (Exception ex) {

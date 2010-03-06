@@ -85,6 +85,7 @@
     <Compile Include="CodeModel\Member\CodePropertySetterMember.cs" />
     <Compile Include="CodeModel\Member\CodeTypeDeclaration.cs" />
     <Compile Include="CodeModel\Member\CodeTypeMember.cs" />
+    <Compile Include="CodeModel\Member\CodeTypeInitializer.cs" />
     <Compile Include="CodeModel\Member\ICodeMemberVisitor.cs" />
     <Compile Include="CodeModel\Statement\CodeAssignStatement.cs" />
     <Compile Include="CodeModel\Statement\CodeCommentStatement.cs" />

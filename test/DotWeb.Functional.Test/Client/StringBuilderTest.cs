@@ -26,22 +26,22 @@ namespace DotWeb.Functional.Test.Client
 		private void RunTest() {
 			var sb = new StringBuilder();
 
-			this.view.AreStringsEqual("empty", sb.ToString(), sb);
+			this.view.AreStringsEqual("empty", sb.ToString(), () => sb);
 
 			sb.Append(true);
-			this.view.AreStringsEqual("sb.Append(true)", "true", sb);
+			this.view.AreStringsEqual("sb.Append(true)", "true", () => sb);
 
 			sb.Append(':');
-			this.view.AreStringsEqual("sb.Append(':')", "true:", sb);
+			this.view.AreStringsEqual("sb.Append(':')", "true:", () => sb);
 
 			sb.Append('x', 2);
-			this.view.AreStringsEqual("sb.Append(':')", "true:xx", sb);
+			this.view.AreStringsEqual("sb.Append(':')", "true:xx", () => sb);
 
 			sb.Append("/test/", 1, 4);
-			this.view.AreStringsEqual("sb.Append(\"/test/\", 1, 4)", "true:xxtest", sb);
+			this.view.AreStringsEqual("sb.Append(\"/test/\", 1, 4)", "true:xxtest", () => sb);
 
 			sb.AppendFormat("Test: {0}", 55);
-			this.view.AreStringsEqual("sb.Append(\"Test: {0}\", 55)", "true:xxtestTest: 55", sb);
+			this.view.AreStringsEqual("sb.Append(\"Test: {0}\", 55)", "true:xxtestTest: 55", () => sb);
 		}
 	}
 }

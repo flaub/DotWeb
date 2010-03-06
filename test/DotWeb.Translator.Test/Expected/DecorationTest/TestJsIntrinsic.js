@@ -6,7 +6,7 @@ H8.IntrinsicClass.prototype.$ctor = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.Write = function(value) {
+System.Console.Write$0 = function(value) {
 	console.log(value);
 };
 
@@ -16,5 +16,5 @@ H8.DecorationTests.prototype.TestJsIntrinsic = function() {
 	var __g__initLocal3 = new H8.IntrinsicClass().$ctor();
 	__g__initLocal3.Value = 1;
 	var item = __g__initLocal3;
-	System.Console.Write(item.Value);
+	System.Console.Write$0(item.Value);
 };

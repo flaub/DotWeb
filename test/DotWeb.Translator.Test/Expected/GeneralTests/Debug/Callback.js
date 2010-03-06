@@ -1,7 +1,7 @@
 ﻿$Class(null, 'System', 'Exception');
 
 System.Exception.prototype.set_Message = function(value) {
-	this._Message_k__BackingField = value;
+	this.message = value;
 };
 
 System.Exception.prototype.$ctor$1 = function(message) {
@@ -11,15 +11,15 @@ System.Exception.prototype.$ctor$1 = function(message) {
 
 $Class(System.Exception, 'System', 'SystemException');
 
-System.SystemException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1("System error.");
+System.SystemException.prototype.$ctor$1 = function(message) {
+	this.$super.$ctor$1(message);
 	return this;
 };
 
 $Class(System.SystemException, 'System', 'NotImplementedException');
 
 System.NotImplementedException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$0();
+	this.$super.$ctor$1("The requested feature is not implemented.");
 	return this;
 };
 
@@ -32,7 +32,7 @@ H8.GeneralTests.prototype.SourceTests_SimpleEvent = function() {
 $Class(System.SystemException, 'System', 'NotSupportedException');
 
 System.NotSupportedException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$0();
+	this.$super.$ctor$1("Operation is not supported.");
 	return this;
 };
 

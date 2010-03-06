@@ -154,5 +154,39 @@ namespace H8
 		public void TestCtorChain() {
 			new CtorChain();
 		}
+
+		private void TakeInt(int x) { }
+		private void TakeFloat(float x) { }
+		private void TakeDouble(double x) { }
+
+		public void TestCastPrimitive(int i, float f, double d) {
+			TakeInt(i);
+			TakeInt((int)f);
+			TakeInt((int)d);
+			TakeInt(i * i);
+			TakeInt((int)(i * f));
+			TakeInt((int)(i * d));
+			TakeInt((int)(f * f));
+			TakeInt((int)(f * d));
+			TakeInt((int)(d * d));
+			TakeFloat(i);
+			TakeFloat(f);
+			TakeFloat((float)d);
+			TakeFloat(i * i);
+			TakeFloat(i * f);
+			TakeFloat((float)(i * d));
+			TakeFloat(f * f);
+			TakeFloat((float)(f * d));
+			TakeFloat((float)(d * d));
+			TakeDouble(i);
+			TakeDouble(f);
+			TakeDouble(d);
+			TakeDouble(i * i);
+			TakeDouble(i * f);
+			TakeDouble(i * d);
+			TakeDouble(f * f);
+			TakeDouble(f * d);
+			TakeDouble(d * d);
+		}
 	}
 }

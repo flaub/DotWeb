@@ -1,14 +1,14 @@
 ﻿using System;
 using DotWeb.Client;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace DotWeb.Functional.Test.Client
 {
-	class HashtableTest : JsScript
+	class DictionaryTest : JsScript
 	{
 		private TestResultView view;
 
-		public HashtableTest() {
+		public DictionaryTest() {
 			var sandbox = Document.getElementById("sandbox");
 			this.view = new TestResultView(sandbox);
 
@@ -23,13 +23,13 @@ namespace DotWeb.Functional.Test.Client
 		}
 
 		private void RunTest() {
-			var hashtable = new Hashtable();
+			var dict = new Dictionary<string, string>();
 
-			this.view.AreStringsEqual("empty", "", hashtable);
-			this.view.AreEqual("hashtable.Count == 0", 0, hashtable.Count);
+			this.view.AreStringsEqual("empty", "{}", () => dict);
+			this.view.AreEqual("hashtable.Count == 0", 0, () => dict.Count);
 
-			hashtable.Add("key", "value");
-			this.view.AreStringsEqual("hashtable.Add(\"key\", \"value\")", "", hashtable);
+			dict.Add("key", "value");
+			this.view.AreStringsEqual("hashtable.Add(\"key\", \"value\")", "", () => dict);
 		}
 	}
 }

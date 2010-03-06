@@ -38,9 +38,11 @@ namespace DotWeb.Decompiler.Core
 		private CodeTypeEvaluator typeEvaluator;
 
 		public HashSet<MethodReference> ExternalMethods { get; private set; }
+		public HashSet<FieldDefinition> StaticFieldsSet { get; private set; }
 
 		public Interpreter(TypeSystem typeSystem, MethodDefinition method) {
 			this.ExternalMethods = new HashSet<MethodReference>();
+			this.StaticFieldsSet = new HashSet<FieldDefinition>();
 			this.typeSystem = typeSystem;
 			this.method = method;
 			this.typeEvaluator = new CodeTypeEvaluator(this.typeSystem, this.method);
@@ -773,6 +775,8 @@ namespace DotWeb.Decompiler.Core
 			var typeRef = new CodeTypeReference(field.DeclaringType);
 			var lhs = new CodeFieldReference(typeRef, field);
 			AddAssignment(lhs, rhs);
+
+			this.StaticFieldsSet.Add(field.Resolve());
 		}
 
 		private void BinaryExpression(Instruction il, CodeBinaryOperator op) {

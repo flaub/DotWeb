@@ -2,6 +2,10 @@
 
 $Class(H8.Base, 'H8', 'Derived');
 
+(function() {
+	H8.Derived.counter = 0;
+})();
+
 H8.Derived.NextId = function() {
 	var D_0 = H8.Derived.counter;
 	H8.Derived.counter = D_0 + 1;

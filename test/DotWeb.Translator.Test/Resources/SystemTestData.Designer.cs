@@ -152,6 +152,32 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to H8.SystemTests.prototype.TestCastPrimitive = function(i, f, d) {
+        ///	this.TakeInt(i);
+        ///	this.TakeInt(Math.floor(f));
+        ///	this.TakeInt(Math.floor(d));
+        ///	this.TakeInt(i * i);
+        ///	this.TakeInt(Math.floor(i * f));
+        ///	this.TakeInt(Math.floor(i * d));
+        ///	this.TakeInt(Math.floor(f * f));
+        ///	this.TakeInt(Math.floor(f * d));
+        ///	this.TakeInt(Math.floor(d * d));
+        ///	this.TakeFloat(i);
+        ///	this.TakeFloat(f);
+        ///	this.TakeFloat(d);
+        ///	this.TakeFloat(i * i);
+        ///	this.TakeFloat(i * f);
+        ///	this.TakeFloat(i * d);
+        ///	this.TakeFloat(f * f);
+        ///	thi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestCastPrimitive {
+            get {
+                return ResourceManager.GetString("TestCastPrimitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;SystemTests_CtorChain&apos;);
         ///
         ///H8.SystemTests_CtorChain.prototype.$ctor$1 = function(x) {
