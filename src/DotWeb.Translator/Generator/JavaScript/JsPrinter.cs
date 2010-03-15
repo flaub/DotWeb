@@ -264,17 +264,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 		}
 
-		//private int GetFixedArgs(MethodDefinition method) {
-		//    for (int i = 0; i < method.Parameters.Count; i++) {
-		//        var def = method.Parameters[i];
-		//        foreach (CustomAttribute attr in def.CustomAttributes) {
-		//            if (attr.Constructor.DeclaringType.FullName == "System.ParamArrayAttribute") {
-		//                return i;
-		//            }
-		//        }
-		//    }
-		//    return method.Parameters.Count;
-		//}
+		public static string GetDefaultValue(TypeReference type) {
+			if (type.IsValueType) {
+				return "0";
+			}
+			else {
+				return "null";
+			}
+		}
 
 		private string PrintMacro(string macro, MethodDefinition method, string target, List<CodeExpression> parameters) {
 			var args = new List<string>();
@@ -497,7 +494,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public string VisitReturn(CodeArrayCreateExpression exp) {
 			string size = Print(exp.SizeExpression);
 			//return string.Format("new /*{0}*/Array({1})", Print(exp.Type), size);
-			return string.Format("new Array({0})", size);
+			return string.Format("$Array({0}, {1})", size, GetDefaultValue(exp.Type));
 		}
 
 		public string VisitReturn(CodeArrayInitializeExpression obj) {

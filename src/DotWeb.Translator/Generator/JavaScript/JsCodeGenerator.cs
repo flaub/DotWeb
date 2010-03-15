@@ -288,6 +288,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			WriteLine("throw {0};", Print(stmt.Expression));
 		}
 
+		public void Visit(CodeGotoStatement stmt) {
+			throw new NotSupportedException();
+		}
+
 		#endregion
 
 		public void WriteTypeConstructor(TypeDefinition type) {
@@ -307,7 +311,21 @@ namespace DotWeb.Translator.Generator.JavaScript
 			string ns = JsPrinter.EncodeName(JsPrinter.GetNamespace(type));
 			string name = JsPrinter.EncodeName(this.printer.GetTypeName(type));
 
-			WriteLine("$Class({0}, '{1}', '{2}');", parent, ns, name);
+			var items = new List<string>();
+			foreach (FieldDefinition field in type.Fields) {
+				if (!field.IsStatic) {
+					string value = JsPrinter.GetDefaultValue(field.FieldType);
+					items.Add(string.Format("{0}: {1}", this.printer.GetMemberName(field), value));
+				}
+			}
+
+			string dict = "";
+			if (items.Any()) {
+				var dictInner = string.Join(", ", items.ToArray());
+				dict = string.Format(", {{ {0} }}", dictInner);
+			}
+
+			WriteLine("$Class({0}, '{1}', '{2}'{3});", parent, ns, name, dict);
 
 			WriteLine();
 		}

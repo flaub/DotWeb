@@ -23,11 +23,15 @@ $Namespace = function(name) {
 	return parent;
 }
 
-$Class = function(parent, ns, name, ctor) {
+$Class = function(parent, ns, name, dict) {
 	var cls = function() {
 //		if (ns) console.log(ns + '.' + name); else console.log(name);
+		if (dict) {
+			for (var key in dict) {
+				this[key] = dict[key];
+			}
+		}
 		if (parent) parent();
-		if (ctor) ctor.call(this);
 	};
 	if (parent) {
 		var tmp = function() { };
@@ -52,6 +56,14 @@ $Delegate = function(scope, target) {
 		return target.apply(scope, arguments);
 	};
 };
+
+$Array = function(len, init) {
+	var array = new Array(len);
+	for (var i = 0; i < len; i++) {
+		array[i] = init;
+	}
+	return array;
+}
 
 Error.prototype.get_Message = function() {
 	return this.message;

@@ -23,12 +23,17 @@ $Namespace = function(name) {
 	return parent;
 }
 
-$Class = function(parent, ns, name, ctor) {
+$Class = function(parent, ns, name, dict) {
 	var cls = function() {
 		if (ns) console.log(ns + '.' + name); else console.log(name);
+		if (dict) {
+			for (var key in dict) {
+				this[key] = dict[key];
+			}
+		}
 		if (parent) parent();
-		if (ctor) ctor.call(this);
 	};
+
 	if (parent) {
 		var tmp = function() { };
 		tmp.prototype = parent.prototype;
@@ -77,7 +82,7 @@ Class.StaticMethod = function() {
 	console.log(this.$typename + '.StaticMethod');
 };
 
-$Class(Class, '', 'Child');
+$Class(Class, '', 'Child', { x: 4 });
 
 Child.prototype.$ctor = function(id) {
 	console.log('Child.$ctor');
@@ -115,3 +120,6 @@ console.log('> instance.$typename == "Class"');
 console.log(instance.$typename);
 console.log('> child.$typename == "Child"');
 console.log(child.$typename);
+
+console.log(instance.x);
+console.log(child.x);
