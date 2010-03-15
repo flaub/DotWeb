@@ -17,6 +17,7 @@
 
 using System.DotWeb;
 using System;
+using System.Collections.Generic;
 
 namespace H8
 {
@@ -242,6 +243,42 @@ namespace H8
 				Console.WriteLine("bottom");
 			}
 			Console.WriteLine("return2");
+		}
+
+		public bool MultiReturns3() {
+			return new Dictionary<string, string>().GetEnumerator().MoveNext();
+		}
+
+		public bool HeaderExitAndLatchExit1(int x) {
+			while (true) {
+				if (x < 10) {
+					return true;
+				}
+				Console.WriteLine("loop");
+				if (x > 10) {
+					return false;
+				}
+			}
+		}
+
+		public bool HeaderExitAndLatchExit2(int x) {
+			while (x >= 10) {
+				Console.WriteLine("loop");
+				if (x > 10) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public bool HeaderExitAndLatchExit3(int x) {
+			do {
+				if (x < 10) {
+					return true;
+				}
+				Console.WriteLine("loop");
+			} while (x <= 10);
+			return false;
 		}
 
 		public void EndlessLoop() {

@@ -1,4 +1,4 @@
-﻿$Class(null, 'System', 'Exception');
+﻿$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
 
 System.Exception.prototype.set_Message = function(value) {
 	this.message = value;
@@ -16,14 +16,14 @@ System.SystemException.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-$Class(System.SystemException, 'System', 'ArgumentException');
+$Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
 System.ArgumentException.prototype.$ctor$0 = function() {
 	this.$super.$ctor$1("Value does not fall within the expected range.");
 	return this;
 };
 
-$Class(null, 'System.Text', 'StringBuilder');
+$Class(null, 'System.Text', 'StringBuilder', { value: null });
 
 System.Text.StringBuilder.prototype.$ctor = function() {
 	this.value = "";
@@ -44,20 +44,15 @@ System.Text.StringBuilder.prototype.toString = function() {
 System.Text.StringBuilder.prototype.Append$0 = function(value) {
 	var V_1 = value != null;
 	if (!V_1) {
-		var V_0 = this;
+		return this;
 	}
-	else {
-		V_1 = value.length != 0;
-		if (!V_1) {
-			this.value = value;
-			V_0 = this;
-		}
-		else {
-			this.value = this.value + value;
-			V_0 = this;
-		}
+	V_1 = value.length != 0;
+	if (!V_1) {
+		this.value = value;
+		return this;
 	}
-	return V_0;
+	this.value = this.value + value;
+	return this;
 };
 
 System.Exception.prototype.get_InnerException = function() {
@@ -90,7 +85,7 @@ System.ArgumentException.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
 (function() {
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
@@ -135,34 +130,31 @@ System.Text.StringBuilder.prototype.Append$5 = function(value, startIndex, count
 		if (!V_2) {
 			throw new System.ArgumentNullException().$ctor$1("value");
 		}
-		var V_1 = this;
+		return this;
+	}
+	if ((count >= 0) && (startIndex >= 0)) {
+		R_1 = startIndex <= (value.length - count);
 	}
 	else {
-		if ((count >= 0) && (startIndex >= 0)) {
-			R_1 = startIndex <= (value.length - count);
-		}
-		else {
-			R_1 = 0;
-		}
-		V_2 = R_1;
-		if (!V_2) {
-			throw new System.ArgumentOutOfRangeException().$ctor$0();
-		}
-		var V_0 = startIndex;
-		while (true) {
-			V_2 = V_0 < (startIndex + count);
-			if (!V_2) {
-				break;
-			}
-			this.Append$1(value.charAt(V_0));
-			V_0 = V_0 + 1;
-		}
-		V_1 = this;
+		R_1 = 0;
 	}
-	return V_1;
+	V_2 = R_1;
+	if (!V_2) {
+		throw new System.ArgumentOutOfRangeException().$ctor$0();
+	}
+	var V_0 = startIndex;
+	while (true) {
+		V_2 = V_0 < (startIndex + count);
+		if (!V_2) {
+			break;
+		}
+		this.Append$1(value.charAt(V_0));
+		V_0 = V_0 + 1;
+	}
+	return this;
 };
 
-$Class(null, 'System', 'String_FormatSpecifier');
+$Class(null, 'System', 'String_FormatSpecifier', { str: null, ptr: 0, n: 0, width: 0, left_align: 0, format: null });
 
 System.String_FormatSpecifier.prototype.ParseDecimal = function() {
 	var V_0 = this.ptr;
@@ -185,13 +177,10 @@ System.String_FormatSpecifier.prototype.ParseDecimal = function() {
 	}
 	V_4 = V_0 != this.ptr;
 	if (!V_4) {
-		var V_3 = -1;
+		return -1;
 	}
-	else {
-		this.ptr = V_0;
-		V_3 = V_1;
-	}
-	return V_3;
+	this.ptr = V_0;
+	return V_1;
 };
 
 System.String_FormatSpecifier.prototype.IsWhiteSpace = function() {
@@ -239,12 +228,9 @@ String.prototype._Substring$1 = function(startIndex, length) {
 	}
 	V_1 = R_1;
 	if (!V_1) {
-		var V_0 = this;
+		return this;
 	}
-	else {
-		V_0 = this.substring(startIndex, startIndex + length);
-	}
-	return V_0;
+	return this.substring(startIndex, startIndex + length);
 };
 
 $Class(System.SystemException, 'System', 'IndexOutOfRangeException');
@@ -439,7 +425,7 @@ String.formatHelper = function(result, format, args) {
 };
 
 String.format$0 = function(format, arg0) {
-	var V_2 = new Array(1);
+	var V_2 = $Array(1, null);
 	V_2[0] = arg0;
 	var V_0 = String.formatHelper(null, format, V_2);
 	return V_0.toString();
@@ -467,12 +453,9 @@ System.ArgumentException.prototype.get_Message = function() {
 	}
 	var V_2 = R_1;
 	if (!V_2) {
-		var V_1 = V_0 + "\nParameter name: " + this.get_ParamName();
+		return V_0 + "\nParameter name: " + this.get_ParamName();
 	}
-	else {
-		V_1 = V_0;
-	}
-	return V_1;
+	return V_0;
 };
 
 System.ArgumentOutOfRangeException.prototype.get_ActualValue = function() {
@@ -483,19 +466,14 @@ System.ArgumentOutOfRangeException.prototype.get_Message = function() {
 	var V_0 = this.$super.get_Message();
 	var V_3 = this.get_ActualValue() != null;
 	if (!V_3) {
-		var V_2 = V_0;
+		return V_0;
 	}
-	else {
-		var V_1 = "Actual value was " + this.get_ActualValue().toString();
-		V_3 = V_0 != null;
-		if (!V_3) {
-			V_2 = V_1;
-		}
-		else {
-			V_2 = V_0 + "\n" + V_1;
-		}
+	var V_1 = "Actual value was " + this.get_ActualValue().toString();
+	V_3 = V_0 != null;
+	if (!V_3) {
+		return V_1;
 	}
-	return V_2;
+	return V_0 + "\n" + V_1;
 };
 
 $Class(null, 'System', 'Console');
@@ -504,7 +482,7 @@ System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.ArgumentException = function() {
 	try {

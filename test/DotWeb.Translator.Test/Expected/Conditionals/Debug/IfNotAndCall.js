@@ -8,10 +8,7 @@
 	var CS$4$0001 = R_1;
 	if (!CS$4$0001) {
 		this.foundFirst = true;
-		var CS$1$0000 = false;
+		return false;
 	}
-	else {
-		CS$1$0000 = true;
-	}
-	return CS$1$0000;
+	return true;
 };

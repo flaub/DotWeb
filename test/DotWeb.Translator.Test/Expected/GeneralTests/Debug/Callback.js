@@ -1,4 +1,4 @@
-﻿$Class(null, 'System', 'Exception');
+﻿$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
 
 System.Exception.prototype.set_Message = function(value) {
 	this.message = value;
@@ -23,7 +23,7 @@ System.NotImplementedException.prototype.$ctor$0 = function() {
 	return this;
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.SourceTests_SimpleEvent = function() {
 	throw new System.NotImplementedException().$ctor$0();

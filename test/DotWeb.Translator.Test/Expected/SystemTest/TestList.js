@@ -1,4 +1,4 @@
-﻿$Class(null, 'System.Collections.Generic', 'List$1');
+﻿$Class(null, 'System.Collections.Generic', 'List$1', { items: null });
 
 System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
@@ -27,7 +27,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'System.Collections.Generic', 'List$1___c__DisplayClass5');
+$Class(null, 'System.Collections.Generic', 'List$1___c__DisplayClass5', { foundFirst: 0, item: null });
 
 System.Collections.Generic.List$1___c__DisplayClass5.prototype.$ctor = function() {
 	return this;
@@ -43,12 +43,9 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = fu
 	var V_1 = R_1;
 	if (!V_1) {
 		this.foundFirst = true;
-		var V_0 = false;
+		return false;
 	}
-	else {
-		V_0 = true;
-	}
-	return V_0;
+	return true;
 };
 
 System.Collections.Generic.List$1.prototype.Remove$0 = function(item) {

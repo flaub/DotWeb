@@ -10,7 +10,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.Indexer = function() {
 	var indexer = new H8.IndexerTest().$ctor();

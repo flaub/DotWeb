@@ -157,6 +157,69 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.HeaderExitAndLatchExit1 = function(x) {
+        ///	while (true) {
+        ///		if (x &lt; 10) {
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine$1(&quot;loop&quot;);
+        ///		if (x &gt; 10) {
+        ///			return 0;
+        ///		}
+        ///	}
+        ///	return 1;
+        ///};
+        ///.
+        /// </summary>
+        internal static string HeaderExitAndLatchExit1 {
+            get {
+                return ResourceManager.GetString("HeaderExitAndLatchExit1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.HeaderExitAndLatchExit2 = function(x) {
+        ///	while (true) {
+        ///		if (x &lt; 10) {
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine$1(&quot;loop&quot;);
+        ///		if (x &gt; 10) {
+        ///			return 0;
+        ///		}
+        ///	}
+        ///	return 1;
+        ///};
+        ///.
+        /// </summary>
+        internal static string HeaderExitAndLatchExit2 {
+            get {
+                return ResourceManager.GetString("HeaderExitAndLatchExit2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.HeaderExitAndLatchExit3 = function(x) {
+        ///	while (true) {
+        ///		if (x &lt; 10) {
+        ///			break;
+        ///		}
+        ///		System.Console.WriteLine$1(&quot;loop&quot;);
+        ///		if (x &gt; 10) {
+        ///			return 0;
+        ///		}
+        ///	}
+        ///	return 1;
+        ///};
+        ///.
+        /// </summary>
+        internal static string HeaderExitAndLatchExit3 {
+            get {
+                return ResourceManager.GetString("HeaderExitAndLatchExit3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loops.prototype.MultiReturns = function() {
         ///	var i = 0;
         ///	System.Console.WriteLine$1(&quot;enter&quot;);
@@ -205,6 +268,35 @@ namespace DotWeb.Translator.Test.Resources {
         internal static string MultiReturns2 {
             get {
                 return ResourceManager.GetString("MultiReturns2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops.prototype.MultiReturns3 = function() {
+        ///	if (this.next &lt; 0) {
+        ///		return 0;
+        ///	}
+        ///	while (true) {
+        ///		if (this.next &gt;= this.slots) {
+        ///			break;
+        ///		}
+        ///		var D_0 = this.next;
+        ///		var CS$0$0000 = D_0;
+        ///		this.next = D_0 + 1;
+        ///		var cur = CS$0$0000;
+        ///		if (cur == 2) {
+        ///			this.current = new System.Object().$ctor();
+        ///			return 1;
+        ///		}
+        ///	}
+        ///	this.next = -1;
+        ///	return 0;
+        ///};
+        ///.
+        /// </summary>
+        internal static string MultiReturns3 {
+            get {
+                return ResourceManager.GetString("MultiReturns3", resourceCulture);
             }
         }
         

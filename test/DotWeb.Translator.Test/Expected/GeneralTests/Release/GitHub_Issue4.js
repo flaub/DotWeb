@@ -1,4 +1,4 @@
-﻿$Class(null, 'H8', 'GeneralTests');
+﻿$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests._GitHub_Issue4_b__2 = function() {
 	$wnd.alert("test");

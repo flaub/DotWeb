@@ -1,4 +1,4 @@
-﻿$Class(null, 'H8', 'OuterClassTest');
+﻿$Class(null, 'H8', 'OuterClassTest', { m_value: 0, _Text_k__BackingField: null });
 
 H8.OuterClassTest.prototype.set_Text = function(value) {
 	this._Text_k__BackingField = value;
@@ -36,7 +36,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.CreateOuterObject = function() {
 	var test1 = new H8.OuterClassTest().$ctor$1("Test1", 1);

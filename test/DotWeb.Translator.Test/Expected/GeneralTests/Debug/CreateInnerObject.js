@@ -1,4 +1,4 @@
-﻿$Class(null, 'H8', 'GeneralTests_InnerClassTest');
+﻿$Class(null, 'H8', 'GeneralTests_InnerClassTest', { _Text_k__BackingField: null, _Value_k__BackingField: 0 });
 
 H8.GeneralTests_InnerClassTest.prototype.set_Text = function(value) {
 	this._Text_k__BackingField = value;
@@ -36,7 +36,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.CreateInnerObject = function() {
 	var test1 = new H8.GeneralTests_InnerClassTest().$ctor$1("Test1", 1);

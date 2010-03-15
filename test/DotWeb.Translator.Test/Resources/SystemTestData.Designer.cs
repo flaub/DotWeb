@@ -299,7 +299,30 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;EqualityComparer$1&apos;);
+        ///
+        ///System.Collections.Generic.EqualityComparer$1.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///$Class(System.Collections.Generic.EqualityComparer$1, &apos;System.Collections.Generic&apos;, &apos;EqualityComparer$1_DefaultComparer&apos;);
+        ///
+        ///System.Collections.Generic.EqualityComparer$1_DefaultComparer.prototype.$ctor = function() {
+        ///	this.$super.$ctor();
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.EqualityComparer$1.get_Default = function() {
+        ///	retur [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestDictionary {
+            get {
+                return ResourceManager.GetString("TestDictionary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;, { items: null });
         ///
         ///System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
         ///	this.items = new Array();
@@ -315,10 +338,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///};
         ///
         ///System.Collections.Generic.List$1.prototype.toString = function() {
-        ///	return &quot;[ &quot; + this.items.toString() + &quot; ]&quot;;
-        ///};
-        ///
-        ///$ [rest of string was truncated]&quot;;.
+        ///	return &quot;[ &quot; + this.items.toString() [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestGenericMethod {
             get {
@@ -349,7 +369,29 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;KeyValuePair$2&apos;, { _Key_k__BackingField: null, _Value_k__BackingField: null });
+        ///
+        ///System.Collections.Generic.KeyValuePair$2.prototype.set_Key = function(value) {
+        ///	this._Key_k__BackingField = value;
+        ///};
+        ///
+        ///System.Collections.Generic.KeyValuePair$2.prototype.set_Value = function(value) {
+        ///	this._Value_k__BackingField = value;
+        ///};
+        ///
+        ///System.Collections.Generic.KeyValuePair$2.prototype.$ctor = function(key, value) {
+        ///	this.set_Key(key);
+        ///	this.set_Value(value);
+        ///	re [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestKeyValuePair {
+            get {
+                return ResourceManager.GetString("TestKeyValuePair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;, { items: null });
         ///
         ///System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
         ///	this.items = new Array();
@@ -367,10 +409,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
         ///System.Console.WriteLine$1 = function(value) {
-        ///	console.log(value);
-        ///};
-        ///
-        ///Sy [rest of string was truncated]&quot;;.
+        ///	console.log( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestList {
             get {
@@ -379,14 +418,14 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;, { items: null });
         ///
         ///System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
         ///	this.items = new Array();
         ///	return this;
         ///};
         ///
-        ///$Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1_Enumerator&apos;);
+        ///$Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1_Enumerator&apos;, { list: null, index: 0, current: null });
         ///
         ///System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
         ///	this.list = list;
@@ -395,8 +434,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///	return this;
         ///};
         ///
-        ///System.Collections.Generic.List$1.prototype.GetEnumerator = function() {
-        ///	return new System.Collections.Ge [rest of string was truncated]&quot;;.
+        ///System.Collections.Generic.List$1.prototype.GetEn [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestListEnumerator {
             get {
@@ -411,23 +449,53 @@ namespace DotWeb.Translator.Test.Resources {
         ///	console.log(value);
         ///};
         ///
-        ///$Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///$Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
         ///
-        ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
-        ///
-        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;);
-        ///
-        ///$Class(System.ArgumentException, &apos;System&apos;, &apos;ArgumentOutOfRangeException&apos;);
-        ///
-        ///System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-        ///	return &quot;Specified argument was out of the range of valid values.&quot;;
+        ///System.Exception.prototype.set_Message = function(value) {
+        ///	this.message = value;
         ///};
         ///
-        ///System.Except [rest of string was truncated]&quot;;.
+        ///System.Exception.prototype.$ctor$1 = function(message) {
+        ///	this.set_Message(message);
+        ///	return this;
+        ///};
+        ///
+        ///$Class(System.Exception, &apos;System&apos;, &apos; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestString {
             get {
                 return ResourceManager.GetString("TestString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Text&apos;, &apos;StringBuilder&apos;, { value: null });
+        ///
+        ///System.Text.StringBuilder.prototype.$ctor = function() {
+        ///	this.value = &quot;&quot;;
+        ///	return this;
+        ///};
+        ///
+        ///System.Text.StringBuilder.prototype.toString = function() {
+        ///	return this.value;
+        ///};
+        ///
+        ///System.Text.StringBuilder.prototype.Append$0 = function(value) {
+        ///	var V_1 = value != null;
+        ///	if (!V_1) {
+        ///		return this;
+        ///	}
+        ///	V_1 = value.length != 0;
+        ///	if (!V_1) {
+        ///		this.value = value;
+        ///		return this;
+        ///	}
+        ///	this.value = this.value + value;
+        ///	return this;        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestStringBuilderAppend5 {
+            get {
+                return ResourceManager.GetString("TestStringBuilderAppend5", resourceCulture);
             }
         }
     }

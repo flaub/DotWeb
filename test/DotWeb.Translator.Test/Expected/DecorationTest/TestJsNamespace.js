@@ -1,4 +1,4 @@
-﻿$Class(null, '', 'DefaultNamespaceTest');
+﻿$Class(null, '', 'DefaultNamespaceTest', { _Value_k__BackingField: 0 });
 
 DefaultNamespaceTest.prototype.$ctor = function() {
 	return this;
@@ -8,7 +8,7 @@ DefaultNamespaceTest.prototype.set_Value = function(value) {
 	this._Value_k__BackingField = value;
 };
 
-$Class(null, 'Foo', 'FooNamespaceTest');
+$Class(null, 'Foo', 'FooNamespaceTest', { _Value_k__BackingField: 0 });
 
 Foo.FooNamespaceTest.prototype.$ctor = function() {
 	return this;

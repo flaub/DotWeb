@@ -19,10 +19,7 @@
 	}
 	CS$4$0001 = p != ptr;
 	if (!CS$4$0001) {
-		var CS$1$0000 = -1;
+		return -1;
 	}
-	else {
-		CS$1$0000 = n;
-	}
-	return CS$1$0000;
+	return n;
 };

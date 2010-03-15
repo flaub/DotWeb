@@ -1,4 +1,4 @@
-﻿$Class(null, 'System.Collections.Generic', 'List$1');
+﻿$Class(null, 'System.Collections.Generic', 'List$1', { items: null });
 
 System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();

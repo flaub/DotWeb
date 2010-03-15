@@ -4,7 +4,7 @@ System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
 	System.Console.WriteLine$1(str);
@@ -17,7 +17,7 @@ System.Console.WriteLine$0 = function(value) {
 };
 
 H8.GeneralTests.prototype.CallTakeParameters = function() {
-	var CS$0$0000 = new Array(2);
+	var CS$0$0000 = $Array(2, 0);
 	CS$0$0000[0] = 1;
 	CS$0$0000[1] = 2;
 	var result = this.TakeParameters("Hi", 1, CS$0$0000, true);

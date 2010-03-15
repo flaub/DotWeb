@@ -22,6 +22,7 @@ using System.DotWeb;
 using System.Collections.Generic;
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;
+using System.Text;
 
 namespace H8
 {
@@ -151,6 +152,11 @@ namespace H8
 			//Console.WriteLine(string.Format("Test: {0}", "arg0"));
 		}
 
+		public void TestStringBuilderAppend5() {
+			var sb = new StringBuilder();
+			sb.Append("value", 1, 1);
+		}
+
 		public void TestCtorChain() {
 			new CtorChain();
 		}
@@ -187,6 +193,16 @@ namespace H8
 			TakeDouble(f * f);
 			TakeDouble(f * d);
 			TakeDouble(d * d);
+		}
+
+		public void TestDictionary() {
+			var dict = new Dictionary<string, string>(1);
+			dict.Add("key", "value");
+		}
+
+		public void TestKeyValuePair() {
+			var kvp = new KeyValuePair<string, string>("key", "value");
+			Console.WriteLine(kvp.ToString());
 		}
 	}
 }

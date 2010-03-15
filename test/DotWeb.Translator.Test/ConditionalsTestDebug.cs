@@ -80,5 +80,9 @@ namespace DotWeb.Translator.Test
 		public void CharLiteralIf() { this.RunTest(); }
 		[Test]
 		public void IfCharLiteral() { this.RunTest(); }
+		[Test]
+		public void ReturnTernary() { this.RunTest(); }
+		[Test]
+		public void ReturnNestedTernary() { this.RunTest(); }
 	}
 }

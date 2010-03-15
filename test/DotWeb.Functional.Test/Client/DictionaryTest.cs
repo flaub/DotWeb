@@ -12,7 +12,7 @@ namespace DotWeb.Functional.Test.Client
 			var sandbox = Document.getElementById("sandbox");
 			this.view = new TestResultView(sandbox);
 
-			Log.Write("HashtableTest starting...");
+			Log.Write("DictionaryTest starting...");
 
 			try {
 				RunTest();
@@ -26,10 +26,11 @@ namespace DotWeb.Functional.Test.Client
 			var dict = new Dictionary<string, string>();
 
 			this.view.AreStringsEqual("empty", "{}", () => dict);
-			this.view.AreEqual("hashtable.Count == 0", 0, () => dict.Count);
-
-			dict.Add("key", "value");
-			this.view.AreStringsEqual("hashtable.Add(\"key\", \"value\")", "", () => dict);
+			this.view.AreEqual("dict.Count == 0", 0, () => dict.Count);
+			this.view.AreStringsEqual("dict.Add(\"key\", \"value\")", "", () => {
+				dict.Add("key", "value");
+				return dict;
+			});
 		}
 	}
 }

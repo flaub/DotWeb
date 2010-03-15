@@ -17,7 +17,7 @@ GitHub_Issue5.Class1.prototype.$ctor = function() {
 	return this;
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.GitHub_Issue5 = function() {
 	new GitHub_Issue5.Class1().$ctor();

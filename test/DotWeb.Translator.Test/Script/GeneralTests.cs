@@ -21,6 +21,7 @@ using DotWeb.Client;
 using System.DotWeb;
 using DotWeb.Client.Dom;
 using DotWeb.Client.Dom.Helper;
+using System.Collections.Generic;
 
 namespace H8
 {
@@ -610,6 +611,11 @@ namespace H8
 
 		public void StringFormat() {
 			Console.WriteLine(string.Format("Test: {0}", "arg0"));
+		}
+
+		public void TestDictionaryEnumerator() {
+			var dict = new Dictionary<string, string>(1);
+			Console.WriteLine(dict);
 		}
 	}
 }

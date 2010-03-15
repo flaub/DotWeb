@@ -19,6 +19,7 @@ using System;
 using NUnit.Framework;
 using Mono.Cecil;
 using DotWeb.Utility.Cecil;
+using System.Linq;
 
 namespace DotWeb.Translator.Test
 {
@@ -29,46 +30,46 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestLoadAssembly() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];
-			var set = hierarchy.GetSubclasses(root);
+			var set = typeSystem.GetSubclasses(root);
 			Assert.IsNotNull(set);
 			Assert.Greater(set.Count, 0);
 		}
 
 		[Test]
 		public void TestIsSubclassOf() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];
 			var subclass = sysDef.MainModule.Types["System.Type"];
-			Assert.IsTrue(hierarchy.IsSubclassOf(subclass, root));
+			Assert.IsTrue(typeSystem.IsSubclassOf(subclass, root));
 		}
 
 		[Test]
 		public void TestChildAssembly() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
-			var asmDef = hierarchy.LoadAssembly("DotWeb.Translator.Test.Script");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+			var asmDef = typeSystem.LoadAssembly("DotWeb.Translator.Test.Script");
 
 			var root = sysDef.MainModule.Types["System.Object"];
 			var subclass = asmDef.MainModule.Types["H8.GeneralTests"];
-			Assert.IsTrue(hierarchy.IsSubclassOf(subclass, root));
+			Assert.IsTrue(typeSystem.IsSubclassOf(subclass, root));
 		}
 
 		[Test]
 		public void TestMethodOverrides() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			var root = sysDef.MainModule.Types["System.Object"];
 			var str = sysDef.MainModule.Types["System.String"];
 
 			MethodDefinition equals = FindMethodByName(root.Methods, "Equals");
-			var overrides = hierarchy.GetOverridesForVirtualMethod(equals);
+			var overrides = typeSystem.GetOverridesForVirtualMethod(equals);
 			Assert.Greater(overrides.Count, 0);
 
 			MethodDefinition overridenEquals = FindMethodByName(str.Methods, "Equals");
@@ -77,14 +78,14 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestImplsOfInterface() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			var iface = sysDef.MainModule.Types["System.IDisposable"];
 			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "Dispose");
-			var overrides = hierarchy.GetOverridesForVirtualMethod(ifaceMethod);
+			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
 			Assert.Greater(overrides.Count, 0);
 
 			MethodDefinition overridenMethod = FindMethodByName(impl.Methods, "Dispose");
@@ -93,27 +94,43 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestIEnumeratorCurrent() {
-			var hierarchy = new TypeSystem(this.resolver);
-			var sysDef = hierarchy.LoadAssembly("DotWeb.System");
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			var iface = sysDef.MainModule.Types["System.Collections.IEnumerator"];
 			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "get_Current");
-			var overrides = hierarchy.GetOverridesForVirtualMethod(ifaceMethod);
+			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
 			Assert.Greater(overrides.Count, 0);
 
 			MethodDefinition overridenMethod = FindMethodByName(impl.Methods, "System.Collections.IEnumerator.get_Current");
 			Assert.IsTrue(overrides.Contains(overridenMethod));
 		}
 
+		[Test]
+		public void TestEqualityComparer() {
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+
+			var iface = sysDef.MainModule.Types["System.Collections.Generic.IEqualityComparer`1"];
+			var impl = sysDef.MainModule.Types["System.Collections.Generic.EqualityComparer`1"];
+			var impl2 = sysDef.MainModule.Types["System.Collections.Generic.EqualityComparer`1/DefaultComparer"];
+
+			var ifaceMethod = FindMethodByName(iface.Methods, "GetHashCode");
+			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
+			Assert.Greater(overrides.Count, 0);
+
+			var overridenMethod = FindMethodByName(impl.Methods, "GetHashCode");
+			// this one is abstract
+			Assert.IsFalse(overrides.Contains(overridenMethod));
+
+			var overridenMethod2 = FindMethodByName(impl2.Methods, "GetHashCode");
+			Assert.IsTrue(overrides.Contains(overridenMethod2));
+		}
+
 		private MethodDefinition FindMethodByName(MethodDefinitionCollection methods, string name) {
-			foreach (MethodDefinition method in methods) {
-				if (method.Name == name) {
-					return method;
-				}
-			}
-			return null;
+			return methods.Cast<MethodDefinition>().Where(x => x.Name == name).SingleOrDefault();
 		}
 	}
 }

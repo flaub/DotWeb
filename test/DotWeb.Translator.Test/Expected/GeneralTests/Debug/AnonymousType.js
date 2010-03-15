@@ -1,4 +1,4 @@
-﻿$Class(null, '', '__f__AnonymousType0$2');
+﻿$Class(null, '', '__f__AnonymousType0$2', { _Key_i__Field: null, _Value_i__Field: null });
 
 __f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
 	this._Key_i__Field = Key;
@@ -20,7 +20,7 @@ __f__AnonymousType0$2.prototype.get_Value = function() {
 	return this._Value_i__Field;
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.AnonymousType = function() {
 	var value = new __f__AnonymousType0$2().$ctor("Hi", 1);

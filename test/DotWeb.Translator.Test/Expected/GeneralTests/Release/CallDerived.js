@@ -1,6 +1,6 @@
-﻿$Class(null, 'H8', 'Base');
+﻿$Class(null, 'H8', 'Base', { _X_k__BackingField: 0 });
 
-$Class(H8.Base, 'H8', 'Derived');
+$Class(H8.Base, 'H8', 'Derived', { id: 0 });
 
 (function() {
 	H8.Derived.counter = 0;
@@ -29,7 +29,7 @@ H8.Derived.prototype.DerviedMethod = function() {
 	this.BaseMethod();
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.CallDerived = function() {
 	var derived = new H8.Derived().$ctor$0();

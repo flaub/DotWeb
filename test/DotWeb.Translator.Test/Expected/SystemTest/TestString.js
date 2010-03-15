@@ -4,7 +4,7 @@ System.Console.WriteLine$0 = function(value) {
 	console.log(value);
 };
 
-$Class(null, 'System', 'Exception');
+$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
 
 System.Exception.prototype.set_Message = function(value) {
 	this.message = value;
@@ -22,7 +22,7 @@ System.SystemException.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-$Class(System.SystemException, 'System', 'ArgumentException');
+$Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
 System.ArgumentException.prototype.set_ParamName = function(value) {
 	this._ParamName_k__BackingField = value;
@@ -34,7 +34,7 @@ System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
 	return this;
 };
 
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
 (function() {
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
@@ -52,22 +52,19 @@ System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
 String.prototype._Substring$0 = function(startIndex) {
 	var V_1 = startIndex != 0;
 	if (!V_1) {
-		var V_0 = this;
+		return this;
+	}
+	if (startIndex >= 0) {
+		var R_1 = startIndex <= this.length;
 	}
 	else {
-		if (startIndex >= 0) {
-			var R_1 = startIndex <= this.length;
-		}
-		else {
-			R_1 = 0;
-		}
-		V_1 = R_1;
-		if (!V_1) {
-			throw new System.ArgumentOutOfRangeException().$ctor$1("startIndex");
-		}
-		V_0 = this.substring(startIndex, this.length);
+		R_1 = 0;
 	}
-	return V_0;
+	V_1 = R_1;
+	if (!V_1) {
+		throw new System.ArgumentOutOfRangeException().$ctor$1("startIndex");
+	}
+	return this.substring(startIndex, this.length);
 };
 
 System.Console.WriteLine$1 = function(value) {

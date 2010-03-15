@@ -130,11 +130,23 @@
   <data name="EndlessLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\loops\endlessloop.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="HeaderExitAndLatchExit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\loops\headerexitandlatchexit1.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="HeaderExitAndLatchExit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\loops\headerexitandlatchexit2.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="HeaderExitAndLatchExit3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\loops\headerexitandlatchexit3.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="MultiReturns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\loops\multireturns.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="MultiReturns2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\loops\multireturns2.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="MultiReturns3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\loops\multireturns3.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="NestedDoWhile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\loops\nesteddowhile.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

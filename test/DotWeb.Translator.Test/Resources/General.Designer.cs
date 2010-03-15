@@ -61,7 +61,7 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;&apos;, &apos;__f__AnonymousType0$2&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;&apos;, &apos;__f__AnonymousType0$2&apos;, { _Key_i__Field: null, _Value_i__Field: null });
         ///
         ///__f__AnonymousType0$2.prototype.$ctor = function(Key, Value) {
         ///	this._Key_i__Field = Key;
@@ -73,17 +73,14 @@ namespace DotWeb.Translator.Test.Resources {
         ///	return this._Key_i__Field;
         ///};
         ///
-        ///__f__AnonymousType0$2.prototype.get_Value = function() {
-        ///	return this._Value_i__Field;
-        ///};
-        ///
         ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
-        ///System.Console.WriteLine$3 = function(format, arg0, arg1) {
-        ///	console.log(format);
+        ///System.Console.WriteLine$0 = function(value) {
+        ///	console.log(value);
         ///};
         ///
-        ///$Class( [rest of string was truncated]&quot;;.
+        ///__f__AnonymousType0$2.prototype.get_Value = function() {
+        ///	return th [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AnonymousType {
             get {
@@ -92,10 +89,10 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
         ///
         ///System.Exception.prototype.set_Message = function(value) {
-        ///	this._Message_k__BackingField = value;
+        ///	this.message = value;
         ///};
         ///
         ///System.Exception.prototype.$ctor$1 = function(message) {
@@ -106,13 +103,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
         ///
         ///System.SystemException.prototype.$ctor$1 = function(message) {
-        ///	this.$super.$ctor$1(message);
-        ///	return this;
-        ///};
-        ///
-        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;);
-        ///
-        ///System.ArgumentE [rest of string was truncated]&quot;;.
+        ///	this.$super.$ctor$1(message [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ArgumentException {
             get {
@@ -121,10 +112,10 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
         ///
         ///System.Exception.prototype.set_Message = function(value) {
-        ///	this._Message_k__BackingField = value;
+        ///	this.message = value;
         ///};
         ///
         ///System.Exception.prototype.$ctor$1 = function(message) {
@@ -134,14 +125,8 @@ namespace DotWeb.Translator.Test.Resources {
         ///
         ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
         ///
-        ///System.SystemException.prototype.$ctor$0 = function() {
-        ///	this.$super.$ctor$1(&quot;System error.&quot;);
-        ///	return this;
-        ///};
-        ///
-        ///$Class(System.SystemException, &apos;System&apos;, &apos;NotImplementedException&apos;);
-        ///
-        ///System.No [rest of string was truncated]&quot;;.
+        ///System.SystemException.prototype.$ctor$1 = function(message) {
+        ///	this.$super.$ctor$1(message [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Callback {
             get {
@@ -150,9 +135,13 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;Base&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;Base&apos;, { _X_k__BackingField: 0 });
         ///
-        ///$Class(H8.Base, &apos;H8&apos;, &apos;Derived&apos;);
+        ///$Class(H8.Base, &apos;H8&apos;, &apos;Derived&apos;, { id: 0 });
+        ///
+        ///(function() {
+        ///	H8.Derived.counter = 0;
+        ///})();
         ///
         ///H8.Derived.NextId = function() {
         ///	var D_0 = H8.Derived.counter;
@@ -173,11 +162,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///H8.Base.prototype.BaseMethod = function() {
         ///};
         ///
-        ///H8.Derived.prototype.DerviedMethod = function() {
-        ///	this.BaseMethod();
-        ///};
-        ///
-        ///$Class(null, &apos; [rest of string was truncated]&quot;;.
+        ///H8.D [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallDerived {
             get {
@@ -192,25 +177,20 @@ namespace DotWeb.Translator.Test.Resources {
         ///	console.log(value);
         ///};
         ///
-        ///$Class(null, &apos;System&apos;, &apos;Math&apos;);
-        ///
-        ///System.Math.Sin = function(a) {
-        ///	return Math.sin(a);
-        ///};
-        ///
-        ///System.Math.Cos = function(a) {
-        ///	return Math.cos(a);
-        ///};
-        ///
-        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
+        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;, { SimpleEvent: null });
         ///
         ///H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
         ///	System.Console.WriteLine$1(str);
-        ///	var x = System.Math.Sin(rad[value] * 1.570795);
-        ///	return System.Math.Cos(x);
+        ///	var x = Math.sin(rad[value] * 1.570795);
+        ///	return Math.cos(x);
         ///};
         ///
-        ///Syst [rest of string was truncated]&quot;;.
+        ///System.Console.WriteLine$0 = function(value) {
+        ///	console.log(value);
+        ///};
+        ///
+        ///H8.GeneralTests.prototype.CallTakeParameters = function() {
+        ///	var CS$0$0000  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CallTakeParameters {
             get {
@@ -325,7 +305,7 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests_InnerClassTest&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests_InnerClassTest&apos;, { _Text_k__BackingField: null, _Value_k__BackingField: 0 });
         ///
         ///H8.GeneralTests_InnerClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
@@ -341,9 +321,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///	return this;
         ///};
         ///
-        ///H8.GeneralTests_InnerClassTest.prototype.$ctor$0 = function() {
-        ///	return this;
-        ///} [rest of string was truncated]&quot;;.
+        ///H8.GeneralTests_Inner [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateInnerObject {
             get {
@@ -352,7 +330,7 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;OuterClassTest&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;OuterClassTest&apos;, { m_value: 0, _Text_k__BackingField: null });
         ///
         ///H8.OuterClassTest.prototype.set_Text = function(value) {
         ///	this._Text_k__BackingField = value;
@@ -372,8 +350,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///	return this;
         ///};
         ///
-        ///H8.OuterClassTest.prototype.get_Text = function() {
-        ///	return this._Text_k__ [rest of string was truncated]&quot;;.
+        ///H8.OuterClassTest.prototype.ge [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateOuterObject {
             get {
@@ -397,24 +374,21 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+        ///
+        ///System.Exception.prototype.set_Message = function(value) {
+        ///	this.message = value;
+        ///};
+        ///
+        ///System.Exception.prototype.$ctor$1 = function(message) {
+        ///	this.set_Message(message);
+        ///	return this;
+        ///};
         ///
         ///$Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
         ///
-        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;);
-        ///
-        ///$Class(System.ArgumentException, &apos;System&apos;, &apos;ArgumentOutOfRangeException&apos;);
-        ///
-        ///System.ArgumentOutOfRangeException.get_RangeMessage = function() {
-        ///	var V_0 = &quot;Specified argument was out of the range of valid values.&quot;;
-        ///	return V_0;
-        ///};
-        ///
-        ///System.Exception.prototype.set_Message = function(value) {
-        ///	this._Message_k__BackingField = value;
-        ///};
-        ///
-        ///Sys [rest of string was truncated]&quot;;.
+        ///System.SystemException.prototype.$ctor$1 = function(message) {
+        ///	this.$super.$ctor$1(message [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExpectExceptionTest {
             get {
@@ -435,7 +409,7 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;, { SimpleEvent: null });
         ///
         ///H8.GeneralTests._GitHub_Issue4_b__2 = function() {
         ///	$wnd.alert(&quot;test&quot;);
@@ -531,7 +505,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///	console.log(value);
         ///};
         ///
-        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
+        ///$Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;, { SimpleEvent: null });
         ///
         ///H8.GeneralTests.prototype.Indexer = function() {
         ///	var indexer = new H8.IndexerTest().$ctor();
@@ -548,7 +522,7 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;);
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;GeneralTests&apos;, { SimpleEvent: null });
         ///
         ///H8.GeneralTests._Linq_b__2 = function(ch /*System.Char*/) {
         ///	return System.Char.IsDigit(ch);
@@ -559,7 +533,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///	if (!H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3) {
         ///		H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3 = $Delegate(H8.GeneralTests, H8.GeneralTests._Linq_b__2);
         ///	}
-        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate3);        /// [rest of string was truncated]&quot;;.
+        ///	var loc1 = System.Linq.Enumerable.Where(loc0, H8.GeneralTests.CS$__9__CachedAnon [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Linq {
             get {
@@ -660,7 +634,22 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Text&apos;, &apos;StringBuilder&apos;, { value: null });
+        ///
+        ///System.Text.StringBuilder.prototype.$ctor = function() {
+        ///	this.value = &quot;&quot;;
+        ///	return this;
+        ///};
+        ///
+        ///$Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+        ///
+        ///System.Exception.prototype.set_Message = function(value) {
+        ///	this.message = value;
+        ///};
+        ///
+        ///System.Exception.prototype.$ctor$1 = function(message) {
+        ///	this.set_Message(message);
+        ///	return [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string StringFormat {
             get {
@@ -699,14 +688,39 @@ namespace DotWeb.Translator.Test.Resources {
         /// <summary>
         ///   Looks up a localized string similar to H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
         ///	System.Console.WriteLine$1(str);
-        ///	var x = System.Math.Sin(rad[value] * 1.570795);
-        ///	return System.Math.Cos(x);
+        ///	var x = Math.sin(rad[value] * 1.570795);
+        ///	return Math.cos(x);
         ///};
         ///.
         /// </summary>
         internal static string TakeParameters {
             get {
                 return ResourceManager.GetString("TakeParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1&apos;, { items: null });
+        ///
+        ///System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
+        ///	this.items = new Array();
+        ///	return this;
+        ///};
+        ///
+        ///$Class(null, &apos;System.Collections.Generic&apos;, &apos;List$1_Enumerator&apos;, { list: null, index: 0, current: null });
+        ///
+        ///System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
+        ///	this.list = list;
+        ///	this.index = 0;
+        ///	this.current = null;
+        ///	return this;
+        ///};
+        ///
+        ///System.Collections.Generic.List$1.prototype.GetEn [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestDictionaryEnumerator {
+            get {
+                return ResourceManager.GetString("TestDictionaryEnumerator", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿$Class(null, 'System', 'Exception');
+﻿$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
 
 System.Exception.prototype.set_Message = function(value) {
 	this.message = value;
@@ -16,14 +16,14 @@ System.SystemException.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-$Class(System.SystemException, 'System', 'ArgumentException');
+$Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
 System.ArgumentException.prototype.$ctor$1 = function(message) {
 	this.$super.$ctor$1(message);
 	return this;
 };
 
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
 (function() {
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
@@ -34,7 +34,7 @@ System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
 	return this;
 };
 
-$Class(null, 'H8', 'GeneralTests');
+$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests._ExpectExceptionTest_b__4 = function() {
 	throw new System.ArgumentOutOfRangeException().$ctor$0();
@@ -71,8 +71,8 @@ H8.GeneralTests.prototype.ExpectException = function(name, action) {
 };
 
 H8.GeneralTests.prototype.ExpectExceptionTest = function() {
-	var R_1 = this;
 	var R_2 = "System.ArgumentOutOfRangeException";
+	var R_1 = this;
 	if (!H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate5) {
 		H8.GeneralTests.CS$__9__CachedAnonymousMethodDelegate5 = $Delegate(H8.GeneralTests, H8.GeneralTests._ExpectExceptionTest_b__4);
 	}

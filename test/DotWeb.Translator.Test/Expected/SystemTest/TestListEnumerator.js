@@ -1,11 +1,11 @@
-﻿$Class(null, 'System.Collections.Generic', 'List$1');
+﻿$Class(null, 'System.Collections.Generic', 'List$1', { items: null });
 
 System.Collections.Generic.List$1.prototype.$ctor$0 = function() {
 	this.items = new Array();
 	return this;
 };
 
-$Class(null, 'System.Collections.Generic', 'List$1_Enumerator');
+$Class(null, 'System.Collections.Generic', 'List$1_Enumerator', { list: null, index: 0, current: null });
 
 System.Collections.Generic.List$1_Enumerator.prototype.$ctor = function(list) {
 	this.list = list;
@@ -28,7 +28,7 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNextRare = function()
 	return false;
 };
 
-$Class(null, 'System', 'Exception');
+$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
 
 System.Exception.prototype.set_Message = function(value) {
 	this.message = value;
@@ -46,7 +46,7 @@ System.SystemException.prototype.$ctor$1 = function(message) {
 	return this;
 };
 
-$Class(System.SystemException, 'System', 'ArgumentException');
+$Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
 System.ArgumentException.prototype.set_ParamName = function(value) {
 	this._ParamName_k__BackingField = value;
@@ -58,7 +58,7 @@ System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
 	return this;
 };
 
-$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException');
+$Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
 (function() {
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
@@ -82,12 +82,9 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNext = function() {
 	if (!V_1) {
 		this.current = this.list.get_Item(this.index);
 		this.index = this.index + 1;
-		var V_0 = true;
+		return true;
 	}
-	else {
-		V_0 = this.MoveNextRare();
-	}
-	return V_0;
+	return this.MoveNextRare();
 };
 
 System.Collections.Generic.List$1_Enumerator.prototype.get_Current = function() {

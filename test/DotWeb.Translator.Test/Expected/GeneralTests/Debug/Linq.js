@@ -1,4 +1,4 @@
-﻿$Class(null, 'H8', 'GeneralTests');
+﻿$Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests._Linq_b__2 = function(ch /*System.Char*/) {
 	return System.Char.IsDigit(ch);

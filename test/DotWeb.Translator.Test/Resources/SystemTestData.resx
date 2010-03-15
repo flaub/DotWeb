@@ -145,11 +145,17 @@
   <data name="TestDerivedThruBaseIndirect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\testderivedthrubaseindirect.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="TestDictionary" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testdictionary.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="TestGenericMethod" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\testgenericmethod.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestJsArray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\testjsarray.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestKeyValuePair" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\testkeyvaluepair.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="TestList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\testlist.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -159,5 +165,8 @@
   </data>
   <data name="TestString" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\systemtest\teststring.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TestStringBuilderAppend5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\systemtest\teststringbuilderappend5.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

@@ -84,5 +84,7 @@ namespace DotWeb.Translator.Test
 		public void ParseDecimal() { RunTest(); }
 		[Test]
 		public void StringFormat() { RunTestWithDependencies(); }
+		[Test]
+		public void TestDictionaryEnumerator() { RunTestWithDependencies(); }
 	}
 }
