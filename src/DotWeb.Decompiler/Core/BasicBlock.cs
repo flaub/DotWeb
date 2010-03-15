@@ -101,13 +101,13 @@ namespace DotWeb.Decompiler.Core
 		private int stashSize = 0;
 		private Dictionary<int, CodeExpression> stash = new Dictionary<int, CodeExpression>();
 
-		public CodeExpression PushStash(TypeSystem typeSystem, CodeExpression rhs) {
+		internal CodeExpression PushStash(TypeSystem typeSystem, CodeExpressionEntry item) {
 			this.stashSize++;
 
 			int index = this.StashSize;
 			var variableName = string.Format("R_{0}", index);
 			var eval = new CodeTypeEvaluator(typeSystem, this.method);
-			var variableType = eval.Evaluate(rhs);
+			var variableType = eval.Evaluate(item.Expression);
 			var variable = new VariableDefinition(variableName, -index, this.method, variableType);
 			var lhs = new CodeVariableReference(variable);
 

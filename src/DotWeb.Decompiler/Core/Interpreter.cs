@@ -28,11 +28,17 @@ using DotWeb.Utility.Cecil;
 
 namespace DotWeb.Decompiler.Core
 {
+	struct CodeExpressionEntry
+	{
+		public int Index;
+		public CodeExpression Expression;
+	}
+
 	public class Interpreter
 	{
 		private readonly MethodDefinition method;
 		private readonly TypeSystem typeSystem;
-		private Stack<CodeExpression> stack = new Stack<CodeExpression>();
+		private Stack<CodeExpressionEntry> stack = new Stack<CodeExpressionEntry>();
 		private BasicBlock block;
 		private int duplicateCounter = 0;
 		private CodeTypeEvaluator typeEvaluator;
@@ -91,34 +97,34 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void StashStackExtras(BasicBlock block) {
-			var extra = this.stack.Reverse();
-			foreach (var item in extra) {
+			var items = this.stack.Reverse();
+			foreach (var item in items) {
 				var lhs = block.PushStash(this.typeSystem, item);
-				var stmt = new CodeAssignStatement(lhs, item);
-				var last = this.block.Statements.Count;
-				if (last > 0)
-					last--;
-				this.block.Statements.Insert(last, stmt);
+				var stmt = new CodeAssignStatement(lhs, item.Expression);
+				this.block.Statements.Insert(item.Index, stmt);
 			}
 			this.stack.Clear();
 		}
 
 		private void Push(CodeExpression expr) {
-			this.stack.Push(expr);
+			this.stack.Push(new CodeExpressionEntry {
+				Index = this.block.Statements.Count,
+				Expression = expr
+			});
 		}
 
 		private CodeExpression Pop() {
 			if (!this.stack.Any()) {
 				return this.block.PopStash();
 			}
-			return this.stack.Pop();
+			return this.stack.Pop().Expression;
 		}
 
 		private CodeExpression Peek() {
 			if (!this.stack.Any()) {
 				return this.block.PeekStash();
 			}
-			return this.stack.Peek();
+			return this.stack.Peek().Expression;
 		}
 
 		private void HandleInstruction(Instruction il) {
@@ -206,6 +212,7 @@ namespace DotWeb.Decompiler.Core
 				case Code.Ldelem_U1:
 				case Code.Ldelem_U2:
 				case Code.Ldelem_U4:
+				case Code.Ldelema:
 					LoadElement(il);
 					break;
 				case Code.Ldlen:
@@ -419,13 +426,7 @@ namespace DotWeb.Decompiler.Core
 					Return(il);
 					break;
 				#endregion
-				#region Misc
-				case Code.Pop:
-					Pop(il);
-					break;
-				case Code.Dup:
-					Dup(il);
-					break;
+				#region Type Conversion
 				case Code.Conv_I:
 				case Code.Conv_Ovf_I:
 				case Code.Conv_Ovf_I_Un:
@@ -483,6 +484,14 @@ namespace DotWeb.Decompiler.Core
 				case Code.Conv_Ovf_U8_Un:
 					OnConvert(typeof(ulong));
 					break;
+				#endregion
+				#region Misc
+				case Code.Pop:
+					Pop(il);
+					break;
+				case Code.Dup:
+					Dup(il);
+					break;
 				case Code.Leave:
 				case Code.Leave_S:
 					Leave(il);
@@ -508,6 +517,7 @@ namespace DotWeb.Decompiler.Core
 					break;
 				#endregion
 				#region Unsupported/Unneeded
+				case Code.Ldobj:
 				case Code.Constrained:
 				case Code.Endfinally:
 					break;
@@ -652,6 +662,9 @@ namespace DotWeb.Decompiler.Core
 
 		private void OnConvert(Type type) {
 			PushCastExpression(Import(type));
+		}
+
+		private void LoadObject(Instruction cil) {
 		}
 
 		private void LoadArgument(Instruction il) {
@@ -819,8 +832,11 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		private void Branch(Instruction il) {
-			var stmt = new CodeGotoStatement((Instruction)il.Operand);
-			AddStatment(stmt);
+			//var succ = this.block.Successors.Single();
+			//if (succ.Predecessors.Count > 1) {
+			//    var stmt = new CodeGotoStatement((Instruction)il.Operand);
+			//    AddStatment(stmt);
+			//}
 		}
 
 		private void NewArray(Instruction il) {
@@ -875,8 +891,8 @@ namespace DotWeb.Decompiler.Core
 
 		private void Leave(Instruction il) {
 			this.stack.Clear();
-			CodeGotoStatement stmt = new CodeGotoStatement((Instruction)il.Operand);
-			AddStatment(stmt);
+			//var stmt = new CodeGotoStatement((Instruction)il.Operand);
+			//AddStatment(stmt);
 		}
 
 		private void CastClass(Instruction il) {
