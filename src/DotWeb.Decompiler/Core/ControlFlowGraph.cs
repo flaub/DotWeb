@@ -33,6 +33,7 @@ namespace DotWeb.Decompiler.Core
 
 		public void Structure() {
 			CompoundConditionals();
+			OptimizeReturn();
 			StructureLoops();
 			StructureConditionals();
 			StructureExceptions();
@@ -325,6 +326,33 @@ namespace DotWeb.Decompiler.Core
 				foreach (var pred in node.Predecessors) {
 					if (pred.DfsIndex < node.DfsIndex) {
 						node.ImmediateDominator = CommonDominator(node.ImmediateDominator, pred);
+					}
+				}
+			}
+		}
+
+		public void OptimizeReturn() {
+			var returns = this.Nodes.Cast<BasicBlock>().Where(x => x.FlowControl == FlowControl.Return);
+			if (returns.Count() == 1) {
+				var exit = returns.Single();
+				if (exit.Statements.Count == 1) {
+					var returnStmt = exit.Statements.Single() as CodeReturnStatement;
+					if (returnStmt != null) {
+						var variableRef = returnStmt.Expression as CodeVariableReference;
+						if (variableRef != null) {
+							foreach (BasicBlock pred in exit.Predecessors) {
+								pred.Successors.Remove(exit);
+								var copy = new CodeReturnStatement {
+									Expression = returnStmt.Expression
+								};
+								pred.Statements.Add(copy);
+								if (pred.LastInstruction.OpCode.FlowControl == FlowControl.Branch) {
+									pred.Instructions.Remove(pred.LastInstruction);
+								}
+								pred.Instructions.AddRange(exit.Instructions);
+							}
+							this.Nodes.Remove(exit);
+						}
 					}
 				}
 			}
