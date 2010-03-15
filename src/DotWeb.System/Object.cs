@@ -25,6 +25,7 @@ namespace System
 #endif
 {
 	[UseSystem]
+	[JsAugment("Object")]
 	public class Object
 	{
 #if !HOSTED_MODE

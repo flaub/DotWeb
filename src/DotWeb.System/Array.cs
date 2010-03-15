@@ -26,13 +26,15 @@ namespace System
 {
 	[UseSystem]
 	[JsNamespace]
-	[JsCamelCase]
-	public class Array : JsObject
+	[JsAugment("Array")]
+	public class Array
 	{
 		private Array() {
 		}
 
+		[JsCamelCase]
 		public extern int Length { get; }
+
 		public extern object this[int index] { get; set; }
 
 #if !HOSTED_MODE
@@ -68,11 +70,46 @@ namespace System
 			if (destinationIndex < 0)
 				throw new ArgumentOutOfRangeException("destinationIndex", "Value has to be >= 0.");
 		
-			var jsSource = new JsArray(sourceArray);
-			var jsTarget = new JsArray(destinationArray);
-
 			for (int i = 0; i < length; i++) {
-				jsTarget[destinationIndex + i] = jsSource[sourceIndex + i];
+				destinationArray[destinationIndex + i] = sourceArray[sourceIndex + i];
+			}
+		}
+
+		/// <summary>
+		/// Sets a range of elements in the Array to zero, to false, or to null, depending on the element type.
+		/// </summary>
+		/// <param name="array">The Array whose elements need to be cleared.</param>
+		/// <param name="index">The starting index of the range of elements to clear.</param>
+		/// <param name="length">The number of elements to clear.</param>
+		/// <exception cref="System.ArgumentNullException">array is null.</exception>
+		/// <exception cref="System.IndexOutOfRangeException">
+		/// index is less than the lower bound of array.
+		/// -or-
+		/// length is less than zero.
+		/// -or-
+		/// The sum of index and length is greater than the size of the Array.
+		/// </exception>
+		/// <remarks>
+		/// Reference-type elements are set to null. Boolean-type elements are set to false. Other value-type elements are set to zero.
+		/// The range of cleared elements wrap from row to row in a multi-dimensional array.
+		/// This method only clears the values of the elements; it does not delete the elements themselves. An Array has a fixed size; therefore, elements cannot be added or removed.
+		/// This method is an O(n) operation, where n is length.
+		/// </remarks>
+		public static void Clear(Array array, int index, int length) {
+			if (array == null)
+				throw new ArgumentNullException("array");
+			if (length < 0)
+				throw new IndexOutOfRangeException("length < 0");
+			if (index < 0)
+				throw new IndexOutOfRangeException("index < lower bound");
+
+			// re-ordered to avoid possible integer overflow
+			if (index > array.Length - length)
+				throw new IndexOutOfRangeException("index + length > size");
+
+			var jsArray = new JsArray(array);
+			for (int i = 0; i < length; i++) {
+				jsArray[index + i] = 0;
 			}
 		}
 #endif

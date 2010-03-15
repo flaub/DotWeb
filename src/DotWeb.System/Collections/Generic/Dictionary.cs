@@ -28,7 +28,7 @@ namespace System.Collections.Generic
 #endif
 {
 	[JsAnonymous]
-	internal struct Link
+	internal class Link
 	{
 		public int HashCode;
 		public int Next;
@@ -139,7 +139,6 @@ namespace System.Collections.Generic
 		}
 
 		private void InitArrays(int size) {
-			JsDebug.Log("InitArrays: " + size);
 			table = new int[size];
 
 			linkSlots = new Link[size];
@@ -152,14 +151,13 @@ namespace System.Collections.Generic
 			threshold = (int)(table.Length * DEFAULT_LOAD_FACTOR);
 			if (threshold == 0 && table.Length > 0)
 				threshold = 1;
-			JsDebug.Log("threshold: " + threshold);
 		}
 		#endregion
 
 		#region IDictionary<TKey,TValue> Members
 
 		public void Add(TKey key, TValue value) {
-			throw new NotImplementedException();
+			PutImpl(key, value);
 		}
 
 		public bool ContainsKey(TKey key) {
@@ -196,11 +194,23 @@ namespace System.Collections.Generic
 		#region ICollection<KeyValuePair<TKey,TValue>> Members
 
 		public void Add(KeyValuePair<TKey, TValue> item) {
-			throw new NotImplementedException();
+			PutImpl(item.Key, item.Value);
 		}
 
 		public void Clear() {
-			throw new NotImplementedException();
+			count = 0;
+			// clear the hash table
+			SysArray.Clear(table, 0, table.Length);
+			// clear arrays
+			SysArray.Clear(keySlots, 0, keySlots.Length);
+			SysArray.Clear(valueSlots, 0, valueSlots.Length);
+			SysArray.Clear(linkSlots, 0, linkSlots.Length);
+
+			// empty the "empty slots chain"
+			emptySlot = NO_SLOT;
+
+			touchedSlots = 0;
+			generation++;
 		}
 
 		public bool Contains(KeyValuePair<TKey, TValue> item) {
@@ -216,7 +226,7 @@ namespace System.Collections.Generic
 		}
 
 		public int Count {
-			get { throw new NotImplementedException(); }
+			get { return this.count; }
 		}
 
 		public bool IsReadOnly {
@@ -228,7 +238,7 @@ namespace System.Collections.Generic
 		#region IEnumerable<KeyValuePair<TKey,TValue>> Members
 
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() {
-			throw new NotImplementedException();
+			return new Enumerator(this);
 		}
 
 		#endregion
@@ -265,7 +275,7 @@ namespace System.Collections.Generic
 		}
 
 		public void Add(object key, object value) {
-			throw new NotImplementedException();
+			PutImpl((TKey)key, (TValue)value);
 		}
 
 		public bool Contains(object key) {
@@ -302,6 +312,18 @@ namespace System.Collections.Generic
 		public override string ToString() {
 			var result = new StringBuilder();
 			result.Append("{");
+			var isFirst = true;
+			foreach (var item in this) {
+				if (isFirst) {
+					isFirst = false;
+				}
+				else {
+					result.Append(", ");
+				}
+				result.Append(item.Key);
+				result.Append(": ");
+				result.Append(item.Value);
+			}
 			result.Append("}");
 			return result.ToString();
 		}
@@ -341,12 +363,21 @@ namespace System.Collections.Generic
 		private void PutImpl(TKey key, TValue value) {
 			if (key == null)
 				throw new ArgumentNullException("key");
+
+			//JsDebug.Log("key: " + key);
+			//JsDebug.Log("value: " + value);
 		
 			// get first item of linked list corresponding to given key
 			int hashCode = hcp.GetHashCode(key) | HASH_FLAG;
 			int index = (hashCode & int.MaxValue) % table.Length;
 			int cur = table[index] - 1;
-		
+
+			//JsDebug.Log("hashCode: " + hashCode);
+			//JsDebug.Log("index: " + index);
+			//JsDebug.Log("table: " + table);
+			//JsDebug.Log("table[index]: " + table[index]);
+			//JsDebug.Log("cur: " + cur);
+
 			// walk linked list until end is reached (throw an exception if a
 			// existing slot is found having an equivalent key)
 			while (cur != NO_SLOT) {
@@ -369,30 +400,42 @@ namespace System.Collections.Generic
 			else
 				emptySlot = linkSlots[cur].Next;
 
+			//JsDebug.Log("cur: " + cur);
+
 			// store the hash code of the added item,
 			// prepend the added item to its linked list,
 			// update the hash table
+			//JsDebug.Log("linkSlots[cur]: " + linkSlots[cur]);
+			if (linkSlots[cur] == null) {
+				linkSlots[cur] = new Link();
+			}
 			linkSlots[cur].HashCode = hashCode;
 			linkSlots[cur].Next = table[index] - 1;
+			//JsDebug.Log("linkSlots[cur]: " + linkSlots[cur]);
 			table[index] = cur + 1;
+			//JsDebug.Log("table: " + table);
 
 			// store item's data 
 			keySlots[cur] = key;
 			valueSlots[cur] = value;
 
+			//JsDebug.Log("keySlots: " + keySlots);
+			//JsDebug.Log("valueSlots: " + valueSlots);
+
 			generation++;
 		}
 
 		private void Resize() {
+			//JsDebug.Log("Resize");
 			// From the SDK docs:
 			//	 Hashtable is automatically increased
 			//	 to the smallest prime number that is larger
 			//	 than twice the current number of Hashtable buckets
-			int newSize = ToPrime((table.Length << 1) | 1);
+			var newSize = ToPrime((table.Length << 1) | 1);
 
 			// allocate new hash table and link slots array
-			int[] newTable = new int[newSize];
-			Link[] newLinkSlots = new Link[newSize];
+			var newTable = new int[newSize];
+			var newLinkSlots = new Link[newSize];
 
 			for (int i = 0; i < table.Length; i++) {
 				int cur = table[i] - 1;
@@ -408,8 +451,8 @@ namespace System.Collections.Generic
 			linkSlots = newLinkSlots;
 
 			// allocate new data slots, copy data
-			TKey[] newKeySlots = new TKey[newSize];
-			TValue[] newValueSlots = new TValue[newSize];
+			var newKeySlots = new TKey[newSize];
+			var newValueSlots = new TValue[newSize];
 			SysArray.Copy(keySlots, 0, newKeySlots, 0, touchedSlots);
 			SysArray.Copy(valueSlots, 0, newValueSlots, 0, touchedSlots);
 			keySlots = newKeySlots;
@@ -417,6 +460,119 @@ namespace System.Collections.Generic
 
 			threshold = (int)(newSize * DEFAULT_LOAD_FACTOR);
 		}
-		#endregion
+		#endregion	
+		
+		public class Enumerator : IEnumerator<KeyValuePair<TKey, TValue>>, IDictionaryEnumerator
+		{
+			Dictionary<TKey, TValue> dictionary;
+			int next;
+			int stamp;
+
+			internal KeyValuePair<TKey, TValue> current;
+
+			internal Enumerator(Dictionary<TKey, TValue> dictionary) {
+				//JsDebug.Log("Enumerator");
+				this.dictionary = dictionary;
+				stamp = dictionary.generation;
+			}
+		
+			#region IEnumerator<KeyValuePair<TKey,TValue>> Members
+
+			public KeyValuePair<TKey, TValue> Current {
+				get {
+					//JsDebug.Log("Current");
+					return this.current; 
+				}
+			}
+
+			#endregion
+
+			#region IDisposable Members
+
+			public void Dispose() {
+				//JsDebug.Log("Dispose");
+				this.dictionary = null;
+			}
+
+			#endregion
+
+			#region IEnumerator Members
+
+			public bool MoveNext() {
+				VerifyState();
+
+				if (next < 0) {
+					return false;
+				}
+
+				while (next < dictionary.touchedSlots) {
+					int cur = next++;
+					var link = dictionary.linkSlots[cur];
+					if ((link.HashCode & HASH_FLAG) != 0) {
+						var key = dictionary.keySlots[cur];
+						var value = dictionary.valueSlots[cur];
+						this.current = new KeyValuePair<TKey, TValue>(key, value);
+						return true;
+					}
+				}
+
+				next = -1;
+				return false;
+			}
+
+			object IEnumerator.Current {
+				get {
+					//JsDebug.Log("IEnumerator.Current");
+					VerifyCurrent();
+					return this.current;
+				}
+			}
+
+			public void Reset() {
+				VerifyState();
+				next = 0;
+			}
+
+			#endregion
+
+			#region IDictionaryEnumerator Members
+
+			public DictionaryEntry Entry {
+				get {
+					VerifyCurrent();
+					return new DictionaryEntry(current.Key, current.Value);
+				}
+			}
+
+			public object Key {
+				get {
+					VerifyCurrent();
+					return current.Key;
+				}
+			}
+
+			public object Value {
+				get {
+					VerifyCurrent();
+					return current.Value;
+				}
+			}
+
+			#endregion
+		
+			void VerifyState() {
+				//if (dictionary == null)
+				//	throw new ObjectDisposedException(null);
+				if (dictionary.generation != stamp)
+					throw new InvalidOperationException("out of sync");
+			}
+
+			void VerifyCurrent() {
+				VerifyState();
+				if (next <= 0)
+					throw new InvalidOperationException("Current is not valid");
+			}
+		}
+
 	}
 }
