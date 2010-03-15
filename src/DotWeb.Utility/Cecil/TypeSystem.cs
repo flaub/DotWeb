@@ -165,19 +165,25 @@ namespace DotWeb.Utility.Cecil
 
 				ProcessMethodOverrides(virtuals, baseDef);
 
+				ProcessInterfaces(virtuals, baseDef);
+
 				baseType = baseDef.BaseType;
 			}
 
+			ProcessInterfaces(virtuals, typeDef);
+
+			foreach (TypeDefinition nested in typeDef.NestedTypes) {
+				ProcessType(nested);
+			}
+		}
+
+		private void ProcessInterfaces(VirtualsDictionary virtuals, TypeDefinition typeDef) {
 			foreach (TypeReference iface in typeDef.Interfaces) {
 				var ifaceDef = iface.Resolve();
 				var ifaceSet = GetSubclasses(ifaceDef);
 				ifaceSet.Add(typeDef);
 
 				ProcessMethodOverrides(virtuals, ifaceDef);
-			}
-
-			foreach (TypeDefinition nested in typeDef.NestedTypes) {
-				ProcessType(nested);
 			}
 		}
 
