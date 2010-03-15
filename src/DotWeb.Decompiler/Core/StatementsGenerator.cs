@@ -269,10 +269,14 @@ namespace DotWeb.Decompiler.Core
 				if (succ.DfsTraversed != DfsTraversal.Alpha) {
 					if (succ != conditional.Follow) {
 						// ELSE part
-						var output = ifStmt.FalseStatements;
+						List<CodeStatement> output;
 						if (isBreak)
 							output = stmts;
-						WriteCode(block, (BasicBlock)succ, output, context.NewUntil(conditional.Follow));
+						else
+							output = ifStmt.FalseStatements;
+						isBreak = WriteCode(block, (BasicBlock)succ, output, context.NewUntil(conditional.Follow));
+						if (block == conditional.Follow)
+							return isBreak;
 					}
 				}
 				else if (!emptyThen) {
@@ -401,13 +405,10 @@ namespace DotWeb.Decompiler.Core
 
 		private bool WriteBasicBlock(BasicBlock block, List<CodeStatement> stmts) {
 			foreach (var stmt in block.Statements) {
-				if (stmt is CodeGotoStatement)
-					continue;
-
 				AddStatement(stmts, stmt);
 			}
 
-			if (block.FlowControl == FlowControl.Return || 
+			if (block.FlowControl == FlowControl.Return ||
 				block.FlowControl == FlowControl.Throw) {
 
 				var lastReturn = stmts.LastOrDefault() as CodeReturnStatement;
@@ -425,8 +426,10 @@ namespace DotWeb.Decompiler.Core
 						}
 					}
 				}
+
 				return true;
 			}
+
 			return false;
 		}
 
