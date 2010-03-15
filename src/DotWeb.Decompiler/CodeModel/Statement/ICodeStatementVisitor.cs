@@ -36,6 +36,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeWhileStatement>
 		, ICodeVisitor<CodeBreakStatement>
 		, ICodeVisitor<CodeContinueStatement>
+		, ICodeVisitor<CodeGotoStatement>
 	{
 	}
 
@@ -53,6 +54,7 @@ namespace DotWeb.Decompiler.CodeModel
 		, ICodeVisitor<CodeWhileStatement, Return>
 		, ICodeVisitor<CodeBreakStatement, Return>
 		, ICodeVisitor<CodeContinueStatement, Return>
+		, ICodeVisitor<CodeGotoStatement, Return>
 	{
 	}
 }
