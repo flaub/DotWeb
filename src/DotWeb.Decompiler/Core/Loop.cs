@@ -121,15 +121,26 @@ namespace DotWeb.Decompiler.Core
 				foreach (var succ in node.Successors) {
 					if (!Nodes.Contains(succ)) {
 						if (Tails.Contains(node)) {
-							LoopType = LoopType.Repeat;
-							Follow = succ;
+							if (LoopType == LoopType.While) {
+								LoopType = LoopType.Endless;
+								node.Conditional = new Conditional(this.graph, node);
+							}
+							else {
+								LoopType = LoopType.Repeat;
+							}
+							Exits.AddUnique(succ);
 						}
 						else if (node == Header) {
-							if (LoopType == LoopType.None)
+							if (LoopType == LoopType.Repeat) {
+								LoopType = LoopType.Endless;
+								node.Conditional = new Conditional(this.graph, node);
+							}
+							else {
 								LoopType = LoopType.While;
+							}
 							// we can't be certain here if this header has some
 							// extra statements that would make the loop endless with 
-							// if(cond) { <then>; break; }
+							// if(cond) { <stmts>; break; }
 							// so just mark it as an exit and proceed
 							Exits.AddUnique(succ);
 						}
