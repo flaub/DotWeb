@@ -18,6 +18,7 @@
 using System;
 using Mono.Cecil;
 using System.Text;
+using System.Linq;
 
 namespace DotWeb.Utility.Cecil
 {

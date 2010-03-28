@@ -27,38 +27,73 @@ using System.Diagnostics;
 
 namespace DotWeb.Utility.Cecil
 {
-	class VirtualsDictionary
+	public class VirtualsDictionary
 	{
-		private Dictionary<string, MethodDefinition> methods = new Dictionary<string, MethodDefinition>();
+		private HashSet<MethodDefinition> methods = new HashSet<MethodDefinition>();
 
-		public MethodDefinition FindMethodBySignature(MethodDefinition methodDef) {
-			MethodDefinition virtualMethod = null;
-			if (!this.methods.TryGetValue(methodDef.GetMethodSignature(), out virtualMethod)) {
-				if (!this.methods.TryGetValue(methodDef.GetMethodSignatureWithTypeName(), out virtualMethod)) {
-					//Debug.Fail("Missing base method for virtual");
-					return null;
+		public static MethodReference NormalizeMethod(GenericInstanceType declaringType, MethodReference methodRef) {
+			var typeDef = declaringType.Resolve();
+			var genericTypesByName = new Dictionary<string, TypeReference>();
+			for (int i = 0; i < declaringType.GenericArguments.Count; i++) {
+				var genericArgument = declaringType.GenericArguments[i];
+				var genericParameter = typeDef.GenericParameters[i];
+				genericTypesByName.Add(genericParameter.Name, genericArgument);
+			}
+
+			var returnType = methodRef.ReturnType.ReturnType;
+			if (returnType is GenericParameter) {
+				// try to resolve the type based on the context of the declaringType
+				returnType = genericTypesByName[returnType.Name];
+			}
+
+			var reference = new MethodReference(
+				methodRef.Name,
+				typeDef,
+				returnType,
+				methodRef.HasThis,
+				methodRef.ExplicitThis,
+				MethodCallingConvention.Generic);
+
+			foreach (ParameterDefinition parameter in methodRef.Parameters) {
+				var parameterType = parameter.ParameterType;
+				var genericParameter = parameterType as GenericParameter;
+				if (genericParameter != null) {
+					TypeReference found;
+					if (genericTypesByName.TryGetValue(genericParameter.Name, out found)) {
+						parameterType = found;
+					}
+				}
+				reference.Parameters.Add(new ParameterDefinition(parameterType));
+			}
+
+			return reference;
+		}
+
+		public MethodDefinition FindMethodBySignature(TypeReference typeRef, MethodReference methodToFind) {
+			var genericInstanceType = typeRef as GenericInstanceType;
+			if (genericInstanceType != null) {
+				methodToFind = NormalizeMethod(genericInstanceType, methodToFind);
+			}
+
+			var methodToFindSig = methodToFind.GetMethodSignature();
+			var methodToFindSigWithTypeName = methodToFind.GetMethodSignatureWithTypeName();
+
+			foreach (var virtualMethod in this.methods) {
+				var sig = virtualMethod.GetMethodSignature();
+				if (sig == methodToFindSig ||
+					sig == methodToFindSigWithTypeName) {
+					return virtualMethod;
 				}
 			}
-			return virtualMethod;
+
+			return null;
 		}
 
 		public void CollectVirtualMethods(TypeDefinition typeDef) {
 			foreach (MethodDefinition method in typeDef.Methods) {
 				if (method.IsVirtual && !method.IsAbstract) {
-					// use raw method signature for key, to make sure it's unique in the case of
-					// overriden methods with the same method name, which can happen if the 'new' 
-					// keyword is used on a method definition
-					this.methods.Add(method.GetMethodSignature(), method);
+					this.methods.Add(method);
 				}
-
-				//if (method.HasOverrides) {
-				//    Debug.Assert(method.IsVirtual);
-				//    foreach (MethodReference overrideRef in method.Overrides) {
-				//        var overrideDef = overrideRef.Resolve();
-				//        var signature = overrideDef.GetMethodSignature();
-				//        virtuals.Add(signature, overrideDef);
-				//    }
-				//}
 			}
 		}
 
@@ -78,7 +113,7 @@ namespace DotWeb.Utility.Cecil
 		private IAssemblyResolver asmResolver;
 		private Dictionary<TypeDefinition, TypeSet> baseToDerviedMap = new Dictionary<TypeDefinition, TypeSet>();
 		private Dictionary<MethodDefinition, MethodSet> virtualMethodOverrides = new Dictionary<MethodDefinition, MethodSet>();
-		private List<AssemblyDefinition> assemblies = new List<AssemblyDefinition>();
+		private HashSet<AssemblyDefinition> assemblies = new HashSet<AssemblyDefinition>();
 		private AssemblyDefinition asmSystem;
 
 		public TypeSystem(IAssemblyResolver resolver) {
@@ -103,7 +138,7 @@ namespace DotWeb.Utility.Cecil
 				LoadAssembly(child.Name.FullName);
 			}
 
-			this.assemblies.AddUnique(asmDef);
+			this.assemblies.Add(asmDef);
 
 			return asmDef;
 		}
@@ -139,11 +174,12 @@ namespace DotWeb.Utility.Cecil
 			return result;
 		}
 
-		private void ProcessMethodOverrides(VirtualsDictionary virtuals, TypeDefinition baseDef) {
+		private void ProcessMethodOverrides(VirtualsDictionary virtuals, TypeReference baseRef) {
 			if (virtuals.Count > 0) {
+				var baseDef = baseRef.Resolve();
 				foreach (MethodDefinition baseMethod in baseDef.Methods) {
 					if (baseMethod.IsVirtual) {
-						var overridenMethod = virtuals.FindMethodBySignature(baseMethod);
+						var overridenMethod = virtuals.FindMethodBySignature(baseRef, baseMethod);
 						if (overridenMethod != null) {
 							var overrides = GetOverridesForVirtualMethod(baseMethod);
 							overrides.Add(overridenMethod);
@@ -153,38 +189,34 @@ namespace DotWeb.Utility.Cecil
 			}
 		}
 
+		private void ProcessInterfaces(VirtualsDictionary virtuals, TypeReference typeRef) {
+			var typeDef = typeRef.Resolve();
+			foreach (TypeReference iface in typeDef.Interfaces) {
+				var ifaceDef = iface.Resolve();
+				var ifaceSet = GetSubclasses(ifaceDef);
+				ifaceSet.Add(typeDef);
+				ProcessMethodOverrides(virtuals, iface);
+			}
+		}
+
 		private void ProcessType(TypeDefinition typeDef) {
 			var virtuals = new VirtualsDictionary();
 			virtuals.CollectVirtualMethods(typeDef);
 
 			var baseType = typeDef.BaseType;
 			while (baseType != null) {
-				var baseDef = baseType.Resolve();
 				var baseSet = GetSubclasses(baseType);
 				baseSet.Add(typeDef);
 
-				ProcessMethodOverrides(virtuals, baseDef);
+				ProcessMethodOverrides(virtuals, baseType);
 
-				ProcessInterfaces(virtuals, baseDef);
+				ProcessInterfaces(virtuals, baseType);
 
+				var baseDef = baseType.Resolve();
 				baseType = baseDef.BaseType;
 			}
 
 			ProcessInterfaces(virtuals, typeDef);
-
-			foreach (TypeDefinition nested in typeDef.NestedTypes) {
-				ProcessType(nested);
-			}
-		}
-
-		private void ProcessInterfaces(VirtualsDictionary virtuals, TypeDefinition typeDef) {
-			foreach (TypeReference iface in typeDef.Interfaces) {
-				var ifaceDef = iface.Resolve();
-				var ifaceSet = GetSubclasses(ifaceDef);
-				ifaceSet.Add(typeDef);
-
-				ProcessMethodOverrides(virtuals, ifaceDef);
-			}
 		}
 
 		public TypeDefinition GetTypeDefinition(string typeName) {

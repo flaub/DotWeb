@@ -27,8 +27,12 @@ namespace DotWeb.Functional.Test.Client
 
 			this.view.AreStringsEqual("empty", "{}", () => dict);
 			this.view.AreEqual("dict.Count == 0", 0, () => dict.Count);
-			this.view.AreStringsEqual("dict.Add(\"key\", \"value\")", "", () => {
+			this.view.AreStringsEqual("dict.Add(\"key\", \"value\")", "{key: value}", () => {
 				dict.Add("key", "value");
+				return dict;
+			});
+			this.view.AreStringsEqual("dict.Add(\"other\", \"other\")", "{key: value, other: other}", () => {
+				dict.Add("other", "other");
 				return dict;
 			});
 		}

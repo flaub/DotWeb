@@ -20,6 +20,7 @@ using NUnit.Framework;
 using Mono.Cecil;
 using DotWeb.Utility.Cecil;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace DotWeb.Translator.Test
 {
@@ -129,8 +130,117 @@ namespace DotWeb.Translator.Test
 			Assert.IsTrue(overrides.Contains(overridenMethod2));
 		}
 
+		[Test]
+		public void TestGetCurrent() {
+			var typeSystem = new TypeSystem(this.resolver);
+			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+
+			// System.Collections.Generic.IEnumerator<KeyValuePair<TKey, TValue>>
+			var iface = sysDef.MainModule.Types["System.Collections.Generic.IEnumerator`1"];
+			// System.Collections.Generic.Dictionary<TKey, TValue>.Enumerator
+			var impl = sysDef.MainModule.Types["System.Collections.Generic.Dictionary`2/Enumerator"];
+
+			var ifaceMethod = FindMethodByName(iface.Methods, "get_Current");
+			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
+			Assert.Greater(overrides.Count, 0);
+
+			var overridenMethod = FindMethodByName(impl.Methods, "get_Current");
+			Assert.IsTrue(overrides.Contains(overridenMethod));
+		}
+
 		private MethodDefinition FindMethodByName(MethodDefinitionCollection methods, string name) {
 			return methods.Cast<MethodDefinition>().Where(x => x.Name == name).SingleOrDefault();
+		}
+
+		[Test]
+		public void TestVirtualsMapper() {
+			var asm = this.resolver.Resolve("DotWeb.Translator.Test");
+
+			var genericInterface = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/GenericInterface`2"];
+			var genericImpl = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/GenericImpl`2"];
+			var partialImpl1 = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/PartialImpl1`1"];
+			var partialImpl2 = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/PartialImpl2`1"];
+			var concreteImpl = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/ConcreteImpl"];
+
+			var baseMethod = genericInterface.Methods.GetMethod("Method").First();
+			var genericMethod = genericImpl.Methods.GetMethod("Method").First();
+			var partial1Method = partialImpl1.Methods.GetMethod("Method").First();
+			var partial2Method = partialImpl2.Methods.GetMethod("Method").First();
+			var concreteMethod = concreteImpl.Methods.GetMethod("Method").First();
+
+			var genericIface = genericImpl.Interfaces[0] as GenericInstanceType;
+			var partial1Iface = partialImpl1.Interfaces[0] as GenericInstanceType;
+			var partial2Iface = partialImpl2.Interfaces[0] as GenericInstanceType;
+			var concreteIface = concreteImpl.Interfaces[0] as GenericInstanceType;
+
+			var a1 = genericIface.GenericArguments[0];
+			var a2 = genericIface.GenericArguments[1];
+
+			var b1 = partial1Iface.GenericArguments[0];
+			var b2 = partial1Iface.GenericArguments[1];
+
+			var c1 = partial2Iface.GenericArguments[0];
+			var c2 = partial2Iface.GenericArguments[1];
+
+			var d1 = concreteIface.GenericArguments[0];
+			var d2 = concreteIface.GenericArguments[1];
+
+			var x1 = genericInterface.GenericParameters[0];
+			var x2 = genericInterface.GenericParameters[1];
+
+			Assert.AreEqual(concreteMethod.GetMethodSignature(), VirtualsDictionary.NormalizeMethod(concreteIface, baseMethod).GetMethodSignature());
+			Assert.AreEqual(partial1Method.GetMethodSignature(), VirtualsDictionary.NormalizeMethod(partial1Iface, baseMethod).GetMethodSignature());
+			Assert.AreEqual(partial2Method.GetMethodSignature(), VirtualsDictionary.NormalizeMethod(partial2Iface, baseMethod).GetMethodSignature());
+			Assert.AreEqual(genericMethod.GetMethodSignature(), VirtualsDictionary.NormalizeMethod(genericIface, baseMethod).GetMethodSignature());
+		}
+
+		interface GenericInterface<T, U>
+		{
+			void Method<X>(X x, T t, U u);
+		}
+
+		public class GenericImpl<T, U> : GenericInterface<T, U>
+		{
+			#region GenericInterface<T,U> Members
+
+			public void Method<X>(X x, T t, U u) {
+				throw new NotImplementedException();
+			}
+
+			#endregion
+		}
+
+		public class PartialImpl1<T> : GenericInterface<T, string>
+		{
+			#region GenericInterface<T,string> Members
+
+			public void Method<X>(X x, T t, string u) {
+				throw new NotImplementedException();
+			}
+
+			#endregion
+		}
+
+		public class PartialImpl2<T> : GenericInterface<string, T>
+		{
+			#region GenericInterface<string,T> Members
+
+			public void Method<X>(X x, string t, T u) {
+				throw new NotImplementedException();
+			}
+
+			#endregion
+		}
+
+		public class ConcreteImpl : GenericInterface<string, string>
+		{
+			#region GenericInterface<string,string> Members
+
+			public void Method<X>(X x, string t, string u) {
+				throw new NotImplementedException();
+			}
+
+			#endregion
 		}
 	}
 }
