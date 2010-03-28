@@ -13,7 +13,7 @@ H8.GeneralTests.prototype.TakeParameters = function(str, value, rad, flag) {
 };
 
 System.Console.WriteLine$0 = function(value) {
-	console.log(value);
+	System.Console.WriteLine$1(value.toString());
 };
 
 H8.GeneralTests.prototype.CallTakeParameters = function() {

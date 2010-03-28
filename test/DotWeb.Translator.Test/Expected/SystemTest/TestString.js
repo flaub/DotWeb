@@ -1,7 +1,11 @@
 ﻿$Class(null, 'System', 'Console');
 
-System.Console.WriteLine$0 = function(value) {
+System.Console.WriteLine$1 = function(value) {
 	console.log(value);
+};
+
+System.Console.WriteLine$0 = function(value) {
+	System.Console.WriteLine$1(value.toString());
 };
 
 $Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
@@ -65,10 +69,6 @@ String.prototype._Substring$0 = function(startIndex) {
 		throw new System.ArgumentOutOfRangeException().$ctor$1("startIndex");
 	}
 	return this.substring(startIndex, this.length);
-};
-
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
 };
 
 $Class(null, 'H8', 'SystemTests');

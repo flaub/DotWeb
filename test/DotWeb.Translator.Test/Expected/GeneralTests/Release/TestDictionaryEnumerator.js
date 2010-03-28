@@ -217,7 +217,8 @@ System.Collections.Generic.Dictionary$2_Enumerator.prototype.MoveNext = function
 };
 
 System.Collections.Generic.Dictionary$2_Enumerator.prototype.get_Current = function() {
-}
+	return this.current;
+};
 
 System.Collections.Generic.KeyValuePair$2.prototype.get_Key = function() {
 	return this._Key_k__BackingField;
@@ -700,17 +701,17 @@ System.Exception.prototype.toString = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$0 = function(value) {
+System.Console.WriteLine$1 = function(value) {
 	console.log(value);
 };
 
-System.Console.WriteLine$1 = function(value) {
-	System.Console.WriteLine$0(value.toString());
+System.Console.WriteLine$0 = function(value) {
+	System.Console.WriteLine$1(value.toString());
 };
 
 $Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 
 H8.GeneralTests.prototype.TestDictionaryEnumerator = function() {
 	var dict = new System.Collections.Generic.Dictionary$2().$ctor$3(1);
-	System.Console.WriteLine$1(dict);
+	System.Console.WriteLine$0(dict);
 };

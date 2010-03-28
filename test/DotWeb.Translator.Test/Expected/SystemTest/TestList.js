@@ -24,7 +24,7 @@ System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
 };
 
 System.Console.WriteLine$0 = function(value) {
-	console.log(value);
+	System.Console.WriteLine$1(value.toString());
 };
 
 $Class(null, 'System.Collections.Generic', 'List$1___c__DisplayClass5', { foundFirst: 0, item: null });

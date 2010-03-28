@@ -32,9 +32,6 @@ namespace System
 		[JsCode("console.log(value);")]
 		public static extern void Write(string value);
 
-		[JsCode("console.log(value);")]
-		public static extern void WriteLine(string value);
-
 		public static void Write(object value) {
 			Write(value.ToString());
 		}
@@ -42,6 +39,9 @@ namespace System
 		public static void WriteLine(object value) {
 			WriteLine(value.ToString());
 		}
+
+		[JsCode("console.log(value);")]
+		public static extern void WriteLine(string value);
 
 		public static void WriteLine(string format, params object[] args) {
 			WriteLine(string.Format(format, args));

@@ -33,7 +33,7 @@ H8.OuterClassTest.prototype.get_Value = function() {
 };
 
 System.Console.WriteLine$0 = function(value) {
-	console.log(value);
+	System.Console.WriteLine$1(value.toString());
 };
 
 $Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });

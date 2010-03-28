@@ -11,7 +11,7 @@ System.Console.WriteLine$1 = function(value) {
 };
 
 System.Console.WriteLine$0 = function(value) {
-	console.log(value);
+	System.Console.WriteLine$1(value.toString());
 };
 
 $Class(DotWeb.Client.JsScript, 'H8', 'GeneralTests_ClientScriptClass');
