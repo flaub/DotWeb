@@ -107,9 +107,8 @@ namespace System
 			if (index > array.Length - length)
 				throw new IndexOutOfRangeException("index + length > size");
 
-			var jsArray = new JsArray(array);
 			for (int i = 0; i < length; i++) {
-				jsArray[index + i] = 0;
+				array[index + i] = 0;
 			}
 		}
 #endif

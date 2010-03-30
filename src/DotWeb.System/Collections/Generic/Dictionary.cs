@@ -214,7 +214,7 @@ namespace System.Collections.Generic
 		}
 
 		public bool Contains(KeyValuePair<TKey, TValue> item) {
-			throw new NotImplementedException();
+			return ContainsKeyValuePair(item);
 		}
 
 		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) {
@@ -222,7 +222,10 @@ namespace System.Collections.Generic
 		}
 
 		public bool Remove(KeyValuePair<TKey, TValue> item) {
-			throw new NotImplementedException();
+			if (!ContainsKeyValuePair(item))
+				return false;
+
+			return Remove(item.Key);
 		}
 
 		public int Count {
@@ -230,7 +233,7 @@ namespace System.Collections.Generic
 		}
 
 		public bool IsReadOnly {
-			get { throw new NotImplementedException(); }
+			get { return false; }
 		}
 
 		#endregion
@@ -460,6 +463,15 @@ namespace System.Collections.Generic
 
 			threshold = (int)(newSize * DEFAULT_LOAD_FACTOR);
 		}
+
+		private bool ContainsKeyValuePair(KeyValuePair<TKey, TValue> pair) {
+			TValue value;
+			if (!TryGetValue(pair.Key, out value))
+				return false;
+
+			return EqualityComparer<TValue>.Default.Equals(pair.Value, value);
+		}
+
 		#endregion	
 		
 		public class Enumerator : IEnumerator<KeyValuePair<TKey, TValue>>, IDictionaryEnumerator

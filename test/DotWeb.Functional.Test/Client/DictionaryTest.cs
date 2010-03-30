@@ -35,6 +35,11 @@ namespace DotWeb.Functional.Test.Client
 				dict.Add("other", "other");
 				return dict;
 			});
+
+			this.view.AreStringsEqual("dict.Clear()", "{}", () => {
+				dict.Clear();
+				return dict;
+			});
 		}
 	}
 }

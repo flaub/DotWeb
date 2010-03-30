@@ -35,8 +35,11 @@ namespace System.DotWeb
 	[JsCamelCase]
 	public class JsArray : JsObject
 	{
-		[JsMacro("{0}")]
-		public extern JsArray(Array array);
+		[JsMacro("{1}")]
+		public static extern implicit operator JsArray(Array array);
+
+		[JsMacro("{1}")]
+		public static extern implicit operator Array(JsArray array);
 
 		/// <summary>
 		/// <para>
