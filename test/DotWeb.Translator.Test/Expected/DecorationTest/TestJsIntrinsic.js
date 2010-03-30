@@ -1,4 +1,4 @@
-﻿$Class(null, 'H8', 'IntrinsicClass');
+﻿$Class(null, 'H8', 'IntrinsicClass', { _Value_k__BackingField: 0 });
 
 H8.IntrinsicClass.prototype.$ctor = function() {
 	return this;
