@@ -367,19 +367,10 @@ namespace System.Collections.Generic
 			if (key == null)
 				throw new ArgumentNullException("key");
 
-			//JsDebug.Log("key: " + key);
-			//JsDebug.Log("value: " + value);
-		
 			// get first item of linked list corresponding to given key
 			int hashCode = hcp.GetHashCode(key) | HASH_FLAG;
 			int index = (hashCode & int.MaxValue) % table.Length;
 			int cur = table[index] - 1;
-
-			//JsDebug.Log("hashCode: " + hashCode);
-			//JsDebug.Log("index: " + index);
-			//JsDebug.Log("table: " + table);
-			//JsDebug.Log("table[index]: " + table[index]);
-			//JsDebug.Log("cur: " + cur);
 
 			// walk linked list until end is reached (throw an exception if a
 			// existing slot is found having an equivalent key)
@@ -403,33 +394,24 @@ namespace System.Collections.Generic
 			else
 				emptySlot = linkSlots[cur].Next;
 
-			//JsDebug.Log("cur: " + cur);
-
 			// store the hash code of the added item,
 			// prepend the added item to its linked list,
 			// update the hash table
-			//JsDebug.Log("linkSlots[cur]: " + linkSlots[cur]);
 			if (linkSlots[cur] == null) {
 				linkSlots[cur] = new Link();
 			}
 			linkSlots[cur].HashCode = hashCode;
 			linkSlots[cur].Next = table[index] - 1;
-			//JsDebug.Log("linkSlots[cur]: " + linkSlots[cur]);
 			table[index] = cur + 1;
-			//JsDebug.Log("table: " + table);
 
 			// store item's data 
 			keySlots[cur] = key;
 			valueSlots[cur] = value;
 
-			//JsDebug.Log("keySlots: " + keySlots);
-			//JsDebug.Log("valueSlots: " + valueSlots);
-
 			generation++;
 		}
 
 		private void Resize() {
-			//JsDebug.Log("Resize");
 			// From the SDK docs:
 			//	 Hashtable is automatically increased
 			//	 to the smallest prime number that is larger
@@ -483,7 +465,6 @@ namespace System.Collections.Generic
 			internal KeyValuePair<TKey, TValue> current;
 
 			internal Enumerator(Dictionary<TKey, TValue> dictionary) {
-				//JsDebug.Log("Enumerator");
 				this.dictionary = dictionary;
 				stamp = dictionary.generation;
 			}
@@ -492,7 +473,6 @@ namespace System.Collections.Generic
 
 			public KeyValuePair<TKey, TValue> Current {
 				get {
-					//JsDebug.Log("Current");
 					return this.current; 
 				}
 			}
@@ -502,7 +482,6 @@ namespace System.Collections.Generic
 			#region IDisposable Members
 
 			public void Dispose() {
-				//JsDebug.Log("Dispose");
 				this.dictionary = null;
 			}
 
@@ -534,7 +513,6 @@ namespace System.Collections.Generic
 
 			object IEnumerator.Current {
 				get {
-					//JsDebug.Log("IEnumerator.Current");
 					VerifyCurrent();
 					return this.current;
 				}
