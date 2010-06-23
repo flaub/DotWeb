@@ -58,7 +58,7 @@ namespace DotWeb.Hosting.Test
 		public HostingWeaverTest() {
 			var thisAsm = Assembly.GetExecutingAssembly();
 			string dir = Path.GetDirectoryName(thisAsm.Location);
-			var weaver = new HostingWeaver(dir, dir, new string[] { dir }, true);
+			var weaver = new SimpleWeaver(dir, dir, new string[] { dir }, true);
 
 			string asmPath = "DotWeb.Weaver.Test.Script.dll";
 			weaver.ProcessAssembly(asmPath);

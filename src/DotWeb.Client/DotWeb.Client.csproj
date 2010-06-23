@@ -25,6 +25,7 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <NoStdLib>true</NoStdLib>
     <NoWarn>626</NoWarn>
+    <DocumentationFile>..\..\build\bin\Debug\DotWeb.Client.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

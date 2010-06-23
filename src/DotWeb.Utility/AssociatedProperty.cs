@@ -17,6 +17,7 @@
 
 using System.Reflection;
 using Mono.Cecil;
+using System.Linq;
 
 namespace DotWeb.Utility
 {
@@ -34,24 +35,26 @@ namespace DotWeb.Utility
 
 	public static class AssociatedPropertyExtensions
 	{
+		public static PropertyDefinition GetProperty(this TypeDefinition type, string name) {
+			return type.Properties.Where(x => x.Name == name).FirstOrDefault();
+		}
+
 		public static MonoAssociatedProperty GetMonoAssociatedProperty(this MethodDefinition method) {
 			if (method.IsSpecialName) {
 				var type = method.DeclaringType;
 
 				if (method.Name.StartsWith("get_")) {
 					string propName = method.Name.Substring("get_".Length);
-					var properties = type.Properties.GetProperties(propName);
 					return new MonoAssociatedProperty {
-						Definition = properties[0],
+						Definition = type.GetProperty(propName),
 						IsGetter = true
 					};
 				}
 
 				if (method.Name.StartsWith("set_")) {
 					string propName = method.Name.Substring("set_".Length);
-					var properties = type.Properties.GetProperties(propName);
 					return new MonoAssociatedProperty {
-						Definition = properties[0],
+						Definition = type.GetProperty(propName),
 						IsGetter = false
 					};
 				}

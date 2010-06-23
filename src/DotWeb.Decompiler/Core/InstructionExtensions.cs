@@ -86,11 +86,11 @@ namespace DotWeb.Decompiler.Core
 					case OperandType.InlineR:
 					case OperandType.InlineVar:
 					case OperandType.InlineSig:
-					case OperandType.InlineParam:
+					case OperandType.InlineArg:
 					case OperandType.ShortInlineI:
 					case OperandType.ShortInlineR:
 					case OperandType.ShortInlineVar:
-					case OperandType.ShortInlineParam:
+					case OperandType.ShortInlineArg:
 						sb.AppendFormat(" {0}", cil.Operand);
 						break;
 					case OperandType.InlineTok:

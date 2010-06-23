@@ -35,11 +35,11 @@ namespace DotWeb.Translator
 		}
 
 		public static string GetJsNamespace(TypeReference typeRef) {
-			return GetStringFromAttribute(typeRef, JsNamespace);
+			return GetStringFromAttribute(typeRef.Resolve(), JsNamespace);
 		}
 
 		public static string GetJsAugment(TypeReference typeRef) {
-			return GetStringFromAttribute(typeRef, JsAugment);
+			return GetStringFromAttribute(typeRef.Resolve(), JsAugment);
 		}
 
 		public static string GetJsName(MemberReference memberRef) {
@@ -56,7 +56,7 @@ namespace DotWeb.Translator
 			var ret = GetBooleanFromAttribute(provider, JsCamelCase);
 			if (ret.HasValue)
 				return ret.Value;
-			return GetBooleanFromAttribute(memberRef.DeclaringType, JsCamelCase) ?? false;
+			return GetBooleanFromAttribute(memberRef.DeclaringType.Resolve(), JsCamelCase) ?? false;
 		}
 
 		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {
@@ -67,7 +67,7 @@ namespace DotWeb.Translator
 		public static bool IsIntrinsic(PropertyReference propertyRef, TypeSystem typeSystem) {
 			var typeDef = typeSystem.GetTypeDefinition(JsInstrinsic);
 			return
-				typeSystem.IsDefined(propertyRef.Resolve(), typeDef) ||
+				typeSystem.IsDefined(GetProvider(propertyRef), typeDef) ||
 				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
 		}
 
@@ -76,9 +76,9 @@ namespace DotWeb.Translator
 			if (customAttr == null)
 				return null;
 
-			var args = customAttr.ConstructorParameters;
+			var args = customAttr.ConstructorArguments;
 			if (args.Count == 1)
-				return (string)args[0];
+				return (string)args[0].Value;
 			return "";
 		}
 
@@ -87,9 +87,9 @@ namespace DotWeb.Translator
 			if (customAttr == null)
 				return null;
 
-			var args = customAttr.ConstructorParameters;
+			var args = customAttr.ConstructorArguments;
 			if (args.Count == 1)
-				return (bool)args[0];
+				return (bool)args[0].Value;
 			return true;
 		}
 
@@ -114,7 +114,10 @@ namespace DotWeb.Translator
 			}
 			var propertyRef = memberRef as PropertyReference;
 			if (propertyRef != null) {
-				return propertyRef.Resolve();
+				var genericParameter = propertyRef.PropertyType as GenericParameter;
+				if (genericParameter != null)
+					return genericParameter;
+				return propertyRef.PropertyType.Resolve();
 			}
 			return null;
 		}

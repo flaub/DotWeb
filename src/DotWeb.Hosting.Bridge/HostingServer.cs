@@ -53,7 +53,7 @@ namespace DotWeb.Hosting.Bridge
 		public IPEndPoint EndPoint { get { return (IPEndPoint)this.listener.LocalEndpoint; } }
 
 		public string PrepareType(string binPath, AssemblyQualifiedTypeName aqtn) {
-			var weaver = new HostingWeaver(binPath, binPath, new string[] { binPath }, false);
+			var weaver = new SimpleWeaver(binPath, binPath, new string[] { binPath }, false);
 			string path = Path.Combine(binPath, aqtn.AssemblyName.Name);
 			if (!path.EndsWith(".dll")) {
 				path += ".dll";

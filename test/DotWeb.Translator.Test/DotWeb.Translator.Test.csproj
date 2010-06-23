@@ -66,6 +66,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Arrays.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\CommonMethods.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonMethods.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Conditionals.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,6 +134,30 @@
     <Content Include="Expected\Arrays\CreateIntArray.js" />
     <Content Include="Expected\Arrays\CreateStringArray.js" />
     <Content Include="Expected\Arrays\CreateArrayOfArrays.js" />
+    <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.Init.js" />
+    <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.js" />
+    <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.InitArrays.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentOutOfRangeException.get_Message.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentException.get_Message.js" />
+    <Content Include="Expected\CommonMethods\System.Exception.get_Message.js" />
+    <Content Include="Expected\CommonMethods\String.format_0.js" />
+    <Content Include="Expected\CommonMethods\System.String_FormatSpecifier.IsWhiteSpace.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder.Append_3.js" />
+    <Content Include="Expected\CommonMethods\System.Exception.toString.js" />
+    <Content Include="Expected\CommonMethods\System.FormatException.js" />
+    <Content Include="Expected\CommonMethods\System.SystemException.js" />
+    <Content Include="Expected\CommonMethods\System.Exception.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder._ctor.js" />
+    <Content Include="Expected\CommonMethods\System.Console.WriteLine_1.js" />
+    <Content Include="Expected\CommonMethods\System.Console.WriteLine_0.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder.toString.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder.Append_1.js" />
+    <Content Include="Expected\CommonMethods\System.String_FormatSpecifier.ParseFormatSpecifier.js" />
+    <Content Include="Expected\CommonMethods\String._Substring_1.js" />
+    <Content Include="Expected\CommonMethods\System.String_FormatSpecifier.ParseDecimal.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder.Append_5.js" />
+    <Content Include="Expected\CommonMethods\String.formatHelper.js" />
+    <Content Include="Expected\CommonMethods\System.Text.StringBuilder.Append_0.js" />
     <Content Include="Expected\Conditionals\CharLiteralIf.js" />
     <Content Include="Expected\Conditionals\Debug\CharLiteralIf.js" />
     <Content Include="Expected\Conditionals\Debug\IfAndAnd.js" />
@@ -315,6 +344,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\CommonMethods.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonMethods.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Conditionals.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Conditionals.Designer.cs</LastGenOutput>

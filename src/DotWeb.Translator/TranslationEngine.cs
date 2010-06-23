@@ -32,7 +32,7 @@ namespace DotWeb.Translator
 	public class TranslationEngine
 	{
 		private JsCodeGenerator generator;
-		private GlobalAssemblyResolver resolver = new GlobalAssemblyResolver();
+		private DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
 		private TypeSystem typeSystem;
 
 		public TranslationEngine(TextWriter writer, bool writeHeader, string path) {
@@ -43,18 +43,19 @@ namespace DotWeb.Translator
 
 		private string[] TranslateType(TypeDefinition type) {
 			var context = new TranslationContext(this.typeSystem, this.generator);
-			var method = type.Constructors.GetConstructor(false, Type.EmptyTypes);
+			var method = type.GetConstructor(null);
 			var asmDependencies = new List<AssemblyDefinition>();
 			context.GenerateMethod(method, true, asmDependencies);
 			this.generator.WriteEntryPoint(type);
 
-			string[] ret = new string[asmDependencies.Count];
-			for (int i = 0; i < ret.Length; i++) {
-				var asm = asmDependencies[i];
-				var path = asm.MainModule.Image.FileInformation.FullName;
-				ret[i] = path;
-			}
-			return ret;
+			//string[] ret = new string[asmDependencies.Count];
+			//for (int i = 0; i < ret.Length; i++) {
+			//    var asm = asmDependencies[i];
+			//    var path = asm.MainModule.Image.FileInformation.FullName;
+			//    ret[i] = path;
+			//}
+			//return ret;
+			return asmDependencies.Select(x => x.Name.Name).ToArray();
 		}
 
 		/// <summary>
@@ -65,7 +66,7 @@ namespace DotWeb.Translator
 		/// <returns></returns>
 		public string[] TranslateType(AssemblyQualifiedTypeName aqtn) {
 			var asm = this.typeSystem.LoadAssembly(aqtn.AssemblyName.FullName);
-			var typeDef = asm.MainModule.Types[aqtn.TypeName];
+			var typeDef = asm.MainModule.GetType(aqtn.TypeName);
 			return TranslateType(typeDef);
 		}
 	}

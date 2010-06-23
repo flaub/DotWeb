@@ -1,4 +1,4 @@
 ﻿B1: 0000 - 0010: ret <Return>
 	0000: ldstr "hello" <Next>
-	0005: call [return: System.Void] System.Console::WriteLine() <Call>
+	0005: call System.Void System.Console::WriteLine() <Call>
 	0010: ret <Return>

@@ -25,6 +25,7 @@ using System.Diagnostics;
 using Mono.Cecil.Cil;
 using Mono.Cecil;
 using DotWeb.Utility.Cecil;
+using Mono.Collections.Generic;
 
 namespace DotWeb.Decompiler.Core
 {
@@ -55,7 +56,7 @@ namespace DotWeb.Decompiler.Core
 		}
 
 		public static CodeVariableReference CreateExceptionVariableReference(MethodDefinition method, TypeReference typeRef) {
-			var variable = new VariableDefinition("__ex__", 0, method, typeRef);
+			var variable = new VariableDefinition("__ex__", typeRef);
 			var code = new CodeVariableReference(variable);
 			return code;
 		}
@@ -65,7 +66,7 @@ namespace DotWeb.Decompiler.Core
 
 			if (this.block.ExceptionHandler != null &&
 				this.block.ExceptionHandler.TryStart.Offset != this.block.FirstInstruction.Offset &&
-				this.block.ExceptionHandler.Type == ExceptionHandlerType.Catch) {
+				this.block.ExceptionHandler.HandlerType == ExceptionHandlerType.Catch) {
 				Debug.Assert(!this.stack.Any());
 
 				// this is a catch handler
@@ -73,7 +74,7 @@ namespace DotWeb.Decompiler.Core
 				// on entry to the catch block
 				var catchType = this.block.ExceptionHandler.CatchType;
 				var catchTypeDef = catchType.Resolve();
-				this.ExternalMethods.Add(catchTypeDef.Constructors[0]);
+				this.ExternalMethods.Add(catchTypeDef.Methods.Where(x => x.IsConstructor).First());
 				var exception = CreateExceptionVariableReference(this.method, catchType);
 				Push(exception);
 			}
@@ -586,7 +587,7 @@ namespace DotWeb.Decompiler.Core
 			CodeExpression targetObject = GetTargetObject(method, isVirtual);
 			expr.Method = new CodeMethodReference(targetObject, method);
 
-			if (method.IsConstructor || method.ReturnType.ReturnType.FullName == Constants.Void) {
+			if (method.IsConstructor || method.ReturnType.FullName == "System.Void") {
 				CodeExpressionStatement stmt = new CodeExpressionStatement(expr);
 				AddStatment(stmt);
 			}
@@ -880,7 +881,7 @@ namespace DotWeb.Decompiler.Core
 			//Console.WriteLine("Dup: {0}", variableType);
 			// HACK: the variable index shouldn't really be used in higher-levels
 			// so we just set the index to something that won't collide with existing ones.
-			var variable = new VariableDefinition(variableName, index + 1024, this.method, variableType);
+			var variable = new VariableDefinition(variableName, variableType);
 			var lhs = new CodeVariableReference(variable);
 
 			AddAssignment(lhs, rhs);
@@ -971,7 +972,7 @@ namespace DotWeb.Decompiler.Core
 			Push(new CodePrimitiveExpression(value));
 		}
 
-		private void PopParametersInto(ParameterDefinitionCollection parameterDefs, List<CodeExpression> result) {
+		private void PopParametersInto(Collection<ParameterDefinition> parameterDefs, List<CodeExpression> result) {
 			for (int i = parameterDefs.Count - 1; i >= 0; --i) {
 				var parameterDef = parameterDefs[i];
 				var arg = RefinePrimitiveExpression(Pop(), parameterDef.ParameterType);
@@ -1040,7 +1041,7 @@ namespace DotWeb.Decompiler.Core
 			else if (expression is CodeInvokeExpression) {
 				var reference = ((CodeInvokeExpression)expression).Method.Reference;
 				if (reference != null)
-					return reference.ReturnType.ReturnType.FullName == Constants.Boolean;
+					return reference.ReturnType.FullName == "System.Boolean";
 			}
 			return false;
 		}

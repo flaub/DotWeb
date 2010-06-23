@@ -294,21 +294,22 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			if (methodDef.IsConstructor) {
-				if (type.Constructors.Count == 1) {
+				var ctors = type.GetConstructors();
+				if (ctors.Count() == 1) {
 					return CtorMethodName;
 				}
 				else {
-					return string.Format("{0}${1}", CtorMethodName, type.Constructors.IndexOf(methodDef));
+					return string.Format("{0}${1}", CtorMethodName, ctors.IndexOf(methodDef));
 				}
 			}
 			else {
-				var match = type.Methods.GetMethod(method.Name);
-				if (match.Length == 1) {
+				var match = type.GetMethods(method.Name);
+				if (match.Count == 1) {
 					return GetMemberName(method);
 				}
 				else {
 					// this is to handle overloaded methods (different argument types)
-					for (int i = 0; i < match.Length; i++) {
+					for (int i = 0; i < match.Count; i++) {
 						var item = match[i];
 						if (item.MetadataToken == method.MetadataToken) {
 							var name = string.Format("{0}${1}", GetMemberName(method), i);
@@ -344,7 +345,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeVariableReference exp) {
-			return EncodeName(exp.Variable.Name);
+			return EncodeName(exp.Variable.GetName());
 		}
 
 		public string VisitReturn(CodeLengthReference expr) {
@@ -422,7 +423,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			//return string.Format("/*({0})*/{1}", Print(exp.TargetType), Print(exp.Expression));
 			var evaluator = new CodeTypeEvaluator(this.typeSystem, this.CurrentMethod);
 			var type = evaluator.Evaluate(exp.Expression);
-			if (exp.TargetType.FullName == Constants.Int32 && type.FullName != Constants.Int32) {
+			if (exp.TargetType.FullName == "System.Int32" && type.FullName != "System.Int32") {
 				return string.Format("Math.floor({0})", Print(exp.Expression));
 			}
 			return Print(exp.Expression);

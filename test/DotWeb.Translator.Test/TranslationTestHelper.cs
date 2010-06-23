@@ -28,13 +28,14 @@ using DotWeb.Utility.Cecil;
 using DotWeb.Utility;
 using System.Resources;
 using System.Diagnostics;
+using System.Text;
 
 namespace DotWeb.Translator.Test
 {
 	public abstract class TranslationTestHelper
 	{
 		protected TypeSystem typeSystem;
-		protected GlobalAssemblyResolver resolver;
+		protected DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver;
 
 		protected TranslationTestHelper(string asmName, string src)
 			: this(asmName, src, false) {
@@ -45,7 +46,7 @@ namespace DotWeb.Translator.Test
 			var asm = Assembly.Load(asmName);
 			var result = compiler.CompileSource(src, asm, isDebug);
 
-			this.resolver = new GlobalAssemblyResolver();
+			this.resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
 
 			var dir = Path.GetDirectoryName(result.PathToAssembly);
 			var compiledAsmName = Path.GetFileNameWithoutExtension(result.PathToAssembly);
@@ -55,7 +56,7 @@ namespace DotWeb.Translator.Test
 			this.typeSystem = new TypeSystem(this.resolver);
 			this.CompiledAssembly = this.typeSystem.LoadAssembly(compiledAsmName);
 
-			this.CompiledAssembly.MainModule.LoadSymbols();
+			//this.CompiledAssembly.MainModule.LoadSymbols();
 			var pathToPdb = Path.Combine(dir, compiledAsmName + ".pdb");
 			File.Delete(pathToPdb);
 
@@ -63,7 +64,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected) {
-			var type = this.CompiledAssembly.MainModule.Types[typeName];
+			var type = this.CompiledAssembly.MainModule.GetType(typeName);
 			TestMethod(type, methodName, expected);
 		}
 
@@ -72,7 +73,7 @@ namespace DotWeb.Translator.Test
 		}
 
 		protected void TestMethod(string typeName, string methodName, string expected, bool followDependencies) {
-			var type = this.CompiledAssembly.MainModule.Types[typeName];
+			var type = this.CompiledAssembly.MainModule.GetType(typeName);
 			TestMethod(type, methodName, expected, followDependencies);
 		}
 
@@ -88,19 +89,77 @@ namespace DotWeb.Translator.Test
 				return;
 			}
 
-			string lhs = expected.Trim();
-
 			Console.WriteLine("Expected:");
-			Console.WriteLine(lhs);
+			Console.WriteLine(expected);
 
 			Console.WriteLine("Actual:");
 			Console.WriteLine(rhs);
 
-			Assert.AreEqual(lhs, rhs);
+			var tr = new TestResult(expected.Trim(), rhs);
+			tr.Process();
+		}
+
+		class TestResult
+		{
+			private StringReader lhsReader;
+			private StringReader rhsReader;
+			private int lhsLineNumber;
+
+			private string lhsLine;
+			private string rhsLine;
+
+			public TestResult(string expected, string actual) {
+				this.lhsReader = new StringReader(expected);
+				this.rhsReader = new StringReader(actual);
+			}
+
+			public void Process() {
+				this.lhsLineNumber = 1;
+				while (true) {
+					this.lhsLine = lhsReader.ReadLine();
+					this.rhsLine = rhsReader.ReadLine();
+					if (lhsLine == null && rhsLine == null)
+						break;
+
+					ProcessLine();
+				}
+			}
+
+			private void ProcessLine() {
+				if (this.lhsLine.StartsWith("//>")) {
+					var incPath = lhsLine.Substring(3).Replace('$', '_').Replace('.', '_').Trim();
+					ProcessInclude(incPath);
+
+					this.lhsLine = lhsReader.ReadLine();
+					this.lhsLineNumber++;
+					ProcessLine();
+					return;
+				}
+
+				Assert.AreEqual(this.lhsLine, this.rhsLine, string.Format("Line: {0}", this.lhsLineNumber++));
+			}
+
+			private void ProcessInclude(string incPath) {
+				var inc = Resources.CommonMethods.ResourceManager.GetString(incPath);
+				if (inc == null)
+					Assert.Fail("Missing include: {0}, Line: {1}", incPath, this.lhsLineNumber);
+
+				var incReader = new StringReader(inc);
+				int incLineNumber = 1;
+				while (true) {
+					var incLine = incReader.ReadLine();
+					if (incLine == null)
+						break;
+
+					Assert.AreEqual(incLine, this.rhsLine, string.Format("{0}> Line: {1}, from Line: {2}", incPath, incLineNumber++, this.lhsLineNumber));
+
+					this.rhsLine = this.rhsReader.ReadLine();
+				}
+			}
 		}
 
 		protected string GenerateMethod(TypeDefinition type, string methodName, bool followDependencies) {
-			var method = type.Methods.GetMethod(methodName).First();
+			var method = type.GetMethods(methodName).First();
 			TextWriter writer = new StringWriter();
 			var generator = new JsCodeGenerator(this.typeSystem, writer, false);
 			var context = new TranslationContext(this.typeSystem, generator);
@@ -120,7 +179,7 @@ namespace DotWeb.Translator.Test
 		public TestBase(string asmName, string typeName, ResourceManager resource, string source, bool isDebug)
 			: base(asmName, resource.GetString(source), isDebug) {
 			this.resource = resource;
-			this.sourceCompiledType = this.CompiledAssembly.MainModule.Types[typeName];
+			this.sourceCompiledType = this.CompiledAssembly.MainModule.GetType(typeName);
 		}
 
 		public TestBase(string asmName, string typeName, ResourceManager resource, string source)

@@ -59,7 +59,7 @@ namespace DotWeb.Decompiler.Core
 			foreach (BasicBlock orphan in this.graph.Orphans) {
 				var first = orphan.Instructions.First();
 				if (orphan.ExceptionHandler.TryStart == headerBlock.ExceptionHandler.TryStart) {
-					switch (orphan.ExceptionHandler.Type) {
+					switch (orphan.ExceptionHandler.HandlerType) {
 						case ExceptionHandlerType.Catch:
 							this.Catches.Add(orphan);
 							CollectNodes(orphan, false);

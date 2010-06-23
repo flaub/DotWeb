@@ -40,6 +40,18 @@ namespace DotWeb.Hosting.Weaver
 			BindingFlags.Public | 
 			BindingFlags.NonPublic;
 
+		private const BindingFlags StaticFlags =
+			BindingFlags.DeclaredOnly |
+			BindingFlags.Static |
+			BindingFlags.Public |
+			BindingFlags.NonPublic;
+
+		private const BindingFlags InstanceFlags =
+			BindingFlags.DeclaredOnly |
+			BindingFlags.Instance |
+			BindingFlags.Public |
+			BindingFlags.NonPublic;
+
 		public Type Type { get; protected set; }
 
 		public ExternalType(IResolver resolver, Type type) {
@@ -57,7 +69,13 @@ namespace DotWeb.Hosting.Weaver
 			var argDefs = methodRef.Parameters.Cast<ParameterDefinition>();
 			var types = argDefs.Select(x => ResolveTypeReference(x)).ToArray();
 			if (methodRef.Name == ConstructorInfo.ConstructorName) {
-				var ret = this.Type.GetConstructor(Flags, Type.DefaultBinder, types, null);
+				var ret = this.Type.GetConstructor(InstanceFlags, null, types, null);
+				if (ret == null)
+					throw new NullReferenceException(string.Format("Could not find ctor: {0}", methodRef.ToString()));
+				return ret;
+			}
+			else if (methodRef.Name == ConstructorInfo.TypeConstructorName) {
+				var ret = this.Type.GetConstructor(StaticFlags, null, types, null);
 				if (ret == null)
 					throw new NullReferenceException(string.Format("Could not find ctor: {0}", methodRef.ToString()));
 				return ret;

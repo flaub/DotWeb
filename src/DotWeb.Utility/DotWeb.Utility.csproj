@@ -33,13 +33,9 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mono.Cecil, Version=0.9.3.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Depends\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Depends\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -56,6 +52,7 @@
     <Compile Include="AssociatedProperty.cs" />
     <Compile Include="AttributeExtensions.cs" />
     <Compile Include="BitVector.cs" />
+    <Compile Include="Cecil\Extensions.cs" />
     <Compile Include="Cecil\GlobalAssemblyResolver.cs" />
     <Compile Include="Cecil\MethodReferenceExtenstions.cs" />
     <Compile Include="Cecil\TypeDefinitionCache.cs" />

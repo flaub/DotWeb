@@ -1,30 +1,12 @@
 ﻿$Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
-System.Console.WriteLine$0 = function(value) {
-	System.Console.WriteLine$1(value.toString());
-};
+//>System.Console.WriteLine$0 
 
-$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+//>System.Exception
 
-System.Exception.prototype.set_Message = function(value) {
-	this.message = value;
-};
-
-System.Exception.prototype.$ctor$1 = function(message) {
-	this.set_Message(message);
-	return this;
-};
-
-$Class(System.Exception, 'System', 'SystemException');
-
-System.SystemException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.SystemException
 
 $Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
@@ -54,8 +36,8 @@ System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
 })();
 
 String.prototype._Substring$0 = function(startIndex) {
-	var V_1 = startIndex != 0;
-	if (!V_1) {
+	var CS$4$0001 = startIndex != 0;
+	if (!CS$4$0001) {
 		return this;
 	}
 	if (startIndex >= 0) {
@@ -64,8 +46,8 @@ String.prototype._Substring$0 = function(startIndex) {
 	else {
 		R_1 = 0;
 	}
-	V_1 = R_1;
-	if (!V_1) {
+	CS$4$0001 = R_1;
+	if (!CS$4$0001) {
 		throw new System.ArgumentOutOfRangeException().$ctor$1("startIndex");
 	}
 	return this.substring(startIndex, this.length);

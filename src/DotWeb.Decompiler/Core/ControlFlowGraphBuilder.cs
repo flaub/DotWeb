@@ -140,7 +140,7 @@ namespace DotWeb.Decompiler.Core
 				handlerBlock.ExceptionHandler = handler;
 				this.graph.Orphans.AddUnique(handlerBlock);
 
-				switch (handler.Type) {
+				switch (handler.HandlerType) {
 					case ExceptionHandlerType.Fault:
 					case ExceptionHandlerType.Filter:
 						throw new NotSupportedException();

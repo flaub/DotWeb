@@ -28,23 +28,9 @@ System.Collections.Generic.List$1_Enumerator.prototype.MoveNextRare = function()
 	return false;
 };
 
-$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+//>System.Exception
 
-System.Exception.prototype.set_Message = function(value) {
-	this.message = value;
-};
-
-System.Exception.prototype.$ctor$1 = function(message) {
-	this.set_Message(message);
-	return this;
-};
-
-$Class(System.Exception, 'System', 'SystemException');
-
-System.SystemException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.SystemException
 
 $Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
@@ -70,16 +56,16 @@ System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
 };
 
 System.Collections.Generic.List$1.prototype.get_Item = function(index) {
-	var V_1 = index < this.items.length;
-	if (!V_1) {
+	var CS$4$0001 = index < this.items.length;
+	if (!CS$4$0001) {
 		throw new System.ArgumentOutOfRangeException().$ctor$1("index");
 	}
 	return this.items[index];
 };
 
 System.Collections.Generic.List$1_Enumerator.prototype.MoveNext = function() {
-	var V_1 = this.index >= this.list.get_Count();
-	if (!V_1) {
+	var CS$4$0001 = this.index >= this.list.get_Count();
+	if (!CS$4$0001) {
 		this.current = this.list.get_Item(this.index);
 		this.index = this.index + 1;
 		return true;
@@ -93,9 +79,7 @@ System.Collections.Generic.List$1_Enumerator.prototype.get_Current = function() 
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
 System.Collections.Generic.List$1_Enumerator.prototype.Dispose = function() {
 };

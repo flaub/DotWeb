@@ -21,6 +21,7 @@ using NUnit.Framework;
 using DotWeb.Decompiler.Core;
 using System.Collections.Generic;
 using Mono.Cecil;
+using DotWeb.Utility.Cecil;
 using System.Diagnostics;
 using System.Text;
 
@@ -33,7 +34,7 @@ namespace DotWeb.Translator.Test
 
 		public GraphBuilderTest()
 			: base("DotWeb.Translator.Test.Script", Resources.GraphBuilderTestData.Source) {
-			this.compiledType = this.CompiledAssembly.MainModule.Types["H8.GraphBuilderTest"];
+			this.compiledType = this.CompiledAssembly.MainModule.GetType("H8.GraphBuilderTest");
 		}
 
 		private string ToStringDetails(Graph graph) {
@@ -47,7 +48,7 @@ namespace DotWeb.Translator.Test
 		private void TestGraph() {
 			var frame = new StackFrame(1);
 			var methodName = frame.GetMethod().Name;
-			var method = this.compiledType.Methods.GetMethod(methodName).First();
+			var method = this.compiledType.GetMethods(methodName).First();
 			var builder = new ControlFlowGraphBuilder(method);
 			var graph = builder.CreateGraph();
 			graph.SortByDepthFirstPostOrder();

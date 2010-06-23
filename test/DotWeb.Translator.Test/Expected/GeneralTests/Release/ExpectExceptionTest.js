@@ -1,20 +1,6 @@
-﻿$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+﻿//>System.Exception
 
-System.Exception.prototype.set_Message = function(value) {
-	this.message = value;
-};
-
-System.Exception.prototype.$ctor$1 = function(message) {
-	this.set_Message(message);
-	return this;
-};
-
-$Class(System.Exception, 'System', 'SystemException');
-
-System.SystemException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.SystemException
 
 $Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
@@ -42,9 +28,7 @@ H8.GeneralTests._ExpectExceptionTest_b__4 = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
 System.Exception.prototype.$ctor$0 = function() {
 	return this;

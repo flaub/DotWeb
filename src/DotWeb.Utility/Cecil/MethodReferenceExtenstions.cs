@@ -25,10 +25,8 @@ namespace DotWeb.Utility.Cecil
 	public static class MethodReferenceExtenstions
 	{
 		private static string GetMethodSignature(MethodReference method, bool prependTypeName) {
-			int sentinel = method.GetSentinel();
-
 			var sb = new StringBuilder();
-			sb.Append(method.ReturnType.ReturnType.FullName);
+			sb.Append(method.ReturnType.FullName);
 			sb.Append(" ");
 			if (prependTypeName) {
 				sb.Append(method.DeclaringType.FullName);
@@ -41,7 +39,7 @@ namespace DotWeb.Utility.Cecil
 					if (i > 0)
 						sb.Append(",");
 
-					if (i == sentinel)
+					if (method.Parameters[i].ParameterType.IsSentinel)
 						sb.Append("...,");
 
 					sb.Append(method.Parameters[i].ParameterType.FullName);

@@ -217,8 +217,8 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 			CodeVariableReference cvr = stmt.Left as CodeVariableReference;
 			if (cvr != null) {
-				if (!locals.ContainsKey(cvr.Variable.Index)) {
-					locals.Add(cvr.Variable.Index, cvr);
+				if (!locals.ContainsKey(cvr.Variable.GetName())) {
+					locals.Add(cvr.Variable.GetName(), cvr);
 					this.writer.Write("var ");
 				}
 			}
@@ -502,7 +502,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 		#endregion
 
-		private readonly Dictionary<int, CodeVariableReference> locals = new Dictionary<int, CodeVariableReference>();
+		private readonly Dictionary<string, CodeVariableReference> locals = new Dictionary<string, CodeVariableReference>();
 		private readonly JsPrinter printer;
 		private readonly IndentedTextWriter writer;
 		private CodeMethodMember currentMethod;

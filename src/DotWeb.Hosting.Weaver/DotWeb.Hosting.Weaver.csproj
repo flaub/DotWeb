@@ -45,26 +45,15 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CustomAttributeProcessor.cs" />
-    <Compile Include="DotWebSystemAssembly.cs" />
-    <Compile Include="ExceptionProcessor.cs" />
-    <Compile Include="AssemblyProcessor.cs" />
-    <Compile Include="ExternalAssembly.cs" />
-    <Compile Include="ExternalType.cs" />
-    <Compile Include="GenericProcessor.cs" />
-    <Compile Include="HostingWeaver.cs" />
-    <Compile Include="IResolver.cs" />
-    <Compile Include="IType.cs" />
-    <Compile Include="MethodProcessor.cs" />
-    <Compile Include="OpCodeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScopeProcessor.cs" />
-    <Compile Include="TypeProcessor.cs" />
+    <Compile Include="SimpleWeaver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DotWeb.Hosting\DotWeb.Hosting.csproj">

@@ -1,13 +1,13 @@
 ﻿B1: 0000 - 0005: throw <Throw>
-	0000: newobj instance [return: System.Void] System.ArgumentException::.ctor() <Call>
+	0000: newobj instance System.Void System.ArgumentException::.ctor() <Call>
 	0005: throw <Throw>
 
 B2: 0006 - 0018: leave.s 0020 <Branch>
 	Out: B3
 	0006: stloc.0 <Next>
 	0007: ldloc.0 <Next>
-	0008: callvirt instance [return: System.String] System.Exception::get_Message() <Call>
-	0013: call [return: System.Void] System.Console::WriteLine() <Call>
+	0008: callvirt instance System.String System.Exception::get_Message() <Call>
+	0013: call System.Void System.Console::WriteLine() <Call>
 	0018: leave.s 0020 <Branch>
 
 B3: 0020 - 0020: ret <Return>

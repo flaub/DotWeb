@@ -12,32 +12,13 @@ __f__AnonymousType0$2.prototype.get_Key = function() {
 
 $Class(null, 'System.Text', 'StringBuilder', { value: null });
 
-System.Text.StringBuilder.prototype.$ctor = function() {
-	this.value = "";
-	return this;
-};
+//>System.Text.StringBuilder.$ctor
 
-System.Text.StringBuilder.prototype.Append$0 = function(value) {
-	var V_1 = value != null;
-	if (!V_1) {
-		return this;
-	}
-	V_1 = value.length != 0;
-	if (!V_1) {
-		this.value = value;
-		return this;
-	}
-	this.value = this.value + value;
-	return this;
-};
+//>System.Text.StringBuilder.Append$0
 
-System.Text.StringBuilder.prototype.toString = function() {
-	return this.value;
-};
+//>System.Text.StringBuilder.toString
 
-System.Text.StringBuilder.prototype.Append$1 = function(value) {
-	return this.Append$0(value.toString());
-};
+//>System.Text.StringBuilder.Append$1
 
 __f__AnonymousType0$2.prototype.toString = function() {
 	var V_0 = new System.Text.StringBuilder().$ctor();
@@ -51,13 +32,9 @@ __f__AnonymousType0$2.prototype.toString = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
-System.Console.WriteLine$0 = function(value) {
-	System.Console.WriteLine$1(value.toString());
-};
+//>System.Console.WriteLine$0 
 
 __f__AnonymousType0$2.prototype.get_Value = function() {
 	return this._Value_i__Field;

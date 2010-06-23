@@ -39,7 +39,7 @@ namespace DotWebWeaver
 			string inputDir = Path.GetDirectoryName(inputPath);
 			Console.WriteLine("Weaving {0}", inputPath);
 
-			var weaver = new HostingWeaver(inputDir, inputDir, searchDirs, false);
+			var weaver = new SimpleWeaver(inputDir, inputDir, searchDirs, false);
 			weaver.ProcessAssembly(inputPath);
 		}
 	}

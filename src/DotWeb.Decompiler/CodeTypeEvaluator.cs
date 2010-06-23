@@ -79,22 +79,22 @@ namespace DotWeb.Decompiler
 
 		private int GetTypeScore(TypeReference type) {
 			switch (type.FullName) {
-				case Constants.Byte:
-				case Constants.SByte:
-				case Constants.Char:
+				case "System.Byte":
+				case "System.SByte":
+				case "System.Char":
 					return 1;
-				case Constants.Int16:
-				case Constants.UInt16:
+				case "System.Int16":
+				case "System.UInt16":
 					return 2;
-				case Constants.Int32:
-				case Constants.UInt32:
+				case "System.Int32":
+				case "System.UInt32":
 					return 3;
-				case Constants.Int64:
-				case Constants.UInt64:
+				case "System.Int64":
+				case "System.UInt64":
 					return 4;
-				case Constants.Single:
+				case "System.Single":
 					return 5;
-				case Constants.Double:
+				case "System.Double":
 					return 6;
 			}
 			return 0;
@@ -184,7 +184,7 @@ namespace DotWeb.Decompiler
 			var def = method.Resolve();
 			if (def.IsConstructor)
 				return method.DeclaringType;
-			return def.ReturnType.ReturnType;
+			return def.ReturnType;
 		}
 
 		public TypeReference VisitReturn(CodeArrayInitializeExpression obj) {

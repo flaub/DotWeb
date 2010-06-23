@@ -40,20 +40,14 @@ namespace DotWeb.Utility.Cecil
 				genericTypesByName.Add(genericParameter.Name, genericArgument);
 			}
 
-			var returnType = methodRef.ReturnType.ReturnType;
+			var returnType = methodRef.ReturnType;
 			if (returnType is GenericParameter) {
 				// try to resolve the type based on the context of the declaringType
 				returnType = genericTypesByName[returnType.Name];
 			}
 
-			var reference = new MethodReference(
-				methodRef.Name,
-				typeDef,
-				returnType,
-				methodRef.HasThis,
-				methodRef.ExplicitThis,
-				MethodCallingConvention.Generic);
-
+			var reference = new MethodReference(methodRef.Name, returnType);
+			reference.DeclaringType = methodRef.DeclaringType;
 			foreach (ParameterDefinition parameter in methodRef.Parameters) {
 				var parameterType = parameter.ParameterType;
 				var genericParameter = parameterType as GenericParameter;
@@ -199,7 +193,7 @@ namespace DotWeb.Utility.Cecil
 			}
 		}
 
-		private void ProcessType(TypeDefinition typeDef) {
+		public void ProcessType(TypeDefinition typeDef) {
 			var virtuals = new VirtualsDictionary();
 			virtuals.CollectVirtualMethods(typeDef);
 
@@ -217,10 +211,14 @@ namespace DotWeb.Utility.Cecil
 			}
 
 			ProcessInterfaces(virtuals, typeDef);
+
+			foreach (var nestedType in typeDef.NestedTypes) {
+				ProcessType(nestedType);
+			}
 		}
 
 		public TypeDefinition GetTypeDefinition(string typeName) {
-			return this.asmSystem.MainModule.Types[typeName];
+			return this.asmSystem.MainModule.GetType(typeName);
 		}
 
 		public TypeDefinition GetTypeDefinition(Type type) {
@@ -229,43 +227,43 @@ namespace DotWeb.Utility.Cecil
 
 		public static Type GetReflectionType(TypeReference type) {
 			switch (type.FullName) {
-				case Constants.Boolean:
+				case "System.Boolean":
 					return typeof(Boolean);
-				case Constants.Byte:
+				case "System.Byte":
 					return typeof(Byte);
-				case Constants.Char:
+				case "System.Char":
 					return typeof(Char);
-				case Constants.Double:
+				case "System.Double":
 					return typeof(Double);
-				case Constants.Enum:
+				case "System.Enum":
 					return typeof(Enum);
-				case Constants.Int16:
+				case "System.Int16":
 					return typeof(Int16);
-				case Constants.Int32:
+				case "System.Int32":
 					return typeof(Int32);
-				case Constants.Int64:
+				case "System.Int64":
 					return typeof(Int64);
-				case Constants.IntPtr:
+				case "System.IntPtr":
 					return typeof(IntPtr);
-				case Constants.Object:
+				case "System.Object":
 					return typeof(Object);
-				case Constants.SByte:
+				case "System.SByte":
 					return typeof(SByte);
-				case Constants.Single:
+				case "System.Single":
 					return typeof(Single);
-				case Constants.String:
+				case "System.String":
 					return typeof(String);
-				case Constants.Type:
+				case "System.Type":
 					return typeof(Type);
-				case Constants.UInt16:
+				case "System.UInt16":
 					return typeof(UInt16);
-				case Constants.UInt32:
+				case "System.UInt32":
 					return typeof(UInt32);
-				case Constants.UInt64:
+				case "System.UInt64":
 					return typeof(UInt64);
-				case Constants.UIntPtr:
+				case "System.UIntPtr":
 					return typeof(UIntPtr);
-				case Constants.Void:
+				case "System.Void":
 					return typeof(void);
 				case ConstantTypeNames.Delegate:
 					return typeof(Delegate);
@@ -287,7 +285,7 @@ namespace DotWeb.Utility.Cecil
 		}
 
 		public bool IsDefined(ICustomAttributeProvider provider, string attributeTypeName) {
-			TypeReference attributeType = asmSystem.MainModule.Types[attributeTypeName];
+			TypeReference attributeType = asmSystem.MainModule.GetType(attributeTypeName);
 			return IsDefined(provider, attributeType);
 		}
 

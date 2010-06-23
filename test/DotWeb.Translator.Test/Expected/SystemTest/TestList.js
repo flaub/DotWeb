@@ -15,17 +15,13 @@ System.Collections.Generic.List$1.prototype.toString = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
 System.Collections.Generic.List$1.prototype.IndexOf$0 = function(item) {
 	return this.items.indexOf(item);
 };
 
-System.Console.WriteLine$0 = function(value) {
-	System.Console.WriteLine$1(value.toString());
-};
+//>System.Console.WriteLine$0 
 
 $Class(null, 'System.Collections.Generic', 'List$1___c__DisplayClass5', { foundFirst: 0, item: null });
 
@@ -40,8 +36,8 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = fu
 	else {
 		R_1 = 1;
 	}
-	var V_1 = R_1;
-	if (!V_1) {
+	var CS$4$0001 = R_1;
+	if (!CS$4$0001) {
 		this.foundFirst = true;
 		return false;
 	}
@@ -49,11 +45,11 @@ System.Collections.Generic.List$1___c__DisplayClass5.prototype._Remove_b__4 = fu
 };
 
 System.Collections.Generic.List$1.prototype.Remove$0 = function(item) {
-	var V_0 = new System.Collections.Generic.List$1___c__DisplayClass5().$ctor();
-	V_0.item = item;
-	V_0.foundFirst = false;
-	this.items = this.items.filter($Delegate(V_0, V_0._Remove_b__4));
-	return V_0.foundFirst;
+	var CS$__8__locals6 = new System.Collections.Generic.List$1___c__DisplayClass5().$ctor();
+	CS$__8__locals6.item = item;
+	CS$__8__locals6.foundFirst = false;
+	this.items = this.items.filter($Delegate(CS$__8__locals6, CS$__8__locals6._Remove_b__4));
+	return CS$__8__locals6.foundFirst;
 };
 
 $Class(null, 'H8', 'SystemTests');

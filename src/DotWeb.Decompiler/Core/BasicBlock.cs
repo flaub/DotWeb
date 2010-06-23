@@ -108,7 +108,7 @@ namespace DotWeb.Decompiler.Core
 			var variableName = string.Format("R_{0}", index);
 			var eval = new CodeTypeEvaluator(typeSystem, this.method);
 			var variableType = eval.Evaluate(item.Expression);
-			var variable = new VariableDefinition(variableName, -index, this.method, variableType);
+			var variable = new VariableDefinition(variableName, variableType);
 			var lhs = new CodeVariableReference(variable);
 
 			this.stash[index] = lhs;

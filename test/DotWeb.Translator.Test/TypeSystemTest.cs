@@ -21,20 +21,21 @@ using Mono.Cecil;
 using DotWeb.Utility.Cecil;
 using System.Linq;
 using System.Collections.Generic;
+using Mono.Collections.Generic;
 
 namespace DotWeb.Translator.Test
 {
 	[TestFixture]
 	public class TypeSystemTest
 	{
-		private GlobalAssemblyResolver resolver = new GlobalAssemblyResolver();
+		private DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
 
 		[Test]
 		public void TestLoadAssembly() {
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var root = sysDef.MainModule.Types["System.Object"];
+			var root = sysDef.MainModule.GetType("System.Object");
 			var set = typeSystem.GetSubclasses(root);
 			Assert.IsNotNull(set);
 			Assert.Greater(set.Count, 0);
@@ -45,8 +46,8 @@ namespace DotWeb.Translator.Test
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var root = sysDef.MainModule.Types["System.Object"];
-			var subclass = sysDef.MainModule.Types["System.Type"];
+			var root = sysDef.MainModule.GetType("System.Object");
+			var subclass = sysDef.MainModule.GetType("System.Type");
 			Assert.IsTrue(typeSystem.IsSubclassOf(subclass, root));
 		}
 
@@ -56,8 +57,8 @@ namespace DotWeb.Translator.Test
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 			var asmDef = typeSystem.LoadAssembly("DotWeb.Translator.Test.Script");
 
-			var root = sysDef.MainModule.Types["System.Object"];
-			var subclass = asmDef.MainModule.Types["H8.GeneralTests"];
+			var root = sysDef.MainModule.GetType("System.Object");
+			var subclass = asmDef.MainModule.GetType("H8.GeneralTests");
 			Assert.IsTrue(typeSystem.IsSubclassOf(subclass, root));
 		}
 
@@ -66,8 +67,8 @@ namespace DotWeb.Translator.Test
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var root = sysDef.MainModule.Types["System.Object"];
-			var str = sysDef.MainModule.Types["System.String"];
+			var root = sysDef.MainModule.GetType("System.Object");
+			var str = sysDef.MainModule.GetType("System.String");
 
 			MethodDefinition equals = FindMethodByName(root.Methods, "Equals");
 			var overrides = typeSystem.GetOverridesForVirtualMethod(equals);
@@ -82,8 +83,8 @@ namespace DotWeb.Translator.Test
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var iface = sysDef.MainModule.Types["System.IDisposable"];
-			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
+			var iface = sysDef.MainModule.GetType("System.IDisposable");
+			var impl = sysDef.MainModule.GetType("System.Collections.Generic.List`1/Enumerator");
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "Dispose");
 			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
@@ -98,8 +99,8 @@ namespace DotWeb.Translator.Test
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var iface = sysDef.MainModule.Types["System.Collections.IEnumerator"];
-			var impl = sysDef.MainModule.Types["System.Collections.Generic.List`1/Enumerator"];
+			var iface = sysDef.MainModule.GetType("System.Collections.IEnumerator");
+			var impl = sysDef.MainModule.GetType("System.Collections.Generic.List`1/Enumerator");
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "get_Current");
 			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
@@ -114,9 +115,9 @@ namespace DotWeb.Translator.Test
 			var typeSystem = new TypeSystem(this.resolver);
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var iface = sysDef.MainModule.Types["System.Collections.Generic.IEqualityComparer`1"];
-			var impl = sysDef.MainModule.Types["System.Collections.Generic.EqualityComparer`1"];
-			var impl2 = sysDef.MainModule.Types["System.Collections.Generic.EqualityComparer`1/DefaultComparer"];
+			var iface = sysDef.MainModule.GetType("System.Collections.Generic.IEqualityComparer`1");
+			var impl = sysDef.MainModule.GetType("System.Collections.Generic.EqualityComparer`1");
+			var impl2 = sysDef.MainModule.GetType("System.Collections.Generic.EqualityComparer`1/DefaultComparer");
 
 			var ifaceMethod = FindMethodByName(iface.Methods, "GetHashCode");
 			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
@@ -136,9 +137,9 @@ namespace DotWeb.Translator.Test
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
 			// System.Collections.Generic.IEnumerator<KeyValuePair<TKey, TValue>>
-			var iface = sysDef.MainModule.Types["System.Collections.Generic.IEnumerator`1"];
+			var iface = sysDef.MainModule.GetType("System.Collections.Generic.IEnumerator`1");
 			// System.Collections.Generic.Dictionary<TKey, TValue>.Enumerator
-			var impl = sysDef.MainModule.Types["System.Collections.Generic.Dictionary`2/Enumerator"];
+			var impl = sysDef.MainModule.GetType("System.Collections.Generic.Dictionary`2/Enumerator");
 
 			var ifaceMethod = FindMethodByName(iface.Methods, "get_Current");
 			var overrides = typeSystem.GetOverridesForVirtualMethod(ifaceMethod);
@@ -148,7 +149,7 @@ namespace DotWeb.Translator.Test
 			Assert.IsTrue(overrides.Contains(overridenMethod));
 		}
 
-		private MethodDefinition FindMethodByName(MethodDefinitionCollection methods, string name) {
+		private MethodDefinition FindMethodByName(Collection<MethodDefinition> methods, string name) {
 			return methods.Cast<MethodDefinition>().Where(x => x.Name == name).SingleOrDefault();
 		}
 
@@ -156,17 +157,17 @@ namespace DotWeb.Translator.Test
 		public void TestVirtualsMapper() {
 			var asm = this.resolver.Resolve("DotWeb.Translator.Test");
 
-			var genericInterface = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/GenericInterface`2"];
-			var genericImpl = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/GenericImpl`2"];
-			var partialImpl1 = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/PartialImpl1`1"];
-			var partialImpl2 = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/PartialImpl2`1"];
-			var concreteImpl = asm.MainModule.Types["DotWeb.Translator.Test.TypeSystemTest/ConcreteImpl"];
+			var genericInterface = asm.MainModule.GetType("DotWeb.Translator.Test.TypeSystemTest/GenericInterface`2");
+			var genericImpl = asm.MainModule.GetType("DotWeb.Translator.Test.TypeSystemTest/GenericImpl`2");
+			var partialImpl1 = asm.MainModule.GetType("DotWeb.Translator.Test.TypeSystemTest/PartialImpl1`1");
+			var partialImpl2 = asm.MainModule.GetType("DotWeb.Translator.Test.TypeSystemTest/PartialImpl2`1");
+			var concreteImpl = asm.MainModule.GetType("DotWeb.Translator.Test.TypeSystemTest/ConcreteImpl");
 
-			var baseMethod = genericInterface.Methods.GetMethod("Method").First();
-			var genericMethod = genericImpl.Methods.GetMethod("Method").First();
-			var partial1Method = partialImpl1.Methods.GetMethod("Method").First();
-			var partial2Method = partialImpl2.Methods.GetMethod("Method").First();
-			var concreteMethod = concreteImpl.Methods.GetMethod("Method").First();
+			var baseMethod = genericInterface.GetMethods("Method").First();
+			var genericMethod = genericImpl.GetMethods("Method").First();
+			var partial1Method = partialImpl1.GetMethods("Method").First();
+			var partial2Method = partialImpl2.GetMethods("Method").First();
+			var concreteMethod = concreteImpl.GetMethods("Method").First();
 
 			var genericIface = genericImpl.Interfaces[0] as GenericInstanceType;
 			var partial1Iface = partialImpl1.Interfaces[0] as GenericInstanceType;

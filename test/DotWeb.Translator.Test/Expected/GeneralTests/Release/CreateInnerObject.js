@@ -24,17 +24,13 @@ H8.GeneralTests_InnerClassTest.prototype.get_Text = function() {
 
 $Class(null, 'System', 'Console');
 
-System.Console.WriteLine$1 = function(value) {
-	console.log(value);
-};
+//>System.Console.WriteLine$1
 
 H8.GeneralTests_InnerClassTest.prototype.get_Value = function() {
 	return this._Value_k__BackingField;
 };
 
-System.Console.WriteLine$0 = function(value) {
-	System.Console.WriteLine$1(value.toString());
-};
+//>System.Console.WriteLine$0 
 
 $Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 

@@ -1,20 +1,6 @@
-﻿$Class(null, 'System', 'Exception', { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
+﻿//>System.Exception
 
-System.Exception.prototype.set_Message = function(value) {
-	this.message = value;
-};
-
-System.Exception.prototype.$ctor$1 = function(message) {
-	this.set_Message(message);
-	return this;
-};
-
-$Class(System.Exception, 'System', 'SystemException');
-
-System.SystemException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.SystemException
 
 $Class(System.SystemException, 'System', 'NotImplementedException');
 

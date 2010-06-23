@@ -30,12 +30,12 @@ namespace DotWeb.Utility.Cecil
 	public class TypeDefinitionCache
 	{
 		public TypeDefinitionCache(TypeSystem typeSystem) {
-			this.Object = typeSystem.GetTypeDefinition(Constants.Object);
+			this.Object = typeSystem.GetTypeDefinition("System.Object");
 			this.JsObject = typeSystem.GetTypeDefinition(ConstantTypeNames.JsObject);
 			this.Delegate = typeSystem.GetTypeDefinition(ConstantTypeNames.Delegate);
 			this.Exception = typeSystem.GetTypeDefinition(ConstantTypeNames.Exception);
-			this.Boolean = typeSystem.GetTypeDefinition(Constants.Boolean);
-			this.Int32 = typeSystem.GetTypeDefinition(Constants.Int32);
+			this.Boolean = typeSystem.GetTypeDefinition("System.Boolean");
+			this.Int32 = typeSystem.GetTypeDefinition("System.Int32");
 		}
 
 		public TypeDefinition Object { get; private set; }

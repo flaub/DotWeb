@@ -13,7 +13,7 @@
 			System.Console.WriteLine$1("NotImplementedException: " + ex.get_Message());
 		}
 		else if (__ex__) {
-			var ex = __ex__;
+			ex = __ex__;
 			System.Console.WriteLine$1("Exception: " + ex.get_Message());
 		}
 	}
