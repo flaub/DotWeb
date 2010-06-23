@@ -47,7 +47,7 @@ namespace DotWeb.Decompiler.CodeModel
 
 		public CodeExpression TargetObject { get { return Method.TargetObject; } }
 		public CodeMethodReference Method { get; set; }
-		public PropertyReference Property { get; set; }
+		public PropertyDefinition Property { get; set; }
 		public RefType ReferenceType { get; set; }
 	}
 }

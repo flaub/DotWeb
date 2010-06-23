@@ -64,11 +64,11 @@ namespace DotWeb.Translator
 			return typeSystem.IsDefined(type.Resolve(), typeDef);
 		}
 
-		public static bool IsIntrinsic(PropertyReference propertyRef, TypeSystem typeSystem) {
+		public static bool IsIntrinsic(PropertyDefinition propertyDef, TypeSystem typeSystem) {
 			var typeDef = typeSystem.GetTypeDefinition(JsInstrinsic);
 			return
-				typeSystem.IsDefined(GetProvider(propertyRef), typeDef) ||
-				typeSystem.IsDefined(propertyRef.DeclaringType.Resolve(), typeDef);
+				typeSystem.IsDefined(propertyDef, typeDef) ||
+				typeSystem.IsDefined(propertyDef.DeclaringType.Resolve(), typeDef);
 		}
 
 		private static string GetStringFromAttribute(ICustomAttributeProvider provider, string attributeName) {
@@ -112,12 +112,9 @@ namespace DotWeb.Translator
 			if (methodRef != null) {
 				return methodRef.Resolve();
 			}
-			var propertyRef = memberRef as PropertyReference;
-			if (propertyRef != null) {
-				var genericParameter = propertyRef.PropertyType as GenericParameter;
-				if (genericParameter != null)
-					return genericParameter;
-				return propertyRef.PropertyType.Resolve();
+			var propertyDef = memberRef as PropertyDefinition;
+			if (propertyDef != null) {
+				return propertyDef;
 			}
 			return null;
 		}

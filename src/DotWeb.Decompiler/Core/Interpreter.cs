@@ -596,7 +596,7 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void CallGetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
+		private void CallGetter(Instruction il, MethodDefinition method, PropertyDefinition pi, bool isVirtual) {
 			var args = method.Parameters;
 			if (args.Count == 0) {
 				var targetObject = GetTargetObject(method, isVirtual);
@@ -616,7 +616,7 @@ namespace DotWeb.Decompiler.Core
 			}
 		}
 
-		private void CallSetter(Instruction il, MethodDefinition method, PropertyReference pi, bool isVirtual) {
+		private void CallSetter(Instruction il, MethodDefinition method, PropertyDefinition pi, bool isVirtual) {
 			var args = method.Parameters;
 			if (args.Count == 1) {
 				var rhs = RefinePrimitiveExpression(Pop(), pi.PropertyType);
