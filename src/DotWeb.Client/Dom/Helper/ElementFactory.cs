@@ -16,7 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using DotWeb.Client.Dom.Html;
-using System.DotWeb;
+using System;
 
 namespace DotWeb.Client.Dom.Helper
 {

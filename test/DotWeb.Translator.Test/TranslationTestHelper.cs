@@ -35,7 +35,7 @@ namespace DotWeb.Translator.Test
 	public abstract class TranslationTestHelper
 	{
 		protected TypeSystem typeSystem;
-		protected DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver;
+		protected AssemblyResolver resolver = new AssemblyResolver();
 
 		protected TranslationTestHelper(string asmName, string src)
 			: this(asmName, src, false) {
@@ -45,8 +45,6 @@ namespace DotWeb.Translator.Test
 			var compiler = new CSharpCompiler();
 			var asm = Assembly.Load(asmName);
 			var result = compiler.CompileSource(src, asm, isDebug);
-
-			this.resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
 
 			var dir = Path.GetDirectoryName(result.PathToAssembly);
 			var compiledAsmName = Path.GetFileNameWithoutExtension(result.PathToAssembly);

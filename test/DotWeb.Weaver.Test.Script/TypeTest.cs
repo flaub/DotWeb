@@ -56,7 +56,8 @@ namespace DotWeb.Weaver.Test.Script
 		public const FlagsTest FlagsValue = FlagsTest.First;
 	}
 
-	class NativeType : JsObject
+	[JsObject]
+	class NativeType
 	{
 		public extern NativeType();
 	}

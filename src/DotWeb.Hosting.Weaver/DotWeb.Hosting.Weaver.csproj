@@ -64,6 +64,10 @@
       <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>
       <Name>DotWeb.Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotWebCoreLib\DotWebAttributes.csproj">
+      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
+      <Name>DotWebAttributes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

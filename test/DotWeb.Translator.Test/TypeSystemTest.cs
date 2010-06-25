@@ -28,12 +28,12 @@ namespace DotWeb.Translator.Test
 	[TestFixture]
 	public class TypeSystemTest
 	{
-		private DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
+		private AssemblyResolver resolver = new AssemblyResolver();
 
 		[Test]
 		public void TestLoadAssembly() {
 			var typeSystem = new TypeSystem(this.resolver);
-			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+			var sysDef = typeSystem.LoadAssembly("DotWebCoreLib");
 
 			var root = sysDef.MainModule.GetType("System.Object");
 			var set = typeSystem.GetSubclasses(root);
@@ -44,7 +44,7 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestIsSubclassOf() {
 			var typeSystem = new TypeSystem(this.resolver);
-			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+			var sysDef = typeSystem.LoadAssembly("DotWebCoreLib");
 
 			var root = sysDef.MainModule.GetType("System.Object");
 			var subclass = sysDef.MainModule.GetType("System.Type");
@@ -54,7 +54,7 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestChildAssembly() {
 			var typeSystem = new TypeSystem(this.resolver);
-			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+			var sysDef = typeSystem.LoadAssembly("DotWebCoreLib");
 			var asmDef = typeSystem.LoadAssembly("DotWeb.Translator.Test.Script");
 
 			var root = sysDef.MainModule.GetType("System.Object");
@@ -65,7 +65,7 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestMethodOverrides() {
 			var typeSystem = new TypeSystem(this.resolver);
-			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
+			var sysDef = typeSystem.LoadAssembly("DotWebCoreLib");
 
 			var root = sysDef.MainModule.GetType("System.Object");
 			var str = sysDef.MainModule.GetType("System.String");
@@ -81,9 +81,10 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestImplsOfInterface() {
 			var typeSystem = new TypeSystem(this.resolver);
+			var coreLib = typeSystem.LoadAssembly("DotWebCoreLib");
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var iface = sysDef.MainModule.GetType("System.IDisposable");
+			var iface = coreLib.MainModule.GetType("System.IDisposable");
 			var impl = sysDef.MainModule.GetType("System.Collections.Generic.List`1/Enumerator");
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "Dispose");
@@ -97,9 +98,10 @@ namespace DotWeb.Translator.Test
 		[Test]
 		public void TestIEnumeratorCurrent() {
 			var typeSystem = new TypeSystem(this.resolver);
+			var coreLib = typeSystem.LoadAssembly("DotWebCoreLib");
 			var sysDef = typeSystem.LoadAssembly("DotWeb.System");
 
-			var iface = sysDef.MainModule.GetType("System.Collections.IEnumerator");
+			var iface = coreLib.MainModule.GetType("System.Collections.IEnumerator");
 			var impl = sysDef.MainModule.GetType("System.Collections.Generic.List`1/Enumerator");
 
 			MethodDefinition ifaceMethod = FindMethodByName(iface.Methods, "get_Current");

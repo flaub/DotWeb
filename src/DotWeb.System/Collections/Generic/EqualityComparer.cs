@@ -17,11 +17,7 @@
 // 
 using SysException = System.Exception;
 
-#if HOSTED_MODE
-namespace DotWeb.System.Collections.Generic
-#else
 namespace System.Collections.Generic
-#endif
 {
 	public interface IEqualityComparer<T>
 	{

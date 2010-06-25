@@ -32,7 +32,7 @@ namespace DotWeb.Translator
 	public class TranslationEngine
 	{
 		private JsCodeGenerator generator;
-		private DotWeb.Utility.Cecil.GlobalAssemblyResolver resolver = new DotWeb.Utility.Cecil.GlobalAssemblyResolver();
+		private AssemblyResolver resolver = new AssemblyResolver();
 		private TypeSystem typeSystem;
 
 		public TranslationEngine(TextWriter writer, bool writeHeader, string path) {

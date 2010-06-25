@@ -53,7 +53,7 @@
     <Compile Include="AttributeExtensions.cs" />
     <Compile Include="BitVector.cs" />
     <Compile Include="Cecil\Extensions.cs" />
-    <Compile Include="Cecil\GlobalAssemblyResolver.cs" />
+    <Compile Include="Cecil\AssemblyResolver.cs" />
     <Compile Include="Cecil\MethodReferenceExtenstions.cs" />
     <Compile Include="Cecil\TypeDefinitionCache.cs" />
     <Compile Include="Cecil\TypeSystem.cs" />

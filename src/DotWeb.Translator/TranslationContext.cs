@@ -124,7 +124,7 @@ namespace DotWeb.Translator
 
 			if (!method.HasBody || method.Body.CodeSize == 0) {
 				string msg = string.Format(
-					"{0}\nA method marked extern must have [JsCode], [JsMacro], or declared in a type derived from JsObject.",
+					"{0}\nA method marked extern must have [JsCode], [JsMacro], or declared in a type with [JsObject].",
 					method
 				);
 				throw new MissingMethodException(msg);
@@ -164,19 +164,13 @@ namespace DotWeb.Translator
 		//}
 
 		private bool IsEmittable(TypeDefinition type) {
-			if (type.IsInterface)
+			if (type.IsInterface ||
+				TypeSystem.IsSystemObject(type) ||
+				AttributeHelper.IsJsObject(type) ||
+				TypeSystem.IsDelegate(type))
 				return false;
 
-			if (this.typeSystem.IsEquivalent(type, typeof(object)))
-				return false;
-
-			if (this.typeSystem.IsSubclassOf(type, this.typeSystem.TypeDefinitionCache.JsObject))
-				return false;
-
-			if (this.typeSystem.IsSubclassOf(type, this.typeSystem.TypeDefinitionCache.Delegate))
-				return false;
-
-			if (AttributeHelper.IsAnonymous(type, this.typeSystem)) {
+			if (AttributeHelper.IsAnonymous(type)) {
 				// FIXME:
 				//if (!type.IsSubclassOf(typeof(JsDynamicBase))) {
 				//    ValidateJsAnonymousType(type);

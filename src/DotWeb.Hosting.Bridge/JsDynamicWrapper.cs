@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
-using DotWeb.System.DotWeb;
 using System.Collections;
 
 namespace DotWeb.Hosting.Bridge
@@ -38,7 +37,7 @@ namespace DotWeb.Hosting.Bridge
 			this.targetType = Type.GetTypeFromHandle(handle);
 		}
 
-		class JsNativeHolder : JsObject
+		class JsNativeHolder/* FIXME : JsObject */
 		{
 		}
 

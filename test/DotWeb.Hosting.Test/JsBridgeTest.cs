@@ -23,7 +23,7 @@ using Rhino.Mocks;
 using System.Reflection;
 using System.IO;
 using System.Runtime.Remoting;
-using DotWeb.System.DotWeb;
+using JsDynamic = /* FIXME */ System.Object;
 
 namespace DotWeb.Hosting.Test
 {

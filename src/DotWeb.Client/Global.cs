@@ -18,6 +18,7 @@
 using DotWeb.Client.Dom;
 using DotWeb.Client.Dom.Html;
 using System.DotWeb;
+using System;
 
 namespace DotWeb.Client
 {

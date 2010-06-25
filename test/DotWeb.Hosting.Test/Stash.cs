@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using DotWeb.System.DotWeb;
 
 namespace DotWeb.Hosting.Test
 {

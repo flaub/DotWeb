@@ -15,13 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
-#if HOSTED_MODE
-namespace DotWeb.System.DotWeb
-#else
 namespace System.DotWeb
-#endif
 {
-	public class JsObject
+	public static class JsObject
 	{
 		[JsMacro("({1} === {2})")]
 		public static extern bool StrictEquals(object lhs, object rhs);

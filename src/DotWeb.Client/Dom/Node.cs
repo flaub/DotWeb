@@ -65,7 +65,8 @@ namespace DotWeb.Client.Dom
 	/// </para>
 	/// </summary>
 	[JsIntrinsic]
-	public abstract class Node : JsObject
+	[JsObject]
+	public abstract class Node 
 	{
 		#region Properties
 

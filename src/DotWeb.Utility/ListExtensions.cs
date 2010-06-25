@@ -41,6 +41,24 @@ namespace DotWeb.Utility
 			list.RemoveAt(0);
 			return item;
 		}
-	}
 
+		public static IEnumerable<T> Originals<T>(this IEnumerable<T> enumerable, HashSet<T> visited) {
+			foreach (var item in enumerable) {
+				if (!visited.Contains(item)) {
+					visited.Add(item);
+					yield return item;
+				}
+			}
+		}
+
+		public static IEnumerable<T> Originals<T, K>(this IEnumerable<T> enumerable, HashSet<K> visited, Func<T, K> selector) {
+			foreach (var item in enumerable) {
+				var key = selector(item);
+				if (!visited.Contains(key)) {
+					visited.Add(key);
+					yield return item;
+				}
+			}
+		}
+	}
 }

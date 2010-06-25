@@ -49,7 +49,7 @@ namespace DotWeb.Translator
 			return GetStringFromAttribute(provider, JsName);
 		}
 
-		public static bool IsCamelCase(MemberReference memberRef, TypeSystem typeSystem) {
+		public static bool IsCamelCase(MemberReference memberRef) {
 			var provider = GetProvider(memberRef);
 			if (provider == null)
 				return false;
@@ -59,16 +59,24 @@ namespace DotWeb.Translator
 			return GetBooleanFromAttribute(memberRef.DeclaringType.Resolve(), JsCamelCase) ?? false;
 		}
 
-		public static bool IsAnonymous(TypeReference type, TypeSystem typeSystem) {
-			var typeDef = typeSystem.GetTypeDefinition(JsAnonymous);
-			return typeSystem.IsDefined(type.Resolve(), typeDef);
+		public static bool IsAnonymous(TypeReference type) {
+			return IsDefined(type.Resolve(), JsAnonymous);
 		}
 
-		public static bool IsIntrinsic(PropertyDefinition propertyDef, TypeSystem typeSystem) {
-			var typeDef = typeSystem.GetTypeDefinition(JsInstrinsic);
+		public static bool IsJsObject(TypeReference typeRef) {
+			while (typeRef != null) {
+				var typeDef = typeRef.Resolve();
+				if (IsDefined(typeDef, JsObject))
+					return true;
+				typeRef = typeDef.BaseType;
+			}
+			return false;
+		}
+
+		public static bool IsIntrinsic(PropertyDefinition propertyDef) {
 			return
-				typeSystem.IsDefined(propertyDef, typeDef) ||
-				typeSystem.IsDefined(propertyDef.DeclaringType.Resolve(), typeDef);
+				IsDefined(propertyDef, JsInstrinsic) ||
+				IsDefined(propertyDef.DeclaringType.Resolve(), JsInstrinsic);
 		}
 
 		private static string GetStringFromAttribute(ICustomAttributeProvider provider, string attributeName) {
@@ -95,12 +103,16 @@ namespace DotWeb.Translator
 
 		private static CustomAttribute FindByName(ICustomAttributeProvider provider, string typeName) {
 			if (provider.HasCustomAttributes) {
-				foreach (CustomAttribute item in provider.CustomAttributes) {
-					if (item.Constructor.DeclaringType.FullName == typeName)
-						return item;
-				}
+				return provider.CustomAttributes.SingleOrDefault(x => x.AttributeType.FullName == typeName);
 			}
 			return null;
+		}
+
+		private static bool IsDefined(ICustomAttributeProvider provider, string typeName) {
+			if (provider.HasCustomAttributes) {
+				return provider.CustomAttributes.Any(x => x.AttributeType.FullName == typeName);
+			}
+			return false;
 		}
 
 		private static ICustomAttributeProvider GetProvider(MemberReference memberRef) {
@@ -119,13 +131,14 @@ namespace DotWeb.Translator
 			return null;
 		}
 
-		private const string JsNamespace = "System.DotWeb.JsNamespaceAttribute";
-		private const string JsCode = "System.DotWeb.JsCodeAttribute";
-		private const string JsMacro = "System.DotWeb.JsMacroAttribute";
-		private const string JsInstrinsic = "System.DotWeb.JsIntrinsicAttribute";
-		private const string JsCamelCase = "System.DotWeb.JsCamelCaseAttribute";
-		private const string JsAnonymous = "System.DotWeb.JsAnonymousAttribute";
-		private const string JsAugment = "System.DotWeb.JsAugmentAttribute";
-		private const string JsName = "System.DotWeb.JsNameAttribute";
+		private const string JsNamespace = "System.JsNamespaceAttribute";
+		private const string JsCode = "System.JsCodeAttribute";
+		private const string JsMacro = "System.JsMacroAttribute";
+		private const string JsInstrinsic = "System.JsIntrinsicAttribute";
+		private const string JsCamelCase = "System.JsCamelCaseAttribute";
+		private const string JsAnonymous = "System.JsAnonymousAttribute";
+		private const string JsAugment = "System.JsAugmentAttribute";
+		private const string JsObject = "System.JsObjectAttribute";
+		private const string JsName = "System.JsNameAttribute";
 	}
 }

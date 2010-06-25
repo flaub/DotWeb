@@ -16,11 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
-#if HOSTED_MODE
-namespace DotWeb.System.Collections.Generic
-#else
 namespace System.Collections.Generic
-#endif
 {
 	public class HashSet<T> : ICollection<T>
 	{

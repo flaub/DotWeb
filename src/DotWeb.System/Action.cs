@@ -16,11 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
-#if HOSTED_MODE
-namespace DotWeb.System
-#else
 namespace System
-#endif
 {
 	public delegate void Action();
 	public delegate void Action<T>(T obj);

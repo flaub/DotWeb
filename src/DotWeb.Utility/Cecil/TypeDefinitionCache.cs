@@ -22,26 +22,26 @@ namespace DotWeb.Utility.Cecil
 {
 	public static class ConstantTypeNames
 	{
+		public const string Object = "System.Object";
+		public const string Boolean = "System.Boolean";
+		public const string Int32 = "System.Int32";
 		public const string Delegate = "System.Delegate";
 		public const string Exception = "System.Exception";
-		public const string JsObject = "System.DotWeb.JsObject";
 	}
 
 	public class TypeDefinitionCache
 	{
 		public TypeDefinitionCache(TypeSystem typeSystem) {
-			this.Object = typeSystem.GetTypeDefinition("System.Object");
-			this.JsObject = typeSystem.GetTypeDefinition(ConstantTypeNames.JsObject);
-			this.Delegate = typeSystem.GetTypeDefinition(ConstantTypeNames.Delegate);
-			this.Exception = typeSystem.GetTypeDefinition(ConstantTypeNames.Exception);
-			this.Boolean = typeSystem.GetTypeDefinition("System.Boolean");
-			this.Int32 = typeSystem.GetTypeDefinition("System.Int32");
+			//this.Object = typeSystem.GetTypeDefinition(ConstantTypeNames.Object);
+			//this.Delegate = typeSystem.GetTypeDefinition(ConstantTypeNames.Delegate);
+			//this.Exception = typeSystem.GetTypeDefinition(ConstantTypeNames.Exception);
+			this.Boolean = typeSystem.GetTypeDefinition(ConstantTypeNames.Boolean);
+			this.Int32 = typeSystem.GetTypeDefinition(ConstantTypeNames.Int32);
 		}
 
-		public TypeDefinition Object { get; private set; }
-		public TypeDefinition JsObject { get; private set; }
-		public TypeDefinition Delegate { get; private set; }
-		public TypeDefinition Exception { get; private set; }
+		//public TypeDefinition Object { get; private set; }
+		//public TypeDefinition Delegate { get; private set; }
+		//public TypeDefinition Exception { get; private set; }
 		public TypeDefinition Boolean { get; private set; }
 		public TypeDefinition Int32 { get; private set; }
 	}

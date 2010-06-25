@@ -75,13 +75,13 @@
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotWeb.System\Hosted-DotWeb.System.csproj">
-      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
-      <Name>Hosted-DotWeb.System</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotWeb.Utility\DotWeb.Utility.csproj">
       <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>
       <Name>DotWeb.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWebCoreLib\DotWebAttributes.csproj">
+      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
+      <Name>DotWebAttributes</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

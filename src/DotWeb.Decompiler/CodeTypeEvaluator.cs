@@ -86,7 +86,7 @@ namespace DotWeb.Decompiler
 				case "System.Int16":
 				case "System.UInt16":
 					return 2;
-				case "System.Int32":
+				case ConstantTypeNames.Int32:
 				case "System.UInt32":
 					return 3;
 				case "System.Int64":

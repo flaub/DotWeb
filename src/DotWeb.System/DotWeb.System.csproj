@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</ProjectGuid>
+    <ProjectGuid>{E3610104-B2F5-4C28-BB26-6719001B43FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System</RootNamespace>
+    <RootNamespace>DotWeb.System</RootNamespace>
     <AssemblyName>DotWeb.System</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -17,13 +17,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\build\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
-    <NoWarn>626,1591</NoWarn>
-    <DocumentationFile>bin\Debug\DotWeb.System.XML</DocumentationFile>
+    <NoWarn>626,444</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,85 +31,38 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>626,1591</NoWarn>
-    <NoStdLib>true</NoStdLib>
-    <DocumentationFile>bin\Release\DotWeb.System.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Action.cs" />
-    <Compile Include="Array.cs" />
-    <Compile Include="Attribute.cs" />
-    <Compile Include="Collections\Generic\HashSet.cs" />
-    <Compile Include="Collections\IDictionary.cs" />
-    <Compile Include="Collections\Generic\IDictionary.cs" />
     <Compile Include="Collections\Generic\Dictionary.cs" />
     <Compile Include="Collections\Generic\EqualityComparer.cs" />
+    <Compile Include="Collections\Generic\HashSet.cs" />
     <Compile Include="Collections\Generic\ICollection.cs" />
+    <Compile Include="Collections\Generic\IDictionary.cs" />
     <Compile Include="Collections\Generic\IEnumerable.cs" />
     <Compile Include="Collections\Generic\IEnumerator.cs" />
     <Compile Include="Collections\Generic\IList.cs" />
     <Compile Include="Collections\Generic\List.cs" />
     <Compile Include="Collections\ICollection.cs" />
-    <Compile Include="Collections\IEnumerable.cs" />
-    <Compile Include="Collections\IEnumerator.cs" />
+    <Compile Include="Collections\IDictionary.cs" />
     <Compile Include="Collections\IEqualityComparer.cs" />
     <Compile Include="Collections\IList.cs" />
     <Compile Include="Console.cs" />
-    <Compile Include="DotWeb\JsNameAttribute.cs" />
-    <Compile Include="DotWeb\JsAugmentAttribute.cs" />
-    <Compile Include="DotWeb\JsArray.cs" />
-    <Compile Include="DotWeb\JsCamelCaseAttribute.cs" />
-    <Compile Include="DotWeb\JsMacroAttribute.cs" />
-    <Compile Include="DotWeb\JsString.cs" />
-    <Compile Include="ICloneable.cs" />
-    <Compile Include="IEquatable.cs" />
-    <Compile Include="IComparable.cs" />
     <Compile Include="DateTime.cs" />
-    <Compile Include="Delegate.cs" />
-    <Compile Include="Diagnostics\DebuggerDisplayAttribute.cs" />
-    <Compile Include="DotWeb\JsAnonymousAttribute.cs" />
-    <Compile Include="DotWeb\JsCodeAttribute.cs" />
+    <Compile Include="DotWeb\JsArray.cs" />
     <Compile Include="DotWeb\JsDynamic.cs" />
-    <Compile Include="DotWeb\JsIntrinsicAttribute.cs" />
-    <Compile Include="DotWeb\JsNamespaceAttribute.cs" />
     <Compile Include="DotWeb\JsObject.cs" />
-    <Compile Include="DotWeb\UseSystemAttribute.cs" />
-    <Compile Include="Enum.cs" />
-    <Compile Include="Exception.cs" />
+    <Compile Include="DotWeb\JsString.cs" />
     <Compile Include="Func.cs" />
-    <Compile Include="IDisposable.cs" />
     <Compile Include="Linq\Enumerable.cs" />
     <Compile Include="Math.cs" />
-    <Compile Include="Object.cs" />
-    <Compile Include="Primitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\AssemblyAttributes.cs" />
-    <Compile Include="Reflection\DefaultMemberAttribute.cs" />
-    <Compile Include="RuntimeFieldHandle.cs" />
-    <Compile Include="RuntimeTypeHandle.cs" />
-    <Compile Include="Runtime\CompilerServices\CompilerGeneratedAttribute.cs" />
-    <Compile Include="Runtime\CompilerServices\IndexerNameAttribute.cs" />
-    <Compile Include="Runtime\CompilerServices\ExtensionAttribute.cs" />
-    <Compile Include="Runtime\CompilerServices\MethodImplAttribute.cs" />
-    <Compile Include="Runtime\CompilerServices\RuntimeHelpers.cs" />
-    <Compile Include="Runtime\InteropServices\ComVisibleAttribute.cs" />
-    <Compile Include="Runtime\InteropServices\GuidAttribute.cs" />
-    <Compile Include="Runtime\InteropServices\OutAttribute.cs" />
-    <Compile Include="String.cs" />
-    <Compile Include="Text\StringBuilder.cs" />
-    <Compile Include="Type.cs" />
-    <Compile Include="ValueType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plan.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\DotWebCoreLib\DotWebCoreLib.csproj">
+      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Name>DotWebCoreLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

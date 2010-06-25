@@ -624,7 +624,8 @@ namespace jQuery13
 {
 	[JsNamespace]
 	[JsIntrinsic]
-	public class jQueryTest : JsObject
+	[JsObject]
+	public class jQueryTest
 	{
 		public extern jQueryTest(Document document);
 	}

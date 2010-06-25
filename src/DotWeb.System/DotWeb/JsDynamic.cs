@@ -15,11 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
-#if HOSTED_MODE
-namespace DotWeb.System.DotWeb
-#else
 namespace System.DotWeb
-#endif
 {
 	public class JsDynamic
 	{

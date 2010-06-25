@@ -18,13 +18,15 @@
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;
 using System.DotWeb;
+using System;
 
 namespace DotWeb.Client.Dom
 {
 	public delegate bool ErrorEventHandler(string msg, string url, int line);
 
 	[JsNamespace]
-	public class Window : JsObject
+	[JsObject]
+	public class Window 
 	{
 		public static extern Window Instance {
 			[JsMacro("$wnd")]

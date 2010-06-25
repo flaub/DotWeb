@@ -17,11 +17,7 @@
 // 
 using System;
 
-#if HOSTED_MODE
-namespace DotWeb.System.DotWeb
-#else
 namespace System.DotWeb
-#endif
 {
 	public delegate int ArrayCompareFn(object x, object y);
 
@@ -33,7 +29,8 @@ namespace System.DotWeb
 
 	[JsNamespace]
 	[JsCamelCase]
-	public class JsArray : JsObject
+	[JsObject]
+	public class JsArray
 	{
 		[JsMacro("{1}")]
 		public static extern implicit operator JsArray(Array array);

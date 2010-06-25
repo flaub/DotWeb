@@ -24,7 +24,8 @@ using System.DotWeb;
 
 namespace DotWeb.Hosting.Test.Script
 {
-	public class NativeObject : JsObject
+	[JsObject]
+	public class NativeObject
 	{
 		public extern NativeObject();
 
@@ -49,7 +50,8 @@ namespace DotWeb.Hosting.Test.Script
 	}
 
 	[JsNamespace]
-	public class NativeCaller : JsObject
+	[JsObject]
+	public class NativeCaller 
 	{
 		public extern NativeCaller(object cfg);
 

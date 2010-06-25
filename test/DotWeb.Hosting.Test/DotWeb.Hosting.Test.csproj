@@ -76,13 +76,13 @@
       <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
       <Name>DotWeb.Hosting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DotWeb.System\Hosted-DotWeb.System.csproj">
-      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
-      <Name>Hosted-DotWeb.System</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\DotWeb.Hosting.Weaver\DotWeb.Hosting.Weaver.csproj">
       <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
       <Name>DotWeb.Hosting.Weaver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWebCoreLib\DotWebAttributes.csproj">
+      <Project>{F02F94A5-422E-4585-BB7B-160A8C6B488F}</Project>
+      <Name>DotWebAttributes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Weaver.Test.Script\DotWeb.Weaver.Test.Script.csproj">
       <Project>{A3E6A831-894F-45BB-967D-68695685A4EE}</Project>

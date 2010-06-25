@@ -19,7 +19,7 @@ using System;
 using Castle.DynamicProxy;
 using Castle.Core.Interceptor;
 using System.Collections.Generic;
-using DotWeb.System.DotWeb;
+using JsObject = /* FIXME */ System.Object;
 
 namespace DotWeb.Hosting.Bridge
 {

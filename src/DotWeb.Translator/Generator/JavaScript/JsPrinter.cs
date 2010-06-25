@@ -265,6 +265,16 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public static string GetDefaultValue(TypeReference type) {
+			if (type.IsArray)
+				return "null";
+
+			// This seems necessary from an apparent bug in Mono.Cecil,
+			// A TypeReference to a System.Int32 returned false for IsValueType, 
+			// while its resolved TypeDefinition returned true
+			var typeDef = type.Resolve();
+			if (typeDef != null)
+				type = typeDef;
+
 			if (type.IsValueType) {
 				return "0";
 			}
@@ -328,7 +338,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			var name = member.Name;
-			if (name == "ToString" || AttributeHelper.IsCamelCase(member, this.typeSystem)) {
+			if (name == "ToString" || AttributeHelper.IsCamelCase(member)) {
 				char[] chars = name.ToCharArray();
 				chars[0] = Char.ToLower(chars[0]);
 				name = new string(chars);
@@ -361,7 +371,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.TargetObject), null);
 			}
 
-			if (exp.IsFieldLike(this.typeSystem)) {
+			if (exp.IsFieldLike()) {
 				return string.Format("{0}.{1}", Print(exp.TargetObject), GetMemberName(exp.Property));
 			}
 			// Optimize for anonymous types.
@@ -383,7 +393,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.TargetObject), exp.Indices);
 			}
 
-			if (exp.IsFieldLike(this.typeSystem)) {
+			if (exp.IsFieldLike()) {
 				return string.Format("{0}[{1}]", Print(exp.TargetObject), Print(exp.Indices));
 			}
 
@@ -398,11 +408,11 @@ namespace DotWeb.Translator.Generator.JavaScript
 		public string VisitReturn(CodeMethodReference exp) {
 			var methodName = GetMethodName(exp.Reference);
 			var target = Print(exp.TargetObject);
-			if (this.typeSystem.IsDelegate(exp.Reference.DeclaringType)) {
+			if (TypeSystem.IsDelegate(exp.Reference.DeclaringType)) {
 				if (methodName == "Invoke") {
 					return target;
 				}
-				throw new NotSupportedException();
+				//throw new NotSupportedException();
 			}
 			return string.Format("{0}.{1}", target, methodName);
 		}
@@ -447,7 +457,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 
 			if (method.IsConstructor) {
 				if (method.DeclaringType != this.CurrentMethod.DeclaringType &&
-					!CurrentMethod.DeclaringType.HasBase(this.typeSystem)) {
+					!CurrentMethod.DeclaringType.HasBase()) {
 					return "";
 				}
 			}
@@ -509,17 +519,17 @@ namespace DotWeb.Translator.Generator.JavaScript
 				return PrintMacro(jsMacro, method, Print(exp.Type), exp.Parameters);
 			}
 
-			if (this.typeSystem.IsDelegate(exp.Type)) {
+			if (TypeSystem.IsDelegate(exp.Type)) {
 				CodeMethodReference methodRef = (CodeMethodReference)exp.Parameters[1];
 				string targetObject = Print(exp.Parameters[0]);
 				if (targetObject == "null")
 					targetObject = Print(methodRef.TargetObject);
 				return string.Format("$Delegate({0}, {0}.{1})", targetObject, GetMethodName(methodRef.Reference));
 			}
-			if (AttributeHelper.IsAnonymous(exp.Type, this.typeSystem)) {
+			if (AttributeHelper.IsAnonymous(exp.Type)) {
 				return "{}";
 			}
-			if (this.typeSystem.IsSubclassOf(exp.Type, this.typeSystem.TypeDefinitionCache.JsObject)) {
+			if (AttributeHelper.IsJsObject(exp.Type)) {
 				return string.Format("new {0}({1})", Print(exp.Type), Print(exp.Parameters));
 			}
 

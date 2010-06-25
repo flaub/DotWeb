@@ -208,7 +208,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 			}
 
 			CodePropertyReference cpr = stmt.Left as CodePropertyReference;
-			if (cpr != null && !cpr.IsFieldLike(this.typeSystem)) {
+			if (cpr != null && !cpr.IsFieldLike()) {
 				// setter invocation
 				// foo.set_X(1);
 				WriteLine(string.Format("{0}({1});", Print(cpr.Method), rhs));
@@ -295,14 +295,14 @@ namespace DotWeb.Translator.Generator.JavaScript
 		#endregion
 
 		public void WriteTypeConstructor(TypeDefinition type) {
-			if (AttributeHelper.IsAnonymous(type, this.typeSystem) ||
+			if (AttributeHelper.IsAnonymous(type) ||
 				AttributeHelper.GetJsAugment(type) != null) {
 				return;
 			}
 			
 			// $Class(System.BaseClass, '', 'Class');
 			string parent;
-			if (type.HasBase(this.typeSystem)) {
+			if (type.HasBase()) {
 				parent = Print(type.BaseType);
 			}
 			else {
@@ -418,7 +418,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertyGetterMember method) {
-			if (AttributeHelper.IsIntrinsic(method.Property, this.typeSystem)) {
+			if (AttributeHelper.IsIntrinsic(method.Property)) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo.DeclaringType.ToString(), method.PropertyInfo.ToString());
@@ -432,7 +432,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public void Visit(CodePropertySetterMember method) {
-			if (AttributeHelper.IsIntrinsic(method.Property, this.typeSystem)) {
+			if (AttributeHelper.IsIntrinsic(method.Property)) {
 				// FIXME: how to throw exceptions?
 				//if (!method.IsAutoImplemented())
 				//	throw new InvalidIntrinsicUsageException(method.PropertyInfo);

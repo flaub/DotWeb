@@ -19,13 +19,7 @@
 using SysArray = System.Array;
 using StringBuilder = System.Text.StringBuilder;
 
-#if HOSTED_MODE
-using DotWeb.System.DotWeb;
-namespace DotWeb.System.Collections.Generic
-#else
-using System.DotWeb;
 namespace System.Collections.Generic
-#endif
 {
 	[JsAnonymous]
 	internal class Link

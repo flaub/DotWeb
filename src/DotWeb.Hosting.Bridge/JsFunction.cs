@@ -19,7 +19,6 @@ using System;
 using System.Linq;
 using System.Reflection;
 using DotWeb.Utility;
-using DotWeb.System.DotWeb;
 using System.Collections.Generic;
 
 namespace DotWeb.Hosting.Bridge

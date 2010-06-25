@@ -16,7 +16,6 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 using System;
-using System.DotWeb;
 using DotWeb.Client.Dom;
 using DotWeb.Client.Dom.Events;
 using DotWeb.Client.Dom.Html;

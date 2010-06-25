@@ -15,15 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
-#if HOSTED_MODE
-using DotWeb.System;
-using DotWeb.System.DotWeb;
-namespace DotWeb.System.Collections.Generic
-#else
 using System;
 using System.DotWeb;
 namespace System.Collections.Generic
-#endif
 {
 //	[Serializable]
 //	[DebuggerDisplay("Count = {Count}")]

@@ -16,13 +16,7 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
-#if HOSTED_MODE
-using DotWeb.System.DotWeb;
-namespace DotWeb.System
-#else
-using System.DotWeb;
 namespace System
-#endif
 {
 	public static class Console
 	{
@@ -50,5 +44,11 @@ namespace System
 		public static void WriteLine(string format, object arg0, object arg1) {
 			WriteLine(string.Format(format, arg0, arg1));
 		}
+	}
+
+	public static class JsDebug
+	{
+		[JsMacro("console.log({1})")]
+		public static extern void Log(object obj);
 	}
 }

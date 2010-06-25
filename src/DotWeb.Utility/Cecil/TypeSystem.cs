@@ -98,8 +98,7 @@ namespace DotWeb.Utility.Cecil
 	{
 		public static class Names
 		{
-			public const string DotWebSystem = "DotWeb.System";
-			public const string DllSuffix = ".dll";
+			public const string DotWebCoreLib = "DotWebCoreLib";
 		}
 
 		public TypeDefinitionCache TypeDefinitionCache { get; private set; }
@@ -112,7 +111,7 @@ namespace DotWeb.Utility.Cecil
 
 		public TypeSystem(IAssemblyResolver resolver) {
 			this.asmResolver = resolver;
-			this.asmSystem = this.asmResolver.Resolve(Names.DotWebSystem);
+			this.asmSystem = this.asmResolver.Resolve(Names.DotWebCoreLib);
 			this.TypeDefinitionCache = new TypeDefinitionCache(this);
 		}
 
@@ -150,10 +149,6 @@ namespace DotWeb.Utility.Cecil
 		public bool IsSubclassOf(TypeReference subclassType, TypeReference baseType) {
 			var subclasses = GetSubclasses(baseType);
 			return subclasses.Contains(subclassType.Resolve());
-		}
-
-		public bool IsDelegate(TypeReference typeRef) {
-			return IsSubclassOf(typeRef, this.TypeDefinitionCache.Delegate);
 		}
 
 		public MethodSet GetOverridesForVirtualMethod(MethodDefinition method) {
@@ -227,7 +222,7 @@ namespace DotWeb.Utility.Cecil
 
 		public static Type GetReflectionType(TypeReference type) {
 			switch (type.FullName) {
-				case "System.Boolean":
+				case ConstantTypeNames.Boolean:
 					return typeof(Boolean);
 				case "System.Byte":
 					return typeof(Byte);
@@ -239,13 +234,13 @@ namespace DotWeb.Utility.Cecil
 					return typeof(Enum);
 				case "System.Int16":
 					return typeof(Int16);
-				case "System.Int32":
+				case ConstantTypeNames.Int32:
 					return typeof(Int32);
 				case "System.Int64":
 					return typeof(Int64);
 				case "System.IntPtr":
 					return typeof(IntPtr);
-				case "System.Object":
+				case ConstantTypeNames.Object:
 					return typeof(Object);
 				case "System.SByte":
 					return typeof(SByte);
@@ -272,30 +267,18 @@ namespace DotWeb.Utility.Cecil
 			}
 		}
 
-		public bool IsEquivalent(TypeReference typeRef, Type reflectionType) {
-			if (typeRef == null)
-				return false;
-
-			var def = GetTypeDefinition(reflectionType);
-			return IsEquivalent(typeRef, def);
+		public static bool IsSystemObject(TypeReference typeRef) {
+			return typeRef.FullName == ConstantTypeNames.Object;
 		}
 
-		public bool IsEquivalent(TypeReference lhs, TypeReference rhs) {
-			return (lhs.Resolve() == rhs.Resolve());
-		}
-
-		public bool IsDefined(ICustomAttributeProvider provider, string attributeTypeName) {
-			TypeReference attributeType = asmSystem.MainModule.GetType(attributeTypeName);
-			return IsDefined(provider, attributeType);
-		}
-
-		public bool IsDefined(ICustomAttributeProvider provider, TypeReference attributeType) {
-			foreach (CustomAttribute item in provider.CustomAttributes) {
-				if (IsEquivalent(item.Constructor.DeclaringType, attributeType))
+		public static bool IsDelegate(TypeReference typeRef) {
+			var baseType = typeRef.Resolve().BaseType;
+			while (baseType != null) {
+				if (baseType.FullName == ConstantTypeNames.Delegate)
 					return true;
+				baseType = baseType.Resolve().BaseType;
 			}
 			return false;
 		}
-
 	}
 }

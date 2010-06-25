@@ -1,10 +1,12 @@
 ﻿using System.DotWeb;
 using DotWeb.Client;
+using System;
 
 namespace DotWeb.Weaver.Test.Script
 {
 	[JsNamespace]
-	internal class NativeCaller : JsObject
+	[JsObject]
+	internal class NativeCaller
 	{
 		public extern NativeCaller(object cfg);
 
@@ -12,7 +14,8 @@ namespace DotWeb.Weaver.Test.Script
 	}
 
 	[JsNamespace]
-	internal class NativeObject : JsObject
+	[JsObject]
+	internal class NativeObject
 	{
 		public extern NativeObject();
 

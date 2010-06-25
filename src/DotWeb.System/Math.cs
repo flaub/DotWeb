@@ -16,17 +16,11 @@
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
-#if HOSTED_MODE
-using DotWeb.System.DotWeb;
-namespace DotWeb.System
-#else
-using System.DotWeb;
 namespace System
-#endif
 {
+	[JsNamespace]
 	[JsAugment("Math")]
 	[JsCamelCase]
-	[JsNamespace]
 	public static class Math
 	{
 		public const double E = 2.71828;

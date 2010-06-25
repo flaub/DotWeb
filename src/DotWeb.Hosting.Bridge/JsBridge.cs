@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
+using JsDynamic = /* FIXME */ System.Object;
+using JsObject = /* FIXME */ System.Object;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -30,8 +32,6 @@ namespace DotWeb.Hosting.Bridge
 	using ReferenceToObjectMap = Dictionary<int, object>;
 
 	using JsObjectToReferenceMap = Dictionary<object, int>;
-
-	using DotWeb.System.DotWeb;
 
 	public class JsBridge : IDotWebHost
 	{

@@ -15,7 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with DotWeb.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.DotWeb;
+using System;
+
 namespace DotWeb.Client.Dom
 {
 	/// <summary>

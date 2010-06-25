@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>false</RegisterForComInterop>
     <NoStdLib>true</NoStdLib>
-    <NoWarn>626</NoWarn>
+    <NoWarn>626,1591,444</NoWarn>
     <DocumentationFile>..\..\build\bin\Debug\DotWeb.Client.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -140,14 +140,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWeb.System\DotWeb.System.csproj">
-      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Project>{E3610104-B2F5-4C28-BB26-6719001B43FA}</Project>
       <Name>DotWeb.System</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\DotWebCoreLib\DotWebCoreLib.csproj">
+      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Name>DotWebCoreLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dom\Styesheets\" />

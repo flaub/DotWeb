@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
-    <NoWarn>824,626</NoWarn>
+    <NoWarn>824,626,444</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,8 +49,12 @@
       <Name>DotWeb.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DotWeb.System\DotWeb.System.csproj">
-      <Project>{CCD08F78-B01A-4EAC-A4B5-9BC4FC68143F}</Project>
+      <Project>{E3610104-B2F5-4C28-BB26-6719001B43FA}</Project>
       <Name>DotWeb.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DotWebCoreLib\DotWebCoreLib.csproj">
+      <Project>{45AD857D-00EA-44CF-A3D4-8355DDFE1623}</Project>
+      <Name>DotWebCoreLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
