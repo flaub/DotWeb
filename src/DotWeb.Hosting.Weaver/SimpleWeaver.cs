@@ -269,8 +269,10 @@ namespace DotWeb.Hosting.Weaver
 			public static readonly Type JsCamelCase = typeof(JsCamelCaseAttribute);
 			public static readonly Type JsName = typeof(JsNameAttribute);
 			public static readonly Type JsNamespace = typeof(JsNamespaceAttribute);
-			public static readonly Type JsObject = typeof(JsObjectAttribute);
+			public static readonly Type JsAnonymous = typeof(JsAnonymousAttribute);
 			public static readonly Type JsIntrinsic = typeof(JsIntrinsicAttribute);
+			public static readonly Type JsObject = typeof(JsObjectAttribute);
+			public static readonly Type JsDynamic = typeof(JsDynamicAttribute);
 
 			public static readonly List<SR.ConstructorInfo> JsAttributes = new List<SR.ConstructorInfo>();
 
@@ -287,8 +289,10 @@ namespace DotWeb.Hosting.Weaver
 				PrepareJsAttribute(JsCamelCase);
 				PrepareJsAttribute(JsName);
 				PrepareJsAttribute(JsNamespace);
-				PrepareJsAttribute(JsObject);
+				PrepareJsAttribute(JsAnonymous);
 				PrepareJsAttribute(JsIntrinsic);
+				PrepareJsAttribute(JsObject);
+				PrepareJsAttribute(JsDynamic);
 			}
 
 			private static void PrepareJsAttribute(Type type) {

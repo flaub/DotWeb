@@ -20,8 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
-using JsDynamic = /* FIXME */ System.Object;
-using JsObject = /* FIXME */ System.Object;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -44,7 +42,7 @@ namespace DotWeb.Hosting.Bridge
 		private readonly ReferenceToObjectMap refToObj = new ReferenceToObjectMap();
 
 		private readonly JsObjectToReferenceMap jsObjectToRef = new JsObjectToReferenceMap();
-		private readonly Dictionary<JsDynamic, JsDynamicWrapper> dynamicWrappers = new Dictionary<JsDynamic, JsDynamicWrapper>();
+		private readonly Dictionary<object, JsDynamicWrapper> dynamicWrappers = new Dictionary<object, JsDynamicWrapper>();
 
 		private int lastRefId = 1;
 
@@ -284,7 +282,7 @@ namespace DotWeb.Hosting.Bridge
 			if (isVoid)
 				return new JsValue(JsValueType.Void, null);
 
-			if (arg is JsObject) {
+			if (arg.GetType().IsDefined(typeof(JsObjectAttribute), true)) {
 				int handle = GetRemoteReference(arg);
 				Debug.Assert(handle != 0);
 				return new JsValue(JsValueType.JsObject, handle);
@@ -319,7 +317,7 @@ namespace DotWeb.Hosting.Bridge
 			return GetObjectWrapper(arg);
 		}
 
-		private JsDynamicWrapper GetDynamicWrapper(JsDynamic target) {
+		private JsDynamicWrapper GetDynamicWrapper(object target) {
 			JsDynamicWrapper ret;
 			if (!this.dynamicWrappers.TryGetValue(target, out ret)) {
 				ret = new JsDynamicWrapper(this, target);
@@ -332,8 +330,8 @@ namespace DotWeb.Hosting.Bridge
 			int id;
 			if (!GetLocalReference(arg, out id)) {
 				IJsWrapper wrapper;
-				if (arg is JsDynamic) {
-					wrapper = GetDynamicWrapper((JsDynamic)arg);
+				if (arg.GetType().IsDefined(typeof(JsDynamicAttribute), true)) {
+					wrapper = GetDynamicWrapper(arg);
 				}
 				else {
 					wrapper = new JsObjectWrapper(this, arg);
@@ -402,8 +400,8 @@ namespace DotWeb.Hosting.Bridge
 		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
 				MethodBase method = (MethodBase)objMethod;
-				if (typeof(JsDynamic).IsAssignableFrom(method.DeclaringType)) {
-					return InvokeOnDynamic((JsDynamic)scope, (MethodInfo)method, args);
+				if (method.DeclaringType.IsDefined(typeof(JsDynamicAttribute), true)) {
+					return InvokeOnDynamic(scope, (MethodInfo)method, args);
 				}
 
 				if (this.isUnwrapping)
@@ -450,7 +448,7 @@ namespace DotWeb.Hosting.Bridge
 			}
 		}
 
-		object InvokeOnDynamic(JsDynamic obj, MethodInfo method, object[] args) {
+		object InvokeOnDynamic(object obj, MethodInfo method, object[] args) {
 			var wrapper = GetDynamicWrapper(obj);			
 
 			if (method.Name.StartsWith("set_")) {

@@ -56,7 +56,9 @@
     <Compile Include="Func.cs" />
     <Compile Include="Linq\Enumerable.cs" />
     <Compile Include="Math.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotWebCoreLib\DotWebCoreLib.csproj">

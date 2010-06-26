@@ -17,6 +17,7 @@
 // 
 namespace System.DotWeb
 {
+	[JsDynamic]
 	public class JsDynamic
 	{
 		public extern object this[string name] {

@@ -37,7 +37,8 @@ namespace DotWeb.Hosting.Bridge
 			this.targetType = Type.GetTypeFromHandle(handle);
 		}
 
-		class JsNativeHolder/* FIXME : JsObject */
+		[JsObject]
+		class JsNativeHolder
 		{
 		}
 

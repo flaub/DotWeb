@@ -68,6 +68,9 @@ namespace System
 			//    result.Append(Environment.NewLine).Append(StackTrace);
 			return result.ToString();
 		}
+
+		[JsMacro("{0}.$typename")]
+		private extern string GetTypeName();
 	}
 
 	public class SystemException : Exception
