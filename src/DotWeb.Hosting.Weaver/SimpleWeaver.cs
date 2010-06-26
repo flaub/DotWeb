@@ -81,21 +81,10 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			foreach (var asmRef in asmRefs) {
-				if (asmRef.Name == "mscorlib")
-					continue;
-				if (asmRef.Name == "System.Core")
+				if (asmRef.Name == "mscorlib" || asmRef.Name == "System.Core")
 					continue;
 				if (asmRef.Name == "DotWebCoreLib") {
-					asmRef.Name = asmRefMscorlib.Name;
-					asmRef.Version = asmRefMscorlib.Version;
-					asmRef.Culture = asmRefMscorlib.Culture;
-					asmRef.Hash = asmRefMscorlib.Hash;
-					asmRef.HashAlgorithm = asmRefMscorlib.HashAlgorithm;
-					asmRef.HasPublicKey = asmRefMscorlib.HasPublicKey;
-					asmRef.IsRetargetable = asmRefMscorlib.IsRetargetable;
-					asmRef.IsSideBySideCompatible = asmRefMscorlib.IsSideBySideCompatible;
-					asmRef.PublicKey = asmRefMscorlib.PublicKey;
-					asmRef.PublicKeyToken = asmRefMscorlib.PublicKeyToken;
+					ReplaceAssemblyReference(asmRef, asmRefMscorlib);
 				}
 				else {
 					var name = asmRef.Name;
@@ -112,6 +101,19 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			return SaveAssembly(asmDef);
+		}
+
+		private void ReplaceAssemblyReference(AssemblyNameReference lhs, AssemblyNameReference rhs) {
+			lhs.Name = rhs.Name;
+			lhs.Version = rhs.Version;
+			lhs.Culture = rhs.Culture;
+			lhs.Hash = rhs.Hash;
+			lhs.HashAlgorithm = rhs.HashAlgorithm;
+			lhs.HasPublicKey = rhs.HasPublicKey;
+			lhs.IsRetargetable = rhs.IsRetargetable;
+			lhs.IsSideBySideCompatible = rhs.IsSideBySideCompatible;
+			lhs.PublicKey = rhs.PublicKey;
+			lhs.PublicKeyToken = rhs.PublicKeyToken;
 		}
 
 		private Dictionary<string, MethodReference> PrepareTemplates(ModuleDefinition module) {
@@ -198,25 +200,52 @@ namespace DotWeb.Hosting.Weaver
 				ConvertCustomAttributes(field, templates);
 			}
 
+			foreach (var iface in typeDef.Interfaces) {
+				ConvertCustomAttributes(iface.Resolve(), templates);
+			}
+
+			foreach (var property in typeDef.Properties) {
+				ConvertCustomAttributes(property, templates);
+			}
+
 			return true;
 		}
 
 		private void ProcessMethod(MethodDefinition methodDef, Dictionary<string, MethodReference> templates) {
 			ConvertCustomAttributes(methodDef, templates);
 
-			var ns = methodDef.DeclaringType.Namespace;
-			if (ns.StartsWith("System")) {
-//				return ResolveWithThisType(methodDef);
-			}
-
 			if (methodDef.HasBody) {
-				//if (methodDef.Body == null) {
-				//    methodDef.Body = new MethodBody(methodDef);
-				//}
-
 				if (methodDef.Body.CodeSize == 0) {
 					GenerateExternMethodBody(methodDef);
 				}
+				else {
+					ProcessCasts(methodDef);
+				}
+			}
+		}
+
+		private void ProcessCasts(MethodDefinition methodDef) {
+			var module = methodDef.DeclaringType.Module;
+			var generator = methodDef.Body.GetILProcessor();
+
+			var casts = methodDef.Body.Instructions.Where(x => x.OpCode == OpCodes.Castclass).ToArray();
+			foreach (var cast in casts) {
+				var castType = module.Import(PredefinedTypes.Object);
+				var castVar = new VariableDefinition(castType);
+				methodDef.Body.Variables.Add(castVar);
+
+				var storeCast = generator.Create(OpCodes.Stloc, castVar);
+				var getHost = generator.Create(OpCodes.Call, module.Import(PredefinedTypes.HostedMode_get_Host));
+				var loadCast = generator.Create(OpCodes.Ldloc, castVar);
+				var castMethodRef = module.Import(PredefinedTypes.IDotWebHost_Cast);
+				var castMethod = new GenericInstanceMethod(castMethodRef);
+				castMethod.GenericArguments.Add((TypeReference)cast.Operand);
+				var callCast = generator.Create(OpCodes.Callvirt, castMethod);
+				
+				generator.Replace(cast, storeCast);
+				generator.InsertAfter(storeCast, getHost);
+				generator.InsertAfter(getHost, loadCast);
+				generator.InsertAfter(loadCast, callCast);
 			}
 		}
 
@@ -239,6 +268,9 @@ namespace DotWeb.Hosting.Weaver
 			public static readonly Type JsAugment = typeof(JsAugmentAttribute);
 			public static readonly Type JsCamelCase = typeof(JsCamelCaseAttribute);
 			public static readonly Type JsName = typeof(JsNameAttribute);
+			public static readonly Type JsNamespace = typeof(JsNamespaceAttribute);
+			public static readonly Type JsObject = typeof(JsObjectAttribute);
+			public static readonly Type JsIntrinsic = typeof(JsIntrinsicAttribute);
 
 			public static readonly List<SR.ConstructorInfo> JsAttributes = new List<SR.ConstructorInfo>();
 
@@ -254,6 +286,9 @@ namespace DotWeb.Hosting.Weaver
 				PrepareJsAttribute(JsAugment);
 				PrepareJsAttribute(JsCamelCase);
 				PrepareJsAttribute(JsName);
+				PrepareJsAttribute(JsNamespace);
+				PrepareJsAttribute(JsObject);
+				PrepareJsAttribute(JsIntrinsic);
 			}
 
 			private static void PrepareJsAttribute(Type type) {

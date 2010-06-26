@@ -95,7 +95,7 @@ namespace DotWeb.Hosting.Test
 
 		[Test]
 		public void TypeTest() {
-			// weave a type then get to the it via reflection
+			// weave a type then get to it via reflection
 			var test = this.hosted.CreateInstance("DotWeb.Weaver.Test.Script.TypeTest");
 			var type = test.GetType();
 			Assert.IsNotNull(type);
