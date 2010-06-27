@@ -30,12 +30,14 @@ namespace DotWeb.Hosting.Test
 
 		public SessionHelper(JsBridge bridge, ISession session) {
 			this.Bridge = bridge;
-			this.session = session; 
+			this.session = session;
 		}
 
 		public void OnLoadMessage(Type type) {
+			var asmName = type.Assembly.FullName.Split(',')[0].TrimEnd();
+			var typeSpec = string.Format("{0}, {1}, {2}", type.FullName, asmName, AppDomain.CurrentDomain.BaseDirectory);
 			ReadMessage(new LoadMessage {
-				TypeName = type.AssemblyQualifiedName
+				TypeName = typeSpec
 			});
 		}
 

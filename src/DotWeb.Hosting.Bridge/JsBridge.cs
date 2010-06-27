@@ -20,7 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
+using System.IO;
 using DotWeb.Utility;
+using DotWeb.Hosting.Weaver;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -31,8 +33,6 @@ namespace DotWeb.Hosting.Bridge
 	using ReferenceToObjectMap = Dictionary<int, object>;
 
 	using JsObjectToReferenceMap = Dictionary<object, int>;
-	using System.IO;
-	using DotWeb.Hosting.Weaver;
 
 	public class JsBridge : IDotWebHost
 	{
@@ -148,13 +148,21 @@ namespace DotWeb.Hosting.Bridge
 			var typeName = parts[0].Trim();
 			var asmName = parts[1].Trim();
 			var binPath = parts[2].Trim();
-			var weaver = new SimpleWeaver(binPath, binPath, new string[] { binPath }, false);
 
 			var asmPath = Path.Combine(binPath, asmName);
 			if (!asmPath.EndsWith(".dll")) {
 				asmPath += ".dll";
 			}
-			var asm = weaver.ProcessAssembly(asmPath);
+
+			Assembly asm;
+			if (asmName.StartsWith("Hosted-")) {
+				// for testing
+				asm = Assembly.LoadFrom(asmPath);
+			}
+			else {
+				var weaver = new SimpleWeaver(binPath, binPath, new string[] { binPath }, false);
+				asm = weaver.ProcessAssembly(asmPath);
+			}
 			return asm.GetType(typeName);
 		}
 

@@ -26,13 +26,10 @@ namespace DotWeb.Hosting.Weaver
 	{
 		class ConstantNames
 		{
-			public const string DotWebSystem = "DotWeb.System";
-			public const string DotWebSystemDll = "DotWeb.System.dll";
 			public const string Mscorlib = "mscorlib";
 			public const string SystemCore = "System.Core";
-			public const string SystemCoreDll = "System.Core.dll";
-			public const string AssemblyWeavedAttribute = "AssemblyWeavedAttribute";
-			public const string CommonLanguageRuntimeLibrary = "CommonLanguageRuntimeLibrary";
+			public const string DotWebCoreLib = "DotWebCoreLib";
+			public const string HostedPrefix = "Hosted-";
 		}
 
 		private bool forceBuild;
@@ -56,45 +53,61 @@ namespace DotWeb.Hosting.Weaver
 
 		public SR.Assembly ProcessAssembly(string asmPath) {
 			var asmDef = this.resolver.GetAssembly(asmPath, true);
-			foreach (var item in asmDef.CustomAttributes) {
-				if (item.Constructor.DeclaringType.Name == ConstantNames.AssemblyWeavedAttribute) {
-					Console.WriteLine("This assembly has already been weaved and is ready for hosted mode");
-					return SR.Assembly.LoadFrom(asmPath);
-				}
-			}
 
 			var visited = new HashSet<string>();
-			visited.Add("mscorlib");
-			visited.Add("System.Core");
-			visited.Add("DotWebCoreLib");
+			visited.Add(ConstantNames.Mscorlib);
+			visited.Add(ConstantNames.SystemCore);
+			visited.Add(ConstantNames.DotWebCoreLib);
 
-			var path = ProcessAssembly(asmDef, visited);
-			return SR.Assembly.LoadFrom(path);
+			var tasks = new List<AssemblyDefinition>();
+			GetTaskList(asmDef, visited, tasks);
+
+			foreach (var task in tasks) {
+				ProcessAssembly(task);
+			}
+
+			var outputPath = HostedPath(asmDef.Name);
+			return SR.Assembly.LoadFrom(outputPath);
 		}
 
-		const string HostedPrefix = "Hosted-";
+		private string HostedName(AssemblyNameReference asmRef) {
+			if (!asmRef.Name.StartsWith(ConstantNames.HostedPrefix)) {
+				return ConstantNames.HostedPrefix + asmRef.Name;
+			}
+			return asmRef.Name;
+		}
 
-		private string ProcessAssembly(AssemblyDefinition asmDef, HashSet<string> visited) {
-			var asmRefs = asmDef.MainModule.AssemblyReferences;
-			foreach (var asmRef in asmRefs.Originals(visited, x => x.Name)) {
-				var child = this.resolver.Resolve(asmRef);
-				ProcessAssembly(child, visited);
+		private string InputPath(AssemblyNameReference asmRef) {
+			return Path.Combine(this.inputDir, MakeAssemblyNameIntoFilename(asmRef.Name));
+		}
+
+		private string HostedPath(AssemblyNameReference asmRef) {
+			var hostedName = HostedName(asmRef);
+			return Path.Combine(this.outputDir, MakeAssemblyNameIntoFilename(hostedName));
+		}
+
+		private bool NeedsProcessing(AssemblyNameReference asmRef) {
+			var inputPath = InputPath(asmRef);
+			var outputPath = HostedPath(asmRef);
+			if (!this.forceBuild && 
+				File.Exists(outputPath) &&
+				File.GetLastWriteTime(inputPath) < File.GetLastWriteTime(outputPath))
+				return false;
+			return true;
+		}
+
+		private void GetTaskList(AssemblyDefinition asmDef, HashSet<string> visited, List<AssemblyDefinition> tasks) {
+			foreach (var asmRef in asmDef.MainModule.AssemblyReferences.Originals(visited, x => x.Name)) {
+				var dependency = this.resolver.Resolve(asmRef);
+				GetTaskList(dependency, visited, tasks);
 			}
 
-			foreach (var asmRef in asmRefs) {
-				if (asmRef.Name == "mscorlib" || asmRef.Name == "System.Core")
-					continue;
-				if (asmRef.Name == "DotWebCoreLib") {
-					ReplaceAssemblyReference(asmRef, asmRefMscorlib);
-				}
-				else {
-					var name = asmRef.Name;
-					if (!name.StartsWith(HostedPrefix)) {
-						name = HostedPrefix + name;
-						asmRef.Name = name;
-					}
-				}
-			}
+			if(NeedsProcessing(asmDef.Name))
+				tasks.Add(asmDef);
+		}
+
+		private string ProcessAssembly(AssemblyDefinition asmDef) {
+			RedirectAssemblyReferences(asmDef);
 
 			var templates = PrepareTemplates(asmDef.MainModule);
 			foreach (var typeDef in asmDef.MainModule.Types) {
@@ -102,6 +115,19 @@ namespace DotWeb.Hosting.Weaver
 			}
 
 			return SaveAssembly(asmDef);
+		}
+
+		private void RedirectAssemblyReferences(AssemblyDefinition asmDef) {
+			foreach (var asmRef in asmDef.MainModule.AssemblyReferences) {
+				if (asmRef.Name == ConstantNames.Mscorlib || asmRef.Name == ConstantNames.SystemCore)
+					continue;
+				if (asmRef.Name == ConstantNames.DotWebCoreLib) {
+					ReplaceAssemblyReference(asmRef, asmRefMscorlib);
+				}
+				else {
+					asmRef.Name = HostedName(asmRef);
+				}
+			}
 		}
 
 		private void ReplaceAssemblyReference(AssemblyNameReference lhs, AssemblyNameReference rhs) {
@@ -127,18 +153,15 @@ namespace DotWeb.Hosting.Weaver
 		}
 
 		private string SaveAssembly(AssemblyDefinition asmDef) {
-			string name = asmDef.Name.Name;
-			if (!name.StartsWith(HostedPrefix)) {
-				name = HostedPrefix + name;
-				asmDef.Name.Name = name;
-				asmDef.MainModule.Name = name;
-			}
+			var name = HostedName(asmDef.Name);
+			asmDef.Name.Name = name;
+			asmDef.MainModule.Name = name;
 
-			string path = Path.Combine(this.outputDir, MakeAssemblyNameIntoFilename(name));
-			asmDef.Write(path, new WriterParameters {
+			var outputPath = HostedPath(asmDef.Name);
+			asmDef.Write(outputPath, new WriterParameters {
 				SymbolWriterProvider = AssemblyResolver.GetPlatformWriterProvider()
 			});
-			return path;
+			return outputPath;
 		}
 
 		private string MakeAssemblyNameIntoFilename(string name) {
