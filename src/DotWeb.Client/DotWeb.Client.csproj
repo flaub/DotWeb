@@ -34,9 +34,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DotWeb.Client.XML</DocumentationFile>
+    <DocumentationFile>..\..\build\bin\Release\DotWeb.Client.XML</DocumentationFile>
     <NoStdLib>true</NoStdLib>
-    <NoWarn>1591,626</NoWarn>
+    <NoWarn>626,1591,444</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">

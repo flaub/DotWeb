@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
 	 xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<?define ProductVersion = "0.3.0.0" ?>
+	<?define ProductVersion = "0.4.0.0" ?>
 	<?define Devenv_Setup_VS_Description = "Updating Visual Studio 2008 project templates registration" ?>
 
 	<Product Id="960ccbce-9cce-4683-9fae-82e5040f6174"
-			 Name="DotWeb 0.3"
+			 Name="DotWeb 0.4"
 			 Language="1033"
 			 Version="$(var.ProductVersion)"
 			 Manufacturer="Blue Tree Labs"
@@ -60,6 +60,14 @@
 				<File Id="DotWeb.Hosting" KeyPath="yes" Checksum="yes"
 					  Source="$(var.DotWeb.Hosting.TargetPath)"/>
 			</Component>
+			<Component Id="DotWebCoreLib" Guid="{34E9206F-6D57-43f9-AAE7-B4193B85AC9D}" Directory="INSTALLDIR">
+				<File Id="DotWebCoreLib" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWebCoreLib.TargetPath)"/>
+				<File Id="DotWebCoreLib.pdb"
+					  Source="$(var.DotWebCoreLib.TargetDir)$(var.DotWebCoreLib.TargetName).pdb"/>
+				<File Id="DotWebCoreLib.xml"
+					  Source="$(var.DotWebCoreLib.TargetDir)$(var.DotWebCoreLib.TargetName).xml"/>
+			</Component>
 			<Component Id="DotWeb.System" Guid="{7D8F21EE-804C-4ff0-9B4E-1B37FAF86D0C}" Directory="INSTALLDIR">
 				<File Id="DotWeb.System" KeyPath="yes" Checksum="yes"
 					  Source="$(var.DotWeb.System.TargetPath)"/>
@@ -67,12 +75,6 @@
 					  Source="$(var.DotWeb.System.TargetDir)$(var.DotWeb.System.TargetName).pdb"/>
 				<File Id="DotWeb.System.xml"
 					  Source="$(var.DotWeb.System.TargetDir)$(var.DotWeb.System.TargetName).xml"/>
-			</Component>
-			<Component Id="Hosted_DotWeb.System" Guid="{8A443663-F0AB-4f02-B9D8-AC629A7E35BA}" Directory="INSTALLDIR">
-				<File Id="Hosted_DotWeb.System" KeyPath="yes" Checksum="yes"
-					  Source="$(var.Hosted-DotWeb.System.TargetPath)"/>
-				<File Id="Hosted_DotWeb.System.pdb" Checksum="yes"
-					  Source="$(var.Hosted-DotWeb.System.TargetDir)$(var.Hosted-DotWeb.System.TargetName).pdb"/>
 			</Component>
 			<Component Id="DotWeb.Client" Guid="{2492C9B1-C683-4127-8AE2-077A87411161}" Directory="INSTALLDIR">
 				<File Id="DotWeb.Client" KeyPath="yes" Checksum="yes"
@@ -106,6 +108,14 @@
 				<File Id="DotWeb.Hosting.Weaver" KeyPath="yes" Checksum="yes"
 					  Source="$(var.DotWeb.Hosting.Weaver.TargetPath)"/>
 			</Component>
+			<Component Id="DotWebAttributes" Guid="{DBC6712C-CBAE-4558-B52B-9611BEB118FB}" Directory="INSTALLDIR">
+				<File Id="DotWebAttributes" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWebAttributes.TargetPath)"/>
+			</Component>
+			<Component Id="DotWeb.Debugger" Guid="{831C2690-5EC7-4dfd-A3B4-2EBA697A97C3}" Directory="INSTALLDIR">
+				<File Id="DotWeb.Debugger" KeyPath="yes" Checksum="yes"
+					  Source="$(var.DotWeb.Debugger.TargetPath)"/>
+			</Component>
 		</ComponentGroup>
 
 		<ComponentGroup Id="External_Dependencies">
@@ -131,12 +141,12 @@
 		<ComponentGroup Id="Plugin.npapi">
 			<Component Id="NPDotWeb.dll" Guid="*" Directory="INSTALLDIR">
 				<File Id="NPDotWeb.dll" KeyPath="yes" Source="$(var.SolutionDir)build\bin\$(var.Configuration)\NPDotWeb.dll"/>
-				<RegistryKey Root="HKLM" Key="Software\MozillaPlugins\@bluetreelabs.com/DotWeb,version=0.0.1" Action="create">
+				<RegistryKey Root="HKLM" Key="Software\MozillaPlugins\@bluetreelabs.com/DotWeb,version=0.4.0" Action="create">
 					<RegistryValue Name="Path" Value="[#NPDotWeb.dll]" Type="string"/>
 					<RegistryValue Name="ProductName" Value="DotWeb Development-Mode Plugin" Type="string"/>
 					<RegistryValue Name="Description" Value="Support for DotWeb's Development-Mode" Type="string"/>
 					<RegistryValue Name="Vendor" Value="Blue Tree Labs" Type="string"/>
-					<RegistryValue Name="Version" Value="0.0.1" Type="string"/>
+					<RegistryValue Name="Version" Value="0.4.0" Type="string"/>
 					<RegistryKey Key="MimeTypes\application/x-dotweb" Action="createAndRemoveOnUninstall"/>
 				</RegistryKey>
 			</Component>
@@ -158,15 +168,15 @@
 				<!--COM Registry, result of regasm, dervied from heat-->
 				<RegistryKey Root="HKCR" Key="CLSID\{378F722A-A64C-4E90-9F9B-F57832FF9713}">
 					<RegistryValue Key="Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string"/>
-					<RegistryKey Key="InprocServer32\1.0.0.0">
+					<RegistryKey Key="InprocServer32\0.4.0.0">
 						<RegistryValue Name="Class" Value="DotWeb.Agent.Ie.JsAgent" Type="string" />
-						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string"/>
+						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null" Type="string"/>
 						<RegistryValue Name="RuntimeVersion" Value="v2.0.50727" Type="string" />
 						<RegistryValue Name="CodeBase" Value="file:///[#DotWeb.Agent.Ie]" Type="string" />
 					</RegistryKey>
 					<RegistryKey Key="InprocServer32">
 						<RegistryValue Name="Class" Value="DotWeb.Agent.Ie.JsAgent" Type="string" />
-						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" />
+						<RegistryValue Name="Assembly" Value="DotWeb.Agent.Ie, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null" Type="string" />
 						<RegistryValue Name="RuntimeVersion" Value="v2.0.50727" Type="string" />
 						<RegistryValue Name="CodeBase" Value="file:///[#DotWeb.Agent.Ie]" Type="string" />
 					</RegistryKey>
@@ -229,7 +239,7 @@
 					 Title="Generic Browser Plugin (Firefox or Chrome)" 
 					 Description="NPAPI-based plugin for use with Firefox or Chrome to enable DotWeb's Development-Mode" 
 					 Level="2">
-				<Condition Level="1">FIREFOX_DETECTED</Condition>
+				<Condition Level="1">FIREFOX_DETECTED OR CHROME_DETECTED</Condition>
 				<ComponentGroupRef Id="Plugin.npapi"/>
 				<MergeRef Id="VCRedist"/>
 			</Feature>
@@ -249,6 +259,11 @@
 		<Property Id="FIREFOX_DETECTED">
 			<DirectorySearch Id="FirefoxDir" Path="[ProgramFilesFolder]\Mozilla Firefox">
 				<FileSearch Id="Firefox.exe" Name="Firefox.exe"/>
+			</DirectorySearch>
+		</Property>
+		<Property Id="CHROME_DETECTED">
+			<DirectorySearch Id="ChromeDir" Path="[LocalAppDataFolder]\Google\Chrome\Application">
+				<FileSearch Id="Chrome.exe" Name="chrome.exe"/>
 			</DirectorySearch>
 		</Property>
 

@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>626,824</NoWarn>
+    <NoWarn>626,824,444</NoWarn>
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>

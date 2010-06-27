@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
+    <NoWarn>444</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayTest.cs" />

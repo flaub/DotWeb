@@ -58,6 +58,11 @@
       <Project>{0a46b99f-8a61-4544-8b1d-e5117dabbd90}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\src\DotWeb.Debugger\DotWeb.Debugger.csproj">
+      <Name>DotWeb.Debugger</Name>
+      <Project>{0182b988-a1f6-4d02-9b99-d8b7706952c8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\src\DotWeb.Decompiler\DotWeb.Decompiler.csproj">
       <Name>DotWeb.Decompiler</Name>
       <Project>{69561ef0-26f3-4190-89ea-aae937a5d88f}</Project>
@@ -78,14 +83,9 @@
       <Project>{9004e34c-2d35-40ee-be98-c1aed18081cf}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\src\DotWeb.System\DotWebCoreLib.csproj">
-      <Name>DotWebCoreLib</Name>
-      <Project>{45ad857d-00ea-44cf-a3d4-8355ddfe1623}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\src\DotWeb.System\Hosted-DotWeb.System.csproj">
-      <Name>Hosted-DotWeb.System</Name>
-      <Project>{f02f94a5-422e-4585-bb7b-160a8c6b488f}</Project>
+    <ProjectReference Include="..\src\DotWeb.System\DotWeb.System.csproj">
+      <Name>DotWeb.System</Name>
+      <Project>{e3610104-b2f5-4c28-bb26-6719001b43fa}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\src\DotWeb.Translator\DotWeb.Translator.csproj">
@@ -106,6 +106,16 @@
     <ProjectReference Include="..\src\DotWeb.Web\DotWeb.Web.csproj">
       <Name>DotWeb.Web</Name>
       <Project>{81320140-ba96-4316-af77-34cd16952db0}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWebCoreLib\DotWebAttributes.csproj">
+      <Name>DotWebAttributes</Name>
+      <Project>{f02f94a5-422e-4585-bb7b-160a8c6b488f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\src\DotWebCoreLib\DotWebCoreLib.csproj">
+      <Name>DotWebCoreLib</Name>
+      <Project>{45ad857d-00ea-44cf-a3d4-8355ddfe1623}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
