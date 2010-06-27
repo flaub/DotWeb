@@ -133,14 +133,6 @@ namespace DotWeb.Web
 		}
 
 		private void RenderHostedMode(HtmlTextWriter writer) {
-			var hostingServer = HostingServerFactory.CreateHostingServer();
-			hostingServer.Start();
-
-			var ip = hostingServer.EndPoint;
-			var aqtn = new AssemblyQualifiedTypeName(Source);
-			var binPath = context.MapPath("/bin");
-			var src = hostingServer.PrepareType(binPath, aqtn);
-
 			//<embed id="__$plugin" type="application/x-dotweb"/>
 			writer.AddAttribute(HtmlTextWriterAttribute.Id, "__$plugin");
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, DotWebMimeType);
@@ -154,7 +146,9 @@ namespace DotWeb.Web
 
 			writer.WriteLine(Resources.JsHelper);
 			var url = context.RequestUrl;
-			string js = string.Format(Resources.HostedEntry, url.Host, ip.Port, src);
+			var binPath = context.MapPath("/bin").Replace("\\", "\\\\");
+			var typeSpec = HttpUtility.HtmlEncode(string.Format("{0}, {1}", Source, binPath));
+			string js = string.Format(Resources.HostedEntry, url.Host, 0x1337, typeSpec);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();

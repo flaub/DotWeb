@@ -80,10 +80,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client\DotWeb.Functional.Test.Client.csproj">
-      <Project>{90270A7A-2070-4A94-B6AC-644F52C37B51}</Project>
-      <Name>DotWeb.Functional.Test.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\DotWeb.Web.Mvc\DotWeb.Web.Mvc.csproj">
       <Project>{0EA77083-0F93-43EA-AB3D-52FE0FEE4599}</Project>
       <Name>DotWeb.Web.Mvc</Name>
@@ -91,6 +87,10 @@
     <ProjectReference Include="..\..\..\src\DotWeb.Web\DotWeb.Web.csproj">
       <Project>{81320140-BA96-4316-AF77-34CD16952DB0}</Project>
       <Name>DotWeb.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client\DotWeb.Functional.Test.Client.csproj">
+      <Project>{90270A7A-2070-4A94-B6AC-644F52C37B51}</Project>
+      <Name>DotWeb.Functional.Test.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

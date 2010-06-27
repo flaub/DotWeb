@@ -31,5 +31,9 @@ namespace System
 
 		[JsCamelCase]
 		public extern virtual string ToString();
+
+		public Type GetType() {
+			return null;
+		}
 	}
 }

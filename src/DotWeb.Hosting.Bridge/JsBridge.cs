@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
+using DotWeb.Utility;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -30,6 +31,8 @@ namespace DotWeb.Hosting.Bridge
 	using ReferenceToObjectMap = Dictionary<int, object>;
 
 	using JsObjectToReferenceMap = Dictionary<object, int>;
+	using System.IO;
+	using DotWeb.Hosting.Weaver;
 
 	public class JsBridge : IDotWebHost
 	{
@@ -131,17 +134,35 @@ namespace DotWeb.Hosting.Bridge
 			return true;
 		}
 
+		private void Reset() {
+			this.remoteDelegates.Clear();
+			this.functionCache.Clear();
+			this.objToRef.Clear();
+			this.refToObj.Clear();
+			this.jsObjectToRef.Clear();
+			this.isUnwrapping = false;
+		}
+
+		private Type PrepareType(string typeSpec) {
+			var parts = typeSpec.Split(',');
+			var typeName = parts[0].Trim();
+			var asmName = parts[1].Trim();
+			var binPath = parts[2].Trim();
+			var weaver = new SimpleWeaver(binPath, binPath, new string[] { binPath }, false);
+
+			var asmPath = Path.Combine(binPath, asmName);
+			if (!asmPath.EndsWith(".dll")) {
+				asmPath += ".dll";
+			}
+			var asm = weaver.ProcessAssembly(asmPath);
+			return asm.GetType(typeName);
+		}
+
 		private void OnLoad(LoadMessage msg) {
 			try {
-				this.remoteDelegates.Clear();
-				this.functionCache.Clear();
-				this.objToRef.Clear();
-				this.refToObj.Clear();
-				this.jsObjectToRef.Clear();
-				this.isUnwrapping = false;
+				Reset();
 
-				Type type = Type.GetType(msg.TypeName);
-				CreateInstance(type);
+				CreateInstance(PrepareType(msg.TypeName));
 
 				var value = new JsValue(JsValueType.Void, null);
 				var retMsg = new ReturnMessage { Value = value };
@@ -278,11 +299,19 @@ namespace DotWeb.Hosting.Bridge
 			return ret;
 		}
 
+		private static bool IsJsObject(Type type) {
+			return type.IsDefinedInHierarchy<JsObjectAttribute>();
+		}
+
+		private static bool IsJsDynamic(Type type) {
+			return type.IsDefinedInHierarchy<JsDynamicAttribute>();
+		}
+
 		private JsValue WrapValue(object arg, bool isVoid) {
 			if (isVoid)
 				return new JsValue(JsValueType.Void, null);
 
-			if (arg.GetType().IsDefined(typeof(JsObjectAttribute), true)) {
+			if (IsJsObject(arg.GetType())) {
 				int handle = GetRemoteReference(arg);
 				Debug.Assert(handle != 0);
 				return new JsValue(JsValueType.JsObject, handle);
@@ -330,7 +359,7 @@ namespace DotWeb.Hosting.Bridge
 			int id;
 			if (!GetLocalReference(arg, out id)) {
 				IJsWrapper wrapper;
-				if (arg.GetType().IsDefined(typeof(JsDynamicAttribute), true)) {
+				if (IsJsDynamic(arg.GetType())) {
 					wrapper = GetDynamicWrapper(arg);
 				}
 				else {
@@ -400,7 +429,7 @@ namespace DotWeb.Hosting.Bridge
 		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
 				MethodBase method = (MethodBase)objMethod;
-				if (method.DeclaringType.IsDefined(typeof(JsDynamicAttribute), true)) {
+				if (IsJsDynamic(method.DeclaringType)) {
 					return InvokeOnDynamic(scope, (MethodInfo)method, args);
 				}
 

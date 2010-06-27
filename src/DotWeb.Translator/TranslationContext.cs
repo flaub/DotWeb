@@ -20,7 +20,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using DotWeb.Translator.Generator.JavaScript;
-using DotWeb.Client;
 using DotWeb.Utility;
 using DotWeb.Decompiler.CodeModel;
 using DotWeb.Decompiler;

@@ -77,6 +77,12 @@ JsAgent::~JsAgent() {
 
 void JsAgent::onDestroy() {
 	Debug::println("JsAgent::onDestroy");
+
+	QuitMessage msg;
+	ArchiveWriter<Channel> writer(*m_channel);
+	if(!Message::send(msg, writer)) {
+		Debug::println("JsAgent::onDestroy> could not send quit msg");
+	}
 }
 
 bool JsAgent::enumeration(NPIdentifier** values, uint32_t* count) {
@@ -139,6 +145,7 @@ bool JsAgent::onLoad(const NPVariant* args, unsigned argCount) {
 	Debug::println("JsAgent::onLoad");
 
 	if(argCount != 4) {
+		Debug::println("JsAgent::onLoad> argCount != 4");
 		return false;
 	}
 
@@ -146,6 +153,7 @@ bool JsAgent::onLoad(const NPVariant* args, unsigned argCount) {
 		!NPVARIANT_IS_STRING(args[1]) ||
 		!NPVARIANT_IS_INT32(args[2]) ||
 		!NPVARIANT_IS_STRING(args[3]) ) {
+		Debug::println("JsAgent::onLoad> arg types wrong");
 		return false;
 	}
 
@@ -158,6 +166,7 @@ bool JsAgent::onLoad(const NPVariant* args, unsigned argCount) {
 	var.set(pDebug);
 
 	if(!NPN_SetProperty(getNPP(), m_window, methods.debug, var.ptr())) {
+		Debug::println("JsAgent::onLoad> set property failed");
 		return false;
 	}
 
@@ -170,6 +179,7 @@ bool JsAgent::onLoad(const NPVariant* args, unsigned argCount) {
 	std::string typeName(npstr.UTF8Characters, npstr.UTF8Length);
 
 	if(!m_channel->connect(host.c_str(), port)) {
+		Debug::println("JsAgent::onLoad> could not connect");
 		return false;
 	}
 
@@ -177,8 +187,10 @@ bool JsAgent::onLoad(const NPVariant* args, unsigned argCount) {
 	msg.typeName = typeName;
 
 	ArchiveWriter<Channel> ar(*m_channel);
-	if(!Message::send(msg, ar))
+	if(!Message::send(msg, ar)) {
+		Debug::println("JsAgent::onLoad> send failed");
 		return false;
+	}
 
 	JsValue ret;
 	return dispatchAndReturn(ret);
@@ -233,6 +245,7 @@ bool JsAgent::dispatchAndReturn(JsValue& ret) {
 }
 
 bool JsAgent::onUnload() {
+	Debug::println("JsAgent::onUnload");
 	m_channel->disconnect();
 	return false;
 }

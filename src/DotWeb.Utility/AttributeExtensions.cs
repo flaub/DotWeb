@@ -32,6 +32,15 @@ namespace DotWeb.Utility
 		public static R GetCustomAttribute<R>(this Type type) where R : class {
 			return type.GetCustomAttributes(typeof(R), false).FirstOrDefault() as R;
 		}
+
+		public static bool IsDefinedInHierarchy<T>(this Type type) {
+			while (type != null && type != typeof(object)) {
+				if (type.IsDefined(typeof(T), true))
+					return true;
+				type = type.BaseType;
+			}
+			return false;
+		}
 	}
 
 }

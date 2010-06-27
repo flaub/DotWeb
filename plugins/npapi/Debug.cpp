@@ -27,10 +27,14 @@ void Debug::print(const char* fmt, ...) {
 }
 
 void Debug::println(const char* fmt, ...) {
+	char fmtln[1024];
 	char buf[1024];
+
+	strcpy_s(fmtln, fmt);
+	strcat_s(fmtln, "\n");
+
 	va_list args;
 	va_start(args, fmt);
-	vsprintf_s(buf, 1024, fmt, args);
+	vsprintf_s(buf, fmtln, args);
 	OutputDebugStringA(buf);
-	OutputDebugStringA("\n");
 }

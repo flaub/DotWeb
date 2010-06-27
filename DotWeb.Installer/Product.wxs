@@ -130,7 +130,7 @@
 		<!--https://developer.mozilla.org/En/Plugins/The_First_Install_Problem-->
 		<ComponentGroup Id="Plugin.npapi">
 			<Component Id="NPDotWeb.dll" Guid="*" Directory="INSTALLDIR">
-				<File Id="NPDotWeb.dll" KeyPath="yes" Source="$(var.SolutionDir)plugins\npapi\bin\$(var.Configuration)\NPDotWeb.dll"/>
+				<File Id="NPDotWeb.dll" KeyPath="yes" Source="$(var.SolutionDir)build\bin\$(var.Configuration)\NPDotWeb.dll"/>
 				<RegistryKey Root="HKLM" Key="Software\MozillaPlugins\@bluetreelabs.com/DotWeb,version=0.0.1" Action="create">
 					<RegistryValue Name="Path" Value="[#NPDotWeb.dll]" Type="string"/>
 					<RegistryValue Name="ProductName" Value="DotWeb Development-Mode Plugin" Type="string"/>

@@ -9,6 +9,7 @@ using DotWeb.Utility.Cecil;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace DotWeb.Hosting.Weaver
 {
@@ -273,6 +274,7 @@ namespace DotWeb.Hosting.Weaver
 			public static readonly Type JsIntrinsic = typeof(JsIntrinsicAttribute);
 			public static readonly Type JsObject = typeof(JsObjectAttribute);
 			public static readonly Type JsDynamic = typeof(JsDynamicAttribute);
+			public static readonly Type Extension = typeof(ExtensionAttribute);
 
 			public static readonly List<SR.ConstructorInfo> JsAttributes = new List<SR.ConstructorInfo>();
 
@@ -293,6 +295,7 @@ namespace DotWeb.Hosting.Weaver
 				PrepareJsAttribute(JsIntrinsic);
 				PrepareJsAttribute(JsObject);
 				PrepareJsAttribute(JsDynamic);
+				PrepareJsAttribute(Extension);
 			}
 
 			private static void PrepareJsAttribute(Type type) {

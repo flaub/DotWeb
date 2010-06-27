@@ -17,7 +17,6 @@
 
 using System;
 using System.Linq;
-using DotWeb.Client;
 using DotWeb.Decompiler.CodeModel;
 using System.Reflection;
 using Mono.Cecil;

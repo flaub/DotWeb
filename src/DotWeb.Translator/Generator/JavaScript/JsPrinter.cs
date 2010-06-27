@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DotWeb.Client;
 using DotWeb.Utility;
 using System.Diagnostics;
 using DotWeb.Decompiler.CodeModel;

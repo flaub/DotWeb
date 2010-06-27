@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3C90D87C-3525-4D90-B32D-CD9B56B20D99}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{0182B988-A1F6-4D02-9B99-D8B7706952C8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotWeb.Translator</RootNamespace>
-    <AssemblyName>DotWeb.Translator</AssemblyName>
+    <RootNamespace>DotWeb.Debugger</RootNamespace>
+    <AssemblyName>DotWeb.Debugger</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>
-    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,60 +29,34 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DotWeb.Translator.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.6.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Depends\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Depends\Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AttributeHelper.cs" />
-    <Compile Include="CodeModelExtensions.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TranslationContext.cs" />
-    <Compile Include="TranslationEngine.cs" />
-    <Compile Include="Generator\JavaScript\JsPrinter.cs" />
-    <Compile Include="Generator\JavaScript\JsCodeGenerator.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Generator\JavaScript\Target.js" />
-    <Content Include="Generator\JavaScript\Test.html" />
-    <Content Include="Generator\JavaScript\Runtime.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DotWeb.Decompiler\DotWeb.Decompiler.csproj">
-      <Project>{69561EF0-26F3-4190-89EA-AAE937A5D88F}</Project>
-      <Name>DotWeb.Decompiler</Name>
+    <ProjectReference Include="..\DotWeb.Hosting.Bridge\DotWeb.Hosting.Bridge.csproj">
+      <Project>{CDB3DD8E-7178-42A5-BA0E-F0FABC627B46}</Project>
+      <Name>DotWeb.Hosting.Bridge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Hosting.Weaver\DotWeb.Hosting.Weaver.csproj">
+      <Project>{DE8A6C27-B315-41E3-82BF-7A3741C7653D}</Project>
+      <Name>DotWeb.Hosting.Weaver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotWeb.Hosting\DotWeb.Hosting.csproj">
+      <Project>{9004E34C-2D35-40EE-BE98-C1AED18081CF}</Project>
+      <Name>DotWeb.Hosting</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotWeb.Utility\DotWeb.Utility.csproj">
       <Project>{F303A189-1B53-4FF6-B6AC-8972444A6B7B}</Project>
       <Name>DotWeb.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

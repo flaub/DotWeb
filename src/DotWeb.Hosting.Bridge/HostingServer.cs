@@ -22,6 +22,7 @@ using DotWeb.Utility;
 using System;
 using System.Diagnostics;
 using DotWeb.Hosting.Weaver;
+using System.Threading;
 
 namespace DotWeb.Hosting.Bridge
 {
@@ -70,8 +71,6 @@ namespace DotWeb.Hosting.Bridge
 		}
 
 		public void Start() {
-			this.listener.Start();
-			this.listener.BeginAcceptTcpClient(OnAccept, listener);
 		}
 
 		private void OnAccept(IAsyncResult ar) {

@@ -23,10 +23,14 @@ using Rhino.Mocks;
 using System.Reflection;
 using System.IO;
 using System.Runtime.Remoting;
-using JsDynamic = /* FIXME */ System.Object;
 
 namespace DotWeb.Hosting.Test
 {
+	[JsDynamic]
+	class JsDynamic
+	{
+	}
+
 	[TestFixture]
 	public class JsBridgeTest
 	{

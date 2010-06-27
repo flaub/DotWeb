@@ -69,7 +69,7 @@ namespace DotWeb.Functional.Test.Client
 				AddRow(name, expectedException, "<None>", false);
 			}
 			catch (Exception ex) {
-				var actualException = ex.GetTypeName();
+				var actualException = ex.GetType().Name;
 				AddRow(name, expectedException, actualException, expectedException == actualException);
 			}
 		}
