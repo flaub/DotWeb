@@ -46,12 +46,15 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CallContextStorage.cs" />
+    <Compile Include="HostingServer.cs" />
     <Compile Include="DefaultFactory.cs" />
     <Compile Include="JsDynamicWrapper.cs" />
     <Compile Include="IJsWrapper.cs" />

@@ -144,11 +144,14 @@ namespace DotWeb.Web
 			writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
 			writer.RenderBeginTag(HtmlTextWriterTag.Script);
 
+			var server = new HostingServer();
+			server.AsyncStart();
+
 			writer.WriteLine(Resources.JsHelper);
 			var url = context.RequestUrl;
 			var binPath = context.MapPath("/bin").Replace("\\", "\\\\");
 			var typeSpec = HttpUtility.HtmlEncode(string.Format("{0}, {1}", Source, binPath));
-			string js = string.Format(Resources.HostedEntry, url.Host, 0x1337, typeSpec);
+			string js = string.Format(Resources.HostedEntry, url.Host, server.EndPoint.Port, typeSpec);
 
 			writer.WriteLine(js);
 			writer.RenderEndTag();
