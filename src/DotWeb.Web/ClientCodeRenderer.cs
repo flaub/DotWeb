@@ -39,7 +39,6 @@ namespace DotWeb.Web
 	public class ClientCodeRenderer
 	{
 		private const string DotWebMimeType = "application/x-dotweb";
-		private const string DotWebHostedMode = "DotWeb.HostedMode";
 		private readonly IHttpContext context;
 		private readonly bool isDebug;
 

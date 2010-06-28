@@ -47,15 +47,7 @@ namespace DotWeb.Translator
 			var asmDependencies = new List<AssemblyDefinition>();
 			context.GenerateMethod(method, true, asmDependencies);
 			this.generator.WriteEntryPoint(type);
-
-			//string[] ret = new string[asmDependencies.Count];
-			//for (int i = 0; i < ret.Length; i++) {
-			//    var asm = asmDependencies[i];
-			//    var path = asm.MainModule.Image.FileInformation.FullName;
-			//    ret[i] = path;
-			//}
-			//return ret;
-			return asmDependencies.Select(x => x.Name.Name).ToArray();
+			return asmDependencies.Select(x => this.resolver.GetAbsolutePath(x.Name)).ToArray();
 		}
 
 		/// <summary>

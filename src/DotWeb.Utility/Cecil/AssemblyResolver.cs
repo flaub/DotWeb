@@ -34,6 +34,8 @@ namespace DotWeb.Utility.Cecil
 
 		private ISymbolReaderProvider provider;
 
+		protected Dictionary<string, string> asmPaths = new Dictionary<string, string>();
+
 		public void AddSearchDirectory(string directory) {
 			directories.Add(directory);
 		}
@@ -90,7 +92,9 @@ namespace DotWeb.Utility.Cecil
 				SymbolReaderProvider = readSymbols ? this.provider : null
 			};
 
-			return ModuleDefinition.ReadModule(file, readerParameters).Assembly;
+			var asmDef = ModuleDefinition.ReadModule(file, readerParameters).Assembly;
+			this.asmPaths.Add(asmDef.Name.Name, file);
+			return asmDef;
 		}
 
 		public virtual AssemblyDefinition Resolve(AssemblyNameReference name) {
@@ -297,6 +301,10 @@ namespace DotWeb.Utility.Cecil
 				this.cache.Add(name.Name, ret);
 			}
 			return ret;
+		}
+
+		public string GetAbsolutePath(AssemblyNameReference asmRef) {
+			return this.asmPaths[asmRef.Name];
 		}
 	}
 
