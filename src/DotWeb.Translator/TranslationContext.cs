@@ -46,14 +46,9 @@ namespace DotWeb.Translator
 			bool followDependencies, 
 			List<AssemblyDefinition> asmDependencies) {
 			if (followDependencies) {
-				var typesCache = new List<TypeDefinition>();
+				var typesCache = new TypesCache(asmDependencies);
 				var methodsCache = new List<MethodDefinition>();
 				GenerateMethod(method, typesCache, methodsCache);
-
-				foreach (var type in typesCache) {
-					var asm = type.Module.Assembly;
-					asmDependencies.AddUnique(asm);
-				}
 			}
 			else {
 				var parsedMethod = Parse(method);
@@ -61,13 +56,13 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateMethod(MethodDefinition method, List<TypeDefinition> typesCache, List<MethodDefinition> methodsCache) {
+		private void GenerateMethod(MethodDefinition method, TypesCache typesCache, List<MethodDefinition> methodsCache) {
 			// we still need to process virtual methods even if they aren't emittable
 			if (method.IsVirtual) {
 				var overrides = this.typeSystem.GetOverridesForVirtualMethod(method);
 				foreach (var overridenMethod in overrides) {
 					var overridenType = overridenMethod.DeclaringType;
-					if (typesCache.Contains(overridenType)) {
+					if (typesCache.HasVisited(overridenType)) {
 						GenerateMethod(overridenMethod, typesCache, methodsCache);
 					}
 				}
@@ -78,6 +73,7 @@ namespace DotWeb.Translator
 
 			// to deal with recursive methods, add to the cache before processing
 			methodsCache.Add(method);
+			typesCache.AddVisited(method.DeclaringType);
 
 			if (IsEmittable(method)) {
 				var parsedMethod = Parse(method);
@@ -93,8 +89,8 @@ namespace DotWeb.Translator
 			}
 		}
 
-		private void GenerateTypeDecl(TypeDefinition type, List<TypeDefinition> typesCache) {
-			if (!typesCache.Contains(type)) {
+		private void GenerateTypeDecl(TypeDefinition type, TypesCache typesCache) {
+			if (!typesCache.HasEmitted(type)) {
 				var baseType = type.BaseType.Resolve();
 				if (IsEmittable(baseType)) {
 					GenerateTypeDecl(baseType, typesCache);
@@ -108,7 +104,35 @@ namespace DotWeb.Translator
 						this.generator.WriteStaticConstructor(staticCtorMethod);
 					}
 				}
-				typesCache.Add(type);
+				typesCache.AddEmitted(type);
+			}
+		}
+
+		class TypesCache
+		{
+			private List<AssemblyDefinition> asmDependencies;
+			private List<TypeDefinition> visited = new List<TypeDefinition>();
+			private List<TypeDefinition> emitted = new List<TypeDefinition>();
+
+			public TypesCache(List<AssemblyDefinition> asmDependencies) {
+				this.asmDependencies = asmDependencies;
+			}
+
+			public bool HasVisited(TypeDefinition type) {
+				return this.visited.Contains(type);
+			}
+
+			public bool HasEmitted(TypeDefinition type) {
+				return this.emitted.Contains(type);
+			}
+
+			public void AddVisited(TypeDefinition type) {
+				this.visited.AddUnique(type);
+			}
+
+			public void AddEmitted(TypeDefinition type) {
+				this.emitted.Add(type);
+				this.asmDependencies.AddUnique(type.Module.Assembly);
 			}
 		}
 
@@ -181,6 +205,9 @@ namespace DotWeb.Translator
 		}
 
 		private bool IsEmittable(MethodDefinition method) {
+			if (method.IsAbstract)
+				return false;
+
 			if (AttributeHelper.GetJsMacro(method) != null) {
 				return false;
 			}

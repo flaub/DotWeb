@@ -434,9 +434,27 @@ namespace DotWeb.Hosting.Bridge
 			return function;
 		}
 
+		private bool IsObjectExtensions(Type type) {
+			return type.FullName == "System.ObjectExtensions";
+		}
+
+		private object InvokeOnObjectExtensions(object scope, MethodInfo method, object[] args) {
+			var obj = args.First();
+			if (method.Name == "GetTypeName") {
+				var type = obj.GetType();
+				return type.FullName;
+			}
+
+			throw new NotSupportedException();
+		}
+
 		public object Invoke(object scope, object objMethod, object[] args) {
 			try {
 				MethodBase method = (MethodBase)objMethod;
+				if (IsObjectExtensions(method.DeclaringType)) {
+					return InvokeOnObjectExtensions(scope, (MethodInfo)method, args);
+				}
+
 				if (IsJsDynamic(method.DeclaringType)) {
 					return InvokeOnDynamic(scope, (MethodInfo)method, args);
 				}
@@ -510,26 +528,6 @@ namespace DotWeb.Hosting.Bridge
 
 			throw new InvalidOperationException();
 		}
-
-		//public object InvokeRemoteMethod(object scope, int stackDepth, params object[] args) {
-		//    if (this.isUnwrapping) {
-		//        return null;
-		//    }
-			
-		//    StackFrame frame = new StackFrame(stackDepth + 1);
-		//    var method = frame.GetMethod();
-
-		//    if (method.IsConstructor) {
-		//        StackFrame previous = new StackFrame(stackDepth + 2);
-		//        // this prevents ctors from being called twice
-		//        // we only want the derived class's ctor to execute, not any bases
-		//        //if (previous.GetMethod().DeclaringType.IsSubclassOf(typeof(JsNativeBase))) {
-		//        //    return null;
-		//        //}
-		//    }
-
-		//    return InvokeRemoteMethod(method, scope, args);
-		//}
 
 		public T Cast<T>(object obj) {
 			int handle = GetRemoteReference(obj);

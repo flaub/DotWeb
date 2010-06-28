@@ -5,7 +5,7 @@
 $Class(System.SystemException, 'System', 'NotImplementedException');
 
 System.NotImplementedException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1("The requested feature is not implemented.");
+	System.SystemException.prototype.$ctor$1.call(this, "The requested feature is not implemented.");
 	return this;
 };
 
@@ -18,7 +18,7 @@ H8.GeneralTests.prototype.SourceTests_SimpleEvent = function() {
 $Class(System.SystemException, 'System', 'NotSupportedException');
 
 System.NotSupportedException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1("Operation is not supported.");
+	System.SystemException.prototype.$ctor$1.call(this, "Operation is not supported.");
 	return this;
 };
 

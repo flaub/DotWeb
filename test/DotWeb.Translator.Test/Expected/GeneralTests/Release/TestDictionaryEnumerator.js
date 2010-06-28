@@ -7,7 +7,7 @@ System.Collections.Generic.EqualityComparer$1.prototype.$ctor = function() {
 $Class(System.Collections.Generic.EqualityComparer$1, 'System.Collections.Generic', 'EqualityComparer$1_DefaultComparer');
 
 System.Collections.Generic.EqualityComparer$1_DefaultComparer.prototype.$ctor = function() {
-	this.$super.$ctor();
+	System.Collections.Generic.EqualityComparer$1.prototype.$ctor.call(this);
 	return this;
 };
 
@@ -29,11 +29,7 @@ System.ArgumentException.prototype.set_ParamName = function(value) {
 	this._ParamName_k__BackingField = value;
 };
 
-System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
-	this.$super.$ctor$1(message);
-	this.set_ParamName(paramName);
-	return this;
-};
+//>System.ArgumentException.$ctor$3
 
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
@@ -41,10 +37,7 @@ $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _Act
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
 })();
 
-System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
-	this.$super.$ctor$3(System.ArgumentOutOfRangeException.RangeMessage, paramName);
-	return this;
-};
+//>System.ArgumentOutOfRangeException.$ctor$1
 
 //>System.Collections.Generic.Dictionary$2.Init
 
@@ -78,7 +71,7 @@ System.Collections.Generic.Dictionary$2.prototype.GetEnumerator = function() {
 $Class(System.SystemException, 'System', 'InvalidOperationException');
 
 System.InvalidOperationException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
+	System.SystemException.prototype.$ctor$1.call(this, message);
 	return this;
 };
 
@@ -213,26 +206,11 @@ System.Collections.Generic.Dictionary$2.prototype.toString = function() {
 
 //>System.Text.StringBuilder.Append$1
 
-System.ArgumentException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.ArgumentException.$ctor$1
 
-System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1(System.ArgumentOutOfRangeException.RangeMessage);
-	return this;
-};
+//>System.ArgumentOutOfRangeException.$ctor$0
 
-$Class(System.ArgumentException, 'System', 'ArgumentNullException');
-
-(function() {
-	System.ArgumentNullException.DefaultMessage = "Value cannot be null.";
-})();
-
-System.ArgumentNullException.prototype.$ctor$1 = function(paramName) {
-	this.$super.$ctor$3(System.ArgumentNullException.DefaultMessage, paramName);
-	return this;
-};
+//>System.ArgumentNullException
 
 //>System.Text.StringBuilder.Append$5
 
@@ -242,10 +220,7 @@ $Class(null, 'System', 'String_FormatSpecifier', { str: null, ptr: 0, n: 0, widt
 
 //>System.String_FormatSpecifier.IsWhiteSpace
 
-System.ArgumentOutOfRangeException.prototype.$ctor$3 = function(paramName, message) {
-	this.$super.$ctor$3(message, paramName);
-	return this;
-};
+//>System.ArgumentOutOfRangeException.$ctor$3
 
 (function() {
 	String.empty = "";
@@ -253,12 +228,7 @@ System.ArgumentOutOfRangeException.prototype.$ctor$3 = function(paramName, messa
 
 //>String._Substring$1
 
-$Class(System.SystemException, 'System', 'IndexOutOfRangeException');
-
-System.IndexOutOfRangeException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1("Array index is out of range.");
-	return this;
-};
+//>System.IndexOutOfRangeException
 
 //>System.String_FormatSpecifier.ParseFormatSpecifier
 

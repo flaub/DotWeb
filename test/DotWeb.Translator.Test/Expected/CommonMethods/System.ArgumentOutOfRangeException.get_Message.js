@@ -1,5 +1,5 @@
 ﻿System.ArgumentOutOfRangeException.prototype.get_Message = function() {
-	var message = this.$super.get_Message();
+	var message = System.ArgumentException.prototype.get_Message.call(this);
 	var CS$4$0001 = this.get_ActualValue() != null;
 	if (!CS$4$0001) {
 		return message;

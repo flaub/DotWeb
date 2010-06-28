@@ -162,7 +162,7 @@ namespace DotWeb.Hosting.Weaver
 
 		private Dictionary<string, MethodReference> PrepareTemplates(ModuleDefinition module) {
 			var templates = new Dictionary<string, MethodReference>();
-			foreach (var ctor in PredefinedTypes.JsAttributes) {
+			foreach (var ctor in PredefinedTypes.JsAttributeCtors) {
 				var methodRef = module.Import(ctor);
 				templates.Add(methodRef.ToString(), methodRef);
 			}
@@ -304,19 +304,22 @@ namespace DotWeb.Hosting.Weaver
 			public static readonly SR.MethodInfo MethodBase_GetCurrentMethod;
 			public static readonly SR.ConstructorInfo Object_ctor;
 
-			public static readonly Type JsCode = typeof(JsCodeAttribute);
-			public static readonly Type JsMacro = typeof(JsMacroAttribute);
-			public static readonly Type JsAugment = typeof(JsAugmentAttribute);
-			public static readonly Type JsCamelCase = typeof(JsCamelCaseAttribute);
-			public static readonly Type JsName = typeof(JsNameAttribute);
-			public static readonly Type JsNamespace = typeof(JsNamespaceAttribute);
-			public static readonly Type JsAnonymous = typeof(JsAnonymousAttribute);
-			public static readonly Type JsIntrinsic = typeof(JsIntrinsicAttribute);
-			public static readonly Type JsObject = typeof(JsObjectAttribute);
-			public static readonly Type JsDynamic = typeof(JsDynamicAttribute);
-			public static readonly Type Extension = typeof(ExtensionAttribute);
+			private static Type[] JsAttributeTypes = 
+			{
+				typeof(JsCodeAttribute),
+				typeof(JsMacroAttribute),
+				typeof(JsAugmentAttribute),
+				typeof(JsCamelCaseAttribute),
+				typeof(JsNameAttribute),
+				typeof(JsNamespaceAttribute),
+				typeof(JsAnonymousAttribute),
+				typeof(JsIntrinsicAttribute),
+				typeof(JsObjectAttribute),
+				typeof(JsDynamicAttribute),
+				typeof(ExtensionAttribute),
+			};
 
-			public static readonly List<SR.ConstructorInfo> JsAttributes = new List<SR.ConstructorInfo>();
+			public static readonly List<SR.ConstructorInfo> JsAttributeCtors = new List<SR.ConstructorInfo>();
 
 			static PredefinedTypes() {
 				HostedMode_get_Host = HostedMode.GetMethod("get_Host");
@@ -325,22 +328,10 @@ namespace DotWeb.Hosting.Weaver
 				MethodBase_GetCurrentMethod = MethodBase.GetMethod("GetCurrentMethod");
 				Object_ctor = Object.GetConstructor(Type.EmptyTypes);
 
-				PrepareJsAttribute(JsCode);
-				PrepareJsAttribute(JsMacro);
-				PrepareJsAttribute(JsAugment);
-				PrepareJsAttribute(JsCamelCase);
-				PrepareJsAttribute(JsName);
-				PrepareJsAttribute(JsNamespace);
-				PrepareJsAttribute(JsAnonymous);
-				PrepareJsAttribute(JsIntrinsic);
-				PrepareJsAttribute(JsObject);
-				PrepareJsAttribute(JsDynamic);
-				PrepareJsAttribute(Extension);
-			}
-
-			private static void PrepareJsAttribute(Type type) {
-				foreach (var ctor in type.GetConstructors()) {
-					JsAttributes.Add(ctor);
+				foreach (var attrType in JsAttributeTypes) {
+					foreach (var ctor in attrType.GetConstructors()) {
+						JsAttributeCtors.Add(ctor);
+					}
 				}
 			}
 		}

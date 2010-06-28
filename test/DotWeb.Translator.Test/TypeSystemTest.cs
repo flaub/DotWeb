@@ -197,6 +197,22 @@ namespace DotWeb.Translator.Test
 			Assert.AreEqual(genericMethod.GetMethodSignature(), VirtualsDictionary.NormalizeMethod(genericIface, baseMethod).GetMethodSignature());
 		}
 
+		[Test]
+		public void TestAbstractMethod() {
+			var typeSystem = new TypeSystem(this.resolver);
+			var asm = typeSystem.LoadAssembly("DotWeb.Translator.Test.Script");
+
+			var abstractBase = asm.MainModule.GetType("H8.AbstractBase");
+			var abstractImpl = asm.MainModule.GetType("H8.AbstractImpl");
+
+			var baseMethod = abstractBase.GetMethods("Method").First();
+			var implMethod = abstractImpl.GetMethods("Method").First();
+
+			var overrides = typeSystem.GetOverridesForVirtualMethod(baseMethod);
+			Assert.Greater(overrides.Count, 0);
+			Assert.IsTrue(overrides.Contains(implMethod));
+		}
+
 		interface GenericInterface<T, U>
 		{
 			void Method<X>(X x, T t, U u);

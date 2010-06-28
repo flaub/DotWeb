@@ -27,7 +27,7 @@ namespace DotWeb.Functional.Test.Client
 			return cell;
 		}
 
-		private void AddRow(string name, string expected, string actual, bool success) {
+		public void AddRow(string name, string expected, string actual, bool success) {
 			var row = ElementFactory.CreateTableRow();
 			AddCell(row, name);
 			AddCell(row, expected);
@@ -39,39 +39,6 @@ namespace DotWeb.Functional.Test.Client
 				row.bgColor = "red";
 			}
 			this.table.tBodies[0].appendChild(row);
-		}
-
-		public void AreStringsEqual(string name, string expected, Func<object> func) {
-			try {
-				var actual = func();
-				var str = actual.ToString();
-				AddRow(name, expected, str, expected == str);
-			}
-			catch (Exception ex) {
-				AddRow(name, expected, ex.ToString(), false);
-			}
-		}
-
-		public void AreEqual(string name, object expected, Func<object> func) {
-			var expectedString = expected.ToString();
-			try {
-				var actual = func();
-				AddRow(name, expectedString, actual.ToString(), expected.Equals(actual));
-			}
-			catch (Exception ex) {
-				AddRow(name, expectedString, ex.ToString(), false);
-			}
-		}
-
-		public void ExpectException(string name, string expectedException, Action action) {
-			try {
-				action();
-				AddRow(name, expectedException, "<None>", false);
-			}
-			catch (Exception ex) {
-				var actualException = ex.GetType().Name;
-				AddRow(name, expectedException, actualException, expectedException == actualException);
-			}
 		}
 	}
 }

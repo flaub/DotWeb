@@ -13,7 +13,7 @@ $Class(null, 'System', 'Console');
 $Class(DotWeb.Client.JsScript, 'H8', 'GeneralTests_ClientScriptClass');
 
 H8.GeneralTests_ClientScriptClass.prototype.$ctor = function() {
-	this.$super.$ctor();
+	DotWeb.Client.JsScript.prototype.$ctor.call(this);
 	System.Console.WriteLine$1("Hello");
 	var div = $doc.createElement('div');
 	var x = div.getElementsByTagName("ol")[0];

@@ -134,6 +134,13 @@
     <Content Include="Expected\Arrays\CreateIntArray.js" />
     <Content Include="Expected\Arrays\CreateStringArray.js" />
     <Content Include="Expected\Arrays\CreateArrayOfArrays.js" />
+    <Content Include="Expected\CommonMethods\System.IndexOutOfRangeException.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentOutOfRangeException._ctor_1.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentOutOfRangeException._ctor_3.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentNullException.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentException._ctor_3.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentOutOfRangeException._ctor_0.js" />
+    <Content Include="Expected\CommonMethods\System.ArgumentException._ctor_1.js" />
     <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.Init.js" />
     <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.js" />
     <Content Include="Expected\CommonMethods\System.Collections.Generic.Dictionary_2.InitArrays.js" />
@@ -252,6 +259,7 @@
     <Content Include="Expected\Loops\MultiReturns3.js" />
     <Content Include="Expected\Loops\WhileIfLessOrLessBreak.js" />
     <Content Include="Expected\GeneralTests\Release\TestDictionaryEnumerator.js" />
+    <Content Include="Expected\SystemTest\TestAbstractBase.js" />
     <Content Include="Expected\SystemTest\TestStringBuilderAppend5.js" />
     <Content Include="Expected\SystemTest\TestKeyValuePair.js" />
     <Content Include="Expected\SystemTest\TestDictionary.js" />

@@ -1,5 +1,5 @@
 ﻿System.ArgumentException.prototype.get_Message = function() {
-	var message = this.$super.get_Message();
+	var message = System.SystemException.prototype.get_Message.call(this);
 	if (this.get_ParamName()) {
 		var R_1 = this.get_ParamName().length == 0;
 	}

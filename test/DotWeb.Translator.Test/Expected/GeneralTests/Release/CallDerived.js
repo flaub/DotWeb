@@ -18,7 +18,7 @@ H8.Base.prototype.$ctor = function() {
 
 H8.Derived.prototype.$ctor$0 = function() {
 	this.id = H8.Derived.NextId();
-	this.$super.$ctor();
+	H8.Base.prototype.$ctor.call(this);
 	return this;
 };
 

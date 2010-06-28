@@ -38,7 +38,6 @@ $Class = function(parent, ns, name, dict) {
 		tmp.prototype = parent.prototype;
 		cls.prototype = new tmp();
 		cls.prototype.constructor = cls;
-		cls.prototype.$super = tmp.prototype;
 	}
 
 	var typename = name;

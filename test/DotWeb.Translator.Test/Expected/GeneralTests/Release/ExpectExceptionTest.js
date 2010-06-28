@@ -4,10 +4,7 @@
 
 $Class(System.SystemException, 'System', 'ArgumentException', { _ParamName_k__BackingField: null });
 
-System.ArgumentException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
-	return this;
-};
+//>System.ArgumentException.$ctor$1
 
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
@@ -15,10 +12,7 @@ $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _Act
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
 })();
 
-System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
-	this.$super.$ctor$1(System.ArgumentOutOfRangeException.RangeMessage);
-	return this;
-};
+//>System.ArgumentOutOfRangeException.$ctor$0
 
 $Class(null, 'H8', 'GeneralTests', { SimpleEvent: null });
 

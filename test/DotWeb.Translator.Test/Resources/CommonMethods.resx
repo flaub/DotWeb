@@ -127,6 +127,39 @@
   <data name="String__Substring_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\string._substring_1.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="System_ArgumentException_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentexception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentException__ctor_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentexception._ctor_1.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentException__ctor_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentexception._ctor_3.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentNullException" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentnullexception.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentOutOfRangeException_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentoutofrangeexception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentOutOfRangeException__ctor_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentoutofrangeexception._ctor_0.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentOutOfRangeException__ctor_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentoutofrangeexception._ctor_1.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_ArgumentOutOfRangeException__ctor_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.argumentoutofrangeexception._ctor_3.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_Collections_Generic_Dictionary_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_Collections_Generic_Dictionary_2_Init" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.init.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_Collections_Generic_Dictionary_2_InitArrays" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.initarrays.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="System_Console_WriteLine_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.console.writeline_0.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -136,11 +169,17 @@
   <data name="System_Exception" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.exception.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="System_Exception_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.exception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="System_Exception_toString" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.exception.tostring.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="System_FormatException" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.formatexception.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="System_IndexOutOfRangeException" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\expected\commonmethods\system.indexoutofrangeexception.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="System_String_FormatSpecifier_IsWhiteSpace" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.string_formatspecifier.iswhitespace.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -171,23 +210,5 @@
   </data>
   <data name="System_Text_StringBuilder__ctor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expected\commonmethods\system.text.stringbuilder._ctor.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_Exception_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.exception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_ArgumentException_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.argumentexception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_ArgumentOutOfRangeException_get_Message" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.argumentoutofrangeexception.get_message.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_Collections_Generic_Dictionary_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_Collections_Generic_Dictionary_2_InitArrays" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.initarrays.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="System_Collections_Generic_Dictionary_2_Init" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\expected\commonmethods\system.collections.generic.dictionary_2.init.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

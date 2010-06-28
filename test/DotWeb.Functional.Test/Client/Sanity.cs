@@ -4,9 +4,9 @@ using DotWeb.Client.Dom;
 
 namespace DotWeb.Functional.Test.Client
 {
-	public class Sanity : JsScript
+	public class Sanity : TestBase
 	{
-		public Sanity() {
+		protected override void RunTest() {
 			Log.Write("Hello World!");
 		}
 	}

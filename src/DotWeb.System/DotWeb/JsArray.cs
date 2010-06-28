@@ -555,5 +555,7 @@ namespace System.DotWeb
 		/// <param name="initialValue"></param>
 		/// <returns></returns>
 		public extern object ReduceRight(ArrayReduceFn callback, object initialValue);
+
+		public extern override string ToString();
 	}
 }

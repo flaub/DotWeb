@@ -204,5 +204,25 @@ namespace H8
 			var kvp = new KeyValuePair<string, string>("key", "value");
 			Console.WriteLine(kvp.ToString());
 		}
+
+		public void TestAbstractBase() {
+			new AbstractImpl();
+		}
+	}
+
+	public abstract class AbstractBase
+	{
+		public AbstractBase() {
+			Method();
+		}
+
+		protected abstract void Method();
+	}
+
+	public class AbstractImpl : AbstractBase
+	{
+		protected override void Method() {
+			Console.WriteLine("Method");
+		}
 	}
 }

@@ -78,5 +78,8 @@ namespace DotWeb.Translator.Test
 
 		[Test]
 		public void TestKeyValuePair() { RunTestWithDependencies(); }
+
+		[Test]
+		public void TestAbstractBase() { RunTestWithDependencies(); }
 	}
 }

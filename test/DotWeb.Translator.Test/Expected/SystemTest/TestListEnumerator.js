@@ -38,11 +38,7 @@ System.ArgumentException.prototype.set_ParamName = function(value) {
 	this._ParamName_k__BackingField = value;
 };
 
-System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
-	this.$super.$ctor$1(message);
-	this.set_ParamName(paramName);
-	return this;
-};
+//>System.ArgumentException.$ctor$3
 
 $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _ActualValue_k__BackingField: null });
 
@@ -50,10 +46,7 @@ $Class(System.ArgumentException, 'System', 'ArgumentOutOfRangeException', { _Act
 	System.ArgumentOutOfRangeException.RangeMessage = "Specified argument was out of the range of valid values.";
 })();
 
-System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
-	this.$super.$ctor$3(System.ArgumentOutOfRangeException.RangeMessage, paramName);
-	return this;
-};
+//>System.ArgumentOutOfRangeException.$ctor$1
 
 System.Collections.Generic.List$1.prototype.get_Item = function(index) {
 	var CS$4$0001 = index < this.items.length;

@@ -145,6 +145,30 @@ namespace DotWeb.Translator.Test.Resources {
         ///};
         ///.
         /// </summary>
+        internal static string TestAbstractBase {
+            get {
+                return ResourceManager.GetString("TestAbstractBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(null, &apos;H8&apos;, &apos;SystemTests_Base&apos;);
+        ///
+        ///H8.SystemTests_Base.prototype.$ctor = function() {
+        ///	return this;
+        ///};
+        ///
+        ///H8.SystemTests_Base.prototype.Foo = function() {
+        ///};
+        ///
+        ///$Class(null, &apos;H8&apos;, &apos;SystemTests&apos;);
+        ///
+        ///H8.SystemTests.prototype.TestBase = function() {
+        ///	var x = new H8.SystemTests_Base().$ctor();
+        ///	x.Foo();
+        ///};
+        ///.
+        /// </summary>
         internal static string TestBase {
             get {
                 return ResourceManager.GetString("TestBase", resourceCulture);
@@ -408,8 +432,9 @@ namespace DotWeb.Translator.Test.Resources {
         ///
         ///$Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
-        ///System.Console.WriteLine$1 = function(value) {
-        ///	console.log( [rest of string was truncated]&quot;;.
+        /////&gt;System.Console.WriteLine$1
+        ///
+        ///System.Collections.Generic.L [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestList {
             get {
@@ -445,22 +470,23 @@ namespace DotWeb.Translator.Test.Resources {
         /// <summary>
         ///   Looks up a localized string similar to $Class(null, &apos;System&apos;, &apos;Console&apos;);
         ///
-        ///System.Console.WriteLine$0 = function(value) {
-        ///	console.log(value);
+        /////&gt;System.Console.WriteLine$1
+        ///
+        /////&gt;System.Console.WriteLine$0 
+        ///
+        /////&gt;System.Exception
+        ///
+        /////&gt;System.SystemException
+        ///
+        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;, { _ParamName_k__BackingField: null });
+        ///
+        ///System.ArgumentException.prototype.set_ParamName = function(value) {
+        ///	this._ParamName_k__BackingField = value;
         ///};
         ///
-        ///$Class(null, &apos;System&apos;, &apos;Exception&apos;, { message: null, _InnerException_k__BackingField: null, _Source_k__BackingField: null, _StackTrace_k__BackingField: null });
-        ///
-        ///System.Exception.prototype.set_Message = function(value) {
-        ///	this.message = value;
-        ///};
-        ///
-        ///System.Exception.prototype.$ctor$1 = function(message) {
-        ///	this.set_Message(message);
-        ///	return this;
-        ///};
-        ///
-        ///$Class(System.Exception, &apos;System&apos;, &apos; [rest of string was truncated]&quot;;.
+        ///System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
+        ///	this.$super.$ctor$1(message);
+        ///	this.set_ParamName(par [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestString {
             get {
@@ -471,27 +497,26 @@ namespace DotWeb.Translator.Test.Resources {
         /// <summary>
         ///   Looks up a localized string similar to $Class(null, &apos;System.Text&apos;, &apos;StringBuilder&apos;, { value: null });
         ///
-        ///System.Text.StringBuilder.prototype.$ctor = function() {
-        ///	this.value = &quot;&quot;;
+        /////&gt;System.Text.StringBuilder.$ctor
+        ///
+        /////&gt;System.Text.StringBuilder.toString
+        ///
+        /////&gt;System.Text.StringBuilder.Append$0
+        ///
+        /////&gt;System.Text.StringBuilder.Append$1
+        ///
+        /////&gt;System.Exception
+        ///
+        /////&gt;System.SystemException
+        ///
+        ///$Class(System.SystemException, &apos;System&apos;, &apos;ArgumentException&apos;, { _ParamName_k__BackingField: null });
+        ///
+        ///System.ArgumentException.prototype.$ctor$1 = function(message) {
+        ///	this.$super.$ctor$1(message);
         ///	return this;
         ///};
         ///
-        ///System.Text.StringBuilder.prototype.toString = function() {
-        ///	return this.value;
-        ///};
-        ///
-        ///System.Text.StringBuilder.prototype.Append$0 = function(value) {
-        ///	var V_1 = value != null;
-        ///	if (!V_1) {
-        ///		return this;
-        ///	}
-        ///	V_1 = value.length != 0;
-        ///	if (!V_1) {
-        ///		this.value = value;
-        ///		return this;
-        ///	}
-        ///	this.value = this.value + value;
-        ///	return this;        /// [rest of string was truncated]&quot;;.
+        ///$Class(Sys [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestStringBuilderAppend5 {
             get {

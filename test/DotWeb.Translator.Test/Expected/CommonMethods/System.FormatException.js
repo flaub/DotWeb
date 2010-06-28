@@ -1,6 +1,6 @@
 ﻿$Class(System.SystemException, 'System', 'FormatException');
 
 System.FormatException.prototype.$ctor$1 = function(message) {
-	this.$super.$ctor$1(message);
+	System.SystemException.prototype.$ctor$1.call(this, message);
 	return this;
 };

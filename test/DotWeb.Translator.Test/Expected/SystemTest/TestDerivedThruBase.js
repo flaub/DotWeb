@@ -7,7 +7,7 @@ H8.SystemTests_Base.prototype.$ctor = function() {
 $Class(H8.SystemTests_Base, 'H8', 'SystemTests_Derived');
 
 H8.SystemTests_Derived.prototype.$ctor = function() {
-	this.$super.$ctor();
+	H8.SystemTests_Base.prototype.$ctor.call(this);
 	return this;
 };
 
@@ -15,7 +15,7 @@ H8.SystemTests_Base.prototype.Foo = function() {
 };
 
 H8.SystemTests_Derived.prototype.Foo = function() {
-	this.$super.Foo();
+	H8.SystemTests_Base.prototype.Foo.call(this);
 	this.Foo();
 };
 

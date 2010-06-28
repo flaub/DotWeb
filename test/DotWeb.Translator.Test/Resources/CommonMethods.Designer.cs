@@ -123,8 +123,35 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System.ArgumentException.prototype.$ctor$1 = function(message) {
+        ///	System.SystemException.prototype.$ctor$1(this, message);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentException__ctor_1 {
+            get {
+                return ResourceManager.GetString("System_ArgumentException__ctor_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.ArgumentException.prototype.$ctor$3 = function(message, paramName) {
+        ///	System.SystemException.prototype.$ctor$1.call(this, message);
+        ///	this.set_ParamName(paramName);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentException__ctor_3 {
+            get {
+                return ResourceManager.GetString("System_ArgumentException__ctor_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System.ArgumentException.prototype.get_Message = function() {
-        ///	var message = this.$super.get_Message();
+        ///	var message = System.SystemException.prototype.get_Message.call(this);
         ///	if (this.get_ParamName()) {
         ///		var R_1 = this.get_ParamName().length == 0;
         ///	}
@@ -146,8 +173,66 @@ namespace DotWeb.Translator.Test.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $Class(System.ArgumentException, &apos;System&apos;, &apos;ArgumentNullException&apos;);
+        ///
+        ///(function() {
+        ///	System.ArgumentNullException.DefaultMessage = &quot;Value cannot be null.&quot;;
+        ///})();
+        ///
+        ///System.ArgumentNullException.prototype.$ctor$1 = function(paramName) {
+        ///	System.ArgumentException.prototype.$ctor$3.call(this, System.ArgumentNullException.DefaultMessage, paramName);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentNullException {
+            get {
+                return ResourceManager.GetString("System_ArgumentNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.ArgumentOutOfRangeException.prototype.$ctor$0 = function() {
+        ///	System.ArgumentException.prototype.$ctor$1.call(this, System.ArgumentOutOfRangeException.RangeMessage);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentOutOfRangeException__ctor_0 {
+            get {
+                return ResourceManager.GetString("System_ArgumentOutOfRangeException__ctor_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.ArgumentOutOfRangeException.prototype.$ctor$1 = function(paramName) {
+        ///	System.ArgumentException.prototype.$ctor$3.call(this, System.ArgumentOutOfRangeException.RangeMessage, paramName);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentOutOfRangeException__ctor_1 {
+            get {
+                return ResourceManager.GetString("System_ArgumentOutOfRangeException__ctor_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.ArgumentOutOfRangeException.prototype.$ctor$3 = function(paramName, message) {
+        ///	System.ArgumentException.prototype.$ctor$3(this, message, paramName);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_ArgumentOutOfRangeException__ctor_3 {
+            get {
+                return ResourceManager.GetString("System_ArgumentOutOfRangeException__ctor_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System.ArgumentOutOfRangeException.prototype.get_Message = function() {
-        ///	var message = this.$super.get_Message();
+        ///	var message = System.ArgumentException.prototype.get_Message.call(this);
         ///	var CS$4$0001 = this.get_ActualValue() != null;
         ///	if (!CS$4$0001) {
         ///		return message;
@@ -323,7 +408,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///   Looks up a localized string similar to $Class(System.SystemException, &apos;System&apos;, &apos;FormatException&apos;);
         ///
         ///System.FormatException.prototype.$ctor$1 = function(message) {
-        ///	this.$super.$ctor$1(message);
+        ///	System.SystemException.prototype.$ctor$1.call(this, message);
         ///	return this;
         ///};
         ///.
@@ -331,6 +416,21 @@ namespace DotWeb.Translator.Test.Resources {
         internal static string System_FormatException {
             get {
                 return ResourceManager.GetString("System_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $Class(System.SystemException, &apos;System&apos;, &apos;IndexOutOfRangeException&apos;);
+        ///
+        ///System.IndexOutOfRangeException.prototype.$ctor$0 = function() {
+        ///	System.SystemException.prototype.$ctor$1.call(this, &quot;Array index is out of range.&quot;);
+        ///	return this;
+        ///};
+        ///.
+        /// </summary>
+        internal static string System_IndexOutOfRangeException {
+            get {
+                return ResourceManager.GetString("System_IndexOutOfRangeException", resourceCulture);
             }
         }
         
@@ -418,7 +518,7 @@ namespace DotWeb.Translator.Test.Resources {
         ///   Looks up a localized string similar to $Class(System.Exception, &apos;System&apos;, &apos;SystemException&apos;);
         ///
         ///System.SystemException.prototype.$ctor$1 = function(message) {
-        ///	this.$super.$ctor$1(message);
+        ///	System.Exception.prototype.$ctor$1.call(this, message);
         ///	return this;
         ///};
         ///.

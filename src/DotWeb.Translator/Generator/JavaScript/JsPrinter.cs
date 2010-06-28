@@ -380,6 +380,10 @@ namespace DotWeb.Translator.Generator.JavaScript
 			//    return string.Format("{0}.{1}", Print(exp.TargetObject), EncodeName(exp.Property.Name));
 			//}
 			Debug.Assert(exp.ReferenceType == CodePropertyReference.RefType.Get);
+			if (exp.Method.TargetObject is CodeBaseReference) {
+				return PrintCallBaseMethod(exp.Method, null);
+			}
+
 			return VisitReturn(exp.Method) + "()";
 		}
 
@@ -425,7 +429,7 @@ namespace DotWeb.Translator.Generator.JavaScript
 		}
 
 		public string VisitReturn(CodeBaseReference exp) {
-			return "this.$super";
+			throw new NotSupportedException();
 		}
 
 		public string VisitReturn(CodeCastExpression exp) {
@@ -461,7 +465,28 @@ namespace DotWeb.Translator.Generator.JavaScript
 				}
 			}
 
-			return string.Format("{0}({1})", Print(exp.Method), Print(exp.Parameters));
+			var strArgs = Print(exp.Parameters);
+
+			if (exp.Method.TargetObject is CodeBaseReference) {
+				return PrintCallBaseMethod(exp.Method, strArgs);
+			}
+			else {
+				var strMethod = Print(exp.Method);
+				return string.Format("{0}({1})", strMethod, strArgs);
+			}
+		}
+
+		private string PrintCallBaseMethod(CodeMethodReference method, string strArgs) {
+			var strMethod = GetMethodName(method.Reference);
+			var strBase = Print(CurrentMethod.DeclaringType.BaseType);
+			if (string.IsNullOrEmpty(strArgs)) {
+				var ret = string.Format("{0}.prototype.{1}.call(this)", strBase, strMethod);
+				return ret;
+			}
+			else {
+				var ret = string.Format("{0}.prototype.{1}.call(this, {2})", strBase, strMethod, strArgs);
+				return ret;
+			}
 		}
 
 		public string VisitReturn(CodePrimitiveExpression exp) {
