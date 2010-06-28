@@ -8,7 +8,7 @@ namespace DotWeb.Debugger
 	class Program
 	{
 		static void Main(string[] args) {
-			new HostingServer().Start();
+			new HostingServer(0x1337).Start();
 		}
 	}
 }
